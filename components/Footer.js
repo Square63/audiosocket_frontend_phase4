@@ -1,19 +1,63 @@
 import styles from "../styles/Home.module.scss";
 import Image from "next/image";
+import logo from '../images/logo.svg';
 
 function Footer() {
   return (
-    <footer className={styles.footer}>
-      <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Powered by{' '}
-        <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-      </a>
+    <footer>
+      <div className="custom-container">
+        <div className="row">
+          <div className="footer-logo col-md-4">
+            <Image src={logo} alt="LOGO" className="logo-icon"/>
+          </div>
+          <div className="footer-nav col-xs-12 col-lg-8">
+            <div className="row">
+              <div className="col-xs-12 col-md-4 footer-links">
+                <span className="footer-heading">music</span>
+                <div className="footer-list">
+                  <ul>
+                    <li><a href="">all songs</a></li>
+                    
+                    <li><a href="">Curated Playlists</a></li>
+                    
+                    <li><a href="">Submit Music</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-xs-12 col-md-4 footer-links">
+                <span className="footer-heading">company</span>
+                <div className="footer-list">
+                  <ul>
+                    <li><a href="">blog</a></li>
+                    
+                    <li><a href="">about us</a></li>
+                    
+                    <li><a href="">our work</a></li>
+                    
+                    <li><a href="">pricing</a></li>
+                    
+                    <li><a href="">privacy policy</a></li>
+                    
+                    <li><a href="">terms and conditions</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-xs-12 col-md-4 footer-links">
+                <span className="footer-heading">support</span>
+                <div className="footer-list">
+                  <ul>
+                    <li><a href="">contact us</a></li>
+                    
+                    <li><a href="">Influencer Application</a></li>
+                    
+                    <li><a href="">FAQ</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
   );
  }

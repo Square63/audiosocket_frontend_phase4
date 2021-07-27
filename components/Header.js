@@ -1,14 +1,33 @@
 import Link from "next/link";
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import Button from "react-bootstrap/Button";
+import Image from 'next/image'
+import logo from '../images/logo.svg';
 
 function Header() {
   return (
-    <div className="nav">
-      <ul>
-        <li><Link href="/">Home</Link></li>
-        <li><Link href="/dashboard">Dashboard</Link></li>
-        <li><Link href="/login">Login</Link></li>
-      </ul>
-    </div>
+    <header className="fixed-top">
+      <div className="custom-container">
+        <Navbar collapseOnSelect expand="lg" variant="dark" className="custom-nav">
+          <Navbar.Brand href="#home">
+            <Image src={logo} alt="LOGO" className="logo-icon"/>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+            </Nav>
+            <Nav>
+              <Nav.Link href="/playlist">Playlists</Nav.Link>
+              <Nav.Link href="/music">Browse Music</Nav.Link>
+              <Nav.Link href="/pricing">Pricing</Nav.Link>
+              <Nav.Link href="/pricing">Sign In</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </div>
+    </header>
   );
  }
 
