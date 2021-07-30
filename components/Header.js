@@ -54,8 +54,8 @@ function Header() {
                   <div className={"nav-link"}>
                     <a onClick={() => {authActions.userDataStateChanged(null); setIsLoggedIn(false); router.push('/login')}}>logout</a>
                   </div>
-                  <div className={router.pathname === "/account" ? "btn nav-link active" : "btn nav-link"}>
-                    <Link href="/sign-up">Account</Link>
+                  <div className={"btn nav-link"}>
+                    <Link href="/user/edit">Account</Link>
                   </div>
                 </>
               }
