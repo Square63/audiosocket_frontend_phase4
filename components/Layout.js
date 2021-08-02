@@ -10,7 +10,7 @@ function Layout({children}) {
   return (
     <AuthProvider>
       <Header/>
-      <div className="container content-area">
+      <div className="content-area">
         <main className="main">
           {router.pathname.indexOf('/user/') !== -1 &&
             <Sidebar/>
