@@ -6,7 +6,7 @@ function Layout({children}) {
   return (
     <AuthProvider>
       <Header/>
-      <div className="container content-area">
+      <div className="content-area">
         <main className="main">
           {children}
         </main>
