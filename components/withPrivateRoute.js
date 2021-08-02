@@ -1,41 +1,28 @@
-import React from 'react';
-import Router from 'next/router';
+// HOC/withAuth.jsx
+import { useRouter } from "next/router";
+const withPrivateRoute = (WrappedComponent) => {
+  // eslint-disable-next-line react/display-name
+  return (props) => {
+    // checks whether we are on client / browser or server.
+    if (typeof window !== "undefined") {
+      const Router = useRouter();
 
-const login = '/login'; // Define your login route address.
+      const accessToken = localStorage.getItem("user");
 
-/**
- * Check user authentication and authorization
- * It depends on you and your auth service provider.
- * @returns {{auth: null}}
- */
-const checkUserAuthentication = () => {
-  return { auth: false }; // change null to { isAdmin: true } for test it.
-};
-
-export default WrappedComponent => {
-  const hocComponent = ({ ...props }) => <WrappedComponent {...props} />;
-
-  hocComponent.getInitialProps = async (context) => {
-    const userAuth = await checkUserAuthentication();
-
-    // Are you an authorized user or not?
-    if (!userAuth?.auth) {
-      // Handle server-side and client-side rendering.
-      if (context.res) {
-        context.res?.writeHead(302, {
-          Location: login,
-        });
-        context.res?.end();
-      } else {
-        Router.replace(login);
+      // If there is no access token we redirect to "/" page.
+      if (!accessToken) {
+        Router.replace("/login");
+        return null;
       }
-    } else if (WrappedComponent.getInitialProps) {
-      const wrappedProps = await WrappedComponent.getInitialProps({...context, auth: userAuth});
-      return { ...wrappedProps, userAuth };
+
+      // If this is an accessToken we just render the component that was passed with all its props
+
+      return <WrappedComponent {...props} />;
     }
 
-    return { userAuth };
+    // If we are on server, return null
+    return null;
   };
-
-  return hocComponent;
 };
+
+export default withPrivateRoute;
