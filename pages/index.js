@@ -14,7 +14,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a target="_blank" href="https://www.audiosocket.com/">Audiosocket!</a>
+          Welcome to <a rel="noreferrer" target="_blank" href="https://www.audiosocket.com/">Audiosocket!</a>
         </h1>
       </main>
     </div>
