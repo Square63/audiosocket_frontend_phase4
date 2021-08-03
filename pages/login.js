@@ -1,11 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Logo from '../images/logo-black.svg';
-import Lock from '../images/lock.svg';
-import Loader from '../images/loader.svg';
-import {useState, useRef, useContext} from "react";
+import {useState, useRef, useContext, useEffect} from "react";
 import {AuthContext} from "../store/authContext";
 import {useRouter} from "next/router";
 import login from "../styles/Login.module.scss";
@@ -17,6 +12,13 @@ function Login() {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRemeberMe] = useState(false);
+
+  useEffect(() => {
+    if(localStorage.getItem('user')) {
+      alert('Already logged in')
+      router.push('/')
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,12 +65,18 @@ function Login() {
           <div className={login.useEmail}>
             <h2>Use your email address</h2>
             <div className={login.formWrapper}>
-              <Form>
+              <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
                 <Form.Group className={login.fieldControl} controlId="formBasicEmail">
-                  <Form.Control type="email" placeholder="Email" />
+                  <Form.Control required name="email" type="email" placeholder="Email" />
+                  <Form.Control.Feedback type="invalid">
+                    A valid email address is required!
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className={login.fieldControl} controlId="formBasicPassword">
-                  <Form.Control type="password" placeholder="Password" />
+                  <Form.Control required name="password" type="password" placeholder="Password" />
+                  <Form.Control.Feedback type="invalid">
+                    Password is required!
+                  </Form.Control.Feedback>
                   <div className={login.forgotPassword}>
                     <a href="">Forgot password?</a>
                   </div>
@@ -79,9 +87,9 @@ function Login() {
                     Extends login. Do not select if you are on a public computer.
                   </Form.Text>
                 </Form.Group>
-                <a href="" className={login.submit+' '+login.loginBtn}>
-                  Submit
-                </a>
+                <Button type="submit" className={login.submit+' '+login.loginBtn}>
+                  Login
+                </Button>
               </Form>
             </div>
           </div>

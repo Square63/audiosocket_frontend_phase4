@@ -118,7 +118,9 @@
           a {
             font-size: 14px;
             color: #2F70D8;
-            text-decoration: underline;
+            &:hover {
+              text-decoration: underline;
+            }
           }
         }
       }
@@ -133,10 +135,17 @@
         font-size: 11.5px;
         padding-bottom: 20px;
       }
+      input {
+        &:focus {
+          box-shadow: none;
+        }
+      }
     }
     .submit {
       border-color: #2F70D8;
       color: #2F70D8;
+      background-color: $white;
+      line-height: 36px;
       &:hover {
         background-color: #2F70D8;
         color: $white;
