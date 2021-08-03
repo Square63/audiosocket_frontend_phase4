@@ -68,11 +68,11 @@
       @include flex-direction(column);
       .facebook {
         border-color: #3C5A99;
-        color: $white;
-        background-color: #3C5A99;
+        color: #3C5A99;
+        background-color: $white;
         &:hover {
-          background-color: $white;
-          color: #3C5A99;
+          background-color: #3C5A99;
+          color: $white;
         }
       }
       .google {
