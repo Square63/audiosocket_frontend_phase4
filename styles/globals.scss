@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap');
 @import './variables-mixins.scss';
 
 /*************** Global Styling ************/
@@ -18,10 +18,16 @@ body {
 }
 
 a {
+  color: $anchor-clr;
   @include transition(all 0.25s ease-in-out);
   &:hover {
+    color: $anchor-hover;
     text-decoration: none;
   }
+}
+
+ul,ol {
+  list-style: none;
 }
 
 .custom-container {
@@ -36,7 +42,7 @@ a {
   min-height: inherit;
   .content-area {
     flex: 1;
-    padding-top: 70px;
+    padding: 70px 15px 0;
   }
 }
 
@@ -229,5 +235,107 @@ footer {
   }
   .custom-control-input:focus~.custom-control-label::before {
     box-shadow: 0 0 0 0.2rem hsl(68deg, 80%, 75%);
+  }
+}
+
+/****************** User Account ********************/
+.userAccountWrapper {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 70px;
+  .userAcountHeading {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(center);
+    margin-top: 25px;
+    h1 {
+      text-transform: capitalize;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      color: $heading-clr;
+      margin: 0;
+    }
+  }
+  .userAccountInner {
+    @include flexbox;
+    @include justify-content(flex-start);
+    @include align-items(flex-start);
+    margin: 50px 0 100px;
+    .userSidebar {
+      @include flex(0 1 300px);
+      border-right: 1px solid #e6e6e6;
+      .userListing {
+         & > li {
+          text-transform: uppercase;
+          font-size: 18px;
+          font-weight: 300;
+          letter-spacing: 1.8px;
+          line-height: normal;
+          padding: 10px 0 10px 40px;
+          a {
+            display: inline-block;
+          }
+          .subMenu {
+            margin: 20px 0 0;
+            li {
+              padding: 10px 0 10px 0;  
+              &.selected {
+                & > a {
+                  color: $green-light;
+                }
+              }
+            }
+          }
+          &.selected {
+            & > a {
+              color: $green-light;
+            }
+          }
+
+          &.profile {
+            background: url(../images/user_profile.svg) no-repeat left top 5px;
+            background-size: 30px;
+            &.selected {
+              background: url(../images/user_profile_selected.svg) no-repeat left top 5px;
+              background-size: 30px;
+            }
+          }
+
+          &.licences {
+            background: url(../images/licenses.svg) no-repeat left top 5px;
+            background-size: 30px;
+            &.selected {
+              background: url(../images/licenses_selected.svg) no-repeat left top 5px;
+              background-size: 30px;
+            }
+          }
+
+          &.favorite{
+            background: url(../images/favourites.svg) no-repeat left top 5px;
+            background-size: 30px;
+            &.selected {
+              background: url(../images/favourites_selected.svg) no-repeat left top 5px;
+              background-size: 30px;
+            }
+          }
+
+          &.following {
+            background: url(../images/following.svg) no-repeat left top 5px;
+            background-size: 30px;
+            &.selected {
+              background: url(../images/following_selected.svg) no-repeat left top 5px;
+              background-size: 30px;
+            }
+          }
+
+        }
+      }
+    }
+    .userContent {
+      @include flex(1);
+      padding: 0 60px;
+    }
   }
 }
