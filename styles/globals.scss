@@ -60,6 +60,7 @@ header {
       .nav-link {
         display: inherit;
         a {
+          cursor: pointer;
           font-size: 15px;
           color: $nav-link;
           text-transform: capitalize;
