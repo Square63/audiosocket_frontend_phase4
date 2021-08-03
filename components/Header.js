@@ -30,21 +30,25 @@ function Header() {
             <Nav className="mr-auto">
             </Nav>
             <Nav>
-              <div className={router.pathname === "/playlist" ? "nav-link active" : "nav-link"}>
+              <div className={router.pathname.toLowerCase() === "/browse-music" ? "nav-link active" : "nav-link"}>
+                <Link href="/search">Browse Music</Link>
+              </div>
+              <div className={router.pathname.toLowerCase() === "/sfx" ? "nav-link active" : "nav-link"}>
+                <Link href="/sfx">SFX</Link>
+              </div>
+              <div className={router.pathname.toLowerCase() === "/playlist" ? "nav-link active" : "nav-link"}>
                 <Link href="/playlist">Playlists</Link>
               </div>
-              <div className={router.pathname === "/browse-music" ? "nav-link active" : "nav-link"}>
-                <Link href="/browse-music">Browse Music</Link>
-              </div>
-              <div className={router.pathname === "/pricing" ? "nav-link active" : "nav-link"}>
+
+              <div className={router.pathname.toLowerCase() === "/pricing" ? "nav-link active" : "nav-link"}>
                 <Link href="/pricing">Pricing</Link>
               </div>
               {!isLoggedIn &&
                 <>
-                  <div className={router.pathname === "/login" ? "nav-link active" : "nav-link"}>
+                  <div className={router.pathname.toLowerCase() === "/login" ? "nav-link active" : "nav-link"}>
                     <Link href="/login">Sign In</Link>
                   </div>
-                  <div className={router.pathname === "/sign-up" ? "btn nav-link active" : "btn nav-link"}>
+                  <div className={router.pathname.toLowerCase() === "/sign-up" ? "btn nav-link active" : "btn nav-link"}>
                     <Link href="/sign-up">Sign Up</Link>
                   </div>
                 </>
