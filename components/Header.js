@@ -6,6 +6,7 @@ import logo from '../images/logo.svg';
 import { useRouter } from "next/router";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../store/authContext";
+import {LoaderImage} from "./LoaderImage";
 
 function Header() {
   const { authState, authActions } = useContext(AuthContext);
@@ -22,7 +23,7 @@ function Header() {
         <Navbar collapseOnSelect expand="lg" variant="dark" className="custom-nav">
           <Navbar.Brand href="#home">
             <Link href="/">
-              <Image src={logo} alt="LOGO" className="logo-icon"/>
+              <Image loader={LoaderImage} src={logo} alt="LOGO" className="logo-icon"/>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
