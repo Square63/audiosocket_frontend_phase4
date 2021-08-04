@@ -45,7 +45,27 @@ ul,ol {
     padding: 70px 15px 0;
   }
 }
-
+/************** Form Component ************/
+.as-form-control {
+  input {
+    &[type=text],
+    &[type=email],
+    &[type=password] {
+      border-radius: 0;
+      padding: 7px 0;
+      height: 34px;
+      border: 0;
+      font-size: 14px;
+      border-bottom: 1px solid #6f6f6f;
+      color: #555555;
+      &:focus,
+      &:focus-visible {
+        outline: 0;
+        box-shadow: none;
+      }
+    }
+  }
+}
 /************** Header ***************/
 header {
   background-color: $hero-dark;

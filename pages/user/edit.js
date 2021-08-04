@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 function Edit() {
   return (
     <div className="userContent">
-      <Form className="profileEdit">
+      <Form className="profileEdit as-form-control">
         <div className="row">
           <div className="col-md-6">
             <Form.Group className="" controlId="formBasicEmail">
