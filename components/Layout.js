@@ -12,17 +12,19 @@ function Layout({children}) {
       <Header/>
       <div className="content-area">
         <main className="main">
-          <div className="userAccountWrapper">
-            <div className="userAcountHeading">
-              <h1>Kevin sajjad</h1>
-            </div>
-            <div className="userAccountInner">
-              {router.pathname.indexOf('/user/') !== -1 &&
-                <Sidebar/>
-              }
-              {children}
-            </div>
-          </div>
+          {router.pathname.toLowerCase().indexOf('/user/') !== -1
+            ?
+              <div className="userAccountWrapper">
+                <div className="userAcountHeading">
+                  <h1>Kevin sajjad</h1>
+                </div>
+                <div className="userAccountInner">
+                  <Sidebar/>
+                  {children}
+                </div>
+              </div>
+            : children
+          }
         </main>
       </div>
       <Footer/>

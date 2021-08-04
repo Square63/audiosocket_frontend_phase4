@@ -1,6 +1,7 @@
 import styles from "../styles/Home.module.scss";
 import Image from "next/image";
 import logo from '../images/logo.svg';
+import {LoaderImage} from "./LoaderImage";
 
 function Footer() {
   return (
@@ -8,7 +9,7 @@ function Footer() {
       <div className="custom-container">
         <div className="row">
           <div className="footer-logo col-md-4">
-            <Image src={logo} alt="LOGO" className="logo-icon"/>
+            <Image loader={LoaderImage} src={logo} alt="LOGO" className="logo-icon"/>
           </div>
           <div className="footer-nav col-xs-12 col-lg-8">
             <div className="row">

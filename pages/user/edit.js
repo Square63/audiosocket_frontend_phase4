@@ -87,13 +87,6 @@ function Edit() {
           </div>
         </div>
       </Form>
-      <div className="row">
-        <div className="col-md-6">
-          <div class="form-group">
-            
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
