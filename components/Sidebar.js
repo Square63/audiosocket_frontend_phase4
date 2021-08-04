@@ -1,37 +1,38 @@
 import withPrivateRoute from "./withPrivateRoute";
+import Link from "next/link";
+import {useRouter} from "next/router";
 
 function Sidebar() {
+  const router = useRouter();
+
   return (
     <div className="userSidebar">
       <ul className="userListing">
-        <li className="cms">
-          <a href="">cms/admin</a>
-        </li>
-        <li className="profile selected">
-          <a href="">profile</a>
+        <li className={router.pathname.toLowerCase() === "/user/edit" ? "profile selected" : "profile"}>
+          <Link href="/user/edit">Profile</Link>
           <ul className="subMenu">
-            <li>
-              <a href="">billing</a>
+            <li className={router.pathname.toLowerCase() === "/user/billing" && "selected"}>
+              <Link href="/user/billing">billing</Link>
             </li>
-            <li>
-              <a href="">subsscription</a>
+            <li className={router.pathname.toLowerCase() === "/user/subscription" && "selected"}>
+              <Link href="/user/subscription">Subscription</Link>
             </li>
-            <li>
-              <a href="">security</a>
+            <li className={router.pathname.toLowerCase() === "/user/security" && "selected"}>
+              <Link href="/user/security">security</Link>
             </li>
-            <li>
-              <a href="">prefrences</a>
+            <li className={router.pathname.toLowerCase() === "/user/preference" && "selected"}>
+              <Link href="/user/preference">preference</Link>
             </li>
           </ul>
         </li>
-        <li className="licences">
-          <a href="">licences</a>
+        <li className={router.pathname.toLowerCase() === "/user/licenses" ? "licences selected" : "licences"}>
+          <Link href="/user/licenses">licenses</Link>
         </li>
-        <li className="favorite">
-          <a href="">favorite</a>
+        <li className={router.pathname.toLowerCase() === "/user/favorites" ? "favorite selected" : "favorite"}>
+          <Link href="/user/favorites">favorites</Link>
         </li>
-        <li className="following">
-          <a href="">following</a>
+        <li className={router.pathname.toLowerCase() === "/user/following" ? "following selected" : "following"}>
+          <Link href="/user/following">following</Link>
         </li>
       </ul>
     </div>
