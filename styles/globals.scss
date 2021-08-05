@@ -392,6 +392,26 @@ footer {
       .profileEdit {
         .form-group {
           margin-bottom: 30px;
+          .country-select-header__control {
+            height: 34px;
+            min-height: 34px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-radius: unset;
+            border-color: #555555;
+            &.country-select-header__control--is-focused {
+              border-color: $green-light;
+            }
+            box-shadow: none;
+            .country-select-header__value-container {
+              height: 34px;
+              padding-left: 0;
+              .country-select-header__single-value {
+                top: 65%;
+              }
+            }
+          }
         }
         [class*=col-] {
           padding-inline: 20px;
