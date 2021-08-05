@@ -138,6 +138,7 @@
       input {
         &:focus {
           box-shadow: none;
+          border-bottom: 1px solid $green-light !important;
         }
       }
     }

@@ -62,7 +62,15 @@ ul,ol {
       &:focus-visible {
         outline: 0;
         box-shadow: none;
+        border-bottom: 1px solid $green-light;
       }
+    }
+  }
+}
+.was-validated {
+  input {
+    &:invalid {
+      border-bottom: 1px solid red !important;
     }
   }
 }
