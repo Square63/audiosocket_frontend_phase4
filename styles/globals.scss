@@ -394,6 +394,9 @@ footer {
       padding: 0 60px;
       .profileEdit {
         .form-group {
+          input {
+            box-shadow: none;
+          }
           margin-bottom: 30px;
           .country-select-header__control {
             height: 34px;
