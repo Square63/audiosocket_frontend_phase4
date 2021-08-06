@@ -99,6 +99,53 @@ ul,ol {
     }
   }
 }
+
+/**************** Radio button *****************/
+.radio {
+  display: grid;
+  grid-template-columns: min-content auto;
+  grid-gap: 0.2em;
+  font-size: 19px;
+  line-height: 19px;
+  color: #C1D82F;
+  margin: 3px 5px 3px 5px; 
+
+
+  .radio__label {
+    opacity: 0.8;
+    color: black;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: bold
+  }
+
+  .radio__input {
+    display: flex;
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      &:focus {
+        & + .radio__control {
+          box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em #C1D82F
+        }
+      }
+      &:checked {
+        & + .radio__control {
+          background: radial-gradient(#C1D82F 50%, rgba(255, 0, 0, 0) 51%);
+        }
+      }
+    }
+    .radio__control {
+      display: block;
+      width: 1em;
+      height: 1em;
+      border-radius: 50%;
+      border: 2px solid #C1D82F;
+      transform: translateY(-0.05em);
+    }
+  }
+}
 /************** Header ***************/
 header {
   background-color: $hero-dark;
@@ -432,4 +479,10 @@ footer {
       opacity: 0.8;
     }
   }
+}
+
+.elementInline {
+  @include flexbox();
+  @include justify-content(flex-start);
+  @include align-items(center);
 }
