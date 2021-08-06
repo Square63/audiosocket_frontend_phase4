@@ -167,10 +167,10 @@ function Edit({countries}) {
           </div>
 
           <div className="col-md-12">
-            <div class="elementInline">
+            <div className="elementInline">
               <Form.Label className="m-0 mr-3">White-listing enabled</Form.Label>
               <div className="radio">
-                <label for="account_youtube_monetization_0" className="radio radio-gradient">
+                <label htmlFor="account_youtube_monetization_0" className="radio radio-gradient">
                   <span className="radio__input">
                     <input type="radio" id="account_youtube_monetization_0" name="account[youtube_monetization]"  value="1"/>
                     <span className="radio__control"></span>
@@ -179,14 +179,14 @@ function Edit({countries}) {
                 </label>
               </div>
               <div className="radio">
-            <label for="account_youtube_monetization_1" className="radio radio-gradient">
-              <span className="radio__input">
-                <input type="radio" id="account_youtube_monetization_1" name="account[youtube_monetization]" value="0" checked="checked"/>
-                <span className="radio__control"></span>
-              </span>
-              <span className="radio__label">No</span>
-            </label>
-          </div>
+                <label htmlFor="account_youtube_monetization_1" className="radio radio-gradient">
+                  <span className="radio__input">
+                    <input type="radio" id="account_youtube_monetization_1" name="account[youtube_monetization]" value="0"/>
+                    <span className="radio__control"></span>
+                  </span>
+                  <span className="radio__label">No</span>
+                </label>
+              </div>
             </div>
           </div>
 
