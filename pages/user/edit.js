@@ -1,13 +1,18 @@
 import withPrivateRoute from "../../components/withPrivateRoute";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {useState} from "react";
+import {useRef, useState} from "react";
 import Select from "react-select";
 import { Country } from "country-state-city";
+import {useRouter} from "next/router";
 
 function Edit({countries}) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [countryError, setCountryError] = useState(false);
+  const form = useRef(null);
+  const router = useRouter()
+  const [validated, setValidated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSelectCountry = (target) => {
     if(target.value)
@@ -15,49 +20,99 @@ function Edit({countries}) {
     setSelectedCountry(target.value);
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setCountryError(false);
+    const loginForm = e.currentTarget;
+    if (loginForm.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      if(!selectedCountry)
+        setCountryError(true);
+      setValidated(true);
+      setIsLoading(false);
+    } else {
+      const data = new FormData(form.current);
+      alert('updated!');
+    }
+  }
+
   return (
     <div className="userContent">
-      <Form className="profileEdit as-form-control">
+      <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit} className="profileEdit as-form-control">
         <div className="row">
           <div className="col-lg-6">
             <Form.Group className="">
               <Form.Label className="required">Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter your name" />
+              <Form.Control
+                required
+                name="name"
+                type="text"
+                placeholder="Enter your name"
+              />
+              <Form.Control.Feedback type="invalid">
+                Name is required!
+              </Form.Control.Feedback>
             </Form.Group>
           </div>
 
           <div className="col-lg-6">
             <Form.Group className="">
               <Form.Label className="required">New Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control
+                required
+                name="email"
+                type="email"
+                placeholder="Enter email"
+              />
+              <Form.Control.Feedback type="invalid">
+                A valid email address is required!
+              </Form.Control.Feedback>
             </Form.Group>
           </div>
 
           <div className="col-lg-6">
             <Form.Group className="">
               <Form.Label>Phone</Form.Label>
-              <Form.Control type="text" placeholder="Enter phone" />
+              <Form.Control
+                name="phone"
+                type="text"
+                placeholder="Enter phone"
+              />
             </Form.Group>
           </div>
 
           <div className="col-lg-6">
             <Form.Group className="">
               <Form.Label>organization</Form.Label>
-              <Form.Control type="text" placeholder="Enter company name" />
+              <Form.Control
+                name="organization"
+                type="text"
+                placeholder="Enter company name"
+              />
             </Form.Group>
           </div>
 
           <div className="col-lg-6">
             <Form.Group className="">
               <Form.Label>Address</Form.Label>
-              <Form.Control type="text" placeholder="Enter here" />
+              <Form.Control
+                name="address"
+                type="text"
+                placeholder="Enter here"
+              />
             </Form.Group>
           </div>
 
           <div className="col-lg-6">
             <Form.Group className="">
               <Form.Label>city</Form.Label>
-              <Form.Control type="text" placeholder="Enter city" />
+              <Form.Control
+                name="city"
+                type="text"
+                placeholder="Enter city"
+              />
             </Form.Group>
           </div>
 
@@ -66,8 +121,8 @@ function Edit({countries}) {
               <Form.Label className="required">Country</Form.Label>
               <Select
                 placeholder="Select Country"
-                className="country-select-container-header"
-                classNamePrefix={!countryError ? "country-select-header" : "country-select-header invalid"}
+                className={!countryError ? "country-select-container-header" : "country-select-container-header invalid"}
+                classNamePrefix="country-select-header"
                 options={countries}
                 defaultValue={selectedCountry ? countries.filter(option => option.value === selectedCountry) : {label: "Select Country", value: null}}
                 onChange={handleSelectCountry}
@@ -81,13 +136,21 @@ function Edit({countries}) {
                   height: 34,
                 })}
               />
+              {countryError &&
+                <small className="input-error">Country is required!</small>
+              }
+
             </Form.Group>
           </div>
 
           <div className="col-lg-6">
             <Form.Group className="">
               <Form.Label>postal code</Form.Label>
-              <Form.Control type="text" placeholder="Enter code" />
+              <Form.Control
+                name="postal_code"
+                type="text"
+                placeholder="Enter code"
+              />
             </Form.Group>
           </div>
           
@@ -95,7 +158,11 @@ function Edit({countries}) {
           <div className="col-lg-6">
             <Form.Group className="">
               <Form.Label>Youtube URL</Form.Label>
-              <Form.Control type="text" placeholder="Enter here" />
+              <Form.Control
+                name="youtube_url"
+                type="text"
+                placeholder="Enter here"
+              />
             </Form.Group>
           </div>
 

@@ -60,7 +60,7 @@ ul,ol {
     &.required {
       &:after {
         content: '*';
-        color: #a94442;
+        color: $red;
         font-size: 20px;
         position: absolute;
         top: -5px;
@@ -95,9 +95,12 @@ ul,ol {
 .was-validated {
   input {
     &:invalid {
-      border-bottom: 1px solid red !important;
+      border-bottom: 1px solid $red !important;
     }
   }
+}
+.input-error {
+  color: $red;
 }
 /************** Header ***************/
 header {
@@ -271,10 +274,10 @@ footer {
   .login-error {
     width: 100%;
     text-align: center;
-    color: #dc3545;
+    color: $red;
   }
   .success {
-    color: #28a745;
+    color: $green;
   }
   .custom-control-label {
     cursor: pointer;
@@ -412,6 +415,11 @@ footer {
               }
             }
           }
+          .invalid {
+            .country-select-header__control {
+              border-color: $red;
+            }
+          }
         }
         [class*=col-] {
           padding-inline: 20px;
@@ -430,6 +438,9 @@ footer {
     @include transition(all 0.2s ease-in-out);
     &:hover {
       opacity: 0.8;
+    }
+    &:focus {
+      box-shadow: none;
     }
   }
 }
