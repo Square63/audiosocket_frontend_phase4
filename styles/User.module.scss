@@ -1,0 +1,16 @@
+@import './variables-mixins.scss';
+
+.userAccount {
+  color: $muted-text;
+  h1 {
+    font-size: 30px;
+    font-family: Raleway;
+    text-transform: capitalize;
+    font-weight: 300;
+    margin-bottom: 30px;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+
+}
