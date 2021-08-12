@@ -80,3 +80,15 @@
     }
   }
 }
+
+.preferences {
+  position: relative;
+  .preferenceInner {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(center);
+    p {
+      margin: 0;
+    }
+  }
+}

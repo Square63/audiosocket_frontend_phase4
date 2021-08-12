@@ -1,8 +1,15 @@
+import { useReducer } from "react";
 import withPrivateRoute from "../../components/withPrivateRoute";
+import user from "../../styles/User.module.scss";
 
 function Preference() {
   return (
-    <h1>User Preference page</h1>
+    <div className={'userContent '+user.preferences}>
+      <div className={user.preferenceInner}>
+        <p>Receive marketing emails from Audiosocket?</p>
+        <a href="" className="btn primary-btn">Subscribe</a>
+      </div>
+    </div>
   );
 }
 

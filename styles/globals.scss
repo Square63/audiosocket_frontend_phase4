@@ -46,6 +46,22 @@ ul,ol {
     padding: 70px 15px 0;
   }
 }
+/************** Button ************/
+.primary-btn {
+	background: $clr-green-bright;
+	border-color: $clr-green-bright;
+  border-radius: 2.5rem;
+  font-weight: 600;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  color: $hero-dark;
+	&:hover, &:focus, &:active {
+		background-color: $clr-green-hover !important;
+		color: $hero-dark !important;
+		border-color: $clr-green-hover !important;
+		box-shadow: none !important;
+	}
+}
 /************** Form Component ************/
 .as-form-control {
   .form-label {
