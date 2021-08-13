@@ -191,7 +191,7 @@ function Edit({countries}) {
           </div>
 
           <div className="col-md-12 mt-5">
-            <Button className="userAccountBtn" type="submit">
+            <Button className="btn primary-btn" type="submit">
               Save
             </Button>
           </div>

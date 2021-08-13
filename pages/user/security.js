@@ -1,8 +1,12 @@
 import withPrivateRoute from "../../components/withPrivateRoute";
+import user from "../../styles/User.module.scss";
 
 function Security() {
   return (
-    <h1>User Security page</h1>
+    <div className={'userContent '+user.security}>
+     <div>Email</div>
+     <div>Password</div>
+    </div>
   );
 }
 
