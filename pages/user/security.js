@@ -52,7 +52,7 @@ function Security() {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" className="btn primary-btn submit">{isLoading ? <>Updating...<Image src={Loader} alt="icon"/></> : "Update"}</Button>
+            <Button type="submit" className="btn primary-btn submit">{isLoading ? <>Updating...<Image loader={LoaderImage} src={Loader} alt="icon"/></> : "Update"}</Button>
           </Modal.Footer>
         </Form>
       </Modal>
