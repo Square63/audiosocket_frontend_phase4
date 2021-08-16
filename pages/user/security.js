@@ -30,8 +30,16 @@ function Security() {
 
   return (
     <div className={'userContent '+user.security}>
-      <div onClick={(e) => handleShowModal(e, 'email')}>Email</div>
-      <div onClick={(e) => handleShowModal(e, 'password')}>Password</div>
+      <div className={user.securityRow}>
+        <label>Email</label>
+        <p className={user.middleContent}>kevin.sajjad@square63.org</p>
+        <a href="" className="btn primary-btn" onClick={(e) => handleShowModal(e, 'email')}>edit</a>
+      </div>
+      <div className={user.securityRow}>
+        <label>password</label>
+        <p className={user.middleContent}>***********</p>
+        <a href="" className="btn primary-btn" onClick={(e) => handleShowModal(e, 'password')}>edit</a>
+      </div>
       <Modal
         show={showModal}
         onHide={handleClose}
@@ -48,7 +56,11 @@ function Security() {
           </Modal.Header>
           <Modal.Body>
             <div className="modal-container">
-
+              <form>
+                <div className="form-group">
+                  <input type="password" className="form-control" placeholder="Password*"/>
+                </div>
+              </form>
             </div>
           </Modal.Body>
           <Modal.Footer>

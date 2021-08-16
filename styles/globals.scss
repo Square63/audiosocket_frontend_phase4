@@ -55,6 +55,7 @@ ul,ol {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   color: $hero-dark;
+  text-transform: capitalize;
 	&:hover, &:focus, &:active {
 		background-color: $clr-green-hover !important;
 		color: $hero-dark !important;
@@ -516,4 +517,163 @@ footer {
   @include flexbox();
   @include justify-content(flex-start);
   @include align-items(center);
+}
+
+
+/***************** POPUP styling *********************/
+.customArtistModal,
+.customArtistModal-lg {
+  z-index: 1041;
+  .modal-dialog {
+    max-width: 700px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    .modal-content {
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 1.5rem 1rem;
+      .modal-title {
+        margin: 0 auto;
+        font-weight: 600;
+        font-size: 28px;
+      }
+      .close {
+        display: none;
+      }
+    }
+    .modal-body {
+      padding: 40px 15px 25px;
+      border-bottom: 1px solid #dee2e6;
+      .create-album-modal-container,
+      .music-modal-container,
+      .publisher-modal-container,
+      .collabortor-modal-container {
+        max-width: 500px;
+        width: 95%;
+        margin: 0 auto;
+        .form-control {
+          &:not(textarea) {
+            height: 48px;
+          }
+          border-radius: 8px;
+          &:focus {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 5px #c0d72d;
+          }
+        }
+      }
+      .react-select-popup__control {
+        height: 48px;
+        border-radius: 8px;
+      }
+      .custom-control-input {
+        z-index: 1;
+        opacity: 1;
+      }
+      .custom-file {
+        height: 48px;
+        input[type="file"] {
+          height: inherit;
+        }
+        .custom-file-label {
+          height: inherit;
+          line-height: normal;
+          @include flexbox;
+          @include justify-content(space-between);
+          @include align-items(center);
+          border-radius: 8px;
+          &:after {
+            content: attr(data-browse);
+            height: inherit;
+            line-height: calc(48px - 12px);
+          }
+        }
+        .custom-file-input {
+          &:focus {
+            & ~ .custom-file-label {
+              transition: all 0.3s ease-in-out;
+              box-shadow: 0 0 5px #c0d72d;
+              border: 1px solid #c0d72d;
+            }
+          }
+        }
+        &.invalid {
+          .custom-file-label {
+            border: 1px solid $red;
+          }
+        }
+      }
+    }
+    .modal-footer {
+      border: 0;
+      padding: 0;
+      height: 70px;
+      button {
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        @include flex(1);
+        border-radius: 0;
+        border: 0;
+        height: inherit;
+        margin: 0;
+        transition: all 0.3s ease-in-out;
+        &.btn-outline-light {
+          &:hover {
+            background-color: #F6F6F6;
+          }
+        }
+        &.as-tertiary-modal-btn {
+          background-color: $clr-blue-light;
+          color: #fff;
+          &:hover {
+            opacity: 0.85;
+          }
+        }
+      }
+      .submit {
+        img {
+          width: 20px;
+        }
+      }
+    }
+  }
+  &.closeOn {
+    .modal-header {
+      .modal-title {
+        padding: 0px 40px;
+      }
+      .close {
+        display: inline-block;
+        background: url(/images/close-modal.svg) no-repeat;
+        vertical-align: middle;
+        background-size: 30px;
+        width: 30px;
+        height: 30px;
+        margin: 0;
+        padding: 0;
+        top: 15px;
+        right: 15px;
+        opacity: 0.7;
+          span[aria-hidden="true"] {
+          display: none;
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &.customArtistModal-lg {
+    .modal-dialog {
+      max-width: 850px;
+      width: 95%;
+      .modalBodyInner {
+        max-width: 600px;
+      }
+    }
+  }
 }
