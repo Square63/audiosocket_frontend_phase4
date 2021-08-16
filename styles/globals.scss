@@ -48,20 +48,25 @@ ul,ol {
 }
 /************** Button ************/
 .primary-btn {
-	background: $clr-green-bright;
-	border-color: $clr-green-bright;
+  background: $clr-green-bright;
+  border-color: $clr-green-bright;
   border-radius: 2.5rem;
   font-weight: 600;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   color: $hero-dark;
   text-transform: capitalize;
-	&:hover, &:focus, &:active {
+	&:hover, &:active {
 		background-color: $clr-green-hover !important;
 		color: $hero-dark !important;
 		border-color: $clr-green-hover !important;
 		box-shadow: none !important;
 	}
+  &:focus {
+    color: $hero-dark !important;
+    background-color: $clr-green-bright !important;
+    box-shadow: none !important;
+  }
 }
 /************** Form Component ************/
 .as-form-control {
@@ -525,6 +530,9 @@ footer {
 .customArtistModal-lg {
   z-index: 1041;
   .modal-dialog {
+    &.modal-sm {
+      max-width: 500px;
+    }
     max-width: 700px;
     width: 95%;
     margin-left: auto;
@@ -539,6 +547,7 @@ footer {
         margin: 0 auto;
         font-weight: 600;
         font-size: 28px;
+        text-transform: capitalize;
       }
       .close {
         display: none;
@@ -547,10 +556,7 @@ footer {
     .modal-body {
       padding: 40px 15px 25px;
       border-bottom: 1px solid #dee2e6;
-      .create-album-modal-container,
-      .music-modal-container,
-      .publisher-modal-container,
-      .collabortor-modal-container {
+      .modal-container {
         max-width: 500px;
         width: 95%;
         margin: 0 auto;
@@ -561,7 +567,8 @@ footer {
           border-radius: 8px;
           &:focus {
             transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 5px #c0d72d;
+            box-shadow: 0 0 5px $green-light;
+            border-color: $green-light;
           }
         }
       }
@@ -595,8 +602,8 @@ footer {
           &:focus {
             & ~ .custom-file-label {
               transition: all 0.3s ease-in-out;
-              box-shadow: 0 0 5px #c0d72d;
-              border: 1px solid #c0d72d;
+              box-shadow: 0 0 5px $green-light;
+              border: 1px solid $green-light;
             }
           }
         }
