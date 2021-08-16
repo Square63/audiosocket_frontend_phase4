@@ -116,9 +116,11 @@ ul,ol {
   }
 }
 .was-validated {
-  input {
-    &:invalid {
-      border-bottom: 1px solid $red !important;
+  &:not(.security-form, .preference-form) {
+    input {
+      &:invalid {
+        border-bottom: 1px solid $red !important;
+      }
     }
   }
 }

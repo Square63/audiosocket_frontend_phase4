@@ -24,6 +24,7 @@ function SecurityModal({showModal = false, onCloseModal, modalType = "email"}) {
       const data = new FormData(form.current);
       setIsLoading(false);
       e.target.reset();
+      handleClose();
       alert('updated');
     }
   }
@@ -42,7 +43,7 @@ function SecurityModal({showModal = false, onCloseModal, modalType = "email"}) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       className="bulk-upload-modal customArtistModal">
-      <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
+      <Form className="security-form" noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             Update {modalType}

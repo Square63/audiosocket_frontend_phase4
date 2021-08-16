@@ -24,6 +24,7 @@ function PreferenceModal({showModal = false, onCloseModal}) {
       const data = new FormData(form.current);
       setIsLoading(false);
       e.target.reset();
+      handleClose();
       alert('Subscribed');
     }
   }
@@ -42,7 +43,7 @@ function PreferenceModal({showModal = false, onCloseModal}) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       className="bulk-upload-modal customArtistModal">
-      <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
+      <Form className="preference-form" noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             Subscribe To Our Email List
