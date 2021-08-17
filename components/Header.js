@@ -21,10 +21,8 @@ function Header() {
     <header className="fixed-top">
       <div className="custom-container">
         <Navbar collapseOnSelect expand="lg" variant="dark" className="custom-nav">
-          <Navbar.Brand href="#home">
-            <Link href="/">
-              <Image loader={LoaderImage} src={logo} alt="LOGO" className="logo-icon"/>
-            </Link>
+          <Navbar.Brand href="/">
+            <Image loader={LoaderImage} src={logo} alt="LOGO" className="logo-icon"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
