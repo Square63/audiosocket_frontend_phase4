@@ -11,16 +11,16 @@ function Sidebar() {
         <li className={router.pathname.toLowerCase() === "/user/edit" ? "profile selected" : "profile"}>
           <Link href="/user/edit">Profile</Link>
           <ul className="subMenu">
-            <li className={router.pathname.toLowerCase() === "/user/billing" && "selected"}>
+            <li className={router.pathname.toLowerCase() === "/user/billing" ? "selected" : ""}>
               <Link href="/user/billing">billing</Link>
             </li>
-            <li className={router.pathname.toLowerCase() === "/user/subscription" && "selected"}>
+            <li className={router.pathname.toLowerCase() === "/user/subscription" ? "selected" : ""}>
               <Link href="/user/subscription">Subscription</Link>
             </li>
-            <li className={router.pathname.toLowerCase() === "/user/security" && "selected"}>
+            <li className={router.pathname.toLowerCase() === "/user/security" ? "selected" : ""}>
               <Link href="/user/security">security</Link>
             </li>
-            <li className={router.pathname.toLowerCase() === "/user/preference" && "selected"}>
+            <li className={router.pathname.toLowerCase() === "/user/preference" ? "selected" : ""}>
               <Link href="/user/preference">preference</Link>
             </li>
           </ul>
