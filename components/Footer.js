@@ -2,10 +2,13 @@ import styles from "../styles/Home.module.scss";
 import Image from "next/image";
 import logo from '../images/logo.svg';
 import {LoaderImage} from "./LoaderImage";
+import MusicPlayer from "./MusicPlayer";
+import React from "react";
 
 function Footer() {
   return (
     <footer>
+      <MusicPlayer />
       <div className="custom-container">
         <div className="row">
           <div className="footer-logo col-md-4">
