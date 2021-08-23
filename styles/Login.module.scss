@@ -24,9 +24,9 @@
         font-size: 13px;
         font-weight: 600;
         color: #1A1A18;
-        background-color: $green-light;
+        background-color: $clr-green-bright;
         &:hover {
-          background-color: $clr-green-bright;
+          background-color: $green-light;
         }
       }
     }
@@ -59,6 +59,7 @@
     width: 100%;
     margin-bottom: 25px;
     letter-spacing: 1px;
+    border-radius: 0;
   }
   .existingAccount {
     text-align: center;
