@@ -1,18 +1,29 @@
 @import './variables-mixins.scss';
 
-.userAccount {
+.userAccount, 
+.following {
   color: $muted-text;
-  h1 {
-    font-size: 30px;
+  .headingDefault {
     font-family: Raleway;
     text-transform: capitalize;
     font-weight: 300;
     margin-bottom: 30px;
   }
+  h1 {
+    font-size: 30px;
+    @extend .headingDefault;
+  }
+  h2 {
+    font-size: 21px;
+    @extend .headingDefault;
+  }
   p {
     margin-bottom: 10px;
   }
 }
+
+
+
 
 .subscription {
   position: relative;
@@ -112,6 +123,77 @@
     @include align-items(center);
     p {
       margin: 0;
+    }
+  }
+}
+
+.following,
+.favouritePlaylists {
+  .followingWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    padding-top: 20px;
+    .followingColumn {
+      .imgOverlayText {
+        aspect-ratio: 1;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 3px 6px rgba(33,33,33,0.3);
+        img {
+          width: 100%;
+          height: auto;
+          transition: all 0.3s ease-in-out;
+        }
+        .overlayText {
+          @include flexbox;
+          @include justify-content(center);
+          @include align-items(center);
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          background: transparent;
+          background-image: linear-gradient(0deg, rgba(33,33,33,0.3), transparent);
+          transition: background-image .5s ease-in-out;
+          .playlistName {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: normal;
+            color: $white;
+            opacity: 1;
+          }
+        }
+      }
+      .cardTitle {
+        margin: 12px 0 0;
+        line-height: normal;
+        text-transform: capitalize;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+      }
+      .followedCardTitle {
+        @extend .cardTitle;
+        color: $muted-text;
+        &:hover {
+          color: $green-light;
+        }
+      }
+      .favouritesCardTitle {
+        @extend .cardTitle;
+        color: $heading-clr;
+        cursor: default;
+        user-select: none;
+        &:hover {
+          color: $heading-clr;
+        }
+      }
     }
   }
 }
