@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
 
-function PreferenceModal({showModal = false, onCloseModal}) {
+function ForgotPasswordModal({showModal = false, onCloseModal}) {
   const form = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,8 +14,8 @@ function PreferenceModal({showModal = false, onCloseModal}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const preferenceForm = e.currentTarget;
-    if (preferenceForm.checkValidity() === false) {
+    const forgotPasswordForm = e.currentTarget;
+    if (forgotPasswordForm.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
       setValidated(true);
@@ -25,7 +25,7 @@ function PreferenceModal({showModal = false, onCloseModal}) {
       setIsLoading(false);
       e.target.reset();
       handleClose();
-      alert('Subscribed');
+      alert('email sent');
     }
   }
 
@@ -42,21 +42,22 @@ function PreferenceModal({showModal = false, onCloseModal}) {
       size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      className="preference-modal customArtistModal">
-      <Form className="preference-form" noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
+      className="forgot-password-modal customArtistModal">
+      <Form className="forgot-password-form" noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Subscribe To Our Email List
+            FORGOT PASSWORD
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="modal-container">
             <div className="form-group">
+              <Form.Label className="required">Get a link to reset your password on your email</Form.Label>
               <Form.Control
                 required
                 name="email"
                 type="email"
-                placeholder="Email*"
+                placeholder="Enter email*"
               />
               <Form.Control.Feedback type="invalid">
                 A valid email address is required!
@@ -65,11 +66,11 @@ function PreferenceModal({showModal = false, onCloseModal}) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit" className="btn primary-btn submit">{isLoading ? <>Subscribing...<Image loader={LoaderImage} src={Loader} alt="icon"/></> : "Subscribe"}</Button>
+          <Button type="submit" className="btn primary-btn submit">{isLoading ? <>Submitting...<Image loader={LoaderImage} src={Loader} alt="icon"/></> : "Submit"}</Button>
         </Modal.Footer>
       </Form>
     </Modal>
   );
 }
 
-export default PreferenceModal;
+export default ForgotPasswordModal;

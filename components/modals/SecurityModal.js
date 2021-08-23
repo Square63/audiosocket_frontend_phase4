@@ -60,6 +60,9 @@ function SecurityModal({showModal = false, onCloseModal, modalType = "email"}) {
                     type="password"
                     placeholder="Password*"
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Password is required!
+                  </Form.Control.Feedback>
                 </div>
                 <div className="form-group">
                   <Form.Control
@@ -68,6 +71,9 @@ function SecurityModal({showModal = false, onCloseModal, modalType = "email"}) {
                     type="email"
                     placeholder="New Email*"
                   />
+                  <Form.Control.Feedback type="invalid">
+                    A valid email address is required!
+                  </Form.Control.Feedback>
                 </div>
               </>
               : <>
@@ -78,6 +84,9 @@ function SecurityModal({showModal = false, onCloseModal, modalType = "email"}) {
                     type="password"
                     placeholder="Current Password*"
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Current password is required!
+                  </Form.Control.Feedback>
                 </div>
                 <div className="form-group">
                   <Form.Control
@@ -86,6 +95,9 @@ function SecurityModal({showModal = false, onCloseModal, modalType = "email"}) {
                     type="password"
                     placeholder="New Password*"
                   />
+                  <Form.Control.Feedback type="invalid">
+                    New password is required!
+                  </Form.Control.Feedback>
                 </div>
                 <div className="form-group">
                   <Form.Control
@@ -94,6 +106,9 @@ function SecurityModal({showModal = false, onCloseModal, modalType = "email"}) {
                     type="password"
                     placeholder="Retype New Password*"
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Retype password is required!
+                  </Form.Control.Feedback>
                 </div>
               </>
             }
