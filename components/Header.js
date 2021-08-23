@@ -47,8 +47,8 @@ function Header() {
                   <div className={router.pathname.toLowerCase() === "/login" ? "nav-link active" : "nav-link"}>
                     <Link href="/login">Sign In</Link>
                   </div>
-                  <div className={router.pathname.toLowerCase() === "/sign-up" ? "btn nav-link active" : "btn nav-link"}>
-                    <Link href="/sign-up">Sign Up</Link>
+                  <div className={router.pathname.toLowerCase() === "/signup" ? "btn nav-link active" : "btn nav-link"}>
+                    <Link href="/signup">Sign Up</Link>
                   </div>
                 </>
               }

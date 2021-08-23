@@ -210,7 +210,6 @@ header {
           a {
             padding: 7px 20px;
             border-radius: 2.5rem;
-            font-weight: 600;
             color: $hero-dark;
             background-color: $green-light;
             &:hover {
@@ -219,7 +218,7 @@ header {
             }
           }
         }
-        &.active {
+        &.active:not(.btn) {
           a {
             color: $white;
           }
@@ -529,6 +528,39 @@ footer {
   @include align-items(center);
 }
 
+/***************** Signup Select style *********************/
+.form-group {
+  .content-type-select-header__control, .css-yk16xz-control {
+    height: 40px;
+    min-height: 40px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: unset;
+    border-color: #555555;
+    &.content-type-select-header__control--is-focused {
+      border-color: $green-light;
+    }
+    box-shadow: none;
+    .content-type-select-header__value-container {
+      height: 34px;
+      padding-left: 0;
+      .content-type-select-header__single-value {
+        top: 65%;
+      }
+    }
+  }
+  .form-control {
+    &.confirm_password {
+      &.is-valid, &:valid {
+        background-image: none;
+      }
+      &.invalid {
+        border-bottom: 1px solid #dc3545 !important;
+      }
+    }
+  }
+}
 
 /***************** POPUP styling *********************/
 .customArtistModal,
@@ -685,6 +717,18 @@ footer {
       width: 95%;
       .modalBodyInner {
         max-width: 600px;
+      }
+    }
+  }
+}
+.forgot-password-modal {
+  .modal-content {
+    .modal-body {
+      label {
+        display: block;
+        text-align: center;
+        padding-bottom: 25px;
+        font-weight: 600;
       }
     }
   }

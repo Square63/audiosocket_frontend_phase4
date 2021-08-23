@@ -1,11 +1,11 @@
 @import './variables-mixins.scss';
 
-.loginWrapper {
+.signupWrapper {
   max-width: 1170px;
   width: 100%;
   margin: 0 auto;
   padding: 50px 15px 70px;
-  .loginHeading {
+  .signupHeading {
     text-align: center;
     margin-bottom: 50px;
     h1 {
@@ -25,14 +25,11 @@
         font-weight: 600;
         color: #1A1A18;
         background-color: $green-light;
-        &:hover {
-          background-color: $clr-green-bright;
-        }
       }
     }
   }
 
-  [class*="loginSeprator"] {
+  [class*="signupSeprator"] {
     border-left: 1px solid $border-clr;
   }
 
@@ -45,7 +42,7 @@
     padding-top: 20px;
   }
 
-  .loginBtn {
+  .signupBtn {
     font-family: Raleway, Arial, sans-serif;
     font-weight: 600;
     text-align: center;
@@ -100,11 +97,11 @@
   }
   .useEmail {
     .formWrapper {
-      max-width: 285px;
       width: 100%;
-      margin: 75px auto 0;
+      margin: 75px 20px;
       .fieldControl {
         margin-bottom: 20px;
+        input[type="text"],
         input[type="email"],
         input[type="password"] {
           border-radius: 0 !important;
@@ -122,7 +119,6 @@
             font-size: 14px;
             color: #2F70D8;
             &:hover {
-              cursor: pointer;
               text-decoration: underline;
             }
           }
@@ -135,7 +131,6 @@
         font-size: 14px;
       }
       small {
-        margin-left: 20px;
         font-size: 11.5px;
         padding-bottom: 20px;
       }
@@ -151,12 +146,24 @@
       color: #2F70D8;
       background-color: $white;
       line-height: 36px;
+      margin: 20px;
       &:hover {
         background-color: #2F70D8;
         color: $white;
       }
       &:focus {
         box-shadow: unset;
+      }
+    }
+  }
+  .loginText {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    a {
+      color: $clr-blue-light;
+      &:hover {
+        text-decoration: underline;
       }
     }
   }

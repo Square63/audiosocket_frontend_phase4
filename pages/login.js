@@ -4,6 +4,8 @@ import {useState, useRef, useContext, useEffect} from "react";
 import {AuthContext} from "../store/authContext";
 import {useRouter} from "next/router";
 import login from "../styles/Login.module.scss";
+import Link from "next/link";
+import ForgotPassword from "../components/modals/ForgotPassword";
 
 function Login() {
   const { authActions } = useContext(AuthContext);
@@ -12,6 +14,7 @@ function Login() {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRemeberMe] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if(localStorage.getItem('user')) {
@@ -44,11 +47,15 @@ function Login() {
     setRemeberMe(!rememberMe);
   }
 
+  const handleClose = (show) => {
+    setShowModal(show)
+  }
+
   return (
     <div className={login.loginWrapper}>
       <div className={login.loginHeading}>
         <h1>sign in</h1>
-        <p>Are you a new user? <a href="">Sign Up</a></p>
+        <p>Are you a new user? <Link href={"/signup"}>Sign up</Link></p>
       </div>
       <div className="row">
         <div className="col-md-6">
@@ -67,18 +74,18 @@ function Login() {
             <div className={login.formWrapper}>
               <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
                 <Form.Group className={login.fieldControl} controlId="formBasicEmail">
-                  <Form.Control required name="email" type="email" placeholder="Email" />
+                  <Form.Control required name="email" type="email" placeholder="Email*" />
                   <Form.Control.Feedback type="invalid">
                     A valid email address is required!
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className={login.fieldControl} controlId="formBasicPassword">
-                  <Form.Control required name="password" type="password" placeholder="Password" />
+                  <Form.Control required name="password" type="password" placeholder="Password*" />
                   <Form.Control.Feedback type="invalid">
                     Password is required!
                   </Form.Control.Feedback>
                   <div className={login.forgotPassword}>
-                    <a href="">Forgot password?</a>
+                    <a onClick={() => setShowModal(true)}>Forgot password?</a>
                   </div>
                 </Form.Group>
                 <Form.Group className={login.fieldControl} controlId="formBasicCheckbox">
@@ -95,6 +102,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <ForgotPassword showModal={showModal} onCloseModal={handleClose} />
     </div>
   );
 
