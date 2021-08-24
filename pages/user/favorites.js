@@ -7,10 +7,24 @@ import hiphop from '../../images/hiphop.jpeg';
 import wave from '../../images/sound-wave.png';
 import play from '../../images/playWhite.svg';
 import pause from '../../images/pause.svg';
+import {useState} from "react";
 function Favorites() {
+  const [type, setType] = useState('songs');
+
+  const handleSelectType = (type) => {
+    setType(type);
+  }
+
   return (
     <div className={'userContent '+user.favouritePlaylists}>
-        {/***************** Songs *****************/}
+      <div className={user.favouriteTabs}>
+        <div className={user.tabs}>
+          <div onClick={() => handleSelectType('songs')} className={`${user.tab} ${type === 'songs' ? user.active : ''}`}>Songs</div>
+          <div onClick={() => handleSelectType('playlists')} className={`${user.tab} ${type === 'playlists' ? user.active : ''}`}>Playlists</div>
+        </div>
+      </div>
+      {type === 'songs'
+        ?
         <div className={user.songsWrapper}>
           <div className={user.songsRow+' ' +user.rowHead}>
             <div className={user.songsData+' ' +user.playSection}></div>
@@ -59,8 +73,7 @@ function Favorites() {
             <div className={user.songsData+' ' +user.songsAction}>actions</div>
           </div>
         </div>
-
-        {/***************** Playlists *****************/}
+        :
         <div className={user.followingWrapper}>
           <div className={user.followingColumn}>
             <div className={user.imgOverlayText}>
@@ -152,7 +165,8 @@ function Favorites() {
             <a href="" className={user.favouritesCardTitle}>follow</a>
           </div>
         </div>
-      </div>
+      }
+    </div>
   );
 }
 
