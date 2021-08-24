@@ -207,7 +207,7 @@ header {
           }
         }
         &.btn {
-          a {
+          > a {
             padding: 7px 20px;
             border-radius: 2.5rem;
             color: $hero-dark;
@@ -215,6 +215,138 @@ header {
             &:hover {
               color: $hero-dark;
               background-color: $white;
+            }
+          }
+          .dropdown-toggle {
+            &::after {
+              display: none;
+            }
+          }
+          .dropdown-menu {
+            width: 15rem;
+            &:before {
+              position: absolute;
+              top: -8px;
+              left: 30px;
+              display: inline-block;
+              border-right: 8px solid transparent;
+              border-bottom: 8px solid #fff;
+              border-left: 8px solid transparent;
+              content: "";
+            }
+            .info {
+              width: 100%;
+              height: 100%;
+              cursor: default;
+              text-align: center;
+              padding: 20px 10px;
+              display: flex;
+              background-color: rgb(250, 251, 255);
+              flex-direction: column;
+              -webkit-box-orient: vertical;
+              -webkit-box-direction: normal;
+              align-items: center;
+              -webkit-box-align: center;
+              .name-circle {
+                color: $hero-dark;
+                width: 48px;
+                height: 48px;
+                display: inline-flex;
+                justify-content: center;
+                -webkit-box-pack: center;
+                position: relative;
+                flex-shrink: 0;
+                box-sizing: border-box;
+                border-top-right-radius: 100%;
+                border-top-left-radius: 100%;
+                border-bottom-right-radius: 100%;
+                border-bottom-left-radius: 100%;
+                background-color: rgb(237, 239, 245);
+                overflow-x: hidden;
+                overflow-y: hidden;
+                span {
+                  display: flex;
+                  position: absolute;
+                  top: 0;
+                  height: 48px;
+                  font-weight: 500;
+                  line-height: 1;
+                  letter-spacing: -0.05px;
+                  -webkit-box-align: center;
+                  align-items: center;
+                  -webkit-box-pack: center;
+                  justify-content: center;
+                }
+              }
+              .name {
+                margin-top: 8px;
+                line-height: 18px;
+                font-size: 1rem;
+                font-weight: 500;
+                text-transform: capitalize;
+                color: rgb(16, 24, 64);
+              }
+              .email {
+                font-size: 0.8rem;
+                word-break: break-word;
+                color: rgb(105, 111, 140);
+              }
+            }
+            a {
+              display: block;
+              width: 100%;
+              clear: both;
+              cursor: pointer;
+              font-size: 15px;
+              color: $nav-link;
+              text-transform: capitalize;
+              padding: 0.57rem 3.6rem;
+              &.profile {
+                background: url(../images/user_profile.svg) no-repeat left 15px top 5px;
+                background-size: 30px;
+                &.active {
+                  background: url(../images/user_profile_selected.svg) no-repeat left 15px top 5px;
+                  background-size: 30px;
+                }
+              }
+              &.licences {
+                background: url(../images/licenses.svg) no-repeat left 15px top 5px;
+                background-size: 30px;
+                &.active {
+                  background: url(../images/licenses_selected.svg) no-repeat left 15px top 5px;
+                  background-size: 30px;
+                }
+              }
+
+              &.favorites {
+                background: url(../images/favourites.svg) no-repeat left 15px top 5px;
+                background-size: 30px;
+                &.active {
+                  background: url(../images/favourites_selected.svg) no-repeat left 15px top 5px;
+                  background-size: 30px;
+                }
+              }
+
+              &.following {
+                background: url(../images/following.svg) no-repeat left 15px top 5px;
+                background-size: 30px;
+                &.active {
+                  background: url(../images/following_selected.svg) no-repeat left 15px top 5px;
+                  background-size: 30px;
+                }
+              }
+              &.logout {
+                background: url(../images/logout.svg) no-repeat left 20px top 7px;
+                background-size: 26px;
+              }
+              &.active {
+                background-color: $green-light;
+              }
+              &:hover:not(.active), &:focus:not(.active) {
+                text-decoration: none;
+                background-color: $green-light;
+                color: $white;
+              }
             }
           }
         }

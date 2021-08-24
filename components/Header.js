@@ -1,6 +1,7 @@
 import Link from "next/link";
-import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import Image from 'next/image'
 import logo from '../images/logo.svg';
 import { useRouter } from "next/router";
@@ -16,6 +17,11 @@ function Header() {
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('user'));
   }, [authState.user])
+
+  const toggleDropdown = (e, path) => {
+    e.preventDefault();
+    router.push(path);
+  }
 
   return (
     <header className="fixed-top">
@@ -53,14 +59,29 @@ function Header() {
                 </>
               }
               {isLoggedIn &&
-                <>
-                  <div className={"nav-link"}>
-                    <a onClick={() => {authActions.userDataStateChanged(null); setIsLoggedIn(false); router.push('/login')}}>logout</a>
+                <NavDropdown title="Account" id="collasible-nav-dropdown" className={"btn nav-link"}>
+                  <div className="info">
+                    <div className="name-circle"><span>HJ</span></div>
+                    <div className="name"><span>Hamza Jabbar</span></div>
+                    <div className="email">hamza.jabbar@square63.com</div>
                   </div>
-                  <div className={"btn nav-link"}>
-                    <Link href="/user/edit">Account</Link>
-                  </div>
-                </>
+                  <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"} onClick={(e) => toggleDropdown(e, "/user/edit")}>
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/licenses" ? "licences active" : "licences"} onClick={(e) => toggleDropdown(e, "/user/licenses")}>
+                    Licenses
+                  </NavDropdown.Item>
+                  <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/favorites" ? "favorites active" : "favorites"} onClick={(e) => toggleDropdown(e, "/user/favorites")}>
+                    Favorites
+                  </NavDropdown.Item>
+                  <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/following" ? "following active" : "following"}  onClick={(e) => toggleDropdown(e, "/user/following")}>
+                    Following
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <a className="logout" onClick={() => {authActions.userDataStateChanged(null); setIsLoggedIn(false); router.push('/login')}}>
+                    logout
+                  </a>
+                </NavDropdown>
               }
             </Nav>
           </Navbar.Collapse>
