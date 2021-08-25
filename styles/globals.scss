@@ -678,6 +678,26 @@ footer {
   @include align-items(center);
 }
 
+/***************** Tooltip style *********************/
+.tooltip > div.tooltip-inner {
+  background-color: $white !important;
+  color: $clr-black !important;
+  border-radius: 8px !important;
+  padding: 5px 10px;
+  box-shadow: 0px 1px 10px #ccc !important;
+}
+.tooltip.bs-tooltip-top > div.arrow::before {
+  border-top-color: $white !important;
+  box-shadow: none !important;
+}
+.tooltip-btn {
+  padding: 0 10px;
+  margin-left: .5rem;
+  color: #fff;
+  border-radius: 2.5rem;
+  font-weight: 600;
+}
+
 /***************** Signup Select style *********************/
 .form-group {
   .content-type-select-header__control, .css-yk16xz-control {
