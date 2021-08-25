@@ -7,8 +7,6 @@ import { Country } from "country-state-city";
 import {useRouter} from "next/router";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
-import info from '../../images/information.svg';
-import Image from 'next/image'
 
 function Edit({countries}) {
   const [selectedCountry, setSelectedCountry] = useState(null);
