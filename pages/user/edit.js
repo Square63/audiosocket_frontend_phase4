@@ -5,6 +5,10 @@ import {useRef, useState} from "react";
 import Select from "react-select";
 import { Country } from "country-state-city";
 import {useRouter} from "next/router";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
+import info from '../../images/information.svg';
+import Image from 'next/image'
 
 function Edit({countries}) {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -168,7 +172,12 @@ function Edit({countries}) {
 
           <div className="col-md-12">
             <div className="elementInline">
-              <Form.Label className="m-0 mr-3">White-listing enabled</Form.Label>
+              <Form.Label className="m-0 mr-3">
+                White-listing enabled
+                <OverlayTrigger overlay={<Tooltip>If you are monetizing your channel, please be sure to enter your YouTube Channel URL so we can Whitelist it. You can add this at any time.</Tooltip>}>
+                  <Button variant="secondary tooltip-btn">i</Button>
+                </OverlayTrigger>
+              </Form.Label>
               <div className="radio">
                 <label htmlFor="account_youtube_monetization_0" className="radio radio-gradient">
                   <span className="radio__input">
