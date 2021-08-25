@@ -130,7 +130,7 @@
 .following,
 .favouritePlaylists {
   .favouriteTabs {
-    margin: 30px 0;
+    margin: 0 0 50px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -227,6 +227,7 @@
 }
 
 .favouritePlaylists {
+  padding: 0 0px 0 60px !important;
   .songsWrapper {
     .songsRow {
       @include flexbox();
@@ -282,8 +283,10 @@
       }
       .songsAction {
         flex: 0 1 30.5%;
+        justify-content: flex-end;
       }
       &.rowHead {
+        border-bottom: 1px solid #e4e3e1;
         .songsData {
           font-size: 12px;
           font-weight: bold;
@@ -294,56 +297,132 @@
         .playSection {
           padding-inline: 7px;
         }
+        .songsAction {
+          text-align: right;
+        }
       }
       &.rowBody {
         border: solid #e4e3e1;
-        border-width: 1px 0;
+        border-width: 0 0 1px;
         padding-block: 5px 7px;
         .songsData {
           @include flexbox();
-          @include justify-content(flex-start);
           @include align-items(center);
           height: 60px;
           font-size: 13px;
           padding-inline: 12px;
-        }
-        .playSection {
-          padding-inline: 7px;
-        }
-        .songsTitle {
-          position: relative;
-          span {
-            font-weight: 600;
-            font-size: 14px;
-            color: #212121;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-transform: capitalize;
-            display: inline-block;
-            width: calc(100% - 25px);
+          &.playSection {
+            padding-inline: 7px;
           }
-          &.featuredItem {
-            &:after {
-              content: '';
-              background: url(../images/featured.svg) no-repeat;
-              background-size: 14px;
-              width: 14px;
-              height: 14px;
+          &.songsTitle {
+            position: relative;
+            .songName {
+              font-weight: 600;
+              font-size: 14px;
+              color: #212121;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-transform: capitalize;
               display: inline-block;
-              position: absolute;
-              right: 10px;
+              width: calc(100% - 25px);
+            }
+            &.featuredItem {
+              &:after {
+                content: '';
+                background: url(../images/featured.svg) no-repeat;
+                background-size: 14px;
+                width: 14px;
+                height: 14px;
+                display: inline-block;
+                position: absolute;
+                right: 10px;
+              }
+            }
+          }
+          &.songsArtist {
+            color: $muted-text;
+            font-size: 13px;
+            text-transform: capitalize;
+            white-space: normal;
+          }
+          &.songsGenres {
+            color: $muted-text;
+            text-transform: capitalize;
+          }
+          &.songsAction {
+            @include justify-content(flex-end);
+            display: inline-flex;
+            .actionBtn {
+              margin-inline: 5px;
+              &.similarSong {
+                background: url(../images/similarSearch.svg) no-repeat center;
+                background-size: 23px;
+                width: 23px;
+                height: 23px;
+                &:hover {
+                  background: url(../images/similarSearchHover.svg) no-repeat center;
+                  background-size: 23px;
+                }
+              }
+              &.addPlaylist {
+                background: url(../images/addPlaylist.svg) no-repeat center;
+                background-size: 23px;
+                width: 23px;
+                height: 23px;
+                &:hover {
+                  background: url(../images/addHover.svg) no-repeat center;
+                  background-size: 23px;
+                }
+              }
+              &.addFavorites {
+                background: url(../images/favorite.svg) no-repeat center;
+                background-size: 23px;
+                width: 23px;
+                height: 23px;
+                &:hover {
+                  background: url(../images/favouritesHover.svg) no-repeat center;
+                  background-size: 23px;
+                }
+              }
+              &.downloadTrack {
+                background: url(../images/download.svg) no-repeat center;
+                background-size: 23px;
+                width: 23px;
+                height: 23px;
+                transition: none;
+                &:hover {
+                  background: url(../images/downloadHover.svg) no-repeat center;
+                  background-size: 23px;
+                }
+              }
+              &.addToCart {
+                background: url(../images/addToCart.svg) no-repeat center;
+                background-size: 23px;
+                width: 23px;
+                height: 23px;
+                transition: none;
+                &:hover {
+                  background: url(../images/addToCartHover.svg) no-repeat center;
+                  background-size: 23px;
+                }
+              }
+              &.shareTrack {
+                background: url(../images/share.svg) no-repeat center;
+                background-size: 19px;
+                width: 23px;
+                height: 28px;
+                transition: none;
+                &:hover {
+                  background: url(../images/shareHover.svg) no-repeat center;
+                  background-size: 19px;
+                  width: 23px;
+                }
+              }
             }
           }
         }
-        .songsArtist {
-          color: $muted-text;
-          font-size: 13px;
-          text-transform: capitalize;
-          white-space: normal;
-        }
-        .songsGenres {
-          color: $muted-text;
-          text-transform: capitalize;
+        &:first-child {
+          border-width: 1px 0;
         }
       }
     }

@@ -177,6 +177,24 @@ ul,ol {
 .input-error {
   color: $red;
 }
+
+/************** Tooltip **************/
+.tooltip {
+  pointer-events: none;
+  .arrow {
+    display: none;
+  }
+  & > .tooltip-inner {
+    border: 1px solid $green-light;
+    background-color: $green-light;
+    border-radius: 30px;
+    text-transform: auto;
+    font-size: 11px;
+    color: $clr-black;
+    padding: 3px 15px;
+  }
+}
+
 /************** Header ***************/
 header {
   background-color: $hero-dark;

@@ -7,6 +7,9 @@ import hiphop from '../../images/hiphop.jpeg';
 import wave from '../../images/sound-wave.png';
 import play from '../../images/playWhite.svg';
 import pause from '../../images/pause.svg';
+import Overlay from 'react-bootstrap/Overlay'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 import {useState} from "react";
 function Favorites() {
   const [type, setType] = useState('songs');
@@ -44,15 +47,37 @@ function Favorites() {
               </span>
             </div>
             <div className={user.songsData+' ' +user.songsTitle+' ' +user.featuredItem}>
-              <span>next generation</span>
+              <a href="" className={user.songName}>next generation</a>
             </div>
-            <div className={user.songsData+' ' +user.songsArtist}>just fiction</div>
+            <div className={user.songsData+' ' +user.songsArtist}>
+              <a href="#">just fiction</a>
+            </div>
             <div className={user.songsData+' ' +user.songsWaveform}>
               <Image src={wave} alt="Sound Wave"/>
             </div>
             <div className={user.songsData+' ' +user.songsGenres}>pop</div>
-            <div className={user.songsData+' ' +user.songsAction}>actions</div>
+            <div className={user.songsData+' ' +user.songsAction}>
+              <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.similarSong}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Playlist</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addPlaylist}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Favorites</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addFavorites}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Download Track</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.downloadTrack}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Cart</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addToCart}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Share track</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.shareTrack}></a>
+              </OverlayTrigger>
+            </div>
           </div>
+
           <div className={user.songsRow+' ' +user.rowBody}>
             <div className={user.songsData+' ' +user.playSection}>
               <span className={user.playbtn}>
@@ -63,15 +88,78 @@ function Favorites() {
               </span>
             </div>
             <div className={user.songsData+' ' +user.songsTitle+' ' +user.featuredItem}>
-              <span>next generation</span>
+              <a href="" className={user.songName}>next generation</a>
             </div>
-            <div className={user.songsData+' ' +user.songsArtist}>just fiction</div>
+            <div className={user.songsData+' ' +user.songsArtist}>
+              <a href="#">just fiction</a>
+            </div>
             <div className={user.songsData+' ' +user.songsWaveform}>
               <Image src={wave} alt="Sound Wave"/>
             </div>
             <div className={user.songsData+' ' +user.songsGenres}>pop</div>
-            <div className={user.songsData+' ' +user.songsAction}>actions</div>
+            <div className={user.songsData+' ' +user.songsAction}>
+              <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.similarSong}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Playlist</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addPlaylist}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Favorites</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addFavorites}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Download Track</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.downloadTrack}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Cart</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addToCart}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Share track</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.shareTrack}></a>
+              </OverlayTrigger>
+            </div>
           </div>
+
+          <div className={user.songsRow+' ' +user.rowBody}>
+            <div className={user.songsData+' ' +user.playSection}>
+              <span className={user.playbtn}>
+                <div className={user.imgwrapper}>
+                  <Image src={play} className={user.playIcon} alt="Play Icon"/>
+                  {/* <Image src={pause} className={user.pauseIcon} alt="Pause Icon"/> */}
+                </div>
+              </span>
+            </div>
+            <div className={user.songsData+' ' +user.songsTitle+' ' +user.featuredItem}>
+              <a href="" className={user.songName}>next generation</a>
+            </div>
+            <div className={user.songsData+' ' +user.songsArtist}>
+              <a href="#">just fiction</a>
+            </div>
+            <div className={user.songsData+' ' +user.songsWaveform}>
+              <Image src={wave} alt="Sound Wave"/>
+            </div>
+            <div className={user.songsData+' ' +user.songsGenres}>pop</div>
+            <div className={user.songsData+' ' +user.songsAction}>
+              <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.similarSong}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Playlist</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addPlaylist}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Favorites</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addFavorites}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Download Track</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.downloadTrack}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Add to Cart</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.addToCart}></a>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip>Share track</Tooltip>}>
+                <a href="" className={user.actionBtn+' ' +user.shareTrack}></a>
+              </OverlayTrigger>
+            </div>
+          </div>
+          
         </div>
         :
         <div className={user.followingWrapper}>
