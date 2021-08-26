@@ -254,6 +254,7 @@ header {
             top: 64px;
             right: 0;
             left: inherit;
+            box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.5);
 
             &:before {
               position: absolute;
