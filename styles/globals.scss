@@ -228,11 +228,12 @@ header {
         &.btn {
           > a {
             color: #1A1A18;
+            font-size: 14px;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: -0.05px;
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #888888;
             @include flexbox;
             @include justify-content(center);
             @include align-items(center);
@@ -250,10 +251,15 @@ header {
           }
           .dropdown-menu {
             width: 15rem;
+            top: 64px;
+            right: 0;
+            left: inherit;
+
             &:before {
               position: absolute;
               top: -8px;
-              left: 30px;
+              left: inherit;
+              right: 18px;
               display: inline-block;
               border-right: 8px solid transparent;
               border-bottom: 8px solid #fff;
