@@ -59,7 +59,7 @@ function Header() {
                 </>
               }
               {isLoggedIn &&
-                <NavDropdown title="Account" id="collasible-nav-dropdown" className={"btn nav-link"}>
+                <NavDropdown title="HJ" id="collasible-nav-dropdown" className={"btn nav-link"}>
                   <div className="info">
                     <div className="name-circle"><span>HJ</span></div>
                     <div className="name"><span>Hamza Jabbar</span></div>
