@@ -187,12 +187,19 @@ ul,ol {
   & > .tooltip-inner {
     border: 1px solid $green-light;
     background-color: $green-light;
-    border-radius: 30px;
-    text-transform: auto;
-    font-size: 11px;
+    border-radius: 8px;
+    text-transform: inherit;
+    font-size: 12px;
     color: $clr-black;
-    padding: 3px 15px;
+    padding: 3px 10px;
   }
+}
+.tooltip-btn {
+  padding: 0 10px;
+  margin-left: .5rem;
+  color: #fff;
+  border-radius: 2.5rem;
+  font-weight: 600;
 }
 
 /************** Header ***************/
@@ -226,6 +233,14 @@ header {
           }
         }
         &.btn {
+          &::after {
+            content: '';
+            background: url(../images/caret-down.svg) no-repeat right 8px top 18px;
+            background-size: 10px;
+            width: 20px;
+            display: inline-block;
+            margin-left: .255em;
+          }
           > a {
             color: #1A1A18;
             font-size: 14px;
@@ -233,16 +248,18 @@ header {
             text-transform: uppercase;
             width: 40px;
             height: 40px;
-            border: 3px solid #888888;
             @include flexbox;
             @include justify-content(center);
             @include align-items(center);
             position: relative;
             flex-shrink: 0;
             border-radius: 100px;
-            background-color: #edeff5;
+            background-color: $clr-green-bright;
             overflow-x: hidden;
             overflow-y: hidden;
+            &:hover {
+              background-color: $green-light;
+            }
           }
           .dropdown-toggle {
             &::after {
@@ -260,7 +277,7 @@ header {
               position: absolute;
               top: -8px;
               left: inherit;
-              right: 18px;
+              right: 42px;
               display: inline-block;
               border-right: 8px solid transparent;
               border-bottom: 8px solid #fff;
@@ -337,7 +354,7 @@ header {
               &.profile {
                 background: url(../images/user_profile.svg) no-repeat left 15px top 5px;
                 background-size: 30px;
-                &.active {
+                &.active:not(:hover) {
                   background: url(../images/user_profile_selected.svg) no-repeat left 15px top 5px;
                   background-size: 30px;
                 }
@@ -345,7 +362,7 @@ header {
               &.licences {
                 background: url(../images/licenses.svg) no-repeat left 15px top 5px;
                 background-size: 30px;
-                &.active {
+                &.active:not(:hover) {
                   background: url(../images/licenses_selected.svg) no-repeat left 15px top 5px;
                   background-size: 30px;
                 }
@@ -354,7 +371,7 @@ header {
               &.favorites {
                 background: url(../images/favourites.svg) no-repeat left 15px top 5px;
                 background-size: 30px;
-                &.active {
+                &.active:not(:hover) {
                   background: url(../images/favourites_selected.svg) no-repeat left 15px top 5px;
                   background-size: 30px;
                 }
@@ -363,19 +380,19 @@ header {
               &.following {
                 background: url(../images/following.svg) no-repeat left 15px top 5px;
                 background-size: 30px;
-                &.active {
+                &.active:not(:hover) {
                   background: url(../images/following_selected.svg) no-repeat left 15px top 5px;
                   background-size: 30px;
                 }
               }
               &.logout {
-                background: url(../images/logout.svg) no-repeat left 20px top 7px;
-                background-size: 26px;
+                background: url(../images/logout.png) no-repeat left 20px top 8px;
+                background-size: 24px;
               }
               &.active {
                 background-color: $green-light;
               }
-              &:hover:not(.active), &:focus:not(.active) {
+              &:hover, &:focus {
                 text-decoration: none;
                 background-color: $green-light;
                 color: $white;
