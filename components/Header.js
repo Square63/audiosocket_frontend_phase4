@@ -48,40 +48,40 @@ function Header() {
               <div className={router.pathname.toLowerCase() === "/pricing" ? "nav-link active" : "nav-link"}>
                 <Link href="/pricing">Pricing</Link>
               </div>
-              {!isLoggedIn &&
-                <>
-                  <div className={router.pathname.toLowerCase() === "/login" ? "nav-link active" : "nav-link"}>
-                    <Link href="/login">Sign In</Link>
-                  </div>
-                  <div className={router.pathname.toLowerCase() === "/signup" ? "btn nav-link active" : "btn nav-link"}>
-                    <Link href="/signup">Sign Up</Link>
-                  </div>
-                </>
-              }
-              {isLoggedIn &&
-                <NavDropdown title="HJ" id="collasible-nav-dropdown" className={"btn nav-link"}>
-                  <div className="info">
-                    <div className="name-circle"><span>HJ</span></div>
-                    <div className="name"><span>Hamza Jabbar</span></div>
-                    <div className="email">hamza.jabbar@square63.com</div>
-                  </div>
-                  <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"} onClick={(e) => toggleDropdown(e, "/user/edit")}>
-                    Profile
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/licenses" ? "licences active" : "licences"} onClick={(e) => toggleDropdown(e, "/user/licenses")}>
-                    Licenses
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/favorites" ? "favorites active" : "favorites"} onClick={(e) => toggleDropdown(e, "/user/favorites")}>
-                    Favorites
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/following" ? "following active" : "following"}  onClick={(e) => toggleDropdown(e, "/user/following")}>
-                    Following
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <a className="logout" onClick={() => {authActions.userDataStateChanged(null); setIsLoggedIn(false); router.push('/login')}}>
-                    logout
-                  </a>
-                </NavDropdown>
+              {!isLoggedIn
+                ?
+                  <>
+                    <div className={router.pathname.toLowerCase() === "/login" ? "nav-link active" : "nav-link"}>
+                      <Link href="/login">Sign In</Link>
+                    </div>
+                    <div className={router.pathname.toLowerCase() === "/signup" ? "btn nav-link active" : "btn nav-link"}>
+                      <Link href="/signup">Sign Up</Link>
+                    </div>
+                  </>
+                :
+                  <NavDropdown title="HJ" id="collasible-nav-dropdown" className={"btn btn-account nav-link"}>
+                    <div className="info">
+                      <div className="name-circle"><span>HJ</span></div>
+                      <div className="name"><span>Hamza Jabbar</span></div>
+                      <div className="email">hamza.jabbar@square63.com</div>
+                    </div>
+                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"} onClick={(e) => toggleDropdown(e, "/user/edit")}>
+                      Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/licenses" ? "licences active" : "licences"} onClick={(e) => toggleDropdown(e, "/user/licenses")}>
+                      Licenses
+                    </NavDropdown.Item>
+                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/favorites" ? "favorites active" : "favorites"} onClick={(e) => toggleDropdown(e, "/user/favorites")}>
+                      Favorites
+                    </NavDropdown.Item>
+                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/following" ? "following active" : "following"}  onClick={(e) => toggleDropdown(e, "/user/following")}>
+                      Following
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <a className="logout" onClick={() => {authActions.userDataStateChanged(null); setIsLoggedIn(false); router.push('/login')}}>
+                      logout
+                    </a>
+                  </NavDropdown>
               }
             </Nav>
           </Navbar.Collapse>

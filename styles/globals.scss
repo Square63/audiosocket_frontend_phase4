@@ -233,6 +233,18 @@ header {
           }
         }
         &.btn {
+          a {
+            padding: 7px 20px;
+            border-radius: 2.5rem;
+            color: $hero-dark;
+            background-color: $green-light;
+            &:hover {
+              color: $hero-dark;
+              background-color: $white;
+            }
+          }
+        }
+        &.btn-account {
           &::after {
             content: '';
             background: url(../images/caret-down.svg) no-repeat right 8px top 18px;
@@ -396,6 +408,7 @@ header {
                 text-decoration: none;
                 background-color: $green-light;
                 color: $white;
+                border-radius: 0;
               }
             }
           }
