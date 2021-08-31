@@ -1,9 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import Image from 'next/Image';
-import PlayIcon from '../images/play.svg';
-import PauseIcon from '../images/pause.svg';
-import Forward from '../images/forward.svg';
-import Backward from '../images/backward.svg';
+// import PlayIcon from '../images/play.svg';
+// import PauseIcon from '../images/pause.svg';
+// import Forward from '../images/forward.svg';
+// import Backward from '../images/backward.svg';
+import PlayIcon from '../images/playWhite.svg';
+import PauseIcon from '../images/pauseWhite.svg';
+import Forward from '../images/forwardWhite.svg';
+import Backward from '../images/backwardWhite.svg';
 import VolumeUp from '../images/volume-up.svg';
 import VolumeDown from '../images/volume-down.svg';
 
@@ -147,6 +151,8 @@ function MusicPlayer() {
   }
 
   return (
+    <>
+    <div className="musicplayerDemo">
     <div className="player">
       <div className="details">
         <div ref={refNowPlaying} className="now-playing">PLAYING x OF y</div>
@@ -170,6 +176,29 @@ function MusicPlayer() {
         <Image className="volume-up" src={VolumeUp} alt="up" />
       </div>
     </div>
+    </div>
+    <div className="auMusicPlayer">
+      <div className="custom-container">
+        <div className="player musicPlayerInner">
+          <div className="buttons">
+            <div ref={refPrevBtn} className="prev-track" onClick={prevTrack}><Image src={Backward} alt="prev" /></div>
+            <div ref={refPlayPauseBtn} className="playpause-track" onClick={playpauseTrack}><Image src={!isPlaying ? PlayIcon : PauseIcon} alt="play" /></div>
+            <div ref={refNextBtn} className="next-track" onClick={nextTrack}><Image src={Forward} alt="next" /></div>
+          </div>
+          <div className="slider_container playbackTimeline">
+            <div ref={refCurrentTime} className="current-time">00:00</div>
+            <input ref={refSeekSlider} type="range" min="1" max="100" defaultValue="0" className="seek_slider" onChange={seekTo} />
+            <div ref={refTotalDuration} className="total-duration">00:00</div>
+          </div>
+          <div className="slider_container volumeTimeline">
+            <Image className="volume-down" src={VolumeDown} alt="down" />
+            <input ref={refVolumeSlider} type="range" min="1" max="100" defaultValue="99" className="volume_slider" onChange={setVolume} />
+            <Image className="volume-up" src={VolumeUp} alt="up" />
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
   );
 }
 

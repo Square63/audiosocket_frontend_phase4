@@ -916,14 +916,14 @@ footer {
   }
 }
 /**************** Music Player ************************/
+.musicplayerDemo {
 .player {
-  height: 50vh;
+  height: 500px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   background-color: #252525;
-  margin-bottom: 50px;
 }
 
 .details {
@@ -1034,3 +1034,103 @@ footer {
 i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
   cursor: pointer;
 }
+}
+
+/********************** Audio Socket Music Player **********************/
+.auMusicPlayer {
+  background-color: #f2f2f2;
+  border-top: 1px solid #717171;
+  height: 73px;
+  position: sticky;
+  bottom: 0;
+  z-index: 99999;
+  box-shadow: 0 -1px 9px -4px #eeeeee;
+  .custom-container {
+    height: inherit;
+  }
+  .musicPlayerInner {
+    height: inherit;
+    @include flexbox();
+    @include justify-content(flex-start);
+    @include align-items(center);
+    padding: 0 1rem;
+    .buttons {
+      height: inherit;
+      display: grid;
+      grid-template-columns: 25px 25px 25px;
+      @include align-items(center);
+      gap: 35px;
+      .prev-track, 
+      .playpause-track, 
+      .next-track {
+        width: 21px;
+        height: 21px;
+        opacity: 0.7;
+        filter: invert(1);
+        transition: all 0.15s ease-in-out;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    .playbackTimeline {
+      @include flex(1);
+      @include flexbox();
+      @include align-items(center);
+      margin-inline: 35px;
+      input[type="range"] {
+        width: 100%;
+        margin-inline: 20px;
+      }
+      .current-time,
+      .total-duration {
+        color: $clr-black;
+      }
+    }
+
+    .volumeTimeline {
+      @include flexbox();
+      @include align-items(center);
+      input[type="range"] {
+        margin: 0 15px 0 10px;
+      }
+      img {
+        width: 21px;
+        opacity: 0.7;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    /* Modify the appearance of the slider */
+    .seek_slider, .volume_slider {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      height: 1px;
+      background: black;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    /* Modify the appearance of the slider thumb */
+    .seek_slider::-webkit-slider-thumb, .volume_slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background: black;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .seek_slider:hover, .volume_slider:hover {
+      opacity: 1.0;
+    }
+  }
+}
+
