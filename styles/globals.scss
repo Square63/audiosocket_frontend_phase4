@@ -1094,6 +1094,7 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
       input[type="range"] {
         width: 100%;
         margin-inline: 20px;
+        accent-color: red;
       }
       .current-time,
       .total-duration {
@@ -1106,6 +1107,7 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
       @include align-items(center);
       input[type="range"] {
         margin: 0 15px 0 10px;
+        width: 120px;
       }
       img {
         width: 21px;
@@ -1154,10 +1156,73 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
 
       .track-art {
         margin: 10px;
-        height: 40px;
-        width: 40px;
+        height: 50px;
+        width: 50px;
         background-image: url("https://images.pexels.com/photos/262034/pexels-photo-262034.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
         background-size: cover;
+        border-radius: 3px;
+      }
+      .trackstats {
+        font-weight: 600;
+        cursor: pointer;
+        .track-name {
+          color: #999999;
+          @include transition(all 0.2s ease-in-out);
+          &:hover {
+            color: $clr-black;
+          }
+        }
+        .track-artist {
+          color: #666666;
+          
+          @include transition(all 0.2s ease-in-out);
+          &:hover {
+            color: $clr-black;
+          }
+        }
+        .track-name,
+        .track-artist {
+          width: 120px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+    .playerActions {
+      @include flexbox;
+      @include justify-content(flex-start);
+      @include align-items(center);
+      margin-bottom: 0;
+      gap: 30px;
+      li {
+        @include flexbox;
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        cursor: pointer;
+        white-space: nowrap;
+        svg {
+          margin-bottom: 5px;
+          fill: $clr-black;
+          color: $clr-black;
+          opacity: 0.6;
+          @include transition(all 0.2s ease-in-out);
+        }
+        span {
+          font-size: 12px;
+          text-transform: capitalize;
+          font-weight: 500;
+          color: $clr-black;
+          opacity: 0.85;
+          @include transition(all 0.2s ease-in-out);
+        }
+        &:hover {
+          svg,
+          span {
+            opacity: 1;
+          }
+        }
       }
     }
   }
