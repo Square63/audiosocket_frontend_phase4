@@ -195,6 +195,13 @@ function MusicPlayer() {
             <input ref={refVolumeSlider} type="range" min="1" max="100" defaultValue="99" className="volume_slider" onChange={setVolume} />
             <Image className="volume-up" src={VolumeUp} alt="up" />
           </div>
+          <div className="trackDetails">
+            <div ref={refTrackArt} className="track-art"></div>
+            <div className="trackstats">
+              <div ref={refTrackName} className="track-name">Track Name</div>
+              <div ref={refTrackArtist} className="track-artist">Track Artist</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

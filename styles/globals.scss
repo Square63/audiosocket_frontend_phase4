@@ -1144,6 +1144,22 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
     .seek_slider:hover, .volume_slider:hover {
       opacity: 1.0;
     }
+
+    .trackDetails {
+      @include flexbox;
+      @include justify-content(flex-start);
+      @include align-items(center);
+      @include flex-direction(row);
+      margin-inline: 35px;
+
+      .track-art {
+        margin: 10px;
+        height: 40px;
+        width: 40px;
+        background-image: url("https://images.pexels.com/photos/262034/pexels-photo-262034.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+        background-size: cover;
+      }
+    }
   }
 }
 
