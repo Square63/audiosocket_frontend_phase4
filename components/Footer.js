@@ -9,7 +9,7 @@ function Footer() {
   return (
     <>
       <footer>
-        <div className="custom-container">
+        <div className="fixed-container">
           <div className="row">
             <div className="footer-logo col-md-4">
               <Image loader={LoaderImage} src={logo} alt="LOGO" className="logo-icon"/>
@@ -63,7 +63,6 @@ function Footer() {
           </div>
         </div>
       </footer>
-      <MusicPlayer />
     </>
   );
  }

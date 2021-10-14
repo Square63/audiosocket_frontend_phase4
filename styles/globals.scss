@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap');
+@import url('https://use.typekit.net/njq2ndz.css');
 @import './variables-mixins.scss';
 
 /*************** Global Styling ************/
@@ -12,8 +12,9 @@ html, body {
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'apertura', sans-serif;
   font-weight: 400;
+  font-style: normal;
   font-size: 14px;
   height: inherit;
 }
@@ -33,11 +34,16 @@ a {
 ul,ol {
   list-style: none;
 }
-
-.custom-container {
+.custom-container,
+.fixed-container {
   max-width: 1920px;
   width: 85%;
   margin: 0 auto;
+}
+.fixed-container {
+  max-width: 1120px;
+  width: 100%;
+  padding: 0 20px;
 }
 
 #__next {
@@ -46,7 +52,7 @@ ul,ol {
   min-height: inherit;
   .content-area {
     flex: 1;
-    padding: 70px 15px 0;
+    padding: 55px 0 0;
   }
 }
 /************** Button ************/
@@ -204,9 +210,10 @@ ul,ol {
 
 /************** Header ***************/
 header {
-  background-color: $hero-dark;
+  background-color: $headerColor;
   .custom-nav {
-    min-height: 70px;
+    min-height: 55px;
+    padding: 3px 0;
     .navbar-brand {
       display: flex;
       align-items: center;
@@ -222,20 +229,27 @@ header {
       @include align-items(center);
       .nav-link {
         display: inherit;
+        padding-inline: 15px;
         a {
           cursor: pointer;
-          font-size: 15px;
+          font-size: 16px;
           color: $nav-link;
-          text-transform: capitalize;
-          padding: .5rem 1rem;
+          text-transform: initial;
+          font-weight: 500;
+          font-style: normal;
+          letter-spacing: -0.32px;
+          line-height: 19px;
           &:hover {
             color: $white;
           }
         }
         &.btn {
           a {
-            padding: 7px 20px;
+            padding: 7px 15px;
             border-radius: 2.5rem;
+            font-size: 14px;
+            line-height: 1.21;
+            letter-spacing: 0.28px;
             color: $hero-dark;
             background-color: $green-light;
             &:hover {
@@ -1227,4 +1241,369 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
     }
   }
 }
+/******************** Home page styling *******************/
+.heroSection {
+  background: url('../images/homeBg2.png') no-repeat $hero-dark;
+  background-size: cover;
+  overflow: hidden;
+  min-height: 700px;
+  height: 45vw;
+  max-height: 850px;
+  background-position: center bottom;
+  background-color: #1B1D1D;
+  .heroContent {
+    padding-block: 120px 80px;
+    height: 100%;
+    @include flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+    h1 {
+      font-size: 64px;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: normal;
+      text-align: left;
+      color: $white;
+    }
+    p {
+      max-width: 585px;
+      width: 100%;
+      font-size: 22px;
+      line-height: 1.18;
+      letter-spacing: -0.55px;
+      text-align: left;
+      color: $textClr;
+      margin-bottom: 65px;
+    }
+    .heroForm {
+      position: relative;
+      max-width: 580px;
+      width: 100%;
+      .form-control {
+        background-color: $white;
+        border-radius: 30px;
+        height: 44px;
+        font-size: 16px;
+        line-height: 1.19;
+        letter-spacing: -0.4px;
+        color: $textClr;
+        padding-inline: 20px 6.4vw;
+      }
+      .stickyBtn {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+    .brandsStrip {
+      @include flexbox;
+      @include justify-content(space-between);
+      @include align-items(baseline);
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-top: 10em;
+    }
+  }
+}
 
+section {
+  h2 {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.19;
+    letter-spacing: -0.9px;
+    text-align: center;
+    color: $white;
+  }
+}
+
+/***************** How to use ****************/
+.howToUse {
+  background-color: $headerColor;
+  padding-block: 77px 89px;
+  h2 {
+    color: $white;
+    margin-bottom: 60px;
+  }
+  .tabsContainer {
+    position: relative;
+    padding: 65px 0;
+    .tabs {
+      @include flexbox;
+      @include justify-content(flex-start);
+      .tab {
+        @include flexbox;
+        @include justify-content(flex-start);
+        @include align-items(center);
+        padding: 30px 15px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-inline: 0;
+        max-width: 36%;
+        width: 100%;
+        will-change: background-color , color;
+        @include transition(all 0.25s ease-in-out);
+        .tabImg {
+          margin-right: 15px;
+          svg {
+            width: 32px;
+            height: auto;
+            @include transition(all 0.25s ease-in-out);
+            path, line {
+              stroke: $green-light;
+            }
+          }
+        }
+        .tabHeading {
+          color: $textClr;
+          user-select: none;
+          h3 {
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 1.18;
+            letter-spacing: -0.55px;
+            text-align: left;
+            @include transition(all 0.25s ease-in-out);
+          }
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.21;
+            letter-spacing: -0.35px;
+            text-align: left;
+            margin: 0;
+          }
+        }
+        &:hover,
+        &.tabSelected {
+          background-color: $hoverBG;
+          border-color: $hoverBG;
+          .tabImg {
+            svg {
+              path, line {
+                stroke: $white;
+              }
+            }
+          }
+          .tabHeading {
+            h3 {
+              color: $white;
+            }
+          }
+        }
+      }
+      &:last-child {
+        .tab {
+          border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+      }
+      .tabsContent {
+        color: #fff;
+        flex: 1;
+        padding: 40px 88px 40px 88px;
+        border-radius: 20px;
+        background-image: linear-gradient(168deg, #3f4348 8%, #313438 66%);
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: calc(100% - 36%);
+        @include transition(all 0.3s ease-in-out);
+      }
+      .tab.tabSelected {
+        & + .tabsContent {
+          opacity: 1;
+          z-index: 99;
+        }
+      }
+    }
+  }
+}
+
+/******************* Pricing ****************/
+.pricing {
+  background: url('../images/homeBg2.png') no-repeat $headerColor;
+  background-size: cover;
+  padding-block: 90px;
+  position: relative;
+
+  h2 {
+    margin-bottom: 60px;
+  }
+}
+
+/******************** Buttons ********************/
+.btnMainLarge,
+.btnMainSmall {
+  height: 44px;
+  padding: 12px 26px 13px;
+  border-radius: 29px;
+  background-color: $green-light;
+  font-size: 16px;
+  font-weight: 500;
+  color: $headerColor;
+  white-space: nowrap;
+  line-height: 0.64;
+  @include transition(all 0.3s ease-in-out);
+  &:hover,
+  &:focus {
+    opacity: 0.85;
+  }
+}
+
+.btnMainSmall {
+  height: 34px;
+  padding: 10px 20px 8px 18px;
+  font-size: 14px;
+}
+/******************** Responsive Behaviour *****************/
+@media #{$mid-point-tablet} {
+  .heroSection {
+    min-height: 600px;
+    .heroContent {
+      padding-block: 50px 30px;
+      h1 {
+        font-size: 48px;
+      }
+      p {
+        font-size: 18px;
+        line-height: 1.4;
+        margin-bottom: 45px;
+      }
+      .brandsStrip {
+        margin-top: 7em;
+        gap: 20px;
+        @include justify-content(center);
+
+      }
+    }
+  }
+}
+@media #{$phone-landscape} {
+  header {
+    .custom-nav {
+      min-height: 58px;
+      padding: 7px 0 7px;
+      .navbar-brand {
+        width: 160px;
+        img {
+          margin: 0 !important;
+          &.logo-icon {
+            min-width: 160px !important;
+            max-width: 160px !important;
+          }
+        }
+      }
+      .navbar-collapse {
+        .navbar-nav {
+          position: fixed;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          background-color: $hero-dark;
+          @include flexbox;
+          @include justify-content(center);
+          @include align-items(center);
+          opacity: 0;
+          z-index: -1;
+          will-change: z-index, opacity;
+          transition: all 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+          .closeConditional {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            .navbar-toggler-icon {
+              background: url('../images/closeConditional.svg') no-repeat center transparent;
+            }
+          }
+        }
+        &.show {
+          .navbar-nav {
+            opacity: 1;
+            z-index: 1100;
+          }
+        }
+      }
+      .navbar-toggler {
+        border: none;
+        padding: 0;
+        .navbar-toggler-icon {
+          background: url('../images/burgerIcon.svg') no-repeat center;
+        }
+      }
+    }
+  }
+}
+
+@media #{$phone-portrait} {
+  header {
+    .custom-nav {
+      min-height: 58px;
+      padding: 12px 0 12px;
+      .navbar-brand {
+        width: 115px;
+        img {
+          margin: 0 !important;
+          &.logo-icon {
+            min-width: 115px !important;
+            max-width: 115px !important;
+          }
+        }
+      }
+      .navbar-toggler {
+        .navbar-toggler-icon {
+          background-size: 26px;
+          width: 26px;
+        }
+      }
+    }
+  }
+
+  .heroSection {
+    min-height: 527px;
+    .heroContent {
+      padding-block: 50px 30px;
+      h1 {
+        font-size: 32px;
+        width: 80%;
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 18px;
+        line-height: 1.4;
+        margin-bottom: 33px;
+      }
+      .heroForm {
+        .form-control {
+          height: 32px;
+          font-size: 13px;
+          padding-inline: 10px; 
+        }
+        .stickyBtn {
+          position: absolute;
+          top: 42px;
+          height: 30px;
+          font-size: 14px;
+          padding: 8px 16px;
+        }
+      }
+      .brandsStrip {
+        margin-top: 7em;
+        gap: 10px;
+        @include justify-content(center);
+        & > div {
+          width: 20vw;
+          height: 35px;
+          margin-bottom: 15px !important;
+          .heroBrand {
+            object-fit: scale-down;
+          }
+          &:nth-child(2) {
+            width: 30vw;
+          }
+        }
+      }
+    }
+  }
+}
