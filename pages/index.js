@@ -9,12 +9,23 @@ import mailchimp from '../images/mailchimp.svg';
 import nbc from '../images/NBC.svg';
 import netflix from '../images/netflix.svg';
 import vice from '../images/vice.svg';
+import Carousel from 'react-elastic-carousel';
+import Item from "./Item";
 
 import { useRouter } from "next/router";
 import {useContext, useEffect, useState} from "react";
 import styles from '../styles/Home.module.scss';
 
+const breakPoints = [
+  { width: 1, itemsToShow: 2 },
+  { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+  { width: 768, itemsToShow: 3 },
+  { width: 1200, itemsToShow: 4 }
+];
+
 export default function Home() {
+  const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
+
   return (
     <div>
       <Head>
@@ -193,6 +204,13 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <div className="carousel-wrapper">
+          <Carousel breakPoints={breakPoints}>
+            {items.map((item) => (
+              <Item key={item}>{item}</Item>
+            ))}
+          </Carousel>
+        </div>
     </div>
   )
 }
