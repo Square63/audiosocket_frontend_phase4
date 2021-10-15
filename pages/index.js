@@ -11,6 +11,11 @@ import netflix from '../images/netflix.svg';
 import vice from '../images/vice.svg';
 import Carousel from 'react-elastic-carousel';
 import Item from "./Item";
+import Sample1 from '../images/sample1.jpeg'
+import Sample2 from '../images/sample2.jpeg'
+import Sample3 from '../images/sample3.jpeg'
+// import Slider from "react-slick";
+import $ from 'jquery';
 
 import { useRouter } from "next/router";
 import {useContext, useEffect, useState} from "react";
@@ -23,15 +28,27 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4 }
 ];
 
+function toggleClass(e) {
+  $('.tab').each(function(i, obj) {
+    obj.classList.remove('tabSelected')
+  });
+  e.currentTarget.classList.add("tabSelected");
+  var tabSelectedHeight = e.currentTarget.nextElementSibling.children[0].clientHeight + 80
+  debugger
+  tabSelectedHeight = tabSelectedHeight <= 697 ? 'auto' : tabSelectedHeight
+  e.currentTarget.parentElement.parentElement.style.height = tabSelectedHeight == 'auto'? 'auto' : tabSelectedHeight.toString() + 'px'
+};
+
 export default function Home() {
   const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
-
+    
   return (
     <div>
       <Head>
         <title>Audiosocket</title>
         <meta name="description" content="Audiosocket" />
         <link rel="icon" href="/favicon.ico" />
+        
       </Head>
 
       <main className={styles.main}>
@@ -61,7 +78,7 @@ export default function Home() {
             <h2>Learn how to use our search tools to find tracks quickly.</h2>
             <div className="tabsContainer">
               <div className="tabs">
-                <div className="tab tabSelected">
+                <div className="tab" onClick={toggleClass}>
                   <div className="tabImg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="37.035" height="38.927" viewBox="0 0 37.035 38.927">
                       <g id="Group_212" data-name="Group 212" transform="translate(1.035 1)">
@@ -81,12 +98,19 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="tabsContent">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                  <div className="tabsInnerContent">
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                    
+                  </div>
                 </div>
               </div>
 
               <div className="tabs">
-                <div className="tab">
+                <div className="tab" onClick={toggleClass}>
                 <div className="tabImg">
                   <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37">
                     <g id="Icon_-_Playlist" data-name="Icon - Playlist" transform="translate(1 1)">
@@ -107,11 +131,15 @@ export default function Home() {
                   <p>Find inspiration using our professionally curated playlists &amp; creators kits.</p>
                 </div>
                 </div>
-                <div className="tabsContent"></div>
+                <div className="tabsContent">
+                  <div className="tabsInnerContent">
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                  </div>
+                </div>
               </div>
 
               <div className="tabs">
-                <div className="tab">
+                <div className="tab" onClick={toggleClass}>
                   <div className="tabImg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="37.003" height="37.003" viewBox="0 0 37.003 37.003">
                       <g id="Group_153" data-name="Group 153" transform="translate(1 1)">
@@ -131,11 +159,15 @@ export default function Home() {
                     <p>Upload your own track to find similar tracks.</p>
                   </div>
                 </div>
-                <div className="tabsContent"></div>
+                <div className="tabsContent">
+                  <div className="tabsInnerContent">
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                  </div>
+                </div>
               </div>
 
               <div className="tabs">
-                <div className="tab">
+                <div className="tab" onClick={toggleClass}>
                   <div className="tabImg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35.915" height="39.987" viewBox="0 0 35.915 39.987">
                       <g id="Icon_-_Link" data-name="Icon - Link" transform="translate(0.993 0.993)">
@@ -163,11 +195,15 @@ export default function Home() {
                     <p>Use a YouTube URL or Spotify Song link to find similar tracks.</p>
                   </div>
                 </div>
-                <div className="tabsContent"></div>
+                <div className="tabsContent">
+                  <div className="tabsInnerContent">
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                  </div>
+                </div>
               </div>
 
               <div className="tabs">
-                <div className="tab">
+                <div className="tab" onClick={toggleClass}>
                   <div className="tabImg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="37.411" height="37.41" viewBox="0 0 37.411 37.41">
                       <g id="Icon_-_Mag-note" data-name="Icon - Mag-note" transform="translate(1 1)">
@@ -187,7 +223,11 @@ export default function Home() {
                     <p>Search by the type of project you’re working on to find recommendations.</p>
                   </div>
                 </div>
-                <div className="tabsContent"></div>
+                <div className="tabsContent">
+                  <div className="tabsInnerContent">
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.3
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -205,12 +245,13 @@ export default function Home() {
         </section>
       </main>
       <div className="carousel-wrapper">
-          <Carousel breakPoints={breakPoints}>
-            {items.map((item) => (
-              <Item key={item}>{item}</Item>
-            ))}
-          </Carousel>
-        </div>
+        <Carousel breakPoints={breakPoints}>
+          {items.map((item) => (
+            <Item key={item}>{item}</Item>
+          ))}
+        </Carousel>
+      </div>
+      
     </div>
   )
 }
