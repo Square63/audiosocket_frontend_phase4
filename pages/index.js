@@ -11,9 +11,9 @@ import netflix from '../images/netflix.svg';
 import vice from '../images/vice.svg';
 import Carousel from 'react-elastic-carousel';
 import Item from "./Item";
-import Sample1 from '../images/sample1.jpeg'
-import Sample2 from '../images/sample2.jpeg'
-import Sample3 from '../images/sample3.jpeg'
+// import Sample1 from '../images/sample1.jpeg'
+// import Sample2 from '../images/sample2.jpeg'
+// import Sample3 from '../images/sample3.jpeg'
 // import Slider from "react-slick";
 import $ from 'jquery';
 
@@ -233,12 +233,60 @@ export default function Home() {
           </div>
         </section>
 
+        <section class="testimonial">
+          
+        </section>
+
         <section className="pricing">
           <div className="bgWave">
             <div className="fixed-container">
               <h2>Priced to fit your needs.</h2>
               <div className="pricingPlans">
-                <div className=""></div>
+                <div className="plan personal">
+                  <h4 className="planHeading">personal</h4>
+                  <div className="planPrice">
+                    <p className="planPriceText">Plans starting at</p>
+                    <p className="planPriceAmount"><span>$10</span>&nbsp;/Month</p>
+                  </div>
+                  <p className="planDescription">
+                    Perfect if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.
+                  </p>
+                  <div className="PlanBtnContainer">
+                    <a href="" className="btn btnMainLarge">Learn More</a>
+                  </div>
+                </div>
+
+                <div className="plan commercial">
+                  <h4 className="planHeading">commercial</h4>
+                  <div className="planPrice">
+                    <p className="planPriceText">Plans starting at</p>
+                    <p className="planPriceAmount"><span>$33</span>&nbsp;/Month</p>
+                  </div>
+                  <p className="planDescription">
+                    Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
+                  </p>
+                  <div className="PlanBtnContainer">
+                    <a href="" className="btn btnMainLarge">Learn More</a>
+                  </div>
+                </div>
+
+                <div className="plan enterprises">
+                  <h4 className="planHeading">enterprises</h4>
+                  <div className="planPrice">
+                    <p class="planPriceText">Customized quote to meet your needs.</p>
+                  </div>
+                  <p className="planDescription">
+                    Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
+                  </p>
+                  <div className="PlanBtnContainer">
+                    <a href="" className="btn btnMainLarge">Request a custom quote</a>
+                  </div>
+                </div>
+
+              </div>
+              <p className="plansBottDesc">We also offer single-use licenses.</p>
+              <div className="btnContainer text-center">
+                <a href="" className="btn btnMainLarge">Learn More</a>
               </div>
             </div>
           </div>
