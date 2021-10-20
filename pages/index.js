@@ -27,7 +27,7 @@ import styles from '../styles/Home.module.scss';
 const breakPoints = [
   { width: 1, itemsToShow: 2 },
   { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-  { width: 768, itemsToShow: 3 },
+  { width: 992, itemsToShow: 3 },
   { width: 1200, itemsToShow: 4 }
 ];
 
@@ -255,6 +255,16 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="moodSlider">
+          <div className="testimonialContainer">          
+            <CarouselMood breakPoints={breakPoints}>
+              {items.map((item) => (
+                <Item key={item}>{item}</Item>
+              ))}
+            </CarouselMood>
+          </div>
+        </section>
+
         <section class="testimonial">
           <div className="testimonialContainer">
             <Carousel>
@@ -356,13 +366,8 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <div className="carousel-wrapper">
-        <CarouselMood breakPoints={breakPoints}>
-          {items.map((item) => (
-            <Item key={item}>{item}</Item>
-          ))}
-        </CarouselMood>
-      </div>
+
+
       <div>
         <div className="heroSection">
             <div className="heroContent">

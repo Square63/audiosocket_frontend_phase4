@@ -1298,6 +1298,20 @@ section {
     .carousel-indicators {
       margin-bottom: 0;
       bottom: -13px;
+      li {
+        width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        box-sizing: border-box;
+        @include flexbox;
+        gap: 20px;
+        background-clip: border-box;
+        border: none;
+        background-color: #6E7377;
+        &.active {
+          background-color: $headerColor;
+        }
+      }
     }
     .carousel-inner {
       max-width: 838px;
@@ -1363,6 +1377,11 @@ section {
   }
 }
 
+/******************** Mood Slider ********************/
+.moodSlider {
+  background-color: #313438;
+  padding-block: 90px 106px;
+}
 
 /******************** Buttons ********************/
 .btnMainXlarge,
