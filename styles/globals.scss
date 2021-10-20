@@ -1306,6 +1306,11 @@ section {
         @include flexbox;
         gap: 20px;
         background-clip: border-box;
+        border: none;
+        background-color: #6E7377;
+        &.active {
+          background-color: $headerColor;
+        }
       }
     }
     .carousel-inner {
@@ -1605,3 +1610,22 @@ section {
 .carousel-wrapper {
   width: 100%;
 }
+
+.slick-slide.slick-center img {
+  transform: scale(1.1);
+  height: 250px;
+  padding: 20px !important;
+}
+
+.slick-cloned {
+  margin-top: 20px;
+}
+
+:not(.slick-center).slick-slide {
+  margin-top: 30px;
+  padding: 15px !important;
+}
+
+.carousel-container { 
+  width: 90%;
+ }

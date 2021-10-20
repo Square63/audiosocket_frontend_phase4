@@ -9,14 +9,15 @@ import mailchimp from '../images/mailchimp.svg';
 import nbc from '../images/NBC.svg';
 import netflix from '../images/netflix.svg';
 import vice from '../images/vice.svg';
+import Slider from "react-slick";
+import Sample1 from '../images/sample1.jpeg'
+import Sample2 from '../images/sample2.jpeg'
+import Sample3 from '../images/sample3.jpeg'
+import Demo from '../images/sliderFirst.png';
 import testimonialAvatar from '../images/avatar.png';
 import Carousel from 'react-bootstrap/Carousel';
 import CarouselMood from 'react-elastic-carousel';
 import Item from "./Item";
-// import Sample1 from '../images/sample1.jpeg'
-// import Sample2 from '../images/sample2.jpeg'
-// import Sample3 from '../images/sample3.jpeg'
-// import Slider from "react-slick";
 import $ from 'jquery';
 
 import { useRouter } from "next/router";
@@ -42,6 +43,15 @@ function toggleClass(e) {
 
 export default function Home() {
   const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
+
+  var settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    centerMode: true,
+    responsive: [{breakpoint: 550, settings: {slidesToShow: 1}}, {breakpoint: 768, settings: {slidesToShow: 3}}],
+  };
     
   return (
     <div>
@@ -49,7 +59,17 @@ export default function Home() {
         <title>Audiosocket</title>
         <meta name="description" content="Audiosocket" />
         <link rel="icon" href="/favicon.ico" />
-        
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charset="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        /> 
       </Head>
 
       <main className={styles.main}>
@@ -74,6 +94,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        
         <section className="howToUse">
           <div className="fixed-container">
             <h2>Learn how to use our search tools to find tracks quickly.</h2>
@@ -345,6 +366,36 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+
+      <div>
+        <div className="heroSection">
+            <div className="heroContent">
+              <div className="carousel-container">
+                <Slider {...settings}>
+                  <div>
+                    <Image src={Sample1} alt="sample 1" key="12"></Image>
+                  </div>
+                  <div>
+                    <Image src={Sample2} alt="sample 1" key="22"></Image>
+                  </div>
+                  <div>
+                    <Image src={Sample3} alt="sample 1" key="33"></Image>
+                  </div>
+                  <div>
+                    <Image src={Sample1} alt="sample 1" key="44"></Image>
+                  </div>
+                  <div>
+                    <Image src={Sample2} alt="sample 1" key="55"></Image>
+                  </div>
+                  <div>
+                    <Image src={Sample3} alt="sample 1" key="66"></Image>
+                  </div>
+                </Slider>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   )
 }
