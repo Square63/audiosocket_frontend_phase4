@@ -43,6 +43,12 @@ function toggleClass(e) {
 
 export default function Home() {
   const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
+  const images = [
+    { text: "text1", src: Sample1 },
+    { text: "text2", src: Sample2 },
+    { text: "text3", src: Sample3 },
+    { text: "text4", src: Demo }
+  ];
 
   var settings = {
     infinite: true,
@@ -258,8 +264,11 @@ export default function Home() {
         <section className="moodSlider">
           <div className="testimonialContainer">          
             <CarouselMood breakPoints={breakPoints}>
-              {items.map((item) => (
-                <Item key={item}>{item}</Item>
+              {images.map((item) => (
+                <div>
+                  <Image src={item.src} alt="sample 1" key="12"></Image>
+                  <span>{item.text}</span>
+                </div>
               ))}
             </CarouselMood>
           </div>
