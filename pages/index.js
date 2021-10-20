@@ -9,7 +9,9 @@ import mailchimp from '../images/mailchimp.svg';
 import nbc from '../images/NBC.svg';
 import netflix from '../images/netflix.svg';
 import vice from '../images/vice.svg';
-import Carousel from 'react-elastic-carousel';
+import Demo from '../images/sliderFirst.png';
+import Carousel from 'react-bootstrap/Carousel';
+import CarouselMood from 'react-elastic-carousel';
 import Item from "./Item";
 // import Sample1 from '../images/sample1.jpeg'
 // import Sample2 from '../images/sample2.jpeg'
@@ -34,7 +36,6 @@ function toggleClass(e) {
   });
   e.currentTarget.classList.add("tabSelected");
   var tabSelectedHeight = e.currentTarget.nextElementSibling.children[0].clientHeight + 80
-  debugger
   tabSelectedHeight = tabSelectedHeight <= 697 ? 'auto' : tabSelectedHeight
   e.currentTarget.parentElement.parentElement.style.height = tabSelectedHeight == 'auto'? 'auto' : tabSelectedHeight.toString() + 'px'
 };
@@ -234,7 +235,18 @@ export default function Home() {
         </section>
 
         <section class="testimonial">
-          
+          <div className="fixed-container">
+            <Carousel>
+              <Carousel.Item>
+                <Image src={Demo} alt="Amazon" className=""/>
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              
+            </Carousel>
+          </div>
         </section>
 
         <section className="pricing">
@@ -293,11 +305,11 @@ export default function Home() {
         </section>
       </main>
       <div className="carousel-wrapper">
-        <Carousel breakPoints={breakPoints}>
+        <CarouselMood breakPoints={breakPoints}>
           {items.map((item) => (
             <Item key={item}>{item}</Item>
           ))}
-        </Carousel>
+        </CarouselMood>
       </div>
       
     </div>
