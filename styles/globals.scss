@@ -9,6 +9,7 @@
 }
 html, body {
   min-height: 100vh;
+  font-size: 14px;
 }
 
 body {
@@ -441,42 +442,65 @@ header {
 footer {
   background-color: $footer-clr;
   color: $white;
-  padding: 60px 0 30px;
+  padding: 88px 0 35px;
   .footer-links {
-    .footer-heading {
-      font-size: 16px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.6px;
-      position: relative;
-      color: $green-light;
-      padding-bottom: 12px;
-      margin-bottom: 15px;
-      display: block;
-      &:after {
-        content: "";
-        position: absolute;
-        display: block;
-        width: 80%;
-        height: 1px;
-        background: $green-light;
-        bottom: 0;
-        left: 0;
+    .footerListPack {
+      margin-bottom: 30px;
+      .footer-heading {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.28;
+        letter-spacing: -0.45px;
+        color: $green-light;
+        display: inline-block;
+        margin-bottom: 10px;
       }
-    }
-    .footer-list {
-      ul {
-        list-style: none;
-        li {
-          padding: 3px 0;
-          a {
-            font-size: 14px;
-            color: #e6e6e6;
-            text-transform: capitalize;
-            border-bottom: 1px solid transparent;
+      .footer-list {
+        ul {
+          list-style: none;
+          li {
+            padding: 3px 0;
+            a {
+              font-size: 18px;
+              font-weight: 400;
+              line-height: 1.28;
+              letter-spacing: -0.45px;
+              color: #979da2;
+              text-transform: capitalize;
+              text-decoration: none;
+              &:hover {
+                color: $white;
+              }
+            }
+          }
+        }
+        .socialList {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          max-width: 75%;
+          li {
+            padding: 0;
+          }
+          .socialLinks {
+            display: inline-block;
+            min-width: 45px;
+            max-width: 45px;
+            min-height: 45px;
+            min-height: 45px;
+            border-radius: 100px;
+            background-color: #313438;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include transition(all 0.25s ease-in-out);
             &:hover {
-              color: $white;
-              border-bottom: 1px solid $white;
+              background-color: $green-light;
+              svg {
+                path {
+                  fill: $headerColor;
+                }
+              }
             }
           }
         }
@@ -942,305 +966,8 @@ footer {
     }
   }
 }
-/**************** Music Player ************************/
-.musicplayerDemo {
-.player {
-  height: 500px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #252525;
-}
 
-.details {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 25px;
-}
 
-.track-art {
-  margin: 10px;
-  height: 150px;
-  width: 150px;
-  background-image: url("https://images.pexels.com/photos/262034/pexels-photo-262034.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
-  background-size: cover;
-  border-radius: 15%;
-}
-
-.now-playing {
-  font-size: 1rem;
-}
-
-.track-name {
-  font-size: 1rem;
-}
-
-.track-artist {
-  font-size: 0.8rem;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  cursor: pointer;
-}
-
-.playpause-track, .prev-track, .next-track {
-  padding: 25px;
-  opacity: 0.7;
-
-  /* Smoothly transition the opacity */
-  transition: opacity .2s;
-  img {
-    width: 25px;
-  }
-}
-
-.playpause-track:hover, .prev-track:hover, .next-track:hover {
-  opacity: 1.0;
-}
-
-.slider_container {
-  width: 75%;
-  max-width: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 25px;
-    &.volume-up {
-      padding-left: 4px !important;
-    }
-  }
-}
-
-/* Modify the appearance of the slider */
-.seek_slider, .volume_slider {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  height: 5px;
-  background: black;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-/* Modify the appearance of the slider thumb */
-.seek_slider::-webkit-slider-thumb, .volume_slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  background: white;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.seek_slider:hover, .volume_slider:hover {
-  opacity: 1.0;
-}
-
-.seek_slider {
-  width: 60%;
-}
-
-.volume_slider {
-  width: 30%;
-}
-
-.current-time, .total-duration {
-  padding: 10px;
-}
-
-i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
-  cursor: pointer;
-}
-}
-
-/********************** Audio Socket Music Player **********************/
-.auMusicPlayer {
-  background-color: #f2f2f2;
-  border-top: 1px solid #717171;
-  height: 73px;
-  position: sticky;
-  bottom: 0;
-  z-index: 99999;
-  box-shadow: 0 -1px 9px -4px #eeeeee;
-  .custom-container {
-    height: inherit;
-  }
-  .musicPlayerInner {
-    height: inherit;
-    @include flexbox();
-    @include justify-content(flex-start);
-    @include align-items(center);
-    padding: 0 1rem;
-    .buttons {
-      height: inherit;
-      display: grid;
-      grid-template-columns: 25px 25px 25px;
-      @include align-items(center);
-      gap: 35px;
-      .prev-track, 
-      .playpause-track, 
-      .next-track {
-        width: 21px;
-        height: 21px;
-        opacity: 0.7;
-        filter: invert(1);
-        transition: all 0.15s ease-in-out;
-        &:hover {
-          opacity: 1;
-        }
-      }
-    }
-    .playbackTimeline {
-      @include flex(1);
-      @include flexbox();
-      @include align-items(center);
-      margin-inline: 35px;
-      input[type="range"] {
-        width: 100%;
-        margin-inline: 20px;
-        accent-color: red;
-      }
-      .current-time,
-      .total-duration {
-        color: $clr-black;
-      }
-    }
-
-    .volumeTimeline {
-      @include flexbox();
-      @include align-items(center);
-      input[type="range"] {
-        margin: 0 15px 0 10px;
-        width: 120px;
-      }
-      img {
-        width: 21px;
-        opacity: 0.7;
-        transition: all 0.2s ease-in-out;
-        &:hover {
-          opacity: 1;
-        }
-      }
-    }
-
-    /* Modify the appearance of the slider */
-    .seek_slider, .volume_slider {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      height: 1px;
-      background: black;
-      opacity: 0.7;
-      -webkit-transition: .2s;
-      transition: opacity .2s;
-    }
-
-    /* Modify the appearance of the slider thumb */
-    .seek_slider::-webkit-slider-thumb, .volume_slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      width: 15px;
-      height: 15px;
-      background: black;
-      cursor: pointer;
-      border-radius: 50%;
-    }
-
-    .seek_slider:hover, .volume_slider:hover {
-      opacity: 1.0;
-    }
-
-    .trackDetails {
-      @include flexbox;
-      @include justify-content(flex-start);
-      @include align-items(center);
-      @include flex-direction(row);
-      margin-inline: 35px;
-
-      .track-art {
-        margin: 10px;
-        height: 50px;
-        width: 50px;
-        background-image: url("https://images.pexels.com/photos/262034/pexels-photo-262034.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
-        background-size: cover;
-        border-radius: 3px;
-      }
-      .trackstats {
-        font-weight: 600;
-        cursor: pointer;
-        .track-name {
-          color: #999999;
-          @include transition(all 0.2s ease-in-out);
-          &:hover {
-            color: $clr-black;
-          }
-        }
-        .track-artist {
-          color: #666666;
-          
-          @include transition(all 0.2s ease-in-out);
-          &:hover {
-            color: $clr-black;
-          }
-        }
-        .track-name,
-        .track-artist {
-          width: 120px;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-      }
-    }
-    .playerActions {
-      @include flexbox;
-      @include justify-content(flex-start);
-      @include align-items(center);
-      margin-bottom: 0;
-      gap: 30px;
-      li {
-        @include flexbox;
-        @include justify-content(center);
-        @include align-items(center);
-        @include flex-direction(column);
-        cursor: pointer;
-        white-space: nowrap;
-        svg {
-          margin-bottom: 5px;
-          fill: $clr-black;
-          color: $clr-black;
-          opacity: 0.6;
-          @include transition(all 0.2s ease-in-out);
-        }
-        span {
-          font-size: 12px;
-          text-transform: capitalize;
-          font-weight: 500;
-          color: $clr-black;
-          opacity: 0.85;
-          @include transition(all 0.2s ease-in-out);
-        }
-        &:hover {
-          svg,
-          span {
-            opacity: 1;
-          }
-        }
-      }
-    }
-  }
-}
 /******************** Home page styling *******************/
 .heroSection {
   background: url('../images/homeBg2.png') no-repeat $hero-dark;
@@ -1423,17 +1150,149 @@ section {
 
 /******************* Pricing ****************/
 .pricing {
-  background: url('../images/homeBg2.png') no-repeat $headerColor;
-  background-size: cover;
+  background: url('../images/homeBg2.png') no-repeat $headerColor bottom 50px center;;
+  background-size: contain;
   padding-block: 90px;
   position: relative;
 
   h2 {
-    margin-bottom: 60px;
+    margin-bottom: 10rem;
+  }
+
+  .pricingPlans {
+    @include flexbox;
+    @include justify-content(space-between);
+    position: relative;
+    .plan {
+      max-width: 372px;
+      background-color: $white;
+      border-radius: 20px;
+      padding: 60px 40px;
+      position: relative;
+      @include flexbox;
+      @include justify-content(space-between);
+      @include flex-direction(column);
+      .planHeading {
+        font-size: 18px;
+        font-weight: bold;
+        color: $headerColor;
+        line-height: 1.28;
+        letter-spacing: -0.45px;
+        text-transform: capitalize;
+        margin-bottom: 25px;
+      }
+      .planPrice {
+        height: 110px;
+        margin-bottom: 20px;
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+        .planPriceText {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.19;
+          letter-spacing: -0.4px;
+          color: #6e7377;
+          margin-bottom: 10px;
+        }
+        .planPriceAmount {
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 1.28;
+          letter-spacing: -0.45px;
+          color: $textClr;
+          margin-bottom: 0;
+          span {
+            font-size: 72px;
+            font-weight: 400;
+            line-height: 1.19;
+            letter-spacing: -1.44px;
+            text-align: left;
+            color: #1a1c1d;
+          }
+        }
+      }
+      .planDescription {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #6e7377;
+        height: 100px;
+        margin-bottom: 25px;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .PlanBtnContainer {
+        text-align: center;
+      }
+      &:before {
+        content: '';
+        display: block;
+        width: 95px;
+        height: 95px;
+        border-radius: 100px;
+        background: url('../images/personalUser.svg') no-repeat $textClr center center;
+        position: absolute;
+        top: -47.5px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      &.commercial {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50% , -50%);
+        box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%);
+        z-index: 999;
+        height: 507px;
+        &::before {
+          content: '';
+          background: url('../images/commercialUser.svg') no-repeat $green-light center center;
+        }
+      }
+      &.enterprises {
+        .planPrice {
+          .planPriceText {
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.21;
+            letter-spacing: -0.6px;
+            text-align: left;
+            color: $headerColor;
+            max-width: 75%;
+          }
+        }
+      
+        &::before {
+          content: '';
+          background: url('../images/enterprisesIcon.svg') no-repeat #313438 center center;
+        }
+      }
+    }
+  }
+  .plansBottDesc {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.28;
+    letter-spacing: -0.45px;
+    color: $white;
+    text-align: center;
+    margin-block: 80px 25px;
   }
 }
 
+/******************* Testimonial ******************/
+.testimonial {
+  background-color: $green-light;
+  padding-block: 60px;
+}
+
+
 /******************** Buttons ********************/
+.btnMainXlarge,
 .btnMainLarge,
 .btnMainSmall {
   height: 44px;
@@ -1444,7 +1303,7 @@ section {
   font-weight: 500;
   color: $headerColor;
   white-space: nowrap;
-  line-height: 0.64;
+  line-height: 20px;
   @include transition(all 0.3s ease-in-out);
   &:hover,
   &:focus {
@@ -1456,6 +1315,54 @@ section {
   height: 34px;
   padding: 10px 20px 8px 18px;
   font-size: 14px;
+  line-height: 15px;
+}
+
+.btnMainXlarge {
+  height: 57px;
+  padding: 18px 45px 20px;
+  font-size: 18px;
+}
+.roundedForm {
+  position: relative;
+  .circularInput {
+    border: 0;
+    border-radius: 29px;
+    height: 44px;
+    padding: 14px 44px 14px 22px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.19;
+    letter-spacing: -0.4px;
+    color: $textClr;
+    position: relative;
+    background-color: $white;
+    color: $textClr;
+    &.invert {
+      background-color: #313438;
+      color: $textClr;
+    }
+  }
+  .circularBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 36px;
+    line-height: 36px;
+    background-color: $green-light;
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    transform: translateY(-50%);
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &:hover {
+      opacity: 0.85;
+    }
+  }
 }
 /******************** Responsive Behaviour *****************/
 @media #{$mid-point-tablet} {
