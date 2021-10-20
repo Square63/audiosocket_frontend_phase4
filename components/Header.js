@@ -38,17 +38,33 @@ function Header() {
             <Nav>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="closeConditional" />
               <div className={router.pathname.toLowerCase() === "/browse-music" ? "nav-link active" : "nav-link"}>
-                <Link href="/search">Music</Link>
+                <Nav.Item>
+                  <Nav.Link eventKey="1" to="/browse-music">
+                    Music
+                  </Nav.Link>
+                </Nav.Item>
               </div>
               <div className={router.pathname.toLowerCase() === "/sfx" ? "nav-link active" : "nav-link"}>
-                <Link href="/sfx">SF</Link>
+                <Nav.Item>
+                  <Nav.Link eventKey="2" to="/sfx">
+                    SF
+                  </Nav.Link>
+                </Nav.Item>
               </div>
               <div className={router.pathname.toLowerCase() === "/playlist" ? "nav-link active" : "nav-link"}>
-                <Link href="/playlist">Playlists</Link>
+                <Nav.Item>
+                  <Nav.Link eventKey="3" to="/playlist">
+                    Playlists
+                  </Nav.Link>
+                </Nav.Item>
               </div>
 
               <div className={router.pathname.toLowerCase() === "/pricing" ? "nav-link active" : "nav-link"}>
-                <Link href="/pricing">Pricing</Link>
+                <Nav.Item>
+                  <Nav.Link eventKey="3" to="/pricing">
+                    Pricing
+                  </Nav.Link>
+                </Nav.Item>
               </div>
               {!isLoggedIn
                 ?
