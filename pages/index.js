@@ -14,6 +14,7 @@ import Sample1 from '../images/sample1.jpeg'
 import Sample2 from '../images/sample2.jpeg'
 import Sample3 from '../images/sample3.jpeg'
 import Demo from '../images/sliderFirst.png';
+import testimonialAvatar from '../images/avatar.png';
 import Carousel from 'react-bootstrap/Carousel';
 import CarouselMood from 'react-elastic-carousel';
 import Item from "./Item";
@@ -255,13 +256,44 @@ export default function Home() {
         </section>
 
         <section class="testimonial">
-          <div className="fixed-container">
+          <div className="testimonialContainer">
             <Carousel>
-              <Carousel.Item>
-                <Image src={Demo} alt="Amazon" className=""/>
+              <Carousel.Item interval={3000}>
+                <div className="authorImg">
+                  <Image src={testimonialAvatar} alt="Picture" className=""/>
+                </div>
                 <Carousel.Caption>
-                  <h3>First slide label</h3>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
+                  <div className="authorStatus">
+                    <p className="authorName">Pete Larson</p>
+                    <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+                  </div>
+                </Carousel.Caption>
+              </Carousel.Item>
+
+              <Carousel.Item>
+                <div className="authorImg">
+                  <Image src={testimonialAvatar} alt="Picture" className=""/>
+                </div>
+                <Carousel.Caption>
+                  <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique. I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
+                  <div className="authorStatus">
+                    <p className="authorName">Pete Larson</p>
+                    <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+                  </div>
+                </Carousel.Caption>
+              </Carousel.Item>
+
+              <Carousel.Item>
+                <div className="authorImg">
+                  <Image src={testimonialAvatar} alt="Picture" className=""/>
+                </div>
+                <Carousel.Caption>
+                  <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
+                  <div className="authorStatus">
+                    <p className="authorName">Pete Larson</p>
+                    <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+                  </div>
                 </Carousel.Caption>
               </Carousel.Item>
               
