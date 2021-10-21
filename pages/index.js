@@ -100,7 +100,7 @@ export default function Home() {
             <h2>Learn how to use our search tools to find tracks quickly.</h2>
             <div className="tabsContainer">
               <div className="tabs">
-                <div className="tab" onClick={toggleClass}>
+                <div className="tab tabSelected" onClick={toggleClass}>
                   <div className="tabImg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="37.035" height="38.927" viewBox="0 0 37.035 38.927">
                       <g id="Group_212" data-name="Group 212" transform="translate(1.035 1)">
