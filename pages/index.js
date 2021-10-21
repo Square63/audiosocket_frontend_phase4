@@ -13,6 +13,10 @@ import Slider from "react-slick";
 import Sample1 from '../images/sample1.jpeg'
 import Sample2 from '../images/sample2.jpeg'
 import Sample3 from '../images/sample3.jpeg'
+import mood1 from '../images/mood1.png';
+import mood2 from '../images/mood2.png';
+import mood3 from '../images/mood3.jpg';
+import mood4 from '../images/mood4.jpg';
 import Demo from '../images/sliderFirst.png';
 import testimonialAvatar from '../images/avatar.png';
 import Carousel from 'react-bootstrap/Carousel';
@@ -25,10 +29,11 @@ import {useContext, useEffect, useState} from "react";
 import styles from '../styles/Home.module.scss';
 
 const breakPoints = [
-  { width: 1, itemsToShow: 2 },
-  { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-  { width: 992, itemsToShow: 3 },
-  { width: 1200, itemsToShow: 4 }
+  { width: 1, itemsToShow: 2, pagination: true },
+  { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
+  { width: 750, itemsToShow: 3, itemsToScroll: 2, pagination: false },
+  { width: 1100, itemsToShow: 4, itemsToScroll: 2, pagination: false },
+  
 ];
 
 function toggleClass(e) {
@@ -44,10 +49,13 @@ function toggleClass(e) {
 export default function Home() {
   const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
   const images = [
-    { text: "text1", src: Sample1 },
-    { text: "text2", src: Sample2 },
-    { text: "text3", src: Sample3 },
-    { text: "text4", src: Demo }
+    { text: "Aim to inspire", src: mood1 },
+    { text: "Ambient.", src: mood2 },
+    { text: "Angry", src: mood3 },
+    { text: "Dreamy", src: mood4 },
+    { text: "Love", src: Sample1 },
+    { text: "Life", src: Sample2 },
+    { text: "Nature", src: Sample3 },
   ];
 
   var settings = {
@@ -262,12 +270,24 @@ export default function Home() {
         </section>
 
         <section className="moodSlider">
-          <div className="testimonialContainer">          
+          <div className="testimonialContainer">
+            <div className="moodContent">
+              <div className="moodText">
+                <h2>Curated playlists to fit your project.</h2>
+                <p>Flip through some of our most popular playlists to see the high-quality tracks we carry.</p>
+              </div>
+              <div className="moodFilters">
+                <a href="" className="btn btnMainOutline">Creator Kits</a>
+                <a href="" className="btn btnMainOutline">Moods</a>
+                <a href="" className="btn btnMainOutline">Genres</a>
+                <a href="" className="btn btnMainOutline">themes</a>
+              </div>
+            </div>       
             <CarouselMood breakPoints={breakPoints}>
               {images.map((item) => (
-                <div>
-                  <Image src={item.src} alt="sample 1" key="12"></Image>
-                  <span>{item.text}</span>
+                <div className="moodSlide">
+                  <Image src={item.src} alt="Mood" className="moodImage"></Image>
+                  <span className="moodOverlayText">{item.text}</span>
                 </div>
               ))}
             </CarouselMood>
