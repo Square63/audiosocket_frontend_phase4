@@ -1381,12 +1381,104 @@ section {
 .moodSlider {
   background-color: #313438;
   padding-block: 90px 106px;
+  .moodContent {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(flex-end);
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    .moodText {
+      max-width: 380px;
+      width: 100%;
+      h2 {
+        text-align: left;
+        margin-bottom: 30px;
+      }
+      p {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.23;
+        letter-spacing: -0.55px;
+        color: $textClr;
+      }
+    }
+    .moodFilter {
+      @include flex(1);
+      @include flexbox;
+      @include align-items(center);
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+  }
+  .rec-carousel-wrapper {
+    margin: 49px 0 60px;
+  }
+  .moodSlide {
+    max-width: 250px;
+    width: 100%;
+    max-height: 250px;
+    position: relative;
+    isolation: isolate;
+    cursor: pointer;
+    & > div {
+      max-height: 250px;
+      height: 250px;
+      border-radius: 20px;
+      overflow: hidden;
+      .moodImage {
+        object-fit: cover;
+        height: 250px;
+        z-index: -2;
+      }
+    }
+    .moodOverlayText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.28;
+      letter-spacing: -0.45px;
+      text-align: center;
+      color: $white;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: #313438;
+      border-radius: 20px;
+      z-index: -1;
+      opacity: 0.4;
+    }
+  }
+  .rec-arrow {
+    background-color: transparent;
+    font-size: 0;
+    &.rec-arrow-left {
+      background: url(../images/back.svg) no-repeat left center;
+      background-size: 23px;
+      width: 25px;
+    }
+    &.rec-arrow-right {
+      background: url(../images/forwardSlide.svg) no-repeat right center;
+      background-size: 23px;
+      width: 25px;
+    }
+    &:hover:enabled,
+    &:focus:enabled {
+      background-color: transparent;
+    }
+  }
 }
 
 /******************** Buttons ********************/
 .btnMainXlarge,
 .btnMainLarge,
-.btnMainSmall {
+.btnMainSmall,
+.btnMainOutline {
   height: 44px;
   padding: 12px 26px 13px;
   border-radius: 29px;
@@ -1395,7 +1487,7 @@ section {
   font-weight: 500;
   color: $headerColor;
   white-space: nowrap;
-  line-height: 20px;
+  line-height: 19px;
   @include transition(all 0.3s ease-in-out);
   &:hover,
   &:focus {
@@ -1414,6 +1506,19 @@ section {
   height: 57px;
   padding: 18px 45px 20px;
   font-size: 18px;
+}
+
+.btnMainOutline {
+  background-color: transparent;
+  color: $textClr;
+  border: 2px solid #6e7377;
+  text-transform: capitalize;
+  &:hover {
+    opacity: 1;
+    border-color: $green-light;
+    background-color: $green-light;
+    color: $headerColor;
+  }
 }
 .roundedForm {
   position: relative;
