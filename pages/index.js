@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Image from 'next/image';
 import amazon from '../images/amazon.svg';
-import disnep from '../images/disnep.svg';
+import disnep from '../images/Disnep.svg';
 import hbo from '../images/HBO.svg';
 import mailchimp from '../images/mailchimp.svg';
 import nbc from '../images/NBC.svg';
