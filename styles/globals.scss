@@ -247,7 +247,7 @@ header {
           letter-spacing: -0.32px;
           line-height: 19px;
           &:hover {
-            color: $white;
+            color: $green-light;
           }
         }
         &.btn {
@@ -1403,9 +1403,10 @@ section {
         color: $textClr;
       }
     }
-    .moodFilter {
+    .moodFilters {
       @include flex(1);
       @include flexbox;
+      @include justify-content(flex-end);
       @include align-items(center);
       gap: 30px;
       margin-bottom: 40px;
@@ -1470,6 +1471,160 @@ section {
     &:hover:enabled,
     &:focus:enabled {
       background-color: transparent;
+    }
+  }
+}
+
+/******************* Camparision Section ***************/
+.campareWithCompetitor {
+  background-color: $grey;
+  position: relative;
+  display: grid;
+  grid-template-columns: 33% 1fr;
+  .blackSection {
+    background-color: #313438;
+    .blackContent {
+      max-width: 300px;
+      width: 100%;
+      height: 100%;
+      margin-left: auto;
+      @include flexbox;
+      @include flex-direction(column);
+      .blackHeading {
+        border-bottom: 2px solid $green-light;
+        flex: 1 1 50%;
+        padding-block: 103px 55px;
+        position: relative;
+        h2 {
+          max-width: 185px;
+          width: 100%;
+          text-align: left;
+        }
+        &:before {
+          content: '';
+          width: 110px;
+          height: 110px;
+          border-radius: 110px;
+          background: $green-light url(../images/comparePlaylist.svg) no-repeat center;
+          background-size: 51px;
+          display: block;
+          position: absolute;
+          bottom: -55px;
+          right: -55px;
+          z-index: 999;
+        }
+      }
+      .blackPara {
+        flex: 1 1 50%;
+        padding-block: 62px 48px;
+        max-width: 230px;
+        width: 100%;
+        p {
+          font-size: 24px;
+          font-weight: 400;
+          line-height: 1.21;
+          letter-spacing: -0.6px;
+          text-align: left;
+          color: $textClr;
+        }
+      }
+    }
+  }
+  .greySection {
+    padding-block: 103px;
+    .greyInnerSec {
+      max-width: 700px;
+      width: 100%;
+      padding-left: 90px;
+      display: grid;
+      grid-template-columns: 37.5% 37.5% 1fr;
+    }
+  }
+}
+
+/******************** Slick Slider **************/
+.slickSlider {
+  padding-block: 90px;
+  background-color: $white;
+  .slickContent {
+    margin-bottom: 30px;
+    h2 {
+      color: $headerColor;
+    }
+  }
+  .slick-list {
+    max-width: 1180px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .slick-track {
+    @include flexbox;
+    @include align-items(center);
+    gap: 25px;
+    .slick-slide {
+      .slickSlides {
+        border-radius: 20px;
+        overflow: hidden;
+        @include transition(all 0.25 ease-in-out);
+      }
+      &.slick-active.slick-center.slick-current {
+        max-width: 279px !important;
+        width: 279px !important;
+        .slickSlides {
+          width: 279px !important;
+          height: 414px;
+          & > div {
+            height: inherit;
+            img {
+              object-fit: cover;
+            }
+          }
+        }
+      }
+
+      &.slick-active,
+      &.slick-cloned {
+        max-width: 210px !important;
+        width: 210px !important;
+        .slickSlides {
+          width: 210px !important;
+          height: 316px;
+          & > div {
+            height: inherit;
+            img {
+              object-fit: cover;
+            }
+          }
+        }
+      }
+
+      &.slick-active {
+        &:first-child, &:last-of-type {
+          max-width: 177px !important;
+          width: 100% !important;
+          .slickSlides {
+            height: 267px;
+          }
+        }
+      }
+
+    }
+  }
+  .slick-arrow {
+    background-color: transparent;
+    font-size: 0;
+    &.slick-prev {
+      background: url(../images/back.svg) no-repeat left center;
+      background-size: 23px;
+      width: 25px;
+    }
+    &.slick-next {
+      background: url(../images/forwardSlide.svg) no-repeat right center;
+      background-size: 23px;
+      width: 25px;
+    }
+    &:before {
+      content: none;
     }
   }
 }
@@ -1711,26 +1866,3 @@ section {
     }
   }
 }
-
-.carousel-wrapper {
-  width: 100%;
-}
-
-.slick-slide.slick-center img {
-  transform: scale(1.1);
-  height: 250px;
-  padding: 20px !important;
-}
-
-.slick-cloned {
-  margin-top: 20px;
-}
-
-:not(.slick-center).slick-slide {
-  margin-top: 30px;
-  padding: 15px !important;
-}
-
-.carousel-container { 
-  width: 90%;
- }

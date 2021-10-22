@@ -10,14 +10,18 @@ import nbc from '../images/NBC.svg';
 import netflix from '../images/netflix.svg';
 import vice from '../images/vice.svg';
 import Slider from "react-slick";
-import Sample1 from '../images/sample1.jpeg'
-import Sample2 from '../images/sample2.jpeg'
-import Sample3 from '../images/sample3.jpeg'
+import slick1 from '../images/slick01.jpg';
+import slick2 from '../images/slick02.jpg';
+import slick3 from '../images/slick03.jpg';
+import slick4 from '../images/slick04.jpg';
+import slick5 from '../images/slick05.jpg';
+import Sample1 from '../images/sample1.jpeg';
+import Sample2 from '../images/sample2.jpeg';
+import Sample3 from '../images/sample3.jpeg';
 import mood1 from '../images/mood1.png';
 import mood2 from '../images/mood2.png';
 import mood3 from '../images/mood3.jpg';
 import mood4 from '../images/mood4.jpg';
-import Demo from '../images/sliderFirst.png';
 import testimonialAvatar from '../images/avatar.png';
 import Carousel from 'react-bootstrap/Carousel';
 import CarouselMood from 'react-elastic-carousel';
@@ -59,12 +63,13 @@ export default function Home() {
   ];
 
   var settings = {
-    infinite: true,
+    // infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
+    centerPadding: "0",
     centerMode: true,
-    responsive: [{breakpoint: 550, settings: {slidesToShow: 1}}, {breakpoint: 768, settings: {slidesToShow: 3}}],
+    responsive: [{breakpoint: 550, settings: {slidesToShow: 1}}, {breakpoint: 768, settings: {slidesToShow: 3}}, {breakpoint: 1200, settings: {slidesToShow: 5, slidesToScroll: 2}}],
   };
     
   return (
@@ -87,7 +92,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className="heroSection">
+        <section className="heroSection">
           <div className="heroContent">
             <div className="fixed-container">
               <h1>Find &amp; License Music. Fast.</h1>
@@ -107,7 +112,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
         
         <section className="howToUse">
           <div className="fixed-container">
@@ -389,37 +394,64 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section className="campareWithCompetitor">
+          <div className="blackSection">
+            <div className="blackContent">
+              <div className="blackHeading">
+                <h2>It’s not even close.</h2>
+              </div>
+              <div className="blackPara">
+                <p>Used by top creators in Film, TV &amp; Advertising, Audiosocket’s band &amp; composer roster is the largest &amp; most diverse in its class.</p>
+              </div>
+            </div>
+            
+          </div>
+          <div className="greySection">
+            <div className="greyInnerSec">
+              <div className="provider">
+                <div className="">
+
+                </div>
+              </div>
+              <div className="trackCount">sggs</div>
+              <div className="planRate">gsfdg</div>
+            </div>
+          </div>
+        </section>
+
+        <section className="slickSlider">
+          <div className="testimonialContainer">
+            <div className="slickContent">
+              <h2>Built for creators, trusted by film studios.</h2>
+            </div>
+            <Slider {...settings}>
+              <div className="slickSlides">
+                <Image src={slick1} alt="Image" key="12"></Image>
+              </div>
+              <div className="slickSlides">
+                <Image src={slick2} alt="image" key="22"></Image>
+              </div>
+              <div className="slickSlides">
+                <Image src={slick3} alt="image" key="33"></Image>
+              </div>
+              <div className="slickSlides">
+                <Image src={slick4} alt="image" key="44"></Image>
+              </div>
+              <div className="slickSlides">
+                <Image src={slick5} alt="image" key="55"></Image>
+              </div>
+              <div className="slickSlides">
+                <Image src={slick3} alt="image" key="66"></Image>
+              </div>
+            </Slider>
+          </div>
+        </section>
       </main>
 
 
-      <div>
-        <div className="heroSection">
-            <div className="heroContent">
-              <div className="carousel-container">
-                <Slider {...settings}>
-                  <div>
-                    <Image src={Sample1} alt="sample 1" key="12"></Image>
-                  </div>
-                  <div>
-                    <Image src={Sample2} alt="sample 1" key="22"></Image>
-                  </div>
-                  <div>
-                    <Image src={Sample3} alt="sample 1" key="33"></Image>
-                  </div>
-                  <div>
-                    <Image src={Sample1} alt="sample 1" key="44"></Image>
-                  </div>
-                  <div>
-                    <Image src={Sample2} alt="sample 1" key="55"></Image>
-                  </div>
-                  <div>
-                    <Image src={Sample3} alt="sample 1" key="66"></Image>
-                  </div>
-                </Slider>
-              </div>
-            </div>
-          </div>
-        </div>
+      
     </div>
+
   )
 }
