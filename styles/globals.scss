@@ -1533,11 +1533,120 @@ section {
   .greySection {
     padding-block: 103px;
     .greyInnerSec {
-      max-width: 700px;
+      max-width: 800px;
       width: 100%;
       padding-left: 90px;
       display: grid;
-      grid-template-columns: 37.5% 37.5% 1fr;
+      grid-template-columns: 34% 42% 1fr;
+      .columnLabel {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.28;
+        letter-spacing: -0.45px;
+        color: $textClr;
+        margin-bottom: 22px;
+        margin-inline-end: 20px;
+      }
+      .columnData {
+        margin-inline-end: 20px;
+        margin-block-end: 20px;
+        height: 36px;
+      }
+      .AsBar {
+        background-color: $green-light !important;
+        width: 100% !important;
+      }
+      .epidemicBar {
+        background-color: #6e7377 !important;
+        width: 45% !important;
+      }
+      .artlistBar {
+        background-color: $textClr !important;
+        width: 29% !important;
+      }
+
+      .soundstripeBar {
+        background-color: $nav-link !important;
+        width: 17% !important;
+      }
+
+      .provider {
+        .columnData {
+          font-size: 22px;
+          font-weight: 400;
+          line-height: 1.09;
+          letter-spacing: -0.55px;
+          color: $headerColor;
+          height: 36px;
+          line-height: 36px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+      .trackCount {
+        .columnData {
+          position: relative;
+          span {
+            width: 10%;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 18px;
+            letter-spacing: -0.4px;
+            text-align: left;
+            color: $headerColor;
+            padding: 9px 29px;
+            display: inline-flex;
+            height: 36px;
+            border-radius: 29px;
+            background-color: #6e7377;
+            position: relative;
+            z-index: 9;
+          }
+          &:before {
+            content: '';
+            width: calc(100% - 15px);
+            height: 1px;
+            background-color: $nav-link;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+          }
+        }
+      }
+      .planRate {
+        margin-left: 10px;
+        .columnData {
+          @include flexbox;
+          @include align-items(flex-end);
+          span {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.23;
+            letter-spacing: normal;
+            text-align: left;
+            color: $headerColor;
+            sup {
+              margin-left: 3px;
+            }
+            small {
+              font-size: 13px;
+              line-height: 2.08;
+              letter-spacing: -0.33px;
+              text-align: left;
+              color: $textClr;
+              margin-left: 13px;
+            }
+          }
+        }
+      }
+    }
+    .browseMusic {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      margin-top: 60px;
     }
   }
 }

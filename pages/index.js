@@ -410,12 +410,59 @@ export default function Home() {
           <div className="greySection">
             <div className="greyInnerSec">
               <div className="provider">
-                <div className="">
-
+                <div className="columnLabel">
+                  Provider
+                </div>
+                <div className="columnData">
+                  Audiosocket
+                </div>
+                <div className="columnData">
+                  Epidemic Sound
+                </div>
+                <div className="columnData">
+                  Artlist
+                </div>
+                <div className="columnData">
+                  Soundstripe
                 </div>
               </div>
-              <div className="trackCount">sggs</div>
-              <div className="planRate">gsfdg</div>
+              <div className="trackCount">
+                <div className="columnLabel">
+                  Number of tracks in catalog
+                </div>
+                <div className="columnData">
+                  <span className="AsBar">80,000+ Tracks</span>
+                </div>
+                <div className="columnData">
+                  <span className="epidemicBar">&nbsp;</span>
+                </div>
+                <div className="columnData">
+                  <span className="artlistBar">&nbsp;</span>
+                </div>
+                <div className="columnData">
+                  <span className="soundstripeBar">&nbsp;</span>
+                </div>
+              </div>
+              <div className="planRate">
+                <div className="columnLabel">
+                  Plans starting at
+                </div>
+                <div className="columnData">
+                  <span>$10<sup>.00</sup> <small>/Month</small></span>
+                </div>
+                <div className="columnData">
+                  <span>$15<sup>.00</sup> <small>/Month</small></span>
+                </div>
+                <div className="columnData">
+                  <span>$16<sup>.00</sup> <small>/Month</small></span>
+                </div>
+                <div className="columnData">
+                  <span>$12<sup>.00</sup> <small>/Month</small></span>
+                </div>
+              </div>
+            </div>
+            <div className="browseMusic">
+              <a href="" className="btn btnMainXlarge">Browse Music</a>
             </div>
           </div>
         </section>
