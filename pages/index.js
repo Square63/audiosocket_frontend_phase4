@@ -25,12 +25,14 @@ import mood4 from '../images/mood4.jpg';
 import testimonialAvatar from '../images/avatar.png';
 import Carousel from 'react-bootstrap/Carousel';
 import CarouselMood from 'react-elastic-carousel';
-import Item from "./Item";
 import $ from 'jquery';
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 import { useRouter } from "next/router";
 import {useContext, useEffect, useState} from "react";
 import styles from '../styles/Home.module.scss';
+
+const imagess = [Sample1, Sample2, Sample3, Sample1, Sample2, Sample3];
 
 const breakPoints = [
   { width: 1, itemsToShow: 2, pagination: true },
@@ -51,6 +53,23 @@ function toggleClass(e) {
 };
 
 export default function Home() {
+  const NextArrow = ({ onClick }) => {
+    return (
+      <div className="arrow next" onClick={onClick}>
+        <FaArrowRight />
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div className="arrow prev" onClick={onClick}>
+        <FaArrowLeft />
+      </div>
+    );
+  };
+
+  const [imageIndex, setImageIndex] = useState(0);
   const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
   const images = [
     { text: "Aim to inspire", src: mood1 },
@@ -62,15 +81,27 @@ export default function Home() {
     { text: "Nature", src: Sample3 },
   ];
 
+  const settings2 = {
+    speed: 300,
+    slidesToShow: 5,
+    centerMode: true,
+    centerPadding: 0,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [{breakpoint: 550, settings: {slidesToShow: 1}}, {breakpoint: 768, settings: {slidesToShow: 3}}, {breakpoint: 1200, settings: {slidesToShow: 5, slidesToScroll: 2}}],
+    beforeChange: (current, next) => setImageIndex(next),
+  };
+
   var settings = {
     // infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
     centerPadding: "0",
-    centerMode: true,
+    centerMode: true,   
     responsive: [{breakpoint: 550, settings: {slidesToShow: 1}}, {breakpoint: 768, settings: {slidesToShow: 3}}, {breakpoint: 1200, settings: {slidesToShow: 5, slidesToScroll: 2}}],
   };
+
     
   return (
     <div>
@@ -492,6 +523,15 @@ export default function Home() {
                 <Image src={slick3} alt="image" key="66"></Image>
               </div>
             </Slider>
+            {/* <div className="App">
+              <Slider {...settings2}>
+                {imagess.map((img, idx) => (
+                  <div className={idx === imageIndex ? "slide activeSlide" : "slide"} key={idx}>
+                    <Image src={img} alt={img} />
+                  </div>
+                ))}
+              </Slider>
+            </div> */}
           </div>
         </section>
       </main>

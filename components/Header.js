@@ -24,6 +24,13 @@ function Header() {
     router.push(path);
   }
 
+  const removeClass = (e) => {
+    e.target.parentElement.parentElement.parentElement.parentElement.childNodes[1].classList.add('collapsed')
+    e.target.parentElement.parentElement.firstElementChild.classList.add('collapsed')
+    e.target.closest('div#responsive-navbar-nav').classList.remove('show')
+  }
+
+
   return (
     <header className="fixed-top">
       <div className="fixed-container">
@@ -35,25 +42,25 @@ function Header() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
             </Nav>
-            <Nav>
+            <Nav >
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="closeConditional" />
               <div className={router.pathname.toLowerCase() === "/browse-music" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Nav.Link eventKey="1" to="/browse-music">
+                  <Nav.Link eventKey="1" href="/browse-music">
                     Music
                   </Nav.Link>
                 </Nav.Item>
               </div>
               <div className={router.pathname.toLowerCase() === "/sfx" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Nav.Link eventKey="2" to="/sfx">
+                  <Nav.Link eventKey="2" href="/sfx">
                     SF
                   </Nav.Link>
                 </Nav.Item>
               </div>
               <div className={router.pathname.toLowerCase() === "/playlist" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Nav.Link eventKey="3" to="/playlist">
+                  <Nav.Link eventKey="3" href="/playlist">
                     Playlists
                   </Nav.Link>
                 </Nav.Item>
@@ -61,7 +68,7 @@ function Header() {
 
               <div className={router.pathname.toLowerCase() === "/pricing" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Nav.Link eventKey="3" to="/pricing">
+                  <Nav.Link eventKey="4" href="/pricing">
                     Pricing
                   </Nav.Link>
                 </Nav.Item>
@@ -70,10 +77,10 @@ function Header() {
                 ?
                   <>
                     <div className={router.pathname.toLowerCase() === "/login" ? "nav-link active" : "nav-link"}>
-                      <Link href="/login">Sign in</Link>
+                      <Nav.Link href="/login">Sign in</Nav.Link>
                     </div>
                     <div className={router.pathname.toLowerCase() === "/signup" ? "btn nav-link active" : "btn nav-link"}>
-                      <Link href="/signup">Sign up</Link>
+                      <Nav.Link href="/signup">Sign up</Nav.Link>
                     </div>
                   </>
                 :
@@ -105,8 +112,8 @@ function Header() {
                 <Link href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22.414" height="22.414" viewBox="0 0 22.414 22.414">
                   <g id="icon-magnifying-glass" transform="translate(1 1)">
-                    <path id="Path_1" data-name="Path 1" d="M305.541,309.272a8.271,8.271,0,1,0-8.271,8.27A8.272,8.272,0,0,0,305.541,309.272Z" transform="translate(-289 -301)" fill="none" stroke="#c1d72e" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                    <line id="Line_2" data-name="Line 2" x2="5.989" y2="5.866" transform="translate(14.011 14.134)" fill="none" stroke="#c1d72e" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                    <path id="Path_1" data-name="Path 1" d="M305.541,309.272a8.271,8.271,0,1,0-8.271,8.27A8.272,8.272,0,0,0,305.541,309.272Z" transform="translate(-289 -301)" fill="none" stroke="#c1d72e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    <line id="Line_2" data-name="Line 2" x2="5.989" y2="5.866" transform="translate(14.011 14.134)" fill="none" stroke="#c1d72e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                   </g>
                 </svg>
                 </Link>
