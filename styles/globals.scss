@@ -1192,6 +1192,7 @@ section {
   .tabsContainer {
     position: relative;
     padding: 65px 0;
+    height: 1061px;
     .tabs {
       @include flexbox;
       @include justify-content(flex-start);
