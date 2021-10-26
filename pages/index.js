@@ -71,7 +71,6 @@ export default function Home() {
   };
 
   const [imageIndex, setImageIndex] = useState(0);
-  const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
   const images = [
     { text: "Aim to inspire", src: mood1 },
     { text: "Ambient.", src: mood2 },
@@ -103,7 +102,21 @@ export default function Home() {
     responsive: [{breakpoint: 550, settings: {slidesToShow: 1}}, {breakpoint: 768, settings: {slidesToShow: 3}}, {breakpoint: 1200, settings: {slidesToShow: 5, slidesToScroll: 2}}],
   };
 
-    
+  const [videoPlay, setVideoPlay] = useState(false);
+
+  function togglePlay(e) {
+    if (!videoPlay) {
+      e.target.nextSibling.style.zIndex = 1000;
+      e.target.nextSibling.play()
+      setVideoPlay(true);
+    }
+    else {
+      e.target.style.zIndex = -1
+      e.target.pause()
+      setVideoPlay(false);
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -127,6 +140,7 @@ export default function Home() {
         <section className="heroSection">
           <div className="heroContent">
             <div className="fixed-container">
+
               <h1>Find &amp; License Music. Fast.</h1>
               <p>Licensing plans start at $10/month with unlimited access to over 80K songs and 25K SFX from amazing bands &amp; artists.</p>
               <Form className="heroForm">
@@ -174,7 +188,7 @@ export default function Home() {
                   <div className="tabsInnerContent">
                     <div className="searchvideoSection">
                       <p>Watch the filters &amp; keywords guide</p>
-                      <div className="videoContainer">
+                      <div className="videoContainer" onClick={togglePlay}>
                         <span></span>
                         <video poster="./screenSearch.png">
                           <source src="./simpleSearch.mp4" type="video/mp4"/>
