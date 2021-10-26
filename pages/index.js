@@ -112,8 +112,8 @@ export default function Home() {
     }
     else {
       e.target.style.zIndex = -1
-      e.target.pause()
       setVideoPlay(false);
+
     }
   };
 
