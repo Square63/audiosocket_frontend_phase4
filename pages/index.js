@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Image from 'next/image';
+import Select from "react-select";
 import amazon from '../images/amazon.svg';
 import disnep from '../images/Disnep.svg';
 import hbo from '../images/HBO.svg';
@@ -29,7 +30,7 @@ import $ from 'jquery';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 import { useRouter } from "next/router";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useState, useRef} from "react";
 import styles from '../styles/Home.module.scss';
 
 const imagess = [Sample1, Sample2, Sample3, Sample1, Sample2, Sample3];
@@ -171,7 +172,103 @@ export default function Home() {
                 </div>
                 <div className="tabsContent">
                   <div className="tabsInnerContent">
-                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of `de Finibus Bonorum et Malorum` (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, `Lorem ipsum dolor sit amet..`, comes from a line in section 1.10.
+                    <div class="searchvideoSection">
+                      <p>Watch the filters &amp; keywords guide</p>
+                      <div className="videoContainer">
+                        <span></span>
+                        <video poster="./screenSearch.png">
+                          <source src="./simpleSearch.mp4" type="video/mp4"/>
+                        </video>
+                      </div>
+                      <div className="catalogBtn-block">
+                        <button className="btn btnMainLarge">Search the catalog</button>
+                      </div>
+                    </div>
+                    <div className="outOfScenario">
+                      <h5>Try out this scenario.</h5>
+                      <p>You’re looking for a cool contemporary electronic rock track with female vocals that is moody for your travel video. Something that fans of Phantogram would love.</p>
+                    </div>
+                    <div className="stepsWrapper">
+                      <div className="stepSection">
+                        <h5>Step 1 :</h5>
+                      </div>
+                      <div className="stepContent selectOption">
+                        <Form>
+                          <Form.Label className="stepsLabel">Select Genre : <span>Rock</span></Form.Label>
+                          <div className="roundedForm">
+                            <select aria-label="Default select example" className="form-control circularInput">
+                              <option>Select Genre</option>
+                              <option value="1">Classical</option>
+                              <option value="2">Rock</option>
+                              <option value="3">POP</option>
+                            </select>
+                            <div variant="default" type="submit" className="circularBtn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="13.328" height="16.414" viewBox="0 0 13.328 16.414">
+                                <g id="icon-arrow-down" transform="translate(1.414 1)">
+                                  <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                                  <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                                  <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                                </g>
+                              </svg>
+                            </div>
+                          </div>
+                        </Form>
+                      </div>
+                    </div>
+                    <div className="stepsWrapper">
+                      <div className="stepSection">
+                        <h5>Step 2 :</h5>
+                      </div>
+                      <div className="stepContent">
+                        <Form>
+                          <Form.Label className="stepsLabel">Select Vocals : <span>Female</span></Form.Label>
+                          {['radio'].map((type) => (
+                            <div key={`inline-${type}`}>
+                              <Form.Check
+                                label="Male"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-1`}
+                              />
+                              <Form.Check
+                                label="Female"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-2`}
+                              />
+                              <Form.Check
+                                label="Instrumental"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-3`}
+                              />
+                            </div>
+                          ))}
+                        </Form>
+                      </div>
+                    </div>
+                    <div className="stepsWrapper">
+                      <div className="stepSection">
+                        <h5>Step 3 :</h5>
+                      </div>
+                      <div className="stepContent">
+                        <Form>
+                          <Form.Label className="stepsLabel">Add “Phantogram” in keyword search.</Form.Label>
+                          <div className="roundedForm">
+                            <Form.Control type="search" className="circularInput" placeholder="Enter your email." />
+                            <Button variant="default" type="submit" className="circularBtn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="15.014" height="12.278" viewBox="0 0 15.014 12.278">
+                                <g id="Group_16" data-name="Group 16" transform="translate(1 10.864) rotate(-90)">
+                                  <path id="Shape_1938" data-name="Shape 1938" d="M0,0V12.6" transform="translate(4.725 0)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                                  <path id="Shape_1939" data-name="Shape 1939" d="M4.725,4.725,0,0" transform="translate(0 7.875)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                                  <path id="Shape_1940" data-name="Shape 1940" d="M0,4.725,4.725,0" transform="translate(4.725 7.875)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                                </g>
+                              </svg>
+                            </Button>
+                          </div>
+                        </Form>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
