@@ -190,7 +190,7 @@ export default function Home() {
                       <p>Watch the filters &amp; keywords guide</p>
                       <div className="videoContainer" onClick={togglePlay}>
                         <span></span>
-                        <video poster="./screenSearch.png">
+                        <video poster="./screenSearch.png" controls>
                           <source src="./simpleSearch.mp4" type="video/mp4"/>
                         </video>
                       </div>
