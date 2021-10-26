@@ -172,7 +172,7 @@ export default function Home() {
                 </div>
                 <div className="tabsContent">
                   <div className="tabsInnerContent">
-                    <div class="searchvideoSection">
+                    <div className="searchvideoSection">
                       <p>Watch the filters &amp; keywords guide</p>
                       <div className="videoContainer">
                         <span></span>
