@@ -130,7 +130,7 @@ export default function Home() {
               <h1>Find &amp; License Music. Fast.</h1>
               <p>Licensing plans start at $10/month with unlimited access to over 80K songs and 25K SFX from amazing bands &amp; artists.</p>
               <Form className="heroForm">
-                <Form.Control type="search" placeholder="Enter a keyword, YouTube link, or Spotify song link…" />
+                <Form.Control type="text" placeholder="Enter a keyword, YouTube link, or Spotify song link…" />
                 <Button variant="default" type="submit" className="btnMainLarge stickyBtn">Search</Button>
               </Form>
               <div className="brandsStrip">
@@ -255,7 +255,7 @@ export default function Home() {
                         <Form>
                           <Form.Label className="stepsLabel">Add “Phantogram” in keyword search.</Form.Label>
                           <div className="roundedForm">
-                            <Form.Control type="search" className="circularInput" placeholder="Enter your email." />
+                            <Form.Control type="text" className="circularInput" placeholder="Enter your email." />
                             <Button variant="default" type="submit" className="circularBtn">
                               <svg xmlns="http://www.w3.org/2000/svg" width="15.014" height="12.278" viewBox="0 0 15.014 12.278">
                                 <g id="Group_16" data-name="Group 16" transform="translate(1 10.864) rotate(-90)">
@@ -443,7 +443,7 @@ export default function Home() {
                   <Image src={testimonialAvatar} alt="Picture" className=""/>
                 </div>
                 <Carousel.Caption>
-                  <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique. I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
+                  <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
                   <div className="authorStatus">
                     <p className="authorName">Pete Larson</p>
                     <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
