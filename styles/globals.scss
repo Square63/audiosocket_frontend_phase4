@@ -2212,6 +2212,7 @@ section {
     }
   }
   select {
+    appearance: none;
     & + .circularBtn {
       background-color: white;
     }
@@ -2673,13 +2674,14 @@ section {
     }
     .moodSlide {
       max-width: initial;
-      width: auto;
+      width: calc((100vw - 40px) / 2);
+      height: calc((100vw - 40px) / 2);
       max-height: initial;
       aspect-ratio: 1;
       transform: scale(0.95);
       & > div {
         max-height: initial;
-        height: auto;
+        height: calc((100vw - 40px) / 2);
         aspect-ratio: 1;
       }
       .moodOverlayText {
