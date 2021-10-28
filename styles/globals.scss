@@ -15,7 +15,7 @@
   margin: 0 auto;
 }
 
-.slide {
+.slickSlider .slide {
   transform: scale(0.8);
   transition: transform 300ms;
   opacity: 1;
@@ -1204,6 +1204,8 @@ section {
   }
 }
 
+
+
 /***************** How to use ****************/
 .howToUse {
   background-color: $headerColor;
@@ -1695,6 +1697,9 @@ section {
       gap: 30px;
       margin-bottom: 40px;
     }
+    .MoodFilterDropdown {
+      display: none;
+    }
   }
   .rec-carousel-wrapper {
     margin: 49px 0 60px;
@@ -1724,6 +1729,7 @@ section {
       transform: translate(-50%, -50%);
       font-size: 18px;
       font-weight: 400;
+      width: 100%;
       line-height: 1.28;
       letter-spacing: -0.45px;
       text-align: center;
@@ -1756,6 +1762,9 @@ section {
     &:focus:enabled {
       background-color: transparent;
     }
+  }
+  .ViewPlaylist {
+    text-align: center;
   }
 }
 
@@ -2202,6 +2211,11 @@ section {
       opacity: 0.85;
     }
   }
+  select {
+    & + .circularBtn {
+      background-color: white;
+    }
+  }
 }
 
 /******************** Keyframe **************/
@@ -2222,6 +2236,17 @@ section {
   }
 }
 /******************** Responsive Behaviour *****************/
+@media #{$tab-landscape} {
+  .testimonial {
+    .carousel {
+      .carousel-control-next, 
+      .carousel-control-prev {
+        display: none;
+      }
+    }
+  }
+}
+
 @media #{$mid-point-tablet} {
   .heroSection {
     min-height: 600px;
@@ -2239,7 +2264,85 @@ section {
         margin-top: 7em;
         gap: 20px;
         @include justify-content(center);
+      }
+    }
+  }
 
+  section {
+    h2 {
+      font-size: 32px;
+    }
+  }
+
+  .howToUse { 
+    .tabsContainer {
+      .tabs {
+        .tab {
+          padding: 25px 10px;
+          .tabHeading {
+            h3 {
+              font-size: 18px;
+            }
+            p {
+              font-size: 13px;
+            }
+          }
+        }
+
+        .tabsContent {
+          .tabsInnerContent {
+            .stepsWrapper {
+              .stepSection {
+                max-width: 100px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /******************** Mood Slider ********************/
+  .moodSlider {
+    .moodContent {
+      @include flex-direction(column);
+      @include align-items(center);
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      .moodText {
+        max-width: 580px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        h2 {
+          text-align: center;
+        }
+      }
+      .moodFilters {
+        display: none;
+      }
+      .MoodFilterDropdown {
+        display: block;
+        max-width: 330px;
+        width: 100%;
+        margin: 20px 0 0;
+      }
+    }
+    .rec-carousel-wrapper {
+      margin: 49px 0 60px;
+      .rec-arrow {
+        display: none;
+      }
+      .rec-pagination {
+        margin-top: 25px;
+        .rec-dot {
+          background-color: #6e7377;
+          box-shadow: none;
+          &.rec-dot_active {
+            background-color: $white;
+          }
+        }
       }
     }
   }
@@ -2253,6 +2356,11 @@ section {
         }
       }
     }
+  }
+
+  /************** Mood Slider ***********/
+  .moodSlider {
+    padding-block: 65px 80px;
   }
 }
 @media #{$phone-landscape} {
@@ -2309,13 +2417,18 @@ section {
       }
     }
   }
+  section {
+    h2 {
+      font-size: 28px;
+      line-height: 1.21;
+      letter-spacing: -0.7px;
+    }
+  }
   /************** How to use ************/
   .howToUse {
-    background-color: $headerColor;
-    padding-block: 77px 89px;
     h2 {
-      color: $white;
-      margin-bottom: 60px;
+      max-width: 90%;
+      margin-inline: auto;
     }
     .tabsContainer {
       height: auto !important;
@@ -2325,17 +2438,6 @@ section {
         .tab {
           padding: 30px 20px;
           max-width: 100%;
-          .tabImg {
-            margin-right: 15px;
-            svg {
-              width: 32px;
-              height: auto;
-              @include transition(all 0.25s ease-in-out);
-              path, line {
-                stroke: $green-light;
-              }
-            }
-          }
           .tabHeading {
             h3 {
               font-size: 18px;
@@ -2347,7 +2449,6 @@ section {
               line-height: 1.23;
               letter-spacing: -0.33px;
             }
-
           }
           &:hover,
           &.tabSelected {
@@ -2362,7 +2463,6 @@ section {
           }
         }
         .tabsContent {
-          flex: 1;
           border-radius: 0;
           opacity: 0;
           position: static;
@@ -2381,28 +2481,13 @@ section {
             width: 100%;
             margin: 0 auto;
             h5 {
-              font-size: 18px;
-              font-weight: 500;
-              line-height: 1.28;
-              letter-spacing: -0.45px;
-              text-align: left;
-              color: $white;
-              margin-bottom: 20px;
+              font-size: 16px;
             }
             p {
-              font-size: 16px;
-              line-height: 1.3;
-              letter-spacing: 0.6px;
-              text-align: left;
-              color: $white;
+              font-size: 13px;
             }
             .stepsLabel {
-              font-size: 18px;
-              line-height: 1.28;
-              letter-spacing: -0.45px;
-              text-align: left;
-              color: $white;
-              margin-bottom: 18px;
+              font-size: 16px;
             }
             .form-check {
               padding-left: 0;
@@ -2415,42 +2500,6 @@ section {
             .searchvideoSection {
               p {
                 font-size: 16px;
-                line-height: 1.19;
-                letter-spacing: normal;
-                text-align: center;
-                color: $white;
-                margin-bottom: 12px;
-              }
-              .videoContainer {
-                max-width: 374px;
-                height: 211px;
-                border-radius: 20px;
-                width: 100%;
-                margin: 0 auto;
-                position: relative;
-                overflow: hidden;
-                span {
-                  background: rgb(49 52 56 / 20%) url(../images/playIcon.svg) no-repeat center;
-                  background-size: 48px;
-                  position: absolute;
-                  inset: 0;
-                  width: 100%;
-                  height: 100%;
-                  display: block;
-                  z-index: 2;
-                }
-                video {
-                  position: absolute;
-                  inset: 0;
-                  width: 100%;
-                  height: 100%;
-                  object-fit: cover;
-                  z-index: 1;
-                }
-              }
-              .catalogBtn-block {
-                margin-top: 21px;
-                text-align: center;
               }
             }
             .outOfScenario {
@@ -2459,35 +2508,11 @@ section {
               }
             }
             .stepsWrapper {
-              @include flexbox;
-              @include justify-content(flex-start);
-              @include align-items(flex-start);
               .stepSection {
-                max-width: 175px;
-                width: 100%;
-              }
-              .stepContent {
-                @include flex(1);
-                &.selectOption {
-                  .circularInput {
-                    appearance: none;
-                    color: #979da2;
-                  }
-                  .circularBtn {
-                    background-color: transparent;
-                  }
-                }
+                max-width: 85px;
               }
               .roundedForm {
                 max-width: 275px;
-              }
-            }
-            & > div {
-              border-bottom: 1px solid rgb(240 242 244 / 10%);
-              padding: 27px 0 28px;
-              &:last-child {
-                border-bottom: 0;
-                padding-bottom: 10;
               }
             }
           }
@@ -2504,6 +2529,11 @@ section {
         }
       }
     }
+  }
+
+  /************** Mood Slider ***********/
+  .moodSlider {
+    padding-block: 50px 60px;
   }
   /************** Footer *************/
   footer {
@@ -2586,6 +2616,92 @@ section {
           }
           &:nth-child(2) {
             width: 30vw;
+          }
+        }
+      }
+    }
+  }
+
+  .howToUse {
+    h2 {
+      text-align: left;
+      margin-inline: initial;
+    }
+  }
+
+  .moodSlider {
+    .moodContent {
+      @include align-items(flex-start);
+      .moodText {
+        max-width: 330px;
+        width: 100%;
+        margin: initial;
+        text-align: left;
+        h2 {
+          text-align: left;
+          margin-bottom: 15px;
+        }
+        p {
+          font-size: 18px;
+        }
+      }
+      .moodFilters {
+        display: none;
+      }
+      .MoodFilterDropdown {
+        display: block;
+        max-width: 330px;
+        width: 100%;
+        margin: 20px 0 0;
+      }
+    }
+    .rec-carousel-wrapper {
+      margin: 49px 0 60px;
+      .rec-arrow {
+        display: none;
+      }
+      .rec-pagination {
+        margin-top: 25px;
+        .rec-dot {
+          background-color: #6e7377;
+          box-shadow: none;
+          &.rec-dot_active {
+            background-color: $white;
+          }
+        }
+      }
+    }
+    .moodSlide {
+      max-width: initial;
+      width: auto;
+      max-height: initial;
+      aspect-ratio: 1;
+      transform: scale(0.95);
+      & > div {
+        max-height: initial;
+        height: auto;
+        aspect-ratio: 1;
+      }
+      .moodOverlayText {
+        font-size: 14px;
+      }
+    }
+  }
+
+  /************** Testimonial ****************/
+  .testimonial {
+    .carousel {
+      .carousel-inner {
+        .carousel-item {
+          .carousel-caption {
+            & > p {
+              font-size: 15px;
+            }
+            .authorStatus {
+              p {
+                font-size: 15px;
+              }
+            }
           }
         }
       }

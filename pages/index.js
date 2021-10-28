@@ -411,18 +411,39 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <section className="moodSlider">
+        <section className="moodSlider">
           <div className="testimonialContainer">
             <div className="moodContent">
               <div className="moodText">
                 <h2>Curated playlists to fit your project.</h2>
                 <p>Flip through some of our most popular playlists to see the high-quality tracks we carry.</p>
               </div>
-              <div className="moodFilters">
+              <div className="moodFilters hideOntablet">
                 <a href="" className="btn btnMainOutline">Creator Kits</a>
                 <a href="" className="btn btnMainOutline">Moods</a>
                 <a href="" className="btn btnMainOutline">Genres</a>
-                <a href="" className="btn btnMainOutline">themes</a>
+                <a href="" className="btn btnMainOutline">Themes</a>
+              </div>
+              <div className="MoodFilterDropdown ShowOntablet">
+                <Form>
+                  <div className="roundedForm">
+                    <select aria-label="Default select example" className="form-control circularInput">
+                      <option>Creator Kits</option>
+                      <option value="1">Moods</option>
+                      <option value="2">Genres</option>
+                      <option value="3">Themes</option>
+                    </select>
+                    <div variant="default" type="submit" className="circularBtn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13.328" height="16.414" viewBox="0 0 13.328 16.414">
+                        <g id="icon-arrow-down" transform="translate(1.414 1)">
+                          <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                          <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                          <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </Form>
               </div>
             </div>       
             <CarouselMood breakPoints={breakPoints}>
@@ -434,9 +455,12 @@ export default function Home() {
               ))}
             </CarouselMood>
           </div>
-        </section> */}
+          <div className="ViewPlaylist">
+            <a href="" className="btn btnMainLarge">View All Playlists</a>
+          </div>
+        </section>
 
-        {/* <section className="testimonial">
+        <section className="testimonial">
           <div className="testimonialContainer">
             <Carousel>
               <Carousel.Item interval={3000}>
@@ -480,7 +504,7 @@ export default function Home() {
               
             </Carousel>
           </div>
-        </section> */}
+        </section>
 
         {/* <section className="pricing">
           <div className="bgWave">
