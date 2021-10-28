@@ -13,10 +13,10 @@ function Footer() {
       <footer>
         <div className="fixed-container">
           <div className="row">
-            <div className="footer-logo col-md-3">
+            <div className="footer-logo col-md-12 col-lg-3">
               <Image loader={LoaderImage} src={logo} alt="LOGO" className="logo-icon"/>
             </div>
-            <div className="col-xs-12 col-md-3 footer-links">
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 footer-links">
               <div className="footerListPack">
                 <span className="footer-heading">Music</span>
                 <div className="footer-list">
@@ -45,7 +45,7 @@ function Footer() {
                 </div>
               </div>
             </div>
-            <div className="col-xs-12 col-md-3 footer-links">
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 footer-links">
               <div className="footerListPack">
                 <span className="footer-heading">Company</span>
                 <div className="footer-list">
@@ -65,7 +65,7 @@ function Footer() {
                 </div>
               </div>
             </div>
-            <div className="col-xs-12 col-md-3 footer-links">
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 footer-links socialSection">
               <div className="footerListPack">
                 <span className="footer-heading">Connect with us.</span>
                 <div className="footer-list">
@@ -147,6 +147,9 @@ function Footer() {
                 </Form>
                 </div>
               </div>
+            </div>
+            <div className="copyRight col-xs-12 col-md-12 col-lg-12">
+              <span>©2021 Audiosocket. All Rights Reserved. Privacy Policy</span>
             </div>
           </div>
         </div>

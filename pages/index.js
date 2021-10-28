@@ -33,7 +33,7 @@ import { useRouter } from "next/router";
 import {useContext, useEffect, useState, useRef} from "react";
 import styles from '../styles/Home.module.scss';
 
-const imagess = [Sample1, Sample2, Sample3, Sample1, Sample2, Sample3];
+const imagess = [slick1, slick2, slick3, slick4, slick5, slick2, slick4];
 
 const breakPoints = [
   { width: 1, itemsToShow: 2, pagination: true },
@@ -411,7 +411,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="moodSlider">
+        {/* <section className="moodSlider">
           <div className="testimonialContainer">
             <div className="moodContent">
               <div className="moodText">
@@ -434,9 +434,9 @@ export default function Home() {
               ))}
             </CarouselMood>
           </div>
-        </section>
+        </section> */}
 
-        <section className="testimonial">
+        {/* <section className="testimonial">
           <div className="testimonialContainer">
             <Carousel>
               <Carousel.Item interval={3000}>
@@ -480,9 +480,9 @@ export default function Home() {
               
             </Carousel>
           </div>
-        </section>
+        </section> */}
 
-        <section className="pricing">
+        {/* <section className="pricing">
           <div className="bgWave">
             <div className="fixed-container">
               <h2>Priced to fit your needs.</h2>
@@ -535,9 +535,9 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
-        <section className="campareWithCompetitor">
+        {/* <section className="campareWithCompetitor">
           <div className="blackSection">
             <div className="blackContent">
               <div className="blackHeading">
@@ -607,9 +607,9 @@ export default function Home() {
               <a href="" className="btn btnMainXlarge">Browse Music</a>
             </div>
           </div>
-        </section>
+        </section> */}
 
-        <section className="slickSlider">
+        {/* <section className="slickSlider">
           <div className="testimonialContainer">
             <div className="slickContent">
               <h2>Built for creators, trusted by film studios.</h2>
@@ -634,17 +634,24 @@ export default function Home() {
                 <Image src={slick3} alt="image" key="66"></Image>
               </div>
             </Slider>
-            {/* <div className="App">
-              <Slider {...settings2}>
-                {imagess.map((img, idx) => (
-                  <div className={idx === imageIndex ? "slide activeSlide" : "slide"} key={idx}>
+          </div>
+        </section> */}
+        {/* <section className="slickSlider2">
+          <div className="testimonialContainer">
+            <div className="slickContent">
+              <h2>Built for creators, trusted by film studios.</h2>
+            </div>
+            <Slider {...settings2}>
+              {imagess.map((img, idx) => (
+                <div className={idx === imageIndex ? "slide activeSlide" : "slide"} key={idx}>
+                  <div className="slickSlides">
                     <Image src={img} alt={img} />
                   </div>
-                ))}
-              </Slider>
-            </div> */}
+                </div>
+              ))}
+            </Slider>
           </div>
-        </section>
+        </section> */}
       </main>
 
 
