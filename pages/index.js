@@ -33,7 +33,7 @@ import { useRouter } from "next/router";
 import {useContext, useEffect, useState, useRef} from "react";
 import styles from '../styles/Home.module.scss';
 
-const imagess = [slick1, slick2, slick3, slick4, slick5, slick2, slick4];
+const imagess = [slick3, slick3, slick3, slick3, slick3, slick3, slick3];
 
 const breakPoints = [
   { width: 1, itemsToShow: 2, pagination: true },
@@ -127,7 +127,7 @@ export default function Home() {
           rel="stylesheet"
           type="text/css"
           charset="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick3carousel/1.6.0/slick.min.css"
         />
         <link
           rel="stylesheet"
@@ -641,34 +641,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <section className="slickSlider">
-          <div className="testimonialContainer">
-            <div className="slickContent">
-              <h2>Built for creators, trusted by film studios.</h2>
-            </div>
-            <Slider {...settings}>
-              <div className="slickSlides">
-                <Image src={slick1} alt="Image" key="12"></Image>
-              </div>
-              <div className="slickSlides">
-                <Image src={slick2} alt="image" key="22"></Image>
-              </div>
-              <div className="slickSlides">
-                <Image src={slick3} alt="image" key="33"></Image>
-              </div>
-              <div className="slickSlides">
-                <Image src={slick4} alt="image" key="44"></Image>
-              </div>
-              <div className="slickSlides">
-                <Image src={slick5} alt="image" key="55"></Image>
-              </div>
-              <div className="slickSlides">
-                <Image src={slick3} alt="image" key="66"></Image>
-              </div>
-            </Slider>
-          </div>
-        </section> */}
-        {/* <section className="slickSlider2">
+        <section className="slickSlider">
           <div className="testimonialContainer">
             <div className="slickContent">
               <h2>Built for creators, trusted by film studios.</h2>
@@ -683,11 +656,8 @@ export default function Home() {
               ))}
             </Slider>
           </div>
-        </section> */}
+        </section>
       </main>
-
-
-      
     </div>
 
   )
