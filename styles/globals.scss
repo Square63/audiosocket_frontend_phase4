@@ -2507,7 +2507,7 @@ section {
           & + .tabsContent {
             opacity: 1;
             z-index: 99;
-            display: block;
+            display: flex;
           }
         }
       }
