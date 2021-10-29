@@ -216,7 +216,7 @@ export default function Home() {
                               <option value="2">Rock</option>
                               <option value="3">POP</option>
                             </select>
-                            <div variant="default" type="submit" className="circularBtn">
+                            <div variant="default" className="circularBtn">
                               <svg xmlns="http://www.w3.org/2000/svg" width="13.328" height="16.414" viewBox="0 0 13.328 16.414">
                                 <g id="icon-arrow-down" transform="translate(1.414 1)">
                                   <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
@@ -433,7 +433,7 @@ export default function Home() {
                       <option value="2">Genres</option>
                       <option value="3">Themes</option>
                     </select>
-                    <div variant="default" type="submit" className="circularBtn">
+                    <div variant="default" className="circularBtn">
                       <svg xmlns="http://www.w3.org/2000/svg" width="13.328" height="16.414" viewBox="0 0 13.328 16.414">
                         <g id="icon-arrow-down" transform="translate(1.414 1)">
                           <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
@@ -506,7 +506,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <section className="pricing">
+        <section className="pricing">
           <div className="bgWave">
             <div className="fixed-container">
               <h2>Priced to fit your needs.</h2>
@@ -559,9 +559,9 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
 
-        {/* <section className="campareWithCompetitor">
+        <section className="campareWithCompetitor">
           <div className="blackSection">
             <div className="blackContent">
               <div className="blackHeading">
@@ -575,54 +575,62 @@ export default function Home() {
           </div>
           <div className="greySection">
             <div className="greyInnerSec">
-              <div className="provider">
+              <div className="comparisionRow">
                 <div className="columnLabel">
                   Provider
                 </div>
-                <div className="columnData">
-                  Audiosocket
-                </div>
-                <div className="columnData">
-                  Epidemic Sound
-                </div>
-                <div className="columnData">
-                  Artlist
-                </div>
-                <div className="columnData">
-                  Soundstripe
-                </div>
-              </div>
-              <div className="trackCount">
-                <div className="columnLabel">
+                <div className="columnLabel destroyAfterTime">
                   Number of tracks in catalog
                 </div>
-                <div className="columnData">
-                  <span className="AsBar">80,000+ Tracks</span>
-                </div>
-                <div className="columnData">
-                  <span className="epidemicBar">&nbsp;</span>
-                </div>
-                <div className="columnData">
-                  <span className="artlistBar">&nbsp;</span>
-                </div>
-                <div className="columnData">
-                  <span className="soundstripeBar">&nbsp;</span>
-                </div>
-              </div>
-              <div className="planRate">
                 <div className="columnLabel">
                   Plans starting at
                 </div>
-                <div className="columnData">
+              </div>
+
+              <div className="comparisionRow">
+                <div className="columnData provider">
+                  Audiosocket
+                </div>
+                <div className="columnData trackCount">
+                  <span className="AsBar">80,000+ Tracks</span>
+                </div>
+                <div className="columnData planRate">
                   <span>$10<sup>.00</sup> <small>/Month</small></span>
                 </div>
-                <div className="columnData">
+              </div>
+
+              <div className="comparisionRow">
+                <div className="columnData provider">
+                  Epidemic Sound
+                </div>
+                <div className="columnData trackCount">
+                  <span className="epidemicBar">&nbsp;</span>
+                </div>
+                <div className="columnData planRate">
                   <span>$15<sup>.00</sup> <small>/Month</small></span>
                 </div>
-                <div className="columnData">
+              </div>
+
+              <div className="comparisionRow">
+                <div className="columnData provider">
+                  Artlist
+                </div>
+                <div className="columnData trackCount">
+                  <span className="artlistBar">&nbsp;</span>
+                </div>
+                <div className="columnData planRate">
                   <span>$16<sup>.00</sup> <small>/Month</small></span>
                 </div>
-                <div className="columnData">
+              </div>
+
+              <div className="comparisionRow">
+                <div className="columnData provider">
+                  Soundstripe
+                </div>
+                <div className="columnData trackCount">
+                  <span className="soundstripeBar">&nbsp;</span>
+                </div>
+                <div className="columnData planRate">
                   <span>$12<sup>.00</sup> <small>/Month</small></span>
                 </div>
               </div>
@@ -631,7 +639,7 @@ export default function Home() {
               <a href="" className="btn btnMainXlarge">Browse Music</a>
             </div>
           </div>
-        </section> */}
+        </section>
 
         {/* <section className="slickSlider">
           <div className="testimonialContainer">

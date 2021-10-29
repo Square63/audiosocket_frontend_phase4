@@ -10,18 +10,18 @@
 //   height: 570px;
 // }
 
-.slide img {
-  width: 20rem;
-  margin: 0 auto;
-}
+// .slide img {
+//   width: 20rem;
+//   margin: 0 auto;
+// }
 
-.slickSlider .slide {
+.slick-slide .slide {
   transform: scale(0.8);
   transition: transform 300ms;
   opacity: 1;
 }
 
-.activeSlide {
+.slick-slide .activeSlide {
   transform: scale(1.1);
   opacity: 1;
 }
@@ -1829,8 +1829,11 @@ section {
       max-width: 800px;
       width: 100%;
       padding-left: 90px;
-      display: grid;
-      grid-template-columns: 34% 42% 1fr;
+      
+      .comparisionRow {
+        display: grid;
+        grid-template-columns: 34% 42% 1fr;
+      }
       .columnLabel {
         font-size: 18px;
         font-weight: 400;
@@ -1839,6 +1842,7 @@ section {
         color: $textClr;
         margin-bottom: 22px;
         margin-inline-end: 20px;
+        white-space: nowrap;
       }
       .columnData {
         margin-inline-end: 20px;
@@ -1864,7 +1868,7 @@ section {
       }
 
       .provider {
-        .columnData {
+        &.columnData {
           font-size: 22px;
           font-weight: 400;
           line-height: 1.09;
@@ -1878,7 +1882,7 @@ section {
         }
       }
       .trackCount {
-        .columnData {
+        &.columnData {
           position: relative;
           span {
             width: 10%;
@@ -1909,10 +1913,10 @@ section {
         }
       }
       .planRate {
-        margin-left: 10px;
-        .columnData {
+        &.columnData {
           @include flexbox;
           @include align-items(flex-end);
+          margin-left: 10px;
           span {
             font-size: 22px;
             font-weight: bold;
@@ -1920,6 +1924,7 @@ section {
             letter-spacing: normal;
             text-align: left;
             color: $headerColor;
+            white-space: nowrap;
             sup {
               margin-left: 3px;
             }
@@ -2237,6 +2242,38 @@ section {
   }
 }
 /******************** Responsive Behaviour *****************/
+@media #{$desktop-start} {
+  .pricing {
+    .pricingPlans {
+      .plan {
+        max-width: calc(100vw / 3);
+        .planHeading {
+          margin-bottom: 20px;
+        }
+        &.commercial {
+        }
+        .planPrice {
+          .planPriceAmount {
+            span {
+              font-size: 64px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .campareWithCompetitor {
+    .greySection {
+      .greyInnerSec {
+        padding-left: 75px;
+        .comparisionRow {
+          grid-template-columns: 30% 42% 1fr;
+        }
+      }
+    }
+  }
+}
 @media #{$tab-landscape} {
   .testimonial {
     .carousel {
@@ -2249,6 +2286,15 @@ section {
 }
 
 @media #{$mid-point-tablet} {
+  header {
+    .custom-nav {
+      .navbar-nav {
+        .nav-link {
+          padding-inline: 0.5em;
+        }
+      }
+    }
+  }
   .heroSection {
     min-height: 600px;
     .heroContent {
@@ -2347,18 +2393,110 @@ section {
       }
     }
   }
-}
-@media #{$tab-portrait} {
-  header {
-    .custom-nav {
-      .navbar-nav {
-        .nav-link {
-          padding-inline: 0.5em;
+
+  /************** Pricing *************/
+  .pricing {
+    padding-block: 60px;
+    h2 {
+      margin-bottom: 90px;
+    }
+    .pricingPlans {
+      @include justify-content(center);
+      flex-wrap: wrap;
+      gap: 40px;
+      .plan {
+        max-width: 335px;
+        margin-bottom: 45px;
+        padding: 60px 20px 50px;
+        .planHeading {
+          margin-bottom: 20px;
+        }
+        .planPrice {
+          .planPriceAmount {
+            span {
+              font-size: 64px;
+            }
+          }
+        }
+        &.commercial {
+          position: relative;
+          inset: initial;
+          transform: none;
+          height: auto;
+        }
+        &.enterprises {
+          margin-bottom: 0;
+          .planPrice {
+            height: 90px;
+          }
         }
       }
     }
   }
 
+  /*********** Campare Section *********/
+  .campareWithCompetitor {
+    .blackSection {
+      padding-left: 20px;
+      .blackContent {
+        .blackHeading {
+          padding: 60px 0;
+          &:before {
+            content: '';
+            width: 90px;
+            height: 90px;
+            border-radius: 110px;
+            background-size: 40px;
+            bottom: -45px;
+            right: -45px;
+          }
+        }
+        .blackPara {
+          p {
+            font-size: 23px;
+            line-height: normal;
+            letter-spacing: normal;
+            padding-right: 10px;
+          }
+        }
+      }
+    }
+    .greySection {
+      padding-block: 60px;
+      .greyInnerSec {
+        padding-left: 75px;
+        .columnData {
+          height: auto;
+          margin-bottom: 15px;
+        }
+        .comparisionRow {
+          .destroyAfterTime {
+            display: none;
+          }
+          .provider {
+            grid-area: provider;
+            height: auto;
+            line-height: normal;
+            margin-bottom: 10px;
+          }
+          .trackCount {
+            grid-area: trackCount;
+          }
+          .planRate {
+            grid-area: planRate;
+          }
+          grid-template-columns: 50px 50px 50px 50px;
+          grid-template-rows: auto;
+          grid-template-areas: 
+            "provider provider"
+            "trackCount planRate";
+          grid-template-columns: 60% 1fr;
+        }
+      }
+    }
+  }
+}
+@media #{$tab-portrait} {
   /************** Mood Slider ***********/
   .moodSlider {
     padding-block: 65px 80px;
@@ -2536,6 +2674,69 @@ section {
   .moodSlider {
     padding-block: 50px 60px;
   }
+
+  /************** Pricing *************/
+  .pricing {
+    .pricingPlans {
+      @include align-items(center);
+      @include flex-direction(column);
+    }
+    .plansBottDesc {
+      margin: 30px 0 25px;
+    }
+  }
+
+  /************** Compare Section ************/
+  .campareWithCompetitor {
+    grid-template-columns: 100%;
+    .blackSection {
+      padding: 60px 20px 55px;
+      .blackContent {
+        max-width: 100%;
+        .blackHeading {
+          padding-block: 0;
+          border: none;
+          h2 {
+            max-width: 100%;
+            margin-bottom: 15px;
+          }
+          &:before {
+            content: none;
+          }
+        }
+        .blackPara {
+          padding-block: 0;
+          max-width: 85%;
+          p {
+            font-size: 18px;
+            line-height: 1.4;
+            letter-spacing: -0.45px;
+            padding-right: 0;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .greySection {
+      padding-block: 33px 60px;
+      .greyInnerSec {
+        padding-inline: 20px;
+        .columnData {
+          margin-bottom: 20px;
+        }
+        .comparisionRow {
+          .provider {
+            margin-bottom: 7px;
+          }
+          .trackCount {
+            &:before {
+              content: none;
+            }
+          }
+        }
+      }
+    }
+  }
   /************** Footer *************/
   footer {
     .footer-links {
@@ -2657,7 +2858,7 @@ section {
       }
     }
     .rec-carousel-wrapper {
-      margin: 49px 0 60px;
+      margin: 30px 0;
       .rec-arrow {
         display: none;
       }
@@ -2678,7 +2879,7 @@ section {
       height: calc((100vw - 40px) / 2);
       max-height: initial;
       aspect-ratio: 1;
-      transform: scale(0.95);
+      transform: scale(0.9);
       & > div {
         max-height: initial;
         height: calc((100vw - 40px) / 2);
