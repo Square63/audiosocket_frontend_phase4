@@ -1218,7 +1218,6 @@ section {
             max-width: 90%;
           }
         }
-        &:hover,
         &.tabSelected {
           background-color: $hoverBG;
           border-color: $hoverBG;
@@ -1379,6 +1378,23 @@ section {
             &:last-child {
               border-bottom: 0;
               padding-bottom: 10;
+            }
+          }
+        }
+      }
+      &:hover {
+        .tab {
+          background-color: $hoverBG;
+          .tabImg {
+            svg {
+              path, line {
+                stroke: $white;
+              }
+            }
+          }
+          .tabHeading {
+            h3 {
+              color: $white;
             }
           }
         }
@@ -2433,7 +2449,6 @@ section {
               letter-spacing: -0.33px;
             }
           }
-          &:hover,
           &.tabSelected {
             &:after {
               content: none;
@@ -2508,6 +2523,11 @@ section {
             opacity: 1;
             z-index: 99;
             display: flex;
+          }
+        }
+        &:hover {
+          .tab:not(.tabSelected) {
+            background: none;
           }
         }
       }
