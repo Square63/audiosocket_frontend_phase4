@@ -150,7 +150,7 @@ export default function Home() {
 
               <h1>Find &amp; License Music. Fast.</h1>
               <p>Licensing plans start at $10/month with unlimited access to over 80K songs and 25K SFX from amazing bands &amp; artists.</p>
-              <Form className="heroForm">
+              <Form className="stickySearch heroForm">
                 <Form.Control type="text" placeholder="Enter a keyword, YouTube link, or Spotify song link…" />
                 <Button variant="default" type="submit" className="btnMainLarge stickyBtn">Search</Button>
               </Form>
@@ -318,8 +318,26 @@ export default function Home() {
                 </div>
                 <div className="tabsContent">
                   <div className="tabsInnerContent">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet, comes from a line in section 1.10.32
- 
+                    <div className="searchvideoSection">
+                      <p>Watch the curated playlists &amp; creator kits guide.</p>
+                      <div className="videoContainer" onClick={togglePlay}>
+                        <span></span>
+                        <video poster="./screenSearch.png" controls>
+                          <source src="./simpleSearch.mp4" type="video/mp4"/>
+                        </video>
+                      </div>
+                      <div className="catalogBtn-block">
+                        <button className="btn btnMainLarge">Search playlists</button>
+                      </div>
+                    </div>
+                    <div className="outOfScenario">
+                      <h5>Curated Playlists</h5>
+                      <p>Use our curated playlists to find the perfect track for your project. Playlists are created by genre/mood or by the type of project you’re working on.</p>
+                    </div>
+                    <div className="outOfScenario">
+                      <h5>Creator Kits</h5>
+                      <p>Creator Kits include everything you need to add audio to your project including: Music, Sound Effects, and Sound Design. The projects includes stems so you can tailor the kit to fit your needs.</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -347,7 +365,27 @@ export default function Home() {
                 </div>
                 <div className="tabsContent">
                   <div className="tabsInnerContent">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum. The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet, comes from a line in section 1.10.32.
+                    <div className="searchvideoSection">
+                      <p>Watch the upload a track search guide.</p>
+                      <div className="videoContainer" onClick={togglePlay}>
+                        <span></span>
+                        <video poster="./screenSearch.png" controls>
+                          <source src="./simpleSearch.mp4" type="video/mp4"/>
+                        </video>
+                      </div>
+                      <div className="catalogBtn-block">
+                        <button className="btn btnMainLarge">Search catalog</button>
+                      </div>
+                    </div>
+                    <div className="outOfScenario">
+                      <h5>Upload a reference track</h5>
+                      <p>If you have a track that sounds about right but isn’t royalty-free, we can find tracks for you to license based on your track.</p>
+                      <a href="" className="tryOut">Try it Out</a>
+                      <Form.Group controlId="formFile" className="uploadComponent">
+                        <Form.Label>Default file input example</Form.Label>
+                        <Form.Control type="file" />
+                      </Form.Group>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -383,7 +421,27 @@ export default function Home() {
                 </div>
                 <div className="tabsContent">
                   <div className="tabsInnerContent">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum. The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet, comes from a line in section 1.10.32.
+                    <div className="searchvideoSection">
+                      <p>Watch the link a track search guide.</p>
+                      <div className="videoContainer" onClick={togglePlay}>
+                        <span></span>
+                        <video poster="./screenSearch.png" controls>
+                          <source src="./simpleSearch.mp4" type="video/mp4"/>
+                        </video>
+                      </div>
+                      <div className="catalogBtn-block">
+                        <button className="btn btnMainLarge">Search catalog</button>
+                      </div>
+                    </div>
+                    <div className="outOfScenario">
+                      <h5>Link a reference track</h5>
+                      <p>If you have a track on YouTube or Spotify that sounds about right but isn’t royalty-free, we can find tracks for you to license based on your track. </p>
+                      <a href="" className="tryOut">Try it Out</a>
+                      <Form className="stickySearch">
+                        <Form.Control type="text" placeholder="Paste in a YouTube link or Spotify song link" />
+                        <Button variant="default" type="submit" className="btnMainLarge stickyBtn">Search</Button>
+                      </Form>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -411,7 +469,23 @@ export default function Home() {
                 </div>
                 <div className="tabsContent">
                   <div className="tabsInnerContent">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum. The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet, comes from a line in section 1.10.32.
+                    <div className="searchvideoSection">
+                      <p>Watch the project type search guide.</p>
+                      <div className="videoContainer" onClick={togglePlay}>
+                        <span></span>
+                        <video poster="./screenSearch.png" controls>
+                          <source src="./simpleSearch.mp4" type="video/mp4"/>
+                        </video>
+                      </div>
+                      <div className="catalogBtn-block">
+                        <button className="btn btnMainLarge">Search catalog</button>
+                      </div>
+                    </div>
+                    <div className="outOfScenario">
+                      <h5>Search by project type</h5>
+                      <p>We have curated playlists for each type of project you’re working on.</p>
+                      <a href="" className="tryOut">Try it Out</a>
+                    </div>
                   </div>
                 </div>
               </div>
