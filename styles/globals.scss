@@ -1079,7 +1079,39 @@ footer {
     }
   }
 }
+/******************* Common Components ****************/
+.stickySearch {
+  position: relative;
+  .form-control {
+    background-color: $white;
+    border-radius: 30px;
+    height: 44px;
+    font-size: 16px;
+    line-height: 1.19;
+    letter-spacing: -0.4px;
+    color: $textClr;
+    padding-inline: 20px 118px;
+  }
+  .stickyBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
 
+.uploadComponent {
+  label {
+    font-size: 16px;
+    line-height: 1.19;
+    letter-spacing: -0.4px;
+    color: $white;
+    margin-bottom: 15px;
+  }
+  input[type=file]::file-selector-button {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+}
 
 /******************** Home page styling *******************/
 .heroSection {
@@ -1116,24 +1148,8 @@ footer {
       margin-bottom: 65px;
     }
     .heroForm {
-      position: relative;
       max-width: 580px;
       width: 100%;
-      .form-control {
-        background-color: $white;
-        border-radius: 30px;
-        height: 44px;
-        font-size: 16px;
-        line-height: 1.19;
-        letter-spacing: -0.4px;
-        color: $textClr;
-        padding-inline: 20px 6.4vw;
-      }
-      .stickyBtn {
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
     }
     .brandsStrip {
       @include flexbox;
@@ -1157,8 +1173,6 @@ section {
   }
 }
 
-
-
 /***************** How to use ****************/
 .howToUse {
   background-color: $headerColor;
@@ -1169,8 +1183,8 @@ section {
   }
   .tabsContainer {
     position: relative;
-    padding: 65px 0;
-    height: 1061px;
+    padding: 100px 0;
+    height: 1060px !important;
     .tabs {
       @include flexbox;
       @include justify-content(flex-start);
@@ -1218,7 +1232,6 @@ section {
             max-width: 90%;
           }
         }
-        &:hover,
         &.tabSelected {
           background-color: $hoverBG;
           border-color: $hoverBG;
@@ -1278,7 +1291,7 @@ section {
             letter-spacing: -0.45px;
             text-align: left;
             color: $white;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
           }
           p {
             font-size: 16px;
@@ -1348,6 +1361,19 @@ section {
             p {
               margin-bottom: 0;
             }
+            .tryOut {
+              font-size: 18px;
+              font-weight: 500;
+              line-height: 1.28;
+              letter-spacing: -0.45px;
+              text-align: left;
+              color: $white;
+              margin-block: 30px 25px;
+              display: block;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
           }
           .stepsWrapper {
             @include flexbox;
@@ -1379,6 +1405,23 @@ section {
             &:last-child {
               border-bottom: 0;
               padding-bottom: 10;
+            }
+          }
+        }
+      }
+      &:hover {
+        .tab {
+          background-color: $hoverBG;
+          .tabImg {
+            svg {
+              path, line {
+                stroke: $white;
+              }
+            }
+          }
+          .tabHeading {
+            h3 {
+              color: $white;
             }
           }
         }
@@ -1972,7 +2015,8 @@ section {
 .btnMainXlarge,
 .btnMainLarge,
 .btnMainSmall,
-.btnMainOutline {
+.btnMainOutline,
+input[type=file]::file-selector-button {
   height: 44px;
   padding: 12px 26px 13px;
   border-radius: 29px;
@@ -1982,6 +2026,7 @@ section {
   color: $headerColor;
   white-space: nowrap;
   line-height: 19px;
+  border-color: transparent;
   @include transition(all 0.3s ease-in-out);
   &:hover,
   &:focus {
@@ -1997,9 +2042,14 @@ section {
 }
 
 .btnMainXlarge {
-  height: 57px;
+  height: 55px;
   padding: 18px 45px 20px;
   font-size: 18px;
+}
+
+input[type=file]::file-selector-button {
+  padding-inline: 17px; 
+  height: 55px;
 }
 
 .btnMainOutline {
@@ -2433,7 +2483,6 @@ section {
               letter-spacing: -0.33px;
             }
           }
-          &:hover,
           &.tabSelected {
             &:after {
               content: none;
@@ -2508,6 +2557,11 @@ section {
             opacity: 1;
             z-index: 99;
             display: flex;
+          }
+        }
+        &:hover {
+          .tab:not(.tabSelected) {
+            background: none;
           }
         }
       }
@@ -2619,6 +2673,22 @@ section {
     }
   }
 
+  .stickySearch {
+    .form-control {
+      height: 32px;
+      font-size: 13px;
+      padding-inline: 10px;
+    }
+    .stickyBtn {
+      position: absolute;
+      top: 42px;
+      height: 30px;
+      font-size: 14px;
+      padding: 8px 16px;
+      line-height: 14px;
+    }
+  }
+
   .heroSection {
     min-height: 527px;
     .heroContent {
@@ -2632,21 +2702,6 @@ section {
         font-size: 18px;
         line-height: 1.4;
         margin-bottom: 33px;
-      }
-      .heroForm {
-        .form-control {
-          height: 32px;
-          font-size: 13px;
-          padding-inline: 10px; 
-        }
-        .stickyBtn {
-          position: absolute;
-          top: 42px;
-          height: 30px;
-          font-size: 14px;
-          padding: 8px 16px;
-          line-height: 14px;
-        }
       }
       .brandsStrip {
         margin-top: 7em;
