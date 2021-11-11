@@ -64,6 +64,33 @@ ul,ol {
     padding: 55px 0 0;
   }
 }
+/************** Alert *************/
+.brandAlert {
+  padding-block: 21px;
+  border-radius: 0;
+  margin-bottom: 0;
+  p {
+    font-size: 22px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.23;
+    letter-spacing: -0.55px;
+    text-align: center;
+    color: $headerColor;
+    margin-bottom: 0;
+  }
+  &.alert-success {
+    border-color: $green-light;
+    background-color: $green-light;
+  }
+}
+/************** Wall *************/
+.brandWall {
+  background-color: $extraLightGrey;
+  border: 1px solid $nav-link;
+  padding: 12px 22px;
+}
 /************** Button ************/
 .primary-btn {
   background: $clr-green-bright;
@@ -1096,6 +1123,27 @@ footer {
     position: absolute;
     top: 0;
     right: 0;
+  }
+  &.largeStuff {
+    .form-control {
+      height: 55px;
+      padding-right: 125px;
+    }
+    .stickyBtn {
+      height: 55px;
+      padding-inline: 33px;
+    }
+  }
+  &.haveIcon {
+    .form-control {
+      padding-left: 70px;
+    }
+    svg {
+      position: absolute;
+      top: 51%;
+      left: 30px;
+      transform: translateY(-50%);
+    }
   }
 }
 

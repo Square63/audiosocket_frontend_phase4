@@ -29,13 +29,13 @@ function Favorites() {
       {type === 'songs'
         ?
         <div className={user.songsWrapper}>
-          <div className={user.songsRow+' ' +user.rowHead}>
-            <div className={user.songsData+' ' +user.playSection}></div>
-            <div className={user.songsData+' ' +user.songsTitle}>title</div>
-            <div className={user.songsData+' ' +user.songsArtist}>artist</div>
-            <div className={user.songsData+' ' +user.songsWaveform}></div>
-            <div className={user.songsData+' ' +user.songsGenres}>genres</div>
-            <div className={user.songsData+' ' +user.songsAction}>actions</div>
+          <div className={user.songsRow+' '+user.rowHead+' textCenter'}>
+            <div className={user.songsData+' '+user.playSection}></div>
+            <div className={user.songsData+' '+user.songsTitle}>title</div>
+            <div className={user.songsData+' '+user.songsArtist}>artist</div>
+            <div className={user.songsData+' '+user.songsWaveform}></div>
+            <div className={user.songsData+' '+user.songsGenres}>genres</div>
+            <div className={user.songsData+' '+user.songsAction}>actions</div>
           </div>
           <div className={user.songsRow+' ' +user.rowBody}>
             <div className={user.songsData+' ' +user.playSection}>

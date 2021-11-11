@@ -44,9 +44,9 @@ function Header() {
             </Nav>
             <Nav >
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="closeConditional" />
-              <div className={router.pathname.toLowerCase() === "/browse-music" ? "nav-link active" : "nav-link"}>
+              <div className={router.pathname.toLowerCase() === "/search" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Nav.Link eventKey="1" href="/browse-music">
+                  <Nav.Link eventKey="1" href="/search">
                     Music
                   </Nav.Link>
                 </Nav.Item>

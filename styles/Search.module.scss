@@ -1,0 +1,35 @@
+@import './variables-mixins.scss';
+
+.searchWrapper {
+  .pageHeading {
+    margin-block: 36px 18px;
+  }
+  .searchUploadStuff {
+    @include flexbox;
+    @include justify-content(space-between);
+    gap: 30px;
+    :global(.stickySearch){
+      flex: 1 !important;
+      .form-control {
+        background-color: #fafafa;
+        border-color: $nav-link;
+      }
+    }
+    :global(.btnMainXlarge) {
+      padding-inline: 18px;
+      font-size: 16px;
+      svg {
+        width: 17px;
+        margin-left: 12px;
+      }
+    }
+  }
+}
+.pageHeading{
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.19;
+  letter-spacing: normal;
+  text-align: left;
+  color: $heading-clr;
+}
