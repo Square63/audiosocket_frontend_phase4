@@ -63,6 +63,9 @@ function toggleClass(e) {
 };
 
 export default function Home() {
+  useEffect(() => {
+    document.body.classList.add('homepage');
+  }, []);
   const NextArrow = ({ onClick }) => {
     return (
       <div className="arrow next" onClick={onClick}>
