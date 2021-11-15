@@ -33,6 +33,8 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
 import {useContext, useEffect, useState, useRef} from "react";
 import styles from '../styles/Home.module.scss';
+import { wrapper } from '../redux/store';
+import { getFilters } from '../redux/actions/filterActions';
 
 const imagess = [slick3, slick3, slick3, slick3, slick3, slick3, slick3];
 

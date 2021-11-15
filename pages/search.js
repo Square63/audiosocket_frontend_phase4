@@ -2,7 +2,28 @@ import Alert from 'react-bootstrap/Alert';
 import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Image from 'next/image';
 import search from "../styles/Search.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { wrapper } from '../redux/store';
+import { getFilters } from '../redux/actions/filterActions';
+import { getTracks } from '../redux/actions/trackActions';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PreferenceModal from "../components/modals/PreferenceModal";
+import {useState} from "react";
+
 function Search() {
+  const dispatch = useDispatch();
+  
+  const handleSearch = async(e) => {
+    dispatch(getTracks(e.target.value));
+  }
+
+  const filters = useSelector( state => state.allFilters.filters)
+  const tracks = useSelector( state => state.allTracks.tracks)
+  console.log("Filters", filters)
+  console.log("Tracks", tracks)
+
   return (
     <div className={search.searchWrapper}>
       <Alert variant="success" className="brandAlert">
@@ -16,7 +37,7 @@ function Search() {
         <h1 className={search.pageHeading}>Search Music</h1>
         <div className={search.searchUploadStuff}>
           <Form className="stickySearch largeStuff haveIcon">
-            <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" />
+            <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" onChange={handleSearch} />
             <Button variant="default" type="submit" className="btnMainLarge stickyBtn">Search</Button>
             <svg xmlns="http://www.w3.org/2000/svg" className="" width="22.414" height="22.414" viewBox="0 0 22.414 22.414">
               <g id="icon-magnifying-glass" transform="translate(1 1)">
@@ -41,5 +62,23 @@ function Search() {
     
   );
 }
+
+// export const getStaticProps = async () => {
+//   const res = await fetch('http://time.jsontest.com/', {
+//     method: 'GET',
+//   })
+//   const data = await res.json()
+//   return {
+//     props: {
+//       data,
+//     },
+//   }
+// }
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ req, res }) => {
+      await store.dispatch(getFilters(req))
+      await store.dispatch(getTracks(req))
+    });
 
 export default Search;
