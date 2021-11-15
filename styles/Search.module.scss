@@ -8,6 +8,7 @@
     @include flexbox;
     @include justify-content(space-between);
     gap: 30px;
+    margin-bottom: 15px;
     :global(.stickySearch){
       flex: 1 !important;
       .form-control {
@@ -23,6 +24,13 @@
         margin-left: 12px;
       }
     }
+  }
+  :global(.filterBar) {
+    margin-bottom: 15px;
+  }
+  :global(.selectedFilter) {
+    margin-bottom: 15px;
+    display: inline-block;
   }
 }
 .pageHeading{

@@ -1,8 +1,17 @@
 import Alert from 'react-bootstrap/Alert';
-import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import DownloadTrack from "../components/modals/DownloadTrack";
+import {useState} from "react";
+import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Image from 'next/image';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 function Search() {
+  const handleClose = (show) => {
+    setShowModal(show)
+  }
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className={search.searchWrapper}>
       <Alert variant="success" className="brandAlert">
@@ -25,7 +34,7 @@ function Search() {
               </g>
             </svg>
           </Form>
-          <a href="" className="btn btnMainXlarge">
+          <a href="javascript:void(0)" className="btn btnMainXlarge" onClick={() => setShowModal(true)}>
             Upload a Track
             <svg xmlns="http://www.w3.org/2000/svg" width="17.465" height="16.526" viewBox="0 0 17.465 16.526">
               <g id="icon-upload" transform="translate(16.965 0.5) rotate(90)">
@@ -36,7 +45,101 @@ function Search() {
             </svg>
           </a>
         </div>
+        <div className="filterBar brandWall">
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              Genres
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              Moods
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              Themes
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              Vocals
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              Instruments
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              Duration / Tempo
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              Settings
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <div className="selectedFilter brandWall">
+          <ul>
+            <li>
+              <span className="tagText">Avante-Garde</span>
+              <span className="clearTag"></span>
+            </li>
+            <li>
+              <span className="tagText">Choral</span>
+              <span className="clearTag"></span>
+            </li>
+          </ul>
+          <OverlayTrigger overlay={<Tooltip>Clear All</Tooltip>}>
+            <span className="clearAllTag"></span>
+          </OverlayTrigger>
+        </div>
       </div>
+      <DownloadTrack showModal={showModal} onCloseModal={handleClose} />
     </div>
     
   );
