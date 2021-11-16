@@ -44,9 +44,15 @@ ul,ol {
   margin: 0 auto;
 }
 .fixed-container {
-  max-width: 1120px;
+  max-width: 1280px;
   width: 100%;
   padding: 0 20px;
+}
+
+.homepage {
+  .fixed-container {
+    max-width: 1120px;
+  }
 }
 
 .testimonialContainer {
@@ -1200,14 +1206,82 @@ footer {
       top: -3px !important;
       left: -1px !important;
       border-top: 0;
-      padding: 25px 15px 20px;
+      padding: 0;
+      overflow: hidden;
       @include transition(all 0.1s ease-in-out);
-      .dropdown-item {
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 2.57;
-        letter-spacing: -0.35px;
-        color: $white;
+      .filterWrapper {
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        padding: 25px 15px 20px;
+        .filterSelf {
+          @include flexbox;
+          @include align-items(center); 
+          .dropdown-item {
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: capitalize;
+            line-height: 1;
+            letter-spacing: -0.35px;
+            color: #ffffff;
+            padding: 10px 15px;
+            white-space: nowrap;
+            @include transition (all 0.2s ease-in-out);
+            span {
+              font-size: 11px;
+              font-weight: 500;
+              line-height: 1;
+              letter-spacing: -0.28px;
+            }
+          }
+          .filterControl {
+            min-width: 27px;
+            width: 27px;
+            height: 34px;
+            @include flexbox;
+            @include justify-content(center);
+            @include align-items(center);
+            background-color: #6e7377;
+            opacity: 0;
+            visibility: hidden;
+            cursor: pointer;
+            @include transition (all 0.2s ease-in-out);
+          }
+          .addFilter {
+          }
+          .discardFilter {
+            margin-left: 1px;
+          }
+          &:hover {
+            .dropdown-item {
+              background-color: $green-light;
+              color: $darkGrey;
+            }
+            .filterControl {
+              opacity: 1;
+              visibility: visible;
+              &:hover {
+                opacity: 0.85;
+              }
+            }
+            .addFilter {
+
+            }
+            .discardFilter {
+
+            }
+          }
+        }
+        &.filterChildren {
+          background-color: #6e7377;
+          .filterSelf {
+            .dropdown-item {
+              font-weight: 400;
+            }
+          }
+          .filterControl {
+            background-color: $darkGrey;
+          }
+        }
       }
     }
     &.active,
