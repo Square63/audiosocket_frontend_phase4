@@ -143,6 +143,32 @@ ul,ol {
   }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.form-control {
+  height: 43px;
+  border-radius: 29px;
+  border: solid 1px $headerColor;
+  background-color: white;
+  padding: 8px 20px;
+  font-size: 16px;
+  &::placeholder {
+    color: #979da2;
+    opacity: 1;
+  }
+  &:-ms-input-placeholder {
+    color: #979da2;
+  }
+  &::-ms-input-placeholder {
+    color: #979da2;
+  }
+}
+
 /**************** Radio button *****************/
 .radio {
   display: grid;
