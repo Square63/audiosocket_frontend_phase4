@@ -1220,6 +1220,7 @@ footer {
             font-size: 14px;
             font-weight: 500;
             text-transform: capitalize;
+            color: $white;
             line-height: 1;
             letter-spacing: -0.35px;
             color: #ffffff;
@@ -1299,11 +1300,46 @@ footer {
         }
       }
     }
+    &.miniEdition {
+      .dropdown-menu {
+        .filterWrapper {
+          grid-template-columns: repeat(3, auto);
+        }
+      }
+    }
+    &.setting {
+      .dropdown-menu {
+        .settingFilterWrapper {
+          padding: 25px 15px 20px;
+          form {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 25px;
+            .toogleSwitch {
+              @include flexbox;
+              @include align-items (center);
+              label {
+                margin: 0 10px 0 0;
+              }
+              .switchText {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.29;
+                letter-spacing: -0.35px;
+                color: $white;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+      }
+    }
   }
   &.brandWall {
     padding: 10px 15px;
   }
 }
+
 
 /****************** Tag bar *****************/
 .selectedFilter {
@@ -2353,6 +2389,52 @@ input[type=file]::file-selector-button {
     appearance: none;
     & + .circularBtn {
       background-color: white;
+    }
+  }
+}
+
+/***************** Toggle Switch ************/
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 41px;
+	height: 24px;
+	background: #dcdfe2;
+	display: inline-block;
+	border-radius: 20px;
+	position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    background: #1a1c1d;
+    border-radius: 16px;
+    transition: 0.3s;
+  }
+  &:active {
+    &:after {
+      width: 23px;
+    }
+  }
+}
+
+input {
+  &:checked {
+    & + label {
+      background: #c1d72e;
+      &:after {
+        left: calc(100% - 5px);
+	      transform: translateX(-100%);
+      }
     }
   }
 }
