@@ -76,104 +76,135 @@ function Signup() {
   return (
     <div className={signup.signupWrapper}>
       <div className={signup.signupHeading}>
-        <h1>sign up</h1>
+        <h1>Sign Up</h1>
+        <p>Already have an account?<Link href={"/login"}>Sign in</Link></p>
       </div>
-      <div className="row">
-        <div className="col-md-6">
-          <div className={signup.existingAccount}>
-            <h2>Use an existing account</h2>
-            <div className={signup.socialBtn}>
-              <a href='' className={signup.facebook+' '+signup.signupBtn}>facebook</a>
-              <a href='' className={signup.google+' '+signup.signupBtn}>google</a>
-              <a href='' className={signup.linkedin+' '+signup.signupBtn}>linkedin</a>
+      <div className={signup.steps}>
+        <ul>
+          <li className={signup.active}>
+            <span>1</span>Create Account
+          </li>
+          <li>
+            <span>1</span>Select Plan
+          </li>
+          <li>
+            <span>1</span>Setup Payment
+          </li>
+        </ul>
+      </div>
+      <div className={signup.useEmail}>
+        <div className={signup.formwrapper}>
+          <div className={signup.useEmail}>
+            <h2>Create Account</h2>
+            <div className={signup.wrapper}>
+              <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
+                <div className={signup.formWrapper}>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
+                        <Form.Control required name="first_name" type="text" placeholder="First Name*" />
+                        <Form.Control.Feedback type="invalid">
+                          First name is required!
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </div>
+                    <div className="col-md-6">
+                      <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
+                        <Form.Control required name="last_name" type="text" placeholder="Last Name*" />
+                        <Form.Control.Feedback type="invalid">
+                          Last name is required!
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
+                        <Form.Control required name="email" type="email" placeholder="Email*" />
+                        <Form.Control.Feedback type="invalid">
+                          A valid email address is required!
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <Form.Group className={signup.fieldControl} controlId="formBasicPassword">
+                        <Form.Control required name="password" type="password" placeholder="Password*" />
+                        <Form.Control.Feedback type="invalid">
+                          Password is required!
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </div>
+                    <div className="col-md-6">
+                      <Form.Group className={signup.fieldControl} controlId="formBasicPassword">
+                        <Form.Control className={confirmPasswordError ? "confirm_password invalid" : "confirm_password"} name="confirm_password" type="password" placeholder="Confirm Password" onChange={handleConfirmPassword} />
+                        {confirmPasswordError &&
+                        <small className="input-error">Password doesn&apos;t match!</small>
+                        }
+                      </Form.Group>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <Form.Group>
+                        <Select
+                          isSearchable={false}
+                          placeholder="What type of content do you create?"
+                          className={"content-type-select-container-header"}
+                          classNamePrefix="content-type-select-header"
+                          options={contentTypeOptions}
+                          onChange={handleSelectContentType}
+                          noOptionsMessage={() => {return "No content type found"}}
+                          theme={theme => ({
+                            ...theme,
+                            colors: {
+                              ...theme.colors,
+                              primary: '#c0d72d',
+                            },
+                            height: 34,
+                          })}
+                        />
+                      </Form.Group>
+                    </div>
+                  </div>
+                </div>
+                <Button type="submit" className={signup.submit+' '+signup.signupBtn}>
+                  Continue
+                </Button>
+              </Form>
             </div>
           </div>
-        </div>
-        <div className="col-md-6 signupSeprator">
-          <div className={signup.useEmail}>
-            <h2>Use your email address</h2>
-            <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
-              <div className={signup.formWrapper}>
-                <div className="row">
-                  <div className="col-md-6">
-                    <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                      <Form.Control required name="first_name" type="text" placeholder="First Name*" />
-                      <Form.Control.Feedback type="invalid">
-                        First name is required!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  </div>
-                  <div className="col-md-6">
-                    <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                      <Form.Control required name="last_name" type="text" placeholder="Last Name*" />
-                      <Form.Control.Feedback type="invalid">
-                        Last name is required!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  </div>
+          <div className={signup.existingAccount}>
+            <div className={signup.or}>
+              <span>OR</span>
+            </div>
+            <div className={signup.socialBtn}>
+              <a href='' className={signup.facebook+' '+signup.signupBtn}>
+                <div>
+                  <div className={signup.icon}></div>
+                  <span>Continue  with Facebook</span>
                 </div>
-                <div className="row">
-                  <div className="col-md-12">
-                    <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                      <Form.Control required name="email" type="email" placeholder="Email*" />
-                      <Form.Control.Feedback type="invalid">
-                        A valid email address is required!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  </div>
+              </a>
+              <a href='' className={signup.google+' '+signup.signupBtn}>
+                <div>
+                  <div className={signup.icon}></div>
+                  <span>Continue  with Google</span>
                 </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <Form.Group className={signup.fieldControl} controlId="formBasicPassword">
-                      <Form.Control required name="password" type="password" placeholder="Password*" />
-                      <Form.Control.Feedback type="invalid">
-                        Password is required!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  </div>
-                  <div className="col-md-6">
-                    <Form.Group className={signup.fieldControl} controlId="formBasicPassword">
-                      <Form.Control className={confirmPasswordError ? "confirm_password invalid" : "confirm_password"} name="confirm_password" type="password" placeholder="Confirm Password" onChange={handleConfirmPassword} />
-                      {confirmPasswordError &&
-                      <small className="input-error">Password doesn&apos;t match!</small>
-                      }
-                    </Form.Group>
-                  </div>
+              </a>
+              <a href='' className={signup.apple+' '+signup.signupBtn}>
+                <div>
+                  <div className={signup.icon}></div>
+                  <span>Continue  with Apple</span>
                 </div>
-                <div className="row">
-                  <div className="col-md-12">
-                    <Form.Group>
-                      <Select
-                        isSearchable={false}
-                        placeholder="What type of content do you create?"
-                        className={"content-type-select-container-header"}
-                        classNamePrefix="content-type-select-header"
-                        options={contentTypeOptions}
-                        onChange={handleSelectContentType}
-                        noOptionsMessage={() => {return "No content type found"}}
-                        theme={theme => ({
-                          ...theme,
-                          colors: {
-                            ...theme.colors,
-                            primary: '#c0d72d',
-                          },
-                          height: 34,
-                        })}
-                      />
-                    </Form.Group>
-                  </div>
-                </div>
-              </div>
-              <Button type="submit" className={signup.submit+' '+signup.signupBtn}>
-                Sign up
-              </Button>
-            </Form>
+              </a>
+            </div>
+          </div>
+          <div className={signup.privacy}>
+            By creating an account you agree to Audiosocket’s <Link href={"#"}>Terms of Use</Link> and <Link href={"#"}>Privacy Policy.</Link>
           </div>
         </div>
-        <div className={signup.loginText}>
-          <p>Are you an existing user? <Link href={"/login"}>Log in</Link></p>
-        </div>
-      </div>
+      </div> 
     </div>
   );
 

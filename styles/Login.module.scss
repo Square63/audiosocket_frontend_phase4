@@ -1,7 +1,7 @@
 @import './variables-mixins.scss';
 
 .loginWrapper {
-  max-width: 578px;
+  max-width: 597px;
   width: 100%;
   margin: 0 auto;
   padding: 36px 15px 70px;
@@ -132,8 +132,8 @@
         }
       }
       .google {
-        border-color: #DB4437;
-        color: #DB4437;
+        border-color: $headerColor;
+        color: $headerColor;
         background-color: transparent;
         text-align: left;
         border: solid 1px $headerColor;
@@ -185,7 +185,7 @@
     }
   }
   .useEmail {
-    .formWrapper {
+    .wrapper {
       width: 100%;
       margin: 0 auto;
       .fieldControl {
