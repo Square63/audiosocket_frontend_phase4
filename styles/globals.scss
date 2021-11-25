@@ -1252,7 +1252,8 @@ footer {
           .discardFilter {
             margin-left: 1px;
           }
-          &:hover {
+          &:hover,
+          &.activeFilter {
             .dropdown-item {
               background-color: $green-light;
               color: $darkGrey;

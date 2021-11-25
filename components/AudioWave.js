@@ -19,6 +19,7 @@ export default function AudioWave() {
 					color: '#FFF',
 					background: '#49368B',
 					borderRadius: '30px',
+					display: 'none'
 				}}
 				counterStyle={{
 					color: '#49368B',

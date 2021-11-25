@@ -4,10 +4,17 @@ const AudioWave = dynamic(
   () => import('../components/AudioWave'),
   { ssr: false }
 )
+const CustomAudioWave = dynamic(
+  () => import('../components/CustomAudioWave'),
+  { ssr: false }
+)
 
 function Player() {
     return (
-      <AudioWave/>
+      <div>
+        <AudioWave/>
+        <CustomAudioWave/>
+      </div>
     );
   }
   
