@@ -1204,7 +1204,7 @@ footer {
       background-color: $darkGrey;
       border-radius: 0 0 12px 12px;
       top: -3px !important;
-      left: -1px !important;
+      border: 1px solid $darkGrey;
       border-top: 0;
       padding: 0;
       overflow: hidden;
@@ -1346,8 +1346,9 @@ footer {
 .selectedFilter {
   position: relative;
   padding-right: 90px;
+  padding: 20px 90px 20px 22px;
   min-width: 375px;
-  min-height: 133px;
+  min-height: 80px;
   .clearAllTag {
     background: url(../images/closeConditional.svg) no-repeat center;
     background-size: 16px;
@@ -2346,6 +2347,12 @@ input[type=file]::file-selector-button {
     color: $headerColor;
   }
 }
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"] {
+  
+}
 .roundedForm {
   position: relative;
   .circularInput {
@@ -2364,6 +2371,9 @@ input[type=file]::file-selector-button {
     &.invert {
       background-color: #313438;
       color: $textClr;
+    }
+    &.outline {
+      border: 1px solid $darkGrey;
     }
   }
   .circularBtn {
@@ -2395,46 +2405,48 @@ input[type=file]::file-selector-button {
 }
 
 /***************** Toggle Switch ************/
-input[type=checkbox]{
-	height: 0;
-	width: 0;
-	visibility: hidden;
-}
-
-label {
-	cursor: pointer;
-	text-indent: -9999px;
-	width: 41px;
-	height: 24px;
-	background: #dcdfe2;
-	display: inline-block;
-	border-radius: 20px;
-	position: relative;
-  &:after {
-    content: '';
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 16px;
-    height: 16px;
-    background: #1a1c1d;
-    border-radius: 16px;
-    transition: 0.3s;
+.toogleSwitch {
+  input[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
   }
-  &:active {
+
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 41px;
+    height: 24px;
+    background: #dcdfe2;
+    display: inline-block;
+    border-radius: 20px;
+    position: relative;
     &:after {
-      width: 23px;
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 16px;
+      height: 16px;
+      background: #1a1c1d;
+      border-radius: 16px;
+      transition: 0.3s;
+    }
+    &:active {
+      &:after {
+        width: 23px;
+      }
     }
   }
-}
 
-input {
-  &:checked {
-    & + label {
-      background: #c1d72e;
-      &:after {
-        left: calc(100% - 5px);
-	      transform: translateX(-100%);
+  input {
+    &:checked {
+      & + label {
+        background: #c1d72e;
+        &:after {
+          left: calc(100% - 5px);
+          transform: translateX(-100%);
+        }
       }
     }
   }

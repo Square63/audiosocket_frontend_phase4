@@ -264,6 +264,32 @@ function Search() {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
+        <div className="tracksWrapper">
+          <div className="tracksHeading">
+            <h2>Tracks <span className="tracksCount">7</span></h2>
+            <div className="tracksSorting">
+              <form>
+                <div className="roundedForm">
+                  <select aria-label="Default example" className="form-control  outline circularInput">
+                    <option>Select Genre</option>
+                    <option value="1">Classical</option>
+                    <option value="2">Rock</option>
+                    <option value="3">POP</option>
+                  </select>
+                  <div variant="default" className="circularBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13.328" height="16.414" viewBox="0 0 13.328 16.414">
+                      <g id="icon-arrow-down" transform="translate(1.414 1)">
+                        <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
       <DownloadTrack showModal={showModal} onCloseModal={handleClose} />
     </div>
