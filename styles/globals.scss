@@ -120,62 +120,6 @@ ul,ol {
   }
 }
 /************** Form Component ************/
-.as-form-control {
-  .form-label {
-    font-size: 14px;
-    letter-spacing: 0.7px;
-    font-weight: 100;
-    color: $muted-text;
-    position: relative;
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 5px;
-    text-transform: capitalize;
-    &.required {
-      &:after {
-        content: '*';
-        color: $red;
-        font-size: 20px;
-        position: absolute;
-        top: -5px;
-        right: -10px;
-      }
-    }
-  }
-  select,
-  input {
-    &[type=text],
-    &[type=email],
-    &[type=password] {
-      border-radius: 0;
-      padding: 7px 0;
-      height: 34px;
-      border: 0;
-      font-size: 18px;
-      border-bottom: 1px solid #6f6f6f;
-      color: #555555;
-      &:focus,
-      &:focus-visible {
-        outline: 0;
-        box-shadow: none;
-        border-bottom: 1px solid $green-light;
-      }
-      &::-webkit-input-placeholder {
-        color: #999999;
-      } 
-    }
-  }
-}
-.was-validated {
-  &:not(.security-form, .preference-form) {
-    input {
-      &:invalid {
-        border-bottom: 1px solid $red !important;
-      }
-    }
-  }
-}
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
@@ -183,13 +127,15 @@ input:-webkit-autofill:active{
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-.form-control {
+.form-control:not(.stickySearch > .form-control) {
   height: 43px;
   border-radius: 29px;
   border: solid 1px $headerColor;
   background-color: white;
   padding: 8px 25px;
   font-size: 16px;
+  color: $headerColor;
+  @include transition (all 0.25s ease-in-out);
   &::placeholder {
     color: #979da2;
     opacity: 1;
@@ -201,7 +147,7 @@ input:-webkit-autofill:active{
     color: #979da2;
   }
   &:focus {
-    border-color: $green-light;
+    // border-color: $green-light;
     box-shadow: none;
   }
 }
@@ -285,6 +231,7 @@ header {
   background-color: $headerColor;
   .custom-nav {
     min-height: 55px;
+    max-height: 55px;
     padding: 3px 0;
     .navbar-brand {
       display: flex;
@@ -876,37 +823,6 @@ footer {
       @include flex(1);
       padding: 0 60px;
       .profileEdit {
-        .form-group {
-          input {
-            box-shadow: none;
-          }
-          margin-bottom: 30px;
-          .country-select-header__control {
-            height: 34px;
-            min-height: 34px;
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            border-radius: unset;
-            border-color: #555555;
-            &.country-select-header__control--is-focused {
-              border-color: $green-light;
-            }
-            box-shadow: none;
-            .country-select-header__value-container {
-              height: 34px;
-              padding-left: 0;
-              .country-select-header__single-value {
-                top: 65%;
-              }
-            }
-          }
-          .invalid {
-            .country-select-header__control {
-              border-color: $red;
-            }
-          }
-        }
         [class*=col-] {
           padding-inline: 20px;
         }
@@ -937,6 +853,48 @@ footer {
   @include align-items(center);
 }
 
+
+
+.react-select-container {
+  input {
+    box-shadow: none;
+  }
+  .react-select__control {
+    height: 43px;
+    border-radius: 100px;
+    border: solid 1px $headerColor;
+    background-color: white;
+    padding: 0px 19px;
+    font-size: 16px;
+    // &.react-select__control--is-focused {
+    //   border-color: $green-light;
+    // }
+    box-shadow: none;
+    .react-select__value-container {
+      height: 43px;
+      padding-left: 0;
+      .react-select__single-value {
+      }
+    }
+    .react-select__indicators {
+      background: url('../images/icon-arrow-down.svg') no-repeat 0;
+      .react-select__indicator-separator,
+      .react-select__indicator svg {
+        display: none;
+      }
+    }
+    &:hover {
+      border-color: $headerColor;
+    }
+  }
+  .invalid {
+    .react-select__control {
+      border-color: $red;
+    }
+  }
+}
+
+
 /***************** Signup Select style *********************/
 .form-group {
   .css-2b097c-container {
@@ -947,15 +905,15 @@ footer {
     border-radius: 100px;
     border: solid 1px $headerColor;
     background-color: white;
-    padding: 0px 11px;
+    padding: 0px 19px 0 15px;
     font-size: 16px;
     &.content-type-select-header__control--is-focused {
-      border-color: $green-light;
+      border-color: $headerColor;
     }
     box-shadow: none;
     .content-type-select-header__value-container {
       .content-type-select-header__single-value {
-        top: 65%;
+        top: calc(50% + 2px);
       }
     }
     .content-type-select-header__indicators {
@@ -966,6 +924,9 @@ footer {
       svg {
         display: none;
       }
+    }
+    &:hover {
+      border-color: $headerColor;
     }
   }
   .form-control {
@@ -1264,6 +1225,7 @@ footer {
             letter-spacing: -0.35px;
             color: #ffffff;
             padding: 10px 15px;
+            max-width: 200px;
             white-space: nowrap;
             @include transition (all 0.2s ease-in-out);
             span {
@@ -1434,6 +1396,266 @@ footer {
     }
   }
 }
+
+/******************** Track Row ******************/
+.trackRowWrapper {
+  margin-top: 38px;
+  .trackRow {
+    @include flexbox;
+    @include justify-content(flex-start);
+    @include align-items(center);
+    text-align: left;
+    padding: 18px 15px;
+    border-top: 1px solid #dcdfe2;
+    .rowParticipant {
+      flex: 1;
+      user-select: none;
+      cursor: default;
+      &.artistName {
+        min-width: 22%;
+        @include flexbox;
+        @include justify-content(flex-start);
+        @include align-items(center);
+        .aboutSong {
+          .songData {
+            @include flexbox;
+            @include justify-content(flex-start);
+            @include align-items(center);
+            gap: 5px;
+            .songName {
+              font-size: 16px;
+              font-weight: 500;
+              letter-spacing: -0.4px;
+              color: $headerColor;
+              text-transform: capitalize;
+              margin-right: 5px;
+              max-width: 150px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            .info,.fire,.playlistWave {
+              width: 16px;
+              height: 16px;
+              display: inline-block;
+            }
+            .info {
+              background: url(../images/tooltip.svg) no-repeat center;
+              background-size: 16px;
+            }
+            .fire {
+              background: url(../images/fire.svg) no-repeat center;
+              background-size: 16px;
+            }
+            .playlistWave {
+              background: url(../images/playlistWave.svg) no-repeat center;
+              background-size: 16px;
+            }
+          }
+          .songArtist {
+            a {
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 1.5;
+              letter-spacing: -0.35px;
+              color: $headerColor;
+              text-decoration: underline;
+              text-transform: capitalize;
+              max-width: 150px;
+              display: inline-block;
+              vertical-align: middle;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+      &.audioWave {
+        min-width: 19%;
+        padding-inline: 15px 25px;
+      }
+      &.duration {
+        min-width: 10%;
+        padding-inline: 7px;
+        font-size: 13px;
+      }
+      &.mood {
+        min-width: 20%;
+        padding-inline: 7px;
+        text-transform: capitalize;
+        font-size: 13px;
+      }
+      &.controls {
+        min-width: 20%;
+        @include flexbox;
+        @include justify-content(space-between);
+        @include align-items(baseline);
+        gap: 10px;
+        cursor: pointer;
+        svg {
+          path,line {
+            @include transition(all 0.25s ease-in-out);
+          }
+          &:hover {
+            #shopping-cart-add {
+              #path_45 {
+                stroke: transparent;
+              }
+            }
+            path,line {
+              stroke: $green-light;
+            }
+          }
+        }
+        .dropdown,
+        .dropup {
+          .dropdown-toggle {
+            all: unset;
+            &:after {
+              content: none;
+            }
+          }
+          .dropdown-menu {
+            border-radius: 12px;
+            background-color: $headerColor;
+            padding-block: 12px;
+            .dropdown-item {
+              display: grid;
+              grid-template-columns: 20px 1fr;
+              align-items: center;
+              color: $white;
+              padding-inline: 12px;
+              padding-block: 9px 7px;
+              @include transition(all 0.2s ease-in-out);
+              svg {
+                path,line {
+                  @include transition(all 0.25s ease-in-out);
+                }
+              }
+              span {
+                font-size: 13px;
+                font-weight: 500;
+                line-height: normal;
+                letter-spacing: -0.33px;
+                color: $white;
+                margin-left: 7px;
+              }
+              &:hover,
+              &:focus {
+                background-color: $green-light;
+                span {
+                  color: $headerColor;
+                }
+                svg {
+                  path,line {
+                    stroke: $headerColor;
+                  }
+                }
+              }
+            }
+          }
+        } 
+
+      }
+      .playPauseBtn {
+        width: 30px;
+        height: 30px;
+        background-color: $darkGrey;
+        border-radius: 30px;
+        position: relative;
+        margin-right: 15px;
+        overflow: hidden;
+        .play,.pause {
+          display: inline-block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50% , -50%);
+          transition: all 0.2s ease-in-out;
+        }
+        .play {
+          background: url(../images/pause.svg) no-repeat;
+          background-size: 10px;
+          width: 10px;
+          height: 11px;
+        }
+        .pause {
+          background: url(../images/playtheme.svg) no-repeat;
+          background-size: 10px;
+          width: 10px;
+          height: 13px;
+          left: calc(50% + 1px);
+        }
+      }
+    }
+    &.headingRow {
+      border-top: 0;
+      padding-block: 5px;
+      .rowParticipant {
+        @include flexbox;
+        @include align-items(center);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.29;
+        letter-spacing: -0.35px;
+        color: #6e7377;
+        &.artistName {
+          padding-left: 45px;
+        }
+      }
+    }
+
+  }
+  .sortingMedium {
+    margin-left: 7px;
+    .decending,
+    .ascending {
+      display: inline-block;
+      width: 9px;
+      height: 7px;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+    .decending {
+      background: url(../images/downSorting.svg) no-repeat;
+      background-size: 9px;
+      margin-right: 1px;
+    }
+    .ascending {
+      background: url(../images/upSorting.svg) no-repeat;
+      background-size: 9px;
+    }
+  }
+}
+
+/******************** Sticky Player ******************/
+.PlayerControls {
+  display: none;
+}
+
+.stickyMiniPlayer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  background-color: $white;
+  box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1040;
+  .PlayerControls {
+    @include flexbox;
+    .startStopBtn {
+      width: 48px;
+      height: 48px;
+      border-radius: 48px;
+      background-color: $nav-link;
+      font-size: 0;
+    }
+  }
+}
+
 
 /******************** Home page styling *******************/
 .heroSection {

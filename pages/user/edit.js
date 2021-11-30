@@ -123,8 +123,8 @@ function Edit({countries}) {
               <Form.Label className="required">Country</Form.Label>
               <Select
                 placeholder="Select Country"
-                className={!countryError ? "country-select-container-header" : "country-select-container-header invalid"}
-                classNamePrefix="country-select-header"
+                className={!countryError ? "react-select-container" : "react-select-container invalid"}
+                classNamePrefix="react-select"
                 options={countries}
                 defaultValue={selectedCountry ? countries.filter(option => option.value === selectedCountry) : {label: "Select Country", value: null}}
                 onChange={handleSelectCountry}
