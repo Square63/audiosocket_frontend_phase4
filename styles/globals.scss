@@ -1336,6 +1336,18 @@ footer {
         }
       }
     }
+    &.noChild {
+      &.show {
+        .dropdown-toggle {
+          background-color: transparent;
+          border: 0;
+          color: #6e7377;
+          &:after {
+            content: none;
+          }
+        }
+      }
+    }
   }
   &.brandWall {
     padding: 10px 15px;
