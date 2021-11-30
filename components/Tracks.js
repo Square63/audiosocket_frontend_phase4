@@ -20,6 +20,11 @@ function Tracks(props) {
     { value: 'durationShorttoLong', label: 'Duration Short to Long' }
   ]
 
+	const handlePlayPause = () => {
+    setPlaying(!playing);
+    wavesurfer.current.playPause();
+  };
+
 	return (
 		<div className={search.tracksWrapper}>
 			<div className={search.tracksHeading}>
@@ -80,34 +85,7 @@ function Tracks(props) {
 				</div>
 				{props.tracks.map((track,index)=> {
 					return(<div className="trackRow" key={index}>
-						<div className="rowParticipant artistName">
-							<div className="playPauseBtn">
-								<span className="pause"></span>
-								<span className="pause d-none"></span>
-							</div>
-							<div className="aboutSong">
-								<div className="songData">
-									<a href="" className="songName">{track.title}</a>
-									<OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
-										<a href="" className="info"></a>
-									</OverlayTrigger>
-									<OverlayTrigger overlay={<Tooltip>On Fire (Demo)</Tooltip>}>
-										<a href="" className="fire"></a>
-									</OverlayTrigger>
-									<OverlayTrigger overlay={<Tooltip>Playlist (Demo)</Tooltip>}>
-										<a href="" className="playlistWave"></a>
-									</OverlayTrigger>
-								</div>
-								<div className="songArtist">
-									<a href="">
-										Justin G. Marcellus Abady
-									</a>
-								</div>
-							</div>
-						</div>
-						<div className="rowParticipant audioWave">
-							<CustomAudioWave/>
-						</div>
+						<CustomAudioWave track={track}/>
 						<div className="rowParticipant duration">
 							01:10
 							
