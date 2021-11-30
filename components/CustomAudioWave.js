@@ -43,7 +43,7 @@ export default function CustomAudioWave(props) {
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
 
-    wavesurfer.current.load(url);
+    wavesurfer.current.load("./test.mp3");
   };
 
   const handlePlayPause = () => {
