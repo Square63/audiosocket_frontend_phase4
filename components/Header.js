@@ -54,7 +54,7 @@ function Header() {
               <div className={router.pathname.toLowerCase() === "/sfx" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
                   <Nav.Link eventKey="2" href="/sfx">
-                    SF
+                    SFX
                   </Nav.Link>
                 </Nav.Item>
               </div>
