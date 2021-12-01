@@ -3,6 +3,9 @@ import ProfileForm from "../../components/profile/ProfileForm";
 import { Country, State } from "country-state-city";
 import Billing from "../../components/profile/Billing";
 import Security from "../../components/profile/Security";
+import Subscription from "../../components/profile/Subscription";
+import PaymentHistory from "../../components/profile/PaymentHistory";
+import Settings from "../../components/profile/Settings";
 
 function Edit({ countries, states }) {
   return (
@@ -21,6 +24,18 @@ function Edit({ countries, states }) {
         <fieldset>
           <legend>Billing Info</legend>
           <Billing />
+        </fieldset>
+        <fieldset>
+          <legend>Subscription</legend>
+          <Subscription />
+        </fieldset>
+        <fieldset>
+          <legend>Payment History</legend>
+          <PaymentHistory />
+        </fieldset>
+        <fieldset>
+          <legend>Settings</legend>
+          <Settings />
         </fieldset>
       </div>
     </div>
