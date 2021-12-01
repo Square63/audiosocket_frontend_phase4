@@ -2,7 +2,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import {AuthProvider} from "../store/authContext";
 import {useRouter} from "next/router";
-import Sidebar from "./Sidebar";
+import ProfileMenu from "./ProfileMenu";
 import {useEffect, useState} from "react";
 
 function Layout({children}) {
@@ -31,10 +31,10 @@ function Layout({children}) {
             ?
               <div className="userAccountWrapper">
                 <div className="userAcountHeading">
-                  <h1>{userName}</h1>
+                  <h1>Account</h1>
+                  <ProfileMenu/>
                 </div>
                 <div className="userAccountInner">
-                  <Sidebar/>
                   {children}
                 </div>
               </div>
