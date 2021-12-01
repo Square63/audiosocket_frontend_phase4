@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Select from "react-select";
 
@@ -9,10 +9,17 @@ const ProfileForm = ({ countries, states }) => {
   const [selectedState, setSelectedState] = useState(null);
   const [countryError, setCountryError] = useState(false);
   const [stateError, setStateError] = useState(false);
+  const [userName, setUserName] = useState(null);
   const form = useRef(null);
   const router = useRouter();
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUserName(JSON.parse(localStorage.getItem("user") ?? ""));
+    }
+  });
 
   const handleSelectCountry = (target) => {
     if (target.value) setCountryError(false);
@@ -90,6 +97,7 @@ const ProfileForm = ({ countries, states }) => {
               name="email"
               type="email"
               placeholder="Enter email"
+              value={userName}
             />
             <Form.Control.Feedback type="invalid">
               A valid email address is required!

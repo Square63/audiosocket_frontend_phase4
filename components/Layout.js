@@ -32,7 +32,7 @@ function Layout({children}) {
               <div className="userAccountWrapper">
                 <div className="userAcountHeading">
                   <h1>Account</h1>
-                  <ProfileMenu/>
+                  <ProfileMenu />
                 </div>
                 <div className="userAccountInner">
                   {children}
