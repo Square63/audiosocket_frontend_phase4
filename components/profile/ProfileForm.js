@@ -1,16 +1,17 @@
 import withPrivateRoute from "../../components/withPrivateRoute";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { Country } from "country-state-city";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Select from "react-select";
 
-const ProfileForm = ({ countries }) => {
+const ProfileForm = ({ countries, states }) => {
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
   const [countryError, setCountryError] = useState(false);
+  const [stateError, setStateError] = useState(false);
   const form = useRef(null);
   const router = useRouter();
   const [validated, setValidated] = useState(false);
@@ -21,10 +22,16 @@ const ProfileForm = ({ countries }) => {
     setSelectedCountry(target.value);
   };
 
+  const handleSelectState = (target) => {
+    if (target.value) setStateError(false);
+    setSelectedState(target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setCountryError(false);
+    setStateError(false);
     const loginForm = e.currentTarget;
     if (loginForm.checkValidity() === false) {
       e.preventDefault();
@@ -135,15 +142,13 @@ const ProfileForm = ({ countries }) => {
                   : "react-select-container invalid"
               }
               classNamePrefix="react-select"
-              options={countries}
+              options={states}
               defaultValue={
                 selectedCountry
-                  ? countries.filter(
-                      (option) => option.value === selectedCountry
-                    )
+                  ? states.filter((option) => option.value === selectedState)
                   : { label: "Select State", value: null }
               }
-              onChange={handleSelectCountry}
+              onChange={handleSelectState}
               noOptionsMessage={() => {
                 return "No state found";
               }}
@@ -156,7 +161,7 @@ const ProfileForm = ({ countries }) => {
                 height: 34,
               })}
             />
-            {countryError && (
+            {stateError && (
               <small className="input-error">State is required!</small>
             )}
           </Form.Group>
@@ -233,27 +238,3 @@ const ProfileForm = ({ countries }) => {
 };
 
 export default withPrivateRoute(ProfileForm);
-
-export const getStaticProps = () => {
-  const countriesList = Country.getAllCountries();
-  const countries = [];
-  countries.push({ label: "Select Country", value: null, countryCode: null });
-  countries.push({
-    label: "United States",
-    value: "United States",
-    countryCode: "US",
-  });
-  countriesList.forEach((country, key) => {
-    if (country.isoCode !== "US")
-      countries.push({
-        label: country.name,
-        value: country.name,
-        countryCode: country.isoCode,
-      });
-  });
-  return {
-    props: {
-      countries,
-    },
-  };
-};
