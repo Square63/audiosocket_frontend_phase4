@@ -37,6 +37,7 @@ const ProfileForm = ({ countries, states }) => {
       e.preventDefault();
       e.stopPropagation();
       if (!selectedCountry) setCountryError(true);
+      if (!selectedState) setStateError(true);
       setValidated(true);
       setIsLoading(false);
     } else {
