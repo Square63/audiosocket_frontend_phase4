@@ -1,6 +1,8 @@
 import withPrivateRoute from "../../components/withPrivateRoute";
 import ProfileForm from "../../components/profile/ProfileForm";
 import { Country, State } from "country-state-city";
+import Billing from "../../components/profile/Billing";
+import Security from "../../components/profile/Security";
 
 function Edit({ countries, states }) {
   return (
@@ -10,8 +12,17 @@ function Edit({ countries, states }) {
           <legend>Profile</legend>
           <ProfileForm countries={countries} states={states} />
         </fieldset>
+        <fieldset>
+          <legend>Profile Security</legend>
+          <Security />
+        </fieldset>
       </div>
-      <div className="col-lg-6"></div>
+      <div className="col-lg-6">
+        <fieldset>
+          <legend>Billing Info</legend>
+          <Billing />
+        </fieldset>
+      </div>
     </div>
   );
 }
