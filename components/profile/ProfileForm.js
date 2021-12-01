@@ -1,6 +1,3 @@
-import withPrivateRoute from "../../components/withPrivateRoute";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useRef, useState } from "react";
@@ -238,4 +235,4 @@ const ProfileForm = ({ countries, states }) => {
   );
 };
 
-export default withPrivateRoute(ProfileForm);
+export default ProfileForm;

@@ -1,4 +1,3 @@
-import withPrivateRoute from "../../components/withPrivateRoute";
 import user from "../../styles/User.module.scss";
 import Link from "next/link";
 
@@ -15,4 +14,4 @@ function Billing() {
   );
 }
 
-export default withPrivateRoute(Billing);
+export default Billing;
