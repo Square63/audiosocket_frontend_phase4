@@ -1,6 +1,8 @@
 import axios from "axios";
 // import absoluteUrl from "next-absolute-url";
 import { async } from "regenerator-runtime";
+import {BASE_URL} from "../../common/api";
+
 
 import {
 	ALL_FILTERS_SUCCESS,
