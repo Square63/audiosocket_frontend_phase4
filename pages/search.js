@@ -1,5 +1,7 @@
 import Alert from 'react-bootstrap/Alert';
+import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
+import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Image from 'next/image';
@@ -134,7 +136,7 @@ function Search() {
   }
   
   const filterItems = filters.map((filter, index) =>
-    <Dropdown className={filter.name === "Moods" ? "d-inline mood" : "d-inline"} key={index}>
+    <Dropdown alignRight className={filter.name === "Moods" ? "d-inline mood" : "d-inline"} key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
         {filter.name}
       </Dropdown.Toggle>
@@ -287,11 +289,12 @@ function Search() {
         <Tracks tracks={tracks}/>
 
       </div>
-      {/* <div className="stickyMiniPlayer">
+      <div className="stickyMiniPlayer">
         <div className="fixed-container">
-          <CustomAudioWave/>
+          <CustomAudioWave track={tracks[0]}/>
         </div>
-      </div> */}
+      </div>
+      <UploadTrack showModal={showModal} onCloseModal={handleClose} />
       <DownloadTrack showModal={showModal} onCloseModal={handleClose} />
     </div>
     
