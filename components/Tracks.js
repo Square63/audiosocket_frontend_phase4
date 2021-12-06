@@ -118,10 +118,10 @@ function Tracks(props) {
 					</div>
 					<div className="rowParticipant mood">
 						Mood
-						<span className="sortingMedium">
+						{/* <span className="sortingMedium">
 							<a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
 							<a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
-						</span>
+						</span> */}
 					</div>
 					<div className="rowParticipant BPM">
 						BPM
@@ -147,7 +147,7 @@ function Tracks(props) {
 								
 							</div>
 							<div className="rowParticipant mood">
-								{track.moods.toString()}
+								{track.moods.join(", ")}
 							</div>
 							<div className="rowParticipant BPM">
 								{track.bpm}
@@ -212,7 +212,7 @@ function Tracks(props) {
 										</Dropdown.Toggle>
 									</OverlayTrigger>
 									<Dropdown.Menu>
-										<Dropdown.Item href="#/action-1">
+										<Dropdown.Item href="#/action-1" onClick={props.showDownloadModal}>
 											<svg xmlns="http://www.w3.org/2000/svg" width="18.528" height="18.528" viewBox="0 0 18.528 18.528">
 												<g id="Music-Audio_Playlists_playlist-lock" data-name="Music-Audio / Playlists / playlist-lock" transform="translate(-242.504 -1970.614)">
 													<g id="Group_176" data-name="Group 176" transform="translate(243.004 1971.114)">
@@ -228,7 +228,7 @@ function Tracks(props) {
 													</g>
 												</g>
 											</svg>
-											<span onClick={props.showDownloadModal}>Download to License</span>
+											<span>Download to License</span>
 										</Dropdown.Item>
 										<Dropdown.Item href="#/action-1">
 											<svg xmlns="http://www.w3.org/2000/svg" width="17.89" height="16.927" viewBox="0 0 17.89 16.927">
