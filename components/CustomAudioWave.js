@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+// const SingleAudioWave = dynamic(
+//   () => import('./SingleAudioWave'),
+//   { ssr: false }
+// )
 
 
 
@@ -25,7 +29,7 @@ export default function CustomAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
 
-  const url = props.track.file
+  const url = props.track != undefined ? props.track.file : ""
 
   useEffect(() => {
     create();
@@ -46,7 +50,7 @@ export default function CustomAudioWave(props) {
     wavesurfer.current.load("./test.mp3");
   };
 
-  const handlePlayPause = () => {
+  function handlePlayPause() {
     setPlaying(!playing);
     wavesurfer.current.playPause();
   };
@@ -83,6 +87,7 @@ export default function CustomAudioWave(props) {
       <div id="waveform" ref={waveformRef}  />
         <div className="PlayerControls">
           <div className="startStopBtn" onClick={handlePlayPause}>
+            {/* {<SingleAudioWave/>} */}
             {!playing ? "Play" : "Pause"}
             <span className="playSong">
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">

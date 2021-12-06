@@ -126,7 +126,6 @@ function Search() {
     setLastChildFilters(filters[parentIndex].sub_filters[childIndex].sub_filters);
 
     // console.log(filters.indexOf(partenID));
-
     setShowChilderDiv(true);
   }
 
@@ -298,11 +297,11 @@ function Search() {
         <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal}/>
         
       </div>
-      <div className="stickyMiniPlayer">
+      {/* <div className="stickyMiniPlayer">
         <div className="fixed-container">
           <SingleAudioWave track={tracks[0]}/>
         </div>
-      </div>
+      </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} />
       
