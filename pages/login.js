@@ -1,16 +1,22 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useState, useRef, useContext, useEffect} from "react";
-import {AuthContext} from "../store/authContext";
-import {useRouter} from "next/router";
-import login from "../styles/Login.module.scss";
 import Link from "next/link";
-import ForgotPassword from "../components/modals/ForgotPassword";
 import Image from 'next/image';
 import {LoaderImage} from "../components/LoaderImage";
+import { useDispatch, useSelector } from 'react-redux';
+
+import {AuthContext} from "../store/authContext";
+import { authLogin } from "../redux/actions/authActions";
+import {useRouter} from "next/router";
+import login from "../styles/Login.module.scss";
+import ForgotPassword from "../components/modals/ForgotPassword";
 
 function Login() {
-  const { authActions } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector(state => state.auth.user);
+  console.log('line 21', loggedInUser);
+  const { authActionsContext } = useContext(AuthContext);
   const form = useRef(null);
   const router = useRouter()
   const [validated, setValidated] = useState(false);
@@ -39,7 +45,12 @@ function Login() {
       if(!data.get('remember_me'))
         data.append('remember_me', false)
 
-      authActions.userDataStateChanged(data.get('email'));
+      let authData = {
+				email: data.get('email'),
+        password: data.get('password')
+			};
+      dispatch(authLogin(authData));
+      localStorage.setItem("user", JSON.stringify(loggedInUser));
       e.target.reset();
       router.push('/');
     }
