@@ -17,7 +17,7 @@ const formWaveSurferOptions = (ref) => ({
   height: 35,
   barGap: 1,
   normalize: true,
-  partialRender: true
+  partialRender: true,
 });
 
 export default function CustomAudioWave(props) {
@@ -50,10 +50,10 @@ export default function CustomAudioWave(props) {
     setPlaying(!playing);
     wavesurfer.current.playPause();
   };
-
+  
   return (
     
-    <div style={{display: "contents"}}>
+    <>
       <div className="rowParticipant artistName">
         <div className="playPauseBtn" onClick={handlePlayPause}>
           <span className={playing ? "play" : "pause"}></span>
@@ -94,7 +94,6 @@ export default function CustomAudioWave(props) {
           </div>
         </div>
       </div>
-      
-    </div>
+    </>
   );
 }

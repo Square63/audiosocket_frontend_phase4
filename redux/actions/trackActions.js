@@ -9,10 +9,9 @@ import {
 	CLEAR_ERRORS
 } from '../constants/trackConstants';
 
-export const getTracks = (query, query_type, filters) => async( dispatch ) => {
+export const getTracks = (query, query_type, filters, sort_by, sort_dir, page) => async( dispatch ) => {
 	try {
-		// const {origin} = absoluteUrl(req)
-		const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}`, {
+		const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`, {
 			headers: {
 				"Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
 				"auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"

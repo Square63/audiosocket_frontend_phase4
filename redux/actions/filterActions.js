@@ -13,7 +13,7 @@ import {
 export const getFilters = (req) => async( dispatch ) => {
 	try {
 		// const {origin} = absoluteUrl(req)
-		const {data} = await axios.get('http://artist-portal-backend.square63.net/api/v1/filters')
+		const {data} = await axios.get(`${BASE_URL}/api/v1/filters`)
 		dispatch({
 			type: ALL_FILTERS_SUCCESS,
 			payload: data

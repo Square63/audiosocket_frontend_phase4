@@ -1,7 +1,7 @@
 import Alert from 'react-bootstrap/Alert';
 import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
-import CustomAudioWave from "../components/CustomAudioWave";
+import SingleAudioWave from "../components/SingleAudioWave";
 import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Image from 'next/image';
@@ -28,6 +28,7 @@ function Search() {
   const [appliedFiltersList, setAppliedFiltersList] = useState([]);
   const [appliedFiltersListWC, setAppliedFiltersListWC] = useState([]);
   // const [queryType, setQueryType] = useState("local_search")
+  const [abc, setAbc] = useState(false)
 
   useEffect(() => {
     
@@ -39,7 +40,8 @@ function Search() {
   
   const handleSearch = async(e) => {
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
+    setAbc(true)
   }
 
   const handleClearAllFilter = () => {
@@ -47,10 +49,10 @@ function Search() {
   }
 
   function handleClearSingleFilter(e) {
-    let singleFilterText = e.target.closest('div').textContent
+    let singleFilterText = e.target.previousElementSibling.textContent
     let singleFilterTextWithoutCount = removeCount(singleFilterText)
     let elements = $( "a:contains("+singleFilterTextWithoutCount+")" );
-    appliedFiltersList.splice(appliedFiltersList.indexOf(singleFilterTextWithoutCount), 1);    
+    appliedFiltersList.splice(appliedFiltersList.indexOf(singleFilterTextWithoutCount), 1);
     // setAppliedFiltersListWC([appliedFiltersListWC.splice(appliedFiltersListWC.indexOf(singleFilterText), 1)]);
     // console.log("Discard Filter after", appliedFiltersListWC)
 
@@ -60,7 +62,7 @@ function Search() {
 
     if (e) {
       $("#filtersList>li").each((index, li) => {
-        if (li.firstElementChild.firstElementChild.innerText == singleFilterText) {
+        if (li.firstElementChild.firstElementChild.textContent == singleFilterText) {
           li.style.display = 'none';
           return;
         }
@@ -72,7 +74,7 @@ function Search() {
       }
     }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
   }
 
   function hideAllFilterDiv() {
@@ -80,7 +82,7 @@ function Search() {
     document.getElementById("filtersList").innerHTML = "";
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), []));
+    dispatch(getTracks(query, query_type(query), [], "", "", 0));
   }
 
   const handleAddFilter = async(e) => {
@@ -89,7 +91,7 @@ function Search() {
     appliedFiltersList.push(removeCount(e.currentTarget.text))
     setAppliedFiltersListWC([...appliedFiltersListWC, e.currentTarget.text]);
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
   }
 
   const handleAddChildrenFilter = (e) => {
@@ -146,7 +148,7 @@ function Search() {
             {filter.sub_filters.map((sub_filter, index) =>
               <>
                 <div className="filterSelf">
-                  <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({filter.sub_filters[index].sub_filters.length})</span></Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
                   <span className="filterControl addFilter" onClick={handleAddChildrenFilter} id={sub_filter.id}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
                       <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -286,16 +288,17 @@ function Search() {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <Tracks tracks={tracks}/>
-
+        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} search={abc}/>
+        
       </div>
       <div className="stickyMiniPlayer">
         <div className="fixed-container">
-          <CustomAudioWave track={tracks[0]}/>
+          <SingleAudioWave track={tracks[0]}/>
         </div>
       </div>
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />
       <DownloadTrack showModal={showModal} onCloseModal={handleClose} />
+      
     </div>
     
   );
@@ -305,7 +308,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
-      await store.dispatch(getTracks("", "local_search", []))
+      await store.dispatch(getTracks("", "local_search", [], "", "", 0))
     });
 
 export default Search;

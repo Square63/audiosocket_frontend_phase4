@@ -4,6 +4,12 @@
 @import "~slick-carousel/slick/slick-theme.css";
 
 /*************** Global Styling ************/
+
+.disableSortBtn {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -1507,36 +1513,6 @@ footer {
           }
         } 
       }
-      .playPauseBtn {
-        width: 30px;
-        height: 30px;
-        background-color: $darkGrey;
-        border-radius: 30px;
-        position: relative;
-        margin-right: 15px;
-        cursor: pointer;
-        overflow: hidden;
-        .play,.pause {
-          display: inline-block;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50% , -50%);
-        }
-        .play {
-          background: url(../images/pause.svg) no-repeat;
-          background-size: 10px;
-          width: 10px;
-          height: 11px;
-        }
-        .pause {
-          background: url(../images/playtheme.svg) no-repeat;
-          background-size: 10px;
-          width: 10px;
-          height: 14px;
-          left: calc(50% + 1px);
-        }
-      }
     }
     &.headingRow {
       border-top: 0;
@@ -1575,6 +1551,36 @@ footer {
       background: url(../images/upSorting.svg) no-repeat;
       background-size: 9px;
     }
+  }
+}
+.playPauseBtn {
+  width: 30px;
+  height: 30px;
+  background-color: $darkGrey;
+  border-radius: 30px;
+  position: relative;
+  margin-right: 15px;
+  cursor: pointer;
+  overflow: hidden;
+  .play,.pause {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+  }
+  .play {
+    background: url(../images/pause.svg) no-repeat;
+    background-size: 10px;
+    width: 10px;
+    height: 11px;
+  }
+  .pause {
+    background: url(../images/playtheme.svg) no-repeat;
+    background-size: 10px;
+    width: 10px;
+    height: 14px;
+    left: calc(50% + 1px);
   }
 }
 
@@ -3337,6 +3343,7 @@ input[type=file]::file-selector-button {
       }
     }
   }
+  
 
   /************** Testimonial ****************/
   .testimonial {
