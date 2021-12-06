@@ -28,7 +28,7 @@ function Search() {
   const [appliedFiltersList, setAppliedFiltersList] = useState([]);
   const [appliedFiltersListWC, setAppliedFiltersListWC] = useState([]);
   // const [queryType, setQueryType] = useState("local_search")
-  const [abc, setAbc] = useState(false)
+  const [showDownModal, setShowDownModal] = useState(false)
 
   useEffect(() => {
     
@@ -37,11 +37,18 @@ function Search() {
   const handleClose = (show) => {
     setShowModal(show)
   }
+
+  function showDownloadModal() {
+    setShowDownModal(true)
+  }
+
+  const handleDownloadClose = (show) => {
+    setShowDownModal(show)
+  }
   
   const handleSearch = async(e) => {
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
-    setAbc(true)
   }
 
   const handleClearAllFilter = () => {
@@ -288,7 +295,7 @@ function Search() {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} search={abc}/>
+        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal}/>
         
       </div>
       <div className="stickyMiniPlayer">
@@ -297,7 +304,7 @@ function Search() {
         </div>
       </div>
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />
-      <DownloadTrack showModal={showModal} onCloseModal={handleClose} />
+      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} />
       
     </div>
     

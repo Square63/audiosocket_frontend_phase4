@@ -228,7 +228,7 @@ function Tracks(props) {
 													</g>
 												</g>
 											</svg>
-											<span>Download to License</span>
+											<span onClick={props.showDownloadModal}>Download to License</span>
 										</Dropdown.Item>
 										<Dropdown.Item href="#/action-1">
 											<svg xmlns="http://www.w3.org/2000/svg" width="17.89" height="16.927" viewBox="0 0 17.89 16.927">

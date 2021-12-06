@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { Slider } from "react-semantic-ui-range";
+import 'semantic-ui-css/semantic.min.css';
+import { Segment, Grid, Label, Input } from 'semantic-ui-react';
 
 
 
@@ -27,6 +30,13 @@ export default function CustomAudioWave(props) {
 
   const url = props.track.file
 
+  const settings = {
+    start: 2, min: 0,max: 10,step: 1,
+    onChange: function(value) {
+      wavesurfer.current.setVolume(value)
+    }
+  }
+
   useEffect(() => {
     create();
 
@@ -44,18 +54,11 @@ export default function CustomAudioWave(props) {
     wavesurfer.current = WaveSurfer.create(options);
 
     wavesurfer.current.load("./test.mp3");
-		wavesurfer.current.setVolume(0.4)
   };
 
   const handlePlayPause = () => {
     setPlaying(!playing);
     wavesurfer.current.playPause();
-  };
-
-  const handleVolume= () => {
-    let volume = parseFloat(document.querySelector('#volume').value)
-    wavesurfer.current.setVolume(volume)
-    console.log("After set Volume", wavesurfer.current.getVolume());
   };
 
   return (
@@ -67,9 +70,11 @@ export default function CustomAudioWave(props) {
 				<span className={playing ? "play" : "pause"}></span>
 				<span className="pause d-none"></span>
 			</div>
-			<div className="PlayerControls">
-				<input id="volume" type="range" min="0" max="1" step="0.1" onChange={handleVolume}></input>
-			</div>
+      <Grid>
+        <Grid.Column width={2}>
+          <Slider discrete color="red" inverted={false} settings={settings}/>
+        </Grid.Column>
+      </Grid>
     </>
   );
 }
