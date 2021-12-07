@@ -68,7 +68,7 @@ export default function CustomAudioWave(props) {
       wavesurfer.current.load(url);
   };
 
-  const handlePlayPause = () => {
+  function handlePlayPause() {
     setPlaying(!playing);
     wavesurfer.current.playPause();
   };
