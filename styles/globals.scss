@@ -1616,7 +1616,7 @@ footer {
   }
   .stickyMiniPlayerInner {
     display: grid;
-    grid-template-columns: 14.5% 70px 1fr 1fr auto;
+    grid-template-columns: 14.5% 70px 1fr 100px auto;
     @include justify-content(space-between);
     @include align-items(center);
     height: inherit;
@@ -1673,6 +1673,10 @@ footer {
         line-height: 1.62;
         letter-spacing: -0.33px;
         color: $middleGrey;
+      }
+      #waveform {
+        flex: 1;
+        margin-inline: 13px;
       }
     }
 

@@ -77,7 +77,7 @@ export default function CustomAudioWave(props) {
         <div className="durationCount totalDuration">03:43</div>
       </div>
       <Grid>
-        <Grid.Column width={2}>
+        <Grid.Column width={100}>
           <Slider discrete color="red" inverted={false} settings={settings}/>
         </Grid.Column>
       </Grid>

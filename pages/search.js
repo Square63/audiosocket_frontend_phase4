@@ -303,11 +303,11 @@ function Search() {
         <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying}/>
         
       </div>
-      {/* <div className="stickyMiniPlayer">
+      <div className="stickyMiniPlayer">
         <div className="fixed-container">
           <SingleAudioWave track={tracks[0]} footerPlaying={footerPlaying}/>
         </div>
-      </div> */}
+      </div>
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} />
       
