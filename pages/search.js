@@ -29,6 +29,7 @@ function Search() {
   const [appliedFiltersListWC, setAppliedFiltersListWC] = useState([]);
   // const [queryType, setQueryType] = useState("local_search")
   const [showDownModal, setShowDownModal] = useState(false)
+	const [footerPlaying, setFooterPlaying] = useState(false)
 
   useEffect(() => {
     
@@ -56,7 +57,12 @@ function Search() {
   }
 
   function handleClearSingleFilter(e) {
-    let singleFilterText = e.target.previousElementSibling.textContent
+    let singleFilterText
+    if (e.target.getAttribute("name") != null) {
+      singleFilterText = e.target.getAttribute("name")
+    } else {
+      singleFilterText = e.target.previousElementSibling.textContent
+    }
     let singleFilterTextWithoutCount = removeCount(singleFilterText)
     let elements = $( "a:contains("+singleFilterTextWithoutCount+")" );
     appliedFiltersList.splice(appliedFiltersList.indexOf(singleFilterTextWithoutCount), 1);
@@ -164,13 +170,13 @@ function Search() {
                     </svg>
                   </span>
 
-                  <span className="filterControl discardFilter" onClick={handleClearSingleFilter}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                      <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                        <circle cx="5" cy="5" r="5" stroke="none"/>
-                        <circle cx="5" cy="5" r="4.5" fill="none"/>
+                  <span className="filterControl discardFilter" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                      <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                        <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                        <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
                       </g>
-                      <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
+                      <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
                     </svg>
                   </span>
                 </div>
@@ -183,7 +189,7 @@ function Search() {
                 {lastChildFilters.map((sub_filter, index) =>
                   <>
                     <div className={appliedFiltersList.includes(sub_filter.name) ? "custom filterSelf activeFilter" : "custom filterSelf"}>
-                      <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>(18,041)</span></Dropdown.Item>
+                      <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
                       <span className="filterControl addFilter">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
                           <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -193,13 +199,13 @@ function Search() {
                         </svg>
                       </span>
 
-                      <span className="filterControl discardFilter" onClick={handleClearSingleFilter}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                            <circle cx="5" cy="5" r="5" stroke="none"/>
-                            <circle cx="5" cy="5" r="4.5" fill="none"/>
+                      <span className="filterControl discardFilter" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                            <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                            <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
                           </g>
-                          <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
+                          <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
                         </svg>
                       </span>
                     </div>
@@ -294,12 +300,12 @@ function Search() {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal}/>
+        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying}/>
         
       </div>
       {/* <div className="stickyMiniPlayer">
         <div className="fixed-container">
-          <SingleAudioWave track={tracks[0]}/>
+          <SingleAudioWave track={tracks[0]} footerPlaying={footerPlaying}/>
         </div>
       </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />

@@ -59,7 +59,7 @@ export default function CustomAudioWave(props) {
     
     <>
       <div className="rowParticipant artistName">
-        <div className="playPauseBtn" onClick={handlePlayPause}>
+        <div className="playPauseBtn" onClick={() => {handlePlayPause(); props.handleFooterTrack();}} >
           <span className={playing ? "play" : "pause"}></span>
           <span className="pause d-none"></span>
         </div>
@@ -86,7 +86,7 @@ export default function CustomAudioWave(props) {
       <div className="rowParticipant audioWave">
       <div id="waveform" ref={waveformRef}  />
         <div className="PlayerControls">
-          <div className="startStopBtn" onClick={handlePlayPause}>
+          <div className="startStopBtn">
             {/* {<SingleAudioWave/>} */}
             {!playing ? "Play" : "Pause"}
             <span className="playSong">
