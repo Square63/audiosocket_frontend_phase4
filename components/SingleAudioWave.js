@@ -28,7 +28,7 @@ export default function CustomAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
 
-  const url = props.track.file
+  const url = props.track != undefined ? props.track.file : ""
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -57,17 +57,15 @@ export default function CustomAudioWave(props) {
   };
 
   const handlePlayPause = () => {
-    setPlaying(!playing);
+    setPlaying(!playing); 
     wavesurfer.current.playPause();
   };
 
   return (
-    
     <>
-      
 			<div id="waveform" ref={waveformRef}  />
 			<div className="playPauseBtn" onClick={handlePlayPause}>
-				<span className={playing ? "play" : "pause"}></span>
+				<span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
 				<span className="pause d-none"></span>
 			</div>
       <Grid>

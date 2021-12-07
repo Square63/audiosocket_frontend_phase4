@@ -74,6 +74,10 @@ function Tracks(props) {
 
 	}
 
+	function handleFooterTrack() {
+    props.setFooterPlaying(!props.footerPlaying)
+  }
+
 	return (
 		<div className={search.tracksWrapper}>
 			<div className={search.tracksHeading}>
@@ -141,7 +145,7 @@ function Tracks(props) {
 				>
 					{tracks.map((track,index)=> {
 						return(<div className="trackRow" key={index}>
-							<CustomAudioWave track={track}/>
+							<CustomAudioWave track={track} handleFooterTrack={handleFooterTrack}/>
 							<div className="rowParticipant duration">
 								{convertSecToMin(track.duration)}
 								
