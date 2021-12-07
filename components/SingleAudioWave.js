@@ -28,7 +28,7 @@ export default function CustomAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
 
-  const url = props.track.file
+  const url = props.track != undefined ? props.track.file : ""
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -57,7 +57,7 @@ export default function CustomAudioWave(props) {
   };
 
   const handlePlayPause = () => {
-    setPlaying(!playing);
+    setPlaying(!playing); 
     wavesurfer.current.playPause();
   };
 
@@ -69,7 +69,7 @@ export default function CustomAudioWave(props) {
         <a href="javascript:void(0)" className="SongArtist">Justin G. Marcellus</a>
       </div>
 			<div className="playPauseBtn" onClick={handlePlayPause}>
-				<span className={playing ? "play" : "pause"}></span>
+        <span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
 			</div>
       <div className="waveWithDuration">
         <div className="durationCount durationObtained">02:21</div>

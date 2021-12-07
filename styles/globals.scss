@@ -1197,6 +1197,13 @@ footer {
           .discardFilter {
             margin-left: 1px;
           }
+          &.activeFilter {
+            .dropdown-item {
+              background-color: $green-light;
+              color: $darkGrey;
+              pointer-events: none;
+            }
+          }
           &:hover,
           &.activeFilter {
             .dropdown-item {
