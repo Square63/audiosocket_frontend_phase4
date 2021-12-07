@@ -1616,7 +1616,7 @@ footer {
   }
   .stickyMiniPlayerInner {
     display: grid;
-    grid-template-columns: 14.5% 70px 1fr 100px auto;
+    grid-template-columns: 13% 70px 1fr 14.1% auto;
     @include justify-content(space-between);
     @include align-items(center);
     height: inherit;
@@ -1648,7 +1648,8 @@ footer {
       border-radius: 48px;
       background-color: $nav-link;
       font-size: 0;
-      justify-self: center;
+      justify-self: flex-end;
+      margin-right: 0;
       .play {
         background: url(../images/pauseIconBlack.svg) no-repeat;
         background-size: 13px;
@@ -1667,6 +1668,7 @@ footer {
       @include flexbox;
       @include justify-content(center);
       @include align-items(center);
+      margin-inline: 5.5%;
       .durationCount {
         font-size: 13px;
         font-weight: 400;
@@ -1676,7 +1678,30 @@ footer {
       }
       #waveform {
         flex: 1;
-        margin-inline: 13px;
+        max-width: 480px;
+        width: 100%;
+        margin-inline: 15px;
+      }
+    }
+
+    .volumeBarWrapper {
+      .volumeBar {
+        display: flex;
+        align-items: center;
+        width: 150px;
+        svg {
+          margin-right: 10px;
+        }
+        .grid {
+          margin-inline: 0;
+          .wide {
+            width: 80px;
+            padding-inline: 0;
+            .semantic_ui_range_inner {
+              margin-inline: 0 !important;
+            }
+          }
+        }
       }
     }
 
