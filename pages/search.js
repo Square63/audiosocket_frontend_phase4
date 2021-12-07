@@ -1,7 +1,7 @@
 import Alert from 'react-bootstrap/Alert';
 import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
-import SingleAudioWave from "../components/SingleAudioWave";
+import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Image from 'next/image';
@@ -30,6 +30,7 @@ function Search() {
   // const [queryType, setQueryType] = useState("local_search")
   const [showDownModal, setShowDownModal] = useState(false)
 	const [footerPlaying, setFooterPlaying] = useState(false)
+  const [track, setTrack] = useState()
 
   useEffect(() => {
     
@@ -300,12 +301,13 @@ function Search() {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying}/>
+        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying} track={track} setTrack={setTrack}/>
         
       </div>
       <div className="stickyMiniPlayer">
         <div className="fixed-container">
-          <SingleAudioWave track={tracks[0]} footerPlaying={footerPlaying}/>
+          <CustomAudioWave track={track} footerPlaying={footerPlaying} footer={true}/>
+          {/* <SingleAudioWave track={track} footerPlaying={footerPlaying}/> */}
         </div>
       </div>
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />
