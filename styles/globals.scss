@@ -1118,7 +1118,7 @@ footer {
     .dropdown-toggle {
       background-color: transparent;
       border-color: transparent;
-      color: #6e7377;
+      color: $middleGrey;
       padding: 13px 15px 11px;
       font-size: 16px;
       font-weight: 400;
@@ -1186,7 +1186,7 @@ footer {
             @include flexbox;
             @include justify-content(center);
             @include align-items(center);
-            background-color: #6e7377;
+            background-color: $middleGrey;
             opacity: 0;
             visibility: hidden;
             cursor: pointer;
@@ -1219,7 +1219,7 @@ footer {
           }
         }
         &.filterChildren {
-          background-color: #6e7377;
+          background-color: $middleGrey;
           .filterSelf {
             .dropdown-item {
               font-weight: 400;
@@ -1285,7 +1285,7 @@ footer {
         .dropdown-toggle {
           background-color: transparent;
           border: 0;
-          color: #6e7377;
+          color: $middleGrey;
           &:after {
             content: none;
           }
@@ -1464,6 +1464,11 @@ footer {
             }
           }
         }
+        .downloadStuff {
+          svg {
+            width: 22px;
+          }
+        }
         .dropdown,
         .dropup {
           .dropdown-toggle {
@@ -1524,7 +1529,7 @@ footer {
         font-weight: 400;
         line-height: 1.29;
         letter-spacing: -0.35px;
-        color: #6e7377;
+        color: $middleGrey;
         &.artistName {
           padding-left: 45px;
         }
@@ -1599,15 +1604,71 @@ footer {
   background-color: $white;
   box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.1);
   z-index: 1040;
-  .PlayerControls {
-    @include flexbox;
-    .startStopBtn {
+  .fixed-container {
+    height: inherit;
+  }
+  .stickyMiniPlayerInner {
+    display: grid;
+    grid-template-columns: 14.5% 70px 1fr 1fr auto;
+    @include justify-content(space-between);
+    @include align-items(center);
+    height: inherit;
+    .songsStuff {
+      a {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: -0.35px;
+        display: block;
+        color: $headerColor;
+        text-transform: capitalize;
+        margin-right: 5px;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        opacity: 0.9;
+        &.SongName {
+          font-weight: 500;
+          font-size: 15px;
+          opacity: 1;
+        }
+      }
+    }
+    .playPauseBtn {
       width: 48px;
       height: 48px;
       border-radius: 48px;
       background-color: $nav-link;
       font-size: 0;
+      justify-self: center;
+      .play {
+        background: url(../images/pauseIconBlack.svg) no-repeat;
+        background-size: 13px;
+        width: 13px;
+        height: 17px;
+      }
+      .pause {
+        background: url(../images/playBlack.svg) no-repeat;
+        background-size: 14px;
+        width: 14px;
+        height: 20px;
+        left: calc(50% + 1px);
+      }
     }
+    .waveWithDuration {
+      @include flexbox;
+      @include justify-content(center);
+      @include align-items(center);
+      .durationCount {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.62;
+        letter-spacing: -0.33px;
+        color: $middleGrey;
+      }
+    }
+
   }
 }
 
@@ -1979,7 +2040,7 @@ section {
           font-weight: 400;
           line-height: 1.19;
           letter-spacing: -0.4px;
-          color: #6e7377;
+          color: $middleGrey;
           margin-bottom: 10px;
         }
         .planPriceAmount {
@@ -2004,7 +2065,7 @@ section {
         font-weight: 400;
         line-height: 1.5;
         letter-spacing: -0.4px;
-        color: #6e7377;
+        color: $middleGrey;
         height: 100px;
         margin-bottom: 25px;
         display: -webkit-box;
@@ -2088,7 +2149,7 @@ section {
         gap: 20px;
         background-clip: border-box;
         border: none;
-        background-color: #6E7377;
+        background-color: $middleGrey;
         &.active {
           background-color: $headerColor;
         }
@@ -2349,7 +2410,7 @@ section {
         width: 100% !important;
       }
       .epidemicBar {
-        background-color: #6e7377 !important;
+        background-color: $middleGrey !important;
         width: 45% !important;
       }
       .artlistBar {
@@ -2391,7 +2452,7 @@ section {
             display: inline-flex;
             height: 36px;
             border-radius: 29px;
-            background-color: #6e7377;
+            background-color: $middleGrey;
             position: relative;
             z-index: 9;
           }
@@ -2516,7 +2577,7 @@ section {
 .btnMainSmall,
 .btnMainOutline,
 input[type=file]::file-selector-button {
-  height: 44px;
+  height: 45px;
   padding: 12px 26px 13px;
   border-radius: 29px;
   background-color: $green-light;
@@ -2540,7 +2601,7 @@ input[type=file]::file-selector-button {
 }
 
 .btnMainSmall {
-  height: 34px;
+  height: 35px;
   padding: 10px 20px 8px 18px;
   font-size: 14px;
   line-height: 15px;
@@ -2560,7 +2621,7 @@ input[type=file]::file-selector-button {
 .btnMainOutline {
   background-color: transparent;
   color: $textClr;
-  border: 2px solid #6e7377;
+  border: 2px solid $middleGrey;
   text-transform: capitalize;
   &:hover {
     opacity: 1;
@@ -2833,7 +2894,7 @@ input[type=file]::file-selector-button {
       .rec-pagination {
         margin-top: 25px;
         .rec-dot {
-          background-color: #6e7377;
+          background-color: $middleGrey;
           box-shadow: none;
           &.rec-dot_active {
             background-color: $white;
@@ -3318,7 +3379,7 @@ input[type=file]::file-selector-button {
       .rec-pagination {
         margin-top: 25px;
         .rec-dot {
-          background-color: #6e7377;
+          background-color: $middleGrey;
           box-shadow: none;
           &.rec-dot_active {
             background-color: $white;

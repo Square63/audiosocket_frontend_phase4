@@ -199,7 +199,7 @@ function Tracks(props) {
 									</a>
 								</OverlayTrigger>
 
-								<Dropdown drop="up" alignLeft>
+								<Dropdown drop="up" alignLeft className="downloadStuff">
 									<OverlayTrigger overlay={<Tooltip>Download Track</Tooltip>}>
 										<Dropdown.Toggle variant="" id="dropdown-autoclose-true dropdown-button-drop-up">
 											<svg xmlns="http://www.w3.org/2000/svg" width="22.743" height="21.503" viewBox="0 0 22.743 21.503">

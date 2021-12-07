@@ -13,11 +13,11 @@ const formWaveSurferOptions = (ref) => ({
   progressColor: "#C1D72E",
   cursorColor: "",
   cursorWidth: 0,
-  barWidth: 1,
+  barWidth: 3,
   barRadius: 0,
   responsive: true,
-  barHeight: 30,
-  height: 35,
+  barHeight: 47,
+  height: 50,
   barGap: 1,
   normalize: true,
   partialRender: true,
@@ -63,18 +63,25 @@ export default function CustomAudioWave(props) {
 
   return (
     
-    <>
-      
-			<div id="waveform" ref={waveformRef}  />
+    <div className="stickyMiniPlayerInner">
+			<div className="songsStuff">
+        <a href="javascript:void(0)" className="SongName">Saving</a>
+        <a href="javascript:void(0)" className="SongArtist">Justin G. Marcellus</a>
+      </div>
 			<div className="playPauseBtn" onClick={handlePlayPause}>
 				<span className={playing ? "play" : "pause"}></span>
-				<span className="pause d-none"></span>
 			</div>
+      <div className="waveWithDuration">
+        <div className="durationCount durationObtained">02:21</div>
+        <div id="waveform" ref={waveformRef}  />
+        <div className="durationCount totalDuration">03:43</div>
+      </div>
       <Grid>
         <Grid.Column width={2}>
           <Slider discrete color="red" inverted={false} settings={settings}/>
         </Grid.Column>
       </Grid>
-    </>
+      <button className="btn btnMainLarge">Add to Cart</button>
+    </div>
   );
 }
