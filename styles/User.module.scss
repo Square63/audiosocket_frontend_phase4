@@ -142,6 +142,7 @@
               @include flexbox;
               @include justify-content(space-between);
               @include align-items(center);
+              max-height: 64px;
               .cardInfo {
                 @include flexbox;
                 @include justify-content(space-between);
@@ -178,7 +179,7 @@
               }
             }
             .anotherWay {
-              margin-top: 20px;
+              margin-top: 19px;
               text-align: right;
               a {
                 font-size: 13px;
