@@ -70,7 +70,7 @@ export default function CustomAudioWave(props) {
   };
 
   const handlePlayPause = () => {
-    setPlaying(!playing); 
+    setPlaying(!playing);
     wavesurfer.current.playPause();
   };
 
@@ -84,7 +84,7 @@ export default function CustomAudioWave(props) {
 
 
   return (
-    
+
     <div className="stickyMiniPlayerInner">
 			<div className="songsStuff">
         <a href="javascript:void(0)" className="SongName">Saving</a>
@@ -103,9 +103,9 @@ export default function CustomAudioWave(props) {
           <svg xmlns="http://www.w3.org/2000/svg" width="19.368" height="18.115" viewBox="0 0 19.368 18.115">
             <g id="Group_204" data-name="Group 204" transform="translate(0.5 0.513)">
               <g id="volume-control-medium">
-                <path id="Shape_1295" data-name="Shape 1295" d="M249.112,2175.109h-3.218a1.379,1.379,0,0,0-1.379,1.379v2.759a1.379,1.379,0,0,0,1.379,1.379h3.218l5.652,5.651a.46.46,0,0,0,.784-.325v-16.17a.46.46,0,0,0-.784-.325Z" transform="translate(-244.515 -2169.323)" fill="none" stroke="#1a1c1d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-                <path id="Shape_1296" data-name="Shape 1296" d="M261.515,2172.614a6.93,6.93,0,0,1,0,11.034" transform="translate(-245.884 -2169.588)" fill="none" stroke="#1a1c1d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-                <path id="Shape_1297" data-name="Shape 1297" d="M259.515,2175.114c2.462,1.79,2.454,4.652,0,6.436" transform="translate(-245.723 -2169.79)" fill="none" stroke="#1a1c1d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+                <path id="Shape_1295" data-name="Shape 1295" d="M249.112,2175.109h-3.218a1.379,1.379,0,0,0-1.379,1.379v2.759a1.379,1.379,0,0,0,1.379,1.379h3.218l5.652,5.651a.46.46,0,0,0,.784-.325v-16.17a.46.46,0,0,0-.784-.325Z" transform="translate(-244.515 -2169.323)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                <path id="Shape_1296" data-name="Shape 1296" d="M261.515,2172.614a6.93,6.93,0,0,1,0,11.034" transform="translate(-245.884 -2169.588)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                <path id="Shape_1297" data-name="Shape 1297" d="M259.515,2175.114c2.462,1.79,2.454,4.652,0,6.436" transform="translate(-245.723 -2169.79)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
               </g>
             </g>
           </svg>

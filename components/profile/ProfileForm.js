@@ -19,7 +19,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
     if (localStorage.getItem("user")) {
       setUserName(JSON.parse(localStorage.getItem("user") ?? ""));
     }
-  });
+  }, []);
 
   const handleSelectCountry = (target) => {
     if (target.value) setCountryError(false);

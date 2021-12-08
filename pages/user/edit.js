@@ -20,7 +20,7 @@ function Edit({ countries }) {
   return (
     <div className="boxDivision">
       <div className="boxColumn">
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Profile</div>
           <ProfileForm
             countries={countries}
@@ -28,25 +28,25 @@ function Edit({ countries }) {
             onCountryChange={handleCountryChange}
           />
         </div>
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Profile Security</div>
           <Security />
         </div>
       </div>
       <div className="boxColumn">
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Billing Info</div>
           <Billing />
         </div>
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Subscription</div>
           <Subscription />
         </div>
-        <div class="boxWithShadow paymentHistoryWrapper">
+        <div className="boxWithShadow paymentHistoryWrapper">
           <div className="boxHeading">Payment History</div>
           <PaymentHistory />
         </div>
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Settings</div>
           <Settings />
         </div>

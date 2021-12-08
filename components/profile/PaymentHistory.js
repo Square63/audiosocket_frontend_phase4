@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 
 const PaymentHistory = () => {
   return (
-    <div class={user.paymentHistory}>
+    <div className={user.paymentHistory}>
       <ul>
         <li>
           <span className={user.paymentDate}>October 5, 2021</span>
