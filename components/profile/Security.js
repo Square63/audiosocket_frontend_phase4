@@ -36,6 +36,7 @@ function Security() {
     >
       <div className="modal-container">
         <div className="form-group">
+          <Form.Label>Username</Form.Label>
           <Form.Control
             required
             name="username"
@@ -49,6 +50,7 @@ function Security() {
           </Form.Control.Feedback>
         </div>
         <div className="form-group">
+          <Form.Label>Password</Form.Label>
           <Form.Control
             required
             name="new_password"
@@ -60,16 +62,18 @@ function Security() {
           </Form.Control.Feedback>
         </div>
       </div>
-      <Button type="submit" className="btn primary-btn submit">
-        {isLoading ? (
-          <>
-            Updating...
-            <Image loader={LoaderImage} src={Loader} alt="icon" />
-          </>
-        ) : (
-          "Update Password"
-        )}
-      </Button>
+      <div className="col-md-12 pt-3 text-center">
+        <Button variant="link" type="submit" className="btnMainLarge submit">
+          {isLoading ? (
+            <>
+              Updating...
+              <Image loader={LoaderImage} src={Loader} alt="icon" />
+            </>
+          ) : (
+            "Update Password"
+          )}
+        </Button>
+      </div>
     </Form>
   );
 }

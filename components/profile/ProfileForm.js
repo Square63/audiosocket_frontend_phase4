@@ -233,8 +233,8 @@ const ProfileForm = ({ countries, states }) => {
           </Form.Group>
         </div>
 
-        <div className="col-md-12 mt-5">
-          <Button className="btn primary-btn" type="submit">
+        <div className="col-md-12 pt-3 text-center">
+          <Button variant="link" className="btnMainLarge" type="submit">
             Update Profile
           </Button>
         </div>

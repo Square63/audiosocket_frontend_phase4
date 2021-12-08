@@ -25,14 +25,15 @@ body {
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
+  color: $headerColor;
   height: inherit;
 }
 
 a {
-  color: $anchor-clr;
+  color: $middleGrey;
   @include transition(all 0.25s ease-in-out);
   &:hover {
-    color: $anchor-hover;
+    color: $headerColor;
     text-decoration: none;
   }
 }
@@ -143,14 +144,14 @@ input:-webkit-autofill:active{
   color: $headerColor;
   @include transition (all 0.25s ease-in-out);
   &::placeholder {
-    color: #979da2;
+    color: $middleGrey;
     opacity: 1;
   }
   &:-ms-input-placeholder {
-    color: #979da2;
+    color: $middleGrey;
   }
   &::-ms-input-placeholder {
-    color: #979da2;
+    color: $middleGrey;
   }
   &:focus {
     transition: all 0.3s ease-in-out;
@@ -731,136 +732,7 @@ footer {
   }
 }
 
-/****************** User Account ********************/
-.userAccountWrapper {
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding-bottom: 70px;
-  .userAcountHeading {
-    @include flexbox;
-    @include justify-content(space-between);
-    @include align-items(center);
-    margin-top: 25px;
-    h1 {
-      text-transform: capitalize;
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: 1.4px;
-      color: $heading-clr;
-      margin: 0;
-    }
-  }
-  .userAccountInner {
-    @include flexbox;
-    @include justify-content(flex-start);
-    @include align-items(flex-start);
-    margin: 50px 0 100px;
-    .userSidebar {
-      @include flex(0 1 300px);
-      border-right: 1px solid #e6e6e6;
-      .userListing {
-         & > li {
-          text-transform: uppercase;
-          font-size: 18px;
-          font-weight: 300;
-          letter-spacing: 1.8px;
-          line-height: normal;
-          padding: 10px 0 10px 40px;
-          a {
-            display: inline-block;
-          }
-          .subMenu {
-            margin: 20px 0 0;
-            li {
-              padding: 10px 0 10px 0;  
-              &.selected {
-                & > a {
-                  color: $green-light;
-                }
-              }
-            }
-          }
-          &.selected {
-            & > a {
-              color: $green-light;
-            }
-          }
-
-          &.profile {
-            background: url(../images/user_profile.svg) no-repeat left top 5px;
-            background-size: 30px;
-            &.selected {
-              background: url(../images/user_profile_selected.svg) no-repeat left top 5px;
-              background-size: 30px;
-            }
-          }
-
-          &.licences {
-            background: url(../images/licenses.svg) no-repeat left top 5px;
-            background-size: 30px;
-            &.selected {
-              background: url(../images/licenses_selected.svg) no-repeat left top 5px;
-              background-size: 30px;
-            }
-          }
-
-          &.favorite{
-            background: url(../images/favourites.svg) no-repeat left top 5px;
-            background-size: 30px;
-            &.selected {
-              background: url(../images/favourites_selected.svg) no-repeat left top 5px;
-              background-size: 30px;
-            }
-          }
-
-          &.following {
-            background: url(../images/following.svg) no-repeat left top 5px;
-            background-size: 30px;
-            &.selected {
-              background: url(../images/following_selected.svg) no-repeat left top 5px;
-              background-size: 30px;
-            }
-          }
-
-        }
-      }
-    }
-    .userContent {
-      @include flex(1);
-      padding: 0 60px;
-      .profileEdit {
-        [class*=col-] {
-          padding-inline: 20px;
-        }
-      }
-    }
-  }
-  .userAccountBtn {
-    background-color: #2f70d8;
-    color: white;
-    border-radius: 0;
-    text-transform: uppercase;
-    padding: 8px 47px;
-    line-height: normal;
-    letter-spacing: 1px;
-    @include transition(all 0.2s ease-in-out);
-    &:hover {
-      opacity: 0.8;
-    }
-    &:focus {
-      box-shadow: none;
-    }
-  }
-}
-
-.elementInline {
-  @include flexbox();
-  @include justify-content(flex-start);
-  @include align-items(center);
-}
-
-
+/******************* React Select *******************/
 
 .react-select-container {
   input {
@@ -1110,6 +982,50 @@ footer {
     cursor: pointer;
   }
 }
+
+/************** Rounded Box **********/
+
+%boxEssentials {
+  border: 1px solid;
+  border-radius: 30px;
+  background-color: $white;
+  overflow: hidden;
+}
+
+.boxWithShadow {
+  @extend %boxEssentials;
+  border-color: $textClr;
+  padding: 30px 30px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.16);
+}
+
+.boxWithOutShadow {
+  @extend %boxEssentials;
+  border-color: $headerColor;
+}
+
+.boxDivision {
+  @include flexbox;
+  @include justify-content(center);
+  gap: 60px;
+  .boxColumn {
+    flex: 1;
+  }
+  .boxHeading {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.23;
+    letter-spacing: -0.55px;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    border-bottom: 1px solid $nav-link;
+  }
+}
+
+
+
 
 /******************* Filter bar *****************/
 .filterBar {
@@ -2628,6 +2544,8 @@ input[type=file]::file-selector-button {
   &:hover,
   &:focus {
     opacity: 0.85;
+    color: $headerColor;
+    text-decoration: none;
   }
 }
 .disabled {

@@ -65,6 +65,14 @@
       }
     }
   }
+  &.externalSimilarity {
+    :global(.stickySearch),
+    :global(.filterBar),
+    :global(.selectedFilter),
+    .tracksSorting {
+      display: none !important;
+    }
+  }
 }
 
 .pageHeading{

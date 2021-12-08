@@ -6,39 +6,41 @@ import Security from "../../components/profile/Security";
 import Subscription from "../../components/profile/Subscription";
 import PaymentHistory from "../../components/profile/PaymentHistory";
 import Settings from "../../components/profile/Settings";
+import { useReducer } from "react";
 
 function Edit({ countries, states }) {
   return (
-    <div className="row">
-      <div className="col-lg-6">
-        <fieldset>
-          <legend>Profile</legend>
-          <ProfileForm countries={countries} states={states} />
-        </fieldset>
-        <fieldset>
-          <legend>Profile Security</legend>
+    <div className="boxDivision">
+      <div className="boxColumn">
+        <div class="boxWithShadow">
+          <div className="boxHeading">Profile</div>
+          <ProfileForm countries={countries} states={states}/>
+        </div>
+        <div class="boxWithShadow">
+          <div className="boxHeading">Profile Security</div>
           <Security />
-        </fieldset>
+        </div>
       </div>
-      <div className="col-lg-6">
-        <fieldset>
-          <legend>Billing Info</legend>
+      <div className="boxColumn">
+        <div class="boxWithShadow">
+          <div className="boxHeading">Billing Info</div>
           <Billing />
-        </fieldset>
-        <fieldset>
-          <legend>Subscription</legend>
+        </div>
+        <div class="boxWithShadow">
+          <div className="boxHeading">Subscription</div>
           <Subscription />
-        </fieldset>
-        <fieldset>
-          <legend>Payment History</legend>
+        </div>
+        <div class="boxWithShadow">
+          <div className="boxHeading">Payment History</div>
           <PaymentHistory />
-        </fieldset>
-        <fieldset>
-          <legend>Settings</legend>
+        </div>
+        <div class="boxWithShadow">
+          <div className="boxHeading">Settings</div>
           <Settings />
-        </fieldset>
+        </div>
       </div>
     </div>
+
   );
 }
 

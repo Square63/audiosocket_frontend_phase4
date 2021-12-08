@@ -222,7 +222,7 @@ function Search() {
   );
   
   return (
-    <div className={search.searchWrapper}>
+    <div className={search.searchWrapper+ " " +search.externalSimilarity}>
       <Alert variant="success" className="brandAlert">
         <div className="fixed-container">
           <p>

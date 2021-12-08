@@ -4,6 +4,7 @@ import {AuthProvider} from "../store/authContext";
 import {useRouter} from "next/router";
 import ProfileMenu from "./ProfileMenu";
 import {useEffect, useState} from "react";
+import user from "../styles/User.module.scss";
 
 function Layout({children}) {
   const router = useRouter();
@@ -29,13 +30,15 @@ function Layout({children}) {
         <main className="main">
           {router.pathname.toLowerCase().indexOf('/user/') !== -1
             ?
-              <div className="userAccountWrapper">
-                <div className="userAcountHeading">
-                  <h1>Account</h1>
-                  <ProfileMenu />
-                </div>
-                <div className="userAccountInner">
-                  {children}
+              <div className={user.accountWrapper}>
+                <div className="fixed-container">
+                  <div className={user.accountHeader}>
+                    <h1>Account</h1>
+                    <ProfileMenu />
+                  </div>
+                  <div className="userAccountInner">
+                    {children}
+                  </div>
                 </div>
               </div>
             : children
