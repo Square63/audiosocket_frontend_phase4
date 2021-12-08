@@ -989,7 +989,6 @@ footer {
   border: 1px solid;
   border-radius: 30px;
   background-color: $white;
-  overflow: hidden;
 }
 
 .boxWithShadow {
@@ -1002,6 +1001,7 @@ footer {
 .boxWithOutShadow {
   @extend %boxEssentials;
   border-color: $headerColor;
+  overflow: hidden;
 }
 
 .boxDivision {
