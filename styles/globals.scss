@@ -1419,7 +1419,7 @@ footer {
               }
               span {
                 font-size: 13px;
-                font-weight: 500;
+                font-weight: 400;
                 line-height: normal;
                 letter-spacing: -0.33px;
                 color: $white;
@@ -1455,6 +1455,30 @@ footer {
         color: $middleGrey;
         &.artistName {
           padding-left: 45px;
+        }
+        &.mood {
+          &.controls {
+            .dropdown {
+              .dropdown-toggle {
+                &:after {
+                  content: '';
+                  background: url(../images/labelSelect.svg) no-repeat center;
+                  background-size: 7px;
+                  width: 7px;
+                  height: 9px;
+                  border: none;
+                  vertical-align: baseline;
+                }
+              }
+              .dropdown-menu {
+                top: 7px !important;
+                width: 150px;
+                .dropdown-item {
+                  grid-template-columns: 1fr;
+                }
+              }
+            }
+          }
         }
       }
     }

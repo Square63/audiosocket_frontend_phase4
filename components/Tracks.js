@@ -121,8 +121,24 @@ function Tracks(props) {
 							<a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", "ASC")}></a>
 						</span>
 					</div>
-					<div className="rowParticipant mood">
-						Mood
+					<div className="rowParticipant mood controls">
+            <Dropdown alignLeft>
+              <Dropdown.Toggle variant="">
+                Mood
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">
+                  <span>Genres</span>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-1">
+                  <span>Themes</span>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-1">
+                  <span>Instruments</span>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
 						{/* <span className="sortingMedium">
 							<a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
 							<a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
