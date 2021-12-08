@@ -995,7 +995,7 @@ footer {
 .boxWithShadow {
   @extend %boxEssentials;
   border-color: $textClr;
-  padding: 30px 30px;
+  padding: 30px 30px 27px;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.16);
 }
 

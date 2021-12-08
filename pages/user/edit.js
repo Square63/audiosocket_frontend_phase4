@@ -30,7 +30,7 @@ function Edit({ countries, states }) {
           <div className="boxHeading">Subscription</div>
           <Subscription />
         </div>
-        <div class="boxWithShadow">
+        <div class="boxWithShadow paymentHistoryWrapper">
           <div className="boxHeading">Payment History</div>
           <PaymentHistory />
         </div>
