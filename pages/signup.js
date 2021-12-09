@@ -1,13 +1,18 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useState, useRef, useContext, useEffect} from "react";
-import {AuthContext} from "../store/authContext";
-import {useRouter} from "next/router";
-import signup from "../styles/Signup.module.scss";
-import Select from "react-select";
 import Link from "next/link"
+import Select from "react-select";
+import {useRouter} from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+
+import {AuthContext} from "../store/authContext";
+import { authSignup } from "../redux/actions/authActions";
+import signup from "../styles/Signup.module.scss";
 
 function Signup() {
+  const dispatch = useDispatch();
+  const signUpUser = useSelector(state => state.auth);
   const { authActions } = useContext(AuthContext);
   const form = useRef(null);
   const router = useRouter();
@@ -51,9 +56,32 @@ function Signup() {
       setValidated(true);
       setIsLoading(false);
     } else {
-      authActions.userDataStateChanged(data.get('email'));
-      e.target.reset();
-      router.push('/');
+      // authActions.userDataStateChanged(data.get('email'));
+      // e.target.reset();
+      // router.push('/');
+      let authData = {
+				email: data.get("email"),
+				first_name: data.get("first_name"),
+				last_name: data.get("last_name"),
+				password: data.get("password"),
+				password_confirmation: data.get("confirm_password"),
+				content_type: contentType,
+			};
+      dispatch(authSignup(authData));
+      console.log("72 link", signUpUser);
+      if(signUpUser.user != null) {
+        localStorage.setItem("user", JSON.stringify(signUpUser.user));
+      } else if(signUpUser.error != null) {
+        console.log(signUpUser.error);
+      }
+      // if (signUpUser.auth.error != null) {
+			// }
+      // if (signUpUser.auth.user) {
+			// 	console.log(signUpUser.auth.user);
+			// 	localStorage.setItem("user", JSON.stringify(signUpUser.auth.user));
+			// }
+      // const res = authSignup(authData);
+      // console.log(res);
     }
   }
 
