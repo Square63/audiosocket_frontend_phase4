@@ -222,7 +222,7 @@ function Search() {
   );
   
   return (
-    <div className={search.searchWrapper+ " " +search.externalSimilarity}>
+    <div className={search.searchWrapper}>
       <Alert variant="success" className="brandAlert">
         <div className="fixed-container">
           <p>
@@ -304,12 +304,12 @@ function Search() {
         <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying} track={track} setTrack={setTrack}/>
         
       </div>
-      <div className="stickyMiniPlayer">
+      {/* <div className="stickyMiniPlayer">
         <div className="fixed-container">
           <CustomAudioWave track={track} footerPlaying={footerPlaying} footer={true}/>
-          {/* <SingleAudioWave track={track} footerPlaying={footerPlaying}/> */}
+          <SingleAudioWave track={track} footerPlaying={footerPlaying}/>
         </div>
-      </div>
+      </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} />
       
