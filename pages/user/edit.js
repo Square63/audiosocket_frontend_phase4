@@ -21,7 +21,7 @@ function Edit({ countries }) {
     <div className="boxDivision">
       <div className="boxColumn">
         <div className="boxWithShadow">
-          <div className="boxHeading">Profile</div>
+          <div className="boxHeading">Profile Info</div>
           <ProfileForm
             countries={countries}
             states={states}
