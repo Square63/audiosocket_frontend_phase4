@@ -2571,7 +2571,7 @@ input[type=file]::file-selector-button {
 
 .inBlack {
   background-color: $headerColor;
-  color: $white;
+  color: $white !important;
 }
 
 input[type=file]::file-selector-button {
