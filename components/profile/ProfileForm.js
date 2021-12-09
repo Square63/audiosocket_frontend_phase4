@@ -99,7 +99,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
               name="email"
               type="email"
               placeholder="Enter email"
-              value={userName}
+              value="ahmed.raza@square63.com"
             />
             <Form.Control.Feedback type="invalid">
               A valid email address is required!

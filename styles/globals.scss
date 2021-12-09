@@ -732,48 +732,6 @@ footer {
   }
 }
 
-/******************* React Select *******************/
-
-.react-select-container {
-  input {
-    box-shadow: none;
-  }
-  .react-select__control {
-    height: 43px;
-    border-radius: 100px;
-    border: solid 1px $headerColor;
-    background-color: white;
-    padding: 0px 19px;
-    font-size: 16px;
-    // &.react-select__control--is-focused {
-    //   border-color: $green-light;
-    // }
-    box-shadow: none;
-    .react-select__value-container {
-      height: 43px;
-      padding-left: 0;
-      .react-select__single-value {
-      }
-    }
-    .react-select__indicators {
-      background: url('../images/icon-arrow-down.svg') no-repeat 0;
-      .react-select__indicator-separator,
-      .react-select__indicator svg {
-        display: none;
-      }
-    }
-    &:hover {
-      border-color: $headerColor;
-    }
-  }
-  .invalid {
-    .react-select__control {
-      border-color: $red;
-    }
-  }
-}
-
-
 /***************** Signup Select style *********************/
 .form-group {
   .css-2b097c-container {
@@ -816,6 +774,47 @@ footer {
       &.invalid {
         border-bottom: 1px solid #dc3545 !important;
       }
+    }
+  }
+}
+
+/******************* React Select *******************/
+
+.react-select-container {
+  input {
+    box-shadow: none;
+  }
+  .react-select__control {
+    height: 43px;
+    border-radius: 100px;
+    border: solid 1px $headerColor;
+    background-color: white;
+    padding: 0px 19px;
+    font-size: 16px;
+    // &.react-select__control--is-focused {
+    //   border-color: $green-light;
+    // }
+    box-shadow: none;
+    .react-select__value-container {
+      height: 43px;
+      padding-left: 0;
+      .react-select__single-value {
+      }
+    }
+    .react-select__indicators {
+      background: url('../images/icon-arrow-down.svg') no-repeat 0;
+      .react-select__indicator-separator,
+      .react-select__indicator svg {
+        display: none;
+      }
+    }
+    &:hover {
+      border-color: $headerColor;
+    }
+  }
+  .invalid {
+    .react-select__control {
+      border-color: $red;
     }
   }
 }
