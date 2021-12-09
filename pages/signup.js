@@ -85,10 +85,10 @@ function Signup() {
             <span>1</span>Create Account
           </li>
           <li>
-            <span>1</span>Select Plan
+            <span>2</span>Select Plan
           </li>
           <li>
-            <span>1</span>Setup Payment
+            <span>3</span>Setup Payment
           </li>
         </ul>
       </div>

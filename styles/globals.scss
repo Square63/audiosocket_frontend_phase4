@@ -988,12 +988,12 @@ footer {
   border: 1px solid;
   border-radius: 30px;
   background-color: $white;
+  padding: 30px 30px 27px;
 }
 
 .boxWithShadow {
   @extend %boxEssentials;
   border-color: $textClr;
-  padding: 30px 30px 27px;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.16);
 }
 
@@ -1001,6 +1001,7 @@ footer {
   @extend %boxEssentials;
   border-color: $headerColor;
   overflow: hidden;
+  padding-bottom: 40px;
 }
 
 .boxDivision {
@@ -2564,6 +2565,11 @@ input[type=file]::file-selector-button {
   height: 55px;
   padding: 18px 45px 20px;
   font-size: 18px;
+}
+
+.inBlack {
+  background-color: $headerColor;
+  color: $white;
 }
 
 input[type=file]::file-selector-button {

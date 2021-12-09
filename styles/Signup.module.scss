@@ -60,6 +60,14 @@
             background-color: $green-light;
           }
         }
+        &:after {
+          content: '';
+          background: url(../images/rightChevron.svg) no-repeat right center;
+          background-size: 10px;
+          display: inline-block;
+          width: 15px;
+          height: 20px;
+        }
       }
     }
   }
@@ -285,6 +293,111 @@
     a {
       text-decoration: underline;
       color: $headerColor;
+    }
+  }
+}
+
+/************************ Signup Step 2 *************************/
+
+.stepTwoWrapper {
+  .signUpInner {
+    padding: 36px 0 30px;
+    .plansHeading {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.23;
+      text-align: center;
+      margin-bottom: 0;
+      text-transform: capitalize;
+    }
+    .planWrapper {
+      @include flexbox;
+      @include justify-content(flex-start);
+      flex-wrap: wrap;
+      gap: 48px;
+      :global(.boxWithOutShadow) {
+        @include flex(1);
+      }
+    }
+    .fullWidthPlans {
+      flex: 1 1 100%;
+      text-align: center;
+      margin-block: 10px;
+      h2 {
+        margin-bottom: 20px;
+      }
+      .plansContent {
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+        p {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.25;
+          letter-spacing: -0.4px;
+          margin-bottom: 20px;
+        }
+      }
+      .plansBtnWrapper {
+        padding-top: 10px;
+      }
+    }
+    .planFeatures {
+      max-width: 325px;
+      width: 100%;
+      margin: 20px auto 30px;
+      li {
+        @include flexbox;
+        @include justify-content(flex-start);
+        @include align-items(baseline);
+        padding-block: 6px;
+        span {
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.29;
+          letter-spacing: -0.35px;
+          text-align: left;
+          @include flex(1);
+        }
+        &:before {
+          content: '';
+          background: url(../images/tick.svg) no-repeat center;
+          display: inline-block;
+          background-size: 13px;
+          width: 30px;
+          height: 15px;
+          transform: translateY(2px);
+        }
+        &.notAvailable {
+          span {
+            color: $textClr;
+          }
+          &:before {
+            content: '';
+            background: url(../images/featureCross.svg) no-repeat center;
+            display: inline-block;
+            background-size: 12px;
+            width: 30px;
+            height: 15px;
+            transform: translateY(2px);
+          }
+        }
+      }
+    }
+    .plansBtnWrapper {
+      text-align: center;
+      @include flexbox;
+      @include justify-content(center);
+      @include align-items(center);
+      gap: 30px;
+      a {
+        font-weight: 400;
+        .btnCategory {
+          margin-right: 13px;
+        }
+      }
     }
   }
 }
