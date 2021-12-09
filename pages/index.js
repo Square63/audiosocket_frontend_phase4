@@ -246,7 +246,7 @@ export default function Home() {
                         <h5>Step 2 :</h5>
                       </div>
                       <div className="stepContent">
-                        <Form>
+                        <Form className="newThemeRadio">
                           <Form.Label className="stepsLabel">Select Vocals : <span>Female</span></Form.Label>
                           {['radio'].map((type) => (
                             <div key={`inline-${type}`}>

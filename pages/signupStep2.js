@@ -12,6 +12,34 @@ function SignupStep2() {
     <div className={signup.stepTwoWrapper}>
       <div className="fixed-container">
         <div className={signup.signUpInner}>
+          <div className={signup.signupHeaderWrapper}>
+            <div className={signup.signupHeading}>
+              <h1>Sign Up</h1>
+            </div>
+            <div className={signup.steps}>
+              <ul>
+                <li>
+                  <span>1</span>Create Account
+                </li>
+                <li className={signup.active}>
+                  <span>2</span>Select Plan
+                </li>
+                <li>
+                  <span>3</span>Setup Payment
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className={signup.billingFrequency}>
+            <span>Billing Frequency</span>
+            <div className={signup.toggleButton}>
+              <input id="toggle-on" className={signup.toggle+" "+signup.toggleLeft} name="toggle" value="false" type="radio" checked/>
+              <label for="toggle-on" className={signup.btn}>Monthly</label>
+              <input id="toggle-off" className={signup.toggle+" "+signup.toggleRight} name="toggle" value="true" type="radio"/>
+              <label for="toggle-off" className={signup.btn}>Annually</label>
+            </div>
+            <em>Save 33% with annual billing</em>
+          </div>
           <div className={signup.planWrapper}>
             <div className="boxWithOutShadow">
               <h2 className={signup.plansHeading}>
@@ -55,10 +83,10 @@ function SignupStep2() {
               </ul>
               <div className={signup.plansBtnWrapper}>
                 <a href="javascript:void(0)" className="btn btnMainLarge inBlack btn-block mt-0">
-                  <span className={signup.btnCategory}>Music Only</span><span>$15 /Month</span>
+                  <span className={signup.btnCategory}>Music Only</span><span>$59 /Month</span>
                 </a>
                 <a href="javascript:void(0)" className="btn btnMainLarge btn-block mt-0">
-                  <span className={signup.btnCategory}>Music + SFX</span><span>$25 /Month</span>
+                  <span className={signup.btnCategory}>Music + SFX</span><span>$75 /Month</span>
                 </a>
               </div>
             </div>
