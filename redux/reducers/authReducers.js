@@ -15,7 +15,7 @@ export const authReducer = (state = { user: {} }, action) => {
       }
     case SIGN_UP_FAIL:
 			return {
-				error: action.payload.error,
+				error: action.payload.response.data.errors,
 			}
 		case CLEAR_ERRORS:
 			return {
