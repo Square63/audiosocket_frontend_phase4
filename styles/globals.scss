@@ -993,10 +993,21 @@ footer {
   padding: 30px 30px 27px;
 }
 
-.boxWithShadow {
+.boxWithShadow {  
   @extend %boxEssentials;
   border-color: $textClr;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.16);
+  .boxHeading {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.23;
+    letter-spacing: -0.55px;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    border-bottom: 1px solid $nav-link;
+  }
 }
 
 .boxWithOutShadow {
@@ -1013,21 +1024,7 @@ footer {
   .boxColumn {
     flex: 1;
   }
-  .boxHeading {
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 1.23;
-    letter-spacing: -0.55px;
-    text-align: center;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-    text-transform: capitalize;
-    border-bottom: 1px solid $nav-link;
-  }
 }
-
-
-
 
 /******************* Filter bar *****************/
 .filterBar {
@@ -1223,6 +1220,47 @@ footer {
   }
 }
 
+/**************** Subscription Plan *************/
+.subscriptionPlan {
+  border: 1px solid $headerColor;
+  border-radius: 35px;
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(center);
+  overflow: hidden;
+  position: relative;
+  max-height: 64px;
+  .aboutPlan {
+    padding: 18px 15px 10px 36px;
+    & > * {
+      display: block;
+    }
+    .planType {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.4px;
+    }
+    .planDuration {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.33px;
+    }
+  }
+  .planPrice {
+    padding: 18px 30px 10px;
+    background-color: $headerColor;
+    text-align: center;
+    color: $white;
+    span {
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.19;
+      letter-spacing: -0.72px;
+      color: $white;
+    }
+  }
+}
 
 /****************** Tag bar *****************/
 .selectedFilter {
