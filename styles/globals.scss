@@ -37,6 +37,11 @@ a {
     text-decoration: none;
   }
 }
+.btn {
+  &:focus {
+    box-shadow: none;
+  }
+}
 .textCenter {
   text-align: center;
 }
