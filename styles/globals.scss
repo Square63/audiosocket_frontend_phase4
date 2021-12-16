@@ -1380,6 +1380,7 @@ footer {
     .altVersions {
       @include flex(1 1 100%);
       margin-top: 7px;
+      line-height: normal;
       button {
         all: unset;
         font-size: 14px;
