@@ -39,35 +39,25 @@ function PreferenceModal({showModal = false, onCloseModal}) {
     <Modal
       show={showModal}
       onHide={handleClose}
-      size="sm"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      className="preference-modal customArtistModal">
-      <Form className="preference-form" noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Subscribe To Our Email List
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="modal-container">
-            <div className="form-group">
-              <Form.Control
-                required
-                name="email"
-                type="email"
-                placeholder="Email*"
-              />
-              <Form.Control.Feedback type="invalid">
-                A valid email address is required!
-              </Form.Control.Feedback>
-            </div>
+      size="md"
+      className="themeModal downloadTrack">
+      <Modal.Header closeButton>
+        <Modal.Title >
+          <h2 className="modalName">Upload Track</h2>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="modal-container">
+          <h4 className="modalBodyHeading">Load A Track To Find Similar Songs</h4>
+          <p className="modalBodytext">Upload MP3 or WAV</p>
+          <Form.Group controlId="formFile" className="uploadComponent">
+            <Form.Control type="file" />
+          </Form.Group>
+          <div className="modalBtnWrapper">
+            <a href="javascript:void(0)" className="btn btnMainLarge">Upload and Search</a>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit" className="btn primary-btn submit">{isLoading ? <>Subscribing...<Image loader={LoaderImage} src={Loader} alt="icon"/></> : "Subscribe"}</Button>
-        </Modal.Footer>
-      </Form>
+        </div>
+      </Modal.Body>
     </Modal>
   );
 }

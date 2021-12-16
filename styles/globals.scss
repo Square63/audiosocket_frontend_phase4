@@ -109,28 +109,6 @@ ul,ol {
   border: 1px solid $nav-link;
   padding: 13px 22px;
 }
-/************** Button ************/
-.primary-btn {
-  background: $clr-green-bright;
-  border-color: $clr-green-bright;
-  border-radius: 2.5rem;
-  font-weight: 600;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  color: $hero-dark;
-  text-transform: capitalize;
-	&:hover, &:active {
-		background-color: $clr-green-hover !important;
-		color: $hero-dark !important;
-		border-color: $clr-green-hover !important;
-		box-shadow: none !important;
-	}
-  &:focus {
-    color: $hero-dark !important;
-    background-color: $clr-green-bright !important;
-    box-shadow: none !important;
-  }
-}
 /************** Form Component ************/
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -165,52 +143,7 @@ input:-webkit-autofill:active{
   }
 }
 
-/**************** Radio button *****************/
-.radio {
-  display: grid;
-  grid-template-columns: min-content auto;
-  grid-gap: 0.2em;
-  font-size: 19px;
-  line-height: 19px;
-  color: #C1D82F;
-  margin: 3px 5px 3px 5px; 
 
-
-  .radio__label {
-    opacity: 0.8;
-    color: black;
-    font-size: 15px;
-    line-height: 18px;
-    font-weight: bold
-  }
-
-  .radio__input {
-    display: flex;
-    input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      &:focus {
-        & + .radio__control {
-          box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em #C1D82F
-        }
-      }
-      &:checked {
-        & + .radio__control {
-          background: radial-gradient(#C1D82F 50%, rgba(255, 0, 0, 0) 51%);
-        }
-      }
-    }
-    .radio__control {
-      display: block;
-      width: 1em;
-      height: 1em;
-      border-radius: 50%;
-      border: 2px solid #C1D82F;
-      transform: translateY(-0.05em);
-    }
-  }
-}
 .input-error {
   color: $red;
 }
@@ -1028,9 +961,6 @@ footer {
     border-bottom: 1px solid $nav-link;
   }
 }
-
-
-
 
 /******************* Filter bar *****************/
 .filterBar {
