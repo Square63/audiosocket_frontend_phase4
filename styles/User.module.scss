@@ -196,45 +196,6 @@
           }
 
           .subscription {
-            .subscriptionPlan {
-              border: 1px solid $headerColor;
-              border-radius: 35px;
-              @include flexbox;
-              @include justify-content(space-between);
-              @include align-items(center);
-              overflow: hidden;
-              position: relative;
-              max-height: 64px;
-              .aboutPlan {
-                padding: 18px 15px 10px 36px;
-                & > * {
-                  display: block;
-                }
-                .planType {
-                  font-size: 16px;
-                  font-weight: 500;
-                  line-height: 1;
-                  letter-spacing: -0.4px;
-                }
-                .planDuration {
-                  font-size: 13px;
-                  font-weight: 400;
-                  letter-spacing: -0.33px;
-                }
-              }
-              .planPrice {
-                padding: 18px 30px 10px;
-                background-color: $headerColor;
-                text-align: center;
-                span {
-                  font-size: 36px;
-                  font-weight: 400;
-                  line-height: 1.19;
-                  letter-spacing: -0.72px;
-                  color: $white;
-                }
-              }
-            }
             .subscriptionPeriod {
               @include flexbox;
               @include justify-content(space-between);

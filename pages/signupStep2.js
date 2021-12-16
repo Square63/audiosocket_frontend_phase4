@@ -9,7 +9,7 @@ import Link from "next/link"
 
 function SignupStep2() {
   return(
-    <div className={signup.stepTwoWrapper}>
+    <div className={signup.stepWrapper+" "+signup.stepTwoWrapper}>
       <div className="fixed-container">
         <div className={signup.signUpInner}>
           <div className={signup.signupHeaderWrapper}>
