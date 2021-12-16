@@ -4,11 +4,15 @@ import {useState, useRef, useContext, useEffect} from "react";
 import Link from "next/link"
 import Select from "react-select";
 import {useRouter} from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+import { TOAST_OPTIONS } from '../common/api';
 import {AuthContext} from "../store/authContext";
 import { authSignup } from "../redux/actions/authActions";
 import signup from "../styles/Signup.module.scss";
+import { Alert } from 'react-bootstrap';
 
 function Signup() {
   const dispatch = useDispatch();
@@ -21,6 +25,7 @@ function Signup() {
   const [contentType, setContentType] = useState(false);
   const [contentTypeError, setContentTypeError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [showError, setShowError] = useState(false);
   const contentTypeOptions = [
     {label: 'Ads', value: 'Ads'},
     {label: 'Branded Content', value: 'Branded Content'},
@@ -40,6 +45,15 @@ function Signup() {
     }
   }, [])
 
+  useEffect(() => {
+    if(signUpUser?.error) {
+      toast.error(signUpUser.error.email, TOAST_OPTIONS);
+    } else if(Object.keys(signUpUser.user).length) {
+      localStorage.setItem("user", JSON.stringify(signUpUser.user));
+      router.push('/selectPlan');
+    }
+  }, [signUpUser])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -56,9 +70,6 @@ function Signup() {
       setValidated(true);
       setIsLoading(false);
     } else {
-      // authActions.userDataStateChanged(data.get('email'));
-      // e.target.reset();
-      // router.push('/');
       let authData = {
 				email: data.get("email"),
 				first_name: data.get("first_name"),
@@ -68,20 +79,6 @@ function Signup() {
 				content_type: contentType,
 			};
       dispatch(authSignup(authData));
-      console.log("72 link", signUpUser);
-      if(signUpUser.user != null) {
-        localStorage.setItem("user", JSON.stringify(signUpUser.user));
-      } else if(signUpUser.error != null) {
-        console.log(signUpUser.error);
-      }
-      // if (signUpUser.auth.error != null) {
-			// }
-      // if (signUpUser.auth.user) {
-			// 	console.log(signUpUser.auth.user);
-			// 	localStorage.setItem("user", JSON.stringify(signUpUser.auth.user));
-			// }
-      // const res = authSignup(authData);
-      // console.log(res);
     }
   }
 
@@ -100,13 +97,24 @@ function Signup() {
   const handleSelectContentType = (target) => {
     setContentType(target.value);
   }
-
   return (
     <div className={signup.signupWrapper}>
       <div className={signup.signupHeading}>
         <h1>Sign Up</h1>
         <p>Already have an account?<Link href={"/login"}>Sign in</Link></p>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "auto" }}
+      />
       <div className={signup.steps}>
         <ul>
           <li className={signup.active}>

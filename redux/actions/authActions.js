@@ -38,14 +38,6 @@ export const authSignup = (data) => async (dispatch) => {
 			payload: error
 		})
 	}
-	// return axios.post('http://artist-portal-backend-phase4.square63.net/api/v1/consumer/session/signup', { email, first_name, last_name, password, password_confirmation, content_type });
-		// .then(user => {
-		// 	console.log(user);
-		// 	// localStorage.setItem("user", JSON.stringify(user));
-		// 	// // get return url from location state or default to home page
-		// 	// const { from } = history.location.state || { from: { pathname: "/" } };
-		// 	// history.push(from);
-		// });
 };
 
 export const clearErrors = () => async(dispatch) => {
