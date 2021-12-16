@@ -1217,6 +1217,7 @@ footer {
     @include flexbox;
     @include justify-content(flex-start);
     @include align-items(center);
+    flex-wrap: wrap;
     text-align: left;
     padding: 18px 15px;
     border-top: 1px solid #dcdfe2;
@@ -1374,6 +1375,65 @@ footer {
             }
           }
         } 
+      }
+    }
+    .altVersions {
+      @include flex(1 1 100%);
+      margin-top: 7px;
+      button {
+        all: unset;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.35px;
+        color: $middleGrey;
+        cursor: pointer;
+        margin-left: 45px;
+        svg {
+          margin-right: 5px;
+          @include transition(all 0.25s ease-in-out)
+        }
+        &[aria-expanded="true"] {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+      }
+      .versionTrackRow {
+        @include flexbox;
+        @include justify-content(flex-start);
+        background-color: #fafafa;
+        padding: 10px 10px 10px 35px;
+        .filterVersion {
+          @include flexbox;
+          @include justify-content(flex-start);
+          @include align-items(center);
+          .playPauseBtn {
+            margin-right: 22px;
+          }
+          .filterName {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: -0.35px;
+            color: $middleGrey;
+            width: 180px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding-right: 10px;
+          }
+          .waveTime {
+            @include flexbox;
+            @include justify-content(flex-start);
+            @include align-items(center);
+            #waveform {
+              width: 230px;
+              padding-inline: 15px 25px;
+              opacity: 0.7;
+            }
+          }
+        }
       }
     }
     &.headingRow {

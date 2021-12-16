@@ -244,7 +244,7 @@ function Search() {
             </svg>
           </Form>
           <a href="javascript:void(0)" className="btn btnMainXlarge" onClick={() => setShowModal(true)}>
-            Upload a Track
+            <span>Upload a Track</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="17.465" height="16.526" viewBox="0 0 17.465 16.526">
               <g id="icon-upload" transform="translate(16.965 0.5) rotate(90)">
                 <path id="Shape_111" data-name="Shape 111" d="M8.775,3.221V.716A.7.7,0,0,0,8.1,0H.675A.7.7,0,0,0,0,.716V15.749a.7.7,0,0,0,.675.716H8.1a.7.7,0,0,0,.675-.716V13.244" fill="none" stroke="#1a1c1d" strokLinecap="round" strokeWidth="1"/>

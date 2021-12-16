@@ -125,7 +125,7 @@ export default function CustomAudioWave(props) {
           </div>
         </div>
         <div className="rowParticipant audioWave">
-        <div id="waveform" ref={waveformRef}  />
+          <div id="waveform" ref={waveformRef}  />
           <div className="PlayerControls">
             <div className="startStopBtn">
               {/* {<SingleAudioWave/>} */}
