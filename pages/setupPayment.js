@@ -2,14 +2,21 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useState, useRef, useContext, useEffect} from "react";
 import {AuthContext} from "../store/authContext";
-import {useRouter} from "next/router";
+import router, {useRouter} from "next/router";
 import signup from "../styles/Signup.module.scss";
 import Select from "react-select";
 import Link from "next/link"
 import Image from 'next/image';
 import cardServices from '../images/cardServices.svg';
 
-function SignupStep3() {
+function SetupPayment() {
+
+  useEffect(() => {
+    if(!localStorage.getItem('user')) {
+      router.push('/signup');
+    }
+  }, []);
+
   return(
     <div className={signup.stepWrapper+" "+signup.stepThreeWrapper}>
       <div className="fixed-container">
@@ -113,4 +120,4 @@ function SignupStep3() {
   );
 }
 
-export default SignupStep3;
+export default SetupPayment;

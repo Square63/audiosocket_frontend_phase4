@@ -2,12 +2,20 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useState, useRef, useContext, useEffect} from "react";
 import {AuthContext} from "../store/authContext";
-import {useRouter} from "next/router";
-import signup from "../styles/Signup.module.scss";
 import Select from "react-select";
 import Link from "next/link"
+import router, {Router} from "next/router";
 
-function SignupStep2() {
+import signup from "../styles/Signup.module.scss";
+
+function SelectPlan() {
+
+  useEffect(() => {
+    if(!localStorage.getItem('user')) {
+      router.push('/signup');
+    }
+  }, []);
+  
   return(
     <div className={signup.stepWrapper+" "+signup.stepTwoWrapper}>
       <div className="fixed-container">
@@ -57,10 +65,10 @@ function SignupStep2() {
                 <li className={signup.notAvailable}><span>Unlimited use in digital ads</span></li>
               </ul>
               <div className={signup.plansBtnWrapper}>
-                <a href="javascript:void(0)" className="btn btnMainLarge inBlack btn-block mt-0">
+                <a href="javascript:void(0)" className="btn btnMainLarge inBlack btn-block mt-0" onClick={() => router.push('/setupPayment')}>
                   <span className={signup.btnCategory}>Music Only</span><span>$15 /Month</span>
                 </a>
-                <a href="javascript:void(0)" className="btn btnMainLarge btn-block mt-0">
+                <a href="javascript:void(0)" className="btn btnMainLarge btn-block mt-0" onClick={() => router.push('/setupPayment')}>
                   <span className={signup.btnCategory}>Music + SFX</span><span>$25 /Month</span>
                 </a>
               </div>
@@ -82,10 +90,10 @@ function SignupStep2() {
                 <li><span>Unlimited use in digital ads</span></li>
               </ul>
               <div className={signup.plansBtnWrapper}>
-                <a href="javascript:void(0)" className="btn btnMainLarge inBlack btn-block mt-0">
+                <a href="javascript:void(0)" className="btn btnMainLarge inBlack btn-block mt-0" onClick={() => router.push('/setupPayment')}>
                   <span className={signup.btnCategory}>Music Only</span><span>$59 /Month</span>
                 </a>
-                <a href="javascript:void(0)" className="btn btnMainLarge btn-block mt-0">
+                <a href="javascript:void(0)" className="btn btnMainLarge btn-block mt-0" onClick={() => router.push('/setupPayment')}>
                   <span className={signup.btnCategory}>Music + SFX</span><span>$75 /Month</span>
                 </a>
               </div>
@@ -100,7 +108,7 @@ function SignupStep2() {
                 <p>Please request a custom quote and one of our reps will be in touch ASAP.</p>
               </div>
               <div className={signup.plansBtnWrapper}>
-                <a href="" className="btn btnMainLarge">
+                <a href="" className="btn btnMainLarge" onClick={() => router.push('/setupPayment')}>
                   Request a Custom Quote
                 </a>
               </div>
@@ -112,7 +120,7 @@ function SignupStep2() {
                 <p>If you’d prefer to pay for track licensing individually, you can create an account without a subscription</p>
               </div>
               <div className={signup.plansBtnWrapper}>
-                <a href="" className="btn btnMainLarge">
+                <a href="" onClick={() => Router.push('/')} className="btn btnMainLarge">
                   Continue with Individual Track Licensing
                 </a>
               </div>
@@ -126,4 +134,4 @@ function SignupStep2() {
   );
 }
 
-export default SignupStep2;
+export default SelectPlan;
