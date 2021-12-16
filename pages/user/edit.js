@@ -7,40 +7,51 @@ import Subscription from "../../components/profile/Subscription";
 import PaymentHistory from "../../components/profile/PaymentHistory";
 import Settings from "../../components/profile/Settings";
 import { useReducer } from "react";
+import { useState } from "react";
 
-function Edit({ countries, states }) {
+function Edit({ countries }) {
+  const [states, setStates] = useState([]);
+
+  const handleCountryChange = (code) => {
+    const statesArr = getStatesByCountry(code);
+    setStates(statesArr);
+  };
+
   return (
     <div className="boxDivision">
       <div className="boxColumn">
-        <div class="boxWithShadow">
-          <div className="boxHeading">Profile</div>
-          <ProfileForm countries={countries} states={states}/>
+        <div className="boxWithShadow">
+          <div className="boxHeading">Profile Info</div>
+          <ProfileForm
+            countries={countries}
+            states={states}
+            onCountryChange={handleCountryChange}
+          />
         </div>
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Profile Security</div>
           <Security />
         </div>
       </div>
       <div className="boxColumn">
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Billing Info</div>
           <Billing />
         </div>
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Subscription</div>
           <Subscription />
         </div>
-        <div class="boxWithShadow paymentHistoryWrapper">
+        <div className="boxWithShadow paymentHistoryWrapper">
           <div className="boxHeading">Payment History</div>
           <PaymentHistory />
         </div>
-        <div class="boxWithShadow">
+        <div className="boxWithShadow">
           <div className="boxHeading">Settings</div>
           <Settings />
         </div>
       </div>
     </div>
-
   );
 }
 
@@ -63,19 +74,21 @@ export const getStaticProps = () => {
         countryCode: country.isoCode,
       });
   });
-  const stateslist = State.getStatesOfCountry("US");
-  const states = [];
-  stateslist.forEach((state, key) => {
-    states.push({
-      label: state.name,
-      value: state.name,
-      stateCode: state.isoCode,
-    });
-  });
   return {
     props: {
       countries,
-      states,
     },
   };
+};
+
+export const getStatesByCountry = (code) => {
+  const stateslist = State.getStatesOfCountry(code);
+  const statesArr = stateslist.map((state) => {
+    return {
+      label: state.name,
+      value: state.name,
+      isoCode: state.isoCode,
+    };
+  });
+  return statesArr;
 };

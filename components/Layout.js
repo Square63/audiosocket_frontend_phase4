@@ -22,7 +22,7 @@ function Layout({children}) {
         path: path
       });
     }
-  })
+  }, [])
   return (
     <AuthProvider>
       <Header/>

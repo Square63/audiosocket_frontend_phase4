@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Select from "react-select";
 
-const ProfileForm = ({ countries, states }) => {
+const ProfileForm = ({ countries, states, onCountryChange }) => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [countryError, setCountryError] = useState(false);
@@ -19,11 +19,13 @@ const ProfileForm = ({ countries, states }) => {
     if (localStorage.getItem("user")) {
       setUserName(JSON.parse(localStorage.getItem("user") ?? ""));
     }
-  });
+  }, []);
 
   const handleSelectCountry = (target) => {
     if (target.value) setCountryError(false);
     setSelectedCountry(target.value);
+    onCountryChange(target.countryCode);
+    setSelectedState(null);
   };
 
   const handleSelectState = (target) => {
@@ -97,7 +99,7 @@ const ProfileForm = ({ countries, states }) => {
               name="email"
               type="email"
               placeholder="Enter email"
-              value={userName}
+              value="ahmed.raza@square63.com"
             />
             <Form.Control.Feedback type="invalid">
               A valid email address is required!
@@ -149,14 +151,14 @@ const ProfileForm = ({ countries, states }) => {
               }
               classNamePrefix="react-select"
               options={states}
-              defaultValue={
-                selectedCountry
+              value={
+                selectedState
                   ? states.filter((option) => option.value === selectedState)
                   : { label: "Select State", value: null }
               }
               onChange={handleSelectState}
               noOptionsMessage={() => {
-                return "No state found";
+                return selectedCountry ? "No state found" : "Choose a country";
               }}
               theme={(theme) => ({
                 ...theme,
