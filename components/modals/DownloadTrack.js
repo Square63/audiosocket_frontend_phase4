@@ -75,7 +75,7 @@ function PreferenceModal({showModal = false, onCloseModal}) {
             <li>
               <span className="versionType">Instrumental</span>
               <span className="versionDuration">0:29</span>
-              <button variant="link" className="btn btnMainLarge versionSize">
+              <button variant="link" className="btn btnMainLarge  versionSize">
                 <strong>MP3</strong>
                 <span>(2.52 MB)</span>
               </button>
@@ -89,9 +89,6 @@ function PreferenceModal({showModal = false, onCloseModal}) {
               </button>
             </li>
           </ul>
-          <div className="modalBtnWrapper">
-            <a href="javascript:void(0)" className="btn btnMainLarge">Upload and Search</a>
-          </div>
         </div>
       </Modal.Body>
     </Modal>
