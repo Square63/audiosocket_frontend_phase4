@@ -76,13 +76,13 @@ function Login() {
           <div className={login.wrapper}>
             <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
               <Form.Group className={login.fieldControl} controlId="formBasicEmail">
-                <Form.Control required name="email" type="email" placeholder="Email*" />
+                <Form.Control required name="email" type="email" placeholder="Email" />
                 <Form.Control.Feedback type="invalid">
                   A valid email address is required!
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className={login.fieldControl} controlId="formBasicPassword">
-                <Form.Control required name="password" type="password" placeholder="Password*" />
+                <Form.Control required name="password" type="password" placeholder="Password" />
                 <Form.Control.Feedback type="invalid">
                   Password is required!
                 </Form.Control.Feedback>

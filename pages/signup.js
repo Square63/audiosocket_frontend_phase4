@@ -138,7 +138,7 @@ function Signup() {
                   <div className="row">
                     <div className="col-md-6">
                       <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                        <Form.Control required name="first_name" type="text" placeholder="First Name*" />
+                        <Form.Control required name="first_name" type="text" placeholder="First Name" />
                         <Form.Control.Feedback type="invalid">
                           First name is required!
                         </Form.Control.Feedback>
@@ -146,7 +146,7 @@ function Signup() {
                     </div>
                     <div className="col-md-6">
                       <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                        <Form.Control required name="last_name" type="text" placeholder="Last Name*" />
+                        <Form.Control required name="last_name" type="text" placeholder="Last Name" />
                         <Form.Control.Feedback type="invalid">
                           Last name is required!
                         </Form.Control.Feedback>
@@ -156,7 +156,7 @@ function Signup() {
                   <div className="row">
                     <div className="col-md-12">
                       <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                        <Form.Control required name="email" type="email" placeholder="Email*" />
+                        <Form.Control required name="email" type="email" placeholder="Email" />
                         <Form.Control.Feedback type="invalid">
                           A valid email address is required!
                         </Form.Control.Feedback>
@@ -166,7 +166,7 @@ function Signup() {
                   <div className="row">
                     <div className="col-md-6">
                       <Form.Group className={signup.fieldControl} controlId="formBasicPassword">
-                        <Form.Control required name="password" type="password" placeholder="Password*" />
+                        <Form.Control required name="password" type="password" placeholder="Password" />
                         <Form.Control.Feedback type="invalid">
                           Password is required!
                         </Form.Control.Feedback>
