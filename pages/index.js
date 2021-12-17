@@ -134,7 +134,6 @@ export default function Home() {
       <Head>
         <title>Audiosocket</title>
         <meta name="description" content="Audiosocket" />
-        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="stylesheet"
