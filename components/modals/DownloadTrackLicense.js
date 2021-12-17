@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
 
-function PreferenceModal({showModal = false, onCloseModal}) {
+function DownloadTrackLicense({showModal = false, onCloseModal}) {
   const form = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,14 +40,21 @@ function PreferenceModal({showModal = false, onCloseModal}) {
       show={showModal}
       onHide={handleClose}
       size="md"
-      className="themeModal downloadTrack">
+      className="themeModal downloadTrackLicense">
       <Modal.Header closeButton>
         <Modal.Title >
-          <h2 className="modalName">Upload Track</h2>
+          <h2 className="modalName">License Track</h2>
+          <p className="modalTrackName">
+            Saving
+          </p>
+          <p className="modalTrackArtist">
+            Justin G. Marcellus
+          </p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="modal-container">
+          
           <h4 className="modalBodyHeading">Load A Track To Find Similar Songs</h4>
           <p className="modalBodytext">Upload MP3 or WAV</p>
           <Form.Group controlId="formFile" className="uploadComponent">
@@ -62,4 +69,4 @@ function PreferenceModal({showModal = false, onCloseModal}) {
   );
 }
 
-export default PreferenceModal;
+export default DownloadTrackLicense;

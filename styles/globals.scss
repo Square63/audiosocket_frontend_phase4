@@ -780,7 +780,7 @@ footer {
       overflow: hidden;
       .modal-header {
         padding: 0 0 16px;
-        @include align-items(center);
+        @include align-items(baseline);
         border-color: $nav-link;
         .modalName {
           font-size: 22px;
@@ -788,6 +788,19 @@ footer {
           line-height: 1.23;
           letter-spacing: -0.55px;
           margin-bottom: 0;
+        }
+        .modalTrackName,
+        .modalTrackArtist {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: -0.35px;
+          margin-block: 8px 0;
+
+        }
+        .modalTrackArtist {
+          font-weight: 400;
+          margin-top: 4px;
         }
         .close {
           background: url(../images/modalClose.svg) no-repeat;
@@ -806,12 +819,50 @@ footer {
         padding: 20px 0 0;
         .modalBodyHeading {
           font-size: 18px;
-          font-weight: 400;
+          font-weight: 500;
           line-height: 1.31;
           letter-spacing: -0.4px;
         }
         .modalBodytext {
           color: $textClr;
+        }
+        .modalTrackRow {
+          li {
+            padding: 15px 0 14px;
+            border-bottom: 1px solid $nav-link;
+            @include flexbox;
+            @include justify-content(space-between);
+            @include align-items(center);
+            .versionType {
+              flex: 1;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 1.19;
+              letter-spacing: -0.4px;
+            }
+            .versionDuration {
+              width: 13%;
+              font-size: 13px;
+              font-weight: 400;
+              line-height: 1.62;
+              letter-spacing: -0.33px;
+            }
+            .versionSize {
+              margin-left: 10px;
+              padding-inline: 16px;
+              strong,span {
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 1.23;
+                letter-spacing: -0.33px;
+                margin-right: 10px;
+              }
+              span {
+                font-weight: 400;
+                margin: 0;
+              }
+            }
+          }
         }
         .modalBtnWrapper {
           padding: 40px 0 0;
@@ -848,18 +899,6 @@ footer {
   }
 }
 
-.forgot-password-modal {
-  .modal-content {
-    .modal-body {
-      label {
-        display: block;
-        text-align: center;
-        padding-bottom: 25px;
-        font-weight: 600;
-      }
-    }
-  }
-}
 /******************* Common Components ****************/
 .stickySearch {
   position: relative;

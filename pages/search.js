@@ -1,6 +1,7 @@
 import Alert from 'react-bootstrap/Alert';
 import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
+import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
 import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
@@ -29,6 +30,7 @@ function Search() {
   const [appliedFiltersListWC, setAppliedFiltersListWC] = useState([]);
   // const [queryType, setQueryType] = useState("local_search")
   const [showDownModal, setShowDownModal] = useState(false)
+  const [showLicenseModal, setShowLicenseModal] = useState(false)
 	const [footerPlaying, setFooterPlaying] = useState(false)
   const [track, setTrack] = useState()
 
@@ -46,6 +48,14 @@ function Search() {
 
   const handleDownloadClose = (show) => {
     setShowDownModal(show)
+  }
+
+  function showDownloadLicenseModal() {
+    setShowLicenseModal(true)
+  }
+
+  function handleLicenseModalClose() {
+    setShowLicenseModal(false)
   }
   
   const handleSearch = async(e) => {
@@ -226,7 +236,7 @@ function Search() {
       <Alert variant="success" className="brandAlert">
         <div className="fixed-container">
           <p>
-            Special Offer! 20% off all spooky tracks for the month of October!
+            Special Offer! 20% off all spooky tracks for the month of December!
           </p>
         </div>
       </Alert>
@@ -301,7 +311,7 @@ function Search() {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying} track={track} setTrack={setTrack}/>
+        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} showLicenseModal={showDownloadLicenseModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying} track={track} setTrack={setTrack}/>
         
       </div>
       {/* <div className="stickyMiniPlayer">
@@ -312,6 +322,7 @@ function Search() {
       </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} />
+      <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       
     </div>
     

@@ -43,16 +43,52 @@ function PreferenceModal({showModal = false, onCloseModal}) {
       className="themeModal downloadTrack">
       <Modal.Header closeButton>
         <Modal.Title >
-          <h2 className="modalName">Upload Track</h2>
+          <h2 className="modalName">Download Track</h2>
+          <p className="modalTrackName">
+            Saving
+          </p>
+          <p className="modalTrackArtist">
+            Justin G. Marcellus
+          </p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="modal-container">
-          <h4 className="modalBodyHeading">Load A Track To Find Similar Songs</h4>
-          <p className="modalBodytext">Upload MP3 or WAV</p>
-          <Form.Group controlId="formFile" className="uploadComponent">
-            <Form.Control type="file" />
-          </Form.Group>
+          <h4 className="modalBodyHeading">Versions</h4>
+          <ul className="modalTrackRow">
+            <li>
+              <span className="versionType">Full Track</span>
+              <span className="versionDuration">3:46</span>
+              <button variant="link" className="btn btnMainLarge versionSize">
+                <strong>MP3</strong>
+                <span>(2.52 MB)</span>
+              </button>
+            </li>
+            <li>
+              <span className="versionType">Instrumental</span>
+              <span className="versionDuration">0:16</span>
+              <button variant="link" className="btn btnMainLarge versionSize">
+                <strong>MP3</strong>
+                <span>(2.52 MB)</span>
+              </button>
+            </li>
+            <li>
+              <span className="versionType">Instrumental</span>
+              <span className="versionDuration">0:29</span>
+              <button variant="link" className="btn btnMainLarge versionSize">
+                <strong>MP3</strong>
+                <span>(2.52 MB)</span>
+              </button>
+            </li>
+            <li>
+              <span className="versionType">Instrumental</span>
+              <span className="versionDuration">1:16</span>
+              <button variant="link" className="btn btnMainLarge versionSize">
+                <strong>MP3</strong>
+                <span>(2.52 MB)</span>
+              </button>
+            </li>
+          </ul>
           <div className="modalBtnWrapper">
             <a href="javascript:void(0)" className="btn btnMainLarge">Upload and Search</a>
           </div>
