@@ -1,4 +1,5 @@
 import axios from "axios";
+import {BASE_URL} from "../../common/api";
 
 import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL } from "../constants/authConstants";
 
@@ -6,7 +7,7 @@ export const authLogin = (data) => async (dispatch) => {
 	let email = data.email;
 	let password = data.password;
 	try {
-		const {data} = await axios.post('http://artist-portal-backend-phase4.square63.net/api/v1/consumer/session', { email, password });
+		const {data} = await axios.post(`${BASE_URL}/api/v1/consumer/session`, { email, password });
 		dispatch({
 			type: LOGIN_SUCCESS,
 			payload: data
@@ -27,7 +28,7 @@ export const authSignup = (data) => async (dispatch) => {
 	let password_confirmation = data.password_confirmation;
 	let content_type = data.content_type;
 	try {
-		const {data} = await axios.post('http://artist-portal-backend-phase4.square63.net/api/v1/consumer/session/signup', { email, first_name, last_name, password, password_confirmation, content_type });
+		const {data} = await axios.post(`${BASE_URL}/api/v1/consumer/session/signup`, { email, first_name, last_name, password, password_confirmation, content_type });
 		dispatch({
 			type: SIGN_UP_SUCCESS,
 			payload: data
