@@ -39,14 +39,13 @@ function ForgotPasswordModal({showModal = false, onCloseModal}) {
     <Modal
       show={showModal}
       onHide={handleClose}
-      size="sm"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
-      centered
-      className="forgot-password-modal customArtistModal">
+      className="themeModal">
       <Form className="forgot-password-form" noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            FORGOT PASSWORD
+            <h2 className="modalName">Forgot Password</h2>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -57,17 +56,17 @@ function ForgotPasswordModal({showModal = false, onCloseModal}) {
                 required
                 name="email"
                 type="email"
-                placeholder="Enter email*"
+                placeholder="Enter email"
               />
               <Form.Control.Feedback type="invalid">
                 A valid email address is required!
               </Form.Control.Feedback>
             </div>
           </div>
+          <div class="modalBtnWrapper">
+            <Button type="submit" variant="link" className="btn btnMainLarge">{isLoading ? <>Submitting...<Image loader={LoaderImage} src={Loader} alt="icon"/></> : "Submit"}</Button>
+          </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit" className="btn primary-btn submit">{isLoading ? <>Submitting...<Image loader={LoaderImage} src={Loader} alt="icon"/></> : "Submit"}</Button>
-        </Modal.Footer>
       </Form>
     </Modal>
   );
