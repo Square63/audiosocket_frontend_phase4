@@ -108,7 +108,7 @@ function SelectPlan() {
                 <p>Please request a custom quote and one of our reps will be in touch ASAP.</p>
               </div>
               <div className={signup.plansBtnWrapper}>
-                <a href="" className="btn btnMainLarge" onClick={() => router.push('/setupPayment')}>
+                <a href="javascript:void(0)" className="btn btnMainLarge" onClick={() => router.push('/setupPayment')}>
                   Request a Custom Quote
                 </a>
               </div>
@@ -120,7 +120,7 @@ function SelectPlan() {
                 <p>If you’d prefer to pay for track licensing individually, you can create an account without a subscription</p>
               </div>
               <div className={signup.plansBtnWrapper}>
-                <a href="" onClick={() => Router.push('/')} className="btn btnMainLarge">
+                <a href="javascript:void(0)" onClick={() => router.push('/')} className="btn btnMainLarge">
                   Continue with Individual Track Licensing
                 </a>
               </div>

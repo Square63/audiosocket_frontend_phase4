@@ -111,7 +111,7 @@ function SetupPayment() {
               </div>
             </div>
             <div className={signup.btnWrapper}>
-              <a href='javascript:void(0)' className="btn btnMainLarge">Pay now</a>
+              <a href='javascript:void(0)' className="btn btnMainLarge" onClick={() => router.push('/')}>Pay now</a>
             </div>
           </div>
         </div>
