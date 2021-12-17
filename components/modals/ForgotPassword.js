@@ -63,7 +63,7 @@ function ForgotPasswordModal({showModal = false, onCloseModal}) {
               </Form.Control.Feedback>
             </div>
           </div>
-          <div class="modalBtnWrapper">
+          <div className="modalBtnWrapper">
             <Button type="submit" variant="link" className="btn btnMainLarge">{isLoading ? <>Submitting...<Image loader={LoaderImage} src={Loader} alt="icon"/></> : "Submit"}</Button>
           </div>
         </Modal.Body>
