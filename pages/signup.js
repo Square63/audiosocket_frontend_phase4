@@ -1,13 +1,22 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useState, useRef, useContext, useEffect} from "react";
-import {AuthContext} from "../store/authContext";
-import {useRouter} from "next/router";
-import signup from "../styles/Signup.module.scss";
-import Select from "react-select";
 import Link from "next/link"
+import Select from "react-select";
+import {useRouter} from "next/router";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { TOAST_OPTIONS } from '../common/api';
+import {AuthContext} from "../store/authContext";
+import { authSignup } from "../redux/actions/authActions";
+import signup from "../styles/Signup.module.scss";
+import { Alert } from 'react-bootstrap';
 
 function Signup() {
+  const dispatch = useDispatch();
+  const signUpUser = useSelector(state => state.auth);
   const { authActions } = useContext(AuthContext);
   const form = useRef(null);
   const router = useRouter();
@@ -16,6 +25,7 @@ function Signup() {
   const [contentType, setContentType] = useState(false);
   const [contentTypeError, setContentTypeError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [showError, setShowError] = useState(false);
   const contentTypeOptions = [
     {label: 'Ads', value: 'Ads'},
     {label: 'Branded Content', value: 'Branded Content'},
@@ -35,6 +45,15 @@ function Signup() {
     }
   }, [])
 
+  useEffect(() => {
+    if(signUpUser?.error) {
+      toast.error(signUpUser.error.email, TOAST_OPTIONS);
+    } else if(Object.keys(signUpUser.user).length) {
+      localStorage.setItem("user", JSON.stringify(signUpUser.user));
+      router.push('/selectPlan');
+    }
+  }, [signUpUser])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -51,9 +70,15 @@ function Signup() {
       setValidated(true);
       setIsLoading(false);
     } else {
-      authActions.userDataStateChanged(data.get('email'));
-      e.target.reset();
-      router.push('/');
+      let authData = {
+				email: data.get("email"),
+				first_name: data.get("first_name"),
+				last_name: data.get("last_name"),
+				password: data.get("password"),
+				password_confirmation: data.get("confirm_password"),
+				content_type: contentType,
+			};
+      dispatch(authSignup(authData));
     }
   }
 
@@ -72,23 +97,34 @@ function Signup() {
   const handleSelectContentType = (target) => {
     setContentType(target.value);
   }
-
   return (
     <div className={signup.signupWrapper}>
       <div className={signup.signupHeading}>
         <h1>Sign Up</h1>
         <p>Already have an account?<Link href={"/login"}>Sign in</Link></p>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "auto" }}
+      />
       <div className={signup.steps}>
         <ul>
           <li className={signup.active}>
             <span>1</span>Create Account
           </li>
           <li>
-            <span>1</span>Select Plan
+            <span>2</span>Select Plan
           </li>
           <li>
-            <span>1</span>Setup Payment
+            <span>3</span>Setup Payment
           </li>
         </ul>
       </div>
@@ -102,7 +138,7 @@ function Signup() {
                   <div className="row">
                     <div className="col-md-6">
                       <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                        <Form.Control required name="first_name" type="text" placeholder="First Name*" />
+                        <Form.Control required name="first_name" type="text" placeholder="First Name" />
                         <Form.Control.Feedback type="invalid">
                           First name is required!
                         </Form.Control.Feedback>
@@ -110,7 +146,7 @@ function Signup() {
                     </div>
                     <div className="col-md-6">
                       <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                        <Form.Control required name="last_name" type="text" placeholder="Last Name*" />
+                        <Form.Control required name="last_name" type="text" placeholder="Last Name" />
                         <Form.Control.Feedback type="invalid">
                           Last name is required!
                         </Form.Control.Feedback>
@@ -120,7 +156,7 @@ function Signup() {
                   <div className="row">
                     <div className="col-md-12">
                       <Form.Group className={signup.fieldControl} controlId="formBasicEmail">
-                        <Form.Control required name="email" type="email" placeholder="Email*" />
+                        <Form.Control required name="email" type="email" placeholder="Email" />
                         <Form.Control.Feedback type="invalid">
                           A valid email address is required!
                         </Form.Control.Feedback>
@@ -130,7 +166,7 @@ function Signup() {
                   <div className="row">
                     <div className="col-md-6">
                       <Form.Group className={signup.fieldControl} controlId="formBasicPassword">
-                        <Form.Control required name="password" type="password" placeholder="Password*" />
+                        <Form.Control required name="password" type="password" placeholder="Password" />
                         <Form.Control.Feedback type="invalid">
                           Password is required!
                         </Form.Control.Feedback>

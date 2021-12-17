@@ -5,12 +5,12 @@ import user from "../../styles/User.module.scss";
 const Subscription = () => {
   return (
     <div className={user.subscription}>
-      <div className={user.subscriptionPlan}>
-        <div className={user.aboutPlan}>
-          <span className={user.planType}>Individual Plan</span>
-          <span className={user.planDuration}>Monthly</span>
+      <div className="subscriptionPlan">
+        <div className="aboutPlan">
+          <span className="planType">Individual Plan</span>
+          <span className="planDuration">Monthly</span>
         </div>
-        <div className={user.planPrice}>
+        <div className="planPrice">
           <span>$33</span>
         </div>
       </div>

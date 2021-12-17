@@ -403,85 +403,87 @@ header {
 }
 
 /************** New theme checkbox **************/
-/* Base for label styling */
-[type="radio"]:not(:checked),
-[type="radio"]:checked {
-  position: absolute;
-  left: 0;
-  opacity: 0.01;
-  & + label {
-    position: relative;
-    padding-left: 32px;
-    font-size: 16px;
-    line-height: normal;
-    letter-spacing: -0.4px;
-    cursor: pointer;
-    height: 18px;
-    vertical-align: middle;
-    margin-bottom: 12px;
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 18px;
+.newThemeRadio {
+  /* Base for label styling */
+  [type="radio"]:not(:checked),
+  [type="radio"]:checked {
+    position: absolute;
+    left: 0;
+    opacity: 0.01;
+    & + label {
+      position: relative;
+      padding-left: 32px;
+      font-size: 16px;
+      line-height: normal;
+      letter-spacing: -0.4px;
+      cursor: pointer;
       height: 18px;
-      opacity: 0.5;
-      border-radius: 4px;
-      background-color: $white;
-      @include transition(all 0.25s ease-in-out);
-    }
-    &:after {
-      content: '';
-      background: url(../images/check.svg) no-repeat center;
-      background-size: 11px;
-      width: 18px;
-      height: 18px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      @include transition(all 0.2s ease-in-out);
+      vertical-align: middle;
+      margin-bottom: 12px;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        opacity: 0.5;
+        border-radius: 4px;
+        background-color: $white;
+        @include transition(all 0.25s ease-in-out);
+      }
+      &:after {
+        content: '';
+        background: url(../images/check.svg) no-repeat center;
+        background-size: 11px;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include transition(all 0.2s ease-in-out);
+      }
     }
   }
-}
 
-[type="radio"]:checked + label:before {
-  opacity: 1;
-}
+  [type="radio"]:checked + label:before {
+    opacity: 1;
+  }
 
-/* checked mark aspect changes */
-[type="radio"]:not(:checked) + label:after {
-  opacity: 0;
-  -webkit-transform: scale(0) rotate(45deg);
-      transform: scale(0) rotate(45deg);
-}
+  /* checked mark aspect changes */
+  [type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0) rotate(45deg);
+        transform: scale(0) rotate(45deg);
+  }
 
-[type="radio"]:checked + label:after {
-  opacity: 1;
-  -webkit-transform: scale(1) rotate(0);
-      transform: scale(1) rotate(0);
-}
+  [type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1) rotate(0);
+        transform: scale(1) rotate(0);
+  }
 
-/* Disabled radio */
-[type="radio"]:disabled:not(:checked) + label:before,
-[type="radio"]:disabled:checked + label:before {
-  box-shadow: none;
-  border-color: #bbb;
-  background-color: #e9e9e9;
-}
+  /* Disabled radio */
+  [type="radio"]:disabled:not(:checked) + label:before,
+  [type="radio"]:disabled:checked + label:before {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #e9e9e9;
+  }
 
-[type="radio"]:disabled:checked + label:after {
-  color: #777;
-}
+  [type="radio"]:disabled:checked + label:after {
+    color: #777;
+  }
 
-[type="radio"]:disabled + label {
-  color: #aaa;
-}
+  [type="radio"]:disabled + label {
+    color: #aaa;
+  }
 
-/* Accessibility */
-[type="radio"]:checked:focus + label:before,
-[type="radio"]:not(:checked):focus + label:before {
-  opacity: 1;
+  /* Accessibility */
+  [type="radio"]:checked:focus + label:before,
+  [type="radio"]:not(:checked):focus + label:before {
+    opacity: 1;
+  }
 }
 
 /************** Footer ***************/
@@ -965,28 +967,13 @@ footer {
   border: 1px solid;
   border-radius: 30px;
   background-color: $white;
+  padding: 30px 30px 27px;
 }
 
-.boxWithShadow {
+.boxWithShadow {  
   @extend %boxEssentials;
   border-color: $textClr;
-  padding: 30px 30px 27px;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.16);
-}
-
-.boxWithOutShadow {
-  @extend %boxEssentials;
-  border-color: $headerColor;
-  overflow: hidden;
-}
-
-.boxDivision {
-  @include flexbox;
-  @include justify-content(center);
-  gap: 60px;
-  .boxColumn {
-    flex: 1;
-  }
   .boxHeading {
     font-size: 22px;
     font-weight: 400;
@@ -997,6 +984,22 @@ footer {
     margin-bottom: 20px;
     text-transform: capitalize;
     border-bottom: 1px solid $nav-link;
+  }
+}
+
+.boxWithOutShadow {
+  @extend %boxEssentials;
+  border-color: $headerColor;
+  overflow: hidden;
+  padding-bottom: 40px;
+}
+
+.boxDivision {
+  @include flexbox;
+  @include justify-content(center);
+  gap: 60px;
+  .boxColumn {
+    flex: 1;
   }
 }
 
@@ -1194,6 +1197,47 @@ footer {
   }
 }
 
+/**************** Subscription Plan *************/
+.subscriptionPlan {
+  border: 1px solid $headerColor;
+  border-radius: 35px;
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(center);
+  overflow: hidden;
+  position: relative;
+  max-height: 64px;
+  .aboutPlan {
+    padding: 18px 15px 10px 36px;
+    & > * {
+      display: block;
+    }
+    .planType {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.4px;
+    }
+    .planDuration {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.33px;
+    }
+  }
+  .planPrice {
+    padding: 18px 30px 10px;
+    background-color: $headerColor;
+    text-align: center;
+    color: $white;
+    span {
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.19;
+      letter-spacing: -0.72px;
+      color: $white;
+    }
+  }
+}
 
 /****************** Tag bar *****************/
 .selectedFilter {
@@ -2625,6 +2669,11 @@ input[type=file]::file-selector-button {
   font-size: 18px;
 }
 
+.inBlack {
+  background-color: $headerColor;
+  color: $white !important;
+}
+
 input[type=file]::file-selector-button {
   padding-inline: 17px; 
   height: 55px;
@@ -2693,6 +2742,7 @@ input[type=file]::file-selector-button {
     }
   }
 }
+
 
 /***************** Toggle Switch ************/
 .toogleSwitch {

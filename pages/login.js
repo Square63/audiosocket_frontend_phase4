@@ -5,7 +5,10 @@ import Link from "next/link";
 import Image from 'next/image';
 import {LoaderImage} from "../components/LoaderImage";
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+import { TOAST_OPTIONS } from '../common/api';
 import {AuthContext} from "../store/authContext";
 import { authLogin } from "../redux/actions/authActions";
 import {useRouter} from "next/router";
@@ -14,8 +17,7 @@ import ForgotPassword from "../components/modals/ForgotPassword";
 
 function Login() {
   const dispatch = useDispatch();
-  const loggedInUser = useSelector(state => state.auth.user);
-  console.log('line 21', loggedInUser);
+  const loggedInUser = useSelector(state => state.auth);
   const { authActionsContext } = useContext(AuthContext);
   const form = useRef(null);
   const router = useRouter()
@@ -30,6 +32,16 @@ function Login() {
       router.push('/')
     }
   }, [])
+
+  useEffect(() => {
+    if(loggedInUser.error) {
+      toast.error(loggedInUser.error.message, TOAST_OPTIONS);
+    } else if(Object.keys(loggedInUser.user).length) {
+      localStorage.setItem("user", JSON.stringify(loggedInUser.user));
+      toast.success('Successfully Logged In.');
+      router.push('/');
+    }
+  }, [loggedInUser])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,9 +62,6 @@ function Login() {
         password: data.get('password')
 			};
       dispatch(authLogin(authData));
-      localStorage.setItem("user", JSON.stringify(loggedInUser));
-      e.target.reset();
-      router.push('/');
     }
   }
 
@@ -70,19 +79,31 @@ function Login() {
         <h1>Sign In</h1>
         <p>Don’t have an account yet?<Link href={"/signup"}>Sign up</Link></p>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "auto" }}
+      />
       <div className={login.formwrapper}>
         <div className={login.useEmail}>
           <h2>Use your email address</h2>
           <div className={login.wrapper}>
             <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
               <Form.Group className={login.fieldControl} controlId="formBasicEmail">
-                <Form.Control required name="email" type="email" placeholder="Email*" />
+                <Form.Control required name="email" type="email" placeholder="Email" />
                 <Form.Control.Feedback type="invalid">
                   A valid email address is required!
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className={login.fieldControl} controlId="formBasicPassword">
-                <Form.Control required name="password" type="password" placeholder="Password*" />
+                <Form.Control required name="password" type="password" placeholder="Password" />
                 <Form.Control.Feedback type="invalid">
                   Password is required!
                 </Form.Control.Feedback>
