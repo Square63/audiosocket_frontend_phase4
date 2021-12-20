@@ -398,90 +398,6 @@ header {
   }
 }
 
-/************** New theme checkbox **************/
-.newThemeRadio {
-  /* Base for label styling */
-  [type="radio"]:not(:checked),
-  [type="radio"]:checked {
-    position: absolute;
-    left: 0;
-    opacity: 0.01;
-    & + label {
-      position: relative;
-      padding-left: 32px;
-      font-size: 16px;
-      line-height: normal;
-      letter-spacing: -0.4px;
-      cursor: pointer;
-      height: 18px;
-      vertical-align: middle;
-      margin-bottom: 12px;
-      &:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 18px;
-        height: 18px;
-        opacity: 0.5;
-        border-radius: 4px;
-        background-color: $white;
-        @include transition(all 0.25s ease-in-out);
-      }
-      &:after {
-        content: '';
-        background: url(../images/check.svg) no-repeat center;
-        background-size: 11px;
-        width: 18px;
-        height: 18px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        @include transition(all 0.2s ease-in-out);
-      }
-    }
-  }
-
-  [type="radio"]:checked + label:before {
-    opacity: 1;
-  }
-
-  /* checked mark aspect changes */
-  [type="radio"]:not(:checked) + label:after {
-    opacity: 0;
-    -webkit-transform: scale(0) rotate(45deg);
-        transform: scale(0) rotate(45deg);
-  }
-
-  [type="radio"]:checked + label:after {
-    opacity: 1;
-    -webkit-transform: scale(1) rotate(0);
-        transform: scale(1) rotate(0);
-  }
-
-  /* Disabled radio */
-  [type="radio"]:disabled:not(:checked) + label:before,
-  [type="radio"]:disabled:checked + label:before {
-    box-shadow: none;
-    border-color: #bbb;
-    background-color: #e9e9e9;
-  }
-
-  [type="radio"]:disabled:checked + label:after {
-    color: #777;
-  }
-
-  [type="radio"]:disabled + label {
-    color: #aaa;
-  }
-
-  /* Accessibility */
-  [type="radio"]:checked:focus + label:before,
-  [type="radio"]:not(:checked):focus + label:before {
-    opacity: 1;
-  }
-}
-
 /************** Footer ***************/
 footer {
   padding: 88px 0 35px;
@@ -574,6 +490,92 @@ footer {
     top: max(170px, 20vh);
   }
 }
+
+/************** New theme checkbox **************/
+.newThemeRadio {
+  /* Base for label styling */
+  [type="radio"]:not(:checked),
+  [type="radio"]:checked {
+    position: absolute;
+    left: 0;
+    opacity: 0.01;
+    & + label {
+      position: relative;
+      padding-left: 32px;
+      font-size: 16px;
+      line-height: normal;
+      letter-spacing: -0.4px;
+      cursor: pointer;
+      height: 18px;
+      vertical-align: middle;
+      margin-bottom: 12px;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        opacity: 0.5;
+        border-radius: 4px;
+        background-color: $white;
+        @include transition(all 0.25s ease-in-out);
+      }
+      &:after {
+        content: '';
+        background: url(../images/check.svg) no-repeat center;
+        background-size: 11px;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include transition(all 0.2s ease-in-out);
+      }
+    }
+  }
+
+  [type="radio"]:checked + label:before {
+    opacity: 1;
+  }
+
+  /* checked mark aspect changes */
+  [type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0) rotate(45deg);
+        transform: scale(0) rotate(45deg);
+  }
+
+  [type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1) rotate(0);
+        transform: scale(1) rotate(0);
+  }
+
+  /* Disabled radio */
+  [type="radio"]:disabled:not(:checked) + label:before,
+  [type="radio"]:disabled:checked + label:before {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #e9e9e9;
+  }
+
+  [type="radio"]:disabled:checked + label:after {
+    color: #777;
+  }
+
+  [type="radio"]:disabled + label {
+    color: #aaa;
+  }
+
+  /* Accessibility */
+  [type="radio"]:checked:focus + label:before,
+  [type="radio"]:not(:checked):focus + label:before {
+    opacity: 1;
+  }
+}
+
+
 
 .login-block {
   width: 100%;
@@ -900,6 +902,11 @@ footer {
   }
 }
 
+/****************** Behaviour changes ***************/
+.disableSortBtn {
+  pointer-events: none;
+  opacity: 0.7;
+}
 /******************* Common Components ****************/
 .stickySearch {
   position: relative;
