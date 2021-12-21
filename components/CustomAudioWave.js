@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
-import 'semantic-ui-css/semantic.min.css';
 import { Segment, Grid, Label, Input } from 'semantic-ui-react'
 
 const formWaveSurferOptions = (ref, footer) => (
