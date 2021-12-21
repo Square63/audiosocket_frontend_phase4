@@ -8,9 +8,17 @@ import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from "react-redux";
 import { getTracks } from '../redux/actions/trackActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import Collapse from 'react-bootstrap/Collapse';
+import Fade from 'react-bootstrap/Fade';
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
+  { ssr: false }
+)
+const AltVersion = dynamic(
+  () => import('../components/SingleAudioWave'),
   { ssr: false }
 )
 
@@ -20,6 +28,8 @@ function Tracks(props) {
 	const [infifniteLoop, setInfiniteLoop] = useState(false)
 	const [sortBy, setSortBy] = useState("")
 	const [sortDir, setSortDir] = useState("")
+	const [open, setOpen] = useState(false);
+	const [playing, setPlaying] = useState(false);
 
 	useEffect(() => {
 		if (infifniteLoop) {
@@ -233,7 +243,7 @@ function Tracks(props) {
 										</Dropdown.Toggle>
 									</OverlayTrigger>
 									<Dropdown.Menu>
-										<Dropdown.Item href="#/action-1" onClick={props.showDownloadModal}>
+										<Dropdown.Item href="#/action-1" onClick={props.showLicenseModal}>
 											<svg xmlns="http://www.w3.org/2000/svg" width="18.528" height="18.528" viewBox="0 0 18.528 18.528">
 												<g id="Music-Audio_Playlists_playlist-lock" data-name="Music-Audio / Playlists / playlist-lock" transform="translate(-242.504 -1970.614)">
 													<g id="Group_176" data-name="Group 176" transform="translate(243.004 1971.114)">
@@ -251,7 +261,7 @@ function Tracks(props) {
 											</svg>
 											<span>Download to License</span>
 										</Dropdown.Item>
-										<Dropdown.Item href="#/action-1">
+										<Dropdown.Item href="#/action-1" onClick={props.showDownloadModal}>
 											<svg xmlns="http://www.w3.org/2000/svg" width="17.89" height="16.927" viewBox="0 0 17.89 16.927">
 												<g id="icon-download" transform="translate(0.5 16.427) rotate(-90)">
 													<path id="Shape_111" data-name="Shape 111" d="M9,3.3V.734A.715.715,0,0,0,8.31,0H.692A.715.715,0,0,0,0,.734V16.156a.715.715,0,0,0,.692.734H8.31A.715.715,0,0,0,9,16.156v-2.57" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -348,6 +358,27 @@ function Tracks(props) {
 										</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>
+							</div>
+							<div className="altVersions">
+								<Button
+									variant="link"
+									onClick={() => setOpen(!open)}
+									aria-controls="example-collapse-text"
+									aria-expanded={open}
+								>
+									<svg xmlns="http://www.w3.org/2000/svg" width="8.844" height="6.17" viewBox="0 0 8.844 6.17">
+										<g id="icon-arrow-down-small" transform="translate(0.18 1.058)">
+											<path id="Shape_1939" data-name="Shape 1939" d="M335.361,2401.3l-3.179-4.053" transform="translate(-331.309 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" stroke-width="1.5"/>
+											<path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.3l3.553-4.053" transform="translate(-330.379 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" stroke-width="1.5"/>
+										</g>
+									</svg>
+									<span className="versionCount">1</span> alt. versions
+								</Button>
+								<Collapse in={open}>
+									<div id="example-collapse-text" >
+										<AltVersion/>
+									</div>
+								</Collapse>
 							</div>
 						</div>)
 					})}

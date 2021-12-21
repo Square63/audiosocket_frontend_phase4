@@ -1,6 +1,7 @@
 import Alert from 'react-bootstrap/Alert';
 import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
+import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
 import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
@@ -29,6 +30,7 @@ function Search() {
   const [appliedFiltersListWC, setAppliedFiltersListWC] = useState([]);
   // const [queryType, setQueryType] = useState("local_search")
   const [showDownModal, setShowDownModal] = useState(false)
+  const [showLicenseModal, setShowLicenseModal] = useState(false)
 	const [footerPlaying, setFooterPlaying] = useState(false)
   const [track, setTrack] = useState()
 
@@ -46,6 +48,14 @@ function Search() {
 
   const handleDownloadClose = (show) => {
     setShowDownModal(show)
+  }
+
+  function showDownloadLicenseModal() {
+    setShowLicenseModal(true)
+  }
+
+  function handleLicenseModalClose() {
+    setShowLicenseModal(false)
   }
   
   const handleSearch = async(e) => {
@@ -226,7 +236,7 @@ function Search() {
       <Alert variant="success" className="brandAlert">
         <div className="fixed-container">
           <p>
-            Special Offer! 20% off all spooky tracks for the month of October!
+            Special Offer! 20% off all spooky tracks for the month of December!
           </p>
         </div>
       </Alert>
@@ -244,7 +254,7 @@ function Search() {
             </svg>
           </Form>
           <a href="javascript:void(0)" className="btn btnMainXlarge" onClick={() => setShowModal(true)}>
-            Upload a Track
+            <span>Upload a Track</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="17.465" height="16.526" viewBox="0 0 17.465 16.526">
               <g id="icon-upload" transform="translate(16.965 0.5) rotate(90)">
                 <path id="Shape_111" data-name="Shape 111" d="M8.775,3.221V.716A.7.7,0,0,0,8.1,0H.675A.7.7,0,0,0,0,.716V15.749a.7.7,0,0,0,.675.716H8.1a.7.7,0,0,0,.675-.716V13.244" fill="none" stroke="#1a1c1d" strokLinecap="round" strokeWidth="1"/>
@@ -301,7 +311,7 @@ function Search() {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying} track={track} setTrack={setTrack}/>
+        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} showLicenseModal={showDownloadLicenseModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying} track={track} setTrack={setTrack}/>
         
       </div>
       {/* <div className="stickyMiniPlayer">
@@ -312,6 +322,7 @@ function Search() {
       </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} />
+      <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       
     </div>
     

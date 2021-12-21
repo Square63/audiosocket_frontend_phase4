@@ -1,14 +1,7 @@
 @import url('https://use.typekit.net/njq2ndz.css');
 @import './variables-mixins.scss';
-@import "~slick-carousel/slick/slick.css";
-@import "~slick-carousel/slick/slick-theme.css";
 
 /*************** Global Styling ************/
-
-.disableSortBtn {
-  pointer-events: none;
-  opacity: 0.7;
-}
 
 * {
   margin: 0;
@@ -21,12 +14,15 @@ html, body {
 }
 
 body {
-  font-family: 'apertura', sans-serif;
+  font-family: 'apertura', sans-serif !important;
   font-weight: 400;
-  font-style: normal;
+  font-style: normal !important;
   font-size: 14px;
   color: $headerColor;
   height: inherit;
+  font-display: swap;
+  -webkit-animation: fade-in-fwd 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-fwd 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 a {
@@ -109,28 +105,6 @@ ul,ol {
   border: 1px solid $nav-link;
   padding: 13px 22px;
 }
-/************** Button ************/
-.primary-btn {
-  background: $clr-green-bright;
-  border-color: $clr-green-bright;
-  border-radius: 2.5rem;
-  font-weight: 600;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  color: $hero-dark;
-  text-transform: capitalize;
-	&:hover, &:active {
-		background-color: $clr-green-hover !important;
-		color: $hero-dark !important;
-		border-color: $clr-green-hover !important;
-		box-shadow: none !important;
-	}
-  &:focus {
-    color: $hero-dark !important;
-    background-color: $clr-green-bright !important;
-    box-shadow: none !important;
-  }
-}
 /************** Form Component ************/
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -165,52 +139,7 @@ input:-webkit-autofill:active{
   }
 }
 
-/**************** Radio button *****************/
-.radio {
-  display: grid;
-  grid-template-columns: min-content auto;
-  grid-gap: 0.2em;
-  font-size: 19px;
-  line-height: 19px;
-  color: #C1D82F;
-  margin: 3px 5px 3px 5px; 
 
-
-  .radio__label {
-    opacity: 0.8;
-    color: black;
-    font-size: 15px;
-    line-height: 18px;
-    font-weight: bold
-  }
-
-  .radio__input {
-    display: flex;
-    input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      &:focus {
-        & + .radio__control {
-          box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em #C1D82F
-        }
-      }
-      &:checked {
-        & + .radio__control {
-          background: radial-gradient(#C1D82F 50%, rgba(255, 0, 0, 0) 51%);
-        }
-      }
-    }
-    .radio__control {
-      display: block;
-      width: 1em;
-      height: 1em;
-      border-radius: 50%;
-      border: 2px solid #C1D82F;
-      transform: translateY(-0.05em);
-    }
-  }
-}
 .input-error {
   color: $red;
 }
@@ -222,12 +151,12 @@ input:-webkit-autofill:active{
     display: none;
   }
   & > .tooltip-inner {
-    border: 1px solid $darkGrey;
-    background-color: $darkGrey;
+    border: 1px solid $headerColor;
+    background-color: $headerColor;
     border-radius: 8px;
     text-transform: inherit;
     font-size: 12px;
-    color: $grey;
+    color: $white;
     padding: 3px 10px;
   }
 }
@@ -469,88 +398,6 @@ header {
   }
 }
 
-/************** New theme checkbox **************/
-/* Base for label styling */
-[type="radio"]:not(:checked),
-[type="radio"]:checked {
-  position: absolute;
-  left: 0;
-  opacity: 0.01;
-  & + label {
-    position: relative;
-    padding-left: 32px;
-    font-size: 16px;
-    line-height: normal;
-    letter-spacing: -0.4px;
-    cursor: pointer;
-    height: 18px;
-    vertical-align: middle;
-    margin-bottom: 12px;
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 18px;
-      height: 18px;
-      opacity: 0.5;
-      border-radius: 4px;
-      background-color: $white;
-      @include transition(all 0.25s ease-in-out);
-    }
-    &:after {
-      content: '';
-      background: url(../images/check.svg) no-repeat center;
-      background-size: 11px;
-      width: 18px;
-      height: 18px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      @include transition(all 0.2s ease-in-out);
-    }
-  }
-}
-
-[type="radio"]:checked + label:before {
-  opacity: 1;
-}
-
-/* checked mark aspect changes */
-[type="radio"]:not(:checked) + label:after {
-  opacity: 0;
-  -webkit-transform: scale(0) rotate(45deg);
-      transform: scale(0) rotate(45deg);
-}
-
-[type="radio"]:checked + label:after {
-  opacity: 1;
-  -webkit-transform: scale(1) rotate(0);
-      transform: scale(1) rotate(0);
-}
-
-/* Disabled radio */
-[type="radio"]:disabled:not(:checked) + label:before,
-[type="radio"]:disabled:checked + label:before {
-  box-shadow: none;
-  border-color: #bbb;
-  background-color: #e9e9e9;
-}
-
-[type="radio"]:disabled:checked + label:after {
-  color: #777;
-}
-
-[type="radio"]:disabled + label {
-  color: #aaa;
-}
-
-/* Accessibility */
-[type="radio"]:checked:focus + label:before,
-[type="radio"]:not(:checked):focus + label:before {
-  opacity: 1;
-}
-
 /************** Footer ***************/
 footer {
   padding: 88px 0 35px;
@@ -643,6 +490,92 @@ footer {
     top: max(170px, 20vh);
   }
 }
+
+/************** New theme checkbox **************/
+.newThemeRadio {
+  /* Base for label styling */
+  [type="radio"]:not(:checked),
+  [type="radio"]:checked {
+    position: absolute;
+    left: 0;
+    opacity: 0.01;
+    & + label {
+      position: relative;
+      padding-left: 32px;
+      font-size: 16px;
+      line-height: normal;
+      letter-spacing: -0.4px;
+      cursor: pointer;
+      height: 18px;
+      vertical-align: middle;
+      margin-bottom: 12px;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        opacity: 0.5;
+        border-radius: 4px;
+        background-color: $white;
+        @include transition(all 0.25s ease-in-out);
+      }
+      &:after {
+        content: '';
+        background: url(../images/check.svg) no-repeat center;
+        background-size: 11px;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include transition(all 0.2s ease-in-out);
+      }
+    }
+  }
+
+  [type="radio"]:checked + label:before {
+    opacity: 1;
+  }
+
+  /* checked mark aspect changes */
+  [type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0) rotate(45deg);
+        transform: scale(0) rotate(45deg);
+  }
+
+  [type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1) rotate(0);
+        transform: scale(1) rotate(0);
+  }
+
+  /* Disabled radio */
+  [type="radio"]:disabled:not(:checked) + label:before,
+  [type="radio"]:disabled:checked + label:before {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #e9e9e9;
+  }
+
+  [type="radio"]:disabled:checked + label:after {
+    color: #777;
+  }
+
+  [type="radio"]:disabled + label {
+    color: #aaa;
+  }
+
+  /* Accessibility */
+  [type="radio"]:checked:focus + label:before,
+  [type="radio"]:not(:checked):focus + label:before {
+    opacity: 1;
+  }
+}
+
+
 
 .login-block {
   width: 100%;
@@ -847,7 +780,7 @@ footer {
       overflow: hidden;
       .modal-header {
         padding: 0 0 16px;
-        @include align-items(center);
+        @include align-items(baseline);
         border-color: $nav-link;
         .modalName {
           font-size: 22px;
@@ -855,6 +788,19 @@ footer {
           line-height: 1.23;
           letter-spacing: -0.55px;
           margin-bottom: 0;
+        }
+        .modalTrackName,
+        .modalTrackArtist {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: -0.35px;
+          margin-block: 8px 0;
+
+        }
+        .modalTrackArtist {
+          font-weight: 400;
+          margin-top: 4px;
         }
         .close {
           background: url(../images/modalClose.svg) no-repeat;
@@ -873,12 +819,53 @@ footer {
         padding: 20px 0 0;
         .modalBodyHeading {
           font-size: 18px;
-          font-weight: 400;
+          font-weight: 500;
           line-height: 1.31;
           letter-spacing: -0.4px;
         }
         .modalBodytext {
           color: $textClr;
+        }
+        .modalTrackRow {
+          li {
+            padding: 15px 0 14px;
+            border-bottom: 1px solid $nav-link;
+            @include flexbox;
+            @include justify-content(space-between);
+            @include align-items(center);
+            .versionType {
+              flex: 1;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 1.19;
+              letter-spacing: -0.4px;
+            }
+            .versionDuration {
+              width: 13%;
+              font-size: 13px;
+              font-weight: 400;
+              line-height: 1.62;
+              letter-spacing: -0.33px;
+            }
+            .versionSize {
+              margin-left: 10px;
+              padding-inline: 16px;
+              strong,span {
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 1.23;
+                letter-spacing: -0.33px;
+                margin-right: 10px;
+              }
+              span {
+                font-weight: 400;
+                margin: 0;
+              }
+            }
+            &:last-child {
+              border-bottom: 0;
+            }
+          }
         }
         .modalBtnWrapper {
           padding: 40px 0 0;
@@ -915,17 +902,10 @@ footer {
   }
 }
 
-.forgot-password-modal {
-  .modal-content {
-    .modal-body {
-      label {
-        display: block;
-        text-align: center;
-        padding-bottom: 25px;
-        font-weight: 600;
-      }
-    }
-  }
+/****************** Behaviour changes ***************/
+.disableSortBtn {
+  pointer-events: none;
+  opacity: 0.7;
 }
 /******************* Common Components ****************/
 .stickySearch {
@@ -993,28 +973,13 @@ footer {
   border: 1px solid;
   border-radius: 30px;
   background-color: $white;
+  padding: 30px 30px 27px;
 }
 
-.boxWithShadow {
+.boxWithShadow {  
   @extend %boxEssentials;
   border-color: $textClr;
-  padding: 30px 30px 27px;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.16);
-}
-
-.boxWithOutShadow {
-  @extend %boxEssentials;
-  border-color: $headerColor;
-  overflow: hidden;
-}
-
-.boxDivision {
-  @include flexbox;
-  @include justify-content(center);
-  gap: 60px;
-  .boxColumn {
-    flex: 1;
-  }
   .boxHeading {
     font-size: 22px;
     font-weight: 400;
@@ -1028,8 +993,21 @@ footer {
   }
 }
 
+.boxWithOutShadow {
+  @extend %boxEssentials;
+  border-color: $headerColor;
+  overflow: hidden;
+  padding-bottom: 40px;
+}
 
-
+.boxDivision {
+  @include flexbox;
+  @include justify-content(center);
+  gap: 60px;
+  .boxColumn {
+    flex: 1;
+  }
+}
 
 /******************* Filter bar *****************/
 .filterBar {
@@ -1225,6 +1203,47 @@ footer {
   }
 }
 
+/**************** Subscription Plan *************/
+.subscriptionPlan {
+  border: 1px solid $headerColor;
+  border-radius: 35px;
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(center);
+  overflow: hidden;
+  position: relative;
+  max-height: 64px;
+  .aboutPlan {
+    padding: 18px 15px 10px 36px;
+    & > * {
+      display: block;
+    }
+    .planType {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.4px;
+    }
+    .planDuration {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.33px;
+    }
+  }
+  .planPrice {
+    padding: 18px 30px 10px;
+    background-color: $headerColor;
+    text-align: center;
+    color: $white;
+    span {
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.19;
+      letter-spacing: -0.72px;
+      color: $white;
+    }
+  }
+}
 
 /****************** Tag bar *****************/
 .selectedFilter {
@@ -1287,6 +1306,7 @@ footer {
     @include flexbox;
     @include justify-content(flex-start);
     @include align-items(center);
+    flex-wrap: wrap;
     text-align: left;
     padding: 18px 15px;
     border-top: 1px solid #dcdfe2;
@@ -1415,7 +1435,7 @@ footer {
               color: $white;
               padding-inline: 12px;
               padding-block: 9px 7px;
-              @include transition(all 0.2s ease-in-out);
+              @include transition(all 0.25s ease-in-out);
               svg {
                 path,line {
                   @include transition(all 0.25s ease-in-out);
@@ -1444,6 +1464,66 @@ footer {
             }
           }
         } 
+      }
+    }
+    .altVersions {
+      @include flex(1 1 100%);
+      margin-top: 7px;
+      line-height: normal;
+      button {
+        all: unset;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.35px;
+        color: $middleGrey;
+        cursor: pointer;
+        margin-left: 45px;
+        svg {
+          margin-right: 5px;
+          @include transition(all 0.25s ease-in-out)
+        }
+        &[aria-expanded="true"] {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+      }
+      .versionTrackRow {
+        @include flexbox;
+        @include justify-content(flex-start);
+        background-color: #fafafa;
+        padding: 10px 10px 10px 35px;
+        .filterVersion {
+          @include flexbox;
+          @include justify-content(flex-start);
+          @include align-items(center);
+          .playPauseBtn {
+            margin-right: 22px;
+          }
+          .filterName {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: -0.35px;
+            color: $middleGrey;
+            width: 180px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding-right: 10px;
+          }
+          .waveTime {
+            @include flexbox;
+            @include justify-content(flex-start);
+            @include align-items(center);
+            #waveform {
+              width: 230px;
+              padding-inline: 15px 25px;
+              opacity: 0.7;
+            }
+          }
+        }
       }
     }
     &.headingRow {
@@ -2595,6 +2675,11 @@ input[type=file]::file-selector-button {
   font-size: 18px;
 }
 
+.inBlack {
+  background-color: $headerColor;
+  color: $white !important;
+}
+
 input[type=file]::file-selector-button {
   padding-inline: 17px; 
   height: 55px;
@@ -2664,6 +2749,7 @@ input[type=file]::file-selector-button {
   }
 }
 
+
 /***************** Toggle Switch ************/
 .toogleSwitch {
   input[type=checkbox]{
@@ -2726,6 +2812,31 @@ input[type=file]::file-selector-button {
     opacity: 0;
   }
   100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fade-in-fwd {
+  0% {
+    -webkit-transform: translateZ(-80px);
+            transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-fwd {
+  0% {
+    -webkit-transform: translateZ(-80px);
+            transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
     opacity: 1;
   }
 }

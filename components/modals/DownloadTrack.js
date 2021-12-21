@@ -39,35 +39,58 @@ function PreferenceModal({showModal = false, onCloseModal}) {
     <Modal
       show={showModal}
       onHide={handleClose}
-      size="sm"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      className="preference-modal customArtistModal">
-      <Form className="preference-form" noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Subscribe To Our Email List
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="modal-container">
-            <div className="form-group">
-              <Form.Control
-                required
-                name="email"
-                type="email"
-                placeholder="Email*"
-              />
-              <Form.Control.Feedback type="invalid">
-                A valid email address is required!
-              </Form.Control.Feedback>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit" className="btn primary-btn submit">{isLoading ? <>Subscribing...<Image loader={LoaderImage} src={Loader} alt="icon"/></> : "Subscribe"}</Button>
-        </Modal.Footer>
-      </Form>
+      size="md"
+      className="themeModal downloadTrack">
+      <Modal.Header closeButton>
+        <Modal.Title >
+          <h2 className="modalName">Download Track</h2>
+          <p className="modalTrackName">
+            Saving
+          </p>
+          <p className="modalTrackArtist">
+            Justin G. Marcellus
+          </p>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="modal-container">
+          <h4 className="modalBodyHeading">Versions</h4>
+          <ul className="modalTrackRow">
+            <li>
+              <span className="versionType">Full Track</span>
+              <span className="versionDuration">3:46</span>
+              <button variant="link" className="btn btnMainLarge versionSize">
+                <strong>MP3</strong>
+                <span>(2.52 MB)</span>
+              </button>
+            </li>
+            <li>
+              <span className="versionType">Instrumental</span>
+              <span className="versionDuration">0:16</span>
+              <button variant="link" className="btn btnMainLarge versionSize">
+                <strong>MP3</strong>
+                <span>(2.52 MB)</span>
+              </button>
+            </li>
+            <li>
+              <span className="versionType">Instrumental</span>
+              <span className="versionDuration">0:29</span>
+              <button variant="link" className="btn btnMainLarge  versionSize">
+                <strong>MP3</strong>
+                <span>(2.52 MB)</span>
+              </button>
+            </li>
+            <li>
+              <span className="versionType">Instrumental</span>
+              <span className="versionDuration">1:16</span>
+              <button variant="link" className="btn btnMainLarge versionSize">
+                <strong>MP3</strong>
+                <span>(2.52 MB)</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </Modal.Body>
     </Modal>
   );
 }
