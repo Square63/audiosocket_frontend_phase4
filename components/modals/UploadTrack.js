@@ -4,8 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { getTracksFromAIMS } from '../../redux/actions/trackActions';
 
-function PreferenceModal({showModal = false, onCloseModal}) {
+function PreferenceModal({showModal = false, onCloseModal, loading}) {
+  const dispatch = useDispatch();
   const form = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,6 +38,20 @@ function PreferenceModal({showModal = false, onCloseModal}) {
     setIsLoading(false);
   }
 
+  const handleFileSelect = (e) => {
+    if (e.target.value == '')
+      document.getElementById("uploadBtn").classList.add("disabled")
+    else {
+      document.getElementById("uploadBtn").classList.remove("disabled")
+    }
+  }
+
+  const handleUploadSearch = () => {
+    onCloseModal(false);
+    loading();
+    dispatch(getTracksFromAIMS());
+  }
+
   return (
     <Modal
       show={showModal}
@@ -51,10 +68,10 @@ function PreferenceModal({showModal = false, onCloseModal}) {
           <h4 className="modalBodyHeading">Load A Track To Find Similar Songs</h4>
           <p className="modalBodytext">Upload MP3 or WAV</p>
           <Form.Group controlId="formFile" className="uploadComponent">
-            <Form.Control type="file" />
+            <Form.Control type="file" onChange={(e) => handleFileSelect(e)} />
           </Form.Group>
           <div className="modalBtnWrapper">
-            <a href="javascript:void(0)" className="btn btnMainLarge">Upload and Search</a>
+            <a href="javascript:void(0)" className="btn btnMainLarge disabled" id="uploadBtn" onClick={handleUploadSearch}>Upload and Search</a>
           </div>
         </div>
       </Modal.Body>

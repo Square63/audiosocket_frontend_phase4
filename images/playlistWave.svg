@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="11.743" height="14.532" viewBox="0 0 11.743 14.532">
   <g id="Icon-Has-Stems" transform="translate(-197.004 -136.675)">
-    <path id="Shape_63" data-name="Shape 63" d="M206.5,135.614v13.532" transform="translate(-3.628 1.561)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-    <path id="Shape_65" data-name="Shape 65" d="M198.5,142.614v7.438" transform="translate(1.231 -2.426)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-    <path id="Shape_66" data-name="Shape 66" d="M195.5,146.614V148.1" transform="translate(2 -3.451)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-    <path id="Shape_68" data-name="Shape 68" d="M214.5,142.614v7.438" transform="translate(-8.488 -2.426)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-    <path id="Shape_69" data-name="Shape 69" d="M217.5,146.614V148.1" transform="translate(-9.257 -3.451)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Shape_63" data-name="Shape 63" d="M206.5,135.614v13.532" transform="translate(-3.628 1.561)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+    <path id="Shape_65" data-name="Shape 65" d="M198.5,142.614v7.438" transform="translate(1.231 -2.426)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+    <path id="Shape_66" data-name="Shape 66" d="M195.5,146.614V148.1" transform="translate(2 -3.451)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+    <path id="Shape_68" data-name="Shape 68" d="M214.5,142.614v7.438" transform="translate(-8.488 -2.426)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+    <path id="Shape_69" data-name="Shape 69" d="M217.5,146.614V148.1" transform="translate(-9.257 -3.451)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
   </g>
 </svg>

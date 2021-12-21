@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
+import 'semantic-ui-css/semantic.min.css';
 import { Segment, Grid, Label, Input } from 'semantic-ui-react'
 
 const formWaveSurferOptions = (ref, footer) => (
@@ -42,8 +43,9 @@ export default function CustomAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
-
-  const url = props.track ? "./test.mp3" : ""
+  const [footer, setFooter] = useState(false)
+  
+  const url = props.track? "./test.mp3" : "./test.mp3"
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -53,18 +55,23 @@ export default function CustomAudioWave(props) {
   }
 
   useEffect(() => {
-    if (props.track && wavesurfer.current == null)
-      create();
-      if (playing || props.footerPlaying) {
-        setTimeout(() => setSeconds(seconds ? (seconds -1) : (props.track.duration - 1)), 1000);
-      } else {
-        setSeconds(seconds);
-      }
-      if (wavesurfer.current && props.footerPlaying) {
-        wavesurfer.current.play();
-      } else if (wavesurfer.current && !props.footerPlaying && !playing){
-        wavesurfer.current.pause();
-      }
+    // console.log("Footer PLaying", props.footerPlaying)
+    // console.log("PLaying", playing)
+    if (wavesurfer.current == null)
+      console.log("Under IF current wave is null")
+      create(url);
+    if (props.footerPlaying) {
+      setTimeout(() => setSeconds(seconds ? (seconds -1) : (30 - 1)), 1000);
+    } else {
+      setSeconds(seconds);
+    }
+    if (wavesurfer.current && props.footerPlaying) {
+      wavesurfer.current.play();
+      console.log("Inside IF")
+    } else if (wavesurfer.current && !localStorage.getItem('playing')){
+      wavesurfer.current.pause();
+      console.log("Inside ELSEIF")
+    }
 
     // create();
 
@@ -73,19 +80,37 @@ export default function CustomAudioWave(props) {
     //     wavesurfer.current.destroy();
     //   }
     // };
-  }, [playing, seconds, props.track, props.footerPlaying]);
+  }, [seconds]);
 
-  const create = async () => {
+  useEffect(() => {
+    console.log("footer track", props.footerTrack)
+    console.log("WaveSurfer", wavesurfer.current)
+    if (props.footerTrack) {
+      wavesurfer.current.destroy();
+      footerCreate(props.footerTrack.file)
+    }
+      
+  }, [props.footerTrack]);
+
+  const create = async (url) => {
     const WaveSurfer = (await import("wavesurfer.js")).default;
 
     const options = formWaveSurferOptions(waveformRef.current, props.footer);
     wavesurfer.current = WaveSurfer.create(options);
-    if (props.track)
-      wavesurfer.current.load(url);
+    wavesurfer.current.load(url);
+  };
+
+  const footerCreate = async (url) => {
+    const WaveSurfer = (await import("wavesurfer.js")).default;
+
+    const options = formWaveSurferOptions(waveformRef.current, true);
+    wavesurfer.current = WaveSurfer.create(options);
+    wavesurfer.current.load(url);
+    wavesurfer.current.play();
   };
 
   function handlePlayPause() {
-    setPlaying(!playing);
+    setPlaying(!playing)
     wavesurfer.current.playPause();
   };
 
@@ -101,7 +126,7 @@ export default function CustomAudioWave(props) {
       (<>
         <div className="rowParticipant artistName">
           <div className="playPauseBtn" onClick={() => {handlePlayPause(); props.handleFooterTrack(props.track);}} >
-            <span className={playing ? "play" : "pause"}></span>
+            <span className={(playing) ? "play" : "pause"}></span>
             <span className="pause d-none"></span>
           </div>
           <div className="aboutSong">
@@ -148,8 +173,8 @@ export default function CustomAudioWave(props) {
           <a href="javascript:void(0)" className="SongName">Saving</a>
           <a href="javascript:void(0)" className="SongArtist">Justin G. Marcellus</a>
         </div>
-        <div className="playPauseBtn" onClick={() => {handlePlayPause();}}>
-          <span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
+        <div className="playPauseBtn" onClick={() => {handlePlayPause(); props.handleFooterTrack(props.track);}}>
+          <span className={(props.footerPlaying) ? "play" : "pause"}></span>
         </div>
         <div className="waveWithDuration">
           <div className="durationCount durationObtained">{convertSecToMin(seconds)}</div>

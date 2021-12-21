@@ -7,6 +7,7 @@ import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Image from 'next/image';
 import Tooltip from 'react-bootstrap/Tooltip';
+import InpageLoader from '../components/InpageLoader';
 import Select from "react-select";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
@@ -33,10 +34,25 @@ function Search() {
   const [showLicenseModal, setShowLicenseModal] = useState(false)
 	const [footerPlaying, setFooterPlaying] = useState(false)
   const [track, setTrack] = useState()
+  const [loading, setLoading] = useState(true)
+  const [searchField, setSearchField] = useState('')
+
+  const filters = useSelector( state => state.allFilters.filters[0])
+  const tracks = useSelector( state => state.allTracks.tracks[0])
 
   useEffect(() => {
     
- }, [appliedFiltersListWC]);
+  }, [appliedFiltersListWC, track]);
+
+  useEffect(() => {
+    setTimeout(function() {
+      setLoading(false)
+   }.bind(this), 1000);
+  },[tracks]);
+
+  const handleLoading = () => {
+    setLoading(true)
+  }
   
   const handleClose = (show) => {
     setShowModal(show)
@@ -59,7 +75,9 @@ function Search() {
   }
   
   const handleSearch = async(e) => {
+    setLoading(true)
     let query = document.getElementById("searchField").value
+    setSearchField(query)
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
   }
 
@@ -71,6 +89,7 @@ function Search() {
     let singleFilterText
     if (e.target.getAttribute("name") != null) {
       singleFilterText = e.target.getAttribute("name")
+      e.target.closest("span").classList.add("disabled")
     } else {
       singleFilterText = e.target.previousElementSibling.textContent
     }
@@ -82,6 +101,7 @@ function Search() {
 
     for (let i = 0; i < elements.length; i++) {
       elements[i].closest(".filterSelf").classList.remove("activeFilter")
+      elements[i].nextElementSibling.nextElementSibling.classList.add("disabled")
     }
 
     if (e) {
@@ -110,6 +130,8 @@ function Search() {
   }
 
   const handleAddFilter = async(e) => {
+    setLoading(true)
+    e.target.nextElementSibling.nextElementSibling.classList.remove("disabled")
     e.target.closest('.filterSelf').classList.add('activeFilter')
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(removeCount(e.currentTarget.text))
@@ -130,7 +152,6 @@ function Search() {
         x.sub_filters.findIndex(
           (y) => {
             if(y.id == parseInt(filter)) {
-              // debugger
               partenID = x.id;
             }
           }
@@ -146,8 +167,6 @@ function Search() {
     setShowChilderDiv(true);
   }
 
-  const filters = useSelector( state => state.allFilters.filters[0])
-  const tracks = useSelector( state => state.allTracks.tracks[0])
   console.log("Filters", filters)
   console.log("Tracks", tracks)
 
@@ -158,6 +177,14 @@ function Search() {
 
   function query_type(query) {
     return query.includes("https") ? "aims_search" : "local_search"
+  }
+
+  const handleFooterTrack = (track) => {
+    setFooterPlaying(!footerPlaying)
+		setTrack(track)
+    if (track) {
+      console.log("track url", track.file)
+    } 
   }
   
   const filterItems = filters.map((filter, index) =>
@@ -172,7 +199,7 @@ function Search() {
               <>
                 <div className="filterSelf">
                   <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
-                  <span className="filterControl addFilter" onClick={handleAddChildrenFilter} id={sub_filter.id}>
+                  <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
                       <g id="icon-plus" transform="translate(-1.669 -4.355)">
                         <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
@@ -181,7 +208,7 @@ function Search() {
                     </svg>
                   </span>
 
-                  <span className="filterControl discardFilter" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                  <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
                       <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
                         <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
@@ -243,9 +270,9 @@ function Search() {
       <div className="fixed-container">
         <h1 className={search.pageHeading}>Search Music</h1>
         <div className={search.searchUploadStuff}>
-          <Form className="stickySearch largeStuff haveIcon">
+          <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
             <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" onChange={handleSearch} id="searchField" />
-            <Button variant="default" type="submit" className="btnMainLarge stickyBtn">Search</Button>
+            <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
             <svg xmlns="http://www.w3.org/2000/svg" className="" width="22.414" height="22.414" viewBox="0 0 22.414 22.414">
               <g id="icon-magnifying-glass" transform="translate(1 1)">
                 <path id="Path_1" data-name="Path 1" d="M305.541,309.272a8.271,8.271,0,1,0-8.271,8.27A8.272,8.272,0,0,0,305.541,309.272Z" transform="translate(-289 -301)" fill="none" stroke="#c1d72e" strokLinecap="round" strokeWidth="2"/>
@@ -311,16 +338,19 @@ function Search() {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} showLicenseModal={showDownloadLicenseModal} footerPlaying={footerPlaying} setFooterPlaying={setFooterPlaying} track={track} setTrack={setTrack}/>
-        
+
+        {loading ? (
+          <InpageLoader />
+        ) : (
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} handleFooterTrack={handleFooterTrack}/>
+        )}
       </div>
       {/* <div className="stickyMiniPlayer">
         <div className="fixed-container">
-          <CustomAudioWave track={track} footerPlaying={footerPlaying} footer={true}/>
-          <SingleAudioWave track={track} footerPlaying={footerPlaying}/>
+          <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />
         </div>
       </div> */}
-      <UploadTrack showModal={showModal} onCloseModal={handleClose} />
+      <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       

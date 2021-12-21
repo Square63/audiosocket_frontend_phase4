@@ -2,8 +2,8 @@
   <g id="Button-Info" transform="translate(-203 -575)">
     <circle id="Ellipse_20" data-name="Ellipse 20" cx="8" cy="8" r="8" transform="translate(203 575)" fill="#e6a742"/>
     <g id="trends-hot-flame" transform="translate(207.571 577.607)">
-      <path id="Shape_106" data-name="Shape 106" d="M275.549,308.833a.233.233,0,0,0-.317.313,4.852,4.852,0,0,1-.4,5.207,3.068,3.068,0,0,1-.7-1.415,3.49,3.49,0,0,0,2.1,6.306C281.121,319.246,280.469,311.44,275.549,308.833Z" transform="translate(-272.683 -308.806)" fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/>
-      <path id="Shape_107" data-name="Shape 107" d="M279.177,322.155c.462.824-.706,2.006-1.4,1.842a1.165,1.165,0,0,0,1.146.96C280.615,324.958,280.431,322.622,279.177,322.155Z" transform="translate(-275.397 -315.919)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/>
+      <path id="Shape_106" data-name="Shape 106" d="M275.549,308.833a.233.233,0,0,0-.317.313,4.852,4.852,0,0,1-.4,5.207,3.068,3.068,0,0,1-.7-1.415,3.49,3.49,0,0,0,2.1,6.306C281.121,319.246,280.469,311.44,275.549,308.833Z" transform="translate(-272.683 -308.806)" fill="#fff" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.75"/>
+      <path id="Shape_107" data-name="Shape 107" d="M279.177,322.155c.462.824-.706,2.006-1.4,1.842a1.165,1.165,0,0,0,1.146.96C280.615,324.958,280.431,322.622,279.177,322.155Z" transform="translate(-275.397 -315.919)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.75"/>
     </g>
   </g>
 </svg>

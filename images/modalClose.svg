@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="18.828" height="18.828" viewBox="0 0 18.828 18.828">
   <g id="icon-CloseX" transform="translate(-211.679 -19.678)">
-    <path id="Shape_1939" data-name="Shape 1939" d="M348.181,2413.247l-16-16" transform="translate(-119.089 -2376.155)" fill="none" stroke="#1a1c1d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2413.245l16-16" transform="translate(-121.336 -2376.154)" fill="none" stroke="#1a1c1d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Shape_1939" data-name="Shape 1939" d="M348.181,2413.247l-16-16" transform="translate(-119.089 -2376.155)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+    <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2413.245l16-16" transform="translate(-121.336 -2376.154)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
   </g>
 </svg>
