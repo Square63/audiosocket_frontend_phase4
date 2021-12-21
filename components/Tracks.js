@@ -274,7 +274,7 @@ function Tracks(props) {
                           <path id="Shape_113" data-name="Shape 113" d="M3.462,0,0,3.672,3.462,7.344" transform="translate(2.77 4.773)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                         </g>
                       </svg>
-                      <a href="http://artist-portal-backend-phase4.square63.net//rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBTZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--eac030b52e6d575c958538bbd6928e975521a8e2/file_example_WAV_1MG.wav" download>Download to Preview</a>
+                      <a download>Download to Preview</a>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

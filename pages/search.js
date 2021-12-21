@@ -86,6 +86,7 @@ function Search() {
   }
 
   function handleClearSingleFilter(e) {
+    setLoading(true)
     let singleFilterText
     if (e.target.getAttribute("name") != null) {
       singleFilterText = e.target.getAttribute("name")
@@ -122,6 +123,7 @@ function Search() {
   }
 
   function hideAllFilterDiv() {
+    setLoading(true)
     $(".filterSelf").removeClass("activeFilter");
     document.getElementById("filtersList").innerHTML = "";
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
