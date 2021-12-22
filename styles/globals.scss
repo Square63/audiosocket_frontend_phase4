@@ -915,9 +915,10 @@ footer {
     border-radius: 30px;
     height: 44px;
     font-size: 16px;
+    font-weight: 400;
     line-height: 1.19;
     letter-spacing: -0.4px;
-    color: $textClr;
+    color: $middleGrey;
     padding-inline: 20px 118px;
     // &:focus {
     //   transition: all 0.3s ease-in-out;
