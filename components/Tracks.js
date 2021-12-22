@@ -248,7 +248,7 @@ function Tracks(props) {
                     </Dropdown.Toggle>
                   </OverlayTrigger>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1" onClick={props.showLicenseModal}>
+                    <Dropdown.Item href="#/action-1" onClick={props.showDownloadLicenseModal}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="18.528" height="18.528" viewBox="0 0 18.528 18.528">
                         <g id="Music-Audio_Playlists_playlist-lock" data-name="Music-Audio / Playlists / playlist-lock" transform="translate(-242.504 -1970.614)">
                           <g id="Group_176" data-name="Group 176" transform="translate(243.004 1971.114)">
@@ -266,7 +266,7 @@ function Tracks(props) {
                       </svg>
                       <span>Download to License</span>
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/action-1" onClick={props.showDownloadModal}>
+                    <Dropdown.Item href="#/action-1" onClick={() => {props.showDownloadModal(index);}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="17.89" height="16.927" viewBox="0 0 17.89 16.927">
                         <g id="icon-download" transform="translate(0.5 16.427) rotate(-90)">
                           <path id="Shape_111" data-name="Shape 111" d="M9,3.3V.734A.715.715,0,0,0,8.31,0H.692A.715.715,0,0,0,0,.734V16.156a.715.715,0,0,0,.692.734H8.31A.715.715,0,0,0,9,16.156v-2.57" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -274,7 +274,7 @@ function Tracks(props) {
                           <path id="Shape_113" data-name="Shape 113" d="M3.462,0,0,3.672,3.462,7.344" transform="translate(2.77 4.773)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                         </g>
                       </svg>
-                      <a download>Download to Preview</a>
+                      <span>Download to Preview</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
