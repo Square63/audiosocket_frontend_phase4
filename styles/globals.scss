@@ -1125,7 +1125,8 @@ footer {
             }
           }
         }
-        &.filterChildren {
+        &.filterChildren,
+        &.filterSibling {
           background-color: $middleGrey;
           .filterSelf {
             .dropdown-item {
@@ -1199,12 +1200,72 @@ footer {
         }
       }
     }
+    &.durationTempo {
+      .dropdown-menu {
+        @include flexbox;
+        h3 {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: -0.4px;
+          color: $green-light;
+          margin: 0 0 10px 15px;
+          grid-column: span 2;
+        }
+        .durationBlock {
+          display: block;
+          padding: 20px;
+        }
+        .filterSibling {
+          grid-template-columns: repeat(2, auto);
+          h3 {
+            grid-column: span 2;
+          }
+        }
+      }
+    }
   }
   &.brandWall {
     padding: 10px 15px;
   }
 }
 
+/**************** Multi range slider ***********/
+.rangeSliderWrapper {
+  .rangeSlider {
+    height: 2px;
+    .MuiSlider-rail {
+      background-color: #707070;
+      opacity: 1;
+    }
+    .MuiSlider-track {
+      border-color: $green-light;
+    }
+    .MuiSlider-thumb {
+      background-color: $green-light;
+      width: 11px;
+      height: 11px;
+      &.Mui-focusVisible,
+      &:hover {
+        box-shadow: 0px 0px 0px 8px rgb(193 215 46 / 16%);
+      }
+      &.Mui-active{
+        box-shadow:0px 0px 0px 14px rgb(193 215 46 / 16%);
+      }
+    }
+    .MuiSlider-valueLabel  {
+      background: none;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: -0.35px;
+      top: 0;
+      &:before {
+        content: none;
+      }
+    }
+  }
+}
 /**************** Subscription Plan *************/
 .subscriptionPlan {
   border: 1px solid $headerColor;

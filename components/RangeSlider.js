@@ -50,7 +50,7 @@ export default function RangeSlider() {
   }
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box className="rangeSliderWrapper" sx={{ width: 300 }}>
       <Slider
         className="rangeSlider"
         value={value}
