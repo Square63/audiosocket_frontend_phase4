@@ -599,11 +599,6 @@ function Search() {
                     <Form.Label for="excludeVocals">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Vocals</span>
                   </div>
-                  <div className="toogleSwitch">
-                    <input type="checkbox" id="trackWithStem" />
-                    <Form.Label for="trackWithStem">&nbsp;</Form.Label>
-                    <span className="switchText">Only tracks with stems</span>
-                  </div>
                 </form>
               </div>
             </Dropdown.Menu>
