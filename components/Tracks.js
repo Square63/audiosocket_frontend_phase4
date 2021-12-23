@@ -32,6 +32,7 @@ function Tracks(props) {
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [hasMore, sethasMore] = useState(true)
+  const [moodColumn, setMoodColumn] = useState("moods")
 
   useEffect(() => {
     if (infifniteLoop) {
@@ -73,6 +74,7 @@ function Tracks(props) {
     e.target.classList.add("disableSortBtn")
     sort_dir == "DESC" ? e.target.nextElementSibling.classList.remove("disableSortBtn") : e.target.previousElementSibling.classList.remove("disableSortBtn") 
     let query = document.getElementById("searchField").value
+    debugger
     dispatch(getTracks(query, query_type(query), filters, sort_by, sort_dir));
   }
 
@@ -89,16 +91,30 @@ function Tracks(props) {
 
   }
 
-  const tabs = [
-    { id: 1, label: "Tab 1", description: "Content of Tab 1" },
-    { id: 2, label: "Tab 2", description: "Content of Tab 2" },
-    { id: 3, label: "Tab 3", description: "Content of Tab 3" }
-  ];
-
   const handleCollapse = (e) => {
     e.target.classList.toggle("rotateArrow")
   }
 
+
+  const handleMood = (e, mood) => {
+    setMoodColumn(mood)
+    if (document.getElementsByClassName("activeState")[0])
+      document.getElementsByClassName("activeState")[0].classList.remove("activeState")
+    e.target.parentElement.classList.add("activeState")
+    let capitalMood = mood.charAt(0).toUpperCase() + mood.slice(1);
+    document.getElementById("headerMood").innerText = capitalMood
+  }
+
+  const handleMoodColumn = (track, mood) => {
+    switch(mood) {
+
+      case "moods":   return track.moods.join(", ");
+      case "genres":   return track.genres.join(", ");
+      case "themes": return track.themes.join(", ");
+      case "instruments":  return track.instruments.join(", ");
+      default: return ""
+    }
+  }
 
   return (
     <div className={search.tracksWrapper}>
@@ -145,18 +161,21 @@ function Tracks(props) {
           </div>
           <div className="rowParticipant mood controls">
             <Dropdown alignLeft>
-              <Dropdown.Toggle variant="">
+              <Dropdown.Toggle variant="" id="headerMood">
                 Mood
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">
+                <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
+                  <span>Mood</span>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
                   <span>Genres</span>
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-1">
+                <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
                   <span>Themes</span>
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-1">
+                <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
                   <span>Instruments</span>
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -188,8 +207,8 @@ function Tracks(props) {
               <div className="rowParticipant duration">
                 {convertSecToMin(track.duration)}
               </div>
-              <div className="rowParticipant mood">
-                {track.moods.join(", ")}
+              <div className="rowParticipant mood">                
+                {handleMoodColumn(track, moodColumn)}
               </div>
               <div className="rowParticipant BPM">
                 {track.bpm}
@@ -346,26 +365,6 @@ function Tracks(props) {
                         </g>
                       </svg>
                       <span>Follow Artist</span>
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18.528" height="18.528" viewBox="0 0 18.528 18.528">
-                        <g id="Music-Audio_Playlists_playlist-share" data-name="Music-Audio / Playlists / playlist-share" transform="translate(-578.504 -1970.614)">
-                          <g id="Group_183" data-name="Group 183" transform="translate(579.004 1971.114)">
-                            <g id="playlist-share">
-                              <path id="Shape_1219" data-name="Shape 1219" d="M592.722,1979.5v-7.621a.762.762,0,0,0-.762-.762H579.766a.761.761,0,0,0-.762.762v12.194a.762.762,0,0,0,.762.762h7.621" transform="translate(-579.004 -1971.114)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Oval_234" data-name="Oval 234" d="M590.147,1983.4a1.143,1.143,0,1,0-1.143-1.143A1.144,1.144,0,0,0,590.147,1983.4Z" transform="translate(-581.383 -1973.493)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Oval_235" data-name="Oval 235" d="M583.147,1984.4a1.143,1.143,0,1,0-1.143-1.143A1.144,1.144,0,0,0,583.147,1984.4Z" transform="translate(-579.718 -1973.731)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_1220" data-name="Shape 1220" d="M585,1981.673v-4.379a.762.762,0,0,1,.552-.732l3.81-1.089a.762.762,0,0,1,.972.733v4.705" transform="translate(-580.431 -1972.144)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Oval_236" data-name="Oval 236" d="M599.528,1993.162a1.524,1.524,0,1,0-1.524-1.524A1.525,1.525,0,0,0,599.528,1993.162Z" transform="translate(-583.524 -1975.634)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Oval_237" data-name="Oval 237" d="M599.528,1987.162a1.524,1.524,0,1,0-1.524-1.524A1.525,1.525,0,0,0,599.528,1987.162Z" transform="translate(-583.524 -1974.207)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Oval_238" data-name="Oval 238" d="M593.528,1990.662a1.524,1.524,0,1,0-1.524-1.524A1.525,1.525,0,0,0,593.528,1990.662Z" transform="translate(-582.097 -1975.039)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_1221" data-name="Shape 1221" d="M595.728,1988.257l1.943-1.133" transform="translate(-582.983 -1974.923)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_1222" data-name="Shape 1222" d="M595.85,1990.384l1.759.733" transform="translate(-583.012 -1975.698)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                            </g>
-                          </g>
-                        </g>
-                      </svg>
-                      <span>Stems</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
