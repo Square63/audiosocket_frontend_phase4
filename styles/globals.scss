@@ -11,6 +11,7 @@
 html, body {
   min-height: 100vh;
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -21,8 +22,8 @@ body {
   color: $headerColor;
   height: inherit;
   font-display: swap;
-  -webkit-animation: fade-in-fwd 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: fade-in-fwd 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  -webkit-animation: fade-in 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 a {
@@ -1303,8 +1304,8 @@ footer {
 /******************** Track Row ******************/
 .trackRowWrapper {
   margin-top: 38px;
-  -webkit-animation: fade-in-fwd 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: fade-in-fwd 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  -webkit-animation: fade-in 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
   .trackRow {
     @include flexbox;
     @include justify-content(flex-start);
@@ -2884,43 +2885,6 @@ input[type=file]::file-selector-button {
   }
 }
 
-@-webkit-keyframes fade-in-fwd {
-  0% {
-    -webkit-transform: translateZ(-80px);
-            transform: translateZ(-80px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
-  }
-}
-@keyframes fade-in-fwd {
-  0% {
-    -webkit-transform: translateZ(-80px);
-            transform: translateZ(-80px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out-bck {
-  0% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: translateZ(-80px);
-            transform: translateZ(-80px);
-    opacity: 0;
-  }
-}
 /******************** Responsive Behaviour *****************/
 @media #{$desktop-start} {
   .pricing {
