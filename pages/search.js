@@ -21,6 +21,7 @@ import { bindActionCreators } from 'redux';
 import PreferenceModal from "../components/modals/PreferenceModal";
 import $ from 'jquery';
 import Tracks from '../components/Tracks';
+import RangeSlider from '../components/RangeSlider';
 
 function Search() {
   const dispatch = useDispatch();
@@ -35,14 +36,14 @@ function Search() {
 	const [footerPlaying, setFooterPlaying] = useState(false)
   const [track, setTrack] = useState()
   const [loading, setLoading] = useState(true)
-  const [searchField, setSearchField] = useState('')
-
-  const filters = useSelector( state => state.allFilters.filters[0])
-  const tracks = useSelector( state => state.allTracks.tracks[0])
+  const [index, setIndex] = useState(0)
 
   useEffect(() => {
     
-  }, [appliedFiltersListWC, track]);
+  }, [appliedFiltersListWC]);
+
+  const filters = useSelector( state => state.allFilters.filters[0])
+  const tracks = useSelector( state => state.allTracks.tracks[0])
 
   useEffect(() => {
     setTimeout(function() {
@@ -58,7 +59,8 @@ function Search() {
     setShowModal(show)
   }
 
-  function showDownloadModal() {
+  function showDownloadModal(index) {
+    setIndex(index)
     setShowDownModal(true)
   }
 
@@ -77,7 +79,6 @@ function Search() {
   const handleSearch = async(e) => {
     setLoading(true)
     let query = document.getElementById("searchField").value
-    setSearchField(query)
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
   }
 
@@ -133,7 +134,12 @@ function Search() {
 
   const handleAddFilter = async(e) => {
     setLoading(true)
-    e.target.nextElementSibling.nextElementSibling.classList.remove("disabled")
+    if (e.target.nextElementSibling == null) {
+      e.target.parentElement.nextElementSibling.nextElementSibling
+    } else {
+      e.target.nextElementSibling.nextElementSibling.classList.remove("disabled")
+    }
+
     e.target.closest('.filterSelf').classList.add('activeFilter')
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(removeCount(e.currentTarget.text))
@@ -270,6 +276,7 @@ function Search() {
         </div>
       </Alert>
       <div className="fixed-container">
+        <RangeSlider/>
         <h1 className={search.pageHeading}>Search Music</h1>
         <div className={search.searchUploadStuff}>
           <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
@@ -344,16 +351,17 @@ function Search() {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} handleFooterTrack={handleFooterTrack}/>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack}/>
         )}
       </div>
+
       {/* <div className="stickyMiniPlayer">
         <div className="fixed-container">
           <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />
         </div>
       </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
-      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} />
+      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       
     </div>

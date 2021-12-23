@@ -1493,11 +1493,17 @@ footer {
           }
         }
       }
+      .collapse {
+        -webkit-animation: slide-out-top 0.5s 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: slide-out-top 0.5s 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+      }
       .versionTrackRow {
         @include flexbox;
         @include justify-content(flex-start);
         background-color: #fafafa;
         padding: 10px 10px 10px 35px;
+        overflow: hidden;
+        
         .filterVersion {
           @include flexbox;
           @include justify-content(flex-start);
@@ -1527,6 +1533,17 @@ footer {
               opacity: 0.7;
             }
           }
+        }
+      }
+      &.altVersionsCollapse {
+        button {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+        .collapse.show {
+          -webkit-animation: versionTrackRow 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: versionTrackRow 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         }
       }
     }
@@ -1686,6 +1703,13 @@ footer {
     -webkit-transform: scale3D(0, 0, 1);
             transform: scale3D(0, 0, 1);
   }
+}
+
+
+/******************** Range Slider *******************/
+
+.rangeSlider {
+  color: $green-light
 }
 
 /******************** Sticky Player ******************/
