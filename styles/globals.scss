@@ -1453,6 +1453,7 @@ footer {
                 color: $white;
                 margin-left: 7px;
               }
+              &.activeState,
               &:hover,
               &:focus {
                 background-color: $green-light;
@@ -1474,6 +1475,7 @@ footer {
       @include flex(1 1 100%);
       margin-top: 7px;
       line-height: normal;
+      margin-inline: -15px;
       button {
         all: unset;
         font-size: 14px;
@@ -1482,21 +1484,23 @@ footer {
         letter-spacing: -0.35px;
         color: $middleGrey;
         cursor: pointer;
-        margin-left: 45px;
+        margin-inline: 60px 0;
         svg {
           margin-right: 5px;
           @include transition(all 0.25s ease-in-out)
         }
-        &[aria-expanded="true"] {
+        &.rotateArrow {
           svg {
             transform: rotate(180deg);
           }
         }
       }
-      .collapse {
-        -webkit-animation: slide-out-top 0.5s 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-	        animation: slide-out-top 0.5s 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+      .versionTrackBody {
+        &:first-child {
+          margin-top: 5px;
+        }
       }
+      
       .versionTrackRow {
         @include flexbox;
         @include justify-content(flex-start);
@@ -1517,7 +1521,7 @@ footer {
             line-height: 1.5;
             letter-spacing: -0.35px;
             color: $middleGrey;
-            width: 180px;
+            width: 200px;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -1540,10 +1544,6 @@ footer {
           svg {
             transform: rotate(180deg);
           }
-        }
-        .collapse.show {
-          -webkit-animation: versionTrackRow 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: versionTrackRow 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         }
       }
     }
@@ -2908,6 +2908,24 @@ input[type=file]::file-selector-button {
     opacity: 1;
   }
 }
+
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 
 /******************** Responsive Behaviour *****************/
 @media #{$desktop-start} {

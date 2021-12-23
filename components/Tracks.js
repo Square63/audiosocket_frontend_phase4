@@ -89,28 +89,23 @@ function Tracks(props) {
 
   }
 
+  const tabs = [
+    { id: 1, label: "Tab 1", description: "Content of Tab 1" },
+    { id: 2, label: "Tab 2", description: "Content of Tab 2" },
+    { id: 3, label: "Tab 3", description: "Content of Tab 3" }
+  ];
+
   const handleCollapse = (e) => {
-    if ( e.target.nextElementSibling.classList.length ==2 ){
-      e.target.parentElement.classList.remove("altVersionsCollapse")
-      e.target.nextElementSibling.classList.remove("show")
-    } 
-    else {
-      e.target.parentElement.classList.add("altVersionsCollapse")
-      e.target.nextElementSibling.classList.add("show")
-    }
+    e.target.classList.toggle("rotateArrow")
   }
 
-  // function handleFooterTrack(track) {
-  // 	localStorage.setItem('playing', true)
-  //   // props.setFooterPlaying(!props.footerPlaying)
-  // 	props.setTrack(track)
-  // }
 
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
         <h2>Tracks <span className={search.tracksCount}>{tracks.length}</span></h2>
         <div className={search.tracksSorting}>
+        
           <form>
               <Form.Label className="required">Sort By:</Form.Label>
               <Select
@@ -376,25 +371,22 @@ function Tracks(props) {
                 </Dropdown>
               </div>
               <div className="altVersions">
-                <Button
-                  variant="link"
-                  onClick={handleCollapse}
-                  aria-controls={"example-collapse-text" + index}
-                  aria-expanded={open}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="8.844" height="6.17" viewBox="0 0 8.844 6.17">
-                    <g id="icon-arrow-down-small" transform="translate(0.18 1.058)">
-                      <path id="Shape_1939" data-name="Shape 1939" d="M335.361,2401.3l-3.179-4.053" transform="translate(-331.309 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                      <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.3l3.553-4.053" transform="translate(-330.379 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                    </g>
-                  </svg>
-                  <span className="versionCount">1</span> alt. versions
-                </Button>
-                <Collapse in={open}>
-                  <div id={"example-collapse-text" + index} >
-                    <AltVersion/>
-                  </div>
-                </Collapse>
+                <Accordion key={index + 1} >
+                  <Accordion.Toggle as={Button} variant="link" eventKey={index + 1} onClick={(e)=> handleCollapse(e)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="8.844" height="6.17" viewBox="0 0 8.844 6.17">
+                      <g id="icon-arrow-down-small" transform="translate(0.18 1.058)">
+                        <path id="Shape_1939" data-name="Shape 1939" d="M335.361,2401.3l-3.179-4.053" transform="translate(-331.309 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.3l3.553-4.053" transform="translate(-330.379 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                      </g>
+                    </svg>
+                    <span className="versionCount">1</span> alt. versions
+                  </Accordion.Toggle>
+                  <Accordion.Collapse eventKey={index + 1}>
+                    <div id={"example-collapse-text" + index + 1} >
+                      <AltVersion/>
+                    </div>
+                  </Accordion.Collapse>
+                </Accordion>
               </div>
             </div>)
           })}
