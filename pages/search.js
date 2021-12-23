@@ -21,6 +21,7 @@ import { bindActionCreators } from 'redux';
 import PreferenceModal from "../components/modals/PreferenceModal";
 import $ from 'jquery';
 import Tracks from '../components/Tracks';
+import RangeSlider from '../components/RangeSlider';
 
 function Search() {
   const dispatch = useDispatch();
@@ -275,6 +276,7 @@ function Search() {
         </div>
       </Alert>
       <div className="fixed-container">
+        <RangeSlider/>
         <h1 className={search.pageHeading}>Search Music</h1>
         <div className={search.searchUploadStuff}>
           <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
@@ -352,6 +354,7 @@ function Search() {
           <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack}/>
         )}
       </div>
+
       {/* <div className="stickyMiniPlayer">
         <div className="fixed-container">
           <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />

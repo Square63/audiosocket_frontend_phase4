@@ -89,6 +89,17 @@ function Tracks(props) {
 
   }
 
+  const handleCollapse = (e) => {
+    if ( e.target.nextElementSibling.classList.length ==2 ){
+      e.target.parentElement.classList.remove("altVersionsCollapse")
+      e.target.nextElementSibling.classList.remove("show")
+    } 
+    else {
+      e.target.parentElement.classList.add("altVersionsCollapse")
+      e.target.nextElementSibling.classList.add("show")
+    }
+  }
+
   // function handleFooterTrack(track) {
   // 	localStorage.setItem('playing', true)
   //   // props.setFooterPlaying(!props.footerPlaying)
@@ -367,8 +378,8 @@ function Tracks(props) {
               <div className="altVersions">
                 <Button
                   variant="link"
-                  onClick={() => setOpen(!open)}
-                  aria-controls="example-collapse-text"
+                  onClick={handleCollapse}
+                  aria-controls={"example-collapse-text" + index}
                   aria-expanded={open}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="8.844" height="6.17" viewBox="0 0 8.844 6.17">
@@ -380,7 +391,7 @@ function Tracks(props) {
                   <span className="versionCount">1</span> alt. versions
                 </Button>
                 <Collapse in={open}>
-                  <div id="example-collapse-text" >
+                  <div id={"example-collapse-text" + index} >
                     <AltVersion/>
                   </div>
                 </Collapse>
