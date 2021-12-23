@@ -310,7 +310,7 @@ function Search() {
                <h3>Duration</h3>
               <RangeSlider/>
                <div className="filterSelf">
-                 <Dropdown.Item href="#">Ambient <span>(18,041)</span></Dropdown.Item>
+                 <Dropdown.Item href="#">09:10 - 21:30</Dropdown.Item>
                  <span className="filterControl addFilter">
                    <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
                      <g id="icon-plus" transform="translate(-1.669 -4.355)">

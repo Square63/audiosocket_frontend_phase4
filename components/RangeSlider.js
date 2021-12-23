@@ -29,10 +29,10 @@ export default function RangeSlider() {
       }
       if (localStorage.getItem("start") != start) {
         localStorage.setItem("start", start)
-        return <div className={"durationStart"} key="1"><span>{start}</span>  <span>{end}</span></div>
+        return <div className={"durationTime"} key="1"><span>{start}</span>  <span>{end}</span></div>
       } else if (localStorage.getItem("end") != end) {
         localStorage.setItem("end", end)
-        return <div className={"durationEnd"} key="1"><span>{start}</span>  <span>{end}</span></div>
+        return <div className={"durationTime"} key="1"><span>{start}</span>  <span>{end}</span></div>
       }
       console.log("Start", localStorage.getItem("start"))
       console.log("end", localStorage.getItem("end"))

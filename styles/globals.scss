@@ -1214,7 +1214,14 @@ footer {
         }
         .durationBlock {
           display: block;
-          padding: 20px;
+          padding: 30px;
+          .rangeSliderWrapper {
+            padding-top: 15px;
+            margin-bottom: 25px;
+          }
+          .filterWrapper {
+            width: 50%;
+          }
         }
         .filterSibling {
           grid-template-columns: repeat(2, auto);
@@ -1224,6 +1231,7 @@ footer {
         }
       }
     }
+    
   }
   &.brandWall {
     padding: 10px 15px;
@@ -1250,16 +1258,39 @@ footer {
         box-shadow: 0px 0px 0px 8px rgb(193 215 46 / 16%);
       }
       &.Mui-active{
-        box-shadow:0px 0px 0px 14px rgb(193 215 46 / 16%);
+        box-shadow:0px 0px 0px 10px rgb(193 215 46 / 16%);
+      }
+    }
+    input[data-index="0"] {
+      & ~ .MuiSlider-valueLabel {
+        top: 40px;
+        .durationTime {
+          span {
+            &:last-child {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    input[data-index="1"] {
+      & ~ .MuiSlider-valueLabel {
+        .durationTime {
+          span {
+            &:first-child {
+              display: none;
+            }
+          }
+        }
       }
     }
     .MuiSlider-valueLabel  {
-      background: none;
+      background: transparent;
       font-size: 14px;
       font-weight: 500;
       line-height: normal;
       letter-spacing: -0.35px;
-      top: 0;
+      top: -5px;
       &:before {
         content: none;
       }
