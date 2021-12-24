@@ -1264,7 +1264,7 @@ footer {
     input[data-index="0"] {
       & ~ .MuiSlider-valueLabel {
         top: 40px;
-        .durationTime {
+        .rangeDuration {
           span {
             &:last-child {
               display: none;
@@ -1275,7 +1275,7 @@ footer {
     }
     input[data-index="1"] {
       & ~ .MuiSlider-valueLabel {
-        .durationTime {
+        .rangeDuration {
           span {
             &:first-child {
               display: none;
