@@ -1215,6 +1215,9 @@ footer {
         .durationBlock {
           display: block;
           padding: 30px;
+          h3 {
+            margin-left: 0;
+          }
           .rangeSliderWrapper {
             padding-top: 15px;
             margin-bottom: 25px;
