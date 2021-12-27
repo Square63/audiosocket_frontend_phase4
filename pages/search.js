@@ -2,6 +2,7 @@ import Alert from 'react-bootstrap/Alert';
 import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
+import AddToPlaylist from "../components/modals/AddToPlaylist";
 import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
@@ -15,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from '../redux/store';
 import { getFilters } from '../redux/actions/filterActions';
 import { getTracks } from '../redux/actions/trackActions';
+import { getTracksFromAIMS } from '../redux/actions/trackActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -33,6 +35,7 @@ function Search() {
   // const [queryType, setQueryType] = useState("local_search")
   const [showDownModal, setShowDownModal] = useState(false)
   const [showLicenseModal, setShowLicenseModal] = useState(false)
+  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
 	const [footerPlaying, setFooterPlaying] = useState(false)
   const [track, setTrack] = useState()
   const [loading, setLoading] = useState(true)
@@ -75,6 +78,14 @@ function Search() {
   function handleLicenseModalClose() {
     setShowLicenseModal(false)
   }
+
+  function showTrackAddToPlaylistModal() {
+    setShowAddToPlaylistModal(true)
+  }
+
+  function handleAddToPlaylistModalClose() {
+    setShowAddToPlaylistModal(false)
+  }
   
   const handleSearch = async(e) => {
     setLoading(true)
@@ -102,8 +113,10 @@ function Search() {
     // console.log("Discard Filter after", appliedFiltersListWC)
 
     for (let i = 0; i < elements.length; i++) {
-      elements[i].closest(".filterSelf").classList.remove("activeFilter")
-      elements[i].nextElementSibling.nextElementSibling.classList.add("disabled")
+      if (elements[i].closest(".filterSelf")) {
+        elements[i].closest(".filterSelf").classList.remove("activeFilter")
+        elements[i].nextElementSibling.nextElementSibling.classList.add("disabled")
+      }
     }
 
     if (e) {
@@ -130,6 +143,15 @@ function Search() {
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), [], "", "", 0));
+  }
+
+  const handleSimilarSearch = (trackName, trackId) => {
+    setLoading(true)
+    console.log("Track NAme", trackName)
+    document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+    appliedFiltersList.push(trackName)
+    setAppliedFiltersListWC([...appliedFiltersListWC, trackName]);
+    dispatch(getTracksFromAIMS(trackId));
   }
 
   const handleAddFilter = async(e) => {
@@ -196,11 +218,68 @@ function Search() {
   }
   
   const filterItems = filters.map((filter, index) =>
-    <Dropdown alignRight className={filter.name === "Moods" ? "d-inline mood" : "d-inline"} key={index}>
+    <Dropdown alignRight className={filter.name === "Moods" ? "d-inline mood" : filter.name === "Tempos" ? "d-inline durationTempo" : "d-inline"} key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
-        {filter.name}
+        {filter.name == "Tempos" ? "Duration / Tempo" : filter.name}
       </Dropdown.Toggle>
-      {(filter.sub_filters.length > 0 ?
+        {( filter.name == "Tempos" ?
+          (<Dropdown.Menu>
+            <div className="filterWrapper durationBlock">
+              <h3>Duration</h3>
+             <RangeSlider/>
+              <div className="filterSelf">
+                <Dropdown.Item href="#" className="durationFilter">00:00 - 00:00</Dropdown.Item>
+                <span className="filterControl addFilter">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
+                    <g id="icon-plus" transform="translate(-1.669 -4.355)">
+                      <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                      <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                    </g>
+                  </svg>
+                </span>
+
+                <span className="filterControl discardFilter">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+                    <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
+                      <circle cx="5" cy="5" r="5" stroke="none"/>
+                      <circle cx="5" cy="5" r="4.5" fill="none"/>
+                    </g>
+                    <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
+                  </svg>
+                </span>
+              </div>
+
+            </div>
+            <div className="filterSibling filterWrapper">
+              <h3>Tempo</h3>
+              {filter.sub_filters.map((sub_filter, index) =>
+                <>
+                  <div className="filterSelf">
+                    <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
+                    <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
+                        <g id="icon-plus" transform="translate(-1.669 -4.355)">
+                          <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                          <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                        </g>
+                      </svg>
+                    </span>
+
+                    <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                        <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
+                          <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                          <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                        </g>
+                        <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                      </svg>
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+          </Dropdown.Menu>)
+        :
         (<Dropdown.Menu >
           <div className="filterWrapper">
             {filter.sub_filters.map((sub_filter, index) =>
@@ -260,9 +339,13 @@ function Search() {
               </div>
             </>
           }
-        </Dropdown.Menu>) 
-        : ("")
-      )}
+        </Dropdown.Menu>)
+
+        )}
+           
+      
+        
+        
     </Dropdown>
   );
   
@@ -301,282 +384,6 @@ function Search() {
         </div>
         <div className="filterBar brandWall">
           {filterItems}
-          <Dropdown className="d-inline durationTempo">
-           <Dropdown.Toggle id="dropdown-autoclose-true">
-            Duration / Tempo
-           </Dropdown.Toggle>
-           <Dropdown.Menu>
-             <div className="filterWrapper durationBlock">
-               <h3>Duration</h3>
-              <RangeSlider/>
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">09:10 - 21:30</Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-             </div>
-             <div className="filterSibling filterWrapper">
-               <h3>Tempo</h3>
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Ambient <span>(18,041)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Classical <span>(4,576)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Folk <span>(9,124)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Kids <span>(1,783)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Rock <span></span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Avant-Garde <span>(362)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Country <span>(8,923)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Funk <span>(892)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">New Age <span>(9,982)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Singer / Songwriter <span>(9,927)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-
-               <div className="filterSelf">
-                 <Dropdown.Item href="#">Bluegrass <span>(898)</span></Dropdown.Item>
-                 <span className="filterControl addFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
-                     <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                       <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                       <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                     </g>
-                   </svg>
-                 </span>
-
-                 <span className="filterControl discardFilter">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                     <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                       <circle cx="5" cy="5" r="5" stroke="none"/>
-                       <circle cx="5" cy="5" r="4.5" fill="none"/>
-                     </g>
-                     <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-                   </svg>
-                 </span>
-               </div>
-             </div>
-           </Dropdown.Menu>
-         </Dropdown>
           <Dropdown className="d-inline setting">
             <Dropdown.Toggle id="dropdown-autoclose-true">
               Settings
@@ -621,7 +428,7 @@ function Search() {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack}/>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch}/>
         )}
       </div>
 
@@ -633,6 +440,7 @@ function Search() {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
+      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} />
       
     </div>
     

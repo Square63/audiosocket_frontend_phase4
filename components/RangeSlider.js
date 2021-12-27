@@ -21,19 +21,19 @@ export default function RangeSlider() {
   const handleLabel = (value) => {
     let start = convertSecToMin(value[0])
     let end = convertSecToMin(value[1])
+
+    if (document.getElementsByClassName("durationFilter")[0])
+      document.getElementsByClassName("durationFilter")[0].innerText = (start + " - " + end)
+
     if (typeof window !== 'undefined') {
-      
       if (localStorage.getItem("start") == undefined || localStorage.getItem("end") == undefined) { 
         localStorage.setItem("start", start)
         localStorage.setItem("end", end)
       }
-      if (localStorage.getItem("start") != start) {
-        localStorage.setItem("start", start)
-        return <div className={"rangeDuration"} key="1"><span>{start}</span>  <span>{end}</span></div>
-      } else if (localStorage.getItem("end") != end) {
-        localStorage.setItem("end", end)
-        return <div className={"rangeDuration"} key="1"><span>{start}</span>  <span>{end}</span></div>
-      }
+      localStorage.setItem("start", start)
+      // return <div className={"rangeDuration"} key="1"><span>{start}</span>  <span>{end}</span></div>
+      localStorage.setItem("end", end)
+      return <div className={"rangeDuration"} key="1"><span>{start}</span>  <span>{end}</span></div>
       console.log("Start", localStorage.getItem("start"))
       console.log("end", localStorage.getItem("end"))
     }
