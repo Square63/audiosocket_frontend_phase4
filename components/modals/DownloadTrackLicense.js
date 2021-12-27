@@ -54,14 +54,25 @@ function DownloadTrackLicense({showModal = false, onCloseModal}) {
       </Modal.Header>
       <Modal.Body>
         <div className="modal-container">
-          
           <h4 className="modalBodyHeading">Load A Track To Find Similar Songs</h4>
-          <p className="modalBodytext">Upload MP3 or WAV</p>
-          <Form.Group controlId="formFile" className="uploadComponent">
-            <Form.Control type="file" />
-          </Form.Group>
-          <div className="modalBtnWrapper">
-            <a href="javascript:void(0)" className="btn btnMainLarge">Upload and Search</a>
+          <div className="modalPlansInfo">
+          <div className="licensePriceOption"></div>
+            <div className="discountOffer">
+              <h4>Save money with unlimited music licenses</h4>
+              <div className=""></div>
+            </div>
+          </div>
+          <div className="modalLicenseInfo">
+            <h3>License Info</h3>
+            <Form>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Please add your Video or Work Title to your License</Form.Label>
+                <Form.Control type="text" placeholder="Enter work title…" />
+              </Form.Group>
+              <Button variant="link" className="btn btnMainLarge btn-block" type="submit">
+                Checkout and License Track - <span className="modalPriceBtn">$129</span>
+              </Button>
+            </Form>
           </div>
         </div>
       </Modal.Body>
