@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from '../redux/store';
 import { getFilters } from '../redux/actions/filterActions';
 import { getTracks } from '../redux/actions/trackActions';
+import { getPlaylists } from '../redux/actions/playlistActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -47,6 +48,7 @@ function Search() {
 
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0])
+  const playlists = useSelector( state => state.allPlaylists.playlists[0].consumer_playlists)
 
   useEffect(() => {
     setTimeout(function() {
@@ -199,6 +201,7 @@ function Search() {
 
   console.log("Filters", filters)
   console.log("Tracks", tracks)
+  console.log("Playlists", playlists)
 
 
   function removeCount(filter) {
@@ -440,7 +443,7 @@ function Search() {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} />
+      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists}/>
       
     </div>
     
@@ -451,6 +454,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
+      await store.dispatch(getPlaylists(req))
       await store.dispatch(getTracks("", "local_search", [], "", "", 0))
     });
 

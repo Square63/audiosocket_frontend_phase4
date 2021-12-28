@@ -4,65 +4,29 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
-import SelectSearch from 'react-select-search';
+import { MultiSelect } from "react-multi-select-component";
 
-function AddToPlaylist({showModal = false, onCloseModal}) {
+
+function AddToPlaylist({showModal = false, onCloseModal, playlists}) {
+  const [selected, setSelected] = useState([]);
 
   const searchInput = useRef();
+  // const options = [];
+
+  // for(var i = 0; i < playlists.length; i++) {
+  //   let obj = {};
+
+  //   obj['value'] = playlists[i].id;
+  //   obj['label'] = playlists[i].name;
+  //   options.push(obj);
+  // }
+
   const options = [
-    {
-      type: "group",
-      name: "Atlanta",
-      items: [
-        { name: "Workshop One", value: "1" },
-        { name: "Workshop Two", value: "2" }
-      ]
-    },
-    {
-      type: "group",
-      name: "Charleston",
-      items: [
-        { name: "Workshop Three", value: "3" },
-        { name: "Workshop Four", value: "4" },
-        { name: "Workshop Five", value: "5" }
-      ]
-    },
-    {
-      type: "group",
-      name: "Inactive",
-      items: [{ name: "Inactive Workshop", value: "100" }]
-    }
+    { label: "Grapes 🍇", value: "grapes" },
+    { label: "Mango 🥭", value: "mango" },
+    { label: "Strawberry 🍓", value: "strawberry" },
   ];
-
-  const handleChange = (...args) => {
-    // searchInput.current.querySelector("input").value = "";
-    console.log("ARGS:", args);
-
-    console.log("CHANGE:");
-  };
-
-  // const options = [
-  //   { name: "Workshop Three", value: "1" },
-  //   { name: "Workshop Two", value: "2" },
-  //   { name: "Workshop Three", value: "3" },
-  //   { name: "Workshop Four", value: "4" },
-  //   { name: "Workshop Five", value: "5" }
-  // ];
-
-  const handleFilter = (items) => {
-    return (searchValue) => {
-      if (searchValue.length === 0) {
-        return options;
-      }
-      const updatedItems = items.map((list) => {
-        const newItems = list.items.filter((item) => {
-          return item.name.toLowerCase().includes(searchValue.toLowerCase());
-        });
-        return { ...list, items: newItems };
-      });
-      return updatedItems;
-    };
-  };
+  
   
   const handleClose = () => {
     onCloseModal(false);
@@ -79,17 +43,16 @@ function AddToPlaylist({showModal = false, onCloseModal}) {
           <h2 className="modalName">Add To Playlist</h2>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{height: '200px'}}>
-        <SelectSearch
-          ref={searchInput}
+      <Modal.Body style={{height: '500px'}}>
+      <div>
+        <h1>Select Fruits</h1>
+        <MultiSelect
           options={options}
-          filterOptions={handleFilter}
-          value=""
-          name="Workshop"
-          placeholder="Choose a workshop"
-          search
-          onChange={handleChange}
+          value={selected}
+          onChange={setSelected}
+          labelledBy="Select"
         />
+      </div>
       </Modal.Body>
     </Modal>
   );

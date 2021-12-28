@@ -32,7 +32,6 @@ export const getTracks = (query, query_type, filters, sort_by, sort_dir, page) =
 }
 
 export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
-  debugger
   if (trackId) {
     try {
       const {data} = await axios.request({
