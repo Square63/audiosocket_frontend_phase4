@@ -574,6 +574,28 @@ footer {
   [type="radio"]:not(:checked):focus + label:before {
     opacity: 1;
   }
+  &.roundShape {
+    input[type="radio"] {
+      & + label {
+        &:before {
+          border: 1px solid $textClr;
+          width: 20px;
+          height: 20px;
+          border-radius: 20px;
+          background-color: $grey;
+          opacity: 1;
+        }
+        &:after {
+          width: 8px;
+          height: 8px;
+          background: $headerColor;
+          border-radius: 50%;
+          top: 6px;
+          left: 6px;
+        }
+      }
+    }
+  }
 }
 
 
@@ -901,6 +923,86 @@ footer {
       }
     }
   }
+  &.downloadTrackLicense {
+    .modalPlansInfo {
+      @include flexbox;
+      @include justify-content(center);
+      @include align-items(flex-start);
+      gap: 22px;
+      margin-bottom: 24px;
+      .licensePriceOption {
+        @include flex(1);
+        form {
+          .form-check {
+            padding-left: 0;
+          }
+          .labelBetweenForm {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.31;
+            letter-spacing: -0.4px;
+            margin-block: 12px;
+          }
+        }
+        .quriesAddress {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.5;
+          letter-spacing: -0.35px;
+          padding-right: 25px;
+          margin-bottom: 0;
+        }
+      }
+      .discountOffer {
+        max-width: 238px;
+        width: 100%;
+        padding: 20px 20px 22px;
+        border-radius: 20px;
+        border: 1px solid $textClr;
+        text-align: center;
+        h4 {
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.28;
+          letter-spacing: -0.45px;
+        }
+        .discountContent {
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: -0.35px;
+          }
+        }
+      }
+    }
+    .modalLicenseInfo {
+      h3 {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.23;
+        letter-spacing: -0.55px;
+        border-bottom: 1px solid $nav-link;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      form {
+        label {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.19;
+          letter-spacing: -0.4px;
+          margin-bottom: 13px;
+        }
+        button {
+          .modalPriceBtn {
+            font-size: 16px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
 }
 
 /****************** Behaviour changes ***************/
@@ -969,6 +1071,9 @@ footer {
   }
 }
 
+hr {
+  border-color: $nav-link;
+}
 /************** Rounded Box **********/
 
 %boxEssentials {
