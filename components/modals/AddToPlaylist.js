@@ -4,28 +4,38 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
-import { MultiSelect } from "react-multi-select-component";
+import Select from "react-select";
 
 
 function AddToPlaylist({showModal = false, onCloseModal, playlists}) {
-  const [selected, setSelected] = useState([]);
+  const [selectedOption, setSelect] = useState(null);
 
-  const searchInput = useRef();
-  // const options = [];
+  const handleChange = selectedOption => {
+    setSelect(selectedOption);
+    selectedOption[selectedOption.length -1 ].value
+  };
 
-  // for(var i = 0; i < playlists.length; i++) {
-  //   let obj = {};
+  const removeOption = e => {
+    const newSelect = selectedOption.filter(
+      item => item.value !== e.target.name
+    );
+    setSelect(newSelect);
+  };
+  const options = [];
 
-  //   obj['value'] = playlists[i].id;
-  //   obj['label'] = playlists[i].name;
-  //   options.push(obj);
-  // }
+  for(var i = 0; i < playlists.length; i++) {
+    let obj = {};
 
-  const options = [
-    { label: "Grapes 🍇", value: "grapes" },
-    { label: "Mango 🥭", value: "mango" },
-    { label: "Strawberry 🍓", value: "strawberry" },
-  ];
+    obj['value'] = playlists[i].id;
+    obj['label'] = playlists[i].name;
+    options.push(obj);
+  }
+
+  // const options = [
+  //   { label: "Grapes 🍇", value: "grapes" },
+  //   { label: "Mango 🥭", value: "mango" },
+  //   { label: "Strawberry 🍓", value: "strawberry" },
+  // ];
   
   
   const handleClose = () => {
@@ -46,11 +56,11 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists}) {
       <Modal.Body style={{height: '500px'}}>
       <div>
         <h1>Select Fruits</h1>
-        <MultiSelect
+        <Select
+          isMulti
+          value={selectedOption}
+          onChange={handleChange}
           options={options}
-          value={selected}
-          onChange={setSelected}
-          labelledBy="Select"
         />
       </div>
       </Modal.Body>
