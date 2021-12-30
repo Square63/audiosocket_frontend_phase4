@@ -74,10 +74,13 @@ export default function CustomAudioWave(props) {
 
   function convertSecToMin(duration) {
     if (duration != null) {
-      let minutes = Math.floor(duration / 60);
-      let seconds = duration - minutes * 60;
-      return minutes+':'+parseInt(seconds)
+      let minutes = Math.floor(duration / 60).toString();
+      minutes = minutes.length == 1 ? ("0" + minutes) : minutes
+      let seconds = parseInt((duration - minutes * 60)).toString();
+      seconds = seconds.length == 1 ? ("0" + seconds) : seconds
+      return minutes+':'+seconds
     }
+
   }
 
 
@@ -89,11 +92,11 @@ export default function CustomAudioWave(props) {
             <span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
           </div>	
           <a href="" className="filterName">
-            Instrumental
+            {props.altVersionTrack.title}
           </a>
           <div className="waveTime">
             <div id="waveform" ref={waveformRef}  />
-            <div className="durationCount totalDuration">01:10</div>
+            <div className="durationCount totalDuration">{convertSecToMin(props.altVersionTrack.duration)}</div>
           </div>
         </div>
       </div>

@@ -134,12 +134,14 @@ export default function CustomAudioWave(props) {
               <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
                 <a href="" className="info"></a>
               </OverlayTrigger>
-              <OverlayTrigger overlay={<Tooltip>On Fire (Demo)</Tooltip>}>
-                <a href="" className="fire"></a>
-              </OverlayTrigger>
-              <OverlayTrigger overlay={<Tooltip>Playlist (Demo)</Tooltip>}>
-                <a href="" className="playlistWave"></a>
-              </OverlayTrigger>
+              {props.track.featured &&
+                <>
+                  <OverlayTrigger overlay={<Tooltip>On Fire (Demo)</Tooltip>}>
+                    <a href="" className="fire"></a>
+                  </OverlayTrigger>
+                </>
+              }
+              
             </div>
             <div className="songArtist">
               <a href="">

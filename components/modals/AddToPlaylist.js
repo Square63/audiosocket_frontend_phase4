@@ -1,18 +1,43 @@
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
 import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { addTrackToPlaylist } from "../../redux/actions/playlistActions";
+import { TOAST_OPTIONS } from '../../common/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-function AddToPlaylist({showModal = false, onCloseModal, playlists}) {
+function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
+  const dispatch = useDispatch();
+  const message = useSelector(state => state.allPlaylists);
+
+  useEffect(() => {
+    if(!message?.success) {
+      toast.error(message.message, TOAST_OPTIONS);
+    } else {
+      toast.success(message.message, TOAST_OPTIONS);
+    }
+  }, [playlists])
+
+  useEffect(() => {
+    // alreadyAddedPlaylist = []
+    // for (var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
+
+    // }
+  }, [track])
+
+
   const [selectedOption, setSelect] = useState(null);
 
-  const handleChange = selectedOption => {
+  const handleChange = (selectedOption) => {
     setSelect(selectedOption);
-    selectedOption[selectedOption.length -1 ].value
+    let playlistId = selectedOption.length > 0 ? selectedOption[selectedOption.length -1 ].value : ""
+    dispatch(addTrackToPlaylist(playlistId, track.id));
   };
 
   const removeOption = e => {
@@ -23,11 +48,11 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists}) {
   };
   const options = [];
 
-  for(var i = 0; i < playlists.length; i++) {
+  for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
     let obj = {};
 
-    obj['value'] = playlists[i].id;
-    obj['label'] = playlists[i].name;
+    obj['value'] = playlists.playlists[0].consumer_playlists[i].id;
+    obj['label'] = playlists.playlists[0].consumer_playlists[i].name;
     options.push(obj);
   }
 
@@ -54,6 +79,18 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists}) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body style={{height: '500px'}}>
+      <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "auto" }}
+      />
       <div>
         <h1>Select Fruits</h1>
         <Select

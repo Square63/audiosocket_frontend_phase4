@@ -48,7 +48,9 @@ function Search() {
 
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0])
-  const playlists = useSelector( state => state.allPlaylists.playlists[0].consumer_playlists)
+  const playlists = useSelector( state => state.allPlaylists)
+  console.log("PLAYLIST STATE", playlists)
+
 
   useEffect(() => {
     setTimeout(function() {
@@ -81,7 +83,8 @@ function Search() {
     setShowLicenseModal(false)
   }
 
-  function showTrackAddToPlaylistModal() {
+  function showTrackAddToPlaylistModal(index) {
+    setIndex(index)
     setShowAddToPlaylistModal(true)
   }
 
@@ -443,7 +446,7 @@ function Search() {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists}/>
+      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={tracks[index]}/>
       
     </div>
     

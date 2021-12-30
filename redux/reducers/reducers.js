@@ -8,7 +8,8 @@ const reducer = combineReducers ({
 	allFilters: allFiltersReducer,
 	allTracks: allTracksReducer,
 	allPlaylists: allPlaylitsReducer,
-	auth: authReducer
+	auth: authReducer,
+	user: authReducer
 })
 
 export default reducer;
