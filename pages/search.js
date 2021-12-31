@@ -399,17 +399,17 @@ function Search() {
                 <form>
                   <div className="toogleSwitch">
                     <input type="checkbox" id="excludeExplicit" />
-                    <Form.Label for="excludeExplicit">&nbsp;</Form.Label>
+                    <Form.Label htmlFor="excludeExplicit">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Explicit</span>
                   </div>
                   <div className="toogleSwitch">
                     <input type="checkbox" id="youtubeContent" />
-                    <Form.Label for="youtubeContent">&nbsp;</Form.Label>
+                    <Form.Label htmlFor="youtubeContent">&nbsp;</Form.Label>
                     <span className="switchText">YouTube ContentID Cleared</span>
                   </div>
                   <div className="toogleSwitch">
                     <input type="checkbox" id="excludeVocals" />
-                    <Form.Label for="excludeVocals">&nbsp;</Form.Label>
+                    <Form.Label htmlFor="excludeVocals">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Vocals</span>
                   </div>
                 </form>

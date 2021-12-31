@@ -35,6 +35,7 @@ function Tracks(props) {
   const [moodColumn, setMoodColumn] = useState("moods")
 
   useEffect(() => {
+    let abortController = new AbortController();
     if (infifniteLoop) {
       setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)
@@ -44,6 +45,10 @@ function Tracks(props) {
 
     if (props.tracks.length < 10)
       sethasMore(false)
+
+    return () => {  
+      abortController.abort();  
+    }
     
   },[props.tracks])
   
@@ -74,7 +79,6 @@ function Tracks(props) {
     e.target.classList.add("disableSortBtn")
     sort_dir == "DESC" ? e.target.nextElementSibling.classList.remove("disableSortBtn") : e.target.previousElementSibling.classList.remove("disableSortBtn") 
     let query = document.getElementById("searchField").value
-    debugger
     dispatch(getTracks(query, query_type(query), filters, sort_by, sort_dir));
   }
 
