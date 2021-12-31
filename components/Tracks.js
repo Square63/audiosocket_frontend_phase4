@@ -35,7 +35,7 @@ function Tracks(props) {
   const [moodColumn, setMoodColumn] = useState("moods")
 
   useEffect(() => {
-    let abortController = new AbortController();
+    let isMounted = true;
     if (infifniteLoop) {
       setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)
@@ -43,12 +43,13 @@ function Tracks(props) {
       setTracks(tracks=> props.tracks)
     }
 
-    if (props.tracks.length < 10)
+    if (props.tracks.length < 10) {
       sethasMore(false)
-
-    return () => {  
-      abortController.abort();  
     }
+
+    return () => {
+      isMounted = false;
+    };
     
   },[props.tracks])
   

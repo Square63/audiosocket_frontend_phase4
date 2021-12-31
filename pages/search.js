@@ -53,9 +53,13 @@ function Search() {
 
 
   useEffect(() => {
+    let isMounted = true;
     setTimeout(function() {
       setLoading(false)
-   }.bind(this), 1000);
+    }.bind(this), 1000);
+    return () => {
+      isMounted = false;
+    };
   },[tracks]);
 
   const handleLoading = () => {
