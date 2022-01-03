@@ -58,12 +58,15 @@ function toggleClass(e) {
   e.currentTarget.classList.add("tabSelected");
   var tabSelectedHeight = e.currentTarget.nextElementSibling.children[0].clientHeight + 80
   tabSelectedHeight = tabSelectedHeight <= 697 ? 'auto' : tabSelectedHeight
-  e.currentTarget.parentElement.parentElement.style.height = tabSelectedHeight == 'auto'? 'auto' : tabSelectedHeight.toString() + 'px'
+  let height = tabSelectedHeight == 'auto'? 'auto' : tabSelectedHeight.toString() + 'px'
+  e.currentTarget.parentElement.parentElement.style.height = height
+  e.currentTarget.parentElement.parentElement.style.minHeight = height
 
 };
 
 export default function Home() {
   useEffect(() => {
+    document.getElementsByClassName("tabsContainer")[0].style.minHeight = '1040px';
     document.body.classList.add('homepage');
   }, []);
   const NextArrow = ({ onClick }) => {
