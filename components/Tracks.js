@@ -35,6 +35,7 @@ function Tracks(props) {
   const [moodColumn, setMoodColumn] = useState("moods")
 
   useEffect(() => {
+    let isMounted = true;
     if (infifniteLoop) {
       setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)
@@ -42,8 +43,13 @@ function Tracks(props) {
       setTracks(tracks=> props.tracks)
     }
 
-    if (props.tracks.length < 10)
+    if (props.tracks.length < 10) {
       sethasMore(false)
+    }
+
+    return () => {
+      isMounted = false;
+    };
     
   },[props.tracks])
   
@@ -74,7 +80,6 @@ function Tracks(props) {
     e.target.classList.add("disableSortBtn")
     sort_dir == "DESC" ? e.target.nextElementSibling.classList.remove("disableSortBtn") : e.target.previousElementSibling.classList.remove("disableSortBtn") 
     let query = document.getElementById("searchField").value
-    debugger
     dispatch(getTracks(query, query_type(query), filters, sort_by, sort_dir));
   }
 
@@ -84,9 +89,11 @@ function Tracks(props) {
 
   function convertSecToMin(duration) {
     if (duration != null) {
-      let minutes = Math.floor(duration / 60);
-      let seconds = duration - minutes * 60;
-      return minutes+':'+parseInt(seconds)
+      let minutes = Math.floor(duration / 60).toString();
+      minutes = minutes.length == 1 ? ("0" + minutes) : minutes
+      let seconds = parseInt((duration - minutes * 60)).toString();
+      seconds = seconds.length == 1 ? ("0" + seconds) : seconds
+      return minutes+':'+seconds
     }
 
   }
@@ -229,7 +236,7 @@ function Tracks(props) {
                   </a>
                 </OverlayTrigger>
                 <OverlayTrigger overlay={<Tooltip>Add to Playlist</Tooltip>}>
-                  <a onClick={props.showTrackAddToPlaylistModal}>
+                  <a onClick={() => props.showTrackAddToPlaylistModal(index)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="29.249" height="29.25" viewBox="0 0 29.249 29.25">
                       <g id="icon-add-to-playlist" transform="translate(0.5 0.5)">
                         <g id="Group_165" data-name="Group 165" transform="translate(0)">
@@ -369,24 +376,31 @@ function Tracks(props) {
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
-              <div className="altVersions">
-                <Accordion key={index + 1} >
-                  <Accordion.Toggle as={Button} variant="link" eventKey={index + 1} onClick={(e)=> handleCollapse(e)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8.844" height="6.17" viewBox="0 0 8.844 6.17">
-                      <g id="icon-arrow-down-small" transform="translate(0.18 1.058)">
-                        <path id="Shape_1939" data-name="Shape 1939" d="M335.361,2401.3l-3.179-4.053" transform="translate(-331.309 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.3l3.553-4.053" transform="translate(-330.379 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                      </g>
-                    </svg>
-                    <span className="versionCount">1</span> alt. versions
-                  </Accordion.Toggle>
-                  <Accordion.Collapse eventKey={index + 1}>
-                    <div id={"example-collapse-text" + index + 1} >
-                      <AltVersion/>
-                    </div>
-                  </Accordion.Collapse>
-                </Accordion>
-              </div>
+              {track.alternate_versions.length > 0 &&
+                <>
+                  <div className="altVersions">
+                    <Accordion key={index + 1} >
+                      <Accordion.Toggle as={Button} variant="link" eventKey={index + 1} onClick={(e)=> handleCollapse(e)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8.844" height="6.17" viewBox="0 0 8.844 6.17">
+                          <g id="icon-arrow-down-small" transform="translate(0.18 1.058)">
+                            <path id="Shape_1939" data-name="Shape 1939" d="M335.361,2401.3l-3.179-4.053" transform="translate(-331.309 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                            <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.3l3.553-4.053" transform="translate(-330.379 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                          </g>
+                        </svg>
+                        <span className="versionCount">1</span> alt. versions
+                      </Accordion.Toggle>
+                      <Accordion.Collapse eventKey={index + 1}>
+                        <div id={"example-collapse-text" + index + 1} >
+                          {track.alternate_versions.map((altVersion,index)=> {
+                            return(<AltVersion key={index} altVersionTrack={altVersion}/>)
+                          })}
+                        </div>
+                      </Accordion.Collapse>
+                    </Accordion>
+                  </div>
+                </>
+              }
+              
             </div>)
           })}
         </InfiniteScroll>

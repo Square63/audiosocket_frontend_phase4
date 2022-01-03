@@ -48,12 +48,18 @@ function Search() {
 
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0])
-  const playlists = useSelector( state => state.allPlaylists.playlists[0].consumer_playlists)
+  const playlists = useSelector( state => state.allPlaylists)
+  console.log("PLAYLIST STATE", playlists)
+
 
   useEffect(() => {
+    let isMounted = true;
     setTimeout(function() {
       setLoading(false)
-   }.bind(this), 1000);
+    }.bind(this), 1000);
+    return () => {
+      isMounted = false;
+    };
   },[tracks]);
 
   const handleLoading = () => {
@@ -81,7 +87,8 @@ function Search() {
     setShowLicenseModal(false)
   }
 
-  function showTrackAddToPlaylistModal() {
+  function showTrackAddToPlaylistModal(index) {
+    setIndex(index)
     setShowAddToPlaylistModal(true)
   }
 
@@ -396,17 +403,17 @@ function Search() {
                 <form>
                   <div className="toogleSwitch">
                     <input type="checkbox" id="excludeExplicit" />
-                    <Form.Label for="excludeExplicit">&nbsp;</Form.Label>
+                    <Form.Label htmlFor="excludeExplicit">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Explicit</span>
                   </div>
                   <div className="toogleSwitch">
                     <input type="checkbox" id="youtubeContent" />
-                    <Form.Label for="youtubeContent">&nbsp;</Form.Label>
+                    <Form.Label htmlFor="youtubeContent">&nbsp;</Form.Label>
                     <span className="switchText">YouTube ContentID Cleared</span>
                   </div>
                   <div className="toogleSwitch">
                     <input type="checkbox" id="excludeVocals" />
-                    <Form.Label for="excludeVocals">&nbsp;</Form.Label>
+                    <Form.Label htmlFor="excludeVocals">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Vocals</span>
                   </div>
                 </form>
@@ -443,7 +450,7 @@ function Search() {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists}/>
+      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={tracks[index]}/>
       
     </div>
     
