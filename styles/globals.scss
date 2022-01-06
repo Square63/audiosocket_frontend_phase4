@@ -1827,11 +1827,34 @@ hr {
     height: 11px;
   }
   .pause {
-    background: url(../images/playtheme.svg) no-repeat;
+    background: url(../images/playImg.svg) no-repeat;
     background-size: 10px;
     width: 10px;
     height: 14px;
     left: calc(50% + 1px);
+  }
+}
+
+.trackListingBlock {
+  h1 {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.19;
+    margin-bottom: 28px;
+  }
+  .trackListingHeading {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(center);
+    h2 {
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.23;
+      letter-spacing: -0.65px;
+    }
+    a {
+      
+    }
   }
 }
 
