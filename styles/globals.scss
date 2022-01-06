@@ -1836,11 +1836,12 @@ hr {
 }
 
 .trackListingBlock {
+  padding-top: 51px;
   h1 {
     font-size: 36px;
     font-weight: 400;
     line-height: 1.19;
-    margin-bottom: 28px;
+    margin-bottom: 25px;
   }
   .trackListingHeading {
     @include flexbox;

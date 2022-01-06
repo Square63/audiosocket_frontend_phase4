@@ -53,15 +53,6 @@ function Checkout() {
               <div className="aboutSong">
                 <div className="songData">
                   <a href="" className="songName">saving</a>
-                  <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
-                    <a href="" className="info"></a>
-                  </OverlayTrigger>
-                  <OverlayTrigger overlay={<Tooltip>On Fire (Demo)</Tooltip>}>
-                    <a href="" className="fire"></a>
-                  </OverlayTrigger>
-                  <OverlayTrigger overlay={<Tooltip>Playlist (Demo)</Tooltip>}>
-                    <a href="" className="playlistWave"></a>
-                  </OverlayTrigger>
                 </div>
                 <div className="songArtist">
                   <a href="">
