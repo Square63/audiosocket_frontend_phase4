@@ -110,7 +110,8 @@ ul,ol {
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px white inset !important;
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
@@ -1197,8 +1198,6 @@ hr {
             cursor: pointer;
             @include transition (all 0.2s ease-in-out);
           }
-          .addFilter {
-          }
           .discardFilter {
             margin-left: 1px;
           }
@@ -2113,7 +2112,6 @@ section {
   .tabsContainer {
     position: relative;
     padding: 100px 0;
-    // height: 1060px !important;
     min-height: 840px;
     .tabs {
       @include flexbox;
