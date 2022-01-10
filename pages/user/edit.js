@@ -7,10 +7,25 @@ import Subscription from "../../components/profile/Subscription";
 import PaymentHistory from "../../components/profile/PaymentHistory";
 import Settings from "../../components/profile/Settings";
 import { useReducer } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { TOAST_OPTIONS } from '../../common/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
 
 function Edit({ countries }) {
   const [states, setStates] = useState([]);
+  const updatedPassword = useSelector(state => state.user);
+
+  useEffect(() => {
+    debugger
+    if(!updatedPassword?.success) {
+
+      toast.error(updatedPassword.message, TOAST_OPTIONS);
+    } else {
+      toast.success(updatedPassword.message, TOAST_OPTIONS);
+    }
+  }, [updatedPassword])
 
   const handleCountryChange = (code) => {
     const statesArr = getStatesByCountry(code);
@@ -18,7 +33,20 @@ function Edit({ countries }) {
   };
 
   return (
+    
     <div className="boxDivision">
+      <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "auto" }}
+      />
       <div className="boxColumn">
         <div className="boxWithShadow">
           <div className="boxHeading">Profile Info</div>
@@ -29,6 +57,7 @@ function Edit({ countries }) {
           />
         </div>
         <div className="boxWithShadow">
+          
           <div className="boxHeading">Profile Security</div>
           <Security />
         </div>
