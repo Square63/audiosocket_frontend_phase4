@@ -26,7 +26,6 @@ export const allPlaylitsReducer = (state= {playlists: []}, action) => {
         message: action.payload.status
       }
     case ADD_TO_PLAYLIST_FAILURE:
-      console.log("ACTION", action)
       return {
         ...state,
         success: false,

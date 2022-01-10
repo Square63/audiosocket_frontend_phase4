@@ -6,6 +6,10 @@ import {BASE_URL} from "../../common/api";
 import {
   ALL_TRACKS_SUCCESS,
   ALL_TRACKS_FAILURE,
+  ADD_TO_FAVOURITES_SUCCESS,
+  ADD_TO_FAVOURITES_FAILURE,
+  REMOVE_FROM_FAVOURITES_SUCCESS,
+  REMOVE_FROM_FAVOURITES_FAILURE,
   CLEAR_ERRORS
 } from '../constants/trackConstants';
 
@@ -64,7 +68,7 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
         },
         method: "post",
         url: "http://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/upload_track_search",
-        data: formData
+        data: localStorage.getItem("formData")
       })
       dispatch({
         type: ALL_TRACKS_SUCCESS,
@@ -80,6 +84,60 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
   
 
 }
+
+export const addToFavorites = (trackId) => async (dispatch) => {
+  let klass = "track";
+  try {
+    const {data} = await axios.request({
+      headers: {
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
+        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+      },
+      method: "post",
+      url: `${BASE_URL}/api/v1/consumer/favorites_following/favorite`,
+      data: {
+        id: trackId,
+        klass: klass
+      }
+    })
+    dispatch({
+      type: ADD_TO_FAVOURITES_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+      dispatch({
+        type: ADD_TO_FAVOURITES_FAILURE,
+        payload: error
+      })
+  }
+};
+
+export const removeFromFavorites = (trackId) => async (dispatch) => {
+  let klass = "track";
+  try {
+    const {data} = await axios.request({
+      headers: {
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
+        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+      },
+      method: "post",
+      url: `${BASE_URL}/api/v1/consumer/favorites_following/unfavorite`,
+      data: {
+        id: trackId,
+        klass: klass
+      }
+    })
+    dispatch({
+      type: REMOVE_FROM_FAVOURITES_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+      dispatch({
+        type: REMOVE_FROM_FAVOURITES_FAILURE,
+        payload: error
+      })
+  }
+};
 
 export const clearErrors = () => async(dispatch) => {
   dispatch({

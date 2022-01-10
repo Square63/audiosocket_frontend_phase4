@@ -6,10 +6,9 @@ import AddToPlaylist from "../components/modals/AddToPlaylist";
 import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
-import Image from 'next/image';
 import Tooltip from 'react-bootstrap/Tooltip';
 import InpageLoader from '../components/InpageLoader';
-import Select from "react-select";
+
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,16 +17,19 @@ import { getFilters } from '../redux/actions/filterActions';
 import { getTracks } from '../redux/actions/trackActions';
 import { getPlaylists } from '../redux/actions/playlistActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PreferenceModal from "../components/modals/PreferenceModal";
+import { addToFavorites } from '../redux/actions/trackActions';
+import { removeFromFavorites } from '../redux/actions/trackActions';
+
 import $ from 'jquery';
 import Tracks from '../components/Tracks';
 import RangeSlider from '../components/RangeSlider';
+import { TOAST_OPTIONS } from '../common/api';
+import { ToastContainer, toast } from 'react-toastify';
 
-function Search() {
+function Search(props) {
+
   const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(false);
   const [showChilderDiv, setShowChilderDiv] = useState(false);
   const [lastChildFilters, setLastChildFilters] = useState([]);
@@ -41,15 +43,30 @@ function Search() {
   const [track, setTrack] = useState()
   const [loading, setLoading] = useState(true)
   const [index, setIndex] = useState(0)
-
+  const [homeFilters, setHomeFilters] = useState([])
+  const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   useEffect(() => {
     
   }, [appliedFiltersListWC]);
+  
+
+  useEffect(() => {
+    // handleAimsSearch()
+    handleAddHomeFilter()
+  }, []);
 
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0])
   const playlists = useSelector( state => state.allPlaylists)
-  console.log("PLAYLIST STATE", playlists)
+  const favoritesMessage = useSelector( state => state.allTracks)
+
+  useEffect(() => {
+    if(!favoritesMessage?.success) {
+      toast.error(favoritesMessage.message, TOAST_OPTIONS);
+    } else {
+      toast.success(favoritesMessage.message, TOAST_OPTIONS);
+    }
+  }, [favoritesMessage])
 
 
   useEffect(() => {
@@ -60,7 +77,7 @@ function Search() {
     return () => {
       isMounted = false;
     };
-  },[tracks]);
+  },[tracks, favoritesMessage]);
 
   const handleLoading = () => {
     setLoading(true)
@@ -115,11 +132,9 @@ function Search() {
     } else {
       singleFilterText = e.target.previousElementSibling.textContent
     }
-    let singleFilterTextWithoutCount = removeCount(singleFilterText)
+    let singleFilterTextWithoutCount = singleFilterText
     let elements = $( "a:contains("+singleFilterTextWithoutCount+")" );
     appliedFiltersList.splice(appliedFiltersList.indexOf(singleFilterTextWithoutCount), 1);
-    // setAppliedFiltersListWC([appliedFiltersListWC.splice(appliedFiltersListWC.indexOf(singleFilterText), 1)]);
-    // console.log("Discard Filter after", appliedFiltersListWC)
 
     for (let i = 0; i < elements.length; i++) {
       if (elements[i].closest(".filterSelf")) {
@@ -147,10 +162,13 @@ function Search() {
 
   function hideAllFilterDiv() {
     setLoading(true)
+    localStorage.removeItem("genre")
+    localStorage.removeItem("vocal")
     $(".filterSelf").removeClass("activeFilter");
     document.getElementById("filtersList").innerHTML = "";
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
     let query = document.getElementById("searchField").value
+    
     dispatch(getTracks(query, query_type(query), [], "", "", 0));
   }
 
@@ -161,6 +179,18 @@ function Search() {
     appliedFiltersList.push(trackName)
     setAppliedFiltersListWC([...appliedFiltersListWC, trackName]);
     dispatch(getTracksFromAIMS(trackId));
+  }
+
+  const handleAddToFavorites = (trackId) => {
+    if (!favoriteTrackIds.includes(trackId)) {
+      setFavoriteTrackIds([...favoriteTrackIds, trackId])
+      dispatch(addToFavorites(trackId));
+    }
+    else {
+      let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+      setFavoriteTrackIds(newFavoriteIds)
+      dispatch(removeFromFavorites(trackId));
+    }
   }
 
   const handleAddFilter = async(e) => {
@@ -174,9 +204,9 @@ function Search() {
     e.target.closest('.filterSelf').classList.add('activeFilter')
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(removeCount(e.currentTarget.text))
-    setAppliedFiltersListWC([...appliedFiltersListWC, e.currentTarget.text]);
+    setAppliedFiltersListWC([...appliedFiltersListWC, removeCount(e.currentTarget.text)]);
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 0));
   }
 
   const handleAddChildrenFilter = (e) => {
@@ -206,6 +236,36 @@ function Search() {
     setShowChilderDiv(true);
   }
 
+  const handleAddHomeFilter = async(e) => {
+    setLoading(true)
+    let genre = localStorage.getItem('genre')
+    let vocal = localStorage.getItem('vocal')
+    let keyword = localStorage.getItem('keyword')
+    document.getElementById("searchField").value = keyword
+        
+    genre ? appliedFiltersList.push(genre) : null
+    vocal ? appliedFiltersList.push(vocal) : null
+    if (genre && vocal) {
+      document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+      setAppliedFiltersListWC([genre, vocal])
+    } else if (genre) {
+      document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+      setAppliedFiltersListWC([genre])
+    } else if (vocal)  {
+      document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+      setAppliedFiltersListWC([vocal])
+    }
+    let query = document.getElementById("searchField").value
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 0));
+  }
+
+  const handleAimsSearch = () => {
+    setLoading(true)
+    document.getElementById("formFile").files[0] = localStorage.getItem("file")
+
+    dispatch(getTracksFromAIMS());
+  }
+
   console.log("Filters", filters)
   console.log("Tracks", tracks)
   console.log("Playlists", playlists)
@@ -216,7 +276,10 @@ function Search() {
   }
 
   function query_type(query) {
-    return query.includes("https") ? "aims_search" : "local_search"
+    if (query)
+      return query.includes("https") ? "aims_search" : "local_search"
+    else
+      localStorage.removeItem("keyword")
   }
 
   const handleFooterTrack = (track) => {
@@ -225,6 +288,11 @@ function Search() {
     if (track) {
       console.log("track url", track.file)
     } 
+  }
+
+  
+  function getUniqFilters(appliedFilters) {
+    return appliedFilters.filter((v, i, a) => a.indexOf(v) === i);
   }
   
   const filterItems = filters.map((filter, index) =>
@@ -362,12 +430,27 @@ function Search() {
   return (
     <div className={search.searchWrapper}>
       <Alert variant="success" className="brandAlert">
+        <Form.Group type="hidden" controlId="formFile" className="uploadComponent" style={{display: 'none'}}>
+          <Form.Control type="file" />
+        </Form.Group>
         <div className="fixed-container">
           <p>
             Special Offer! 20% off all spooky tracks for the month of December!
           </p>
         </div>
       </Alert>
+      <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "auto" }}
+      />
       <div className="fixed-container">
         <h1 className={search.pageHeading}>Search Music</h1>
         <div className={search.searchUploadStuff}>
@@ -438,7 +521,7 @@ function Search() {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch}/>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
         )}
       </div>
 

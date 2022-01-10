@@ -1,10 +1,22 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
+import { updatePassword } from "../../redux/actions/authActions";
+
+import {LoaderImage} from "../LoaderImage";
 
 function Security() {
+  const dispatch = useDispatch();
+  const updatedPassword = useSelector(state => state.user);
+
+  useEffect(() => {
+    debugger
+    setIsLoading(false)
+  }, [updatedPassword])
+
   const form = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,16 +25,19 @@ function Security() {
     e.preventDefault();
     setIsLoading(true);
     const securityForm = e.currentTarget;
+    const data = new FormData(form.current);
     if (securityForm.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
       setValidated(true);
       setIsLoading(false);
     } else {
-      const data = new FormData(form.current);
-      setIsLoading(false);
-      e.target.reset();
-      alert("updated");
+      let updatePasswordData = {
+				current_password: data.get("current_password"),
+				new_password: data.get("new_password"),
+				confirm_password: data.get("confirm_password")
+			};
+      dispatch(updatePassword(updatePasswordData));
     }
   };
 
@@ -36,14 +51,12 @@ function Security() {
     >
       <div className="modal-container">
         <div className="form-group">
-          <Form.Label>Username</Form.Label>
+          <Form.Label>Current Password</Form.Label>
           <Form.Control
             required
-            name="username"
-            type="text"
-            value="ahmed.raza"
-            disabled
-            readOnly
+            name="current_password"
+            type="password"
+            placeholder="Enter Current Password..."
           />
           <Form.Control.Feedback type="invalid">
             Current password is required!
@@ -59,6 +72,18 @@ function Security() {
           />
           <Form.Control.Feedback type="invalid">
             New password is required!
+          </Form.Control.Feedback>
+        </div>
+        <div className="form-group">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            required
+            name="confirm_password"
+            type="password"
+            placeholder="Enter Password Again..."
+          />
+          <Form.Control.Feedback type="invalid">
+            Confirm password is required!
           </Form.Control.Feedback>
         </div>
       </div>
