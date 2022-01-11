@@ -84,9 +84,10 @@
 }
 
 .or {
-  position: sticky;
+  position: relative;
   margin-bottom: 20px;
   text-align: center;
+  z-index: 0;
 
   span {
     background-color: white;

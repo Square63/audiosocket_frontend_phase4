@@ -56,7 +56,8 @@ function Search(props) {
   }, []);
 
   const filters = useSelector( state => state.allFilters.filters[0])
-  const tracks = useSelector( state => state.allTracks.tracks[0])
+  const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
+  const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
   const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
 
@@ -182,15 +183,20 @@ function Search(props) {
   }
 
   const handleAddToFavorites = (trackId) => {
-    if (!favoriteTrackIds.includes(trackId)) {
-      setFavoriteTrackIds([...favoriteTrackIds, trackId])
-      dispatch(addToFavorites(trackId));
+    if (localStorage.getItem("user")) {
+      if (!favoriteTrackIds.includes(trackId)) {
+        setFavoriteTrackIds([...favoriteTrackIds, trackId])
+        dispatch(addToFavorites(trackId));
+      }
+      else {
+        let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+        setFavoriteTrackIds(newFavoriteIds)
+        dispatch(removeFromFavorites(trackId));
+      }
     }
     else {
-      let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
-      setFavoriteTrackIds(newFavoriteIds)
-      dispatch(removeFromFavorites(trackId));
-    }
+      alert("You must be logged in to be able to add a track to your favorites.")
+    }  
   }
 
   const handleAddFilter = async(e) => {
@@ -521,7 +527,7 @@ function Search(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
         )}
       </div>
 

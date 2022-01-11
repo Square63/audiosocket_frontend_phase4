@@ -6,9 +6,22 @@ import ProfileMenu from "./ProfileMenu";
 import {useEffect, useState} from "react";
 import user from "../styles/User.module.scss";
 
+
 function Layout({children}) {
   const router = useRouter();
   const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    let isMounted = true;
+    setTimeout(function() {
+      setLoading(false)
+    }.bind(this), 3000);
+    return () => {
+      isMounted = false;
+    };
+  },[]);
+  
 
   useEffect(() => {
     if(localStorage.getItem('user')) {
@@ -24,29 +37,36 @@ function Layout({children}) {
     }
   }, [])
   return (
-    <AuthProvider>
-      <Header/>
-      <div className="content-area">
-        <main className="main">
-          {router.pathname.toLowerCase().indexOf('/user/') !== -1
-            ?
-              <div className={user.accountWrapper}>
-                <div className="fixed-container">
-                  <div className={user.accountHeader}>
-                    <h1>Account</h1>
-                    <ProfileMenu />
+    <>
+      {/* {loading ? (
+        <h1>Loading....</h1>
+      ) : ( */}
+        <AuthProvider>
+          <Header/>
+          <div className="content-area">
+            <main className="main">
+              {router.pathname.toLowerCase().indexOf('/user/') !== -1
+                ?
+                  <div className={user.accountWrapper}>
+                    <div className="fixed-container">
+                      <div className={user.accountHeader}>
+                        <h1>Account</h1>
+                        <ProfileMenu />
+                      </div>
+                      <div className="userAccountInner">
+                        {children}
+                      </div>
+                    </div>
                   </div>
-                  <div className="userAccountInner">
-                    {children}
-                  </div>
-                </div>
-              </div>
-            : children
-          }
-        </main>
-      </div>
-      <Footer/>
-    </AuthProvider>
+                : children
+              }
+            </main>
+          </div>
+          <Footer/>
+        </AuthProvider>
+      {/* )} */}
+      
+    </>
   )
 }
 export default Layout;
