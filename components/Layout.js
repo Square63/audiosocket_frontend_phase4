@@ -38,9 +38,9 @@ function Layout({children}) {
   }, [])
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <h1>Loading....</h1>
-      ) : (
+      ) : ( */}
         <AuthProvider>
           <Header/>
           <div className="content-area">
@@ -64,7 +64,7 @@ function Layout({children}) {
           </div>
           <Footer/>
         </AuthProvider>
-      )}
+      {/* )} */}
       
     </>
   )
