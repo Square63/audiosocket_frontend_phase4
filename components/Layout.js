@@ -39,7 +39,16 @@ function Layout({children}) {
   return (
     <>
       {loading ? (
-        <h1>Loading....</h1>
+        <div className="siteLoader">
+          <h1>Loading....</h1>
+          <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
+        </div>
       ) : (
         <AuthProvider>
           <Header/>
