@@ -7,17 +7,21 @@ import logo from '../images/logoAudiosocket.svg';
 import searchIcon from '../images/searchIcon.svg';
 import { useRouter } from "next/router";
 import {useContext, useEffect, useState} from "react";
+import { useSelector } from "react-redux";
 import {AuthContext} from "../store/authContext";
 import {LoaderImage} from "./LoaderImage";
+import { useCookie } from 'next-cookie'
 
 function Header() {
+  const cookie = useCookie()
   const { authState, authActions } = useContext(AuthContext);
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const userToken = useSelector( state => state.user)
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('user'));
-  }, [authState.user])
+  }, [userToken])
 
   const toggleDropdown = (e, path) => {
     e.preventDefault();
@@ -103,7 +107,7 @@ function Header() {
                       Following
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <a className="logout" onClick={() => {authActions.userDataStateChanged(null); setIsLoggedIn(false); router.push('/login')}}>
+                    <a className="logout" onClick={() => {authActions.userDataStateChanged(null); cookie.set('user', ""); setIsLoggedIn(false); router.push('/login')}}>
                       logout
                     </a>
                   </NavDropdown>

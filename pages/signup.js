@@ -13,8 +13,10 @@ import {AuthContext} from "../store/authContext";
 import { authSignup } from "../redux/actions/authActions";
 import signup from "../styles/Signup.module.scss";
 import { Alert } from 'react-bootstrap';
+import { useCookie } from 'next-cookie'
 
 function Signup() {
+  const cookie = useCookie()
   const dispatch = useDispatch();
   const signUpUser = useSelector(state => state.auth);
   const { authActions } = useContext(AuthContext);
@@ -50,6 +52,7 @@ function Signup() {
       toast.error(signUpUser.error.email, TOAST_OPTIONS);
     } else if(Object.keys(signUpUser.user).length) {
       localStorage.setItem("user", JSON.stringify(signUpUser.user));
+      cookie.set('user', JSON.stringify(loggedInUser.user))
       router.push('/selectPlan');
     }
   }, [signUpUser])
