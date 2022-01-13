@@ -21,7 +21,7 @@ export const getFilters = (req) => async( dispatch ) => {
   } catch (error) {
     dispatch({
       type: ALL_FILTERS_FAILURE,
-      payload: error.response.message
+      payload: error
     })
     
   }

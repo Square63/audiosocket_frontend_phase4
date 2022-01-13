@@ -14,8 +14,10 @@ import { authLogin } from "../redux/actions/authActions";
 import {useRouter} from "next/router";
 import login from "../styles/Login.module.scss";
 import ForgotPassword from "../components/modals/ForgotPassword";
+import { useCookie } from 'next-cookie'
 
 function Login() {
+  const cookie = useCookie()
   const dispatch = useDispatch();
   const loggedInUser = useSelector(state => state.auth);
   const { authActionsContext } = useContext(AuthContext);
@@ -38,6 +40,7 @@ function Login() {
       toast.error(loggedInUser.error.message, TOAST_OPTIONS);
     } else if(Object.keys(loggedInUser.user).length) {
       localStorage.setItem("user", JSON.stringify(loggedInUser.user));
+      cookie.set('user', JSON.stringify(loggedInUser.user))
       toast.success('Successfully Logged In.');
       router.push('/');
     }
