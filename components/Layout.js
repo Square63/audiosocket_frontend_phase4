@@ -4,6 +4,8 @@ import {AuthProvider} from "../store/authContext";
 import {useRouter} from "next/router";
 import ProfileMenu from "./ProfileMenu";
 import {useEffect, useState} from "react";
+import Image from 'next/image';
+import logo from "../images/logo-black.svg";
 import user from "../styles/User.module.scss";
 
 
@@ -40,7 +42,9 @@ function Layout({children}) {
     <>
       {loading ? (
         <div className="siteLoader">
-          <h1>Loading....</h1>
+          <div className="brandLogo">
+            <Image src={logo} alt="LOGO" className="loaderLogo" />
+          </div>
           <div class="spinner">
             <div class="rect1"></div>
             <div class="rect2"></div>
