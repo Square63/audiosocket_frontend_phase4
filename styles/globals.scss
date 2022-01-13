@@ -1662,7 +1662,16 @@ hr {
               }
             }
           }
-        } 
+        }
+        a {
+          &.controlActive {
+            svg {
+              path,line {
+                stroke: $green-light;
+              }
+            }
+          }
+        }
       }
     }
     .altVersions {
