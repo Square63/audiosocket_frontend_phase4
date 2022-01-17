@@ -77,7 +77,7 @@ function Layout({children}) {
           </div>
           <Footer/>
         </AuthProvider>
-      )}
+      {/* )} */}
       
     </>
   )
