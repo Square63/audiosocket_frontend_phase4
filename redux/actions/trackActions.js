@@ -2,6 +2,7 @@ import axios from "axios";
 // import absoluteUrl from "next-absolute-url";
 import { async } from "regenerator-runtime";
 import {BASE_URL} from "../../common/api";
+import { useCookie } from 'next-cookie'
 
 import {
   ALL_TRACKS_SUCCESS,
@@ -13,12 +14,13 @@ import {
   CLEAR_ERRORS
 } from '../constants/trackConstants';
 
-export const getTracks = (query, query_type, filters, sort_by, sort_dir, page) => async( dispatch ) => {
+export const getTracks = (query, query_type, filters, sort_by, sort_dir, page) => async( dispatch ) => {  
+  const cookie = useCookie()
+  const authToken = cookie.get("user")
   try {
     const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`, {
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"
+        "auth-token": authToken ? authToken : ""
       }
     });
     dispatch({
@@ -87,11 +89,12 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
 
 export const addToFavorites = (trackId) => async (dispatch) => {
   let klass = "track";
+  const cookie = useCookie()
+  let authToken = cookie.get("user")
   try {
     const {data} = await axios.request({
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+        "auth-token": authToken ? authToken : ""
       },
       method: "post",
       url: `${BASE_URL}/api/v1/consumer/favorites_following/favorite`,
@@ -114,11 +117,12 @@ export const addToFavorites = (trackId) => async (dispatch) => {
 
 export const removeFromFavorites = (trackId) => async (dispatch) => {
   let klass = "track";
+  const cookie = useCookie()
+  let authToken = cookie.get("user")
   try {
     const {data} = await axios.request({
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+        "auth-token": authToken ? authToken : ""
       },
       method: "post",
       url: `${BASE_URL}/api/v1/consumer/favorites_following/unfavorite`,
