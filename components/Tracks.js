@@ -68,7 +68,7 @@ function Tracks(props) {
   const options = [
     { value: 'relevence', label: 'Relevence' },
     { value: 'featured', label: 'Featured' },
-    { value: ' mostRecentlyPublished', label: ' Most Recently Published' },
+    { value: 'mostRecentlyPublished', label: ' Most Recently Published' },
     { value: 'durationLongtoShort', label: 'Duration Long to Short' },
     { value: 'durationShorttoLong', label: 'Duration Short to Long' }
   ]
@@ -81,6 +81,13 @@ function Tracks(props) {
     sort_dir == "DESC" ? e.target.nextElementSibling.classList.remove("disableSortBtn") : e.target.previousElementSibling.classList.remove("disableSortBtn") 
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), filters, sort_by, sort_dir));
+  }
+
+  const handleDropdownSorting = (sort_by, sort_dir) => {
+    setSortDir(sort_dir)
+    setSortBy(sort_by)
+    let query = document.getElementById("searchField").value
+    dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir));
   }
 
   function query_type(query) {
@@ -123,6 +130,19 @@ function Tracks(props) {
     }
   }
 
+  const handleFilterDropdown = (e) => {
+    if (e.value === "durationLongtoShort")
+      handleDropdownSorting("duration", "DESC")
+    else if (e.value === "durationShorttoLong")
+      handleDropdownSorting("duration", "ASC")
+    else if (e.value === "mostRecentlyPublished")
+      handleDropdownSorting("publish_date", "ASC")
+    else if (e.value === "featured")
+      handleDropdownSorting("featured", "DESC")
+    else
+      handleDropdownSorting("featured", "ASC")
+  }
+
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
@@ -136,6 +156,7 @@ function Tracks(props) {
                 classNamePrefix="react-select"
                 placeholder="Relevence"
                 options={options}
+                onChange={(e) => handleFilterDropdown(e)}
                 defaultValue='Relevence'
                 theme={theme => ({
                   ...theme,

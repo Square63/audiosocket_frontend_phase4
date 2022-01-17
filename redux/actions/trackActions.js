@@ -117,11 +117,12 @@ export const addToFavorites = (trackId) => async (dispatch) => {
 
 export const removeFromFavorites = (trackId) => async (dispatch) => {
   let klass = "track";
+  const cookie = useCookie()
+  let authToken = cookie.get("user")
   try {
     const {data} = await axios.request({
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+        "auth-token": authToken ? authToken : ""
       },
       method: "post",
       url: `${BASE_URL}/api/v1/consumer/favorites_following/unfavorite`,

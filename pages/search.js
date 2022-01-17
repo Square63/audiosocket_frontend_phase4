@@ -565,7 +565,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
       await store.dispatch(getPlaylists(req))
-      await store.dispatch(getTracks("", "local_search", [], "", "", 0))
+      await store.dispatch(getTracks("", "local_search", [], "", "", 1))
     });
 
 export default Search;

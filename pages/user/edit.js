@@ -18,7 +18,6 @@ function Edit({ countries }) {
   const updatedPassword = useSelector(state => state.user);
 
   useEffect(() => {
-    debugger
     if(!updatedPassword?.success) {
 
       toast.error(updatedPassword.message, TOAST_OPTIONS);

@@ -13,7 +13,6 @@ function Security() {
   const updatedPassword = useSelector(state => state.user);
 
   useEffect(() => {
-    debugger
     setIsLoading(false)
   }, [updatedPassword])
 
