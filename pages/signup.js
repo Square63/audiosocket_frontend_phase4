@@ -190,8 +190,8 @@ function Signup() {
                         <Select
                           isSearchable={false}
                           placeholder="What type of content do you create?"
-                          className={"content-type-select-container-header"}
-                          classNamePrefix="content-type-select-header"
+                          className='react-select-container'
+                          classNamePrefix="react-select"
                           options={contentTypeOptions}
                           onChange={handleSelectContentType}
                           noOptionsMessage={() => {return "No content type found"}}

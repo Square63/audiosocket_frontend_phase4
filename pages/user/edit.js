@@ -32,54 +32,54 @@ function Edit({ countries }) {
   };
 
   return (
-    
-    <div className="boxDivision">
+    <>
       <ToastContainer
-        position="top-center"
-        autoClose={10000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        style={{ width: "auto" }}
-      />
-      <div className="boxColumn">
-        <div className="boxWithShadow">
-          <div className="boxHeading">Profile Info</div>
-          <ProfileForm
-            countries={countries}
-            states={states}
-            onCountryChange={handleCountryChange}
-          />
+          position="top-center"
+          autoClose={10000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          style={{ width: "auto" }}
+        />
+      <div className="boxDivision">
+        <div className="boxColumn">
+          <div className="boxWithShadow">
+            <div className="boxHeading">Profile Info</div>
+            <ProfileForm
+              countries={countries}
+              states={states}
+              onCountryChange={handleCountryChange}
+            />
+          </div>
+          <div className="boxWithShadow">
+            <div className="boxHeading">Profile Security</div>
+            <Security />
+          </div>
         </div>
-        <div className="boxWithShadow">
-          
-          <div className="boxHeading">Profile Security</div>
-          <Security />
+        <div className="boxColumn">
+          <div className="boxWithShadow">
+            <div className="boxHeading">Billing Info</div>
+            <Billing />
+          </div>
+          <div className="boxWithShadow">
+            <div className="boxHeading">Subscription</div>
+            <Subscription />
+          </div>
+          <div className="boxWithShadow paymentHistoryWrapper">
+            <div className="boxHeading">Payment History</div>
+            <PaymentHistory />
+          </div>
+          <div className="boxWithShadow">
+            <div className="boxHeading">Settings</div>
+            <Settings />
+          </div>
         </div>
       </div>
-      <div className="boxColumn">
-        <div className="boxWithShadow">
-          <div className="boxHeading">Billing Info</div>
-          <Billing />
-        </div>
-        <div className="boxWithShadow">
-          <div className="boxHeading">Subscription</div>
-          <Subscription />
-        </div>
-        <div className="boxWithShadow paymentHistoryWrapper">
-          <div className="boxHeading">Payment History</div>
-          <PaymentHistory />
-        </div>
-        <div className="boxWithShadow">
-          <div className="boxHeading">Settings</div>
-          <Settings />
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 
