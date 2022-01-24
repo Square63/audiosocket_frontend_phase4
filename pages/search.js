@@ -58,6 +58,7 @@ function Search(props) {
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
   const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
+  console.log("TRACKS METAAA", tracksMeta)
   const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
 
@@ -79,6 +80,13 @@ function Search(props) {
       isMounted = false;
     };
   },[tracks, favoritesMessage]);
+
+  useEffect(() => {
+    if (tracksMeta.favorite_tracks_ids == null)
+      dispatch(getTracks("", "local_search", [], "", "", 0))
+    else
+      setFavoriteTrackIds(tracksMeta.favorite_tracks_ids)
+  }, [tracksMeta.favorite_tracks_ids])
 
   const handleLoading = () => {
     setLoading(true)
@@ -184,14 +192,20 @@ function Search(props) {
 
   const handleAddToFavorites = (trackId) => {
     if (localStorage.getItem("user")) {
-      if (!favoriteTrackIds.includes(trackId)) {
-        setFavoriteTrackIds([...favoriteTrackIds, trackId])
-        dispatch(addToFavorites(trackId));
+      if (favoriteTrackIds) {
+        if (!favoriteTrackIds.includes(trackId)) {
+          setFavoriteTrackIds([...favoriteTrackIds, trackId])
+          dispatch(addToFavorites(trackId));
+        }
+        else {
+          favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+          setFavoriteTrackIds(favoriteTrackIds)
+          dispatch(removeFromFavorites(trackId));
+        }
       }
       else {
-        let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
-        setFavoriteTrackIds(newFavoriteIds)
-        dispatch(removeFromFavorites(trackId));
+        setFavoriteTrackIds(trackId)
+        dispatch(addToFavorites(trackId));
       }
     }
     else {
@@ -527,7 +541,7 @@ function Search(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} favoriteIds={favoriteTrackIds} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
         )}
       </div>
 
@@ -551,7 +565,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
       await store.dispatch(getPlaylists(req))
-      await store.dispatch(getTracks("", "local_search", [], "", "", 0))
+      await store.dispatch(getTracks("", "local_search", [], "", "", 1))
     });
 
 export default Search;
