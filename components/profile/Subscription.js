@@ -19,9 +19,9 @@ const Subscription = () => {
         <span className={user.subscriptionFromTo}>10/05/2021 - 11/04/2021</span>
       </div>
       <div className="col-md-12 pt-3 text-center">
-        <Button variant="link" className="btnMainLarge" type="submit">
+        <a href="/user/subscription" className="btn btnMainLarge" type="submit">
           Edit Subscription
-        </Button>
+        </a>
       </div>
     </div>
   );
