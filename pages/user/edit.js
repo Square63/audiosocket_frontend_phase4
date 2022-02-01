@@ -15,16 +15,29 @@ import { useSelector } from "react-redux";
 
 function Edit({ countries }) {
   const [states, setStates] = useState([]);
-  const updatedPassword = useSelector(state => state.user);
+  const updatedPassword = useSelector(state => state.user.user);
+  const updatedUserInfo = useSelector(state => state.user.user);
 
   useEffect(() => {
-    if(!updatedPassword?.success) {
-
+    if(!updatedPassword?.consumer) {
+      if (updatedPassword.password_confirmation) {
+        toast.error("Confirm Password doesnot match. Please try again.", TOAST_OPTIONS);
+      } else if (updatedPassword === 'Wrong Password'){
+        toast.error("You have entered wrong password. Please try again.", TOAST_OPTIONS);
+      }
       toast.error(updatedPassword.message, TOAST_OPTIONS);
     } else {
-      toast.success(updatedPassword.message, TOAST_OPTIONS);
+      toast.success("Password updated successfully.", TOAST_OPTIONS);
     }
   }, [updatedPassword])
+
+  useEffect(() => {
+    if(updatedUserInfo?.error) {
+      toast.error(updatedUserInfo.error, TOAST_OPTIONS);
+    } else if (updatedUserInfo.email) {
+      toast.success("User updated successfully.", TOAST_OPTIONS);
+    }
+  }, [updatedUserInfo])
 
   const handleCountryChange = (code) => {
     const statesArr = getStatesByCountry(code);

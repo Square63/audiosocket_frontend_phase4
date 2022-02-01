@@ -58,7 +58,6 @@ function Search(props) {
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
   const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
-  console.log("TRACKS METAAA", tracksMeta)
   const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
 
@@ -70,7 +69,6 @@ function Search(props) {
     }
   }, [favoritesMessage])
 
-
   useEffect(() => {
     let isMounted = true;
     setTimeout(function() {
@@ -80,13 +78,6 @@ function Search(props) {
       isMounted = false;
     };
   },[tracks, favoritesMessage]);
-
-  useEffect(() => {
-    if (tracksMeta.favorite_tracks_ids == null)
-      dispatch(getTracks("", "local_search", [], "", "", 0))
-    else
-      setFavoriteTrackIds(tracksMeta.favorite_tracks_ids)
-  }, [tracksMeta.favorite_tracks_ids])
 
   const handleLoading = () => {
     setLoading(true)
@@ -114,8 +105,13 @@ function Search(props) {
   }
 
   function showTrackAddToPlaylistModal(index) {
-    setIndex(index)
-    setShowAddToPlaylistModal(true)
+    if (localStorage.getItem("user")) {
+      setIndex(index)
+      setShowAddToPlaylistModal(true)
+    }
+    else {
+      alert("You must be logged in to be able to add a track to your playlists.")
+    }
   }
 
   function handleAddToPlaylistModalClose() {
@@ -192,20 +188,14 @@ function Search(props) {
 
   const handleAddToFavorites = (trackId) => {
     if (localStorage.getItem("user")) {
-      if (favoriteTrackIds) {
-        if (!favoriteTrackIds.includes(trackId)) {
-          setFavoriteTrackIds([...favoriteTrackIds, trackId])
-          dispatch(addToFavorites(trackId));
-        }
-        else {
-          favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
-          setFavoriteTrackIds(favoriteTrackIds)
-          dispatch(removeFromFavorites(trackId));
-        }
+      if (!favoriteTrackIds.includes(trackId)) {
+        setFavoriteTrackIds([...favoriteTrackIds, trackId])
+        dispatch(addToFavorites(trackId));
       }
       else {
-        setFavoriteTrackIds(trackId)
-        dispatch(addToFavorites(trackId));
+        let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+        setFavoriteTrackIds(newFavoriteIds)
+        dispatch(removeFromFavorites(trackId));
       }
     }
     else {
@@ -541,7 +531,7 @@ function Search(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} favoriteIds={favoriteTrackIds} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
         )}
       </div>
 
@@ -565,7 +555,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
       await store.dispatch(getPlaylists(req))
-      await store.dispatch(getTracks("", "local_search", [], "", "", 1))
+      await store.dispatch(getTracks("", "local_search", [], "", "", 0))
     });
 
 export default Search;

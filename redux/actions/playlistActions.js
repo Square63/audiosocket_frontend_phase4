@@ -10,6 +10,8 @@ import {
   ALL_PLAYLISTS_FAILURE,
   ADD_TO_PLAYLIST_SUCCESS,
   ADD_TO_PLAYLIST_FAILURE,
+  REMOVE_FROM_PLAYLIST_SUCCESS,
+  REMOVE_FROM_PLAYLIST_FAILURE,
   CLEAR_ERRORS
 } from '../constants/playlistConstants';
 
@@ -59,6 +61,30 @@ export const addTrackToPlaylist = (playlistId, trackId) => async( dispatch ) => 
     })   
   }
 
+}
+
+export const removeTrackFromPlaylist = (consumerId, playlistId, trackId) => async( dispatch ) => {
+  let id = consumerId
+  let playlist_tracks_attributes= [
+    {"track_id": trackId, "id": playlistId, "_destroy": true}
+  ]
+
+  try {
+    const {data} = await axios.patch(`${BASE_URL}/api/v1/consumer/consumers_playlists/${id}`, { playlist_tracks_attributes }, {
+      headers: {
+        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+      },
+    });
+    dispatch({
+        type: REMOVE_FROM_PLAYLIST_SUCCESS,
+        payload: data
+    })
+  } catch (error) {
+      dispatch({
+        type: REMOVE_FROM_PLAYLIST_FAILURE,
+        payload: error
+      })
+  }
 }
 
 export const clearErrors = () => async(dispatch) => {
