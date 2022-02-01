@@ -24,7 +24,7 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       };
     case UPDATE_PASSWORD_FAIL:
       return {
-        error: action.payload.response.data.message
+        user: action.payload.response.data.errors
       };
 
     case UPDATE_PROFILE_SUCCESS:

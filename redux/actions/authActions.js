@@ -43,14 +43,15 @@ export const authSignup = (data) => async (dispatch) => {
 };
 
 export const updatePassword = (data) => async (dispatch) => {
+  const cookie = useCookie()
+  const authToken = cookie.get("user")
   let current_password = data.current_password;
-  let new_password = data.new_password;
-  let confirm_password = data.confirm_password;
+  let password = data.new_password;
+  let password_confirmation = data.confirm_password;
   try {
-    const {data} = await axios.patch(`${BASE_URL}/api/v1/consumer/consumers/update_password`, { current_password, new_password, confirm_password }, {
+    const {data} = await axios.patch(`${BASE_URL}/api/v1/consumer/consumers/update_password`, { current_password, password, password_confirmation }, {
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+        "auth-token": authToken ? authToken : ""
       },
     });
     dispatch({
