@@ -42,18 +42,6 @@ const images = [
   { text: "Nature", src: Sample3 },
 ];
 
-// const settings2 = {
-//   speed: 300,
-//   slidesToShow: 5,
-//   centerMode: true,
-//   centerPadding: 0,
-//   nextArrow: <NextArrow />,
-//   prevArrow: <PrevArrow />,
-//   responsive: [{breakpoint: 550, settings: {slidesToShow: 1}}, {breakpoint: 768, settings: {slidesToShow: 3}}, {breakpoint: 1200, settings: {slidesToShow: 5, slidesToScroll: 2}}],
-//   beforeChange: (current, next) => setImageIndex(next),
-// };
-
-
 const breakPoints = [
   { width: 1, itemsToShow: 2, pagination: true },
   { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
