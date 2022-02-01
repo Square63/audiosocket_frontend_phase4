@@ -3,6 +3,8 @@ import {
     ALL_PLAYLISTS_FAILURE,
     ADD_TO_PLAYLIST_SUCCESS,
     ADD_TO_PLAYLIST_FAILURE,
+    REMOVE_FROM_PLAYLIST_SUCCESS,
+    REMOVE_FROM_PLAYLIST_FAILURE,
     CLEAR_ERRORS
 } from '../constants/playlistConstants';
 
@@ -26,6 +28,18 @@ export const allPlaylitsReducer = (state= {playlists: []}, action) => {
         message: action.payload.status
       }
     case ADD_TO_PLAYLIST_FAILURE:
+      return {
+        ...state,
+        success: false,
+        message: action.payload.response.data.message
+      }
+    case REMOVE_FROM_PLAYLIST_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        message: "Track has been removed from playlist."
+      }
+    case REMOVE_FROM_PLAYLIST_FAILURE:
       return {
         ...state,
         success: false,

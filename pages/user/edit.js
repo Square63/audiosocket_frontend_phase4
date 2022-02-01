@@ -15,16 +15,24 @@ import { useSelector } from "react-redux";
 
 function Edit({ countries }) {
   const [states, setStates] = useState([]);
-  const updatedPassword = useSelector(state => state.user);
+  const updatedPassword = useSelector(state => state.user.user);
+  const updatedUserInfo = useSelector(state => state.user.user);
 
   useEffect(() => {
     if(!updatedPassword?.success) {
-
       toast.error(updatedPassword.message, TOAST_OPTIONS);
     } else {
       toast.success(updatedPassword.message, TOAST_OPTIONS);
     }
   }, [updatedPassword])
+
+  useEffect(() => {
+    if(updatedUserInfo?.error) {
+      toast.error(updatedUserInfo.error, TOAST_OPTIONS);
+    } else if (updatedUserInfo.email) {
+      toast.success("User updated successfully.", TOAST_OPTIONS);
+    }
+  }, [updatedUserInfo])
 
   const handleCountryChange = (code) => {
     const statesArr = getStatesByCountry(code);
