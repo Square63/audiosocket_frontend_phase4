@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Button from "react-bootstrap/Button";
 import user from "../../styles/User.module.scss";
 
@@ -19,9 +20,9 @@ const Subscription = () => {
         <span className={user.subscriptionFromTo}>10/05/2021 - 11/04/2021</span>
       </div>
       <div className="col-md-12 pt-3 text-center">
-        <a href="/user/subscription" className="btn btnMainLarge" type="submit">
+        <Link href="/user/subscription" className="btn btnMainLarge" type="submit">
           Edit Subscription
-        </a>
+        </Link>
       </div>
     </div>
   );
