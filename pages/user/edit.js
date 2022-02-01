@@ -22,7 +22,7 @@ function Edit({ countries }) {
     if(!updatedPassword?.consumer) {
       if (updatedPassword.password_confirmation) {
         toast.error("Confirm Password doesnot match. Please try again.", TOAST_OPTIONS);
-      } else {
+      } else if (updatedPassword === 'Wrong Password'){
         toast.error("You have entered wrong password. Please try again.", TOAST_OPTIONS);
       }
       toast.error(updatedPassword.message, TOAST_OPTIONS);
