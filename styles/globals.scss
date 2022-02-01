@@ -2858,6 +2858,7 @@ section {
   .rec-arrow {
     background-color: transparent;
     font-size: 0;
+    box-shadow: none;
     &.rec-arrow-left {
       background: url(../images/back.svg) no-repeat left center;
       background-size: 23px;
@@ -2871,6 +2872,7 @@ section {
     &:hover:enabled,
     &:focus:enabled {
       background-color: transparent;
+      box-shadow: none;
     }
   }
   .ViewPlaylist {
@@ -3356,6 +3358,7 @@ input[type=file]::file-selector-button {
     opacity: 1;
   }
 }
+
 
 
 /******************** Responsive Behaviour *****************/

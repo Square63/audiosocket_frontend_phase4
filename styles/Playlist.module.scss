@@ -1,0 +1,168 @@
+@import './variables-mixins.scss';
+
+.playlistWrapper {
+  background-color: $headerColor;
+  padding-block: 50px;
+  h1 {
+    color: $white;
+    font-weight: 400;
+    max-width: 1120px;
+    width: 100%;
+    padding-inline: 15px;
+    margin-inline: auto;
+    margin-bottom: 20px;
+  }
+  .sectionHeading {
+    font-size: 22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.18;
+    letter-spacing: -0.55px;
+    color: $white;
+    text-align: left;
+    margin-bottom: 30px;
+  }
+  :global(.testimonialContainer) {
+    h2 {
+      padding-left: 80px;
+    }
+  }
+  .filterSearch {
+    max-width: 1120px;
+    width: 100%;
+    padding-inline: 15px;
+    margin-inline: auto;
+    h1 {
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.19;
+      letter-spacing: -0.9px;
+      margin-bottom: 20px;
+    }
+    @include flexbox;
+    @include align-items(center);
+    gap: 30px;
+    :global(.filterBar) {
+      background-color: $darkGrey;
+      max-width: 576px;
+      width: 100%;
+      border-radius: 29px;
+      padding-inline: 11px;
+      .linkFilter {
+        color: $white;
+        padding: 13px 17px 11px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.19;
+        letter-spacing: -0.4px;
+        text-transform: capitalize;
+        &:hover {
+          color: $green-light;
+        }
+      }
+      :global(.dropdown) {
+        :global(.dropdown-toggle) {
+          color: $white;
+          background-color: transparent;
+          text-transform: capitalize;
+          font-weight: 400;
+          border: 0;
+          padding-inline: 17px;
+          &[aria-expanded="true"] {
+            color: $green-light;
+          }
+          &:after {
+            filter: invert(1);
+            opacity: 1;
+          }
+        }
+        :global(.dropdown-menu) {
+          border-radius: 0 0 29px 29px;
+          :global(.filterSelf) {
+            text-transform: capitalize;
+            :global(.dropdown-item) {
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+    :global(.stickySearch) {
+      flex: 1;
+      :global(.form-control) {
+        background-color: $darkGrey;
+        border: 1px solid $middleGrey;
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+  :global(.moodSlider) {
+    background-color: $headerColor;
+    padding-block: 50px 20px;
+    :global(.rec-carousel-wrapper) {
+      margin-block: 30px;
+    }
+  }
+  .playlistTiles {
+    max-width: 1120px;
+    width: 100%;
+    padding-inline: 15px;
+    margin-inline: auto;
+    .tilesWrapper {
+      @include flexbox;
+      @include align-items(center);
+      flex-wrap: wrap;
+      gap: 30px;
+      .tileOverlay {
+        max-width: 250px;
+        width: 100%;
+        max-height: 250px;
+        border-radius: 20px;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        display: inline-block;
+        & > div {
+          max-height: 250px;
+          height: 250px;
+          .tilesImg {
+            -webkit-object-fit: cover;
+            object-fit: cover;
+            height: 250px;
+            z-index: -2;
+          }
+        }
+        .tileOverlayText {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 18px;
+          font-weight: 400;
+          width: 100%;
+          line-height: 1.28;
+          letter-spacing: -0.45px;
+          text-align: center;
+          color: $white;
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-color: #313438;
+          border-radius: 20px;
+          z-index: -1;
+          opacity: 0.4;
+        }
+      }
+    }
+  }
+}
+
+.btnWrapper {
+  margin-top: 30px;
+  text-align: center;
+}
