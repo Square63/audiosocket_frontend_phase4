@@ -132,7 +132,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
         <div className="col-lg-6">
           <Form.Group className="">
             <Form.Label>Phone Number</Form.Label>
-            <Form.Control name="phone" type="text" placeholder="Enter phone" defaultValue={userInfo ? userInfo.consumer_profile.phone : ""} />
+            <Form.Control name="phone" type="text" placeholder="Enter phone" defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.phone : "") : ""} />
           </Form.Group>
         </div>
 
@@ -142,7 +142,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
             <Form.Control
               name="organization"
               type="text"
-              defaultValue={userInfo ? userInfo.consumer_profile.organization : ""}
+              defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.organization : "") : ""}
               placeholder="Enter company name"
             />
           </Form.Group>
@@ -151,14 +151,14 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
         <div className="col-lg-6">
           <Form.Group className="">
             <Form.Label>Address</Form.Label>
-            <Form.Control name="address" type="text" placeholder="Enter here" defaultValue={userInfo ? userInfo.consumer_profile.address : ""} />
+            <Form.Control name="address" type="text" placeholder="Enter here" defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.address : "") : ""} />
           </Form.Group>
         </div>
 
         <div className="col-lg-6">
           <Form.Group className="">
             <Form.Label>City</Form.Label>
-            <Form.Control name="city" type="text" placeholder="Enter city" defaultValue={userInfo ? userInfo.consumer_profile.city : ""} />
+            <Form.Control name="city" type="text" placeholder="Enter city" defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.city : "") : ""} />
           </Form.Group>
         </div>
 
@@ -212,7 +212,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
               }
               classNamePrefix="react-select"
               options={countries}
-              defaultValue={userInfo && countries.filter(option => option.value === userInfo.consumer_profile.country)}
+              defaultValue={userInfo && countries.filter(option => option.value === (userInfo.consumer_profile ? userInfo.consumer_profile.country : ""))}
               onChange={handleSelectCountry}
               noOptionsMessage={() => {
                 return "No country found";
@@ -240,7 +240,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
               name="postal_code"
               type="text"
               placeholder="Enter code"
-              defaultValue={userInfo ? userInfo.consumer_profile.postal_code : ""}
+              defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.postal_code : "") : ""}
             />
           </Form.Group>
         </div>
@@ -252,7 +252,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
               name="youtube_url"
               type="text"
               placeholder="Enter here"
-              defaultValue={userInfo ? userInfo.consumer_profile.youtube_url : ""}
+              defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.youtube_url : "") : ""}
             />
           </Form.Group>
         </div>
