@@ -62,7 +62,7 @@ function Header() {
                   </Nav.Link>
                 </Nav.Item>
               </div>
-              <div className={router.pathname.toLowerCase() === "/curatedPlaylist" ? "nav-link active" : "nav-link"}>
+              <div className={router.pathname.toLowerCase() === "/CuratedPlaylist" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
                   <Nav.Link eventKey="3" href="/curatedPlaylist">
                     Playlists

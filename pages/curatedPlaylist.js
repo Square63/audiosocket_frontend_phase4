@@ -10,6 +10,7 @@ import mood4 from '../images/mood4.jpg';
 import Sample1 from '../images/sample1.jpeg';
 import Sample2 from '../images/sample2.jpeg';
 import Sample3 from '../images/sample3.jpeg';
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 
 
@@ -50,18 +51,12 @@ const breakPoints = [
   
 ];
 
-function curatedPlaylist() {
+function CuratedPlaylist() {
   useEffect(() => {
     setTimeout(function() {
       setLoading(false)
     }.bind(this), 1000);
   }, []);
-
-  const [imageIndex, setImageIndex] = useState(0);
-
-  const [step1, setStep1] = useState("");
-  const [step2, setStep2] = useState("");
-  const [step3, setStep3] = useState("");
 
   const [loading, setLoading] = useState(true)
   return (
@@ -1070,9 +1065,9 @@ function curatedPlaylist() {
               </Dropdown.Menu>
             </Dropdown>
         </div>
-        <Form className="stickySearch" onSubmit={e => { e.preventDefault(); }}>
+        <Form className="stickySearch">
           <Form.Control type="text" placeholder="Search playlists by title or keyword…" />
-          <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={(e) => handleSearch(e)}>Search</Button>
+          <Button variant="default" type="submit" className="btnMainLarge stickyBtn">Search</Button>
         </Form>
       </div>
 
@@ -1080,7 +1075,7 @@ function curatedPlaylist() {
       <section className="moodSlider">
         <div className="testimonialContainer">
           <h2 className={playlist.sectionHeading}>
-            All playlists
+            Featured playlists
           </h2>
           <CarouselMood breakPoints={breakPoints}>
             {images.map((item) => (
@@ -1135,4 +1130,4 @@ function curatedPlaylist() {
   );
 }
 
-export default curatedPlaylist;
+export default CuratedPlaylist;
