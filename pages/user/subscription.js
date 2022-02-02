@@ -1,114 +1,18 @@
 import withPrivateRoute from "../../components/withPrivateRoute";
-import user from "../../styles/User.module.scss";
+import signup from "../../styles/Signup.module.scss";
 
 function Subscription() {
   return (
-    <div className={'userContent '+user.subscription}>
-      <div className={user.subscriptionWrapper}>
-        <a href="">
-          <div className={user.licenceSubscription}>
-            <div className={user.title}>Commercial Monthly Music SFX Subscription</div>
-            <div className={user.priceLabel}>
-              <p className={user.price}>
-                <small>$</small>
-                <span>72</span>
-              </p>
-              <p className={user.period}>per month</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="">
-          <div className={user.licenceSubscription}>
-            <div className={user.title}>Commercial Monthly Music Only Subscription</div>
-            <div className={user.priceLabel}>
-              <p className={user.price}>
-                <small>$</small>
-                <span>59</span>
-              </p>
-              <p className={user.period}>per month</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="">
-          <div className={user.licenceSubscription}>
-            <div className={user.title}>Commercial Annual Music SFX Subscription</div>
-            <div className={user.priceLabel}>
-              <p className={user.price}>
-                <small>$</small>
-                <span>549</span>
-              </p>
-              <p className={user.period}>per year</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="">
-          <div className={user.licenceSubscription}>
-            <div className={user.title}>Commercial Annual Music Subscription</div>
-            <div className={user.priceLabel}>
-              <p className={user.price}>
-                <small>$</small>
-                <span>399</span>
-              </p>
-              <p className={user.period}>per year</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="">
-          <div className={user.licenceSubscription}>
-            <div className={user.title}>Personal Monthly Music SFX Subscription</div>
-            <div className={user.priceLabel}>
-              <p className={user.price}>
-                <small>$</small>
-                <span>25</span>
-              </p>
-              <p className={user.period}>per month</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="">
-          <div className={user.licenceSubscription}>
-            <div className={user.title}>Personal Monthly Music Subscription</div>
-            <div className={user.priceLabel}>
-              <p className={user.price}>
-                <small>$</small>
-                <span>15</span>
-              </p>
-              <p className={user.period}>per month</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="">
-          <div className={user.licenceSubscription}>
-            <div className={user.title}>Personal Annual Music SFX Subscription</div>
-            <div className={user.priceLabel}>
-              <p className={user.price}>
-                <small>$</small>
-                <span>199</span>
-              </p>
-              <p className={user.period}>per year</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="">
-          <div className={user.licenceSubscription}>
-            <div className={user.title}>Personal Annual Music Subscription</div>
-            <div className={user.priceLabel}>
-              <p className={user.price}>
-                <small>$</small>
-                <span>120</span>
-              </p>
-              <p className={user.period}>per year</p>
-            </div>
-          </div>
-        </a>
-
+    <div className={signup.editSubscription}>
+      <div className={signup.billingFrequency}>
+        <span>Billing Frequency</span>
+        <div className={signup.toggleButton}>
+          <input id="toggle-on" className={signup.toggle+" "+signup.toggleLeft} name="toggle" value="false" type="radio" checked/>
+          <label htmlFor="toggle-on" className={signup.btn}>Monthly</label>
+          <input id="toggle-off" className={signup.toggle+" "+signup.toggleRight} name="toggle" value="true" type="radio"/>
+          <label htmlFor="toggle-off" className={signup.btn}>Annually</label>
+        </div>
+        <em>Save 33% with annual billing</em>
       </div>
     </div>
   );
