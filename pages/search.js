@@ -25,6 +25,7 @@ import Tracks from '../components/Tracks';
 import RangeSlider from '../components/RangeSlider';
 import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Search(props) {
 
@@ -45,6 +46,9 @@ function Search(props) {
   const [index, setIndex] = useState(0)
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+
+  const message = useSelector(state => state.allPlaylists);
+
   useEffect(() => {
     
   }, [appliedFiltersListWC]);
@@ -60,6 +64,16 @@ function Search(props) {
   const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
   const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
+
+  useEffect(() => {
+    if (message.message) {
+      if(!message?.success) {
+        toast.error(message.message, TOAST_OPTIONS);
+      } else {
+        toast.success(message.message, TOAST_OPTIONS);
+      }
+    }
+  }, [playlists])
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
@@ -105,8 +119,15 @@ function Search(props) {
   }
 
   function showTrackAddToPlaylistModal(index) {
+    debugger
+
     if (localStorage.getItem("user")) {
-      setIndex(index)
+      if (index > 9) {
+        setIndex(index%10)
+      }
+      else {
+        setIndex(index)
+      }
       setShowAddToPlaylistModal(true)
     }
     else {
