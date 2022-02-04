@@ -8,7 +8,7 @@ import { getUserInfo } from "../../redux/actions/authActions";
 import { updateProfile } from "../../redux/actions/authActions";
 
 const ProfileForm = ({ countries, states, onCountryChange }) => {
-  const countryRef = useRef(null)
+  // const countryRef = useRef(null)
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
   const updatedUserInfo = useSelector(state => state.user.user);
@@ -22,6 +22,10 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
   const router = useRouter();
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [updatedUserInfo])
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -150,8 +154,40 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
 
         <div className="col-lg-6">
           <Form.Group className="">
-            <Form.Label>Address</Form.Label>
-            <Form.Control name="address" type="text" placeholder="Enter here" defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.address : "") : ""} />
+            <Form.Label className="required">Country</Form.Label>
+            
+            
+            <Select
+              placeholder="Select Country"
+              className={
+                !countryError
+                  ? "react-select-container"
+                  : "react-select-container invalid"
+              }
+              classNamePrefix="react-select"
+              options={countries}
+              value={
+                selectedCountry
+                  ? countries.filter((option) => option.value === selectedCountry)
+                  : { label: (userInfo ? userInfo.consumer_profile.country : "") , value: (userInfo ? userInfo.consumer_profile.country : "") }
+              }
+              onChange={handleSelectCountry}
+              noOptionsMessage={() => {
+                return "No country found";
+              }}
+              theme={(theme) => ({
+                ...theme,
+                colors: {
+                  ...theme.colors,
+                  primary: "#c0d72d",
+                },
+                height: 34,
+              })}
+              name="country"
+            />
+            {countryError && (
+              <small className="input-error">Country is required!</small>
+            )}
           </Form.Group>
         </div>
 
@@ -159,6 +195,13 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
           <Form.Group className="">
             <Form.Label>City</Form.Label>
             <Form.Control name="city" type="text" placeholder="Enter city" defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.city : "") : ""} />
+          </Form.Group>
+        </div>
+
+        <div className="col-lg-6">
+          <Form.Group className="">
+            <Form.Label>Address</Form.Label>
+            <Form.Control name="address" type="text" placeholder="Enter here" defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.address : "") : ""} />
           </Form.Group>
         </div>
 
@@ -177,7 +220,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
               value={
                 selectedState
                   ? states.filter((option) => option.value === selectedState)
-                  : { label: "Select State", value: null }
+                  : { label: "Adrar", value: "Adrar" }
               }
               onChange={handleSelectState}
               noOptionsMessage={() => {
@@ -201,40 +244,6 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
 
         <div className="col-lg-6">
           <Form.Group className="">
-            <Form.Label className="required">Country</Form.Label>
-            
-            <Select
-              placeholder="Select Country"
-              className={
-                !countryError
-                  ? "react-select-container"
-                  : "react-select-container invalid"
-              }
-              classNamePrefix="react-select"
-              options={countries}
-              defaultValue={userInfo && countries.filter(option => option.value === (userInfo.consumer_profile ? userInfo.consumer_profile.country : ""))}
-              onChange={handleSelectCountry}
-              noOptionsMessage={() => {
-                return "No country found";
-              }}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary: "#c0d72d",
-                },
-                height: 34,
-              })}
-              name="country"
-            />
-            {countryError && (
-              <small className="input-error">Country is required!</small>
-            )}
-          </Form.Group>
-        </div>
-
-        <div className="col-lg-6">
-          <Form.Group className="">
             <Form.Label>Postal code</Form.Label>
             <Form.Control
               name="postal_code"
@@ -245,7 +254,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
           </Form.Group>
         </div>
 
-        <div className="col-lg-6">
+        <div className="col-lg-12">
           <Form.Group className="">
             <Form.Label>Youtube URL</Form.Label>
             <Form.Control
@@ -258,8 +267,14 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
         </div>
 
         <div className="col-md-12 pt-3 text-center">
-          <Button variant="link" className="btnMainLarge" type="submit">
-            Update Profile
+          <Button variant="link" className="btnMainLarge" type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <div>
+                Updating...
+              </div>
+            ) : (
+              "Update Profile"
+            )}
           </Button>
         </div>
       </div>

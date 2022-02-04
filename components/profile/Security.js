@@ -87,12 +87,11 @@ function Security() {
         </div>
       </div>
       <div className="col-md-12 pt-3 text-center">
-        <Button variant="link" type="submit" className="btnMainLarge submit">
+        <Button variant="link" type="submit" className="btnMainLarge submit" disabled={isLoading}>
           {isLoading ? (
-            <>
+            <div>
               Updating...
-              <Image loader={LoaderImage} src={Loader} alt="icon" />
-            </>
+            </div>
           ) : (
             "Update Password"
           )}
