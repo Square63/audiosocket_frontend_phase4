@@ -62,6 +62,7 @@ function Search(props) {
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
   const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
+  console.log("Tracks META", tracksMeta)
   const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
 
@@ -119,8 +120,6 @@ function Search(props) {
   }
 
   function showTrackAddToPlaylistModal(index) {
-    debugger
-
     if (localStorage.getItem("user")) {
       if (index > 9) {
         setIndex(index%10)
@@ -207,14 +206,16 @@ function Search(props) {
     dispatch(getTracksFromAIMS(trackId));
   }
 
-  const handleAddToFavorites = (trackId) => {
+  const handleAddToFavorites = (e, trackId) => {
     if (localStorage.getItem("user")) {
-      if (!favoriteTrackIds.includes(trackId)) {
+      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_tracks_ids.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
+        e.target.closest("a").classList.add("controlActive")
         dispatch(addToFavorites(trackId));
       }
       else {
         let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+        e.target.closest("a").classList.remove("controlActive")
         setFavoriteTrackIds(newFavoriteIds)
         dispatch(removeFromFavorites(trackId));
       }

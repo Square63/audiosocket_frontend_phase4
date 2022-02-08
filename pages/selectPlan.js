@@ -11,9 +11,9 @@ import signup from "../styles/Signup.module.scss";
 function SelectPlan() {
 
   useEffect(() => {
-    if(!localStorage.getItem('user')) {
-      router.push('/signup');
-    }
+    // if(!localStorage.getItem('user')) {
+    //   router.push('/signup');
+    // }
   }, []);
   
   return(
@@ -38,13 +38,13 @@ function SelectPlan() {
               </ul>
             </div>
           </div>
-          <div className={signup.billingFrequency}>
+          <div className="billingFrequency">
             <span>Billing Frequency</span>
-            <div className={signup.toggleButton}>
-              <input id="toggle-on" className={signup.toggle+" "+signup.toggleLeft} name="toggle" value="false" type="radio" checked/>
-              <label htmlFor="toggle-on" className={signup.btn}>Monthly</label>
-              <input id="toggle-off" className={signup.toggle+" "+signup.toggleRight} name="toggle" value="true" type="radio"/>
-              <label htmlFor="toggle-off" className={signup.btn}>Annually</label>
+            <div className="toggleButton">
+              <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked/>
+              <label htmlFor="toggle-on" className="movingBtn">Monthly</label>
+              <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio"/>
+              <label htmlFor="toggle-off" className="movingBtn">Annually</label>
             </div>
             <em>Save 33% with annual billing</em>
           </div>

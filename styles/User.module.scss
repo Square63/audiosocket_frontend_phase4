@@ -222,3 +222,187 @@
     }
   }
 }
+
+/******************* Edit Subscription ******************/
+.editSubscription {
+  padding-block: 0 10px;
+  .planStatus {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: -0.55px;
+    margin-block: 45px 30px;
+    text-align: center;
+  }
+  :global(.billingFrequency) {
+    text-align: center;
+    margin-bottom: 23px;
+    span {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.19;
+      letter-spacing: -0.4px;
+      display: block;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+  }
+  .plansShelf {
+    @include flexbox;
+    @include justify-content(center);
+    flex-wrap: wrap;
+    gap: 30px 60px;
+    :global(.boxWithOutShadow) {
+      flex: 0 1 47%;
+      padding: 0;
+      .plansHeading {
+        @include flexbox;
+        @include justify-content(space-between);
+        @include align-items(center);
+        padding-left: 36px;
+        h2 {
+          font-size: 22px;
+          font-weight: 400;
+          line-height: 1.23;
+          margin-bottom: 0;
+          text-transform: capitalize;
+          padding-right: 10px;
+        }
+        .withRate {
+          max-width: 193px;
+          width: 100%;
+          padding-block: 11px;
+          background-color: $headerColor;
+          color: $white;
+          text-align: center;
+          font-size: 18px;
+          line-height: normal;
+          letter-spacing: -0.45px;
+          .rate {
+            font-size: 36px;
+            line-height: 1.19;
+            letter-spacing: -0.72px;
+
+          }
+        }
+      }
+      .planBody {
+        padding-block: 20px 27px;
+        padding-inline: 36px;
+        height: calc(100% - 65px);
+        @include flexbox;
+        @include flex-direction(column);
+        .planFeatures {
+          width: 100%;
+          flex: 1;
+          li {
+            @include flexbox;
+            @include justify-content(flex-start);
+            @include align-items(baseline);
+            padding-block: 4px 3px;
+
+            span {
+              font-size: 14px;
+              line-height: normal;
+              letter-spacing: -0.35px;
+              text-align: left;
+              @include flex(1);
+            }
+
+            &:before {
+              content: '';
+              background: url(../images/checkDark.svg) no-repeat center;
+              display: inline-block;
+              background-size: 13px;
+              width: 15px;
+              height: 15px;
+              margin-right: 8px;
+              transform: translateY(2px);
+            }
+
+            &.notAvailable {
+              &:before {
+                content: '';
+                background: url(../images/checkLight.svg) no-repeat center;
+                display: inline-block;
+                background-size: 13px;
+              }
+            }
+          }
+        }
+        .plansBtnWrapper {
+          text-align: center;
+        }
+      }
+      &.enterprises {
+        text-align: center;
+        .plansHeading {
+          @include justify-content(center);
+          @include align-items(center);
+          height: 65px;
+        }
+        .planBody {
+          .planFeatures {
+            max-width: 466px;
+            width: 100%;
+            margin: 0 auto;
+            p {
+              font-size: 16px;
+              line-height: 1.25;
+              letter-spacing: -0.4px;
+            }
+          }
+        }
+      }
+      &.currentPlan {
+        border-color: $green-light;
+        .plansHeading {
+          @include align-items(flex-end);
+          h2 {
+            small {
+              font-size: 13px;
+              font-weight: normal;
+              letter-spacing: -0.33px;
+              display: block;
+            }
+          }
+          .withRate {
+            background-color: $green-light;
+            color: $headerColor;
+          }
+        }
+        .planBody {
+          @include flex-direction(row);
+          @include justify-content(space-between);
+          padding-inline: 36px 20px;
+          .sideContent {
+            max-width: 173px;
+            width: 100%;
+            :global(.toogleSwitch) {
+              @include flexbox;
+              @include align-items(center);
+              label {
+                margin: 0 10px 0 0;
+              }
+              span {
+                font-size: 14px;
+                line-height: normal;
+                letter-spacing: -0.35px;
+              }
+            }
+            p {
+              font-size: 13px;
+              line-height: 1.23;
+              letter-spacing: -0.33px;
+              color: $middleGrey;
+              margin-block: 15px;
+            }
+            :global(.btnMainSmall) {
+              padding-inline: 13px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

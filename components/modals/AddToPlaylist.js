@@ -86,8 +86,10 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
 
   for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
     for(var j = 0; j < playlists.playlists[0].consumer_playlists[i].playlist_tracks.length; j++) {
-      if (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].track.title == track.title) {
-        trackPlaylists.push(playlists.playlists[0].consumer_playlists[i].name);
+      if (track) {
+        if (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].track.title == track.title) {
+          trackPlaylists.push(playlists.playlists[0].consumer_playlists[i].name);
+        }
       }
     }
   }
