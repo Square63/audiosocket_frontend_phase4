@@ -432,23 +432,35 @@
 .licenses {
   :global(.trackRowWrapper) {
     :global(.trackRow) {
-      :global(artistName) {
-
-      }
-      .workTitle {
-
-      }
-      .licenseAgreement {
-
-      }
-      .purchaseReceipt {
-
-      }
-      .purchaseDate {
-
-      }
-      :global(.controls) {
-
+      :global(.rowParticipant){
+        padding-right: 10px;
+        &:global(artistName) {
+          min-width: 22%;
+        }
+        &.workTitle {
+          min-width: 20%;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        &.licenseAgreement {
+          min-width: 17%;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        &.purchaseReceipt {
+          min-width: 15%;
+        }
+        &.purchaseDate {
+          min-width: 15%;
+        }
+        &:global(.controls) {
+          min-width: 11%;
+          padding-right: 0;
+        }
       }
     }
   }
