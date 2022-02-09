@@ -81,7 +81,7 @@ function Subscription() {
         <div className="boxWithOutShadow">
           <div className={user.plansHeading}>
             <h2>
-              Commercial Plan - Music Only
+              Personal Plan - Music + SFX
             </h2>
             <div className={user.withRate}>
               <span className={user.rate}>$59</span>
