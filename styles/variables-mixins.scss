@@ -88,6 +88,14 @@ $clr-blue-extra-light: rgb(222, 235, 255);
   transition: $args;
 }
 
+@mixin lineClamp($values) {
+  display: -webkit-box;
+  line-clamp: $values;
+  -webkit-line-clamp: $values;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 $phone-potrait-old: "only screen and (max-width : 360px)";
 $phone-portrait: "only screen and (max-width : 576px)";
 $phone-landscape: "only screen and (max-width : 767px)";
