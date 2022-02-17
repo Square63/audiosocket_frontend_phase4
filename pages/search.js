@@ -25,6 +25,7 @@ import Tracks from '../components/Tracks';
 import RangeSlider from '../components/RangeSlider';
 import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Search(props) {
 
@@ -45,6 +46,9 @@ function Search(props) {
   const [index, setIndex] = useState(0)
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+
+  const message = useSelector(state => state.allPlaylists);
+
   useEffect(() => {
     
   }, [appliedFiltersListWC]);
@@ -58,8 +62,19 @@ function Search(props) {
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
   const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
+  console.log("Tracks META", tracksMeta)
   const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
+
+  useEffect(() => {
+    if (message.message) {
+      if(!message?.success) {
+        toast.error(message.message, TOAST_OPTIONS);
+      } else {
+        toast.success(message.message, TOAST_OPTIONS);
+      }
+    }
+  }, [playlists])
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
@@ -106,7 +121,12 @@ function Search(props) {
 
   function showTrackAddToPlaylistModal(index) {
     if (localStorage.getItem("user")) {
-      setIndex(index)
+      if (index > 9) {
+        setIndex(index%10)
+      }
+      else {
+        setIndex(index)
+      }
       setShowAddToPlaylistModal(true)
     }
     else {
@@ -186,14 +206,16 @@ function Search(props) {
     dispatch(getTracksFromAIMS(trackId));
   }
 
-  const handleAddToFavorites = (trackId) => {
+  const handleAddToFavorites = (e, trackId) => {
     if (localStorage.getItem("user")) {
-      if (!favoriteTrackIds.includes(trackId)) {
+      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_tracks_ids.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
+        e.target.closest("a").classList.add("controlActive")
         dispatch(addToFavorites(trackId));
       }
       else {
         let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+        e.target.closest("a").classList.remove("controlActive")
         setFavoriteTrackIds(newFavoriteIds)
         dispatch(removeFromFavorites(trackId));
       }

@@ -14,18 +14,23 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
   const dispatch = useDispatch();
-  const message = useSelector(state => state.allPlaylists);
+  // let message = useSelector(state => state.allPlaylists);
   // const [removedPlaylistId, setRemovedPlaylistId] = useState()
   // const [consumerPlaylistId, setConsumerPlaylistId] = useState()
   const [newPlaylist, setNewPlaylist] = useState("")
 
-  useEffect(() => {
-    if(!message?.success) {
-      toast.error(message.message, TOAST_OPTIONS);
-    } else {
-      toast.success(message.message, TOAST_OPTIONS);
-    }
-  }, [playlists])
+  // useEffect(() => {
+  //   if(!message?.success) {
+  //     console.log("IF", message.message)
+  //     toast.error("message.message", TOAST_OPTIONS);
+  //     message = ""
+  //   } else {
+  //     console.log("ELSE", message.message)
+  //     toast.success(message.message, TOAST_OPTIONS);
+  //     message = ""
+
+  //   }
+  // }, [message])
 
   useEffect(() => {
     
@@ -81,14 +86,15 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
 
   for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
     for(var j = 0; j < playlists.playlists[0].consumer_playlists[i].playlist_tracks.length; j++) {
-      if (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].track.title == track.title) {
-        trackPlaylists.push(playlists.playlists[0].consumer_playlists[i].name);
+      if (track) {
+        if (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].track.title == track.title) {
+          trackPlaylists.push(playlists.playlists[0].consumer_playlists[i].name);
+        }
       }
     }
   }
   // setNewPlaylist([trackPlaylists])
   if (newPlaylist.length) {
-    debugger
     trackPlaylists.push(newPlaylist)
     console.log("TRACK PLAYLISTS", trackPlaylists)
   }
@@ -122,18 +128,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body style={{height: '500px'}}>
-      <ToastContainer
-        position="top-center"
-        autoClose={10000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        style={{ width: "auto" }}
-      />
+      
       <div className="favoriteInnerContent">
         <Select
           className='react-select-container'
