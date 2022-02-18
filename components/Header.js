@@ -17,10 +17,15 @@ function Header() {
   const { authState, authActions } = useContext(AuthContext);
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const userToken = useSelector( state => state.user)
+  const userDetails = useSelector( state => state.user.userDetails)
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('user'));
+    setFullName(JSON.parse(localStorage.getItem('first_name')) + ' ' + JSON.parse(localStorage.getItem('last_name')));
   }, [userToken])
 
   const toggleDropdown = (e, path) => {
@@ -88,11 +93,11 @@ function Header() {
                     </div>
                   </>
                 :
-                  <NavDropdown title="HJ" id="collasible-nav-dropdown" className={"btn btn-account nav-link"}>
+                  <NavDropdown title={fullName.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()} id="collasible-nav-dropdown" className={"btn btn-account nav-link"}>
                     <div className="info">
-                      <div className="name-circle"><span>HJ</span></div>
-                      <div className="name"><span>Hamza Jabbar</span></div>
-                      <div className="email">hamza.jabbar@square63.com</div>
+                      <div className="name-circle"><span>{fullName.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()}</span></div>
+                      <div className="name"><span>{fullName}</span></div>
+                      <div className="email">{JSON.parse(localStorage.getItem("email"))}</div>
                     </div>
                     <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"} onClick={(e) => toggleDropdown(e, "/user/edit")}>
                       Profile

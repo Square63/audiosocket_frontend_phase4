@@ -56,7 +56,7 @@ function Tracks(props) {
   const fetchData = () => {
     let query = document.getElementById("searchField").value
     if (query === "" && props.appliedFiltersList.length == 0) {
-      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length/10)));
+      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length/10 + 1)));
       // setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(true)
     } else {
@@ -146,7 +146,7 @@ function Tracks(props) {
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
-        <h2>Tracks <span className={search.tracksCount}>{props.tracksMeta.total_track_count + 10}</span></h2>
+        <h2>Tracks <span className={search.tracksCount}>{props.tracksMeta.total_track_count}</span></h2>
         <div className={search.tracksSorting}>
         
           <form>

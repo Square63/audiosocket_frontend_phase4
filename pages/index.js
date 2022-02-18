@@ -92,7 +92,9 @@ export default function Home(props) {
     localStorage.removeItem("keyword")
 
     setTimeout(function() {
-      document.getElementsByClassName("tabsContainer")[0].style.minHeight = '1140px';
+      if (document.getElementsByClassName("tabsContainer")[0]) {
+        document.getElementsByClassName("tabsContainer")[0].style.minHeight = '1140px';
+      }
     }.bind(this), 1000);
     
     document.body.classList.add('homepage');

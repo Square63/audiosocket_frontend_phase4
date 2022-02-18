@@ -52,7 +52,10 @@ function Signup() {
       toast.error(signUpUser.error.email, TOAST_OPTIONS);
     } else if(Object.keys(signUpUser.user).length) {
       localStorage.setItem("user", JSON.stringify(signUpUser.user));
-      cookie.set('user', JSON.stringify(loggedInUser.user))
+      localStorage.setItem("first_name", JSON.stringify(signUpUser.userDetails.first_name));
+      localStorage.setItem("last_name", JSON.stringify(signUpUser.userDetails.last_name));
+      localStorage.setItem("email", JSON.stringify(signUpUser.userDetails.email));
+      cookie.set('user', JSON.stringify(signUpUser.user))
       router.push('/selectPlan');
     }
   }, [signUpUser])

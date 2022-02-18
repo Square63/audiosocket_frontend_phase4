@@ -46,6 +46,7 @@ function Search(props) {
   const [index, setIndex] = useState(0)
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+  const [updatedTracks, setUpdateTracks] = useState([])
 
   const message = useSelector(state => state.allPlaylists);
 
@@ -59,8 +60,11 @@ function Search(props) {
     handleAddHomeFilter()
   }, []);
 
+
+
   const filters = useSelector( state => state.allFilters.filters[0])
   const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
+  console.log("Update Tracks", updatedTracks)
   const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
   console.log("Tracks META", tracksMeta)
   const playlists = useSelector( state => state.allPlaylists)
@@ -85,6 +89,10 @@ function Search(props) {
   }, [favoritesMessage])
 
   useEffect(() => {
+    if (tracks.length > 0) {
+      setUpdateTracks(tracks)
+    }
+
     let isMounted = true;
     setTimeout(function() {
       setLoading(false)
@@ -92,6 +100,8 @@ function Search(props) {
     return () => {
       isMounted = false;
     };
+
+    
   },[tracks, favoritesMessage]);
 
   const handleLoading = () => {
@@ -141,7 +151,7 @@ function Search(props) {
   const handleSearch = async(e) => {
     setLoading(true)
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1));
   }
 
   const handleClearAllFilter = () => {
@@ -182,7 +192,7 @@ function Search(props) {
       }
     }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1));
   }
 
   function hideAllFilterDiv() {
@@ -194,7 +204,7 @@ function Search(props) {
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
     let query = document.getElementById("searchField").value
     
-    dispatch(getTracks(query, query_type(query), [], "", "", 0));
+    dispatch(getTracks(query, query_type(query), [], "", "", 1));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
@@ -238,7 +248,7 @@ function Search(props) {
     appliedFiltersList.push(removeCount(e.currentTarget.text))
     setAppliedFiltersListWC([...appliedFiltersListWC, removeCount(e.currentTarget.text)]);
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 0));
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
   }
 
   const handleAddChildrenFilter = (e) => {
@@ -288,7 +298,7 @@ function Search(props) {
       setAppliedFiltersListWC([vocal])
     }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 0));
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
   }
 
   const handleAimsSearch = () => {
@@ -301,7 +311,6 @@ function Search(props) {
   console.log("Filters", filters)
   console.log("Tracks", tracks)
   console.log("Playlists", playlists)
-
 
   function removeCount(filter) {
     return filter.substring(0, filter.indexOf(' ('));
@@ -395,7 +404,7 @@ function Search(props) {
             {filter.sub_filters.map((sub_filter, index) =>
               <>
                 <div className="filterSelf">
-                  <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                   <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
                       <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -405,13 +414,13 @@ function Search(props) {
                     </svg>
                   </span>
 
-                  <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                      <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                        <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
-                        <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                  <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                      <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                        <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                        <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
                       </g>
-                      <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                      <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
                     </svg>
                   </span>
                 </div>
@@ -424,7 +433,7 @@ function Search(props) {
                 {lastChildFilters.map((sub_filter, index) =>
                   <>
                     <div className={appliedFiltersList.includes(sub_filter.name) ? "custom filterSelf activeFilter" : "custom filterSelf"}>
-                      <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
+                      <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                       <span className="filterControl addFilter">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
                           <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -434,11 +443,11 @@ function Search(props) {
                         </svg>
                       </span>
 
-                      <span className="filterControl discardFilter" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                            <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
-                            <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                      <span className="filterControl discardFilter" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                            <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                            <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
                           </g>
                           <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
                         </svg>
@@ -565,7 +574,7 @@ function Search(props) {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={tracks[index]}/>
+      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/>
       
     </div>
     
@@ -577,7 +586,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
       await store.dispatch(getPlaylists(req))
-      await store.dispatch(getTracks("", "local_search", [], "", "", 0))
+      await store.dispatch(getTracks("", "local_search", [], "", "", 1))
     });
 
 export default Search;
