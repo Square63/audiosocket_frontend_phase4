@@ -18,7 +18,7 @@ const formWaveSurferOptions = (ref, footer) => (
     height: 35,
     barGap: 1,
     normalize: true,
-    partialRender: true,
+    partialRender: true
   } :
   {
     container: ref,
@@ -33,7 +33,7 @@ const formWaveSurferOptions = (ref, footer) => (
     height: 50,
     barGap: 1,
     normalize: true,
-    partialRender: true,
+    partialRender: true
   }
 );
 
@@ -44,7 +44,7 @@ export default function CustomAudioWave(props) {
   const [seconds, setSeconds] = useState();
   const [footer, setFooter] = useState(false)
   
-  const url = props.track? "./test.mp3" : "./test.mp3"
+  const url = props.track.file? props.track.file : "./test.mp3"
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,

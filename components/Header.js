@@ -18,10 +18,15 @@ function Header() {
   const { authState, authActions } = useContext(AuthContext);
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const userToken = useSelector( state => state.user)
+  const userDetails = useSelector( state => state.user.userDetails)
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('user'));
+    setFullName(JSON.parse(localStorage.getItem('first_name')) + ' ' + JSON.parse(localStorage.getItem('last_name')));
   }, [userToken])
 
   const toggleDropdown = (e, path) => {

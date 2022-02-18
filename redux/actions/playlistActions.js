@@ -19,8 +19,7 @@ export const getPlaylists = (req) => async( dispatch ) => {
   try {
     const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists`, {
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"
       }
     });
     dispatch({
@@ -37,17 +36,17 @@ export const getPlaylists = (req) => async( dispatch ) => {
 
 }
 
-export const addTrackToPlaylist = (playlistId, trackId) => async( dispatch ) => {
+export const addTrackToPlaylist = (playlistId, mediaId, mediaType) => async( dispatch ) => {
   const formData = new FormData();
-  formData.append('track_id', trackId)
+  formData.append('mediable_id', mediaId)
+  formData.append('mediable_type', mediaType)
   try {
     const {data} = await axios.request({
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"
       },
       method: "post",
-      url: `${BASE_URL}/api/v1/consumer/consumers_playlists/${playlistId}/add_track`,
+      url: `${BASE_URL}/api/v1/consumer/consumers_playlists/${playlistId}/add_media`,
       data: formData
     })
     dispatch({
@@ -63,16 +62,17 @@ export const addTrackToPlaylist = (playlistId, trackId) => async( dispatch ) => 
 
 }
 
-export const removeTrackFromPlaylist = (consumerId, playlistId, trackId) => async( dispatch ) => {
+export const removeTrackFromPlaylist = (consumerId, playlistTrackId) => async( dispatch ) => {
+  debugger
   let id = consumerId
   let playlist_tracks_attributes= [
-    {"track_id": trackId, "id": playlistId, "_destroy": true}
+    {"id": playlistTrackId, "_destroy": true}
   ]
 
   try {
     const {data} = await axios.patch(`${BASE_URL}/api/v1/consumer/consumers_playlists/${id}`, { playlist_tracks_attributes }, {
       headers: {
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MzIsImV4cCI6MTY3MjEzNjUwM30.cc7TolYBSMVCPjRdjLApO5RyRoVzSmKHFdpTLiTqgog"
+        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"
       },
     });
     dispatch({

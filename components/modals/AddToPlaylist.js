@@ -42,7 +42,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
     setSelect(selectedOption);
     let playlistId = selectedOption.length > 0 ? selectedOption[selectedOption.length -1 ].value : ""
     setNewPlaylist(selectedOption[0].label)
-    dispatch(addTrackToPlaylist(playlistId, track.id));
+    dispatch(addTrackToPlaylist(playlistId, track.id, "Track"));
   };
 
   const handleRemoveTrack = (e, playlistName) => {
@@ -53,13 +53,13 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
     for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
     
       for(var j = 0; j < playlists.playlists[0].consumer_playlists[i].playlist_tracks.length; j++) {
-        if ((playlists.playlists[0].consumer_playlists[i].name == playlistName)  && (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].track.id == track.id)) {
+        if ((playlists.playlists[0].consumer_playlists[i].name == playlistName)  && (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].mediable_id == track.id)) {
           consumerPlaylistId = playlists.playlists[0].consumer_playlists[i].id
           removedPlaylistId = playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].id
         }
       }
     }
-    dispatch(removeTrackFromPlaylist(consumerPlaylistId, removedPlaylistId, track.id));
+    dispatch(removeTrackFromPlaylist(consumerPlaylistId, removedPlaylistId));
   }
 
   const removeOption = e => {
@@ -68,7 +68,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
     );
     setSelect(newSelect);
   };
-  const options = [];
+  let options = [];
 
   for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
     let obj = {};
@@ -76,7 +76,22 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
     obj['value'] = playlists.playlists[0].consumer_playlists[i].id;
     obj['label'] = playlists.playlists[0].consumer_playlists[i].name;
     options.push(obj);
-  }  
+  }
+
+  // if (track) {
+  //   options = [];
+  //   ids = []
+  //   for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
+  //     let obj = {};
+  //     for(var j = 0; j < playlists.playlists[0].consumer_playlists[i].playlist_tracks.length; j++) {
+        
+  //       if (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].mediable_id == track.id) {
+  //         ids.push(track.id);
+  //       }
+  //     }
+
+  //   }
+  // }
   
   const handleClose = () => {
     onCloseModal(false);
@@ -85,9 +100,11 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
   const trackPlaylists = [];
 
   for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
-    for(var j = 0; j < playlists.playlists[0].consumer_playlists[i].playlist_tracks.length; j++) {
+    for(var j = 0; j < playlists.playlists[0].consumer_playlists[i].tracks.length; j++) {
       if (track) {
-        if (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].track.title == track.title) {
+        console.log("PLAYLIST TRACK", playlists.playlists[0].consumer_playlists[i].tracks[j].title)
+        console.log("ACTUAL TRACK", track.title)
+        if (playlists.playlists[0].consumer_playlists[i].tracks[j].title == track.title) {
           trackPlaylists.push(playlists.playlists[0].consumer_playlists[i].name);
         }
       }
@@ -99,7 +116,6 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
     console.log("TRACK PLAYLISTS", trackPlaylists)
   }
     
-
   const items = trackPlaylists.map((trackPlaylist, index) =>
     <li key={index}>
       <a href="javascript:void(0)">{trackPlaylist}</a>
