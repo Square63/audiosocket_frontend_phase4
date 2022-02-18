@@ -1091,34 +1091,34 @@ function CuratedPlaylist() {
         <h2 className={playlist.sectionHeading}>
           All playlists
         </h2>
-        <div className={playlist.tilesWrapper}>
-          <a href="javascript:void(0)" className={playlist.tileOverlay}>
-            <Image src={mood1} alt="Mood" className={playlist.tilesImg}></Image>
-            <span className={playlist.tileOverlayText}>Aspire</span>
+        <div className="tilesWrapper">
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={mood1} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Aspire</span>
           </a>
-          <a href="javascript:void(0)" className={playlist.tileOverlay}>
-            <Image src={mood2} alt="Mood" className={playlist.tilesImg}></Image>
-            <span className={playlist.tileOverlayText}>Aspire</span>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={mood2} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Aspire</span>
           </a>
-          <a href="javascript:void(0)" className={playlist.tileOverlay}>
-            <Image src={mood3} alt="Mood" className={playlist.tilesImg}></Image>
-            <span className={playlist.tileOverlayText}>Aspire</span>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={mood3} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Aspire</span>
           </a>
-          <a href="javascript:void(0)" className={playlist.tileOverlay}>
-            <Image src={mood4} alt="Mood" className={playlist.tilesImg}></Image>
-            <span className={playlist.tileOverlayText}>Aspire</span>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={mood4} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Aspire</span>
           </a>
-          <a href="javascript:void(0)" className={playlist.tileOverlay}>
-            <Image src={Sample1} alt="Mood" className={playlist.tilesImg}></Image>
-            <span className={playlist.tileOverlayText}>Aspire</span>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={Sample1} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Aspire</span>
           </a>
-          <a href="javascript:void(0)" className={playlist.tileOverlay}>
-            <Image src={Sample2} alt="Mood" className={playlist.tilesImg}></Image>
-            <span className={playlist.tileOverlayText}>Aspire</span>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={Sample2} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Aspire</span>
           </a>
-          <a href="javascript:void(0)" className={playlist.tileOverlay}>
-            <Image src={Sample3} alt="Mood" className={playlist.tilesImg}></Image>
-            <span className={playlist.tileOverlayText}>Aspire</span>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={Sample3} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Aspire</span>
           </a>
         </div>
         <div className={playlist.btnWrapper}>

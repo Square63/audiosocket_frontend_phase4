@@ -59,7 +59,7 @@ function Licenses() {
                   <a href="" className="songName">saving</a>
                 </div>
                 <div className="songArtist">
-                  <a href="">
+                  <a href="" className="noTextLine">
                     Justin G. Marcellus Abady
                   </a>
                 </div>
@@ -183,7 +183,7 @@ function Licenses() {
                   <a href="" className="songName">saving</a>
                 </div>
                 <div className="songArtist">
-                  <a href="">
+                  <a href="" className="noTextLine">
                     Justin G. Marcellus Abady
                   </a>
                 </div>
@@ -307,7 +307,7 @@ function Licenses() {
                   <a href="" className="songName">saving</a>
                 </div>
                 <div className="songArtist">
-                  <a href="">
+                  <a href="" className="noTextLine">
                     Justin G. Marcellus Abady
                   </a>
                 </div>
