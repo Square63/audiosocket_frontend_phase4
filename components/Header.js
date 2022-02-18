@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar';
+import { Form, Button, Dropdown, DropdownButton} from "react-bootstrap";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Image from 'next/image';
 import logo from '../images/logoAudiosocket.svg';
@@ -63,11 +64,17 @@ function Header() {
                 </Nav.Item>
               </div>
               <div className={router.pathname.toLowerCase() === "/CuratedPlaylist" ? "nav-link active" : "nav-link"}>
-                <Nav.Item>
-                  <Nav.Link eventKey="3" href="/curatedPlaylist">
-                    Playlists
-                  </Nav.Link>
-                </Nav.Item>
+                <NavDropdown title="Playlists" className="menuDrop" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="/curatedPlaylist">
+                    <span>Curated Playlists</span>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.1">
+                    <span>Curated Kits</span>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.1">
+                    <span>My Playlists</span>
+                  </NavDropdown.Item>
+                </NavDropdown>
               </div>
 
               <div className={router.pathname.toLowerCase() === "/pricing" ? "nav-link active" : "nav-link"}>
@@ -88,28 +95,19 @@ function Header() {
                     </div>
                   </>
                 :
-                  <NavDropdown title="HJ" id="collasible-nav-dropdown" className={"btn btn-account nav-link"}>
-                    <div className="info">
-                      <div className="name-circle"><span>HJ</span></div>
-                      <div className="name"><span>Hamza Jabbar</span></div>
-                      <div className="email">hamza.jabbar@square63.com</div>
-                    </div>
-                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"} onClick={(e) => toggleDropdown(e, "/user/edit")}>
-                      Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/licenses" ? "licences active" : "licences"} onClick={(e) => toggleDropdown(e, "/user/licenses")}>
-                      Licenses
-                    </NavDropdown.Item>
-                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/favorites" ? "favorites active" : "favorites"} onClick={(e) => toggleDropdown(e, "/user/favorites")}>
-                      Favorites
+                  <NavDropdown title="Account" className="headerAccount btn btnMainSmall" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="/curatedPlaylist">
+                      <span>My Playlists</span>
                     </NavDropdown.Item>
                     <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/following" ? "following active" : "following"}  onClick={(e) => toggleDropdown(e, "/user/following")}>
-                      Following
+                      <span>Followed Playlists</span>
                     </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <a className="logout" onClick={() => {authActions.userDataStateChanged(null); cookie.set('user', ""); setIsLoggedIn(false); router.push('/login')}}>
-                      logout
-                    </a>
+                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"} onClick={(e) => toggleDropdown(e, "/user/edit")}>
+                      <span>My Profile</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => {authActions.userDataStateChanged(null); cookie.set('user', ""); setIsLoggedIn(false); router.push('/login')}}>
+                      <span>Sign Out</span>
+                    </NavDropdown.Item>
                   </NavDropdown>
               }
               <div className={router.pathname.toLowerCase() === "/search" ? "nav-link active" : "nav-link"}>
