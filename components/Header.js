@@ -109,7 +109,6 @@ function Header() {
                       <span>Sign Out</span>
                     </NavDropdown.Item>
                   </NavDropdown>
-              
               }
               <div className={router.pathname.toLowerCase() === "/search" ? "nav-link active" : "nav-link"}>
                 <Link href="#">
