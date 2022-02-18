@@ -49,6 +49,9 @@
       width: 100%;
       border-radius: 29px;
       padding-inline: 11px;
+      height: 45px;
+      @include flexbox;
+      @include align-items(center);
       .linkFilter {
         color: $white;
         padding: 13px 17px 11px;
@@ -79,6 +82,7 @@
         }
         :global(.dropdown-menu) {
           border-radius: 0 0 29px 29px;
+          top: -1px !important;
           :global(.filterSelf) {
             text-transform: capitalize;
             :global(.dropdown-item) {
