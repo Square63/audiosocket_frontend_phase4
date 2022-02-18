@@ -17,7 +17,7 @@ function ProfileMenu() {
       <li className={router.pathname.toLowerCase() === "/user/downloads" ? "downloads selected" : "downloads"}>
         <Link href="/user/downloads">Downloads</Link>
       </li>
-      <li className={router.pathname.toLowerCase() === "/user/favorites" ? "favorite selected" : "favorite"}>
+      <li className={router.pathname.toLowerCase() === "/user/favorites" ? "favorites selected" : "favorites"}>
         <Link href="/user/favorites">Favorites</Link>
       </li>
       <li className={router.pathname.toLowerCase() === "/user/following" ? "following selected" : "following"}>

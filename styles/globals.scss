@@ -79,6 +79,10 @@ ul,ol {
     padding: 70px 0 0;
   }
 }
+
+.noTextLine {
+  text-decoration: none !important;
+}
 /************** Alert *************/
 .brandAlert {
   padding-block: 21px;
@@ -1824,8 +1828,8 @@ hr {
   }
 }
 .playPauseBtn {
-  width: 30px;
-  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
   background-color: $darkGrey;
   border-radius: 30px;
   position: relative;
@@ -1874,6 +1878,57 @@ hr {
     }
     a {
       
+    }
+  }
+}
+
+/****************** Playlist Tiles ****************/
+
+.tilesWrapper {
+  @include flexbox;
+  @include align-items(center);
+  flex-wrap: wrap;
+  gap: 30px;
+  .tileOverlay {
+    max-width: 250px;
+    width: 100%;
+    max-height: 250px;
+    border-radius: 20px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-block;
+    & > div {
+      max-height: 250px;
+      height: 250px;
+      .tilesImg {
+        -webkit-object-fit: cover;
+        object-fit: cover;
+        height: 250px;
+        z-index: -2;
+      }
+    }
+    .tileOverlayText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      font-weight: 400;
+      width: 100%;
+      line-height: 1.28;
+      letter-spacing: -0.45px;
+      text-align: center;
+      color: $white;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: #313438;
+      border-radius: 20px;
+      z-index: -1;
+      opacity: 0.4;
     }
   }
 }

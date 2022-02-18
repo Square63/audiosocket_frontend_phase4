@@ -413,6 +413,7 @@
     h2 {
       font-size: 26px;
       font-weight: 400;
+      color: $headerColor;
       line-height: 1.19;
       letter-spacing: -0.65px;
       margin-bottom: 10px;
@@ -432,9 +433,16 @@
 .licenses {
   :global(.trackRowWrapper) {
     :global(.trackRow) {
+      &:global(.headingRow) {
+        :global(.rowParticipant) {
+          &:global(.artistName) {
+            padding-left: 0;
+          }
+        }
+      }
       :global(.rowParticipant){
         padding-right: 10px;
-        &:global(artistName) {
+        &:global(.artistName) {
           min-width: 22%;
         }
         &.workTitle {
@@ -461,28 +469,125 @@
 }
 
 /*********************** Download Listing *******************/
-.downloads {
+.downloadListing {
   :global(.trackRowWrapper) {
     :global(.trackRow) {
-      :global(artistName) {
-
+      &:global(.headingRow) {
+        :global(.rowParticipant) {
+          &:global(.artistName) {
+            padding-left: 0;
+          }
+        }
       }
-      .workTitle {
-
-      }
-      .licenseAgreement {
-
-      }
-      .purchaseReceipt {
-
-      }
-      .purchaseDate {
-
-      }
-      :global(.controls) {
-
+      :global(.rowParticipant){
+        padding-right: 10px;
+        &:global(.artistName) {
+          min-width: 33%;
+          :global(.songArtist) {
+            a {
+              max-width: 17vw !important;
+            }
+          }
+        }
+        &.workTitle {
+          min-width: 30%;
+          @include lineClamp(1);
+          :global(.form-control) {
+            max-width: 300px;
+            height: 36px;
+          }
+        }
+        &.licenseBtn {
+          min-width: 16%;
+          @include lineClamp(1);
+        }
+        &.downloadDate {
+          min-width: 16%;
+        }
+        &:global(.controls) {
+          min-width: 5%;
+          padding-right: 0;
+          justify-content: flex-end;
+        }
       }
     }
   }
 }
 /*********************** Checkout Listing *******************/
+
+
+
+/*********************** Favorites Listing *******************/
+.favoritesListing {
+  :global(.trackRowWrapper) {
+    :global(.trackRow) {
+      &:global(.headingRow) {
+        :global(.rowParticipant) {
+          &:global(.artistName) {
+            padding-left: 0;
+          }
+        }
+      }
+      :global(.rowParticipant){
+        padding-right: 10px;
+        &:global(.artistName) {
+          min-width: 22%;
+          :global(.songArtist) {
+            a {
+              max-width: 165px !important;
+            }
+          }
+        }
+        &:global(.audioWave) {
+          min-width: 33%;
+        }
+        &:global(.duration) {
+          min-width: 12%;
+        }
+        &:global(.genres) {
+          min-width: 13%;
+        }
+        &:global(.controls) {
+          padding-right: 0;
+          a {
+            &.favoriteSong {
+              svg {
+                :global(#icon-add-to-favorites) {
+                  path {
+                    stroke: #D84F2F;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*********************** Favorites Listing *******************/
+.followingPlaylist {
+  :global(.tilesWrapper) {
+    margin-top: 33px;
+    gap: 30px;
+    :global(.tileOverlay) {
+      max-width: 220px;
+      max-height: 220px;
+      border-radius: 18px;
+      & > div {
+        max-height: 220px;
+        height: 220px;
+        :global(.tilesImg) {
+          -webkit-object-fit: cover;
+          object-fit: cover;
+          height: 220px;
+          z-index: -2;
+        }
+      }
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
