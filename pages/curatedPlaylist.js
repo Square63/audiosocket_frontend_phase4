@@ -10,6 +10,9 @@ import mood4 from '../images/mood4.jpg';
 import Sample1 from '../images/sample1.jpeg';
 import Sample2 from '../images/sample2.jpeg';
 import Sample3 from '../images/sample3.jpeg';
+import anime from '../images/animi.jpeg';
+import cinemetic from '../images/cinimetic.jpeg';
+import hiphop from '../images/hiphop.jpeg';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 
@@ -1119,6 +1122,18 @@ function CuratedPlaylist() {
           <a href="javascript:void(0)" className="tileOverlay">
             <Image src={Sample3} alt="Mood" className="tilesImg"></Image>
             <span className="tileOverlayText">Aspire</span>
+          </a>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={anime} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Anime</span>
+          </a>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={cinemetic} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Cinematic</span>
+          </a>
+          <a href="javascript:void(0)" className="tileOverlay">
+            <Image src={hiphop} alt="Mood" className="tilesImg"></Image>
+            <span className="tileOverlayText">Hip Hop Pop</span>
           </a>
         </div>
         <div className={playlist.btnWrapper}>
