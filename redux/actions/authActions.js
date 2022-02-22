@@ -114,10 +114,12 @@ export const updateProfile = (data) => async (dispatch) => {
 // };
 
 export const getUserInfo = (authToken) => async( dispatch ) => {
+  const cookie = useCookie()
+  const authToken = cookie.get("user")
   try {
     const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers/show_profile`, {
       headers: {
-        "auth-token": authToken
+        "auth-token": authToken ? authToken : ""
       }
     });
     dispatch({
