@@ -1120,7 +1120,7 @@ function CuratedPlaylist() {
             <span className="tileOverlayText">Aspire</span>
           </a>
           <a href="javascript:void(0)" className="tileOverlay">
-            <Image src={Sample3} alt="Mood" className="tilesImg"></Image>
+            {/* <Image src={Sample3} alt="Mood" className="tilesImg"></Image> */}
             <span className="tileOverlayText">Aspire</span>
           </a>
           <a href="javascript:void(0)" className="tileOverlay">
