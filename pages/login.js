@@ -36,7 +36,6 @@ function Login() {
   }, [])
 
   useEffect(() => {
-    debugger
     if(loggedInUser.error) {
       toast.error(loggedInUser.error.message, TOAST_OPTIONS);
     } else if(Object.keys(loggedInUser.user).length) {

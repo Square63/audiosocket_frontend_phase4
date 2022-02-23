@@ -63,7 +63,6 @@ export const addTrackToPlaylist = (playlistId, mediaId, mediaType) => async( dis
 }
 
 export const removeTrackFromPlaylist = (consumerId, playlistTrackId) => async( dispatch ) => {
-  debugger
   let id = consumerId
   let playlist_tracks_attributes= [
     {"id": playlistTrackId, "_destroy": true}
