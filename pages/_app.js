@@ -7,9 +7,13 @@ import { wrapper } from '../redux/store';
 // import { Provider } from 'react';
 import { Provider } from 'react-redux';
 import axios from 'axios';
+import { useCookie } from 'next-cookie'
 
 axios.interceptors.request.use(request => {
+  const cookie = useCookie()
+  const authToken = cookie.get("user")
   request.headers.Authorization = 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8';
+  request.headers['auth-token'] = authToken ? authToken : ""
   return request;
 });
 
