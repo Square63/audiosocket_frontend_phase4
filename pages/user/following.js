@@ -14,6 +14,7 @@ import Sample2 from '../../images/sample2.jpeg';
 import Sample3 from '../../images/sample3.jpeg';
 import { useDispatch, useSelector } from "react-redux";
 import { getFollowedPlaylists } from "../../redux/actions/authActions";
+import { getFollowedArtists } from "../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import InpageLoader from '../../components/InpageLoader';
 import Link from "next/link";
@@ -21,17 +22,19 @@ import Link from "next/link";
 function Following() {
   const dispatch = useDispatch();
   const followedPlaylists = useSelector(state => state.user.followedPlaylists);
+  const followedArtists = useSelector(state => state.user.followedArtists);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     dispatch(getFollowedPlaylists())
+    dispatch(getFollowedArtists())
   }, []);
 
   useEffect(() => {
-    if (followedPlaylists) {
+    if (followedPlaylists || followedArtists) {
       setIsLoading(false)
     }
-  }, [followedPlaylists])
+  }, [followedPlaylists, followedArtists])
   
   return (
     <>
@@ -44,61 +47,27 @@ function Following() {
               <h2>Followed Playlists</h2>
             </div>
             <div className="tilesWrapper">
-              {followedPlaylists && followedPlaylists.consumer_playlists.map((followedPlaylist, index) =>
-                <Link href={"/user/following/" + followedPlaylist.id} key={index}>
+              {followedPlaylists && followedPlaylists.map((followedPlaylist, index) =>
+                <Link href={"/playlist/" + followedPlaylist.id} key={index}>
                   <a key={index} className="tileOverlay">
-                    <Image src={followedPlaylist.banner_image ? followedPlaylist.banner_image : mood1} alt="Mood" className="tilesImg"></Image>
+                    {followedPlaylist.playlist_image ? <Image src={followedPlaylist.playlist_image} alt="Mood" className="tilesImg"></Image> : ""}
                     <span className="tileOverlayText">{followedPlaylist.name}</span>
                   </a>
                 </Link>
                 
               )}
             </div>
-
             <div className={user.listingHeading+' mt-5'}>
               <h2>Followed Artists</h2>
             </div>
             <div className="tilesWrapper">
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={mood1} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Aspire</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={mood2} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Aspire</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={mood3} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Aspire</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={mood4} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Aspire</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={Sample1} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Aspire</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={Sample2} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Aspire</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={Sample3} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Aspire</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={anime} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Anime</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={cinemetic} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Cinematic</span>
-              </a>
-              <a href="javascript:void(0)" className="tileOverlay">
-                <Image src={hiphop} alt="Mood" className="tilesImg"></Image>
-                <span className="tileOverlayText">Hip Hop Pop</span>
-              </a>
+              {followedArtists && followedArtists.map((followedArtist, index) =>
+                <a key={index} href="javascript:void(0)" className="tileOverlay">
+                  {followedArtist.image ? <Image src={followedArtist.image} alt="Mood" className="tilesImg"></Image> : ""}
+                  <span className="tileOverlayText">{followedArtist.first_name + ' ' + followedArtist.last_name}</span>
+                </a>
+                
+              )}
             </div>
           </div>
         </div>
