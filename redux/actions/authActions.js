@@ -4,7 +4,7 @@ import { useCookie } from 'next-cookie'
 
 import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWORD_SUCCESS, 
          UPDATE_PASSWORD_FAIL, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL, GET_PLAYLISTS_SUCCESS, GET_PLAYLISTS_FAIL,
-         GET_USER_SUCCESS, GET_USER_FAIL, GET_ARTISTS_SUCCESS, GET_ARTISTS_FAIL } from "../constants/authConstants";
+         GET_USER_SUCCESS, GET_USER_FAIL, GET_ARTISTS_SUCCESS, GET_ARTISTS_FAIL, PLAYLIST_TRACKS_SUCCESS, PLAYLIST_TRACKS_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -154,6 +154,24 @@ export const getFollowedArtists = () => async( dispatch ) => {
   } catch (error) {
     dispatch({
       type: GET_ARTISTS_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const getPlaylistDetail = (data) => async( dispatch ) => {
+  let id = data
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists/${id}`);
+    dispatch({
+      type: PLAYLIST_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: PLAYLIST_TRACKS_FAIL,
       payload: error
     })
     

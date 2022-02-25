@@ -50,7 +50,7 @@ function Following() {
               {followedPlaylists && followedPlaylists.map((followedPlaylist, index) =>
                 <Link href={"/playlist/" + followedPlaylist.id} key={index}>
                   <a key={index} className="tileOverlay">
-                    {followedPlaylist.playlist_image ? <Image src={followedPlaylist.playlist_image} alt="Mood" className="tilesImg"></Image> : ""}
+                    {followedPlaylist.playlist_image ? "" : ""}
                     <span className="tileOverlayText">{followedPlaylist.name}</span>
                   </a>
                 </Link>

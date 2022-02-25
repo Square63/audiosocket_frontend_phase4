@@ -16,12 +16,9 @@ import {
 } from '../constants/playlistConstants';
 
 export const getPlaylists = (req) => async( dispatch ) => {
+  debugger
   try {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists`, {
-      headers: {
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"
-      }
-    });
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists`);
     dispatch({
       type: ALL_PLAYLISTS_SUCCESS,
       payload: data
@@ -42,9 +39,6 @@ export const addTrackToPlaylist = (playlistId, mediaId, mediaType) => async( dis
   formData.append('mediable_type', mediaType)
   try {
     const {data} = await axios.request({
-      headers: {
-        "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"
-      },
       method: "post",
       url: `${BASE_URL}/api/v1/consumer/consumers_playlists/${playlistId}/add_media`,
       data: formData

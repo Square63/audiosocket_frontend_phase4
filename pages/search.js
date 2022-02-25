@@ -48,7 +48,7 @@ function Search(props) {
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   const [updatedTracks, setUpdateTracks] = useState([])
 
-  const message = useSelector(state => state.allPlaylists);
+  // const message = useSelector(state => state.allPlaylists);
 
   useEffect(() => {
     
@@ -67,18 +67,18 @@ function Search(props) {
   console.log("Update Tracks", updatedTracks)
   const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
   console.log("Tracks META", tracksMeta)
-  const playlists = useSelector( state => state.allPlaylists)
+  // const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
 
-  useEffect(() => {
-    if (message.message) {
-      if(!message?.success) {
-        toast.error(message.message, TOAST_OPTIONS);
-      } else {
-        toast.success(message.message, TOAST_OPTIONS);
-      }
-    }
-  }, [playlists])
+  // useEffect(() => {
+  //   if (message.message) {
+  //     if(!message?.success) {
+  //       toast.error(message.message, TOAST_OPTIONS);
+  //     } else {
+  //       toast.success(message.message, TOAST_OPTIONS);
+  //     }
+  //   }
+  // }, [playlists])
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
@@ -310,7 +310,7 @@ function Search(props) {
 
   console.log("Filters", filters)
   console.log("Tracks", tracks)
-  console.log("Playlists", playlists)
+  // console.log("Playlists", playlists)
 
   function removeCount(filter) {
     return filter.substring(0, filter.indexOf(' ('));
@@ -574,7 +574,7 @@ function Search(props) {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/>
+      {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
       
     </div>
     
@@ -585,7 +585,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
-      await store.dispatch(getPlaylists(req))
+      // await store.dispatch(getPlaylists(req))
       await store.dispatch(getTracks("", "local_search", [], "", "", 1))
     });
 
