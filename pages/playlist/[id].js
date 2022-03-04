@@ -7,7 +7,6 @@ import InpageLoader from '../../components/InpageLoader';
 import Image from 'next/image';
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import playlist from "../../styles/Playlist.module.scss";
-import cinemetic from '../../images/cinimetic.jpeg';
 import mood1 from '../../images/mood1.png';
 
 const Details = () => {
@@ -49,10 +48,8 @@ const Details = () => {
             </div>
             <div className={playlist.contentSec}>
               <div className={playlist.aboutPlaylist}>
-
               </div>
               <div className={playlist.cardBtn}>
-                
               </div>
             </div>
           </div>

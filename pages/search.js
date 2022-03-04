@@ -47,6 +47,7 @@ function Search(props) {
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   const [updatedTracks, setUpdateTracks] = useState([])
+  const [trackName, setTrackName] = useState(localStorage.getItem("track_name"))
 
   // const message = useSelector(state => state.allPlaylists);
 
@@ -57,15 +58,29 @@ function Search(props) {
 
   useEffect(() => {
     // handleAimsSearch()
+    let trackName = localStorage.getItem("track_name")
+    let trackId = localStorage.getItem("track_id")
     handleAddHomeFilter()
+    if (trackName && trackId) {
+      handleSimilarSearch(trackName, trackId)
+      localStorage.removeItem("track_name")
+      localStorage.removeItem("track_id")
+    }
   }, []);
 
 
 
   const filters = useSelector( state => state.allFilters.filters[0])
-  const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
+  const allTracks = useSelector( state => state.allTracks)
+  let tracks = ""
+  let tracksMeta = ""
+  if (allTracks && allTracks.tracks){
+    tracks = allTracks.tracks[0].tracks
+    tracksMeta = allTracks.tracks[0].meta
+    debugger
+  }  
   console.log("Update Tracks", updatedTracks)
-  const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
+  
   console.log("Tracks META", tracksMeta)
   // const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
@@ -562,7 +577,7 @@ function Search(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          tracks.length > 0 ? <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/> : <center><p>No tracks to display</p></center>
         )}
       </div>
 
