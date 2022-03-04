@@ -54,7 +54,7 @@ const Details = () => {
               <div className={playlist.cardBtn}>
                 
               </div>
-            </div>
+            </div> 
           </div>
         </div>
 
