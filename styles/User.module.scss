@@ -514,9 +514,50 @@
   }
 }
 /*********************** Checkout Listing *******************/
-
-
-
+.downloadListing {
+  :global(.trackRowWrapper) {
+    :global(.trackRow) {
+      &:global(.headingRow) {
+        :global(.rowParticipant) {
+          &:global(.artistName) {
+            padding-left: 0;
+          }
+        }
+      }
+      :global(.rowParticipant){
+        padding-right: 10px;
+        &:global(.artistName) {
+          min-width: 33%;
+          :global(.songArtist) {
+            a {
+              max-width: 17vw !important;
+            }
+          }
+        }
+        &.workTitle {
+          min-width: 30%;
+          @include lineClamp(1);
+          :global(.form-control) {
+            max-width: 300px;
+            height: 36px;
+          }
+        }
+        &.licenseBtn {
+          min-width: 16%;
+          @include lineClamp(1);
+        }
+        &.downloadDate {
+          min-width: 16%;
+        }
+        &:global(.controls) {
+          min-width: 5%;
+          padding-right: 0;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}
 /*********************** Favorites Listing *******************/
 .favoritesListing {
   :global(.trackRowWrapper) {
