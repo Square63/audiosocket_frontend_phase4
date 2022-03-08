@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import axios from 'axios';
 import { useCookie } from 'next-cookie'
 
+
 axios.interceptors.request.use(request => {
   const cookie = useCookie()
   const authToken = cookie.get("user")
@@ -17,7 +18,10 @@ axios.interceptors.request.use(request => {
   return request;
 });
 
+
+
 function MyApp({ Component, pageProps }) {
+  // const [cartCount, setCartCount] = useState(0);
   return (
     
     <Layout>

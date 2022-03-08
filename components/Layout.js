@@ -38,6 +38,7 @@ function Layout({children}) {
       });
     }
   }, [])
+
   return (
     <>
       {loading ? (
@@ -54,7 +55,7 @@ function Layout({children}) {
           </div>
         </div>
       ) : (
-        <AuthProvider>
+        <AuthProvider >
           <Header/>
           <div className="content-area">
             <main className="main">

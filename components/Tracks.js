@@ -1,7 +1,7 @@
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Tooltip from 'react-bootstrap/Tooltip';
 import InpageLoader from "./InpageLoader";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import Select from "react-select";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
@@ -13,6 +13,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import Fade from 'react-bootstrap/Fade';
+import {AuthContext} from "../store/authContext";
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
@@ -33,6 +34,7 @@ function Tracks(props) {
   const [playing, setPlaying] = useState(false);
   const [hasMore, sethasMore] = useState(true)
   const [moodColumn, setMoodColumn] = useState("moods")
+  const authContext = useContext(AuthContext)
 
   useEffect(() => {
     let isMounted = true;
@@ -346,7 +348,7 @@ function Tracks(props) {
                     </Dropdown.Toggle>
                   </OverlayTrigger>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    <Dropdown.Item onClick={() => {authContext.handleAddToCart(track.id, "Track")}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="17.994" height="17.024" viewBox="0 0 17.994 17.024">
                         <g id="icon-cart" transform="translate(0.5 0.5)">
                           <g id="Group_155" data-name="Group 155" transform="translate(0)">

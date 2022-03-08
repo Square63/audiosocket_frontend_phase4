@@ -77,7 +77,6 @@ function Search(props) {
   if (allTracks && allTracks.tracks){
     tracks = allTracks.tracks[0].tracks
     tracksMeta = allTracks.tracks[0].meta
-    debugger
   }  
   console.log("Update Tracks", updatedTracks)
   
