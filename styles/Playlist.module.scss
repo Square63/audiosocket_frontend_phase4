@@ -126,7 +126,7 @@
 
 /****************** Playlist Banner ********************/
 .playlistBanner {
-  background: url(../images/background.png) no-repeat;
+  background: $headerColor url(../images/background.png) no-repeat;
   background-size: cover;
   min-height: 383px;
   height: 28.03vw;
@@ -172,8 +172,51 @@
         }
       }
       .contentSec {
-
+        @include flexbox;
+        @include flex-direction(column);
+        .aboutPlaylist {
+          flex: 1;
+          color: $white;
+          .playlistOwner {
+            .PlaylistName {
+              font-size: 26px;
+              line-height: 1.23;
+              letter-spacing: -0.65px;
+              margin-bottom: 7px;
+            }
+            .createdBy {
+              font-size: 13px;
+              line-height: 1.23;
+              letter-spacing: -0.33px;
+            }
+          }
+          .playlistStats {
+            margin-top: 20px;
+            font-size: 13px;
+            line-height: 1.23;
+            letter-spacing: -0.33px;
+          }
+        }
+        .cardBtnWrapper {
+          @include flexbox;
+          @include justify-content(center);
+          @include align-items(center);
+          gap: 20px;
+          button {
+            @include flexbox;
+            @include align-items(center);
+            svg {
+              margin-right: 5px;
+            }
+          }
+        }
       }
     }
+  }
+}
+
+.myPlaylistShow {
+  .playlistBanner {
+    background-image: none;
   }
 }
