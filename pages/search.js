@@ -576,7 +576,7 @@ function Search(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          tracks.length > 0 ? <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/> : <center><p>No tracks to display</p></center>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
         )}
       </div>
 
