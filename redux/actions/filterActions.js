@@ -12,8 +12,24 @@ import {
 
 export const getFilters = (req) => async( dispatch ) => {
   try {
-    // const {origin} = absoluteUrl(req)
-    const {data} = await axios.get(`${BASE_URL}/api/v1/filters`)
+    const {data} = await axios.get(`${BASE_URL}/api/v1/filters/track_filters`)
+    dispatch({
+      type: ALL_FILTERS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: ALL_FILTERS_FAILURE,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const getSfxFilters = (req) => async( dispatch ) => {
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/filters/sfx_filters`)
     dispatch({
       type: ALL_FILTERS_SUCCESS,
       payload: data
