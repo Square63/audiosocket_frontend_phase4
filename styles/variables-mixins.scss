@@ -41,28 +41,12 @@ $clr-blue-extra-light: rgb(222, 235, 255);
             -ms-flex-pack: $justify;
 }
 
-@mixin justify-content($right) {
-  -webkit-justify-content: $right;
-     -moz-justify-content: $right;
-      -ms-justify-content: $right;
-          justify-content: $right;
-            -ms-flex-pack: $right;
-}
-
 @mixin align-items($align) {
   -webkit-align-items: $align;
      -moz-align-items: $align;
       -ms-align-items: $align;
        -ms-flex-align: $align;
           align-items: $align;
-}
-
-@mixin align-items($center) {
-  -webkit-align-items: $center;
-     -moz-align-items: $center;
-      -ms-align-items: $center;
-       -ms-flex-align: $center;
-          align-items: $center;
 }
 
 @mixin flex-direction($direction) {
