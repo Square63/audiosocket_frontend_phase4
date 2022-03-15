@@ -13,7 +13,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from '../redux/store';
-import { getFilters } from '../redux/actions/filterActions';
+import { getSfxFilters } from '../redux/actions/filterActions';
 import { getTracks } from '../redux/actions/trackActions';
 import { getPlaylists } from '../redux/actions/playlistActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
@@ -25,6 +25,7 @@ import Tracks from '../components/Tracks';
 import RangeSlider from '../components/RangeSlider';
 import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Sfx(props) {
 
@@ -45,6 +46,11 @@ function Sfx(props) {
   const [index, setIndex] = useState(0)
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+  const [updatedTracks, setUpdateTracks] = useState([])
+  const [trackName, setTrackName] = useState(localStorage.getItem("track_name"))
+
+  // const message = useSelector(state => state.allPlaylists);
+
   useEffect(() => {
     
   }, [appliedFiltersListWC]);
@@ -52,15 +58,41 @@ function Sfx(props) {
 
   useEffect(() => {
     // handleAimsSearch()
+    let trackName = localStorage.getItem("track_name")
+    let trackId = localStorage.getItem("track_id")
     handleAddHomeFilter()
+    if (trackName && trackId) {
+      handleSimilarSearch(trackName, trackId)
+      localStorage.removeItem("track_name")
+      localStorage.removeItem("track_id")
+    }
   }, []);
 
+
+
   const filters = useSelector( state => state.allFilters.filters[0])
-  const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
-  const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
-  console.log("TRACKS METAAA", tracksMeta)
-  const playlists = useSelector( state => state.allPlaylists)
+  const allTracks = useSelector( state => state.allTracks)
+  let tracks = ""
+  let tracksMeta = ""
+  if (allTracks && allTracks.tracks){
+    tracks = allTracks.tracks[0].tracks
+    tracksMeta = allTracks.tracks[0].meta
+  }  
+  console.log("Update Tracks", updatedTracks)
+  
+  console.log("Tracks META", tracksMeta)
+  // const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
+
+  // useEffect(() => {
+  //   if (message.message) {
+  //     if(!message?.success) {
+  //       toast.error(message.message, TOAST_OPTIONS);
+  //     } else {
+  //       toast.success(message.message, TOAST_OPTIONS);
+  //     }
+  //   }
+  // }, [playlists])
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
@@ -70,8 +102,11 @@ function Sfx(props) {
     }
   }, [favoritesMessage])
 
-
   useEffect(() => {
+    if (tracks.length > 0) {
+      setUpdateTracks(tracks)
+    }
+
     let isMounted = true;
     setTimeout(function() {
       setLoading(false)
@@ -79,14 +114,9 @@ function Sfx(props) {
     return () => {
       isMounted = false;
     };
-  },[tracks, favoritesMessage]);
 
-  useEffect(() => {
-    if (tracksMeta.favorite_tracks_ids == null)
-      dispatch(getTracks("", "local_search", [], "", "", 0))
-    else
-      setFavoriteTrackIds(tracksMeta.favorite_tracks_ids)
-  }, [tracksMeta.favorite_tracks_ids])
+    
+  },[tracks, favoritesMessage]);
 
   const handleLoading = () => {
     setLoading(true)
@@ -114,8 +144,18 @@ function Sfx(props) {
   }
 
   function showTrackAddToPlaylistModal(index) {
-    setIndex(index)
-    setShowAddToPlaylistModal(true)
+    if (localStorage.getItem("user")) {
+      if (index > 9) {
+        setIndex(index%10)
+      }
+      else {
+        setIndex(index)
+      }
+      setShowAddToPlaylistModal(true)
+    }
+    else {
+      alert("You must be logged in to be able to add a track to your playlists.")
+    }
   }
 
   function handleAddToPlaylistModalClose() {
@@ -125,7 +165,7 @@ function Sfx(props) {
   const handleSearch = async(e) => {
     setLoading(true)
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1));
   }
 
   const handleClearAllFilter = () => {
@@ -166,7 +206,7 @@ function Sfx(props) {
       }
     }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 0));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1));
   }
 
   function hideAllFilterDiv() {
@@ -178,7 +218,7 @@ function Sfx(props) {
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
     let query = document.getElementById("searchField").value
     
-    dispatch(getTracks(query, query_type(query), [], "", "", 0));
+    dispatch(getTracks(query, query_type(query), [], "", "", 1));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
@@ -190,22 +230,18 @@ function Sfx(props) {
     dispatch(getTracksFromAIMS(trackId));
   }
 
-  const handleAddToFavorites = (trackId) => {
+  const handleAddToFavorites = (e, trackId) => {
     if (localStorage.getItem("user")) {
-      if (favoriteTrackIds) {
-        if (!favoriteTrackIds.includes(trackId)) {
-          setFavoriteTrackIds([...favoriteTrackIds, trackId])
-          dispatch(addToFavorites(trackId));
-        }
-        else {
-          favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
-          setFavoriteTrackIds(favoriteTrackIds)
-          dispatch(removeFromFavorites(trackId));
-        }
+      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_tracks_ids.includes(trackId)) {
+        setFavoriteTrackIds([...favoriteTrackIds, trackId])
+        e.target.closest("a").classList.add("controlActive")
+        dispatch(addToFavorites(trackId));
       }
       else {
-        setFavoriteTrackIds(trackId)
-        dispatch(addToFavorites(trackId));
+        let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+        e.target.closest("a").classList.remove("controlActive")
+        setFavoriteTrackIds(newFavoriteIds)
+        dispatch(removeFromFavorites(trackId));
       }
     }
     else {
@@ -226,7 +262,7 @@ function Sfx(props) {
     appliedFiltersList.push(removeCount(e.currentTarget.text))
     setAppliedFiltersListWC([...appliedFiltersListWC, removeCount(e.currentTarget.text)]);
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 0));
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
   }
 
   const handleAddChildrenFilter = (e) => {
@@ -276,7 +312,7 @@ function Sfx(props) {
       setAppliedFiltersListWC([vocal])
     }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 0));
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
   }
 
   const handleAimsSearch = () => {
@@ -288,8 +324,7 @@ function Sfx(props) {
 
   console.log("Filters", filters)
   console.log("Tracks", tracks)
-  console.log("Playlists", playlists)
-
+  // console.log("Playlists", playlists)
 
   function removeCount(filter) {
     return filter.substring(0, filter.indexOf(' ('));
@@ -383,7 +418,7 @@ function Sfx(props) {
             {filter.sub_filters.map((sub_filter, index) =>
               <>
                 <div className="filterSelf">
-                  <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                   <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
                       <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -393,13 +428,13 @@ function Sfx(props) {
                     </svg>
                   </span>
 
-                  <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                      <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                        <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
-                        <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                  <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                      <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                        <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                        <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
                       </g>
-                      <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                      <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
                     </svg>
                   </span>
                 </div>
@@ -412,7 +447,7 @@ function Sfx(props) {
                 {lastChildFilters.map((sub_filter, index) =>
                   <>
                     <div className={appliedFiltersList.includes(sub_filter.name) ? "custom filterSelf activeFilter" : "custom filterSelf"}>
-                      <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
+                      <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                       <span className="filterControl addFilter">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10">
                           <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -422,11 +457,11 @@ function Sfx(props) {
                         </svg>
                       </span>
 
-                      <span className="filterControl discardFilter" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}>
-                            <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
-                            <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
+                      <span className="filterControl discardFilter" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                            <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                            <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
                           </g>
                           <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.track_count+')'}/>
                         </svg>
@@ -472,7 +507,7 @@ function Sfx(props) {
         style={{ width: "auto" }}
       />
       <div className="fixed-container">
-        <h1 className={search.pageHeading}>SFX Music</h1>
+        <h1 className={search.pageHeading}>Search SFX</h1>
         <div className={search.searchUploadStuff}>
           <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
             <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" onChange={handleSearch} id="searchField" />
@@ -541,7 +576,7 @@ function Sfx(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} favoriteIds={favoriteTrackIds} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          tracks.length > 0 ? <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/> : <center><p>No tracks to display</p></center>
         )}
       </div>
 
@@ -553,7 +588,7 @@ function Sfx(props) {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={tracks[index]}/>
+      {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
       
     </div>
     
@@ -563,9 +598,9 @@ function Sfx(props) {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req, res }) => {
-      await store.dispatch(getFilters(req))
-      await store.dispatch(getPlaylists(req))
-      await store.dispatch(getTracks("", "local_search", [], "", "", 0))
+      await store.dispatch(getSfxFilters(req))
+      // await store.dispatch(getPlaylists(req))
+      await store.dispatch(getTracks("", "local_search", [], "", "", 1))
     });
 
 export default Sfx;

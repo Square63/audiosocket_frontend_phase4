@@ -12,12 +12,12 @@ export const allPlaylitsReducer = (state= {playlists: []}, action) => {
   switch (action.type) {
     case ALL_PLAYLISTS_SUCCESS:
       return {
-        playlistsCount: 7,
-        resPerPage: 1,
+        ...state,
         playlists: [action.payload]
       }
     case ALL_PLAYLISTS_FAILURE:
       return {
+        ...state,
         error: action.payload.error
       }
 

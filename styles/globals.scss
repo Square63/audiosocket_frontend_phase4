@@ -150,6 +150,47 @@ input:-webkit-autofill:active {
   color: $red;
 }
 
+/************** Breadcrumbs **************/
+.themeBreadcrumb {
+  background-color: $darkGrey;
+  nav {
+    .breadcrumb {
+      background-color: transparent;
+      border-radius: 0;
+      padding-inline: 0;
+      padding-block: 20.5px;
+      margin-bottom: 0;
+      .breadcrumb-item {
+        color: $green-light;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.19;
+        letter-spacing: -0.4px;
+        a {
+          color: inherit;
+        }
+        &.active {
+          color: $textClr;
+        }
+        & + .breadcrumb-item {
+          @include flexbox;
+          @include align-items(center);
+          &:before {
+            content: '';
+            background: url(../images/breadcrumbsRight.svg) no-repeat center;
+            background-size: 7px;
+            width: 7px;
+            height: 13px;
+            display: inline-block;
+            vertical-align: middle;
+            padding-inline: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
 /************** Tooltip **************/
 .tooltip {
   pointer-events: none;
@@ -327,6 +368,26 @@ header {
           }
         }
       }
+    }
+  }
+  .cartItem {
+    position: relative;
+    .cartBadge {
+      width: 17px;
+      height: 17px;
+      display: inline-block;
+      padding: 3px 3px 3px 2px;
+      background: $green-light;
+      color: $headerColor;
+      border-radius: 100%;
+      font-size: 11px;
+      font-weight: 500;
+      text-align: center;
+      line-height: 11px;
+      white-space: nowrap;
+      position: absolute;
+      top: -7px;
+      right: -10px;
     }
   }
 }
@@ -1785,6 +1846,8 @@ hr {
   }
 }
 
+/********************* Checkout *********************/
+
 .trackListingBlock {
   padding-top: 51px;
   h1 {
@@ -1805,6 +1868,87 @@ hr {
     }
     a {
       
+    }
+  }
+  .trackRowWrapper {
+    .trackRow {
+      @include align-items(flex-start);
+      .rowParticipant {
+        padding-right: 10px;
+        &.artistName {
+          min-width: 46%;
+          @include align-items(flex-start);
+          .playPauseBtn {
+            margin-top: 8.5px;
+          }
+          .aboutSong {
+            @include flex(1);
+          }
+          .songArtist {
+            a {
+              max-width: 17vw !important;
+            }
+          }
+          form {
+            margin-top: 13px;
+            .form-control {
+              max-width: 430px;
+              height: 36px;
+            }
+          }
+        }
+        &.duration {
+          min-width: 13%;
+        }
+        &.licenseType {
+          min-width: 22%;
+          @include lineClamp(1);
+        }
+        &.price {
+          min-width: 11%;
+        }
+        &.controls {
+          min-width: 8%;
+          padding-right: 0;
+          justify-content: space-around;
+        }
+        &:nth-child(n+2) {
+          padding-top: 17px;
+        }
+      }
+    }
+  }
+  .addTitle {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    border-top: 1px solid $headerColor;
+    padding-block: 30px 46px;
+    .addTitleSection {
+      width: 100%;
+      .boxWithShadow {
+        max-width: 567px;
+        width: 100%;
+        padding-bottom: 6px;
+      }
+      .toogleSwitch {
+        label {
+          margin: 0 10px 0 0;
+        }
+      }
+      button {
+        span {
+          font-weight: 400;
+        }
+      }
+    }
+    .totalPrice {
+      white-space: nowrap;
+      span {
+        font-size: 22px;
+        line-height: 1.23;
+        letter-spacing: -0.55px;
+      }
     }
   }
 }

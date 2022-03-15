@@ -41,12 +41,8 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
   if (trackId) {
     try {
       const {data} = await axios.request({
-        headers: {
-          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-          "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"
-        },
         method: "post",
-        url: "http://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/upload_track_search",
+        url: "https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/upload_track_search",
       })
       dispatch({
         type: ALL_TRACKS_SUCCESS,
@@ -64,12 +60,8 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
     formData.append('file', uploadedFile)
     try {
       const {data} = await axios.request({
-        headers: {
-          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-          "auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJjb25zdW1lcl9pZCI6MSwiZXhwIjoxNjY5NDQ2OTQ1fQ.fRouI5TJ78D-ANMrsGLj7v-u6Y0E1tyej-rGAmulFvw"
-        },
         method: "post",
-        url: "http://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/upload_track_search",
+        url: "https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/upload_track_search",
         data: localStorage.getItem("formData")
       })
       dispatch({

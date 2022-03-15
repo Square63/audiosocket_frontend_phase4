@@ -14,7 +14,7 @@ export const allFiltersReducer = (state= {filters: []}, action) => {
       }
     case ALL_FILTERS_FAILURE:
       return {
-        error: action.payload.error
+        error: action.payload
       }
     case CLEAR_ERRORS:
       return {

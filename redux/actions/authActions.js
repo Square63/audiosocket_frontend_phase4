@@ -2,7 +2,10 @@ import axios from "axios";
 import {BASE_URL} from "../../common/api";
 import { useCookie } from 'next-cookie'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWORD_SUCCESS, UPDATE_PASSWORD_FAIL, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL, GET_USER_SUCCESS, GET_USER_FAIL } from "../constants/authConstants";
+import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWORD_SUCCESS, 
+         UPDATE_PASSWORD_FAIL, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL, GET_PLAYLISTS_SUCCESS, GET_PLAYLISTS_FAIL,
+         GET_USER_SUCCESS, GET_USER_FAIL, GET_ARTISTS_SUCCESS, GET_ARTISTS_FAIL, PLAYLIST_TRACKS_SUCCESS, PLAYLIST_TRACKS_FAIL,
+         FAVORITE_TRACKS_SUCCESS, FAVORITE_TRACKS_FAIL, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAIL, GET_CART_SUCCESS, GET_CART_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -98,29 +101,14 @@ export const updateProfile = (data) => async (dispatch) => {
   }
 };
 
-// export const getUser = () => async (dispatch) => {
-//   try {
-//     const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/session/signup`, { email, first_name, last_name, password, password_confirmation, content_type });
-//     dispatch({
-//       type: GET_USER_SUCCESS,
-//       payload: data
-//     })
-//   } catch (error) {
-//     dispatch({
-//       type: GET_USER_FAIL,
-//       payload: error
-//     })
-//   }
-// };
-
 export const getUserInfo = (authToken) => async( dispatch ) => {
   const cookie = useCookie()
   const authToken = cookie.get("user")
   try {
     const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers/show_profile`, {
-      headers: {
-        "auth-token": authToken ? authToken : ""
-      }
+      // headers: {
+      //   "auth-token": authToken ? authToken : ""
+      // }
     });
     dispatch({
       type: GET_USER_SUCCESS,
@@ -129,6 +117,139 @@ export const getUserInfo = (authToken) => async( dispatch ) => {
   } catch (error) {
     dispatch({
       type: GET_USER_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const getFollowedPlaylists = () => async( dispatch ) => {
+  const cookie = useCookie()
+  const authToken = cookie.get("user")
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/favorites_following/favorited_followed_playlists`, { params: { type: "favorite" } });
+    dispatch({
+      type: GET_PLAYLISTS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_PLAYLISTS_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const getFollowedArtists = () => async( dispatch ) => {
+  const cookie = useCookie()
+  const authToken = cookie.get("user")
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/favorites_following/followed_artists`);
+    dispatch({
+      type: GET_ARTISTS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_ARTISTS_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const getPlaylistDetail = (data) => async( dispatch ) => {
+  let id = data
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists/${id}`);
+    dispatch({
+      type: PLAYLIST_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: PLAYLIST_TRACKS_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const getFavoriteTracks = () => async( dispatch ) => {
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/favorites_following/favorite_tracks`);
+    dispatch({
+      type: FAVORITE_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: FAVORITE_TRACKS_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const addToCart = (itemableId, itemableType) => async( dispatch ) => {
+  const formData = new FormData();
+  formData.append('itemable_id', itemableId)
+  formData.append('itemable_type', itemableType)
+  formData.append('work_title', "itemableType")
+  try {
+    const {data} = await axios.request({
+      method: "post",
+      url: `${BASE_URL}/api/v1/consumer/line_items`,
+      data: formData
+    })
+    dispatch({
+      type: ADD_TO_CART_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: ADD_TO_CART_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const getCart = () => async( dispatch ) => {
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/line_items/`);
+    dispatch({
+      type: GET_CART_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_CART_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const removeCartItem = (itemableId) => async( dispatch ) => {
+  debugger
+  try {
+    const {data} = await axios.delete(`${BASE_URL}/api/v1/consumer/line_items/${itemableId}`);
+    dispatch({
+      type: GET_CART_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_CART_FAIL,
       payload: error
     })
     

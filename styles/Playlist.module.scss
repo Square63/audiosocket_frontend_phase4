@@ -123,3 +123,100 @@
   margin-top: 30px;
   text-align: center;
 }
+
+/****************** Playlist Banner ********************/
+.playlistBanner {
+  background: $headerColor url(../images/background.png) no-repeat;
+  background-size: cover;
+  min-height: 383px;
+  height: 28.03vw;
+  max-height: 538px;
+  @include flexbox;
+  @include flex-direction(column);
+  .playlistInfo {
+    @include flexbox;
+    @include align-items(center);
+    @include flex(1);
+    max-width: 1280px;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+    .playlistCard {
+      display: inline-flex;
+      gap: 30px;
+      height: 260px;
+      padding: 30px;
+      border-radius: 20px;
+      background-color: rgba(26, 28, 29, 0.85);
+      .imgSec {
+        min-width: 200px;
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        & > div {
+          max-height: 200px;
+          height: 200px;
+          .tilesImg {
+            -webkit-object-fit: cover;
+            object-fit: cover;
+            height: 200px;
+          }
+        }
+        &::after {
+          content: '';
+          background-color: rgba(110, 115, 119, 0.2);
+          position: absolute;
+          inset: 0;
+        }
+      }
+      .contentSec {
+        @include flexbox;
+        @include flex-direction(column);
+        .aboutPlaylist {
+          flex: 1;
+          color: $white;
+          .playlistOwner {
+            .PlaylistName {
+              font-size: 26px;
+              line-height: 1.23;
+              letter-spacing: -0.65px;
+              margin-bottom: 7px;
+            }
+            .createdBy {
+              font-size: 13px;
+              line-height: 1.23;
+              letter-spacing: -0.33px;
+            }
+          }
+          .playlistStats {
+            margin-top: 20px;
+            font-size: 13px;
+            line-height: 1.23;
+            letter-spacing: -0.33px;
+          }
+        }
+        .cardBtnWrapper {
+          @include flexbox;
+          @include justify-content(center);
+          @include align-items(center);
+          gap: 20px;
+          button {
+            @include flexbox;
+            @include align-items(center);
+            svg {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.myPlaylistShow {
+  .playlistBanner {
+    background-image: none;
+  }
+}

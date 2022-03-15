@@ -96,8 +96,8 @@ export default function Home(props) {
         document.getElementsByClassName("tabsContainer")[0].style.minHeight = '1140px';
       }
     }.bind(this), 1000);
-    
-    document.body.classList.add('homepage');
+    if (window.location.href == 'http://localhost:3000')
+      document.body.classList.add('homepage');
   }, []);
   const NextArrow = ({ onClick }) => {
     return (

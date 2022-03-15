@@ -1,7 +1,7 @@
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Tooltip from 'react-bootstrap/Tooltip';
 import InpageLoader from "./InpageLoader";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import Select from "react-select";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
@@ -13,6 +13,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import Fade from 'react-bootstrap/Fade';
+import {AuthContext} from "../store/authContext";
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
@@ -33,6 +34,7 @@ function Tracks(props) {
   const [playing, setPlaying] = useState(false);
   const [hasMore, sethasMore] = useState(true)
   const [moodColumn, setMoodColumn] = useState("moods")
+  const authContext = useContext(AuthContext)
 
   useEffect(() => {
     let isMounted = true;
@@ -146,7 +148,7 @@ function Tracks(props) {
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
-        <h2>Tracks <span className={search.tracksCount}>{props.tracksMeta.total_track_count}</span></h2>
+        <h2>{props.tracksMeta ? "Tracks" : "Playlist Tracks"} <span className={search.tracksCount}>{props.tracksMeta ? props.tracksMeta.total_track_count : props.tracks.count}</span></h2>
         <div className={search.tracksSorting}>
         
           <form>
@@ -276,7 +278,7 @@ function Tracks(props) {
                   </a>
                 </OverlayTrigger>
                 <OverlayTrigger overlay={<Tooltip>Add to Favourites</Tooltip>}>
-                  <a onClick={(e) => props.handleAddToFavorites(e, track.id)} className={props.tracksMeta.favorite_tracks_ids ? (props.tracksMeta.favorite_tracks_ids.includes(track.id) ? "controlActive" : "") : ""}>
+                  <a onClick={(e) => props.handleAddToFavorites(e, track.id)} className={props.tracksMeta ? (props.tracksMeta.favorite_tracks_ids ? (props.tracksMeta.favorite_tracks_ids.includes(track.id) ? "controlActive" : "") : "") : ""}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
                       <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">
                         <path id="Shape_185" data-name="Shape 185" d="M181.253,573.9l-7.07-7.281a5.369,5.369,0,0,1-1.031-6.258h0a5.532,5.532,0,0,1,8.8-1.409l1.516,1.382,1.516-1.382a5.532,5.532,0,0,1,8.8,1.409h0a5.36,5.36,0,0,1,.182,4.452" transform="translate(-172.573 -557.365)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -346,7 +348,7 @@ function Tracks(props) {
                     </Dropdown.Toggle>
                   </OverlayTrigger>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    <Dropdown.Item onClick={() => {authContext.handleAddToCart(track.id, "Track")}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="17.994" height="17.024" viewBox="0 0 17.994 17.024">
                         <g id="icon-cart" transform="translate(0.5 0.5)">
                           <g id="Group_155" data-name="Group 155" transform="translate(0)">
@@ -397,7 +399,7 @@ function Tracks(props) {
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
-              {track.alternate_versions.length > 0 &&
+              {track.alternate_versions && track.alternate_versions.length > 0 &&
                 <>
                   <div className="altVersions">
                     <Accordion key={index + 1} >

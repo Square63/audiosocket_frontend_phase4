@@ -29,6 +29,7 @@ class Braintree extends React.Component {
     try {
       // Send nonce to your server
       const { nonce } = await this.instance.tokenize()
+      debugger
       const response = await axios.post(
         'http://localhost:8000/api/braintree/v1/sandbox',
         { paymentMethodNonce: nonce }

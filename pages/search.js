@@ -47,8 +47,9 @@ function Search(props) {
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   const [updatedTracks, setUpdateTracks] = useState([])
+  const [trackName, setTrackName] = useState(localStorage.getItem("track_name"))
 
-  const message = useSelector(state => state.allPlaylists);
+  // const message = useSelector(state => state.allPlaylists);
 
   useEffect(() => {
     
@@ -57,28 +58,41 @@ function Search(props) {
 
   useEffect(() => {
     // handleAimsSearch()
+    let trackName = localStorage.getItem("track_name")
+    let trackId = localStorage.getItem("track_id")
     handleAddHomeFilter()
+    if (trackName && trackId) {
+      handleSimilarSearch(trackName, trackId)
+      localStorage.removeItem("track_name")
+      localStorage.removeItem("track_id")
+    }
   }, []);
 
 
 
   const filters = useSelector( state => state.allFilters.filters[0])
-  const tracks = useSelector( state => state.allTracks.tracks[0].tracks)
+  const allTracks = useSelector( state => state.allTracks)
+  let tracks = ""
+  let tracksMeta = ""
+  if (allTracks && allTracks.tracks){
+    tracks = allTracks.tracks[0].tracks
+    tracksMeta = allTracks.tracks[0].meta
+  }  
   console.log("Update Tracks", updatedTracks)
-  const tracksMeta = useSelector( state => state.allTracks.tracks[0].meta)
+  
   console.log("Tracks META", tracksMeta)
-  const playlists = useSelector( state => state.allPlaylists)
+  // const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
 
-  useEffect(() => {
-    if (message.message) {
-      if(!message?.success) {
-        toast.error(message.message, TOAST_OPTIONS);
-      } else {
-        toast.success(message.message, TOAST_OPTIONS);
-      }
-    }
-  }, [playlists])
+  // useEffect(() => {
+  //   if (message.message) {
+  //     if(!message?.success) {
+  //       toast.error(message.message, TOAST_OPTIONS);
+  //     } else {
+  //       toast.success(message.message, TOAST_OPTIONS);
+  //     }
+  //   }
+  // }, [playlists])
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
@@ -310,7 +324,7 @@ function Search(props) {
 
   console.log("Filters", filters)
   console.log("Tracks", tracks)
-  console.log("Playlists", playlists)
+  // console.log("Playlists", playlists)
 
   function removeCount(filter) {
     return filter.substring(0, filter.indexOf(' ('));
@@ -574,7 +588,7 @@ function Search(props) {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/>
+      {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
       
     </div>
     
@@ -585,7 +599,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
-      await store.dispatch(getPlaylists(req))
+      // await store.dispatch(getPlaylists(req))
       await store.dispatch(getTracks("", "local_search", [], "", "", 1))
     });
 
