@@ -74,7 +74,7 @@ function Header() {
                     <span>Curated Playlists</span>
                   </NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.1">
-                    <span>Curated Kits</span>
+                    <span>Creator Kits</span>
                   </NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.1">
                     <span>My Playlists</span>
