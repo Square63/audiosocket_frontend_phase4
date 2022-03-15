@@ -41,6 +41,9 @@ function Header() {
     e.target.closest('div#responsive-navbar-nav').classList.remove('show')
   }
 
+  const playlistRoutes = ["/curatedplaylist", "/myplaylists"];
+
+
   return (
     <header className="fixed-top">
       <div className="fixed-container">
@@ -68,15 +71,15 @@ function Header() {
                   </Nav.Link>
                 </Nav.Item>
               </div>
-              <div className={router.pathname.toLowerCase() === "/CuratedPlaylist" ? "nav-link active" : "nav-link"}>
+              <div className={playlistRoutes.includes(router.pathname.toLocaleLowerCase()) ? "nav-link active" : "nav-link"}>
                 <NavDropdown title="Playlists" className="menuDrop" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="/curatedPlaylist">
+                  <NavDropdown.Item href="/playlist/curatedPlaylist">
                     <span>Curated Playlists</span>
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">
+                  <NavDropdown.Item href="javascript:void(0)">
                     <span>Creator Kits</span>
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">
+                  <NavDropdown.Item href="/playlist/myPlaylists">
                     <span>My Playlists</span>
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -102,7 +105,7 @@ function Header() {
                   </>
                 :
                   <NavDropdown title="Account" className="headerAccount btn btnMainSmall" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="/curatedPlaylist">
+                    <NavDropdown.Item href="/playlist/myPlaylists">
                       <span>My Playlists</span>
                     </NavDropdown.Item>
                     <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/following" ? "following active" : "following"}  onClick={(e) => toggleDropdown(e, "/user/following")}>

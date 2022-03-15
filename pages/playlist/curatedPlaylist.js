@@ -1,18 +1,18 @@
 import CarouselMood from 'react-elastic-carousel';
-import playlist from "../styles/Playlist.module.scss";
+import playlist from "../../styles/Playlist.module.scss";
 import {useContext, useEffect, useState, useRef} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Image from 'next/image';
-import mood1 from '../images/mood1.png';
-import mood2 from '../images/mood2.png';
-import mood3 from '../images/mood3.jpg';
-import mood4 from '../images/mood4.jpg';
-import Sample1 from '../images/sample1.jpeg';
-import Sample2 from '../images/sample2.jpeg';
-import Sample3 from '../images/sample3.jpeg';
-import anime from '../images/animi.jpeg';
-import cinemetic from '../images/cinimetic.jpeg';
-import hiphop from '../images/hiphop.jpeg';
+import mood1 from '../../images/mood1.png';
+import mood2 from '../../images/mood2.png';
+import mood3 from '../../images/mood3.jpg';
+import mood4 from '../../images/mood4.jpg';
+import Sample1 from '../../images/sample1.jpeg';
+import Sample2 from '../../images/sample2.jpeg';
+import Sample3 from '../../images/sample3.jpeg';
+import anime from '../../images/animi.jpeg';
+import cinemetic from '../../images/cinimetic.jpeg';
+import hiphop from '../../images/hiphop.jpeg';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 

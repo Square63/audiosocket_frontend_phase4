@@ -41,7 +41,7 @@ function Following() {
       {isLoading ? (
         <InpageLoader />
       ) : (
-        <div className={user.followingPlaylist}>
+        <div className={playlist.followingPlaylist}>
           <div className={user.listingWrapper}>
             <div className={user.listingHeading}>
               <h2>Followed Playlists</h2>
