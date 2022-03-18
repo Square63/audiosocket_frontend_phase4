@@ -26,6 +26,7 @@ import RangeSlider from '../components/RangeSlider';
 import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SearchAudioWave from '../components/SearchAudioWave';
 
 function Search(props) {
 
@@ -572,6 +573,7 @@ function Search(props) {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
+        <div className="singleWave"><SearchAudioWave track={tracks[0]}/></div>
 
         {loading ? (
           <InpageLoader />

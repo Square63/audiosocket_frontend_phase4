@@ -18,7 +18,7 @@ const AuthProvider = (props) => {
 
   const [authState, dispatchReducer] = useReducer(reducer, initialState);
   
-  const [cartCount, setCartCount] = useState(0)
+  const [cartCount, setCartCount] = useState(null)
 
   const actions = {
     userDataStateChanged: (user) => {
@@ -34,7 +34,7 @@ const AuthProvider = (props) => {
   useEffect(() => {
     if (lineItem) {
       if (lineItem.success) {
-        debugger
+        // debugger
         setCartCount(cartCount + 1)
       } else {
         setCartCount(cartCount)

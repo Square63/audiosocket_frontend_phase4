@@ -136,7 +136,7 @@ function Header() {
                           </g>
                         </g>
                       </svg>
-                      <span className="cartBadge">{cartCount}</span>
+                      {cartCount > 0 && <span className="cartBadge">{cartCount}</span>}
                     </a>
                   </Link>
                 </div>

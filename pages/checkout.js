@@ -5,6 +5,8 @@ import React, { useReducer, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../redux/actions/authActions";
 import { removeCartItem } from "../redux/actions/authActions";
+import { editWorkTitle } from "../redux/actions/authActions";
+
 function Checkout() {
   const dispatch = useDispatch()
   const cartTracks = useSelector(state => state.user.cartTracks);
@@ -32,6 +34,17 @@ function Checkout() {
     dispatch(removeCartItem(itemableId))
   }
 
+  function handleEditWorkTitle(e, itemableId) {
+    dispatch(editWorkTitle(itemableId, e.target.value))
+  }
+
+  function handleIndividualWorkTitle() {
+    const className = document.getElementsByClassName("individualWorkTitle")[0].classList[0]
+    document.querySelectorAll('.' + className).forEach(element => {
+      element.classList.toggle('individualWorkTitleField');
+    });
+  }
+
   return (
     <>
     {cartTracks &&
@@ -40,7 +53,6 @@ function Checkout() {
           <h1 className="listingPageHeading">Checkout</h1>
           <div className="trackListingHeading">
             <h2>Tracks in Cart {cartTracks.length}</h2>
-            <a href="javascript:void(0)" className="btn btnMainSmall inBlack">View Downloaded Tracks</a>
           </div>
           
           <div className="trackRowWrapper">
@@ -77,8 +89,9 @@ function Checkout() {
                         Justin G. Marcellus Abady
                       </a>
                     </div>
-                    <Form style={{display: 'none'}}>
-                      <Form.Control type="text" placeholder="Enter work title…" />
+                    <Form className="individualWorkTitle individualWorkTitleField">
+                      {console.log("AAAAAAAAAAAAAAA", cartLineItems[index].work_title)}
+                      <Form.Control type="text" placeholder="Enter work title…" defaultValue={cartLineItems[index].work_title} onBlur={(e) => {handleEditWorkTitle(e, cartLineItems[index].id);}}/>
                     </Form>
                   </div>
                 </div>
@@ -135,11 +148,11 @@ function Checkout() {
                 <form>
                   <Form.Group>
                     <label>Please add your Video or Work Title to your License</label>
-                    <Form.Control type="text" placeholder="Enter work title…" />
+                    <Form.Control className="individualWorkTitle" type="text" placeholder="Enter work title…" />
                   </Form.Group>
                   <Form.Group>
                     <div className="toogleSwitch">
-                      <input type="checkbox" id="audiosocketEmail" />
+                      <input type="checkbox" id="audiosocketEmail" onChange={() => {handleIndividualWorkTitle()}}/>
                       <Form.Label for="audiosocketEmail">&nbsp;</Form.Label>
                       <span className="switchText">My cart has tracks for multiple videos/works</span>
                     </div>
