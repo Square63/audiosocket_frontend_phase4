@@ -17,8 +17,8 @@ const AuthProvider = (props) => {
   // let line_items = 0
 
   const [authState, dispatchReducer] = useReducer(reducer, initialState);
-  
-  const [cartCount, setCartCount] = useState(0)
+
+  const [cartCount, setCartCount] = useState(null)
 
   const actions = {
     userDataStateChanged: (user) => {
@@ -35,7 +35,6 @@ const AuthProvider = (props) => {
     if (localStorage.getItem("user")) {
       if (lineItem) {
         if (lineItem.success) {
-          debugger
           setCartCount(cartCount + 1)
         } else {
           setCartCount(cartCount)
