@@ -165,7 +165,9 @@ function Search(props) {
   const handleSearch = async(e) => {
     setLoading(true)
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1));
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = !document.getElementById("excludeVocals")?.checked
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   const handleClearAllFilter = () => {
@@ -205,8 +207,10 @@ function Search(props) {
         hideAllFilterDiv()
       }
     }
+    let explicit = !document.getElementById("excludeExplicit").checked
+    let vocals = !document.getElementById("excludeVocals").checked
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   function hideAllFilterDiv() {
@@ -217,8 +221,9 @@ function Search(props) {
     document.getElementById("filtersList").innerHTML = "";
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
     let query = document.getElementById("searchField").value
-    
-    dispatch(getTracks(query, query_type(query), [], "", "", 1));
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = !document.getElementById("excludeVocals")?.checked
+    dispatch(getTracks(query, query_type(query), [], "", "", 1, explicit, vocals));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
@@ -262,7 +267,9 @@ function Search(props) {
     appliedFiltersList.push(removeCount(e.currentTarget.text))
     setAppliedFiltersListWC([...appliedFiltersListWC, removeCount(e.currentTarget.text)]);
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = !document.getElementById("excludeVocals")?.checked
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
   }
 
   const handleAddChildrenFilter = (e) => {
@@ -285,10 +292,8 @@ function Search(props) {
     );
     const parentIndex = filters.findIndex(x => x.id == partenID);
     const childIndex = filters[parentIndex].sub_filters.findIndex(x => x.id == filter);
-    console.log(childIndex);
     setLastChildFilters(filters[parentIndex].sub_filters[childIndex].sub_filters);
 
-    // console.log(filters.indexOf(partenID));
     setShowChilderDiv(true);
   }
 
@@ -348,6 +353,15 @@ function Search(props) {
   
   function getUniqFilters(appliedFilters) {
     return appliedFilters.filter((v, i, a) => a.indexOf(v) === i);
+  }
+
+  const handleExcludeFilters = (e) => {
+    setLoading(true)
+    let explicit = !document.getElementById("excludeExplicit").checked
+    let vocals = !document.getElementById("excludeVocals").checked
+    let query = document.getElementById("searchField").value
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    
   }
   
   const filterItems = filters.map((filter, index) =>
@@ -540,7 +554,7 @@ function Search(props) {
               <div className="settingFilterWrapper">
                 <form>
                   <div className="toogleSwitch">
-                    <input type="checkbox" id="excludeExplicit" />
+                    <input type="checkbox" id="excludeExplicit" onChange={(e) => handleExcludeFilters(e)}/>
                     <Form.Label htmlFor="excludeExplicit">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Explicit</span>
                   </div>
@@ -550,7 +564,7 @@ function Search(props) {
                     <span className="switchText">YouTube ContentID Cleared</span>
                   </div>
                   <div className="toogleSwitch">
-                    <input type="checkbox" id="excludeVocals" />
+                    <input type="checkbox" id="excludeVocals" onChange={(e) => handleExcludeFilters(e)}/>
                     <Form.Label htmlFor="excludeVocals">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Vocals</span>
                   </div>
