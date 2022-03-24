@@ -2,7 +2,6 @@
 @import './variables-mixins.scss';
 
 /*************** Global Styling ************/
-
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +11,7 @@ html, body {
   min-height: 100vh;
   font-size: 14px;
   scroll-behavior: smooth;
+  overscroll-behavior: none;
 }
 
 body {

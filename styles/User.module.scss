@@ -606,3 +606,23 @@
     }
   }
 }
+
+/******************* license Checkout Modal ********************/
+.licenseCheckout {
+  .viewLicense {
+    text-decoration: underline;
+    color: $headerColor;
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+  :global(.modalBtnWrapper) {
+    button {
+      padding-inline: 25px;
+      svg {
+        vertical-align: middle;
+        margin-left: 7px;
+      }
+    }
+  }
+}
