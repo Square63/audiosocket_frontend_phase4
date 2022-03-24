@@ -607,24 +607,21 @@
   }
 }
 
-/*********************** Favorites Listing *******************/
-.followingPlaylist {
-  :global(.tilesWrapper) {
-    margin-top: 33px;
-    gap: 30px;
-    :global(.tileOverlay) {
-      max-width: 220px;
-      max-height: 220px;
-      border-radius: 18px;
-      & > div {
-        max-height: 220px;
-        height: 220px;
-        :global(.tilesImg) {
-          -webkit-object-fit: cover;
-          object-fit: cover;
-          height: 220px;
-          z-index: -2;
-        }
+/******************* license Checkout Modal ********************/
+.licenseCheckout {
+  .viewLicense {
+    text-decoration: underline;
+    color: $headerColor;
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+  :global(.modalBtnWrapper) {
+    button {
+      padding-inline: 25px;
+      svg {
+        vertical-align: middle;
+        margin-left: 7px;
       }
     }
   }

@@ -220,3 +220,50 @@
     background-image: none;
   }
 }
+
+/*********************** Following Listing *******************/
+.followingPlaylist,
+.myPlaylists {
+  :global(.tilesWrapper) {
+    margin-top: 33px;
+    gap: 30px;
+    :global(.tileOverlay) {
+      max-width: 220px;
+      max-height: 220px;
+      border-radius: 18px;
+      & > div {
+        max-height: 220px;
+        height: 220px;
+        :global(.tilesImg) {
+          -webkit-object-fit: cover;
+          object-fit: cover;
+          height: 220px;
+          z-index: -2;
+        }
+      }
+    }
+  }
+}
+
+/***************** My Playlists ***************/
+
+.myPlaylistWrapper {
+  background-color: $headerColor;
+  padding-block: 50px;
+  h1 {
+    color: $white;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  :global(.tilesWrapper) {
+    :global(.tileOverlay) {
+      :global(.tileOverlayText) {
+        :global(.playlistTracksCount) {
+          font-size: 16px;
+          font-weight: 400;
+          display: block;
+        }
+      }
+    }
+  }
+}
