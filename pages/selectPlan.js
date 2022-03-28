@@ -42,9 +42,9 @@ function SelectPlan() {
             <span>Billing Frequency</span>
             <div className="toggleButton">
               <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked/>
-              <label htmlFor="toggle-on" className="movingBtn">Monthly</label>
+              <label htmlFor="toggle-on" className="movingBtn">Annually</label>
               <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio"/>
-              <label htmlFor="toggle-off" className="movingBtn">Annually</label>
+              <label htmlFor="toggle-off" className="movingBtn">Monthly</label>
             </div>
             <em>Save 33% with annual billing</em>
           </div>
@@ -65,11 +65,11 @@ function SelectPlan() {
                 <li className={signup.notAvailable}><span>Unlimited use in digital ads</span></li>
               </ul>
               <div className={signup.plansBtnWrapper}>
-                <a href="javascript:void(0)" className="btn btnMainLarge inBlack btn-block mt-0" onClick={() => router.push('/setupPayment')}>
-                  <span className={signup.btnCategory}>Music Only</span><span>$15 /Month</span>
+                <a href="javascript:void(0)" className="btn btnMainLarge btnSelectPlan inBlack btn-block mt-0" onClick={() => router.push('/setupPayment')}>
+                  <span className={signup.btnCategory}>Music Only</span><span>$15/mo (billed annually)</span>
                 </a>
-                <a href="javascript:void(0)" className="btn btnMainLarge btn-block mt-0" onClick={() => router.push('/setupPayment')}>
-                  <span className={signup.btnCategory}>Music + SFX</span><span>$25 /Month</span>
+                <a href="javascript:void(0)" className="btn btnMainLarge btnSelectPlan btn-block mt-0" onClick={() => router.push('/setupPayment')}>
+                  <span className={signup.btnCategory}>Music + SFX</span><span>$25/mo (billed annually)</span>
                 </a>
               </div>
             </div>
@@ -90,11 +90,11 @@ function SelectPlan() {
                 <li><span>Unlimited use in digital ads</span></li>
               </ul>
               <div className={signup.plansBtnWrapper}>
-                <a href="javascript:void(0)" className="btn btnMainLarge inBlack btn-block mt-0" onClick={() => router.push('/setupPayment')}>
-                  <span className={signup.btnCategory}>Music Only</span><span>$59 /Month</span>
+                <a href="javascript:void(0)" className="btn btnMainLarge btnSelectPlan inBlack btn-block mt-0" onClick={() => router.push('/setupPayment')}>
+                  <span className={signup.btnCategory}>Music Only</span><span>$59/mo (billed annually)</span>
                 </a>
-                <a href="javascript:void(0)" className="btn btnMainLarge btn-block mt-0" onClick={() => router.push('/setupPayment')}>
-                  <span className={signup.btnCategory}>Music + SFX</span><span>$75 /Month</span>
+                <a href="javascript:void(0)" className="btn btnMainLarge btnSelectPlan btn-block mt-0" onClick={() => router.push('/setupPayment')}>
+                  <span className={signup.btnCategory}>Music + SFX</span><span>$75/mo (billed annually)</span>
                 </a>
               </div>
             </div>

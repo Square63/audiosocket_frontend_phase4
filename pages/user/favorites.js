@@ -11,6 +11,7 @@ import InpageLoader from '../../components/InpageLoader';
 import FavoriteTracks from "../../components/FavoriteTracks";
 import { removeFromFavorites } from '../../redux/actions/trackActions';
 import { TOAST_OPTIONS } from '../../common/api';
+import { TOAST_OPTIONS_ERROR } from '../../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
@@ -27,7 +28,7 @@ function Favorites() {
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
-      toast.error(favoritesMessage.message, TOAST_OPTIONS);
+      toast.error(favoritesMessage.message, TOAST_OPTIONS_ERROR);
     } else {
       toast.success(favoritesMessage.message, TOAST_OPTIONS);
     }

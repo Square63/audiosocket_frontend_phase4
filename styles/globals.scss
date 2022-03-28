@@ -3226,6 +3226,9 @@ section {
     h2 {
       color: $headerColor;
     }
+    p {
+      text-align: center;
+    }
   }
   .slick-list {
     max-width: 1210px;
@@ -3318,6 +3321,10 @@ input[type=file]::file-selector-button {
   padding: 10px 20px 8px 18px;
   font-size: 14px;
   line-height: 15px;
+}
+
+.btnSelectPlan {
+  font-size: 12px;
 }
 
 .btnMainXlarge {

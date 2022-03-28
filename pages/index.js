@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Head from 'next/head';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -227,8 +228,8 @@ export default function Home(props) {
               <div className="fixed-container">
               
 
-                <h1>Find &amp; License Music. Fast.</h1>
-                <p>Licensing plans start at $10/month with unlimited access to over 80K songs and 25K SFX from amazing bands &amp; artists.</p>
+                <h1>A Musical Journey Awaits.</h1>
+                <p>Audiosocket makes finding and licensing great music simple. Use our Search Guides below to start your journey &amp; let the music inspire.</p>
                 <Form className="stickySearch heroForm" onSubmit={e => { e.preventDefault(); }}>
                   <Form.Control type="text" placeholder="Enter a keyword, YouTube link, or Spotify song link…" />
                   <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={(e) => handleSearch(e)}>Search</Button>
@@ -793,7 +794,9 @@ export default function Home(props) {
                   </div>
                 </div>
                 <div className="browseMusic">
-                  <a href="" className="btn btnMainXlarge">Browse Music</a>
+                  <Link href="/search">
+                    <a className="btn btnMainXlarge">Browse Music</a>
+                  </Link>
                 </div>
               </div>
             </section>
@@ -801,7 +804,8 @@ export default function Home(props) {
             <section className="slickSlider">
             <div className="testimonialContainer">
               <div className="slickContent">
-                <h2>Built for creators, trusted by film studios.</h2>
+                <h2>Built for creators, blockbuster approved.</h2>
+                <p>A strong storyline and script can move us, but the soundtrack transports us. If you love cinema as much as us, check out some of our featured placements. <br />Let the music inspire your next masterpiece!</p>
               </div>
               <Slider {...settings2}>
                 {imagess.map((img, idx) => (
