@@ -19,6 +19,7 @@ const AuthProvider = (props) => {
   const [authState, dispatchReducer] = useReducer(reducer, initialState);
 
   const [cartCount, setCartCount] = useState(null)
+  const [totalPrice, setTotalPrice] = useState(0)
 
   const actions = {
     userDataStateChanged: (user) => {
@@ -46,6 +47,7 @@ const AuthProvider = (props) => {
   useEffect(() => {
     if (lineItems && Array.isArray(lineItems))
       setCartCount(lineItems.length)
+      setTotalPrice(lineItems?.length)
   }, [lineItems])
 
   const handleAddToCart = (itemableId, itemableType) => {
@@ -58,7 +60,8 @@ const AuthProvider = (props) => {
         authState: authState,
         authActions: actions,
         handleAddToCart: handleAddToCart,
-        cartCount: cartCount
+        cartCount: cartCount,
+        totalCartPrice: totalPrice
       }}
     >
       {props.children}

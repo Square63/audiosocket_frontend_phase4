@@ -1,16 +1,20 @@
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../redux/actions/authActions";
 import { removeCartItem } from "../redux/actions/authActions";
 import { editWorkTitle } from "../redux/actions/authActions";
+import Link from "next/link";
+import {AuthContext} from "../store/authContext";
 
-function Checkout() {
+
+function Cart() {
   const dispatch = useDispatch()
   const cartTracks = useSelector(state => state.user.cartTracks);
   const cartLineItems = useSelector(state => state.user.cartLineItems);
+  const { authState, authActions, handleAddToCart, cartCount, totalCartPrice } = useContext(AuthContext);
 
   useEffect(() => {
     if (!cartTracks)
@@ -102,7 +106,7 @@ function Checkout() {
                   Individual Subscription
                 </div>
                 <div className="rowParticipant price">
-                  $0.00
+                  ${totalCartPrice}
                 </div>
                 <div className="rowParticipant controls">
                 <OverlayTrigger overlay={<Tooltip>Edit</Tooltip>}>
@@ -158,14 +162,16 @@ function Checkout() {
                     </div>
                   </Form.Group>
                   <Form.Group>
-                    <Button variant="link" className="btn btnMainLarge btn-block">Checkout and License Tracks - <span className="">$0.00</span></Button>
+                  <Link href="/braintree">
+                    <Button className="btn btnMainLarge btn-block">Checkout and License Tracks - <span className="">${totalCartPrice}</span></Button>
+                  </Link>
                   </Form.Group>
                   <p className="text-center">By clicking checkout, you agree to your <a href="javascript:void(0)">license terms</a>.</p>
                 </form>
               </div>
             </div>
             <div className="totalPrice">
-              <span>Total: <strong>$0.00</strong></span>
+              <span>Total: <strong>${totalCartPrice}</strong></span>
             </div>
           </div>
         </div>
@@ -175,4 +181,4 @@ function Checkout() {
   );
 }
 
-export default Checkout;
+export default Cart;

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import DropIn from "braintree-web-drop-in-react";
 import { BraintreeHostedFields } from 'braintree-web-react'
@@ -6,22 +7,37 @@ import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
 import cardServices from '../images/cardServices.svg';
 import InpageLoader from '../components/InpageLoader';
+import {AuthContext} from "../store/authContext";
 
 
 class Braintree extends React.Component {
+  static contextType = AuthContext;
+
   instance;
 
   state = {
-    clientToken: null
+    clientToken: null,
+    redirectUrl: null
   };
 
   async componentDidMount() {
     // Get a client token for authorization from your server
-    const response = await fetch("server.test/client_token");
-    const clientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpGVXpJMU5pSXNJbXRwWkNJNklqSXdNVGd3TkRJMk1UWXRjMkZ1WkdKdmVDSXNJbWx6Y3lJNkltaDBkSEJ6T2k4dllYQnBMbk5oYm1SaWIzZ3VZbkpoYVc1MGNtVmxaMkYwWlhkaGVTNWpiMjBpZlEuZXlKbGVIQWlPakUyTkRjek5EZzFNak1zSW1wMGFTSTZJamhtTkRJMk9UYzNMVE15TnpBdE5HRXhZUzA1TVRKakxXVTBOakU0TkRVMlltTmlZeUlzSW5OMVlpSTZJalprTjIxbk9UVTNhR2hvZUd0dE5UTWlMQ0pwYzNNaU9pSm9kSFJ3Y3pvdkwyRndhUzV6WVc1a1ltOTRMbUp5WVdsdWRISmxaV2RoZEdWM1lYa3VZMjl0SWl3aWJXVnlZMmhoYm5RaU9uc2ljSFZpYkdsalgybGtJam9pTm1RM2JXYzVOVGRvYUdoNGEyMDFNeUlzSW5abGNtbG1lVjlqWVhKa1gySjVYMlJsWm1GMWJIUWlPbVpoYkhObGZTd2ljbWxuYUhSeklqcGJJbTFoYm1GblpWOTJZWFZzZENKZExDSnpZMjl3WlNJNld5SkNjbUZwYm5SeVpXVTZWbUYxYkhRaVhTd2liM0IwYVc5dWN5STZleUpqZFhOMGIyMWxjbDlwWkNJNklqVTBNekUxT0RZMk1pSjlmUS5FX0MyeTZYMUVCSGRST1hSdmxDcTZMXy1SYVo4SmhjSDVaZEhuV3ZVeXUwVl9YS0RZMnRyMGh2b3RhdENSMjBDeWtxcGVOaXN4THd4WVFTaTd4ZXZpdz9jdXN0b21lcl9pZD0iLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvNmQ3bWc5NTdoaGh4a201My9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJncmFwaFFMIjp7InVybCI6Imh0dHBzOi8vcGF5bWVudHMuc2FuZGJveC5icmFpbnRyZWUtYXBpLmNvbS9ncmFwaHFsIiwiZGF0ZSI6IjIwMTgtMDUtMDgiLCJmZWF0dXJlcyI6WyJ0b2tlbml6ZV9jcmVkaXRfY2FyZHMiXX0sImhhc0N1c3RvbWVyIjp0cnVlLCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvNmQ3bWc5NTdoaGh4a201My9jbGllbnRfYXBpIiwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwibWVyY2hhbnRJZCI6IjZkN21nOTU3aGhoeGttNTMiLCJhc3NldHNVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImF1dGhVcmwiOiJodHRwczovL2F1dGgudmVubW8uc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbSIsInZlbm1vIjoib2ZmIiwiY2hhbGxlbmdlcyI6W10sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsImFuYWx5dGljcyI6eyJ1cmwiOiJodHRwczovL29yaWdpbi1hbmFseXRpY3Mtc2FuZC5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tLzZkN21nOTU3aGhoeGttNTMifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImJpbGxpbmdBZ3JlZW1lbnRzRW5hYmxlZCI6dHJ1ZSwiZW52aXJvbm1lbnROb05ldHdvcmsiOnRydWUsInVudmV0dGVkTWVyY2hhbnQiOmZhbHNlLCJhbGxvd0h0dHAiOnRydWUsImRpc3BsYXlOYW1lIjoiU3F1YXJlNjMiLCJjbGllbnRJZCI6bnVsbCwicHJpdmFjeVVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS9wcCIsInVzZXJBZ3JlZW1lbnRVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vdG9zIiwiYmFzZVVybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9jaGVja291dC5wYXlwYWwuY29tIiwiZGlyZWN0QmFzZVVybCI6bnVsbCwiZW52aXJvbm1lbnQiOiJvZmZsaW5lIiwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwibWVyY2hhbnRBY2NvdW50SWQiOiJzcXVhcmU2MyIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9fQ=="
+    const context = this.context;
+    console.log("TOTAL PRICE", context.totalCartPrice)
+    const authToken = JSON.parse(localStorage.getItem("user") ?? "");
 
+    let url  = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/new`
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+        'auth-token': authToken
+      }
+    });
+    const data = await response.json();
+    const clientToken = data.token
     this.setState({
-      clientToken
+      clientToken: clientToken,
+      redirectUrl: data.redirect_url 
     });
   }
 
@@ -34,13 +50,21 @@ class Braintree extends React.Component {
   async purchase() {
     try {
       // Send nonce to your server
+      const context = this.context;
       const { nonce } = await this.instance.tokenize()
-      debugger
+      let price =  context.totalCartPrice;
+      let discount_id = 'OTTDD';      
+      const authToken = JSON.parse(localStorage.getItem("user") ?? "");
       const response = await axios.post(
-        'http://localhost:8000/api/braintree/v1/sandbox',
-        { paymentMethodNonce: nonce }
+        this.state.redirectUrl, { nonce, price, discount_id },
+        {
+          headers: {
+            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+            'auth-token': authToken
+          }
+        }
       )
-
+      debugger
       console.log(response)
     } catch (err) {
       console.error(err)
