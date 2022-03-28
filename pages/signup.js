@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { TOAST_OPTIONS } from '../common/api';
+import { TOAST_OPTIONS_ERROR } from '../common/api';
 import {AuthContext} from "../store/authContext";
 import { authSignup } from "../redux/actions/authActions";
 import signup from "../styles/Signup.module.scss";
@@ -49,7 +50,7 @@ function Signup() {
 
   useEffect(() => {
     if(signUpUser?.error) {
-      toast.error(signUpUser.error.email, TOAST_OPTIONS);
+      toast.error(signUpUser.error.email, TOAST_OPTIONS_ERROR);
     } else if(Object.keys(signUpUser.user).length) {
       localStorage.setItem("user", JSON.stringify(signUpUser.user));
       localStorage.setItem("first_name", JSON.stringify(signUpUser.userDetails.first_name));
@@ -107,6 +108,7 @@ function Signup() {
     <div className={signup.signupWrapper}>
       <div className={signup.signupHeading}>
         <h1>Sign Up</h1>
+        <p>Subscribe and gain unlimited access to 80k+ tracks and 2k+ SFX.<br /> New artists added every month.</p>
         <p>Already have an account?<Link href={"/login"}>Sign in</Link></p>
       </div>
       <ToastContainer

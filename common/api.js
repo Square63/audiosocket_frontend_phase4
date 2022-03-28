@@ -8,3 +8,13 @@ export const TOAST_OPTIONS = {
   draggable: true,
   progress: undefined,
 }
+
+export const TOAST_OPTIONS_ERROR = {
+  position: "top-center",
+  autoClose: false,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+}

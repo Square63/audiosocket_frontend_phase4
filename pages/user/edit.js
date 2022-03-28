@@ -9,6 +9,7 @@ import Settings from "../../components/profile/Settings";
 import { useReducer } from "react";
 import { useState, useEffect } from "react";
 import { TOAST_OPTIONS } from '../../common/api';
+import { TOAST_OPTIONS_ERROR } from '../../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from "react-redux";
@@ -19,23 +20,21 @@ function Edit({ countries }) {
   const updatedUserInfo = useSelector(state => state.user.user);
 
   useEffect(() => {
-    if (updatedPassword){
-      if(!updatedPassword?.consumer) {
-        if (updatedPassword.password_confirmation) {
-          toast.error("Confirm Password doesnot match. Please try again.", TOAST_OPTIONS);
-        } else if (updatedPassword === 'Wrong Password'){
-          toast.error("You have entered wrong password. Please try again.", TOAST_OPTIONS);
-        }
-        toast.error(updatedPassword.message, TOAST_OPTIONS);
-      } else {
-        toast.success("Password updated successfully.", TOAST_OPTIONS);
+    if(!updatedPassword?.consumer) {
+      if (updatedPassword.password_confirmation) {
+        toast.error("Confirm Password doesnot match. Please try again.", TOAST_OPTIONS_ERROR);
+      } else if (updatedPassword === 'Wrong Password'){
+        toast.error("You have entered wrong password. Please try again.", TOAST_OPTIONS_ERROR);
       }
+      toast.error(updatedPassword.message, TOAST_OPTIONS_ERROR);
+    } else {
+      toast.success("Password updated successfully.", TOAST_OPTIONS);
     }
   }, [updatedPassword])
 
   useEffect(() => {
     if(updatedUserInfo?.error) {
-      toast.error(updatedUserInfo.error, TOAST_OPTIONS);
+      toast.error(updatedUserInfo.error, TOAST_OPTIONS_ERROR);
     } else if (updatedUserInfo.email) {
       toast.success("User updated successfully.", TOAST_OPTIONS);
     }
