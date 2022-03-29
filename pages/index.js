@@ -234,6 +234,7 @@ export default function Home(props) {
                   <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={(e) => handleSearch(e)}>Search</Button>
                 </Form>
                 <div className="brandsStrip">
+                  <h2>Built for creators, trusted by world-class brands.</h2>
                   <Image src={amazon} alt="Amazon" className="heroBrand"/>
                   <Image src={mailchimp} alt="Mailchimp" className="heroBrand mailChimp"/>
                   <Image src={disnep} alt="Disnep" className="heroBrand"/>

@@ -2420,7 +2420,14 @@ hr {
       @include align-items(baseline);
       flex-wrap: wrap;
       gap: 25px;
-      margin-top: 10em;
+      margin-top: 8em;
+      h2 {
+        max-width: 100%;
+        flex: 1 1 100%;
+        margin-bottom: 0;
+        text-align: center;
+        color: $white;
+      }
     }
   }
 }
@@ -3711,7 +3718,7 @@ input[type=file]::file-selector-button {
     }
   }
   .heroSection {
-    min-height: 600px;
+    min-height: 685px;
     .heroContent {
       padding-block: 50px 30px;
       h1 {
@@ -3723,9 +3730,12 @@ input[type=file]::file-selector-button {
         margin-bottom: 45px;
       }
       .brandsStrip {
-        margin-top: 7em;
+        margin-top: 8em;
         gap: 20px;
         @include justify-content(center);
+        h2 {
+          margin-bottom: 20px;
+        }
       }
     }
   }
@@ -4216,7 +4226,7 @@ input[type=file]::file-selector-button {
   }
 
   .heroSection {
-    min-height: 527px;
+    min-height: 575px;
     .heroContent {
       padding-block: 50px 30px;
       h1 {
