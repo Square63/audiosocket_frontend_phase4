@@ -75,7 +75,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
         <div className="modal-container">
           <Form className="modalForm PlaylistForm">
             <Form.Group className="mb-4" controlId="formBasicEmail">
-              <Form.Label>Playlist Name <span class="labelAsterik">*</span></Form.Label>
+              <Form.Label>Playlist Name <span className="labelAsterik">*</span></Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
             </Form.Group>
 
