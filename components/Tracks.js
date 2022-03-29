@@ -57,9 +57,9 @@ function Tracks(props) {
     return () => {
       isMounted = false;
     };
-    
+
   },[props.tracks])
-  
+
   const fetchData = () => {
     let query = document.getElementById("searchField").value
     if (query === "" && props.appliedFiltersList.length == 0) {
@@ -168,7 +168,7 @@ function Tracks(props) {
       <div className={search.tracksHeading}>
         <h2>{props.tracksMeta ? "Tracks" : "Playlist Tracks"} <span className={search.tracksCount}>{props.tracksMeta ? props.tracksMeta.total_track_count : props.tracks.count}</span></h2>
         <div className={search.tracksSorting}>
-        
+
           <form>
               <Form.Label className="required">Sort By:</Form.Label>
               <Select
@@ -255,7 +255,7 @@ function Tracks(props) {
               <div className="rowParticipant duration">
                 {convertSecToMin(track.duration)}
               </div>
-              <div className="rowParticipant mood">                
+              <div className="rowParticipant mood">
                 {handleMoodColumn(track, moodColumn)}
               </div>
               <div className="rowParticipant BPM">
@@ -441,7 +441,7 @@ function Tracks(props) {
                   </div>
                 </>
               }
-              
+
             </div>)
           })}
         </InfiniteScroll>

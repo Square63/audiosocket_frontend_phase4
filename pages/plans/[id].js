@@ -110,8 +110,8 @@ class Braintree extends React.Component {
 
                       <label className="hosted-fields--label">CVV</label>
                       <div className="form-control hosted-field" type="text" placeholder="CVV" id="cvv"></div>
-                      <label className="hosted-fields--label">Postal Code</label>
-                      <div id="postal-code" className="form-control hosted-field" type="text" placeholder="Enter Postal Code."></div>
+                      <label className="hosted-fields--label">Discount Code</label>
+                      <div className="form-control" type="text" placeholder="Enter Discount Code."></div>
                     </form>
                     </div>
                   </div>
