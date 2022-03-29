@@ -2,6 +2,7 @@ import Alert from 'react-bootstrap/Alert';
 import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
+// import AddToCartLicense from "../components/modals/AddToCartLicense";
 import AddToPlaylist from "../components/modals/AddToPlaylist";
 import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
@@ -39,6 +40,7 @@ function Search(props) {
   // const [queryType, setQueryType] = useState("local_search")
   const [showDownModal, setShowDownModal] = useState(false)
   const [showLicenseModal, setShowLicenseModal] = useState(false)
+  const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
   const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
 	const [footerPlaying, setFooterPlaying] = useState(false)
   const [track, setTrack] = useState()
@@ -143,6 +145,25 @@ function Search(props) {
     setShowLicenseModal(false)
   }
 
+  function showAddTrackToCartLicenseModal(index) {
+    if (localStorage.getItem("user")) {
+      if (index > 9) {
+        setIndex(index%10)
+      }
+      else {
+        setIndex(index)
+      }
+      setShowAddToCartLicenseModal(true)
+    }
+    else {
+      alert("You must be logged in to be able to add a track to cart.")
+    }
+  }
+
+  function handleAddToCartLicenseModalClose() {
+    setShowAddToCartLicenseModal(false)
+  }
+
   function showTrackAddToPlaylistModal(index) {
     if (localStorage.getItem("user")) {
       if (index > 9) {
@@ -166,7 +187,7 @@ function Search(props) {
     setLoading(true)
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
-    let vocals = !document.getElementById("excludeVocals")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
@@ -208,7 +229,7 @@ function Search(props) {
       }
     }
     let explicit = !document.getElementById("excludeExplicit").checked
-    let vocals = !document.getElementById("excludeVocals").checked
+    let vocals = document.getElementById("excludeVocals").checked
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
@@ -222,7 +243,7 @@ function Search(props) {
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
-    let vocals = !document.getElementById("excludeVocals")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
     dispatch(getTracks(query, query_type(query), [], "", "", 1, explicit, vocals));
   }
 
@@ -268,7 +289,7 @@ function Search(props) {
     setAppliedFiltersListWC([...appliedFiltersListWC, removeCount(e.currentTarget.text)]);
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
-    let vocals = !document.getElementById("excludeVocals")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
     dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
   }
 
@@ -358,7 +379,7 @@ function Search(props) {
   const handleExcludeFilters = (e) => {
     setLoading(true)
     let explicit = !document.getElementById("excludeExplicit").checked
-    let vocals = !document.getElementById("excludeVocals").checked
+    let vocals = document.getElementById("excludeVocals").checked
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
     
@@ -590,7 +611,7 @@ function Search(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
         )}
       </div>
 
@@ -602,6 +623,7 @@ function Search(props) {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
+      {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
       {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
       
     </div>
