@@ -145,6 +145,10 @@ input:-webkit-autofill:active {
   }
 }
 
+textarea.form-control {
+  height: auto !important;
+}
+
 
 .input-error {
   color: $red;
@@ -3517,6 +3521,63 @@ input[type=file]::file-selector-button {
           left: calc(100% - 5px);
           transform: translateX(-100%);
         }
+      }
+    }
+  }
+}
+
+/************* Drag & Drop ****************/
+.dragDropContainer {
+  background-color: #f0f2f4;
+  border: 1.5px dashed $headerColor;
+  height: 200px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  .dragDropContent {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.28;
+    letter-spacing: -0.45px;
+    color: $headerColor;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  & > label {
+    max-width: 100%;
+    width: 100%;
+    height: inherit;
+    margin: 0;
+    padding: 0;
+    border: none;
+    & > svg {
+      display: none !important;
+    }
+    & > div {
+      span {
+        display: none !important;
+      }
+    }
+  }
+  & + p {
+    font-size: 13px;
+    margin-block: 5px;
+    color: $textClr;
+  }
+}
+
+/************** Modal Form ****************/
+.modalForm,
+.PlaylistForm {
+  .form-group {
+    .form-label {
+      font-size: 16px;
+      text-transform: capitalize;
+      .labelAsterik {
+        color: $danger;
       }
     }
   }
