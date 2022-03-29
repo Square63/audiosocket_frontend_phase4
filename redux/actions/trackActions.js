@@ -17,13 +17,13 @@ import {
 export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
   let url = `${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`
   
-  if (explicit === false && exclude_vocals === false){
+  if (explicit === false && exclude_vocals === true){
     url = `${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&explicit=${explicit}&exclude_vocals=${exclude_vocals}`
   }
   else if (explicit === false){
     url = `${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&explicit=${explicit}`
   } 
-  else if (exclude_vocals === false){
+  else if (exclude_vocals === true){
     url = `${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&exclude_vocals=${exclude_vocals}`
   }
     
