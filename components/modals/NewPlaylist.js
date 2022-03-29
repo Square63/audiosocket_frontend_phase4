@@ -1,4 +1,5 @@
 import React, {useRef, useState} from "react";
+import { FileUploader } from "react-drag-drop-files";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -52,6 +53,13 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
     dispatch(getTracksFromAIMS());
   }
 
+  const fileTypes = ["JPG", "PNG", "GIF", "SVG", "JPEG"];
+  const [file, setFile] = useState(null);
+  const handleChange = (file) => {
+    setFile(file);
+  };
+
+
   return (
     <Modal
       show={showModal}
@@ -65,14 +73,33 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
       </Modal.Header>
       <Modal.Body>
         <div className="modal-container">
-          <h4 className="modalBodyHeading">Load A Track To Find Similar Songs</h4>
-          <p className="modalBodytext">Upload MP3 or WAV</p>
-          <Form.Group controlId="formFile" className="uploadComponent">
-            <Form.Control type="file" onChange={(e) => handleFileSelect(e)} />
-          </Form.Group>
-          <div className="modalBtnWrapper">
-            <a href="javascript:void(0)" className="btn btnMainLarge disabled" id="uploadBtn" onClick={handleUploadSearch}>Upload and Search</a>
-          </div>
+          <Form className="modalForm PlaylistForm">
+            <Form.Group className="mb-4" controlId="formBasicEmail">
+              <Form.Label>Playlist Name <span className="labelAsterik">*</span></Form.Label>
+              <Form.Control type="email" placeholder="Enter email" />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Notes</Form.Label>
+              <Form.Control as="textarea" placeholder="Enter notes about this playlist" rows={2} />
+            </Form.Group>
+
+            <Form.Group className="mb-4">
+              <div className="dragDropContainer">
+                <p className="dragDropContent">Drag &amp; Drop <br /> Project Image <br />Or <br />Choose File…</p>
+                <FileUploader
+                  multiple={true}
+                  handleChange={handleChange}
+                  name="file"
+                  types={fileTypes}
+                />
+              </div>
+              <p>{file ? `File name: ${file[0].name}` : "no files uploaded yet"}</p>
+            </Form.Group>
+            <Button variant="link" className="btn btnMainLarge btn-block" type="submit">
+              Add Project
+            </Button>
+          </Form>
         </div>
       </Modal.Body>
     </Modal>
