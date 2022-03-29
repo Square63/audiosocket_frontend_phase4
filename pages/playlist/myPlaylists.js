@@ -12,7 +12,6 @@ import mood3 from '../../images/mood3.jpg';
 import mood4 from '../../images/mood4.jpg';
 import Sample1 from '../../images/sample1.jpeg';
 import Sample2 from '../../images/sample2.jpeg';
-import Sample3 from '../../images/sample3.jpeg';
 import { useDispatch, useSelector } from "react-redux";
 import { getFollowedPlaylists } from "../../redux/actions/authActions";
 import { getFollowedArtists } from "../../redux/actions/authActions";

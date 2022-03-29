@@ -267,3 +267,17 @@
     }
   }
 }
+
+/**************** Artist tiles section ************/
+.artistTiles {
+  margin-block: 35px 63px;
+  h3 {
+    font-size: 22px;
+    line-height: 1.23;
+    letter-spacing: -0.55px;
+    font-weight: 400;
+  }
+  :global(.tilesWrapper) {
+    margin-top: 20px;
+  }
+}
