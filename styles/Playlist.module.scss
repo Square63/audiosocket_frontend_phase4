@@ -129,7 +129,7 @@
   background: $headerColor url(../images/background.png) no-repeat;
   background-size: cover;
   min-height: 383px;
-  height: 28.03vw;
+  // height: 28.03vw;
   max-height: 538px;
   @include flexbox;
   @include flex-direction(column);
@@ -218,6 +218,84 @@
 .myPlaylistShow {
   .playlistBanner {
     background-image: none;
+  }
+}
+
+.creatorKits {
+  .playlistBanner {
+    background-image: none;
+    background-color: #3d3d3d;
+    padding-bottom: 100px;
+    :global(.themeBreadcrumb) {
+      background-color: transparent;
+    }
+    .playlistInfo {
+      .playlistCard {
+        background-color: transparent;
+        padding-left: 0;
+      }
+    }
+  }
+  .creatorKitsContent {
+    :global(.nav-tabs) {
+      gap: 2px;
+      border: 0;
+      margin-top: -65px;
+      :global(.nav-item) {
+        padding: 15px 19px;
+        color: $green-light;
+        background-color: $headerColor;
+        font-size: 22px;
+        line-height: 1.23;
+        letter-spacing: -0.55px;
+        border: 0;
+        border-radius: 0;
+        position: relative;
+        @include transition(all 0.2s ease-in-out);
+        &:before {
+          content: '';
+          background: url(../images/searchTrack.svg) no-repeat;
+          width: 35px;
+          height: 35px;
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 15px;
+          opacity: 0.7;
+          @include transition(all 0.2s ease-in-out);
+        }
+        &:after {
+          content: '';
+          background: url(../images/selectedArrow.svg) no-repeat;
+          width: 22px;
+          height: 35px;
+          background-size: 22px;
+          display: inline-block;
+          position: absolute;
+          bottom: 0;
+          z-index: -9;
+          left: 50%;
+          opacity: 0;
+          transform: translate(-50%, 21px) rotate(90deg);
+        }
+        &:hover,
+        &:global(.active),
+        &:global(.active):hover {
+          background-color: $hoverBG;
+          color: $white;
+          &:before {
+            opacity: 1;
+          }
+          &:after {
+            opacity: 1;
+          }
+        }
+        &:hover {
+          &:after {
+            opacity: 0;
+          }
+        }
+      }
+    }
   }
 }
 
