@@ -101,13 +101,13 @@ function creatorKits() {
         <div className={playlist.creatorKitsContent}>
           <Tabs defaultActiveKey="tracks" id="uncontrolled-tab-example" className="mb-4">
             <Tab eventKey="tracks" title="Tracks">
-              Devouring Time, blunt thou the lion's paws, And make the earth devour her own sweet brood; Pluck the keen teeth from the fierce tiger's jaws, And burn the long-liv'd phoenix, in her blood; Make glad and sorry seasons as thou fleets, And do whate'er thou wilt, swift-footed Time, To the wide world and all her fading sweets; But I forbid thee one most heinous crime: O! carve not with thy hours my love's fair brow, Nor draw no lines there with thine antique pen;
+              <p>lorem 50</p>
             </Tab>
             <Tab eventKey="sfx" title="SFX">
-              I grant thou wert not married to my Muse, And therefore mayst without attaint o'erlook The dedicated words which writers use Of their fair subject, blessing every book. Thou art as fair in knowledge as in hue, Finding thy worth a limit past my praise; And therefore art enforced to seek anew Some fresher stamp of the time-bettering days. And do so, love; yet when they have devis'd, What strained touches rhetoric can lend,
+            <p>lorem 51</p>
             </Tab>
             <Tab eventKey="soundDesign" title="Sound Design">
-              Against that time, if ever that time come, When I shall see thee frown on my defects, When as thy love hath cast his utmost sum, Call'd to that audit by advis'd respects; Against that time when thou shalt strangely pass, And scarcely greet me with that sun, thine eye, When love, converted from the thing it was, Shall reasons find of settled gravity; Against that time do I ensconce me here, Within the knowledge of mine own desert,
+            <p>lorem 52</p>
             </Tab>
           </Tabs>
         </div>
