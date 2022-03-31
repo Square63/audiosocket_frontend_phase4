@@ -129,7 +129,8 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       };
     case GET_PLANS_SUCCESS:
       return {
-        subscriptionPlans: action.payload.plans
+        subscriptionPlans: action.payload.plans,
+        currentPlan: action.payload.current_plan
       };
     case GET_PLANS_FAIL:
       return {
