@@ -15,6 +15,7 @@ function Subscription() {
   const dispatch = useDispatch();
   const router = useRouter();
   const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
+  const currentPlan = useSelector(state => state.user.currentPlan);
   const [isLoading, setIsLoading] = useState(true);
 
 
@@ -23,10 +24,11 @@ function Subscription() {
   }, []);
 
   useEffect(() => {
-    if (subscriptionPlans) {
+    if (subscriptionPlans || currentPlan) {
+      debugger
       setIsLoading(false)
     }
-  }, [subscriptionPlans])
+  }, [subscriptionPlans, currentPlan])
 
   return (
     <>
@@ -35,12 +37,12 @@ function Subscription() {
       ) : (
         <div className={user.editSubscription}>
           <h3 className={user.planStatus}>Current Plan</h3>
-          <div className={user.plansShelf}>
+          {/* <div className={user.plansShelf}>
             <div className={user.currentPlan+' boxWithOutShadow'}>
               <div className={user.plansHeading}>
-                <h2>{subscriptionPlans[0].name} <small>Monthly</small></h2>
+                <h2>{currentPlan.name} <small>Monthly</small></h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${subscriptionPlans[0].price}</span>
+                  <span className={user.rate}>${currentPlan.price}</span>
                   <small className={user.planDuration}>/Month</small>
                 </div>
               </div>
@@ -65,7 +67,7 @@ function Subscription() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="billingFrequency">
             <h3 className={user.planStatus}>Change Your Plan</h3>
             <span>Billing Frequency</span>
