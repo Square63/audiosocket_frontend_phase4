@@ -105,6 +105,13 @@ function Search(props) {
   }, [favoritesMessage])
 
   useEffect(() => {
+    window.analytics.identify("Landed on search", {
+
+    username: "ammanda",
+
+    email: "ammanda.asif@square63.org",
+
+    });
     if (tracks.length > 0) {
       setUpdateTracks(tracks)
     }
