@@ -3,6 +3,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
 import { Segment, Grid, Label, Input } from 'semantic-ui-react';
+import { useDispatch, useSelector } from "react-redux";
 import RegionsPlugin from "wavesurfer.js/dist/plugin/wavesurfer.regions.min";
 
 
@@ -25,22 +26,16 @@ const formWaveSurferOptions = (ref) => ({
     RegionsPlugin.create({
         regionsMinLength: 2,
         regions: [
-            {
-                start: 1,
-                end: 3,
-                loop: false,
-                color: 'hsla(400, 100%, 30%, 0.5)'
-            }, {
-                start: 5,
-                end: 7,
-                loop: false,
-                color: 'hsla(200, 50%, 70%, 0.4)',
-                minLength: 1,
-                maxLength: 5,
-            }
+          {
+            id: 'region-1',
+            start: 0,
+            end: 30,
+            loop: false,
+            color: 'hsla(200, 50%, 70%, 0.4)',
+          }
         ],
         dragSelection: {
-            slop: 5
+          slop: 5
         }
     })
   ]
@@ -51,9 +46,12 @@ export default function SearchAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
+  const [segment, setSegment] = useState({start: 0.0, end: 5.0});
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const url = props.track.file? props.track.file : "./test.mp3"
-
+  // const url = props.track.file? props.track.file : "./test.mp3"
+  const url = "./test.mp3"
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
     onChange: function(value) {
@@ -79,22 +77,26 @@ export default function SearchAudioWave(props) {
     //   if (wavesurfer.current) {
     //     wavesurfer.current.destroy();
     //   }
-    // };
-  }, [playing, seconds, props.track, props.footerPlaying]);
+    // }
+  }, [playing, seconds, segment, props.track, props.footerPlaying]);
 
   const create = async () => {
     const WaveSurfer = (await import("wavesurfer.js")).default;
 
     const options = formWaveSurferOptions(waveformRef.current);
-    debugger
     wavesurfer.current = WaveSurfer.create(options);
+
+    wavesurfer.current.on('region-update-end', function (region) {
+      segment.start = region.start
+      segment.end = region.end
+    });
 
     wavesurfer.current.load(url);
   };
 
   const handlePlayPause = () => {
     setPlaying(!playing);
-    wavesurfer.current.playPause();
+    wavesurfer.current.play(segment.start, segment.end);
   };
 
   function convertSecToMin(duration) {
@@ -108,19 +110,25 @@ export default function SearchAudioWave(props) {
 
   }
 
-
   return (
     <div className="versionTrackBody">
+      <div className="playPauseBtn" onClick={() => { handlePlayPause(); }} >
+        <span className={(playing) ? "play" : "pause"}></span>
+        <span className="pause d-none"></span>
+      </div>
       <div className="versionTrackRow">
         <div className="filterVersion">
-            <div id="waveform" ref={waveformRef}  />
+          <div id="waveform" ref={waveformRef} />
         </div>
       </div>
+      <a href="javascript:void(0)" className="btn btnMainXlarge" onClick={props.handleUploadSearch}>
+        Upload Segment
+      </a>
       {/* <div className="versionTrackRow">
         <div className="filterVersion">
           <div className="playPauseBtn" onClick={handlePlayPause}>
             <span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
-          </div>	
+          </div>
           <a href="" className="filterName">
             Backing Vocals
           </a>

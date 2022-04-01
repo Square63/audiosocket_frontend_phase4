@@ -53,9 +53,9 @@ function Search(props) {
   // const message = useSelector(state => state.allPlaylists);
 
   useEffect(() => {
-    
+
   }, [appliedFiltersListWC]);
-  
+
 
   useEffect(() => {
     // handleAimsSearch()
@@ -78,9 +78,9 @@ function Search(props) {
   if (allTracks && allTracks.tracks){
     tracks = allTracks.tracks[0].tracks
     tracksMeta = allTracks.tracks[0].meta
-  }  
+  }
   console.log("Update Tracks", updatedTracks)
-  
+
   console.log("Tracks META", tracksMeta)
   // const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
@@ -116,13 +116,13 @@ function Search(props) {
       isMounted = false;
     };
 
-    
+
   },[tracks, favoritesMessage]);
 
   const handleLoading = () => {
     setLoading(true)
   }
-  
+
   const handleClose = (show) => {
     setShowModal(show)
   }
@@ -162,7 +162,7 @@ function Search(props) {
   function handleAddToPlaylistModalClose() {
     setShowAddToPlaylistModal(false)
   }
-  
+
   const handleSearch = async(e) => {
     setLoading(true)
     let query = document.getElementById("searchField").value
@@ -173,6 +173,11 @@ function Search(props) {
 
   const handleClearAllFilter = () => {
     hideAllFilterDiv()
+  }
+
+  const handleUploadSearch = () => {
+    setLoading(true)
+    dispatch(getSegmentTracksFromAIMS(url, segment.start, segment.end));
   }
 
   function handleClearSingleFilter(e) {
@@ -252,7 +257,7 @@ function Search(props) {
     }
     else {
       alert("You must be logged in to be able to add a track to your favorites.")
-    }  
+    }
   }
 
   const handleAddFilter = async(e) => {
@@ -304,7 +309,7 @@ function Search(props) {
     let vocal = localStorage.getItem('vocal')
     let keyword = localStorage.getItem('keyword')
     document.getElementById("searchField").value = keyword
-        
+
     genre ? appliedFiltersList.push(genre) : null
     vocal ? appliedFiltersList.push(vocal) : null
     if (genre && vocal) {
@@ -348,10 +353,10 @@ function Search(props) {
 		setTrack(track)
     if (track) {
       console.log("track url", track.file)
-    } 
+    }
   }
 
-  
+
   function getUniqFilters(appliedFilters) {
     return appliedFilters.filter((v, i, a) => a.indexOf(v) === i);
   }
@@ -362,9 +367,9 @@ function Search(props) {
     let vocals = !document.getElementById("excludeVocals").checked
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
-    
+
   }
-  
+
   const filterItems = filters.map((filter, index) =>
     <Dropdown alignRight className={filter.name === "Moods" ? "d-inline mood" : filter.name === "Tempos" ? "d-inline durationTempo" : "d-inline"} key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
@@ -490,13 +495,13 @@ function Search(props) {
         </Dropdown.Menu>)
 
         )}
-           
-      
-        
-        
+
+
+
+
     </Dropdown>
   );
-  
+
   return (
     <div className={search.searchWrapper}>
       <Alert variant="success" className="brandAlert">
@@ -587,7 +592,7 @@ function Search(props) {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <div className="singleWave"><SearchAudioWave track={tracks[0]}/></div>
+        <div className="singleWave"><SearchAudioWave track={tracks[0]} handleUploadSearch={handleUploadSearch} /></div>
 
         {loading ? (
           <InpageLoader />
@@ -605,9 +610,9 @@ function Search(props) {
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
-      
+
     </div>
-    
+
   );
 }
 

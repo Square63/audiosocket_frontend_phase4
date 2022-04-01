@@ -43,7 +43,7 @@ export default function CustomAudioWave(props) {
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
   const [footer, setFooter] = useState(false)
-  
+
   const url = props.track.file? props.track.file : "./test.mp3"
 
   const settings = {
@@ -88,7 +88,7 @@ export default function CustomAudioWave(props) {
       wavesurfer.current.destroy();
       footerCreate(props.footerTrack.file)
     }
-      
+
   }, [props.footerTrack]);
 
   const create = async (url) => {
@@ -141,7 +141,7 @@ export default function CustomAudioWave(props) {
                   </OverlayTrigger>
                 </>
               }
-              
+
             </div>
             <div className="songArtist">
               <a href="">
