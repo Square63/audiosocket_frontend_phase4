@@ -52,9 +52,8 @@ class Braintree extends React.Component {
     try {
       // Send nonce to your server
       const { nonce } = await this.instance.tokenize()
-      let price =  1;
-      let discount_id = '257b';
-      
+      let discount_id = document.getElementById("disCode").value;
+      debugger
       const authToken = JSON.parse(localStorage.getItem("user") ?? "");
       const response = await axios.post(
         this.state.redirectUrl, { nonce, discount_id },
@@ -81,6 +80,7 @@ class Braintree extends React.Component {
         </div>
       );
     } else {
+      console.log(this.instance);
       return (
         <div className="container">
           <BraintreeHostedFields
@@ -90,6 +90,7 @@ class Braintree extends React.Component {
             }}
             onInstance={(instance) => (this.instance = instance)}
           >
+            
           <div className={signup.stepWrapper+" "+signup.stepThreeWrapper}>
             <div className="fixed-container">
               <div className={signup.signUpInner}>
@@ -110,8 +111,10 @@ class Braintree extends React.Component {
 
                       <label className="hosted-fields--label">CVV</label>
                       <div className="form-control hosted-field" type="text" placeholder="CVV" id="cvv"></div>
-                      <label className="hosted-fields--label">Discount Code</label>
-                      <div className="form-control" type="text" placeholder="Enter Discount Code."></div>
+                      <label className="hosted-fields--label">Postal Code</label>
+                      <div id="postal-code" className="form-control hosted-field" type="text" placeholder="Enter Postal Code."></div>
+                      <label>Discount Code</label>
+                      <input id="disCode" className="form-control" type="text" placeholder="Enter Discount Code." />
                     </form>
                     </div>
                   </div>

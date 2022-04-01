@@ -3,7 +3,15 @@ import { Form, Button, FormGroup, FormControl } from "react-bootstrap";
 import Image from 'next/image';
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import playlist from "../../styles/Playlist.module.scss";
+import anime from '../../images/animi.jpeg';
+import cinemetic from '../../images/cinimetic.jpeg';
+import hiphop from '../../images/hiphop.jpeg';
 import mood1 from '../../images/mood1.png';
+import mood2 from '../../images/mood2.png';
+import mood3 from '../../images/mood3.jpg';
+import mood4 from '../../images/mood4.jpg';
+import Sample1 from '../../images/sample1.jpeg';
+import Sample2 from '../../images/sample2.jpeg';
 
 function MyPlaylistShow() {
   return (
@@ -12,11 +20,8 @@ function MyPlaylistShow() {
         <div className="themeBreadcrumb">
           <div className="fixed-container">
             <Breadcrumb>
-              <Breadcrumb.Item href="#">Playlists</Breadcrumb.Item>
-              <Breadcrumb.Item href="#">
-               Moods
-              </Breadcrumb.Item>
-              <Breadcrumb.Item active>Aim to Inspire</Breadcrumb.Item>
+              <Breadcrumb.Item href="#">My Playlists</Breadcrumb.Item>
+              <Breadcrumb.Item active>Egg Promo Video</Breadcrumb.Item>
             </Breadcrumb>
           </div>
         </div>
@@ -77,6 +82,45 @@ function MyPlaylistShow() {
             </div> 
           </div>
         </div>
+      </div>
+      <div className={playlist.artistTiles}>
+      <div className="fixed-container">
+        <h3>Artists On This Playlist</h3>
+        <section className={playlist.myPlaylists}>
+          <div className="tilesWrapper">
+            <a href="javascript:void(0)" className="tileOverlay">
+              <Image src={mood1} alt="Mood" className="tilesImg"></Image>
+              <span className="tileOverlayText">
+                The Kelseys
+              </span>
+            </a>
+            <a href="javascript:void(0)" className="tileOverlay">
+              <Image src={mood2} alt="Mood" className="tilesImg"></Image>
+              <span className="tileOverlayText">
+                Mark Ulrich
+              </span>
+            </a>
+            <a href="javascript:void(0)" className="tileOverlay">
+              <Image src={mood3} alt="Mood" className="tilesImg"></Image>
+              <span className="tileOverlayText">
+                Justin G. Marcellus
+              </span>
+            </a>
+            <a href="javascript:void(0)" className="tileOverlay">
+              <Image src={mood4} alt="Mood" className="tilesImg"></Image>
+              <span className="tileOverlayText">
+                Michael Ayers
+              </span>
+            </a>
+            <a href="javascript:void(0)" className="tileOverlay">
+              <Image src={Sample1} alt="Mood" className="tilesImg"></Image>
+              <span className="tileOverlayText">
+                justin abady
+              </span>
+            </a>
+          </div>
+        </section>
+      </div>
       </div>
     </div>
   );
