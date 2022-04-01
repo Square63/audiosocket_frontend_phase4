@@ -17,9 +17,9 @@ const formWaveSurferOptions = (ref) => ({
   barWidth: 1,
   barRadius: 0,
   responsive: true,
-  barHeight: 30,
-  height: 35,
-  barGap: 1,
+  barHeight: 65,
+  height: 65,
+  barGap: 1.5,
   normalize: true,
   partialRender: true,
   plugins: [
@@ -111,7 +111,7 @@ export default function SearchAudioWave(props) {
   }
 
   return (
-    <div className="versionTrackBody">
+    <div className="versionTrackBody clipSegment">
       <div className="playPauseBtn" onClick={() => { handlePlayPause(); }} >
         <span className={(playing) ? "play" : "pause"}></span>
         <span className="pause d-none"></span>
