@@ -219,6 +219,11 @@ function Search(props) {
     hideAllFilterDiv()
   }
 
+  const handleUploadSearch = () => {
+    setLoading(true)
+    dispatch(getSegmentTracksFromAIMS(url, segment.start, segment.end));
+  }
+
   function handleClearSingleFilter(e) {
     setLoading(true)
     let singleFilterText
@@ -639,7 +644,7 @@ function Search(props) {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <div className="singleWave"><SearchAudioWave track={tracks[0]}/></div>
+        <div className="singleWave"><SearchAudioWave track={tracks[0]} handleUploadSearch={handleUploadSearch} /></div>
 
         {loading ? (
           <InpageLoader />
@@ -658,7 +663,10 @@ function Search(props) {
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
       {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
+<<<<<<< HEAD
       <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
+=======
+>>>>>>> e4a384c (Upload segment and play pause feature on wavesufer region)
 
     </div>
 

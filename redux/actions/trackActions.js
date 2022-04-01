@@ -16,17 +16,17 @@ import {
 
 export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
   let url = `${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`
-  
+
   if (explicit === false && exclude_vocals === true){
     url = `${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&explicit=${explicit}&exclude_vocals=${exclude_vocals}`
   }
   else if (explicit === false){
     url = `${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&explicit=${explicit}`
-  } 
+  }
   else if (exclude_vocals === true){
     url = `${BASE_URL}/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&exclude_vocals=${exclude_vocals}`
   }
-    
+
   const cookie = useCookie()
   const authToken = cookie.get("user")
   try {
@@ -44,7 +44,7 @@ export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, e
       type: ALL_TRACKS_FAILURE,
       payload: error
     })
-    
+
   }
 
 }
@@ -64,7 +64,7 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
       dispatch({
         type: ALL_TRACKS_FAILURE,
         payload: error
-      })   
+      })
     }
   } else {
     let uploadedFile = document.getElementById("uploadedFile").files[0]
@@ -85,11 +85,34 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
       dispatch({
         type: ALL_TRACKS_FAILURE,
         payload: error
-      })   
+      })
     }
   }
-  
 
+
+}
+
+export const getSegmentTracksFromAIMS = (url, start, end) => async (dispatch) => {
+  try {
+    const { data } = await axios.request({
+      method: "post",
+      url: `${BASE_URL}/api/v1/consumer/tracks/track_segment_search`,
+      data: {
+        track_file: url,
+        time_offset: start,
+        time_limit: end - start
+      }
+    })
+    dispatch({
+      type: ALL_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: ALL_TRACKS_FAILURE,
+      payload: error
+    })
+  }
 }
 
 export const addToFavorites = (trackId) => async (dispatch) => {
