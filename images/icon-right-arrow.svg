@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="15.014" height="12.278" viewBox="0 0 15.014 12.278">
-  <g id="icon-right-arrow" transform="translate(1 10.864) rotate(-90)">
-    <path id="Shape_1938" data-name="Shape 1938" d="M0,0V12.6" transform="translate(4.725 0)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-    <path id="Shape_1939" data-name="Shape 1939" d="M4.725,4.725,0,0" transform="translate(0 7.875)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-    <path id="Shape_1940" data-name="Shape 1940" d="M0,4.725,4.725,0" transform="translate(4.725 7.875)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+  <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
+    <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+    <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+    <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
   </g>
 </svg>

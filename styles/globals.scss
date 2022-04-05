@@ -176,7 +176,7 @@ textarea.form-control {
         &.active {
           color: $textClr;
         }
-        & + .breadcrumb-item {
+        &:nth-child(n + 2){
           @include flexbox;
           @include align-items(center);
           &:before {
@@ -188,6 +188,47 @@ textarea.form-control {
             display: inline-block;
             vertical-align: middle;
             padding-inline: 20px;
+          }
+        }
+      }
+    }
+  }
+  &.inPricingWay {
+    background: none;
+    display: block;
+    text-align: center;
+    nav {
+      display: inline-block;
+      background-color: #f0f2f4;
+      border-radius: 29px;
+      overflow: hidden;
+    }
+    .breadcrumb {
+      padding: 0 20px;
+      .breadcrumb-item {
+        height: 47px;
+        padding-inline: 20px 25px;
+        color: $headerColor;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 47px;
+        letter-spacing: -0.45px;
+        &.active {
+          font-weight: 600;
+          color: $headerColor;
+        }
+        &:nth-child(n + 2) {
+          position: relative;
+          padding-inline: calc(20px + 16px) 25px;
+          &:before {
+            content: '';
+            background: url(../images/paginationArrow.svg) left center no-repeat;
+            padding: 0;
+            background-size: cover;
+            width: 16px;
+            height: 47px;
+            position: absolute;
+            left: 0;
           }
         }
       }
@@ -3596,6 +3637,11 @@ input[type=file]::file-selector-button {
       }
     }
   }
+}
+
+/******************* Pricing ******************/
+.pricingWrapper {
+  padding-top: 59px;
 }
 
 /******************** Keyframe **************/
