@@ -1,0 +1,88 @@
+@import './variables-mixins.scss';
+
+:global(.pricingWrapper) {
+  .pricingBoxShadow {
+    background-color: $white;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
+  }
+  .priceContentContainer {
+    max-width: 934px;
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 90px;
+    .contentHeading {
+      text-align: center;
+      margin-bottom: 80px;
+      h1 {
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 1.19;
+        letter-spacing: -0.9px;
+        margin-bottom: 17px;
+      }
+      p {
+        font-size: 18px;
+        line-height: 1.28;
+        letter-spacing: -0.45px;
+      }
+      & + :global(.inPricingWay) {
+        margin-bottom: 45px;
+      }
+    }
+    .planTypes {
+      @include flexbox;
+      @include justify-content(space-between);
+      @include align-items(center); 
+      .typesLeftSec,
+      .typesRightSec {
+        flex: 1;
+      }
+
+      .typesLeftSec {
+        p {
+          font-size: 24px;
+          line-height: 1.21;
+          letter-spacing: -0.6px;
+          text-align: left;
+        }
+      }
+      .typesRightSec {
+        .plansList {
+          width: 100%;
+          .plansItem {
+            width: 100%;
+            border-radius: 20px;
+            background-color: $white;
+            box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
+            a {
+              @include flexbox;
+              @include justify-content(space-between);
+              @include align-items(center);
+              padding: 16px 32px 16px 24px;
+              .typeName {
+                display: block;
+                .typeHeading {
+                  display: block;
+                  font-size: 18px;
+                  font-weight: 600;
+                  color: $headerColor;
+                  line-height: 1.28;
+                  letter-spacing: -0.45px;
+                }
+                .typeDesc {
+                  color: $middleGrey;
+                  font-size: 14px;
+                  line-height: 1.29;
+                  letter-spacing: -0.35px;
+                }
+              }
+            }
+            &:nth-child(n + 2) {
+              margin-top: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
