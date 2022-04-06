@@ -54,7 +54,7 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
     try {
       const {data} = await axios.request({
         method: "post",
-        url: "https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/upload_track_search",
+        url: `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/${trackId}/similar_tracks`,
       })
       dispatch({
         type: ALL_TRACKS_SUCCESS,
@@ -67,14 +67,15 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
       })   
     }
   } else {
-    let uploadedFile = document.getElementById("formFile").files[0]
+    let uploadedFile = document.getElementById("uploadedFile").files[0]
     const formData = new FormData();
     formData.append('file', uploadedFile)
+    debugger
     try {
       const {data} = await axios.request({
         method: "post",
         url: "https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/upload_track_search",
-        data: localStorage.getItem("formData")
+        data: formData
       })
       dispatch({
         type: ALL_TRACKS_SUCCESS,
