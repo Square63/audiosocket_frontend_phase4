@@ -68,7 +68,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
           <h4 className="modalBodyHeading">Load A Track To Find Similar Songs</h4>
           <p className="modalBodytext">Upload MP3 or WAV</p>
           <Form.Group controlId="formFile" className="uploadComponent">
-            <Form.Control type="file" onChange={(e) => handleFileSelect(e)} />
+            <Form.Control type="file" onChange={(e) => handleFileSelect(e)} id="uploadedFile" />
           </Form.Group>
           <div className="modalBtnWrapper">
             <a href="javascript:void(0)" className="btn btnMainLarge disabled" id="uploadBtn" onClick={handleUploadSearch}>Upload and Search</a>
