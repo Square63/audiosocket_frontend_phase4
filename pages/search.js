@@ -48,7 +48,7 @@ function Search(props) {
   const [index, setIndex] = useState(0)
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
-  const [updatedTracks, setUpdateTracks] = useState([])
+  const [updatedTracks, setUpdatedTracks] = useState([])
   const [trackName, setTrackName] = useState(localStorage.getItem("track_name"))
 
   // const message = useSelector(state => state.allPlaylists);
@@ -113,7 +113,7 @@ function Search(props) {
 
     });
     if (tracks.length > 0) {
-      setUpdateTracks(tracks)
+      setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
     }
 
     let isMounted = true;
@@ -136,8 +136,18 @@ function Search(props) {
   }
 
   function showDownloadModal(index) {
-    setIndex(index)
-    setShowDownModal(true)
+    if (localStorage.getItem("user")) {
+      if (index > 9) {
+        setIndex(index + 10)
+      }
+      else {
+        setIndex(index)
+      }
+      setShowDownModal(true)
+    }
+    else {
+      alert("You must be logged in to be able to add a track to cart.")
+    }
   }
 
   const handleDownloadClose = (show) => {
@@ -628,7 +638,7 @@ function Search(props) {
         </div>
       </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
-      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} />
+      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
       {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
