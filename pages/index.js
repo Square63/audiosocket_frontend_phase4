@@ -198,7 +198,16 @@ export default function Home(props) {
     router.push('/search')
   }
 
+  const handleSearchCatalog = async() => {
+    setLoading(true)
+    router.push('/search')
+  }
 
+  const handleSearchPlaylists = async() => {
+    setLoading(true)
+    router.push('/playlist/curatedPlaylist')
+  }
+  
   return (
     <div>
       <Head>
@@ -282,7 +291,7 @@ export default function Home(props) {
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
-                          <div className="catalogBtn-block">
+                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>                            
                             <button className="btn btnMainLarge">Search the catalog</button>
                           </div>
                         </div>
@@ -402,7 +411,7 @@ export default function Home(props) {
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
-                          <div className="catalogBtn-block">
+                          <div className="catalogBtn-block" onClick={handleSearchPlaylists}>
                             <button className="btn btnMainLarge">Search playlists</button>
                           </div>
                         </div>
@@ -413,6 +422,11 @@ export default function Home(props) {
                         <div className="outOfScenario">
                           <h5>Creator Kits</h5>
                           <p>Creator Kits include everything you need to add audio to your project including: Music, Sound Effects, and Sound Design. The projects includes stems so you can tailor the kit to fit your needs.</p>
+                        </div>
+                        <div className="searchvideoSection">
+                          <div className="catalogBtn-block" onClick={handleSearchPlaylists}>
+                            <button className="btn btnMainLarge">Try it Now</button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -449,7 +463,7 @@ export default function Home(props) {
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
-                          <div className="catalogBtn-block">
+                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>
                             <button className="btn btnMainLarge">Search catalog</button>
                           </div>
                         </div>
@@ -458,7 +472,7 @@ export default function Home(props) {
                           <p>If you have a track that sounds about right but isn’t royalty-free, we can find tracks for you to license based on your track.</p>
                           <a href="" className="tryOut">Try it Out</a>
                           <Form.Group controlId="formFile" className="uploadComponent">
-                            <Form.Label>Default file input example</Form.Label>
+                            <Form.Label>Chose an mp3 or WAV file from your computer to get results within seconds!</Form.Label>
                             <Form.Control type="file" onChange={() => handleUploadTrack()}/>
                           </Form.Group>
                           
@@ -492,7 +506,7 @@ export default function Home(props) {
                         </svg>
                       </div>
                       <div className="tabHeading">
-                        <h3>Link a track for reference.</h3>
+                        <h3>Use A Track URL From The Web.</h3>
                         <p>Use a YouTube URL or Spotify Song link to find similar tracks.</p>
                       </div>
                     </div>
@@ -506,13 +520,13 @@ export default function Home(props) {
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
-                          <div className="catalogBtn-block">
+                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>
                             <button className="btn btnMainLarge">Search catalog</button>
                           </div>
                         </div>
                         <div className="outOfScenario">
                           <h5>Link a reference track</h5>
-                          <p>If you have a track on YouTube or Spotify that sounds about right but isn’t royalty-free, we can find tracks for you to license based on your track. </p>
+                          <p>Found a track you love but don&apos;t have a license to use it? Paste the YouTube URL or Shopify Song Link into the Search Bar to find songs that are similar.</p>
                           <a href="" className="tryOut">Try it Out</a>
                           <Form className="stickySearch" onSubmit={e => { e.preventDefault(); }}>
                             <Form.Control type="text" placeholder="Paste in a YouTube link or Spotify song link" />
@@ -554,14 +568,18 @@ export default function Home(props) {
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
-                          <div className="catalogBtn-block">
+                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>
                             <button className="btn btnMainLarge">Search catalog</button>
                           </div>
                         </div>
                         <div className="outOfScenario">
                           <h5>Search by project type</h5>
-                          <p>We have curated playlists for each type of project you’re working on.</p>
-                          <a href="" className="tryOut">Try it Out</a>
+                          <p>Want a simple way to drive into our catalog? Start with staff recommendations based on the type of media you are creating. Once you find a track you love, click on the magnifying glass icon to find more similar tracks from our roster. </p>
+                        </div>
+                        <div className="searchvideoSection">
+                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>
+                            <button className="btn btnMainLarge">Try it Now</button>
+                          </div>
                         </div>
                       </div>
                     </div>
