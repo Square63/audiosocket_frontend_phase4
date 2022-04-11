@@ -411,7 +411,7 @@ export default function Home(props) {
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
-                          <div className="catalogBtn-block" onClick={handleSearchPlaylists}>
+                          <div className="text-center mt-5" onClick={handleSearchPlaylists}>
                             <button className="btn btnMainLarge">Search playlists</button>
                           </div>
                         </div>
@@ -422,9 +422,7 @@ export default function Home(props) {
                         <div className="outOfScenario">
                           <h5>Creator Kits</h5>
                           <p>Creator Kits include everything you need to add audio to your project including: Music, Sound Effects, and Sound Design. The projects includes stems so you can tailor the kit to fit your needs.</p>
-                        </div>
-                        <div className="searchvideoSection">
-                          <div className="catalogBtn-block" onClick={handleSearchPlaylists}>
+                          <div className="catalogBtn-block text-center mt-4" onClick={handleSearchPlaylists}>
                             <button className="btn btnMainLarge">Try it Now</button>
                           </div>
                         </div>
@@ -575,9 +573,7 @@ export default function Home(props) {
                         <div className="outOfScenario">
                           <h5>Search by project type</h5>
                           <p>Want a simple way to drive into our catalog? Start with staff recommendations based on the type of media you are creating. Once you find a track you love, click on the magnifying glass icon to find more similar tracks from our roster. </p>
-                        </div>
-                        <div className="searchvideoSection">
-                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>
+                          <div className="text-center mt-5" onClick={handleSearchCatalog}>
                             <button className="btn btnMainLarge">Try it Now</button>
                           </div>
                         </div>
