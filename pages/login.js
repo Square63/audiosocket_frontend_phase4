@@ -114,7 +114,8 @@ function Login() {
                   Password is required!
                 </Form.Control.Feedback>
                 <div className={login.forgotPassword}>
-                  <a onClick={() => setShowModal(true)}>Forgot password?</a>
+                <Link href={"/ForgotPassword"}><a>Forgot password?</a></Link>
+                  
                 </div>
               </Form.Group>
               <Button type="submit" className={login.submit+' '+login.loginBtn}>
@@ -151,7 +152,6 @@ function Login() {
           </div>
         </div>
       </div>
-      <ForgotPassword showModal={showModal} onCloseModal={handleClose} />
     </div>
   );
 
