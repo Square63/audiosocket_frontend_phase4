@@ -14,6 +14,26 @@
     max-width: 440px;
     width: 100%;
   }
+  .headingWithIcon {
+    @include flexbox;
+    @include justify-content(flex-start);
+    @include align-items(center);
+    gap: 20px;
+    margin-bottom: 25px;
+    .headingIcon {
+      min-width: 57px;
+      width: 57px;
+      min-height: 57px;
+      height: 57px;
+      border-radius: 50%;
+      background-color: $green-light;
+      text-align: center;
+      line-height: 57px;
+    }
+    h3 {
+      margin-bottom: 0;
+    }
+  }
   .priceContentContainer {
     max-width: 934px;
     width: 100%;
@@ -26,10 +46,18 @@
       line-height: 1.21;
       letter-spacing: -0.6px;
     }
-
+    :global(.form-label) {
+      font-size: 16px;
+      margin-bottom: 5px;
+      line-height: normal;
+      color: $middleGrey;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+    }
     :global(.form-control),
     :global(.react-select__control) {
       border: 2px solid $nav-link;
+      padding-inline: 20px;
     }
 
     .contentHeading {
@@ -112,24 +140,6 @@
         resize: none;
       }
       .pricingLeftSec {
-        .headingWithIcon {
-          @include flexbox;
-          @include justify-content(flex-start);
-          @include align-items(center);
-          gap: 20px;
-          margin-bottom: 25px;
-          .headingIcon {
-            width: 57px;
-            height: 57px;
-            border-radius: 50%;
-            background-color: $green-light;
-            text-align: center;
-            line-height: 57px;
-          }
-          h3 {
-            margin-bottom: 0;
-          }
-        }
         .enterpriseContent {
           p {
             font-size: 16px;
@@ -150,6 +160,117 @@
             svg {
               margin-left: 10px;
             }
+          }
+        }
+      }
+    }
+
+    /************** Billing & payment ************/
+    .billingPaymentSec {
+      .planBio {
+        @include flexbox;
+        @include justify-content(flex-start);
+        @include align-items(flex-start);
+        @extend %pricingBoxShadow;
+        padding: 20px 24px 25px;
+        margin-bottom: 28px;
+        position: relative;
+        .headingWithIcon {
+          max-width: 315px;
+          width: 100%;
+          padding-right: 25px;
+        }
+        .planInfo {
+          max-width: 361px;
+          width: 100%;
+          margin-right: 20px;
+          .planTypeDuration {
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 1.23;
+            letter-spacing: -0.55px;
+            .seprater {
+              margin-inline: 15px;
+            }
+            .planType {
+              font-weight: 500;
+            }
+            .planDuration {
+              
+            }
+          }
+          hr {
+            margin-block: 15px 10px;
+          }
+          .planDatePrice {
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 1.23;
+            letter-spacing: -0.55px;
+            @include flexbox;
+            @include justify-content(space-between);
+            @include align-items(center);
+            .planDate {
+              font-weight: 500;
+            }
+            .planPrice {
+              font-size: 30px;
+              font-weight: 600;
+              line-height: 1.23;
+              letter-spacing: -0.6px;
+            }
+          }
+        }
+        a {
+          position: absolute;
+          right: 22px;
+        }
+      }
+      .planBillingPayment {
+        @include flexbox;
+        @include justify-content(space-between);
+        @include align-items(flex-start);
+        gap: 22px;
+        .pricingLeftSec {
+          @extend %pricingBoxShadow;
+          max-width: 440px;
+        }
+        .pricingRightSec {
+          @extend %pricingBoxShadow;
+          :global(.stickySearch) {
+            button {
+              background-color: $headerColor;
+              color: $green-light;
+            }
+          }
+          .paymentSetupNotice {
+            letter-spacing: -0.35px;
+            margin-block: 20px 25px;
+          }
+        }
+        .planBilling,
+        .planPayment {
+          padding: 26px 22px 42px;
+        }
+      }
+      .paymentBtnWrapper {
+        @include flexbox;
+        @include align-items(center);
+        gap: 15px;
+        margin-bottom: 29px;
+        .creditCardBtn {
+          border-color: $green-light;
+          color: $headerColor;
+          padding-inline: 40px;
+        }
+        .payPalBtn {
+          border-color: $headerColor;
+          padding-inline: 40px;
+          padding-block: 0;
+          line-height: 39px;
+          &:hover {
+            background-color: transparent;
+            opacity: 0.85;
           }
         }
       }
