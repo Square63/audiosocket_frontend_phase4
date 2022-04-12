@@ -416,109 +416,7 @@ function Pricing() {
             </div>
           </div>
         </div>
-  
       </div>
-
-      <section className="testimonial">
-              <div className="testimonialContainer">
-                <Carousel>
-                  <Carousel.Item interval={3000}>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-
-                  <Carousel.Item>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-
-                  <Carousel.Item>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                  
-                </Carousel>
-              </div>
-      </section>
-
-      <section className="pricing">
-        <div className="bgWave">
-          <div className="fixed-container">
-            <h2>Priced to fit your needs.</h2>
-            <div className="pricingPlans">
-              <div className="plan personal">
-                <h4 className="planHeading">personal</h4>
-                <div className="planPrice">
-                  <p className="planPriceText">Plans starting at</p>
-                  <p className="planPriceAmount"><span>$10</span>&nbsp;/Month</p>
-                </div>
-                <p className="planDescription">
-                  Perfect if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.
-                </p>
-                <div className="PlanBtnContainer">
-                  <a href="" className="btn btnMainLarge">Learn More</a>
-                </div>
-              </div>
-
-              <div className="plan commercial">
-                <h4 className="planHeading">commercial</h4>
-                <div className="planPrice">
-                  <p className="planPriceText">Plans starting at</p>
-                  <p className="planPriceAmount"><span>$33</span>&nbsp;/Month</p>
-                </div>
-                <p className="planDescription">
-                  Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
-                </p>
-                <div className="PlanBtnContainer">
-                  <a href="" className="btn btnMainLarge">Learn More</a>
-                </div>
-              </div>
-
-              <div className="plan enterprises">
-                <h4 className="planHeading">enterprises</h4>
-                <div className="planPrice">
-                  <p className="planPriceText">Customized quote to meet your needs.</p>
-                </div>
-                <p className="planDescription">
-                  Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
-                </p>
-                <div className="PlanBtnContainer">
-                  <a href="" className="btn btnMainLarge">Request a custom quote</a>
-                </div>
-              </div>
-
-            </div>
-            <p className="plansBottDesc">We also offer single-use licenses.</p>
-            <div className="btnContainer text-center">
-              <a href="" className="btn btnMainLarge">Learn More</a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section className="campareWithCompetitor">
         <div className="blackSection">
@@ -601,6 +499,109 @@ function Pricing() {
           </div>
         </div>
       </section>
+
+      <section className="testimonial">
+        <div className="testimonialContainer">
+          <Carousel>
+            <Carousel.Item interval={3000}>
+              <div className="authorImg">
+                <Image src={testimonialAvatar} alt="Picture" className=""/>
+              </div>
+              <Carousel.Caption>
+                <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
+                <div className="authorStatus">
+                  <p className="authorName">Pete Larson</p>
+                  <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+                </div>
+              </Carousel.Caption>
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <div className="authorImg">
+                <Image src={testimonialAvatar} alt="Picture" className=""/>
+              </div>
+              <Carousel.Caption>
+                <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
+                <div className="authorStatus">
+                  <p className="authorName">Pete Larson</p>
+                  <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+                </div>
+              </Carousel.Caption>
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <div className="authorImg">
+                <Image src={testimonialAvatar} alt="Picture" className=""/>
+              </div>
+              <Carousel.Caption>
+                <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
+                <div className="authorStatus">
+                  <p className="authorName">Pete Larson</p>
+                  <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+                </div>
+              </Carousel.Caption>
+            </Carousel.Item>
+            
+          </Carousel>
+        </div>
+      </section>
+
+      {/* <section className="pricing">
+        <div className="bgWave">
+          <div className="fixed-container">
+            <h2>Priced to fit your needs.</h2>
+            <div className="pricingPlans">
+              <div className="plan personal">
+                <h4 className="planHeading">personal</h4>
+                <div className="planPrice">
+                  <p className="planPriceText">Plans starting at</p>
+                  <p className="planPriceAmount"><span>$10</span>&nbsp;/Month</p>
+                </div>
+                <p className="planDescription">
+                  Perfect if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.
+                </p>
+                <div className="PlanBtnContainer">
+                  <a href="" className="btn btnMainLarge">Learn More</a>
+                </div>
+              </div>
+
+              <div className="plan commercial">
+                <h4 className="planHeading">commercial</h4>
+                <div className="planPrice">
+                  <p className="planPriceText">Plans starting at</p>
+                  <p className="planPriceAmount"><span>$33</span>&nbsp;/Month</p>
+                </div>
+                <p className="planDescription">
+                  Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
+                </p>
+                <div className="PlanBtnContainer">
+                  <a href="" className="btn btnMainLarge">Learn More</a>
+                </div>
+              </div>
+
+              <div className="plan enterprises">
+                <h4 className="planHeading">enterprises</h4>
+                <div className="planPrice">
+                  <p className="planPriceText">Customized quote to meet your needs.</p>
+                </div>
+                <p className="planDescription">
+                  Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
+                </p>
+                <div className="PlanBtnContainer">
+                  <a href="" className="btn btnMainLarge">Request a custom quote</a>
+                </div>
+              </div>
+
+            </div>
+            <p className="plansBottDesc">We also offer single-use licenses.</p>
+            <div className="btnContainer text-center">
+              <a href="" className="btn btnMainLarge">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      
 
       <Accordion defaultActiveKey="0">
         <Card>

@@ -387,13 +387,14 @@
             @include align-items(center);
             gap: 15px;
             max-height: 60px;
+            cursor: pointer;
             @include transition(all 0.3s ease-in-out);
             .planType {
+              text-align: left;
               span {
                 font-size: 14px;
                 line-height: 1.29;
                 letter-spacing: -0.35px;
-                text-align: left;
               }
               .planName {
                 font-size: 22px;
