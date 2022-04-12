@@ -673,26 +673,73 @@ function Pricing() {
         </div>
       </section>
 
+      <section className={pricing.faqSection}>
+        <h3>FAQs</h3>
+        <div className="pricingContainer">
+          <Accordion defaultActiveKey="0">
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="0">
+              Will I be able to use these tracks on a monetized YouTube channel?
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body><strong>No</strong>. Once your channel becomes monitized, you’ll need to switch to our commercial plan.</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="1">
+              Will I have access to the complete Audiosocket library?
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="1">
+              <Card.Body>Hello! I'm another Text</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="2">
+              Can I pay monthly?
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="2">
+              <Card.Body>Hello! I'm another Text</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="3">
+              Can I use any song from Audiosocket in my subscription?
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="3">
+              <Card.Body>Hello! I'm another Text</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="4">
+              What is Content ID on YouTube?
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="4">
+              <Card.Body>Hello! I'm another Text</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="5">
+              How do I dispute a Content ID claim on my YouTube video?
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="5">
+              <Card.Body>Hello! I'm another Text</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="6">
+              Will I still earn all of the revenue from my videos if I receive a YouTube claim?
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="6">
+              <Card.Body>Hello! I'm another Text</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
+        </div>
+      </section>
+
       
 
-      {/* <Accordion defaultActiveKey="0">
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            Click me!
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body>Hello! I'm the body</Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="1">
-            Click me!
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="1">
-            <Card.Body>Hello! I'm another body</Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion> */}
+      
 
             
     </div>
