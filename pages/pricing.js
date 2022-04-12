@@ -368,8 +368,9 @@ function Pricing() {
               </div>
             </div>
           </div>
+  
           <div className={pricing.pricingRightSec}>
-            <div className={pricing.billingPlanWrapper}>
+            <div className={pricing.planBillingWrapper}>
               <div className="billingFrequency">
                 <span>Billing Frequency</span>
                 <div className="toggleButton">
@@ -406,6 +407,12 @@ function Pricing() {
 
                 <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
               </div>
+            </div>
+            <div className={pricing.oneTimePurchase}>
+              <span className={pricing.typeName}>
+                <span className={pricing.typeHeading}>Single Track</span>
+                <span className={pricing.typeDesc}>One-time use pricing available at checkout</span>
+              </span>
             </div>
           </div>
         </div>
