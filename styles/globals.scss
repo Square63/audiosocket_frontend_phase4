@@ -1124,6 +1124,23 @@ footer {
 hr {
   border-color: $nav-link;
 }
+
+.themeTextMuted {
+  color: $textClr !important;
+  font-size: 14px !important;
+  letter-spacing: -0.35px;
+}
+
+.halfGutters {
+  margin-right: -7.5px;
+  margin-left: -7.5px;
+
+  & > .col,
+  & > [class*="col-"] {
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+  }
+}
 /************** Rounded Box **********/
 
 %boxEssentials {
