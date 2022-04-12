@@ -7,11 +7,20 @@ import Link from "next/link";
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
+import amazon from '../images/amazon.svg';
+import disnep from '../images/Disnep.svg';
+import hbo from '../images/HBO.svg';
+import mailchimp from '../images/mailchimp.svg';
+import nbc from '../images/NBC.svg';
+import netflix from '../images/netflix.svg';
+import vice from '../images/vice.svg';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import pricing from "../styles/Pricing.module.scss";
 
 function Pricing() {
   return (
-    <div className="pricingWrapper">
+    <div className={pricing.pricingWrapper}>
       <div className={pricing.priceContentContainer}>
 
         {/* Section Heading Code */}
@@ -500,6 +509,20 @@ function Pricing() {
         </div>
       </section>
 
+      <section className={pricing.brandStripWrapper}>
+        <div className="fixed-container">
+          <div className="brandsStrip">
+            <Image src={amazon} alt="Amazon" className="heroBrand"/>
+            <Image src={mailchimp} alt="Mailchimp" className="heroBrand mailChimp"/>
+            <Image src={disnep} alt="Disnep" className="heroBrand"/>
+            <Image src={hbo} alt="HBO" className="heroBrand"/>
+            <Image src={netflix} alt="NETFLIX" className="heroBrand"/>
+            <Image src={nbc} alt="NBC" className="heroBrand"/>
+            <Image src={vice} alt="VICE" className="heroBrand"/>
+          </div>
+        </div>
+      </section>
+
       <section className="testimonial">
         <div className="testimonialContainer">
           <Carousel>
@@ -546,9 +569,9 @@ function Pricing() {
         </div>
       </section>
 
-      {/* <section className="pricing">
+      <section className="pricing">
         <div className="bgWave">
-          <div className="fixed-container">
+          <div className="pricingContainer">
             <h2>Priced to fit your needs.</h2>
             <div className="pricingPlans">
               <div className="plan personal">
@@ -593,17 +616,66 @@ function Pricing() {
               </div>
 
             </div>
-            <p className="plansBottDesc">We also offer single-use licenses.</p>
-            <div className="btnContainer text-center">
-              <a href="" className="btn btnMainLarge">Learn More</a>
+          </div>
+        </div>
+      </section>
+
+      <section className={pricing.singleLicenseOffer}>
+        <div className="fixed-container">
+          <div className={pricing.licenseHeading}>
+            <h3>We also offer single-use licenses.</h3>
+            <p>When browsing for tracks, click the Add To Cart button and select a single license from the pop-up.</p>
+          </div>
+          <div className={pricing.licenseTypeWrapper}>
+            <div className={pricing.licenseType}>
+              <span className={pricing.licenseName}>
+                Individual
+                <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                  <a href="" className="info"></a>
+                </OverlayTrigger>
+              </span>
+              <p className={pricing.licenseAmount}>$15</p>
+            </div>
+            <div className={pricing.licenseType}>
+              <span className={pricing.licenseName}>
+                Small Business
+                <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                  <a href="" className="info"></a>
+                </OverlayTrigger>
+              </span>
+              <p className={pricing.licenseAmount}>$99</p>
+            </div>
+            <div className={pricing.licenseType}>
+              <span className={pricing.licenseName}>
+                Indie Film
+                <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                  <a href="" className="info"></a>
+                </OverlayTrigger>
+              </span>
+              <p className={pricing.licenseAmount}>$129</p>
+            </div>
+            <div className={pricing.licenseType}>
+              <span className={pricing.licenseName}>
+                Large Business
+                <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                  <a href="" className="info"></a>
+                </OverlayTrigger>
+              </span>
+              <p className={pricing.licenseAmount}>$995</p>
+            </div>
+            <div className={pricing.licenseType}>
+              <span className={pricing.licenseName}>
+                Custom License
+              </span>
+              <a href="javascript:void(0)" className={pricing.contactSale}>Contact Sales</a>
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       
 
-      <Accordion defaultActiveKey="0">
+      {/* <Accordion defaultActiveKey="0">
         <Card>
           <Accordion.Toggle as={Card.Header} eventKey="0">
             Click me!
@@ -620,7 +692,7 @@ function Pricing() {
             <Card.Body>Hello! I'm another body</Card.Body>
           </Accordion.Collapse>
         </Card>
-      </Accordion>
+      </Accordion> */}
 
             
     </div>

@@ -1,6 +1,6 @@
 @import './variables-mixins.scss';
 
-:global(.pricingWrapper) {
+.pricingWrapper {
   %pricingBoxShadow {
     border-radius: 20px;
     background-color: $white;
@@ -468,5 +468,100 @@
       }
     }
   }
+
+  /*********** Brands Strips *************/
+  .brandStripWrapper {
+    padding-block: 65px; 
+    :global(.brandsStrip) {
+      margin-block: 50px;
+    }
+  }
+
+  /*********** Pricing *************/
+  :global(.pricing) {
+    background-color: $grey;
+    background-image: none;
+    h2 {
+      color: $headerColor;
+    }
+    :global(.pricingPlans) {
+      :global(.plan) {
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+      }
+    }
+  }
+
+  /*********** Single License Offer *************/
+  .singleLicenseOffer {
+    padding-block: 60px 100px;
+    .licenseHeading {
+      margin-bottom: 25px;
+      h3 {
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 1.23;
+        letter-spacing: -0.65px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      p {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.28;
+        letter-spacing: -0.45px;
+        text-align: center;
+      }
+    }
+    .licenseTypeWrapper {
+      @include flexbox;
+      @include justify-content(space-between);
+      @include align-items(flex-start);
+      gap: 20px;
+      max-width: 1110px;
+      width: 100%;
+      padding-inline: 15px;
+      margin-inline: auto;
+      margin-block-start: 43px;
+
+
+      .licenseType {
+        .licenseName {
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 1.28;
+          letter-spacing: -0.45px;
+          text-align: center;
+          margin-bottom: 10px;
+          display: inline-block;
+        }
+        a {
+          margin-left: 7px;
+        }
+      }
+      .licenseAmount {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1.21;
+        letter-spacing: -1.2px;
+        text-align: center;
+      }
+      .contactSale {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.19;
+        letter-spacing: normal;
+        text-align: center;
+        color: #3b5998;
+        text-decoration: underline;
+        @include transition(all 0.25s ease-in-out);
+        display: block;
+        margin-top: 20px;
+        &:hover {
+          opacity: 0.85;
+        }
+      }
+    }
+  }
+
 }
 

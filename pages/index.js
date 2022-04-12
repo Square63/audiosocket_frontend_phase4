@@ -681,7 +681,7 @@ export default function Home(props) {
 
             <section className="pricing">
               <div className="bgWave">
-                <div className="fixed-container">
+                <div className="pricingContainer">
                   <h2>Priced to fit your needs.</h2>
                   <div className="pricingPlans">
                     <div className="plan personal">
