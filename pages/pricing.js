@@ -139,7 +139,7 @@ function Pricing() {
         </div> */}
 
         {/* Billing and Payment Code */}
-        <div className={pricing.billingPaymentSec}>
+        {/* <div className={pricing.billingPaymentSec}>
           <div className={pricing.planBio}>
             <div className={pricing.headingWithIcon}>
                 <span className={pricing.headingIcon}>
@@ -323,11 +323,96 @@ function Pricing() {
               </Form>
             </div>
           </div>
+        </div> */}
+
+        {/** Plans Landing page **/}
+        <div className={pricing.choosePlans}>
+          <div className={pricing.pricingLeftSec}>
+            <div className={pricing.headingWithIcon}>
+              <span className={pricing.headingIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="31.274" height="28.142" viewBox="0 0 31.274 28.142">
+                  <g id="Group_33" data-name="Group 33" transform="translate(1.319 1)">
+                    <g id="business-deal-cash-1" transform="translate(0)">
+                      <path id="Shape_203" data-name="Shape 203" d="M413.9,333.9s-2.461-1.087-4.181-1.724c-1.128-.419-.967-2.322-.314-3.038a5.217,5.217,0,0,0,1.534-4.3,3.751,3.751,0,1,0-7.477,0,5.217,5.217,0,0,0,1.534,4.3c.653.716.814,2.619-.314,3.038-1.72.637-4.181,1.724-4.181,1.724" transform="translate(-400.5 -308.078)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      <path id="Shape_204" data-name="Shape 204" d="M425.9,333.9s-2.461-1.087-4.181-1.724c-1.128-.419-.967-2.322-.314-3.038a5.217,5.217,0,0,0,1.534-4.3,3.747,3.747,0,1,0-7.477,0,5.217,5.217,0,0,0,1.534,4.3c.653.716.814,2.619-.314,3.038-1.72.637-4.181,1.724-4.181,1.724" transform="translate(-397.263 -308.079)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      <path id="Shape_205" data-name="Shape 205" d="M414.933,308.562h4.158a1.04,1.04,0,0,1,1.039,1.039v7.276a1.04,1.04,0,0,1-1.039,1.039h-4.158l-3.118,3.118v-3.118h-7.276a1.04,1.04,0,0,1-1.039-1.039V309.6a1.04,1.04,0,0,1,1.039-1.039H408.7" transform="translate(-397.717 -308.562)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      <path id="Shape_206" data-name="Shape 206" d="M411.5,314.563V315.6" transform="translate(-397.402 -308.326)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      <path id="Shape_207" data-name="Shape 207" d="M411.5,309.563V310.6" transform="translate(-397.402 -308.523)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      <path id="Shape_208" data-name="Shape 208" d="M409.5,314.72h3.118a1.039,1.039,0,0,0,0-2.079h-2.079a1.039,1.039,0,0,1,0-2.079h3.118" transform="translate(-397.481 -308.483)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+              <h3>Commercial Plan</h3>
+            </div>
+            <p className={pricing.plansDesc}>A Personal License does not include sponsored media, work for hire or allow anyone else to use your work. If you are creating work for use by a business or Client, please select Commercial Media.</p>
+            <div className={pricing.plansFeatures}>
+              <div className={pricing.featureInclude}>
+                <h4>What it’s good for:</h4>
+                <ul>
+                  <li>Small business media (under 100 employees)</li>
+                  <li>Freelancers creating media for small business clients</li>
+                  <li>Web streaming on social media (YouTube, Vimeo, Instagram etc)</li>
+                  <li>YouTube monetization</li>
+                  <li>Wedding / Event videos</li>
+                  <li>Digital Ads (Pre-Roll, Post-Roll, Facebook, Instagram)</li>
+                </ul>
+              </div>
+              <div className={pricing.featureNotInclude}>
+                <h4>What it’s not for:</h4>
+                <ul>
+                  <li>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc) </li>
+                  <li>Games & Apps</li>
+                  <li>Theatrical release</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className={pricing.pricingRightSec}>
+            <div className={pricing.billingPlanWrapper}>
+              <div className="billingFrequency">
+                <span>Billing Frequency</span>
+                <div className="toggleButton">
+                  <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked/>
+                  <label htmlFor="toggle-on" className="movingBtn">Annually</label>
+                  <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio"/>
+                  <label htmlFor="toggle-off" className="movingBtn">Monthly</label>
+                </div>
+                <em>Save 44% with an annual plan</em>
+              </div>
+              <div className={pricing.planSelect}>
+                <p className={pricing.selectText}>Select:</p>
+                <div className={pricing.planIndividual}>
+                  <div className={pricing.planType}>
+                    <span>Select Plan</span>
+                    <p className={pricing.planName}>Music Only</p>
+                  </div>
+                  <div className={pricing.planPriceDuration}>
+                    <span className={pricing.planAmount}>$33.25</span>
+                    <span className={pricing.planDuration}>/Month<sup>*</sup></span>
+                  </div>
+                </div>
+
+                <div className={pricing.planIndividual}>
+                  <div className={pricing.planType}>
+                    <span>Select Plan</span>
+                    <p className={pricing.planName}>Music + SFX</p>
+                  </div>
+                  <div className={pricing.planPriceDuration}>
+                    <span className={pricing.planAmount}>$45.75</span>
+                    <span className={pricing.planDuration}>/Month<sup>*</sup></span>
+                  </div>
+                </div>
+
+                <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+              </div>
+            </div>
+          </div>
         </div>
   
       </div>
 
-      {/* <section className="testimonial">
+      <section className="testimonial">
               <div className="testimonialContainer">
                 <Carousel>
                   <Carousel.Item interval={3000}>
@@ -527,7 +612,7 @@ function Pricing() {
             <Card.Body>Hello! I'm another body</Card.Body>
           </Accordion.Collapse>
         </Card>
-      </Accordion> */}
+      </Accordion>
 
             
     </div>

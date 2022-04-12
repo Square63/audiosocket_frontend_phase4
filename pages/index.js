@@ -422,7 +422,7 @@ export default function Home(props) {
                         <div className="outOfScenario">
                           <h5>Creator Kits</h5>
                           <p>Creator Kits include everything you need to add audio to your project including: Music, Sound Effects, and Sound Design. The projects includes stems so you can tailor the kit to fit your needs.</p>
-                          <div className="catalogBtn-block text-center mt-4" onClick={handleSearchPlaylists}>
+                          <div className="catalogBtn-block text-center mt-5" onClick={handleSearchPlaylists}>
                             <button className="btn btnMainLarge">Try it Now</button>
                           </div>
                         </div>
