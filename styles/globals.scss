@@ -1600,23 +1600,6 @@ hr {
               text-overflow: ellipsis;
               white-space: nowrap;
             }
-            .info,.fire,.playlistWave {
-              width: 16px;
-              height: 16px;
-              display: inline-block;
-            }
-            .info {
-              background: url(../images/tooltip.svg) no-repeat center;
-              background-size: 16px;
-            }
-            .fire {
-              background: url(../images/fire.svg) no-repeat center;
-              background-size: 16px;
-            }
-            .playlistWave {
-              background: url(../images/playlistWave.svg) no-repeat center;
-              background-size: 16px;
-            }
           }
           .songArtist {
             a {
@@ -1877,6 +1860,23 @@ hr {
       background-size: 9px;
     }
   }
+}
+.info,.fire,.playlistWave {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+.info {
+  background: url(../images/tooltip.svg) no-repeat center;
+  background-size: 16px;
+}
+.fire {
+  background: url(../images/fire.svg) no-repeat center;
+  background-size: 16px;
+}
+.playlistWave {
+  background: url(../images/playlistWave.svg) no-repeat center;
+  background-size: 16px;
 }
 .playPauseBtn {
   min-width: 30px;
@@ -2472,21 +2472,22 @@ hr {
       max-width: 580px;
       width: 100%;
     }
-    .brandsStrip {
-      @include flexbox;
-      @include justify-content(space-between);
-      @include align-items(baseline);
-      flex-wrap: wrap;
-      gap: 25px;
-      margin-top: 8em;
-      h2 {
-        max-width: 100%;
-        flex: 1 1 100%;
-        margin-bottom: 0;
-        text-align: center;
-        color: $white;
-      }
-    }
+  }
+}
+
+.brandsStrip {
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(baseline);
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 8em;
+  h2 {
+    max-width: 100%;
+    flex: 1 1 100%;
+    margin-bottom: 0;
+    text-align: center;
+    color: $white;
   }
 }
 
@@ -2765,6 +2766,12 @@ section {
 }
 
 /******************* Pricing ****************/
+.pricingContainer {
+  max-width: 1110px;
+  width: 100%;
+  padding-inline: 15px;
+  margin-inline: auto;
+}
 .pricing {
   background: url('../images/homeBG2.png') no-repeat $headerColor bottom 50px center;;
   background-size: contain;
@@ -3799,14 +3806,15 @@ input[type=file]::file-selector-button {
         line-height: 1.4;
         margin-bottom: 45px;
       }
-      .brandsStrip {
-        margin-top: 8em;
-        gap: 20px;
-        @include justify-content(center);
-        h2 {
-          margin-bottom: 20px;
-        }
-      }
+    }
+  }
+
+  .brandsStrip {
+    margin-top: 8em;
+    gap: 20px;
+    @include justify-content(center);
+    h2 {
+      margin-bottom: 20px;
     }
   }
 
@@ -4309,21 +4317,22 @@ input[type=file]::file-selector-button {
         line-height: 1.4;
         margin-bottom: 33px;
       }
-      .brandsStrip {
-        margin-top: 7em;
-        gap: 10px;
-        @include justify-content(center);
-        & > div {
-          width: 20vw;
-          height: 35px;
-          margin-bottom: 15px !important;
-          .heroBrand {
-            object-fit: scale-down;
-          }
-          &:nth-child(2) {
-            width: 30vw;
-          }
-        }
+    }
+  }
+
+  .brandsStrip {
+    margin-top: 7em;
+    gap: 10px;
+    @include justify-content(center);
+    & > div {
+      width: 20vw;
+      height: 35px;
+      margin-bottom: 15px !important;
+      .heroBrand {
+        object-fit: scale-down;
+      }
+      &:nth-child(2) {
+        width: 30vw;
       }
     }
   }
