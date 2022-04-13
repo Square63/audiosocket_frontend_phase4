@@ -108,7 +108,7 @@ function Signup() {
     <div className={signup.signupWrapper}>
       <div className={signup.signupHeading}>
         <h1>Sign Up</h1>
-        <p>Subscribe and gain unlimited access to 80k+ tracks and 2k+ SFX.<br /> New artists added every month.</p>
+        <p>Subscribe and gain unlimited access to 80k+ tracks and 24k+ SFX.<br /> New artists added every month.</p>
         <p>Already have an account?<Link href={"/login"}>Sign in</Link></p>
       </div>
       <ToastContainer

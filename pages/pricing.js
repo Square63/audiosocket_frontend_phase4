@@ -475,8 +475,8 @@ function Pricing() {
                 <span className={pricing.headingIcon+' '+pricing.personalPlanIcon}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="22.651" height="22.654" viewBox="0 0 22.651 22.654">
                   <g id="Group_2" data-name="Group 2" transform="translate(1 1)">
-                    <path id="Path_4" data-name="Path 4" d="M726.184,386.175l-7.511,4.51v1.377a.691.691,0,0,0,.689.689h19.274a.691.691,0,0,0,.689-.689v-1.377h0l-7.511-4.506" transform="translate(-718.673 -372.097)" fill="none" stroke="#1a1c1d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                    <path id="Path_5" data-name="Path 5" d="M736.215,372.989a8.3,8.3,0,0,0,2.818-6.04v-4.018c-.406-2.282-3.16-4.02-5.63-4.02h0c-2.471,0-5.224,1.738-5.629,4.02v4.018a8.289,8.289,0,0,0,2.818,6.038" transform="translate(-723.075 -358.911)" fill="none" stroke="#1a1c1d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    <path id="Path_4" data-name="Path 4" d="M726.184,386.175l-7.511,4.51v1.377a.691.691,0,0,0,.689.689h19.274a.691.691,0,0,0,.689-.689v-1.377h0l-7.511-4.506" transform="translate(-718.673 -372.097)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                    <path id="Path_5" data-name="Path 5" d="M736.215,372.989a8.3,8.3,0,0,0,2.818-6.04v-4.018c-.406-2.282-3.16-4.02-5.63-4.02h0c-2.471,0-5.224,1.738-5.629,4.02v4.018a8.289,8.289,0,0,0,2.818,6.038" transform="translate(-723.075 -358.911)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
                   </g>
                 </svg>
                 </span>
@@ -485,7 +485,7 @@ function Pricing() {
               <p className={pricing.plansDesc}>A Personal License does not include sponsored media, work for hire or allow anyone else to use your work. If you are creating work for use by a business or Client, please select Commercial Media.</p>
               <div className={pricing.plansFeatures}>
                 <div className={pricing.featureInclude}>
-                  <h4>What it's good for:</h4>
+                  <h4>What it&apos;s good for:</h4>
                   <ul>
                     <li>Web streaming on social media (YouTube, Vimeo, Instagram etc)</li>
                     <li>YouTube monetization for your personal account</li>
@@ -493,7 +493,7 @@ function Pricing() {
                   </ul>
                 </div>
                 <div className={pricing.featureNotInclude}>
-                  <h4>What it's not for:</h4>
+                  <h4>What it&apos;s not for:</h4>
                   <ul>
                     <li>Promoting a product service or brand</li>
                     <li>Videos created for a business or a client’s business</li>
@@ -578,7 +578,7 @@ function Pricing() {
               <p className={pricing.plansDesc}>A Commercial Web License does not cover teams, online games, apps, VOD or Media Created for use by Enterprise Clients (over 100 employees). If you need any of these rights, please select Over 100 employees or Expanded Rights to speak with a representative.</p>
               <div className={pricing.plansFeatures}>
                 <div className={pricing.featureInclude}>
-                  <h4>What it's good for:</h4>
+                  <h4>What it&apos;s good for:</h4>
                   <ul>
                     <li>Small business media (under 100 employees)</li>
                     <li>Freelancers creating media for small business clients</li>
@@ -589,7 +589,7 @@ function Pricing() {
                   </ul>
                 </div>
                 <div className={pricing.featureNotInclude}>
-                  <h4>What it's not for:</h4>
+                  <h4>What it&apos;s not for:</h4>
                   <ul>
                     <li>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc) </li>
                     <li>Games & Apps</li>
@@ -915,7 +915,7 @@ function Pricing() {
                   Will I have access to the complete Audiosocket library?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
-                  <Card.Body>Hello! I'm another Text</Card.Body>
+                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -923,7 +923,7 @@ function Pricing() {
                   Can I pay monthly?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="2">
-                  <Card.Body>Hello! I'm another Text</Card.Body>
+                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -931,7 +931,7 @@ function Pricing() {
                   Can I use any song from Audiosocket in my subscription?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="3">
-                  <Card.Body>Hello! I'm another Text</Card.Body>
+                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -939,7 +939,7 @@ function Pricing() {
                   What is Content ID on YouTube?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="4">
-                  <Card.Body>Hello! I'm another Text</Card.Body>
+                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -947,7 +947,7 @@ function Pricing() {
                   How do I dispute a Content ID claim on my YouTube video?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="5">
-                  <Card.Body>Hello! I'm another Text</Card.Body>
+                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -955,7 +955,7 @@ function Pricing() {
                   Will I still earn all of the revenue from my videos if I receive a YouTube claim?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="6">
-                  <Card.Body>Hello! I'm another Text</Card.Body>
+                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
                 </Accordion.Collapse>
               </Card>
             </Accordion>
