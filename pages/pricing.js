@@ -646,7 +646,7 @@ function Pricing() {
       </div>
 
       {/* Landing page 2 */}
-      { ((planType == "Personal" && subscriptionType == "") || (planType == "Commercial" && employeeNo == "Under 100 Emplyees"))  &&
+      { ((planType == "Personal" && subscriptionType == "") || (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType ==""))  &&
         <>
           <section className="campareWithCompetitor">
             <div className="blackSection">
