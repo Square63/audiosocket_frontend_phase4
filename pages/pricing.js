@@ -551,7 +551,7 @@ function Pricing() {
           </div>
         }
 
-        { (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType == "") &&
+        { (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType =="") &&
           <div className={pricing.choosePlans}>
             <div className={pricing.pricingLeftSec}>
               <div className={pricing.headingWithIcon}>
@@ -646,7 +646,7 @@ function Pricing() {
       </div>
 
       {/* Landing page 2 */}
-      { ((planType == "Personal" && subscriptionType == "") || (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType == ""))  &&
+      { ((planType == "Personal" && subscriptionType == "") || (planType == "Commercial" && employeeNo == "Under 100 Emplyees"))  &&
         <>
           <section className="campareWithCompetitor">
             <div className="blackSection">
