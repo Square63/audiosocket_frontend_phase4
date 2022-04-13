@@ -56,6 +56,10 @@ function Pricing() {
     setSubscriptionType("")
   }
 
+  const handleCollapse = (e) => {
+    e.target.classList.toggle("rotateArrow")
+  }
+
   return (
     <div className={pricing.pricingWrapper}>
       <div className={pricing.priceContentContainer}>
@@ -899,7 +903,7 @@ function Pricing() {
             <div className="pricingContainer">
               <Accordion defaultActiveKey="0">
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0">
+                <Accordion.Toggle as={Card.Header} eventKey="0" onClick={(e)=> handleCollapse(e)}>
                   Will I be able to use these tracks on a monetized YouTube channel?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
@@ -907,7 +911,7 @@ function Pricing() {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="1">
+                <Accordion.Toggle as={Card.Header} eventKey="1" onClick={(e)=> handleCollapse(e)}>
                   Will I have access to the complete Audiosocket library?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
@@ -915,7 +919,7 @@ function Pricing() {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2">
+                <Accordion.Toggle as={Card.Header} eventKey="2" onClick={(e)=> handleCollapse(e)}>
                   Can I pay monthly?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="2">
@@ -923,7 +927,7 @@ function Pricing() {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="3">
+                <Accordion.Toggle as={Card.Header} eventKey="3" onClick={(e)=> handleCollapse(e)}>
                   Can I use any song from Audiosocket in my subscription?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="3">
@@ -931,7 +935,7 @@ function Pricing() {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="4">
+                <Accordion.Toggle as={Card.Header} eventKey="4" onClick={(e)=> handleCollapse(e)}>
                   What is Content ID on YouTube?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="4">
@@ -939,7 +943,7 @@ function Pricing() {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="5">
+                <Accordion.Toggle as={Card.Header} eventKey="5" onClick={(e)=> handleCollapse(e)}>
                   How do I dispute a Content ID claim on my YouTube video?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="5">
@@ -947,7 +951,7 @@ function Pricing() {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="6">
+                <Accordion.Toggle as={Card.Header} eventKey="6" onClick={(e)=> handleCollapse(e)}>
                   Will I still earn all of the revenue from my videos if I receive a YouTube claim?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="6">

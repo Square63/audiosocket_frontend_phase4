@@ -586,6 +586,9 @@
         border-bottom: 1px solid $headerColor;
         border-radius: 0;
         :global(.card-header) {
+          @include flexbox;
+          @include justify-content(space-between);
+          @include align-items(center);
           background-color: transparent;
           font-size: 24px;
           line-height: 1;
@@ -594,8 +597,21 @@
           border: 0;
           padding: 0;
           cursor: default;
-          background: url(../images/chevronDown.svg) no-repeat right 20px center;
-          background-size: 16px;
+          padding-right: 20px;
+          &:after {
+            content: '';
+            background: url(../images/chevronDown.svg) no-repeat right center;
+            background-size: 16px;
+            @include transition(all 0.2s ease-in-out);
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+          }
+          &:global(.rotateArrow) {
+            &:after {
+              transform: rotate(180deg);
+            }
+          }
         }
         :global(.card-body) {
           background-color: transparent;
