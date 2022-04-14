@@ -50,6 +50,8 @@ function Tracks(props) {
 
     if (props.tracks.length < 10) {
       sethasMore(false)
+    } else {
+      sethasMore(true)
     }
 
     return () => {
