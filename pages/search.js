@@ -235,8 +235,8 @@ function Search(props) {
         hideAllFilterDiv()
       }
     }
-    let explicit = !document.getElementById("excludeExplicit").checked
-    let vocals = document.getElementById("excludeVocals").checked
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
@@ -251,11 +251,13 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    dispatch(getTracks(query, query_type(query), [], "", "", 1, explicit, vocals));
+    setAppliedFiltersList([])
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
     setLoading(true)
+    hideAllFilterDiv()
     console.log("Track NAme", trackName)
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(trackName)
@@ -430,7 +432,7 @@ function Search(props) {
               {filter.sub_filters.map((sub_filter, index) =>
                 <>
                   <div className="filterSelf">
-                    <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count ? sub_filter.track_count : 0})</span></Dropdown.Item>
+                    <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.track_count})</span></Dropdown.Item>
                     <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
                         <g id="icon-plus" transform="translate(-1.669 -4.355)">
