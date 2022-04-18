@@ -1,4 +1,5 @@
-import { Form, Button, Carousel, FormGroup, FormControl, Row, Col, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
+import { Button, Carousel, FormGroup, FormControl, Row, Col, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Image from 'next/image';
 import testimonialAvatar from '../images/avatar.png';
@@ -17,15 +18,31 @@ import vice from '../images/vice.svg';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import pricing from "../styles/Pricing.module.scss";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 
 function Pricing() {
+
+  const USE_TYPES = [
+    {label: 'Large Business', value: 'Large Business'},
+    {label: 'Schools', value: 'Schools'},
+    {label: 'Churche', value: 'Churche'},
+    {label: 'Non-profit', value: 'Non-profit'},
+    {label: 'TV or Digital Media Network', value: 'TV or Digital Media Network'},
+    {label: 'Film Production Company', value: 'Film Production Company'},
+    {label: 'Other', value: 'Other'}
+  ]
 
   const [step, setStep] = useState(0);
   const [planType, setPlanType] = useState("");
   const [webRights, setWebRights] = useState("");
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
+  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("");
+  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("");
+  const [validated, setValidated] = useState(false);
+  const form = useRef(null);
+  const [typeOfUseError, setTypeOfUseError] = useState(false);
+  
 
   useEffect(() => {
     
@@ -33,11 +50,14 @@ function Pricing() {
 
   const handlePlan = (type) => {
     setPlanType(type)
+    setWebRights("")
+    setEmployeeNo("")
     setStep(1)
   }
 
   const handleWebOrRights = (type) => {
     setWebRights(type)
+    setEmployeeNo("")
     setStep(1)
   }
 
@@ -60,6 +80,30 @@ function Pricing() {
     e.target.classList.toggle("rotateArrow")
   }
 
+  const handlePersonalMonthlyAnnual = (type) => {
+    setPersonalMonthlyAnnual(type)
+    setStep(1)
+  }
+
+  const handleCommercialMonthlyAnnual = (type) => {
+    setCommercialMonthlyAnnual(type)
+    setStep(1)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const quoteForm = e.currentTarget;
+    const data = new FormData(form.current);
+    if (data.get("type_of_use") == "")
+      setTypeOfUseError(true)
+
+    setValidated(true)
+  }
+
+  const handleChange = async (e) => {
+    setTypeOfUseError(false)
+  }
+
   return (
     <div className={pricing.pricingWrapper}>
       <div className={pricing.priceContentContainer}>
@@ -75,8 +119,8 @@ function Pricing() {
           (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) && 
           <div className="themeBreadcrumb inPricingWay">
             <Breadcrumb>
-              <Breadcrumb.Item href="#" className={planType == "Commercial" && webRights == "" ? "active" : ""}>{planType}</Breadcrumb.Item>
-              {webRights && <Breadcrumb.Item href="#" className={planType == "Commercial" && webRights !== "" && employeeNo == "" ? "active" : ""}>{webRights}</Breadcrumb.Item>}
+              <Breadcrumb.Item href="#" className={planType == "Commercial" && webRights == "" ? "active" : ""} onClick={() => handlePlan(planType)}>{planType}</Breadcrumb.Item>
+              {webRights && <Breadcrumb.Item href="#" className={planType == "Commercial" && webRights !== "" && employeeNo == "" ? "active" : ""} onClick={() => handleWebOrRights(webRights)}>{webRights}</Breadcrumb.Item>}
               {employeeNo && <Breadcrumb.Item className={planType == "Commercial" && webRights !== "" && employeeNo !== "" ? "active" : ""}>{employeeNo}</Breadcrumb.Item>}
             </Breadcrumb>
           </div>
@@ -236,25 +280,43 @@ function Pricing() {
               </div>
               <div className={pricing.pricingRightSec}>
                 <h3>Request Custom Quote</h3>
-                <Form>
-                  <Form.Group className="mb-4">
-                    <Form.Control type="text" placeholder="Enter Name *" />
+                <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
+                  <Form.Group className="mb-4" controlId="formBasicEmail">
+                    <Form.Control required type="text" placeholder="Enter Name *" />
+                    <Form.Control.Feedback type="invalid">
+                      Name is required!
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group className="mb-4" controlId="formBasicEmail">
+                    <Form.Control required type="email" placeholder="Email *" />
+                    <Form.Control.Feedback type="invalid">
+                      Email address is required!
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Control type="email" placeholder="Email *" />
+                    <Form.Control required type="text" placeholder="Phone Number" />
+                    <Form.Control.Feedback type="invalid">
+                      Phone Number is required!
+                    </Form.Control.Feedback>
                   </Form.Group>
-                  <Form.Group className="mb-4">
-                    <Form.Control type="text" placeholder="Phone Number" />
-                  </Form.Group>
-                  <Form.Group className="mb-4">
+                  <Form.Group className="mb-4" controlId="formBasicEmail">
                     <Select
                       className='react-select-container'
                       classNamePrefix="react-select"
                       placeholder="Type of Use"
+                      name="type_of_use"
+                      options={USE_TYPES}
+                      onChange={handleChange}
                     />
+                    {typeOfUseError &&
+                      <small className="input-error">Type of use is required!</small>
+                    }
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Control type="text" placeholder="End Client" />
+                    <Form.Control required type="text" placeholder="End Client" />
+                    <Form.Control.Feedback type="invalid">
+                      End client is required!
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-4">
                     <Form.Control as="textarea" placeholder="Additional Information" rows={5} />
@@ -511,9 +573,9 @@ function Pricing() {
                 <div className="billingFrequency">
                   <span>Billing Frequency</span>
                   <div className="toggleButton">
-                    <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio"/>
+                    <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked={personalMonthlyAnnual == "Annually" ? true : false} onClick={()=> handlePersonalMonthlyAnnual("Annually")}/>
                     <label htmlFor="toggle-on" className="movingBtn">Annually</label>
-                    <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" checked/>
+                    <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" checked={personalMonthlyAnnual == "Annually" ? false : true} onClick={()=> handlePersonalMonthlyAnnual("Monthly")}/>
                     <label htmlFor="toggle-off" className="movingBtn">Monthly</label>
                   </div>
                   <em>Save 33% with an annual plan</em>
@@ -526,8 +588,8 @@ function Pricing() {
                       <p className={pricing.planName}>Music Only</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>$10</span>
-                      <span className={pricing.planDuration}>/Month<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 120 : 10}</span>
+                      <span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                     </div>
                   </div>
 
@@ -537,8 +599,8 @@ function Pricing() {
                       <p className={pricing.planName}>Music + SFX</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>$16.58</span>
-                      <span className={pricing.planDuration}>/Month<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 199 : 16.58}</span>
+                      <span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                     </div>
                   </div>
 
@@ -604,9 +666,9 @@ function Pricing() {
                 <div className="billingFrequency">
                   <span>Billing Frequency</span>
                   <div className="toggleButton">
-                    <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio"/>
+                    <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked={commercialMonthlyAnnual == "Annually" ? true : false} onClick={()=> handleCommercialMonthlyAnnual("Annually")}/>
                     <label htmlFor="toggle-on" className="movingBtn">Annually</label>
-                    <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" checked/>
+                    <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" checked={commercialMonthlyAnnual == "Annually" ? false : true} onClick={()=> handleCommercialMonthlyAnnual("Monthly")}/>
                     <label htmlFor="toggle-off" className="movingBtn">Monthly</label>
                   </div>
                   <em>Save 44% with an annual plan</em>
@@ -619,8 +681,8 @@ function Pricing() {
                       <p className={pricing.planName}>Music Only</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>$33.25</span>
-                      <span className={pricing.planDuration}>/Month<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 399 : 33.25}</span>
+                      <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                     </div>
                   </div>
 
@@ -630,8 +692,8 @@ function Pricing() {
                       <p className={pricing.planName}>Music + SFX</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>$45.75</span>
-                      <span className={pricing.planDuration}>/Month<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 549 : 45.75}</span>
+                      <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                     </div>
                   </div>
 
