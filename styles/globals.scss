@@ -1174,13 +1174,54 @@ hr {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    border-bottom: 1px solid $nav-link;
     max-height: 105px;
     height: 100%;
-    padding: 25px 21px;
+    padding-right: 50px;
     position: relative;
-  
+    .sidebartrackInfo {
+      overflow: hidden;
+      @include flexbox;
+      @include justify-content(flex-start);
+      @include align-items(center);
+      gap: 20px;
+      .tileOverlay {
+        max-width: 105px;
+        max-height: 105px;
+        border-radius: 0;
+        &:before {
+          border-radius: 0;
+        }
+        &:after {
+          content: none;
+        }
+        & > div {
+          height: 105px;
+        }
+      }
+      .trackDesc {
+        .trackName {
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.28;
+          letter-spacing: normal;
+          margin-bottom: 5px;
+          text-transform: uppercase;
+        }
+        .artistName {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.5;
+          letter-spacing: -0.4px;
+          color: $middleGrey;
+          margin-bottom: 0;
+          text-transform: capitalize;
+        }
+      }
+    }
     .btnClose {
       position: absolute;
+      top: 15px;
       right: 20px;
     }
   }
@@ -2108,64 +2149,64 @@ hr {
   @include align-items(center);
   flex-wrap: wrap;
   gap: 30px;
-  .tileOverlay {
-    max-width: 250px;
-    width: 100%;
+}
+.tileOverlay {
+  max-width: 250px;
+  width: 100%;
+  max-height: 250px;
+  height: 250px;
+  border-radius: 20px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-block;
+  &:before {
+    content: '';
+    background: url(../images/staticThumb.png) no-repeat left center;
+    background-size: cover;
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    z-index: -2;
+    transform: scale(0.99);
+  }
+  & > div {
     max-height: 250px;
     height: 250px;
-    border-radius: 20px;
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    display: inline-block;
-    &:before {
-      content: '';
-      background: url(../images/staticThumb.png) no-repeat left center;
-      background-size: cover;
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      z-index: -2;
-      transform: scale(0.99);
-    }
-    & > div {
-      max-height: 250px;
+    .tilesImg {
+      -webkit-object-fit: cover;
+      object-fit: cover;
       height: 250px;
-      .tilesImg {
-        -webkit-object-fit: cover;
-        object-fit: cover;
-        height: 250px;
-        z-index: -2;
-      }
+      z-index: -2;
     }
-    .tileOverlayText {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 18px;
-      font-weight: 500;
-      width: 100%;
-      line-height: 1.28;
-      letter-spacing: -0.45px;
-      text-align: center;
-      text-transform: capitalize;
-      color: $white;
-    }
+  }
+  .tileOverlayText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: 500;
+    width: 100%;
+    line-height: 1.28;
+    letter-spacing: -0.45px;
+    text-align: center;
+    text-transform: capitalize;
+    color: $white;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: $headerColor;
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.4;
+    @include transition(all 0.25s ease-in-out);
+  }
+  &:hover {
     &:after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: $headerColor;
-      border-radius: 20px;
-      z-index: -1;
-      opacity: 0.4;
-      @include transition(all 0.25s ease-in-out);
-    }
-    &:hover {
-      &:after {
-        opacity: 0.3;
-      }
+      opacity: 0.3;
     }
   }
 }

@@ -37,6 +37,249 @@
       margin-bottom: 0;
     }
   }
+
+  /************** Plans Page **************/
+  .planTypes {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(center); 
+
+    .pricingLeftSec {
+      p {
+        font-size: 24px;
+        line-height: 1.21;
+        letter-spacing: -0.6px;
+        text-align: left;
+      }
+    }
+    .pricingRightSec {
+      .plansList {
+        width: 100%;
+        .plansItem {
+          width: 100%;
+          @extend %pricingBoxShadow;
+          a {
+            @include flexbox;
+            @include justify-content(space-between);
+            @include align-items(center);
+            padding: 16px 32px 16px 24px;
+            .typeName {
+              display: block;
+              .typeHeading {
+                display: block;
+                font-size: 18px;
+                font-weight: 600;
+                color: $headerColor;
+                line-height: 1.28;
+                letter-spacing: -0.45px;
+              }
+              .typeDesc {
+                color: $middleGrey;
+                font-size: 14px;
+                line-height: 1.29;
+                letter-spacing: -0.35px;
+              }
+            }
+          }
+          &:nth-child(n + 2) {
+            margin-top: 20px;
+          }
+        }
+      }
+    }
+  }
+  /**************** Choose Plans *****************/
+  .choosePlans {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    gap: 24px;
+    .pricingLeftSec {
+      .plansDesc {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.38;
+        letter-spacing: -0.4px;
+        color: $middleGrey;
+        margin-bottom: 17px;
+      }
+      .plansFeatures {
+        @include flexbox;
+        @include align-items(flex-start);
+        @include flex-direction(column);
+        gap: 17px;
+        h4 {
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 1.57;
+          letter-spacing: -0.35px;
+        }
+        ul {
+          margin-bottom: 0;
+          li {
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            letter-spacing: -0.35px;
+            color: $middleGrey;
+            border-bottom: 1px solid $nav-link;
+            padding: 3px 0;
+            @include flexbox;
+            @include align-items(center);
+          }
+        }
+        .featureInclude {
+          ul {
+            li {
+              &:before {
+                content: '';
+                background: url(../images/pricingTick.svg) no-repeat center;
+                display: inline-block;
+                background-size: 10px;
+                width: 11px;
+                height: 11px;
+                margin-right: 7px;
+              }
+            }
+          }
+        }
+        .featureNotInclude {
+          ul {
+            li {
+              &:before {
+                content: '';
+                background: url(../images/pricingCross.svg) no-repeat center;
+                display: inline-block;
+                background-size: 10px;
+                width: 11px;
+                height: 11px;
+                margin-right: 7px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .pricingRightSec {
+      .planBillingWrapper {
+        @extend %pricingBoxShadow;
+        padding: 41px 47px 34px;
+        margin-bottom: 32px;
+      }
+      :global(.billingFrequency) {
+        text-align: center;
+        margin-bottom: 25px;
+        span {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.19;
+          letter-spacing: -0.4px;
+          display: block;
+          text-align: center;
+          margin-bottom: 12px;
+        }
+        em {
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 1.23;
+          letter-spacing: -0.33px;
+          display: block;
+        }
+      }
+      .planSelect {
+        text-align: center;
+        .planIndividual {
+          border: 2px solid $headerColor;
+          border-radius: 30px;
+          background-color: $white;
+          padding: 12px 20px 10px 25px;
+          overflow: hidden;
+          @include flexbox;
+          @include justify-content(space-between);
+          @include align-items(center);
+          gap: 15px;
+          max-height: 60px;
+          cursor: pointer;
+          @include transition(all 0.3s ease-in-out);
+          .planType {
+            text-align: left;
+            span {
+              font-size: 14px;
+              line-height: 1.29;
+              letter-spacing: -0.35px;
+            }
+            .planName {
+              font-size: 22px;
+              font-weight: 500;
+              line-height: 1.23;
+              letter-spacing: -0.55px;
+              margin-bottom: 0;
+            }
+          }
+          .planPriceDuration {
+            .planAmount {
+              font-size: 30px;
+              font-weight: bold;
+              line-height: 1.23;
+              letter-spacing: -0.6px;
+              margin-right: 5px;
+            }
+            .planDuration {
+              font-size: 18px;
+              line-height: 1.28;
+              letter-spacing: -0.45px;
+            }
+          }
+          &:hover,
+          &.selected {
+            background-color: $green-light;
+            border-color: $green-light;
+          }
+          &:nth-child(n + 3) {
+            margin-top: 30px;
+          }
+        }
+        .billingNote {
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 1.17;
+          letter-spacing: -0.3px;
+          display: inline-block;
+          margin-top: 27px;
+        }
+        .selectText {
+          font-size: 13px;
+          line-height: 1.23;
+          letter-spacing: -0.33px;
+          text-align: center;
+          font-style: italic;
+          margin-bottom: 3px;
+        }
+      }
+      .oneTimePurchase {
+        @extend %pricingBoxShadow;
+        padding: 16px 32px 16px 24px;
+        .typeName {
+          display: block;
+          .typeHeading {
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+            color: $headerColor;
+            line-height: 1.28;
+            letter-spacing: -0.45px;
+          }
+          .typeDesc {
+            color: $middleGrey;
+            font-size: 14px;
+            line-height: 1.29;
+            letter-spacing: -0.35px;
+          }
+        }
+      }
+    }
+  }
   .priceContentContainer {
     max-width: 934px;
     width: 100%;
@@ -80,57 +323,6 @@
       }
       & + :global(.inPricingWay) {
         margin-bottom: 45px;
-      }
-    }
-
-    /************** Plans Page **************/
-    .planTypes {
-      @include flexbox;
-      @include justify-content(space-between);
-      @include align-items(center); 
-
-      .pricingLeftSec {
-        p {
-          font-size: 24px;
-          line-height: 1.21;
-          letter-spacing: -0.6px;
-          text-align: left;
-        }
-      }
-      .pricingRightSec {
-        .plansList {
-          width: 100%;
-          .plansItem {
-            width: 100%;
-            @extend %pricingBoxShadow;
-            a {
-              @include flexbox;
-              @include justify-content(space-between);
-              @include align-items(center);
-              padding: 16px 32px 16px 24px;
-              .typeName {
-                display: block;
-                .typeHeading {
-                  display: block;
-                  font-size: 18px;
-                  font-weight: 600;
-                  color: $headerColor;
-                  line-height: 1.28;
-                  letter-spacing: -0.45px;
-                }
-                .typeDesc {
-                  color: $middleGrey;
-                  font-size: 14px;
-                  line-height: 1.29;
-                  letter-spacing: -0.35px;
-                }
-              }
-            }
-            &:nth-child(n + 2) {
-              margin-top: 20px;
-            }
-          }
-        }
       }
     }
 
@@ -274,198 +466,6 @@
           &:hover {
             background-color: transparent;
             opacity: 0.7;
-          }
-        }
-      }
-    }
-    /**************** Choose Plans *****************/
-    .choosePlans {
-      @include flexbox;
-      @include justify-content(space-between);
-      @include align-items(flex-start);
-      gap: 24px;
-      .pricingLeftSec {
-        .plansDesc {
-          font-size: 16px;
-          font-weight: 400;
-          line-height: 1.38;
-          letter-spacing: -0.4px;
-          color: $middleGrey;
-          margin-bottom: 17px;
-        }
-        .plansFeatures {
-          @include flexbox;
-          @include align-items(flex-start);
-          @include flex-direction(column);
-          gap: 17px;
-          h4 {
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.57;
-            letter-spacing: -0.35px;
-          }
-          ul {
-            margin-bottom: 0;
-            li {
-              font-size: 14px;
-              font-weight: normal;
-              font-stretch: normal;
-              font-style: normal;
-              letter-spacing: -0.35px;
-              color: $middleGrey;
-              border-bottom: 1px solid $nav-link;
-              padding: 3px 0;
-              @include flexbox;
-              @include align-items(center);
-            }
-          }
-          .featureInclude {
-            ul {
-              li {
-                &:before {
-                  content: '';
-                  background: url(../images/pricingTick.svg) no-repeat center;
-                  display: inline-block;
-                  background-size: 10px;
-                  width: 11px;
-                  height: 11px;
-                  margin-right: 7px;
-                }
-              }
-            }
-          }
-          .featureNotInclude {
-            ul {
-              li {
-                &:before {
-                  content: '';
-                  background: url(../images/pricingCross.svg) no-repeat center;
-                  display: inline-block;
-                  background-size: 10px;
-                  width: 11px;
-                  height: 11px;
-                  margin-right: 7px;
-                }
-              }
-            }
-          }
-        }
-      }
-      .pricingRightSec {
-        .planBillingWrapper {
-          @extend %pricingBoxShadow;
-          padding: 41px 47px 34px;
-          margin-bottom: 32px;
-        }
-        :global(.billingFrequency) {
-          text-align: center;
-          margin-bottom: 25px;
-          span {
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1.19;
-            letter-spacing: -0.4px;
-            display: block;
-            text-align: center;
-            margin-bottom: 12px;
-          }
-          em {
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 1.23;
-            letter-spacing: -0.33px;
-            display: block;
-          }
-        }
-        .planSelect {
-          text-align: center;
-          .planIndividual {
-            border: 2px solid $headerColor;
-            border-radius: 30px;
-            background-color: $white;
-            padding: 12px 20px 10px 25px;
-            overflow: hidden;
-            @include flexbox;
-            @include justify-content(space-between);
-            @include align-items(center);
-            gap: 15px;
-            max-height: 60px;
-            cursor: pointer;
-            @include transition(all 0.3s ease-in-out);
-            .planType {
-              text-align: left;
-              span {
-                font-size: 14px;
-                line-height: 1.29;
-                letter-spacing: -0.35px;
-              }
-              .planName {
-                font-size: 22px;
-                font-weight: 500;
-                line-height: 1.23;
-                letter-spacing: -0.55px;
-                margin-bottom: 0;
-              }
-            }
-            .planPriceDuration {
-              .planAmount {
-                font-size: 30px;
-                font-weight: bold;
-                line-height: 1.23;
-                letter-spacing: -0.6px;
-                margin-right: 5px;
-              }
-              .planDuration {
-                font-size: 18px;
-                line-height: 1.28;
-                letter-spacing: -0.45px;
-              }
-            }
-            &:hover,
-            &.selected {
-              background-color: $green-light;
-              border-color: $green-light;
-            }
-            &:nth-child(n + 3) {
-              margin-top: 30px;
-            }
-          }
-          .billingNote {
-            font-size: 12px;
-            font-weight: 500;
-            line-height: 1.17;
-            letter-spacing: -0.3px;
-            display: inline-block;
-            margin-top: 27px;
-          }
-          .selectText {
-            font-size: 13px;
-            line-height: 1.23;
-            letter-spacing: -0.33px;
-            text-align: center;
-            font-style: italic;
-            margin-bottom: 3px;
-          }
-        }
-        .oneTimePurchase {
-          @extend %pricingBoxShadow;
-          padding: 16px 32px 16px 24px;
-          .typeName {
-            display: block;
-            .typeHeading {
-              display: block;
-              font-size: 18px;
-              font-weight: 600;
-              color: $headerColor;
-              line-height: 1.28;
-              letter-spacing: -0.45px;
-            }
-            .typeDesc {
-              color: $middleGrey;
-              font-size: 14px;
-              line-height: 1.29;
-              letter-spacing: -0.35px;
-            }
           }
         }
       }
@@ -657,6 +657,98 @@
         margin-left: 10px;
       }
     }
+  } 
+}
+
+.sideBarPlansWrapper {
+  .plansContent {
+    margin-top: 51px;
+    :global(.themeBreadcrumb.inPricingWay) {
+      margin-inline: -39px;
+      nav {
+        display: block;
+        border-radius: 0;
+        background-color: $white;
+      }
+      :global(.breadcrumb) {
+        padding: 0;
+        gap: 4px;
+        :global(.breadcrumb-item) {
+          background-color: $grey;
+          flex: 1 1 100%;
+          padding: 23px 40px 21px;
+          height: auto;
+          line-height: normal;
+          font-weight: 600;
+          text-align: left;
+          a {
+            @include flexbox;
+            @include justify-content(space-between);
+            @include align-items(center);
+            width: 100%;
+            &:after {
+              content: '';
+              background: url(../images/editPencil.svg) no-repeat right center;
+              background-size: 16px;
+              width: 16px;
+              height: 16px;
+            }
+          }
+          &:nth-child(n + 2) {
+            &:before {
+              content: none;
+            }
+          }
+        }
+      }
+    }
+    .planTypes {
+      margin-top: 60px;
+      @include flex-direction(column);
+      gap: 22px;
+    }
+
+    .sidebarChoosePlans {
+      margin-top: 41px;
+      h4 {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.21;
+        letter-spacing: -0.6px;
+      }
+      .choosePlans {
+        margin-top: 25px;
+        @include flex-direction(column-reverse);
+        gap: 33px;
+        .pricingLeftSec {
+          .plansFeatures {
+            @include flex-direction(row);
+            .featureInclude,
+            .featureNotInclude {
+              ul {
+                li {
+                  font-size: 12px;
+                  line-height: 1.33;
+                  letter-spacing: -0.3px;
+                  @include align-items(flex-start);
+                  padding-block: 4px;
+                  &:before {
+                    min-width: 12px;
+                    min-height: 12px;
+                    background-size: 11px;
+                    margin-top: 2px;
+                  }
+                }
+              }
+            }
+          }
+        } 
+        .pricingRightSec {
+          .planBillingWrapper {
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
   }
-  
 }
