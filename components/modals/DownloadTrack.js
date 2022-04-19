@@ -59,7 +59,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
     if(response.ok) {
       debugger
       const link = document.createElement("a");
-      link.href = track.file;
+      link.href = track.mp3_file;
       link.download = track.title;
       link.click();
     } else {
