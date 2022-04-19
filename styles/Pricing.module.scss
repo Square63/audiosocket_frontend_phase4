@@ -745,7 +745,31 @@
         } 
         .pricingRightSec {
           .planBillingWrapper {
+            padding: 20px;
             margin-bottom: 20px;
+            .planWrapperHeading {
+              h5 {
+                font-size: 18px;
+                font-weight: bold;
+                line-height: normal;
+                letter-spacing: -0.45px;
+                margin-bottom: 3px;
+                text-align: center;
+              }
+              p {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.29;
+                letter-spacing: -0.35px;
+                color: $middleGrey;
+                text-align: center;
+              }
+            }
+            :global(.billingFrequency) {
+              em {
+                color: $danger;
+              }
+            }
           }
         }
       }

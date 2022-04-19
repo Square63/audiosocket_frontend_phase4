@@ -264,6 +264,10 @@ function SideBar() {
           
                   <div className={pricing.pricingRightSec}>
                     <div className={pricing.planBillingWrapper}>
+                      <div className={pricing.planWrapperHeading}>
+                        <h5>Unlimited Songs</h5>
+                        <p>Subscription</p>
+                      </div>
                       <div className="billingFrequency">
                         <span>Billing Frequency</span>
                         <div className="toggleButton">
