@@ -1124,6 +1124,148 @@ footer {
 hr {
   border-color: $nav-link;
 }
+
+.themeTextMuted {
+  color: $textClr !important;
+  font-size: 14px !important;
+  letter-spacing: -0.35px;
+}
+
+.halfGutters {
+  margin-right: -7.5px;
+  margin-left: -7.5px;
+
+  & > .col,
+  & > [class*="col-"] {
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+  }
+}
+
+/************** Sidebar **************/
+.sidebarBackdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  background-color: transparent;
+  @include transition(all 0.3s ease-in-out);
+  z-index: 99998;
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+.offcanvas {
+  position: fixed;
+  bottom: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  visibility: hidden;
+  background-color: #fff;
+  background-clip: padding-box;
+  outline: 0;
+  transition: all 0.3s ease-in-out;
+  .offcanvasHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid $nav-link;
+    max-height: 105px;
+    height: 100%;
+    padding-right: 50px;
+    position: relative;
+    .sidebartrackInfo {
+      overflow: hidden;
+      @include flexbox;
+      @include justify-content(flex-start);
+      @include align-items(center);
+      gap: 20px;
+      .tileOverlay {
+        max-width: 105px;
+        max-height: 105px;
+        border-radius: 0;
+        &:before {
+          border-radius: 0;
+        }
+        &:after {
+          content: none;
+        }
+        & > div {
+          height: 105px;
+        }
+      }
+      .trackDesc {
+        .trackName {
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.28;
+          letter-spacing: normal;
+          margin-bottom: 5px;
+          text-transform: uppercase;
+        }
+        .artistName {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.5;
+          letter-spacing: -0.4px;
+          color: $middleGrey;
+          margin-bottom: 0;
+          text-transform: capitalize;
+        }
+      }
+    }
+    .btnClose {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+  }
+  .offcanvas-body {
+    flex-grow: 1;
+    padding: 36px 39px 41px;
+    overflow-y: auto;
+  }
+  
+  &.offcanvas-end {
+    top: 0;
+    right: 0;
+    max-width: 519px;
+    width: 100%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.16);
+    transform: translateX(100%);
+  }
+  &.offcanvas.show {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  .offcanvasHeading {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.23;
+    letter-spacing: -0.65px;
+    text-align: left;
+  }
+  .offcanvasDesc {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.4px;
+    color: $middleGrey;
+    a {
+      text-decoration: underline;
+      &:hover {
+        color: $middleGrey;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
 /************** Rounded Box **********/
 
 %boxEssentials {
@@ -1583,23 +1725,6 @@ hr {
               text-overflow: ellipsis;
               white-space: nowrap;
             }
-            .info,.fire,.playlistWave {
-              width: 16px;
-              height: 16px;
-              display: inline-block;
-            }
-            .info {
-              background: url(../images/tooltip.svg) no-repeat center;
-              background-size: 16px;
-            }
-            .fire {
-              background: url(../images/fire.svg) no-repeat center;
-              background-size: 16px;
-            }
-            .playlistWave {
-              background: url(../images/playlistWave.svg) no-repeat center;
-              background-size: 16px;
-            }
           }
           .songArtist {
             a {
@@ -1809,6 +1934,7 @@ hr {
         line-height: 1.29;
         letter-spacing: -0.35px;
         color: $middleGrey;
+        cursor: pointer;
         &.artistName {
           padding-left: 45px;
         }
@@ -1860,6 +1986,23 @@ hr {
       background-size: 9px;
     }
   }
+}
+.info,.fire,.playlistWave {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+.info {
+  background: url(../images/tooltip.svg) no-repeat center;
+  background-size: 16px;
+}
+.fire {
+  background: url(../images/fire.svg) no-repeat center;
+  background-size: 16px;
+}
+.playlistWave {
+  background: url(../images/playlistWave.svg) no-repeat center;
+  background-size: 16px;
 }
 .playPauseBtn {
   min-width: 30px;
@@ -2006,64 +2149,64 @@ hr {
   @include align-items(center);
   flex-wrap: wrap;
   gap: 30px;
-  .tileOverlay {
-    max-width: 250px;
-    width: 100%;
+}
+.tileOverlay {
+  max-width: 250px;
+  width: 100%;
+  max-height: 250px;
+  height: 250px;
+  border-radius: 20px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-block;
+  &:before {
+    content: '';
+    background: url(../images/staticThumb.png) no-repeat left center;
+    background-size: cover;
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    z-index: -2;
+    transform: scale(0.99);
+  }
+  & > div {
     max-height: 250px;
     height: 250px;
-    border-radius: 20px;
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    display: inline-block;
-    &:before {
-      content: '';
-      background: url(../images/staticThumb.png) no-repeat left center;
-      background-size: cover;
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      z-index: -2;
-      transform: scale(0.99);
-    }
-    & > div {
-      max-height: 250px;
+    .tilesImg {
+      -webkit-object-fit: cover;
+      object-fit: cover;
       height: 250px;
-      .tilesImg {
-        -webkit-object-fit: cover;
-        object-fit: cover;
-        height: 250px;
-        z-index: -2;
-      }
+      z-index: -2;
     }
-    .tileOverlayText {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 18px;
-      font-weight: 500;
-      width: 100%;
-      line-height: 1.28;
-      letter-spacing: -0.45px;
-      text-align: center;
-      text-transform: capitalize;
-      color: $white;
-    }
+  }
+  .tileOverlayText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: 500;
+    width: 100%;
+    line-height: 1.28;
+    letter-spacing: -0.45px;
+    text-align: center;
+    text-transform: capitalize;
+    color: $white;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: $headerColor;
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.4;
+    @include transition(all 0.25s ease-in-out);
+  }
+  &:hover {
     &:after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: $headerColor;
-      border-radius: 20px;
-      z-index: -1;
-      opacity: 0.4;
-      @include transition(all 0.25s ease-in-out);
-    }
-    &:hover {
-      &:after {
-        opacity: 0.3;
-      }
+      opacity: 0.3;
     }
   }
 }
@@ -2455,21 +2598,22 @@ hr {
       max-width: 580px;
       width: 100%;
     }
-    .brandsStrip {
-      @include flexbox;
-      @include justify-content(space-between);
-      @include align-items(baseline);
-      flex-wrap: wrap;
-      gap: 25px;
-      margin-top: 8em;
-      h2 {
-        max-width: 100%;
-        flex: 1 1 100%;
-        margin-bottom: 0;
-        text-align: center;
-        color: $white;
-      }
-    }
+  }
+}
+
+.brandsStrip {
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(baseline);
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 8em;
+  h2 {
+    max-width: 100%;
+    flex: 1 1 100%;
+    margin-bottom: 0;
+    text-align: center;
+    color: $white;
   }
 }
 
@@ -2715,7 +2859,7 @@ section {
             padding: 27px 0 28px;
             &:last-child {
               border-bottom: 0;
-              padding-bottom: 10;
+              padding-bottom: 10px;
             }
           }
         }
@@ -2748,6 +2892,12 @@ section {
 }
 
 /******************* Pricing ****************/
+.pricingContainer {
+  max-width: 1110px;
+  width: 100%;
+  padding-inline: 15px;
+  margin-inline: auto;
+}
 .pricing {
   background: url('../images/homeBG2.png') no-repeat $headerColor bottom 50px center;;
   background-size: contain;
@@ -3347,6 +3497,7 @@ input[type=file]::file-selector-button {
   height: 45px;
   padding: 12px 26px 13px;
   border-radius: 29px;
+  min-width: 120px;
   background-color: $green-light;
   font-size: 16px;
   font-weight: 500;
@@ -3782,14 +3933,15 @@ input[type=file]::file-selector-button {
         line-height: 1.4;
         margin-bottom: 45px;
       }
-      .brandsStrip {
-        margin-top: 8em;
-        gap: 20px;
-        @include justify-content(center);
-        h2 {
-          margin-bottom: 20px;
-        }
-      }
+    }
+  }
+
+  .brandsStrip {
+    margin-top: 8em;
+    gap: 20px;
+    @include justify-content(center);
+    h2 {
+      margin-bottom: 20px;
     }
   }
 
@@ -4292,21 +4444,22 @@ input[type=file]::file-selector-button {
         line-height: 1.4;
         margin-bottom: 33px;
       }
-      .brandsStrip {
-        margin-top: 7em;
-        gap: 10px;
-        @include justify-content(center);
-        & > div {
-          width: 20vw;
-          height: 35px;
-          margin-bottom: 15px !important;
-          .heroBrand {
-            object-fit: scale-down;
-          }
-          &:nth-child(2) {
-            width: 30vw;
-          }
-        }
+    }
+  }
+
+  .brandsStrip {
+    margin-top: 7em;
+    gap: 10px;
+    @include justify-content(center);
+    & > div {
+      width: 20vw;
+      height: 35px;
+      margin-bottom: 15px !important;
+      .heroBrand {
+        object-fit: scale-down;
+      }
+      &:nth-child(2) {
+        width: 30vw;
       }
     }
   }

@@ -30,6 +30,9 @@ function Tracks(props) {
   const [infifniteLoop, setInfiniteLoop] = useState(false)
   const [sortBy, setSortBy] = useState("")
   const [sortDir, setSortDir] = useState("")
+  const [titleSortDir, setTitleSortDir] = useState("")
+  const [durationSortDir, setDurationSortDir] = useState("")
+  const [bpmSortDir, setBpmSortDir] = useState("")
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [hasMore, sethasMore] = useState(true)
@@ -47,6 +50,8 @@ function Tracks(props) {
 
     if (props.tracks.length < 10) {
       sethasMore(false)
+    } else {
+      sethasMore(true)
     }
 
     return () => {
@@ -77,12 +82,25 @@ function Tracks(props) {
 
   const handleSorting = (e, filters, sort_by, sort_dir) => {
     e.preventDefault()
-    setSortDir(sort_dir)
     setSortBy(sort_by)
-    e.target.classList.add("disableSortBtn")
-    sort_dir == "DESC" ? e.target.nextElementSibling.classList.remove("disableSortBtn") : e.target.previousElementSibling.classList.remove("disableSortBtn") 
+    let dir = ""
+    if (sort_by == "title") {
+      dir = sort_dir
+      setSortDir(sort_dir)
+      setTitleSortDir(sort_dir)
+    }
+    else if (sort_by == "duration") {
+      dir = sort_dir
+      setSortDir(sort_dir)
+      setDurationSortDir(sort_dir)
+    }
+    else if (sort_by == "bpm") {
+      dir = sort_dir
+      setSortDir(sort_dir)
+      setBpmSortDir(sort_dir)
+    }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), filters, sort_by, sort_dir));
+    dispatch(getTracks(query, query_type(query), filters, sort_by, dir));
   }
 
   const handleDropdownSorting = (sort_by, sort_dir) => {
@@ -174,19 +192,19 @@ function Tracks(props) {
       </div>
       <div className="trackRowWrapper">
         <div className="trackRow headingRow">
-          <div className="rowParticipant artistName">
+          <div className="rowParticipant artistName" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}>
             Title / Artist
             <span className="sortingMedium">
-              <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", "DESC")}></a>
-              <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", "ASC")}></a>
+              <a href="" className={titleSortDir == "DESC" ? "decending disableSortBtn" : titleSortDir == "" ? "decending" : "decending"}></a>
+              <a href="" className={titleSortDir == "ASC" ? "ascending  disableSortBtn" : titleSortDir == "" ? "ascending" : "ascending"}></a>
             </span>
           </div>
           <div className="rowParticipant audioWave"></div>
-          <div className="rowParticipant duration">
+          <div className="rowParticipant duration" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}>
             Duration
             <span className="sortingMedium">
-              <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", "DESC")}></a>
-              <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", "ASC")}></a>
+              <a href="" className={durationSortDir == "DESC" ? "decending disableSortBtn" : durationSortDir == "" ? "decending" : "decending"}></a>
+              <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
             </span>
           </div>
           <div className="rowParticipant mood controls">
@@ -215,11 +233,11 @@ function Tracks(props) {
               <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
             </span> */}
           </div>
-          <div className="rowParticipant BPM">
+          <div className="rowParticipant BPM" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", bpmSortDir == "ASC" ? "DESC" : "ASC")}>
             BPM
             <span className="sortingMedium">
-              <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", "DESC")}></a>
-              <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", "ASC")}></a>
+              <a href="" className={bpmSortDir == "DESC" ? "decending disableSortBtn" : bpmSortDir == "" ? "decending" : "decending"}></a>
+              <a href="" className={bpmSortDir == "ASC" ? "ascending  disableSortBtn" : bpmSortDir == "" ? "ascending" : "ascending"}></a>
             </span>
           </div>
           <div className="rowParticipant controls"></div>

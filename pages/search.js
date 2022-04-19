@@ -245,8 +245,8 @@ function Search(props) {
         hideAllFilterDiv()
       }
     }
-    let explicit = !document.getElementById("excludeExplicit").checked
-    let vocals = document.getElementById("excludeVocals").checked
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
@@ -261,11 +261,13 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    dispatch(getTracks(query, query_type(query), [], "", "", 1, explicit, vocals));
+    setAppliedFiltersList([])
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
     setLoading(true)
+    hideAllFilterDiv()
     console.log("Track NAme", trackName)
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(trackName)

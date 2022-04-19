@@ -114,7 +114,8 @@
   }
 }
 
-.signupWrapper {
+.signupWrapper,
+.sidebarDeviseForm {
   max-width: 597px;
   width: 100%;
   margin: 0 auto;
@@ -563,6 +564,26 @@
       a {
         padding-inline: 55px;
         text-transform: capitalize;
+      }
+    }
+  }
+}
+
+:global(.offcanvas) {
+  :global(.offcanvas-body) {
+    .sidebarDeviseForm {
+      padding-inline: 0;
+      :global(.offcanvasHeading) {
+        padding: 0;
+        border: 0;
+        margin-bottom: 10px;
+        color: $headerColor;
+      }
+      :global(.offcanvasDesc) {
+        margin-bottom: 20px;
+      }
+      .or {
+        margin-block: 50px;
       }
     }
   }
