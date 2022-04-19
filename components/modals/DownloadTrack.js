@@ -4,8 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
+import { BASE_URL } from "../../common/api";
 
-function PreferenceModal({showModal = false, onCloseModal, track}) {
+function PreferenceModal({showModal = false, onCloseModal, track, type}) {
   const form = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +45,29 @@ function PreferenceModal({showModal = false, onCloseModal, track}) {
 
   }
 
+  const handleDownload = async (track, type) => {
+    let url = type == "track" ? `${BASE_URL}/api/v1/consumer/tracks/${track.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/4/add_download_sfx`
+    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
+    const response = await fetch(url,
+      {
+        headers: {
+          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
+          "auth-token": userAuthToken
+        },
+        method: "POST"
+      });
+    if(response.ok) {
+      debugger
+      const link = document.createElement("a");
+      link.href = track.mp3_file;
+      link.download = track.title;
+      link.click();
+    } else {
+      
+    }
+    
+  }
+
   return (
     <Modal
       show={showModal}
@@ -68,7 +92,7 @@ function PreferenceModal({showModal = false, onCloseModal, track}) {
             <li>
               <span className="versionType">Full Track</span>
               <span className="versionDuration">{track ? convertSecToMin(track.duration) : "0:0"}</span>
-              <a href={track ? track.file : ""} download variant="link" className="btn btnMainLarge versionSize">
+              <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type)}>
                 <strong>MP3</strong>
                 <span>(2.52 MB)</span>
               </a>
@@ -76,7 +100,7 @@ function PreferenceModal({showModal = false, onCloseModal, track}) {
             <li>
               <span className="versionType">Instrumental</span>
               <span className="versionDuration">0:16</span>
-              <a variant="link" className="btn btnMainLarge versionSize">
+              <a variant="link" href={track ? track.file : ""} download className="btn btnMainLarge versionSize">
                 <strong>MP3</strong>
                 <span>(2.52 MB)</span>
               </a>

@@ -1,7 +1,8 @@
 import { LOGIN_SUCCESS, LOGIN_FAIL, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWORD_SUCCESS, 
          UPDATE_PASSWORD_FAIL, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL, GET_PLAYLISTS_SUCCESS, 
          GET_PLAYLISTS_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CLEAR_ERRORS, GET_ARTISTS_SUCCESS, GET_ARTISTS_FAIL, PLAYLIST_TRACKS_SUCCESS, PLAYLIST_TRACKS_FAIL,
-         FAVORITE_TRACKS_SUCCESS, FAVORITE_TRACKS_FAIL, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAIL, GET_CART_SUCCESS, GET_CART_FAIL} from "../constants/authConstants";
+         FAVORITE_TRACKS_SUCCESS, FAVORITE_TRACKS_FAIL, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAIL, GET_CART_SUCCESS, GET_CART_FAIL, 
+         DOWNLOADED_TRACKS_SUCCESS, DOWNLOADED_TRACKS_FAIL, DOWNLOADED_SFXS_SUCCESS, DOWNLOADED_SFXS_FAIL } from "../constants/authConstants";
 export const authReducer = (state = {user: {}, error: {}}, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
@@ -114,6 +115,26 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       return {
         ...state,
           cart: action.payload.response.data.errors
+        };
+    case DOWNLOADED_TRACKS_SUCCESS:
+      return {
+        ...state,
+        downloaded_tracks: action.payload,
+      };
+    case DOWNLOADED_TRACKS_FAIL:
+      return {
+          ...state,
+          downloaded_tracks: action.payload.response.data.errors
+        };
+    case DOWNLOADED_SFXS_SUCCESS:
+      return {
+        ...state,
+        downloaded_sfxs: action.payload,
+      };
+    case DOWNLOADED_SFXS_FAIL:
+      return {
+          ...state,
+          downloaded_sfxs: action.payload.response.data.errors
         };
     case CLEAR_ERRORS:
       return {
