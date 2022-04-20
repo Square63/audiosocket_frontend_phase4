@@ -2609,10 +2609,11 @@ hr {
   gap: 25px;
   margin-top: 8em;
   h2 {
+    font-size: 22px;
     max-width: 100%;
     flex: 1 1 100%;
     margin-bottom: 0;
-    text-align: center;
+    text-align: left;
     color: $white;
   }
 }
