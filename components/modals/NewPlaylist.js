@@ -76,7 +76,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
           <Form className="modalForm PlaylistForm">
             <Form.Group className="mb-4" controlId="formBasicEmail">
               <Form.Label>Playlist Name <span className="labelAsterik">*</span></Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control type="text" placeholder="Enter name" />
             </Form.Group>
 
             <Form.Group className="mb-4" controlId="exampleForm.ControlTextarea1">
