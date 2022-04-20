@@ -27,6 +27,7 @@ import RangeSlider from '../components/RangeSlider';
 import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../components/Sidebar';
 
 function Search(props) {
 
@@ -50,13 +51,14 @@ function Search(props) {
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   const [updatedTracks, setUpdatedTracks] = useState([])
   const [trackName, setTrackName] = useState(localStorage.getItem("track_name"))
+  const [showSidebar, setShowSidebar] = useState(false)
+  const [sidebarType, setSidebarType] = useState("")
 
   // const message = useSelector(state => state.allPlaylists);
 
   useEffect(() => {
     
-  }, [appliedFiltersListWC]);
-  
+  }, [appliedFiltersListWC]);  
 
   useEffect(() => {
     // handleAimsSearch()
@@ -165,15 +167,19 @@ function Search(props) {
   function showAddTrackToCartLicenseModal(index) {
     if (localStorage.getItem("user")) {
       if (index > 9) {
-        setIndex(index%10)
+        setIndex(index + 10)
       }
       else {
         setIndex(index)
       }
       setShowAddToCartLicenseModal(true)
+      setShowSidebar(true)
+      setSidebarType("cart")
     }
     else {
-      alert("You must be logged in to be able to add a track to cart.")
+      // alert("You must be logged in to be able to add a track to cart.")
+      setShowSidebar(true)
+      setSidebarType("login")
     }
   }
 
@@ -290,7 +296,9 @@ function Search(props) {
       }
     }
     else {
-      alert("You must be logged in to be able to add a track to your favorites.")
+      // alert("You must be logged in to be able to add a track to your favorites.")
+      setShowSidebar(true)
+      setSidebarType("login")
     }  
   }
 
@@ -402,6 +410,10 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
     
+  }
+
+  const handleSidebarHide = () => {
+    setShowSidebar(false)
   }
   
   const filterItems = filters.map((filter, index) =>
@@ -644,6 +656,7 @@ function Search(props) {
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
       {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
+      <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
       
     </div>
     

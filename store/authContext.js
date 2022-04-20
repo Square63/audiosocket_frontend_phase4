@@ -60,7 +60,6 @@ const AuthProvider = (props) => {
         cartCount: cartCount
       }}
     >
-      {console.log("HI PLEASE SEE ME")}
       {props.children}
     </AuthContext.Provider>
   );

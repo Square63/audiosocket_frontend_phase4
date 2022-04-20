@@ -366,7 +366,7 @@ function Tracks(props) {
                     </Dropdown.Toggle>
                   </OverlayTrigger>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => {authContext.handleAddToCart(track.id, "Track")}}>
+                    <Dropdown.Item onClick={() => {props.showAddTrackToCartLicenseModal(index)}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="17.994" height="17.024" viewBox="0 0 17.994 17.024">
                         <g id="icon-cart" transform="translate(0.5 0.5)">
                           <g id="Group_155" data-name="Group 155" transform="translate(0)">
