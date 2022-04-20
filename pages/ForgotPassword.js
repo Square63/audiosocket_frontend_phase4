@@ -1,16 +1,15 @@
 import React, {useRef, useState} from "react";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Image from "next/image";
-import Loader from "../images/loader.svg";
 import login from "../styles/Login.module.scss";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from "next/link";
-
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword } from "../redux/actions/authActions";
 
 function ForgotPasswordModal({showModal = false, onCloseModal}) {
+  const dispatch = useDispatch()
   const form = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +25,8 @@ function ForgotPasswordModal({showModal = false, onCloseModal}) {
       setValidated(true);
       setIsLoading(false);
     } else {
-      const data = new FormData(form.current);
+      const data = form.current.email.value;
+      dispatch(forgotPassword(data))
       setIsLoading(false);
       e.target.reset();
       handleClose();
@@ -35,7 +35,6 @@ function ForgotPasswordModal({showModal = false, onCloseModal}) {
   }
 
   const handleClose = () => {
-    onCloseModal(false);
     setValidated(false);
     setIsLoading(false);
   }
