@@ -12,6 +12,14 @@ import nbc from '../images/NBC.svg';
 import netflix from '../images/netflix.svg';
 import vice from '../images/vice.svg';
 import Slider from "react-slick";
+import slick001 from '../images/slick001.png';
+import slick002 from '../images/slick002.png';
+import slick003 from '../images/slick003.png';
+import slick004 from '../images/slick004.png';
+import slick005 from '../images/slick005.png';
+import slick006 from '../images/slick006.png';
+import slick007 from '../images/slick007.png';
+import slick008 from '../images/slick008.png';
 import slick3 from '../images/slick03.jpg';
 import Sample1 from '../images/sample1.jpeg';
 import Sample2 from '../images/sample2.jpeg';
@@ -36,7 +44,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InpageLoader from '../components/InpageLoader';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 
-const imagess = [slick3, slick3, slick3, slick3, slick3, slick3, slick3];
+const imagess = [slick001, slick002, slick003, slick004, slick005, slick006, slick007, slick008];
 
 const breakPoints = [
   { width: 1, itemsToShow: 2, pagination: true },
