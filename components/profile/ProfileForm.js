@@ -124,7 +124,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
               required
               name="email"
               type="email"
-              value={userInfo ? userInfo.email : ""}
+              defaultValue={userInfo ? userInfo.email : ""}
               placeholder="Enter email"
             />
             <Form.Control.Feedback type="invalid">

@@ -1,11 +1,21 @@
 import signup from "../styles/Signup.module.scss";
 import pricing from "../styles/Pricing.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Breadcrumb, Form, Button, Carousel, FormGroup, FormControl, Row, Col, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Image from 'next/image';
 import mood1 from '../images/mood1.png';
+import Link from "next/link";
+import { useDispatch, useSelector } from 'react-redux';
+import { authLogin } from "../redux/actions/authActions";
+import { authSignup } from "../redux/actions/authActions";
+import { useCookie } from 'next-cookie'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { TOAST_OPTIONS } from '../common/api';
+import {useRouter} from "next/router";
 
 function Sidebar(props) {
+	
 
 	const [showSignup, setShowSignup] = useState(false)
 	const [step, setStep] = useState(0);
@@ -16,9 +26,29 @@ function Sidebar(props) {
   const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("");
   const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("");
   const [validated, setValidated] = useState(false);
+	const [contentType, setContentType] = useState(false);
+	const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+	const cookie = useCookie()
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector(state => state.auth);
+	const form = useRef(null);
+	const router = useRouter()
+
 
 	useEffect(() => {
-		debugger
+    if(loggedInUser.error) {
+      toast.error(loggedInUser.error.message, TOAST_OPTIONS);
+    } else if(Object.keys(loggedInUser.user).length) {
+      localStorage.setItem("user", JSON.stringify(loggedInUser.user));
+      localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
+      localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
+      localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
+      cookie.set('user', JSON.stringify(loggedInUser.user))
+			router.reload(window.location.pathname)
+    }
+  }, [loggedInUser])
+
+	useEffect(() => {
 		if (props.showSidebar)
 			document.body.classList.add('overflow-hidden');
 		else
@@ -72,10 +102,75 @@ function Sidebar(props) {
     setCommercialMonthlyAnnual(type)
     setStep(1)
   }
+
+	const handleSubmit = async (e) => {
+    e.preventDefault();
+    const loginForm = e.currentTarget;
+    if (loginForm.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      setValidated(true);
+    } else {
+      const data = new FormData(form.current);
+      if(!data.get('remember_me'))
+        data.append('remember_me', false)
+
+      let authData = {
+				email: data.get('email'),
+        password: data.get('password')
+			};
+      dispatch(authLogin(authData));
+    }
+  }
+
+	const handleSignUpSubmit = async (e) => {
+    e.preventDefault();
+    
+    setConfirmPasswordError(false);
+    const signupForm = e.currentTarget;
+    const data = new FormData(form.current);
+    if(data.get('password') !== data.get('confirm_password')) {
+      setConfirmPasswordError(true);
+      
+    }
+    if (signupForm.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      setValidated(true);
+      
+    } else {
+      let authData = {
+				email: data.get("email"),
+				first_name: data.get("first_name"),
+				last_name: data.get("last_name"),
+				password: data.get("password"),
+				password_confirmation: data.get("confirm_password"),
+				content_type: contentType,
+			};
+      dispatch(authSignup(authData));
+    }
+  }
+
+	const handleConfirmPassword = () => {
+    const data = new FormData(form.current);
+    if(!data.get('confirm_password')) {
+      setConfirmPasswordError(false);
+      return;
+    }
+    if(data.get('password') !== data.get('confirm_password'))
+      setConfirmPasswordError(true);
+    else
+      setConfirmPasswordError(false);
+  }
+
+	const handleSelectContentType = (target) => {
+    setContentType(target.value);
+  }
    
   
   return (
     <div>
+			
       <div className={props.showSidebar ? "sidebarBackdrop active" : "sidebarBackdrop" } onClick={() => props.handleSidebarHide()}></div>
       <div className={props.showSidebar ? "offcanvas offcanvas-end show" : "offcanvas offcanvas-end" } id="offcanvasRight">
 				<div className="offcanvasHeader">
@@ -88,6 +183,18 @@ function Sidebar(props) {
               <p className="artistName">Lucy Bland</p>
             </div>
           </div>
+					{/* <ToastContainer
+						position="top-center"
+						autoClose={10000}
+						hideProgressBar
+						newestOnTop={false}
+						closeOnClick
+						rtl={false}
+						pauseOnFocusLoss
+						draggable
+						pauseOnHover
+						style={{ width: "auto" }}
+					/> */}
           <a href="javascript:void(0)" className="btnClose" onClick={() => props.handleSidebarHide()}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16.121" height="16.121" viewBox="0 0 16.121 16.121">
               <g id="Group_112" data-name="Group 112" transform="translate(-11680.439 270.061)">
@@ -110,37 +217,52 @@ function Sidebar(props) {
 										<p className="offcanvasDesc">Already have an account? <a href="javascript:void(0)" onClick={()=> handleShowSignUp(false)}>Sign In</a></p>
 										<div className={pricing.formWrapper}>
 											<h3>Create Account</h3>
-											<Form className={pricing.sidebarForm}>
+											<Form noValidate validated={validated} ref={form} onSubmit={handleSignUpSubmit} className={pricing.sidebarForm}>
 												<Row className="halfGutters">
 													<Col>
 														<Form.Group className="mb-4">
-															<Form.Control type="text" placeholder="Enter Name" />
+														<Form.Control required name="first_name" type="text" placeholder="First Name" />
+														<Form.Control.Feedback type="invalid">
+															First name is required!
+														</Form.Control.Feedback>
 														</Form.Group>
 													</Col>
 				
 													<Col>
 														<Form.Group className="mb-4">
-															<Form.Control type="text" placeholder="Enter Last Name" />
+														<Form.Control required name="last_name" type="text" placeholder="Last Name" />
+														<Form.Control.Feedback type="invalid">
+															Last name is required!
+														</Form.Control.Feedback>
 														</Form.Group>
 													</Col>
 												</Row>
 												<Row>
 													<Col>
 														<Form.Group className="mb-4">
-															<Form.Control type="email" placeholder="Email" />
+														<Form.Control required name="email" type="email" placeholder="Email" />
+														<Form.Control.Feedback type="invalid">
+															A valid email address is required!
+														</Form.Control.Feedback>
 														</Form.Group>
 													</Col>
 												</Row>
 												<Row className="halfGutters">
 													<Col>
 														<Form.Group className="mb-4">
-															<Form.Control type="password" placeholder="Password" />
+														<Form.Control required name="password" type="password" placeholder="Password" />
+														<Form.Control.Feedback type="invalid">
+															Password is required!
+														</Form.Control.Feedback>
 														</Form.Group>
 													</Col>
 				
 													<Col>
 														<Form.Group className="mb-4">
-															<Form.Control type="password" placeholder="Confirm Password" />
+														<Form.Control className={confirmPasswordError ? "confirm_password invalid" : "confirm_password"} name="confirm_password" type="password" placeholder="Confirm Password" onChange={handleConfirmPassword} />
+														{confirmPasswordError &&
+														<small className="input-error">Password doesn&apos;t match!</small>
+														}
 														</Form.Group>
 													</Col>
 												</Row>
@@ -193,18 +315,25 @@ function Sidebar(props) {
 										<p className="offcanvasDesc">Don’t have an account yet? <a href="javascript:void(0)" onClick={()=> handleShowSignUp(true)}>Sign Up</a></p>
 										<div className={pricing.formWrapper}>
 											<h3>Create Account</h3>
-											<Form className={pricing.sidebarForm}>
+											<Form className={pricing.sidebarForm} noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
 												<Row>
 													<Col>
 														<Form.Group className="mb-4">
-															<Form.Control type="email" placeholder="Email" />
+															<Form.Control required name="email" type="email" placeholder="Email" />
+															<Form.Control.Feedback type="invalid">
+																A valid email address is required!
+															</Form.Control.Feedback>
 														</Form.Group>
+														
 													</Col>
 												</Row>
 												<Row className="halfGutters">
 													<Col>
 														<Form.Group className="mb-4">
-															<Form.Control type="password" placeholder="Password" />
+														<Form.Control required name="password" type="password" placeholder="Password" />
+														<Form.Control.Feedback type="invalid">
+															Password is required!
+														</Form.Control.Feedback>
 														</Form.Group>
 													</Col>
 												</Row>
