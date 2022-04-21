@@ -386,14 +386,14 @@ function Pricing() {
                 <h3 className="mb-4">Billing Information</h3>
                 <Form>
                   <Row className="halfGutters">
-                    <Col>
+                    <Col sm={6} xs={12}>
                       <Form.Group className="mb-4" controlId="formBasicEmail">
                         <Form.Label>First Name *</Form.Label>
                         <Form.Control type="text" placeholder="Enter Name" />
                       </Form.Group>
                     </Col>
 
-                    <Col>
+                    <Col sm={6} xs={12}>
                       <Form.Group className="mb-4" controlId="formBasicPassword">
                         <Form.Label>Last Name *</Form.Label>
                         <Form.Control type="text" placeholder="Enter Last Name" />
@@ -418,14 +418,14 @@ function Pricing() {
                   </Row>
 
                   <Row className="halfGutters">
-                    <Col>
+                    <Col sm={6} xs={12}>
                       <Form.Group className="mb-4" controlId="formBasicEmail">
                         <Form.Label>City *</Form.Label>
                         <Form.Control type="text" placeholder="City" />
                       </Form.Group>
                     </Col>
 
-                    <Col>
+                    <Col sm={6} xs={12}>
                       <Form.Group className="mb-4" controlId="formBasicPassword">
                         <Form.Label>State/Region *</Form.Label>
                         <Form.Control type="text" placeholder="State/Region" />
@@ -434,14 +434,14 @@ function Pricing() {
                   </Row>
 
                   <Row className="halfGutters">
-                    <Col>
+                    <Col sm={6} xs={12}>
                       <Form.Group className="mb-4" controlId="formBasicEmail">
                         <Form.Label>ZIP/Postal Code *</Form.Label>
                         <Form.Control type="text" placeholder="ZIP Code" />
                       </Form.Group>
                     </Col>
 
-                    <Col>
+                    <Col sm={6} xs={12}>
                       <Form.Group className="mb-4" controlId="formBasicPassword">
                         <Form.Label>Country *</Form.Label>
                         <Select
@@ -494,14 +494,14 @@ function Pricing() {
                     </Col>
                   </Row>
                   <Row className="halfGutters">
-                    <Col>
+                    <Col sm={6} xs={12}>
                       <Form.Group className="mb-4" controlId="formBasicEmail">
                         <Form.Label>Expiry Date</Form.Label>
                         <Form.Control type="month" placeholder="MM/YY" />
                       </Form.Group>
                     </Col>
 
-                    <Col>
+                    <Col sm={6} xs={12}>
                       <Form.Group className="mb-4" controlId="formBasicPassword">
                         <Form.Label>Security Code</Form.Label>
                         <Form.Control type="text" placeholder="CVV" />
@@ -513,7 +513,7 @@ function Pricing() {
                     <Col>
                       <Form.Group className="mb-4" controlId="formBasicEmail">
                         <Form.Label>Apply Discount Code</Form.Label>
-                        <div className="stickySearch">
+                        <div className="stickySearch discountCode">
                           <Form.Control type="text" placeholder="Enter Code" />
                           <Button variant="default" type="submit" className="btnMainLarge stickyBtn">Apply</Button>
                         </div>
