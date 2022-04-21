@@ -1050,6 +1050,16 @@
   }
   .sideBarPlansWrapper {
     .plansContent {
+      .pricingRightSec {
+        .plansList {
+          .plansItem {
+            a {
+              padding: 15px 15px;
+              gap: 7px;
+            }
+          }
+        }
+      }
       .sidebarChoosePlans {
         .choosePlans {
           .pricingLeftSec {
@@ -1057,27 +1067,18 @@
               @include flex-direction(column);
             }
           }
-          .pricingRightSec {
-            .plansList {
-              .plansItem {
-                a {
-                  padding: 15px 15px;
-                }
-              }
-            }
-            .planBillingWrapper {
-              .planSelect {
-                .planIndividual {
-                  padding-inline: 15px;
-                  .planType {
-                    .planName {
-                      font-size: 18px;
-                    }
+          .planBillingWrapper {
+            .planSelect {
+              .planIndividual {
+                padding-inline: 15px;
+                .planType {
+                  .planName {
+                    font-size: 18px;
                   }
-                  .planPriceDuration {
-                    .planAmount {
-                      font-size: 26px;
-                    }
+                }
+                .planPriceDuration {
+                  .planAmount {
+                    font-size: 26px;
                   }
                 }
               }
@@ -1088,3 +1089,4 @@
     }
   }
 }
+
