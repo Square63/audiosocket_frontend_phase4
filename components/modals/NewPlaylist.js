@@ -7,50 +7,53 @@ import Image from "next/image";
 import Loader from "../../images/loader.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getTracksFromAIMS } from '../../redux/actions/trackActions';
+import axios from "axios";
+import { BASE_URL } from "../../common/api";
 
 function PreferenceModal({showModal = false, onCloseModal, loading}) {
   const dispatch = useDispatch();
-  const form = useRef(null);
+  const formNewPlaylist = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const newPlaylistForm = e.currentTarget;
+    const data = new FormData(newPlaylistForm.current);
+    debugger
+    let playlistFiles = document.getElementsByName("file")[0].files
+    for(let i = 0; i < playlistFiles.length; i++)
+        data.append('files[]', playlistFiles[i]);
     setIsLoading(true);
-    const preferenceForm = e.currentTarget;
-    if (preferenceForm.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-      setValidated(true);
-      setIsLoading(false);
-    } else {
-      const data = new FormData(form.current);
-      setIsLoading(false);
-      e.target.reset();
-      handleClose();
-      alert('Subscribed');
-    }
+    let url = `${BASE_URL}/api/v1/consumer/consumers_playlists`;
+    
+    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
+    const URL = url;
+    await axios.request({
+      headers: {
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+        "auth-token": userAuthToken
+      },
+      method: "post",
+      url: URL,
+      data: data,
+      
+    }).then (response => {
+      if (!response.status === 200) {
+        // Notiflix.Notify.failure('Something went wrong, try later!', {
+        //   timeout: 6000000,
+        //   clickToClose: true,
+        // });
+      } else {
+      }
+    })
   }
 
   const handleClose = () => {
     onCloseModal(false);
     setValidated(false);
     setIsLoading(false);
-  }
-
-  const handleFileSelect = (e) => {
-    if (e.target.value == '')
-      document.getElementById("uploadBtn").classList.add("disabled")
-    else {
-      document.getElementById("uploadBtn").classList.remove("disabled")
-    }
-  }
-
-  const handleUploadSearch = () => {
-    onCloseModal(false);
-    loading();
-    dispatch(getTracksFromAIMS());
   }
 
   const fileTypes = ["JPG", "PNG", "GIF", "SVG", "JPEG"];
@@ -73,7 +76,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
       </Modal.Header>
       <Modal.Body>
         <div className="modal-container">
-          <Form className="modalForm PlaylistForm">
+          <Form className="modalForm PlaylistForm" noValidate ref={formNewPlaylist} onSubmit={handleSubmit}>
             <Form.Group className="mb-4" controlId="formBasicEmail">
               <Form.Label>Playlist Name <span className="labelAsterik">*</span></Form.Label>
               <Form.Control type="text" placeholder="Enter name" />
@@ -88,10 +91,10 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
               <div className="dragDropContainer">
                 <p className="dragDropContent">Drag &amp; Drop <br /> Project Image <br />Or <br />Choose File…</p>
                 <FileUploader
-                  multiple={true}
                   handleChange={handleChange}
                   name="file"
                   types={fileTypes}
+                  id="playlistFiles"
                 />
               </div>
               <p>{file ? `File name: ${file[0].name}` : "no files uploaded yet"}</p>
