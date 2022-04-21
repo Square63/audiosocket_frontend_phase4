@@ -368,7 +368,7 @@ export default function Home(props) {
                             <Form onSubmit={e => { e.preventDefault(); }}>
                               <Form.Label className="stepsLabel">Add “Phantogram” in keyword search.</Form.Label>
                               <div className="roundedForm">
-                                <Form.Control type="text" className="circularInput" placeholder="Enter your email." onChange={(e) => handleFiltersKeywordStep3(e)}/>
+                                <Form.Control type="text" className="circularInput" placeholder="Enter Phantogram" onChange={(e) => handleFiltersKeywordStep3(e)}/>
                                 <Button variant="default" type="submit" className="circularBtn" onClick={() => handleSubmit()}>
 
                                   <svg xmlns="http://www.w3.org/2000/svg" width="15.014" height="12.278" viewBox="0 0 15.014 12.278">
