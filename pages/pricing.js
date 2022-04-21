@@ -294,7 +294,7 @@ function Pricing() {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Control required type="text" placeholder="Phone Number" />
+                    <Form.Control required type="text" placeholder="Phone Number *" />
                     <Form.Control.Feedback type="invalid">
                       Phone Number is required!
                     </Form.Control.Feedback>
@@ -303,7 +303,7 @@ function Pricing() {
                     <Select
                       className='react-select-container'
                       classNamePrefix="react-select"
-                      placeholder="Type of Use"
+                      placeholder="Type of Use *"
                       name="type_of_use"
                       options={USE_TYPES}
                       onChange={handleChange}
@@ -313,7 +313,7 @@ function Pricing() {
                     }
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Control required type="text" placeholder="End Client" />
+                    <Form.Control required type="text" placeholder="End Client *" />
                     <Form.Control.Feedback type="invalid">
                       End client is required!
                     </Form.Control.Feedback>
