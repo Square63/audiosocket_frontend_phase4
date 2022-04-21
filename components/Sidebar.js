@@ -219,7 +219,7 @@ function Sidebar(props) {
 											<h3>Create Account</h3>
 											<Form noValidate validated={validated} ref={form} onSubmit={handleSignUpSubmit} className={pricing.sidebarForm}>
 												<Row className="halfGutters">
-													<Col>
+													<Col sm={6} xs={12}>
 														<Form.Group className="mb-4">
 														<Form.Control required name="first_name" type="text" placeholder="First Name" />
 														<Form.Control.Feedback type="invalid">
@@ -228,7 +228,7 @@ function Sidebar(props) {
 														</Form.Group>
 													</Col>
 				
-													<Col>
+													<Col sm={6} xs={12}>
 														<Form.Group className="mb-4">
 														<Form.Control required name="last_name" type="text" placeholder="Last Name" />
 														<Form.Control.Feedback type="invalid">
@@ -248,7 +248,7 @@ function Sidebar(props) {
 													</Col>
 												</Row>
 												<Row className="halfGutters">
-													<Col>
+													<Col sm={6} xs={12}>
 														<Form.Group className="mb-4">
 														<Form.Control required name="password" type="password" placeholder="Password" />
 														<Form.Control.Feedback type="invalid">
@@ -257,7 +257,7 @@ function Sidebar(props) {
 														</Form.Group>
 													</Col>
 				
-													<Col>
+													<Col sm={6} xs={12}>
 														<Form.Group className="mb-4">
 														<Form.Control className={confirmPasswordError ? "confirm_password invalid" : "confirm_password"} name="confirm_password" type="password" placeholder="Confirm Password" onChange={handleConfirmPassword} />
 														{confirmPasswordError &&
