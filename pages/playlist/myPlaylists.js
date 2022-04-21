@@ -13,15 +13,31 @@ import mood4 from '../../images/mood4.jpg';
 import Sample1 from '../../images/sample1.jpeg';
 import Sample2 from '../../images/sample2.jpeg';
 import { useDispatch, useSelector } from "react-redux";
-import { getFollowedPlaylists } from "../../redux/actions/authActions";
+import { getMyPlaylists } from "../../redux/actions/authActions";
 import { getFollowedArtists } from "../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import InpageLoader from '../../components/InpageLoader';
 import Link from "next/link";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function MyPlaylists() {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const myPlaylists = useSelector(state => state.user.my_playlists);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    dispatch(getMyPlaylists())
+    
+  }, [showModal]);
+
+  useEffect(() => {
+    if (myPlaylists) {
+      setIsLoading(false)
+    }
+  }, [myPlaylists]);
+
   const handleLoading = () => {
     setLoading(true)
   }
@@ -29,89 +45,54 @@ function MyPlaylists() {
     setShowModal(show)
   }
   return (
-    <div className={playlist.myPlaylistWrapper}>
-      <div className="fixed-container">
-        <h1>My playlists</h1>
-        <section className={playlist.myPlaylists}>
-          <div className="tilesWrapper">
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={mood1} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                The Least of These Documentary
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={mood2} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                Aspire
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={mood3} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                Aspire
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={mood4} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                Aspire
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={Sample1} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                Aspire
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={Sample2} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                Aspire
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              {/* <Image src={Sample3} alt="Mood" className="tilesImg"></Image> */}
-              <span className="tileOverlayText">
-                Aspire
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={anime} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                Anime
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={cinemetic} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                Cinematic
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-            <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={hiphop} alt="Mood" className="tilesImg"></Image>
-              <span className="tileOverlayText">
-                Hip Hop Pop
-                <small className="playlistTracksCount">33 tracks</small>
-              </span>
-            </a>
-          </div>
-          <div className={playlist.btnWrapper}>
-            <button className="btn btnMainLarge" onClick={() => setShowModal(true)}>New Playlist</button>
-          </div>
-        </section>
+    <>
+      {isLoading ? (
+        <InpageLoader/>
+      ) : (
+      <>
+        <ToastContainer
+          position="top-center"
+          autoClose={10000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          style={{ width: "auto" }}
+        />
+        <div className={playlist.myPlaylistWrapper}>
+        
+        <div className="fixed-container">
+          <h1>My playlists</h1>
+          <section className={playlist.myPlaylists}>
+            <div className="tilesWrapper">
+            {myPlaylists &&
+              myPlaylists.map((playlist,index)=> {
+                return(
+                  <a key={index} href="javascript:void(0)" className="tileOverlay">
+                    {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                    <span className="tileOverlayText">
+                      {playlist.name}
+                      <small className="playlistTracksCount">{playlist.tracks.count}</small>
+                    </span>
+                  </a>
+                  )
+                })}
+            </div>
+            <div className={playlist.btnWrapper}>
+              <button className="btn btnMainLarge" onClick={() => setShowModal(true)}>New Playlist</button>
+            </div>
+          </section>
+        </div>
+        <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       </div>
-      <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
-    </div>
+      </>
+
+      )}
+    </>
+    
   );
 }
   

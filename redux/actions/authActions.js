@@ -6,7 +6,7 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          UPDATE_PASSWORD_FAIL, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL, GET_PLAYLISTS_SUCCESS, GET_PLAYLISTS_FAIL,
          GET_USER_SUCCESS, GET_USER_FAIL, GET_ARTISTS_SUCCESS, GET_ARTISTS_FAIL, PLAYLIST_TRACKS_SUCCESS, PLAYLIST_TRACKS_FAIL,
          FAVORITE_TRACKS_SUCCESS, FAVORITE_TRACKS_FAIL, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAIL, GET_CART_SUCCESS, GET_CART_FAIL,
-         DOWNLOADED_TRACKS_SUCCESS, DOWNLOADED_TRACKS_FAIL, DOWNLOADED_SFXS_SUCCESS, DOWNLOADED_SFXS_FAIL } from "../constants/authConstants";
+         DOWNLOADED_TRACKS_SUCCESS, DOWNLOADED_TRACKS_FAIL, DOWNLOADED_SFXS_SUCCESS, DOWNLOADED_SFXS_FAIL, MY_PLAYLISTS_SUCCESS, MY_PLAYLISTS_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -285,6 +285,23 @@ export const getDownloadedSfxs = () => async( dispatch ) => {
   } catch (error) {
     dispatch({
       type: DOWNLOADED_SFXS_FAIL,
+      payload: error
+    })
+    
+  }
+
+}
+
+export const getMyPlaylists = () => async( dispatch ) => {
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists`);
+    dispatch({
+      type: MY_PLAYLISTS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: MY_PLAYLISTS_FAIL,
       payload: error
     })
     
