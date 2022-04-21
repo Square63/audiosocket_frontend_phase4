@@ -359,6 +359,7 @@ header {
         height: 30px;
         line-height: 20px;
         margin-inline: 7px 15px;
+        min-width: auto;
         .dropdown-toggle  {
           line-height: normal !important;
           &:after {
@@ -4126,6 +4127,9 @@ input[type=file]::file-selector-button {
       }
     }
   }
+  .pricingContainer {
+    padding-inline: 20px;
+  }
 }
 @media #{$tab-portrait} {
   /************** Mood Slider ***********/
@@ -4142,7 +4146,7 @@ input[type=file]::file-selector-button {
   header {
     .custom-nav {
       min-height: 58px;
-      padding: 7px 0 7px;
+      padding: 10px 0 10px;
       .navbar-brand {
         width: 160px;
         img {
@@ -4174,6 +4178,9 @@ input[type=file]::file-selector-button {
             .navbar-toggler-icon {
               background: url('../images/closeConditional.svg') no-repeat center transparent;
             }
+          }
+          .headerAccount {
+            margin-block: 10px 20px;
           }
         }
         &.show {
@@ -4395,7 +4402,7 @@ input[type=file]::file-selector-button {
   header {
     .custom-nav {
       min-height: 58px;
-      padding: 12px 0 12px;
+      padding: 14px 0 14px;
       .navbar-brand {
         width: 115px;
         img {
@@ -4415,7 +4422,7 @@ input[type=file]::file-selector-button {
     }
   }
 
-  .stickySearch {
+  .stickySearch:not(.discountCode) {
     .form-control {
       height: 32px;
       font-size: 13px;
@@ -4549,6 +4556,15 @@ input[type=file]::file-selector-button {
             }
           }
         }
+      }
+    }
+  }
+
+  .offcanvas {
+    .offcanvas-body {
+      padding-inline: 20px;
+      .inPricingWay {
+        margin-inline: -20px !important;
       }
     }
   }
