@@ -32,12 +32,14 @@ const AuthProvider = (props) => {
   }, [cartCount])
 
   useEffect(() => {
-    if (lineItem) {
-      if (lineItem.success) {
-        debugger
-        setCartCount(cartCount + 1)
-      } else {
-        setCartCount(cartCount)
+    if (localStorage.getItem("user")) {
+      if (lineItem) {
+        if (lineItem.success) {
+          debugger
+          setCartCount(cartCount + 1)
+        } else {
+          setCartCount(cartCount)
+        }
       }
     }
   }, [lineItem])
