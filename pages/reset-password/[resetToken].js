@@ -114,7 +114,7 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
                       </Form.Control.Feedback>
                     )}
                     {isConfirmError && (
-                      <small className="invalid">Passwords don't match</small>
+                      <small className="invalid">Passwords do not match</small>
                     )}
                   </Form.Group>
                   <Form.Control.Feedback type="invalid">
