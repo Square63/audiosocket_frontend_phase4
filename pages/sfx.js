@@ -2,6 +2,7 @@ import Alert from 'react-bootstrap/Alert';
 import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
+// import AddToCartLicense from "../components/modals/AddToCartLicense";
 import AddToPlaylist from "../components/modals/AddToPlaylist";
 import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
@@ -26,6 +27,7 @@ import RangeSlider from '../components/RangeSlider';
 import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../components/Sidebar';
 
 function Sfx(props) {
 
@@ -39,6 +41,7 @@ function Sfx(props) {
   // const [queryType, setQueryType] = useState("local_search")
   const [showDownModal, setShowDownModal] = useState(false)
   const [showLicenseModal, setShowLicenseModal] = useState(false)
+  const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
   const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
 	const [footerPlaying, setFooterPlaying] = useState(false)
   const [track, setTrack] = useState()
@@ -46,15 +49,16 @@ function Sfx(props) {
   const [index, setIndex] = useState(0)
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
-  const [updatedTracks, setUpdateTracks] = useState([])
+  const [updatedTracks, setUpdatedTracks] = useState([])
   const [trackName, setTrackName] = useState(localStorage.getItem("track_name"))
+  const [showSidebar, setShowSidebar] = useState(false)
+  const [sidebarType, setSidebarType] = useState("")
 
   // const message = useSelector(state => state.allPlaylists);
 
   useEffect(() => {
-    
+
   }, [appliedFiltersListWC]);
-  
 
   useEffect(() => {
     // handleAimsSearch()
@@ -77,9 +81,9 @@ function Sfx(props) {
   if (allTracks && allTracks.tracks){
     tracks = allTracks.tracks[0].tracks
     tracksMeta = allTracks.tracks[0].meta
-  }  
+  }
   console.log("Update Tracks", updatedTracks)
-  
+
   console.log("Tracks META", tracksMeta)
   // const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
@@ -103,8 +107,15 @@ function Sfx(props) {
   }, [favoritesMessage])
 
   useEffect(() => {
+    window.analytics.identify("Landed on search", {
+
+    username: "ammanda",
+
+    email: "ammanda.asif@square63.org",
+
+    });
     if (tracks.length > 0) {
-      setUpdateTracks(tracks)
+      setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
     }
 
     let isMounted = true;
@@ -115,20 +126,30 @@ function Sfx(props) {
       isMounted = false;
     };
 
-    
+
   },[tracks, favoritesMessage]);
 
   const handleLoading = () => {
     setLoading(true)
   }
-  
+
   const handleClose = (show) => {
     setShowModal(show)
   }
 
   function showDownloadModal(index) {
-    setIndex(index)
-    setShowDownModal(true)
+    if (localStorage.getItem("user")) {
+      if (index > 9) {
+        setIndex(index + 10)
+      }
+      else {
+        setIndex(index)
+      }
+      setShowDownModal(true)
+    }
+    else {
+      alert("You must be logged in to be able to add a track to cart.")
+    }
   }
 
   const handleDownloadClose = (show) => {
@@ -141,6 +162,29 @@ function Sfx(props) {
 
   function handleLicenseModalClose() {
     setShowLicenseModal(false)
+  }
+
+  function showAddTrackToCartLicenseModal(index) {
+    if (localStorage.getItem("user")) {
+      if (index > 9) {
+        setIndex(index + 10)
+      }
+      else {
+        setIndex(index)
+      }
+      setShowAddToCartLicenseModal(true)
+      setShowSidebar(true)
+      setSidebarType("cart")
+    }
+    else {
+      // alert("You must be logged in to be able to add a track to cart.")
+      setShowSidebar(true)
+      setSidebarType("login")
+    }
+  }
+
+  function handleAddToCartLicenseModalClose() {
+    setShowAddToCartLicenseModal(false)
   }
 
   function showTrackAddToPlaylistModal(index) {
@@ -161,11 +205,13 @@ function Sfx(props) {
   function handleAddToPlaylistModalClose() {
     setShowAddToPlaylistModal(false)
   }
-  
+
   const handleSearch = async(e) => {
     setLoading(true)
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1));
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   const handleClearAllFilter = () => {
@@ -205,8 +251,10 @@ function Sfx(props) {
         hideAllFilterDiv()
       }
     }
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   function hideAllFilterDiv() {
@@ -217,12 +265,15 @@ function Sfx(props) {
     document.getElementById("filtersList").innerHTML = "";
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
     let query = document.getElementById("searchField").value
-    
-    dispatch(getTracks(query, query_type(query), [], "", "", 1));
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
+    setAppliedFiltersList([])
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
     setLoading(true)
+    hideAllFilterDiv()
     console.log("Track NAme", trackName)
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(trackName)
@@ -238,15 +289,17 @@ function Sfx(props) {
         dispatch(addToFavorites(trackId));
       }
       else {
-        let newFavoriteIds = favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+        favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
         e.target.closest("a").classList.remove("controlActive")
-        setFavoriteTrackIds(newFavoriteIds)
+        setFavoriteTrackIds(favoriteTrackIds)
         dispatch(removeFromFavorites(trackId));
       }
     }
     else {
-      alert("You must be logged in to be able to add a track to your favorites.")
-    }  
+      // alert("You must be logged in to be able to add a track to your favorites.")
+      setShowSidebar(true)
+      setSidebarType("login")
+    }
   }
 
   const handleAddFilter = async(e) => {
@@ -262,7 +315,9 @@ function Sfx(props) {
     appliedFiltersList.push(removeCount(e.currentTarget.text))
     setAppliedFiltersListWC([...appliedFiltersListWC, removeCount(e.currentTarget.text)]);
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
   }
 
   const handleAddChildrenFilter = (e) => {
@@ -285,10 +340,8 @@ function Sfx(props) {
     );
     const parentIndex = filters.findIndex(x => x.id == partenID);
     const childIndex = filters[parentIndex].sub_filters.findIndex(x => x.id == filter);
-    console.log(childIndex);
     setLastChildFilters(filters[parentIndex].sub_filters[childIndex].sub_filters);
 
-    // console.log(filters.indexOf(partenID));
     setShowChilderDiv(true);
   }
 
@@ -298,7 +351,7 @@ function Sfx(props) {
     let vocal = localStorage.getItem('vocal')
     let keyword = localStorage.getItem('keyword')
     document.getElementById("searchField").value = keyword
-        
+
     genre ? appliedFiltersList.push(genre) : null
     vocal ? appliedFiltersList.push(vocal) : null
     if (genre && vocal) {
@@ -342,14 +395,27 @@ function Sfx(props) {
 		setTrack(track)
     if (track) {
       console.log("track url", track.file)
-    } 
+    }
   }
 
-  
+
   function getUniqFilters(appliedFilters) {
     return appliedFilters.filter((v, i, a) => a.indexOf(v) === i);
   }
-  
+
+  const handleExcludeFilters = (e) => {
+    setLoading(true)
+    let explicit = !document.getElementById("excludeExplicit").checked
+    let vocals = document.getElementById("excludeVocals").checked
+    let query = document.getElementById("searchField").value
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+
+  }
+
+  const handleSidebarHide = () => {
+    setShowSidebar(false)
+  }
+
   const filterItems = filters.map((filter, index) =>
     <Dropdown alignRight className={filter.name === "Moods" ? "d-inline mood" : filter.name === "Tempos" ? "d-inline durationTempo" : "d-inline"} key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
@@ -475,13 +541,13 @@ function Sfx(props) {
         </Dropdown.Menu>)
 
         )}
-           
-      
-        
-        
+
+
+
+
     </Dropdown>
   );
-  
+
   return (
     <div className={search.searchWrapper}>
       <Alert variant="success" className="brandAlert">
@@ -540,7 +606,7 @@ function Sfx(props) {
               <div className="settingFilterWrapper">
                 <form>
                   <div className="toogleSwitch">
-                    <input type="checkbox" id="excludeExplicit" />
+                    <input type="checkbox" id="excludeExplicit" onChange={(e) => handleExcludeFilters(e)}/>
                     <Form.Label htmlFor="excludeExplicit">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Explicit</span>
                   </div>
@@ -550,7 +616,7 @@ function Sfx(props) {
                     <span className="switchText">YouTube ContentID Cleared</span>
                   </div>
                   <div className="toogleSwitch">
-                    <input type="checkbox" id="excludeVocals" />
+                    <input type="checkbox" id="excludeVocals" onChange={(e) => handleExcludeFilters(e)}/>
                     <Form.Label htmlFor="excludeVocals">&nbsp;</Form.Label>
                     <span className="switchText">Exclude Vocals</span>
                   </div>
@@ -576,7 +642,7 @@ function Sfx(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
         )}
       </div>
 
@@ -586,12 +652,14 @@ function Sfx(props) {
         </div>
       </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
-      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={tracks[index]} type="sfx" />
+      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
+      {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
       {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
-      
+      <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
+
     </div>
-    
+
   );
 }
 
