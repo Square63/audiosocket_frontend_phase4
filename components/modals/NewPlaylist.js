@@ -27,8 +27,6 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
     e.preventDefault();
     const newPlaylistForm = e.currentTarget;
     const data = new FormData(formNewPlaylist.current);
-    data.append('name', data.get("name"))
-    data.append('playlist_image', file);
     setIsLoading(true);
     let url = `${BASE_URL}/api/v1/consumer/consumers_playlists`;
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
@@ -99,13 +97,13 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
                 {file ? <p className="dragDropContent">File Uploaded…</p> : <p className="dragDropContent">Drag &amp; Drop <br /> Project Image <br />Or <br />Choose File…</p>}
                 <FileUploader
                   handleChange={handleChange}
-                  name="file"
                   types={fileTypes}
+                  name="playlist_image"
                 />
               </div>
               <p>{file ? `File name: ${file.name}` : "No files uploaded yet"}</p>
             </Form.Group>
-            <Button variant="link" className="btn btnMainLarge btn-block" type="submit">
+            <Button variant="link" className={isLoading ? "btn btnMainLarge btn-block disabled" : "btn btnMainLarge btn-block"} type="submit">
               Add Project
             </Button>
           </Form>
