@@ -70,7 +70,6 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
     let uploadedFile = document.getElementById("uploadedFile").files[0]
     const formData = new FormData();
     formData.append('file', uploadedFile)
-    debugger
     try {
       const {data} = await axios.request({
         method: "post",
