@@ -114,7 +114,7 @@ function Login() {
                   Password is required!
                 </Form.Control.Feedback>
                 <div className={login.forgotPassword}>
-                <Link href={"/ForgotPassword"}><a>Forgot password?</a></Link>
+                <Link href={"/forgot_password"}><a>Forgot password?</a></Link>
                   
                 </div>
               </Form.Group>
