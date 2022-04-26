@@ -268,7 +268,7 @@ function Search(props) {
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     setAppliedFiltersList([])
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    dispatch(getTracks(query, query_type(query), [], "", "", 1, explicit, vocals));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
