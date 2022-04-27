@@ -20,6 +20,7 @@ import slick005 from '../images/slick005.png';
 import slick006 from '../images/slick006.png';
 import slick007 from '../images/slick007.png';
 import slick008 from '../images/slick008.png';
+import slick009 from '../images/slick009.png';
 import slick3 from '../images/slick03.jpg';
 import Sample1 from '../images/sample1.jpeg';
 import Sample2 from '../images/sample2.jpeg';
@@ -44,7 +45,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InpageLoader from '../components/InpageLoader';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 
-const imagess = [slick001, slick002, slick003, slick004, slick005, slick006, slick007, slick008];
+const imagess = [slick001, slick002, slick003, slick004, slick005, slick006, slick007, slick008, slick009];
 
 const breakPoints = [
   { width: 1, itemsToShow: 2, pagination: true },
