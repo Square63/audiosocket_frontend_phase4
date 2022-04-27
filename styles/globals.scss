@@ -1062,6 +1062,11 @@ footer {
   opacity: 0.7;
 }
 /******************* Common Components ****************/
+.parallelHead {
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(center);
+}
 .stickySearch {
   position: relative;
   .form-control {
