@@ -70,7 +70,6 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
     let uploadedFile = document.getElementById("uploadedFile").files[0]
     const formData = new FormData();
     formData.append('file', uploadedFile)
-    debugger
     try {
       const {data} = await axios.request({
         method: "post",
@@ -98,7 +97,7 @@ export const getSegmentTracksFromAIMS = (url, start, end) => async (dispatch) =>
       method: "post",
       url: `${BASE_URL}/api/v1/consumer/tracks/track_segment_search`,
       data: {
-        track_file: url,
+        track: url,
         time_offset: start,
         time_limit: end - start
       }

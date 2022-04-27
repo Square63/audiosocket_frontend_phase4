@@ -20,6 +20,8 @@ import { getPlaylists } from '../redux/actions/playlistActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 import { addToFavorites } from '../redux/actions/trackActions';
 import { removeFromFavorites } from '../redux/actions/trackActions';
+import { getSegmentTracksFromAIMS } from '../redux/actions/trackActions';
+
 
 import $ from 'jquery';
 import Tracks from '../components/Tracks';
@@ -128,7 +130,7 @@ function Search(props) {
     };
 
 
-  },[tracks, favoritesMessage]);
+  }, [tracks, favoritesMessage]);
 
   const handleLoading = () => {
     setLoading(true)
@@ -219,9 +221,9 @@ function Search(props) {
     hideAllFilterDiv()
   }
 
-  const handleUploadSearch = () => {
+  const handleUploadSearch = (url, start, end) => {
     setLoading(true)
-    dispatch(getSegmentTracksFromAIMS(url, segment.start, segment.end));
+    dispatch(getSegmentTracksFromAIMS(url, start, end));
   }
 
   function handleClearSingleFilter(e) {
@@ -644,8 +646,9 @@ function Search(props) {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-        <div className="singleWave"><SearchAudioWave track={tracks[0]} handleUploadSearch={handleUploadSearch} /></div>
-
+        {tracksMeta.aims_segment_search_track &&
+          <div className="singleWave"><SearchAudioWave uploadedFileUrl={tracksMeta.aims_segment_search_track} handleUploadSearch={handleUploadSearch} /></div>
+        }
         {loading ? (
           <InpageLoader />
         ) : (
@@ -663,10 +666,7 @@ function Search(props) {
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
       {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
-<<<<<<< HEAD
       <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
-=======
->>>>>>> e4a384c (Upload segment and play pause feature on wavesufer region)
 
     </div>
 

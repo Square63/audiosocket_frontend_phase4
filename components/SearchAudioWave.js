@@ -50,8 +50,7 @@ export default function SearchAudioWave(props) {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  // const url = props.track.file? props.track.file : "./test.mp3"
-  const url = "./test.mp3"
+  const url = props.uploadedFileUrl
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
     onChange: function(value) {
@@ -60,27 +59,13 @@ export default function SearchAudioWave(props) {
   }
 
   useEffect(() => {
-    if (wavesurfer.current == null)
-      create();
-    if (playing || props.footerPlaying) {
-      setTimeout(() => setSeconds(seconds ? (seconds -1) : (props.track.duration - 1)), 1000);
-    } else {
-      setSeconds(seconds);
-    }
-    if (wavesurfer.current && props.footerPlaying) {
-      wavesurfer.current.play();
-    } else if (wavesurfer.current && !props.footerPlaying && !playing){
-      wavesurfer.current.pause();
-    }
-    // wavesurfer.current.playPause();
-    // return () => {
-    //   if (wavesurfer.current) {
-    //     wavesurfer.current.destroy();
-    //   }
-    // }
-  }, [playing, seconds, segment, props.track, props.footerPlaying]);
+    create();
+  }, [props.uploadedFileUrl]);
 
   const create = async () => {
+    if (wavesurfer.current)
+      document.getElementsByTagName("wave")[0].remove();
+
     const WaveSurfer = (await import("wavesurfer.js")).default;
 
     const options = formWaveSurferOptions(waveformRef.current);
@@ -96,7 +81,20 @@ export default function SearchAudioWave(props) {
 
   const handlePlayPause = () => {
     setPlaying(!playing);
-    wavesurfer.current.play(segment.start, segment.end);
+    if (playing)
+      wavesurfer.current.pause();
+    else
+      wavesurfer.current.play(wavesurfer.current.regions.list['region-1'].start, wavesurfer.current.regions.list['region-1'].end);
+  };
+
+  const handleUploadSegment = () => {
+    let start = wavesurfer.current.regions.list['region-1'].start;
+    let end = 0
+    if (wavesurfer.current.regions.list['region-1'].end > wavesurfer.current.getDuration())
+      end = wavesurfer.current.getDuration();
+    else
+      end = wavesurfer.current.regions.list['region-1'].end;
+    props.handleUploadSearch(url, start, end);
   };
 
   function convertSecToMin(duration) {
@@ -121,7 +119,7 @@ export default function SearchAudioWave(props) {
           <div id="waveform" ref={waveformRef} />
         </div>
       </div>
-      <a href="javascript:void(0)" className="btn btnMainXlarge" onClick={props.handleUploadSearch}>
+      <a href="javascript:void(0)" className="btn btnMainXlarge" onClick={handleUploadSegment}>
         Upload Segment
       </a>
       {/* <div className="versionTrackRow">
