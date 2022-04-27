@@ -318,9 +318,9 @@ export const getDownloadedSfxs = () => async( dispatch ) => {
 
 }
 
-export const getMyPlaylists = () => async( dispatch ) => {
+export const getMyPlaylists = (page) => async( dispatch ) => {
   try {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists`);
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists?page=${page}&per_page=15`);
     dispatch({
       type: MY_PLAYLISTS_SUCCESS,
       payload: data
