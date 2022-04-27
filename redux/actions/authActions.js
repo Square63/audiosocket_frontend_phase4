@@ -94,6 +94,7 @@ export const updateProfile = (data) => async (dispatch) => {
   const authToken = cookie.get("user");
   let first_name = data.first_name;
   let last_name = data.last_name;
+  let email = data.email;
   let consumer_profile_attributes = {
     phone: data.phone,
     organization: data.organization,
@@ -106,7 +107,7 @@ export const updateProfile = (data) => async (dispatch) => {
   try {
     const { data } = await axios.patch(
       `${BASE_URL}/api/v1/consumer/consumers/update_profile`,
-      { first_name, last_name, consumer_profile_attributes },
+      { first_name, last_name, email, consumer_profile_attributes },
       {
         headers: {
           "auth-token": authToken ? authToken : "",
