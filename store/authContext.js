@@ -17,7 +17,6 @@ const AuthProvider = (props) => {
   // let line_items = 0
 
   const [authState, dispatchReducer] = useReducer(reducer, initialState);
-
   const [cartCount, setCartCount] = useState(null)
   const [totalPrice, setTotalPrice] = useState(0)
 

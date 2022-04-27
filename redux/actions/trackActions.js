@@ -87,8 +87,6 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
       })
     }
   }
-
-
 }
 
 export const getSegmentTracksFromAIMS = (url, start, end) => async (dispatch) => {
