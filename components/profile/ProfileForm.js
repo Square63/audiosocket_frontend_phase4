@@ -64,6 +64,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
       let profileData = {
 				first_name: data.get("first_name"),
 				last_name: data.get("last_name"),
+        email: data.get("email"),
         phone: data.get("phone"),
         organization: data.get("organization"),
         city: data.get("city"),
