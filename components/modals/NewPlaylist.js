@@ -55,7 +55,13 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
           setFile(null);
           toast.success('Playlist created successfully.');
         }
-      })
+      }).catch(error => {
+        onCloseModal(false);
+        setValidated(false);
+        setIsLoading(false);
+        setFile(null);
+        toast.error('Error creating Playlist: Playlist image ' + error.response.data.errors.playlist_image);
+      });
     } 
   }
 
