@@ -1027,30 +1027,31 @@ footer {
     letter-spacing: -0.55px;
     margin-block-end: 20px;
   }
-  .scrollingList {
-    height: 300px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    li {
-      @include flexbox;
-      @include justify-content(space-between);
-      @include align-items(center);
-      padding: 5px 12px 4px 8px;
+}
+
+.scrollingList {
+  height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  li {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(center);
+    padding: 5px 12px 4px 8px;
+    line-height: normal;
+    a {
+      font-size: 14px;
+      font-weight: 400;
       line-height: normal;
-      a {
-        font-size: 14px;
-        font-weight: 400;
-        line-height: normal;
-        letter-spacing: -0.35px;
-        color: $headerColor;
-        padding-right: 10px;
-      }
-      svg {
-        cursor: pointer;
-      }
-      &:nth-child(odd) {
-        background-color: $grey;
-      }
+      letter-spacing: -0.35px;
+      color: $headerColor;
+      padding-right: 10px;
+    }
+    svg {
+      cursor: pointer;
+    }
+    &:nth-child(odd) {
+      background-color: $grey;
     }
   }
 }
