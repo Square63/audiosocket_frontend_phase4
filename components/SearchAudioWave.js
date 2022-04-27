@@ -24,7 +24,7 @@ const formWaveSurferOptions = (ref) => ({
   partialRender: true,
   plugins: [
     RegionsPlugin.create({
-        regionsMinLength: 2,
+        regionsMinLength: 1,
         regions: [
           {
             id: 'region-1',
@@ -63,8 +63,7 @@ export default function SearchAudioWave(props) {
   }, [props.uploadedFileUrl]);
 
   const create = async () => {
-    if (wavesurfer.current)
-      document.getElementsByTagName("wave")[0].remove();
+
 
     const WaveSurfer = (await import("wavesurfer.js")).default;
 

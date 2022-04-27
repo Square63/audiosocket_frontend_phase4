@@ -96,8 +96,8 @@ export const getSegmentTracksFromAIMS = (url, start, end) => async (dispatch) =>
       url: `${BASE_URL}/api/v1/consumer/tracks/track_segment_search`,
       data: {
         track: url,
-        time_offset: start,
-        time_limit: end - start
+        time_offset: Math.round(start),
+        time_limit: Math.round(end - start)
       }
     })
     dispatch({
