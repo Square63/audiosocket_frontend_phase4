@@ -83,6 +83,10 @@ ul,ol {
 .noTextLine {
   text-decoration: none !important;
 }
+
+.individualWorkTitleField {
+  display: none;
+}
 /************** Alert *************/
 .brandAlert {
   padding-block: 21px;
@@ -1635,6 +1639,40 @@ hr {
       letter-spacing: -0.72px;
       color: $white;
     }
+  }
+}
+/**************** Clip Selection *****************/
+.clipSegment {
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(center);
+  gap: 20px;
+  .playPauseBtn {
+    margin: 0;
+    min-width: 50px;
+    min-height: 50px;
+    .pause {
+      background-size: 20px;
+      width: 20px;
+      height: 24px;
+      left: calc(50% + 1px);
+    }
+    .play {
+      background-size: 15px;
+      width: 15px;
+      height: 17px;
+    }
+  }
+  .versionTrackRow {
+    @include flex(1);
+    .filterVersion {
+      border: 1px solid $border-clr;
+      border-radius: 5px;
+    }
+  }
+  .btn {
+    padding-inline: 18px;
+    font-size: 16px;
   }
 }
 

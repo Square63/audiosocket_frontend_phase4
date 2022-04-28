@@ -20,6 +20,8 @@ import { getPlaylists } from '../redux/actions/playlistActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 import { addToFavorites } from '../redux/actions/trackActions';
 import { removeFromFavorites } from '../redux/actions/trackActions';
+import { getSegmentTracksFromAIMS } from '../redux/actions/trackActions';
+
 
 import $ from 'jquery';
 import Tracks from '../components/Tracks';
@@ -28,6 +30,7 @@ import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../components/Sidebar';
+import SearchAudioWave from '../components/SearchAudioWave';
 
 function Search(props) {
 
@@ -127,7 +130,7 @@ function Search(props) {
     };
 
 
-  },[tracks, favoritesMessage]);
+  }, [tracks, favoritesMessage]);
 
   const handleLoading = () => {
     setLoading(true)
@@ -216,6 +219,11 @@ function Search(props) {
 
   const handleClearAllFilter = () => {
     hideAllFilterDiv()
+  }
+
+  const handleUploadSearch = (url, start, end) => {
+    setLoading(true)
+    dispatch(getSegmentTracksFromAIMS(url, start, end));
   }
 
   function handleClearSingleFilter(e) {
@@ -638,7 +646,9 @@ function Search(props) {
             <span className="clearAllTag" onClick={handleClearAllFilter}></span>
           </OverlayTrigger>
         </div>
-
+        {tracksMeta.aims_segment_search_track &&
+          <div className="singleWave"><SearchAudioWave uploadedFileUrl={tracksMeta.aims_segment_search_track} handleUploadSearch={handleUploadSearch} /></div>
+        }
         {loading ? (
           <InpageLoader />
         ) : (

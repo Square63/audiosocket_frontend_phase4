@@ -2,13 +2,13 @@ import axios from "axios";
 import { BASE_URL } from "../../common/api";
 import { useCookie } from "next-cookie";
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWORD_SUCCESS, 
+import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWORD_SUCCESS,
          UPDATE_PASSWORD_FAIL, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL, GET_PLAYLISTS_SUCCESS, GET_PLAYLISTS_FAIL,
          GET_USER_SUCCESS, GET_USER_FAIL, GET_ARTISTS_SUCCESS, GET_ARTISTS_FAIL, PLAYLIST_TRACKS_SUCCESS, PLAYLIST_TRACKS_FAIL,
          FAVORITE_TRACKS_SUCCESS, FAVORITE_TRACKS_FAIL, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAIL, GET_CART_SUCCESS, GET_CART_FAIL,
          DOWNLOADED_TRACKS_SUCCESS, DOWNLOADED_TRACKS_FAIL, DOWNLOADED_SFXS_SUCCESS, DOWNLOADED_SFXS_FAIL, MY_PLAYLISTS_SUCCESS,
          MY_PLAYLISTS_FAIL, GET_FORGOT_PASSWORD_SUCCESS, GET_FORGOT_PASSWORD_FAIL, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAIL, 
-         CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL } from "../constants/authConstants";
+         CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL, EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -297,7 +297,7 @@ export const getDownloadedTracks = () => async( dispatch ) => {
       type: DOWNLOADED_TRACKS_FAIL,
       payload: error
     })
-    
+
   }
 
 }
@@ -314,7 +314,7 @@ export const getDownloadedSfxs = () => async( dispatch ) => {
       type: DOWNLOADED_SFXS_FAIL,
       payload: error
     })
-    
+
   }
 
 }
@@ -331,7 +331,41 @@ export const getMyPlaylists = (page) => async( dispatch ) => {
       type: MY_PLAYLISTS_FAIL,
       payload: error
     })
-    
+
+  }
+
+}
+export const editWorkTitle = (itemableId, workTitle) => async (dispatch) => {
+  let work_title = workTitle
+  try {
+    const { data } = await axios.patch(`${BASE_URL}/api/v1/consumer/line_items/${itemableId}`, { work_title });
+    dispatch({
+      type: EDIT_WORK_TITLE_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: EDIT_WORK_TITLE_FAIL,
+      payload: error
+    })
+
+  }
+
+}
+
+export const getSubscriptionPlans = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/api/v1/consumer/plans`);
+    dispatch({
+      type: GET_PLANS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_PLANS_FAIL,
+      payload: error
+    })
+
   }
 
 }

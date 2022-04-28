@@ -1,19 +1,20 @@
 import axios from "axios";
 import React from "react";
+import { useRouter } from "next/router";
+import {withRouter} from 'next/router';
+
 import DropIn from "braintree-web-drop-in-react";
 import { BraintreeHostedFields } from 'braintree-web-react'
-import signup from "../styles/Signup.module.scss";
+import signup from "../../styles/Signup.module.scss";
 import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
-import cardServices from '../images/cardServices.svg';
-import InpageLoader from '../components/InpageLoader';
-import {AuthContext} from "../store/authContext";
-
+import cardServices from '../../images/cardServices.svg';
+import InpageLoader from '../../components/InpageLoader';
+import BASE_URL from '../../common/api'
 
 class Braintree extends React.Component {
-  static contextType = AuthContext;
-
   instance;
+
 
   state = {
     clientToken: null,
@@ -22,11 +23,11 @@ class Braintree extends React.Component {
 
   async componentDidMount() {
     // Get a client token for authorization from your server
-    const context = this.context;
-    console.log("TOTAL PRICE", context.totalCartPrice)
+    let planId = parseInt(this.props.router.query.id)
+    const transactionType = "subscription";
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
 
-    let url  = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/new`
+    let url  = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/payments/new?plan_id=${planId}&transaction_type=${transactionType}`
     const response = await fetch(url, {
       headers: {
         'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
@@ -50,13 +51,12 @@ class Braintree extends React.Component {
   async purchase() {
     try {
       // Send nonce to your server
-      const context = this.context;
       const { nonce } = await this.instance.tokenize()
-      let price =  context.totalCartPrice;
-      let discount_id = 'OTTDD';      
+      let discount_id = document.getElementById("disCode").value;
+      debugger
       const authToken = JSON.parse(localStorage.getItem("user") ?? "");
       const response = await axios.post(
-        this.state.redirectUrl, { nonce, price, discount_id },
+        this.state.redirectUrl, { nonce, discount_id },
         {
           headers: {
             'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
@@ -72,6 +72,7 @@ class Braintree extends React.Component {
   }
 
   render() {
+    
     if (!this.state.clientToken) {
       return (
         <div>
@@ -79,6 +80,7 @@ class Braintree extends React.Component {
         </div>
       );
     } else {
+      console.log(this.instance);
       return (
         <div className="container">
           <BraintreeHostedFields
@@ -88,6 +90,7 @@ class Braintree extends React.Component {
             }}
             onInstance={(instance) => (this.instance = instance)}
           >
+            
           <div className={signup.stepWrapper+" "+signup.stepThreeWrapper}>
             <div className="fixed-container">
               <div className={signup.signUpInner}>
@@ -110,6 +113,8 @@ class Braintree extends React.Component {
                       <div className="form-control hosted-field" type="text" placeholder="CVV" id="cvv"></div>
                       <label className="hosted-fields--label">Postal Code</label>
                       <div id="postal-code" className="form-control hosted-field" type="text" placeholder="Enter Postal Code."></div>
+                      <label>Discount Code</label>
+                      <input id="disCode" className="form-control" type="text" placeholder="Enter Discount Code." />
                     </form>
                     </div>
                   </div>
@@ -127,4 +132,4 @@ class Braintree extends React.Component {
   }
 }
 
-export default Braintree;
+export default withRouter(Braintree);
