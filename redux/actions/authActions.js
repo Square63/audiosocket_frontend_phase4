@@ -8,7 +8,8 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          FAVORITE_TRACKS_SUCCESS, FAVORITE_TRACKS_FAIL, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAIL, GET_CART_SUCCESS, GET_CART_FAIL,
          DOWNLOADED_TRACKS_SUCCESS, DOWNLOADED_TRACKS_FAIL, DOWNLOADED_SFXS_SUCCESS, DOWNLOADED_SFXS_FAIL, MY_PLAYLISTS_SUCCESS,
          MY_PLAYLISTS_FAIL, GET_FORGOT_PASSWORD_SUCCESS, GET_FORGOT_PASSWORD_FAIL, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAIL, 
-         CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL, EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL } from "../constants/authConstants";
+         CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL, EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL,
+         MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -422,6 +423,24 @@ export const resetPassword = (data) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: RESET_PASSWORD_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const getMyPlaylistDetail = (data) => async (dispatch) => {
+  let id = data;
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/api/v1/consumer/consumers_playlists/${id}`
+    );
+    dispatch({
+      type: MY_PLAYLIST_DETAIL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: MY_PLAYLIST_DETAIL_FAIL,
       payload: error,
     });
   }
