@@ -44,6 +44,11 @@ import { getFilters } from '../redux/actions/filterActions';
 import { useDispatch, useSelector } from "react-redux";
 import InpageLoader from '../components/InpageLoader';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
+import { facebookCallback } from '../redux/actions/authActions';
+import { gmailCallback } from '../redux/actions/authActions';
+import { useCookie } from 'next-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const imagess = [slick001, slick002, slick003, slick004, slick005, slick006, slick007, slick008, slick009];
 
@@ -52,7 +57,7 @@ const breakPoints = [
   { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
   { width: 750, itemsToShow: 3, itemsToScroll: 2, pagination: false },
   { width: 1100, itemsToShow: 4, itemsToScroll: 2, pagination: false },
-  
+
 ];
 
 function toggleClass(e) {
@@ -62,7 +67,7 @@ function toggleClass(e) {
   $('.tab').each(function(i, obj) {
     obj.classList.remove('tabSelected')
   });
-  
+
   // window.scrollTo(0, y+result)
   e.currentTarget.classList.add("tabSelected");
   var tabSelectedHeight = e.currentTarget.nextElementSibling.children[0].clientHeight + 80
@@ -74,25 +79,39 @@ function toggleClass(e) {
 };
 
 export default function Home(props) {
+  const cookie = useCookie()
   let genresArray = []
   let vocalsArray = []
   const dispatch = useDispatch();
   const router = useRouter();
+  const socialLogin = useSelector(state => state.auth.user);
   const filters = useSelector( state => state.allFilters.filters[0])
-  filters.map((filter, index) => 
+  filters.map((filter, index) =>
     filter.name == "Genres" &&
       genresArray.push(filter.sub_filters.slice(0, 5))
   );
 
-  filters.map((filter, index) => 
+  filters.map((filter, index) =>
     filter.name == "Vocals" &&
       vocalsArray.push(filter.sub_filters.slice(0, 5))
   );
-  useEffect(() => {
-    setTimeout(function() {
-      setLoading(false)
-    }.bind(this), 1000);
 
+  useEffect(() => {
+    let url_string = window.location.href;
+    let url = new URL(url_string);
+    let code = url.searchParams.get("code");
+    let scope = url.searchParams.get("scope");
+    if (code){
+      if (scope)
+        dispatch(gmailCallback(code))
+      else {
+        dispatch(facebookCallback(code))
+      }
+    } else {
+      setTimeout(function() {
+        setLoading(false)
+      }.bind(this), 1000);
+    }
     localStorage.removeItem("genre")
     localStorage.removeItem("vocal")
     localStorage.removeItem("keyword")
@@ -105,6 +124,22 @@ export default function Home(props) {
     if (window.location.href == 'http://localhost:3000')
       document.body.classList.add('homepage');
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      setTimeout(function () {
+        setLoading(false)
+      }.bind(this), 1000);
+    } else if (socialLogin.auth_token){
+      localStorage.setItem("user", JSON.stringify(socialLogin.auth_token));
+      localStorage.setItem("last_name", JSON.stringify(socialLogin.last_name));
+      localStorage.setItem("email", JSON.stringify(socialLogin.email));
+      cookie.set('user', JSON.stringify(socialLogin.auth_token))
+      toast.success('Successfully Logged In.');
+      router.push('/');
+    }
+  }, [socialLogin]);
+
   const NextArrow = ({ onClick }) => {
     return (
       <div className="arrow next" onClick={onClick}>
@@ -156,7 +191,7 @@ export default function Home(props) {
     slidesToShow: 5,
     slidesToScroll: 1,
     centerPadding: "0",
-    centerMode: true,   
+    centerMode: true,
     responsive: [{breakpoint: 550, settings: {slidesToShow: 1}}, {breakpoint: 768, settings: {slidesToShow: 3}}, {breakpoint: 1200, settings: {slidesToShow: 5, slidesToScroll: 2}}],
   };
 
@@ -216,7 +251,7 @@ export default function Home(props) {
     setLoading(true)
     router.push('/playlist/curatedPlaylist')
   }
-  
+
   return (
     <div>
       <Head>
@@ -233,7 +268,7 @@ export default function Home(props) {
           rel="stylesheet"
           type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        /> 
+        />
       </Head>
 
       <main className={styles.main}>
@@ -241,10 +276,22 @@ export default function Home(props) {
           <InpageLoader />
         ) : (
           <>
+            <ToastContainer
+              position="top-center"
+              autoClose={10000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              style={{ width: "auto" }}
+            />
             <section className="heroSection">
             <div className="heroContent">
               <div className="fixed-container">
-              
+
 
                 <h1>A Musical Journey Awaits.</h1>
                 <p>Audiosocket makes finding and licensing great music simple. Use our Search Guides below to start your journey &amp; let the music inspire.</p>
@@ -265,7 +312,7 @@ export default function Home(props) {
               </div>
             </div>
           </section>
-          
+
             <section className="howToUse">
               <div className="fixed-container">
                 <h2>Learn how to use our search tools to find tracks quickly.</h2>
@@ -300,7 +347,7 @@ export default function Home(props) {
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
-                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>                            
+                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>
                             <button className="btn btnMainLarge">Search the catalog</button>
                           </div>
                         </div>
@@ -322,7 +369,7 @@ export default function Home(props) {
                                     <option key={filter.id} value={filter.name}>{filter.name}</option>
                                   )}
                                 </select>
-                                
+
                                 <div variant="default" className="circularBtn">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="13.328" height="16.414" viewBox="0 0 13.328 16.414">
                                     <g id="icon-arrow-down" transform="translate(1.414 1)">
@@ -365,7 +412,7 @@ export default function Home(props) {
                           <div className="stepSection">
                             <h5>Step 3 :</h5>
                           </div>
-                          <div className="stepContent">                      
+                          <div className="stepContent">
                             <Form onSubmit={e => { e.preventDefault(); }}>
                               <Form.Label className="stepsLabel">Add “Phantogram” in keyword search.</Form.Label>
                               <div className="roundedForm">
@@ -482,7 +529,7 @@ export default function Home(props) {
                             <Form.Label>Chose an mp3 or WAV file from your computer to get results within seconds!</Form.Label>
                             <Form.Control type="file" onChange={() => handleUploadTrack()}/>
                           </Form.Group>
-                          
+
                         </div>
                       </div>
                     </div>
@@ -627,7 +674,7 @@ export default function Home(props) {
                       </div>
                     </Form>
                   </div>
-                </div>       
+                </div>
                 <CarouselMood breakPoints={breakPoints}>
                   {images.map((item) => (
                     <div key={item} className="moodSlide">
@@ -683,7 +730,7 @@ export default function Home(props) {
                       </div>
                     </Carousel.Caption>
                   </Carousel.Item>
-                  
+
                 </Carousel>
               </div>
             </section>
@@ -753,7 +800,7 @@ export default function Home(props) {
                     <p>Used by top creators in Film, TV &amp; Advertising, Audiosocket’s band &amp; composer roster is the largest &amp; most diverse in its class.</p>
                   </div>
                 </div>
-                
+
               </div>
               <div className="greySection">
                 <div className="greyInnerSec">
@@ -844,7 +891,7 @@ export default function Home(props) {
           </section>
         </>
         )}
-        
+
       </main>
     </div>
 

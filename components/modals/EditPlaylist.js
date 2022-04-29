@@ -30,7 +30,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
     const newPlaylistForm = e.currentTarget;
     const data = new FormData(formNewPlaylist.current);
     setIsLoading(true);
-    let url = `${BASE_URL}/api/v1/consumer/consumers_playlists`;
+    let url = `${BASE_URL}/api/v1/consumer/consumers_playlists/${myPlaylistDetail.id}`;
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
     const URL = url;
     if (newPlaylistForm.checkValidity() === false) {
@@ -43,7 +43,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
           "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
           "auth-token": userAuthToken
         },
-        method: "post",
+        method: "patch",
         url: URL,
         data: data,
         
@@ -53,16 +53,52 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
           setValidated(false);
           setIsLoading(false);
           setFile(null);
-          toast.error("Error while creating playlist.");
+          toast.error("Error while updating playlist.");
         } else {
           onCloseModal(false);
           setValidated(false);
           setIsLoading(false);
           setFile(null);
-          toast.success('Playlist created successfully.');
+          toast.success('Playlist updated successfully.');
         }
       })
     } 
+  }
+
+	const handleRemoveTrack = async (e, trackId) => {
+    e.preventDefault();
+    const newPlaylistForm = e.currentTarget;
+    const data = new FormData(formNewPlaylist.current);
+		data.append('playlist_tracks_attributes[][id]', trackId)
+    setIsLoading(true);
+    let url = `${BASE_URL}/api/v1/consumer/consumers_playlists/${myPlaylistDetail.id}`;
+    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
+    const URL = url;
+		await axios.request({
+			headers: {
+				"Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+				"auth-token": userAuthToken
+			},
+			method: "patch",
+			url: URL,
+			data: data,
+			
+		}).then (response => {
+			if (!response.status === 200) {
+				onCloseModal(false);
+				setValidated(false);
+				setIsLoading(false);
+				setFile(null);
+				toast.error("Error while updating playlist.");
+			} else {
+				debugger
+				// onCloseModal(false);
+				setValidated(false);
+				setIsLoading(false);
+				setFile(null);
+				toast.success('Track removed successfully.');
+			}
+		})
   }
 
   const handleClose = () => {
@@ -75,24 +111,24 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
     setFile(file);
   };
 
-	const handleRemoveTrack = (e, playlistName) => {
-    let consumerPlaylistId = 0;
-    let removedPlaylistId = 0;
-    e.preventDefault();
-    e.target.closest("li").remove()
-    for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
+	// const handleRemoveTrack = (e, playlistName) => {
+  //   let consumerPlaylistId = 0;
+  //   let removedPlaylistId = 0;
+  //   e.preventDefault();
+  //   e.target.closest("li").remove()
+  //   for(var i = 0; i < playlists.playlists[0].consumer_playlists.length; i++) {
     
-      for(var j = 0; j < playlists.playlists[0].consumer_playlists[i].playlist_tracks.length; j++) {
-        if ((playlists.playlists[0].consumer_playlists[i].name == playlistName)  && (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].mediable_id == track.id)) {
-          consumerPlaylistId = playlists.playlists[0].consumer_playlists[i].id
-          removedPlaylistId = playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].id
-        }
-      }
-    }
-    dispatch(removeTrackFromPlaylist(consumerPlaylistId, removedPlaylistId));
-  }
+  //     for(var j = 0; j < playlists.playlists[0].consumer_playlists[i].playlist_tracks.length; j++) {
+  //       if ((playlists.playlists[0].consumer_playlists[i].name == playlistName)  && (playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].mediable_id == track.id)) {
+  //         consumerPlaylistId = playlists.playlists[0].consumer_playlists[i].id
+  //         removedPlaylistId = playlists.playlists[0].consumer_playlists[i].playlist_tracks[j].id
+  //       }
+  //     }
+  //   }
+  //   dispatch(removeTrackFromPlaylist(consumerPlaylistId, removedPlaylistId));
+  // }
 
-	const items = myPlaylistDetail.sfxes.map((playlistTrack, index) =>
+	const items = myPlaylistDetail.tracks.map((playlistTrack, index) =>
     <li key={index}>
 			
       <a href="javascript:void(0)">
@@ -105,7 +141,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
 				</svg>
 				<span className={playlist.songTitle}>{playlistTrack.title}</span>
 			</a>
-      <svg xmlns="http://www.w3.org/2000/svg" width="14.744" height="14.744" viewBox="0 0 14.744 14.744" onClick={(e) => handleRemoveTrack(e, playlistTrack)}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14.744" height="14.744" viewBox="0 0 14.744 14.744" onClick={(e) => handleRemoveTrack(e, playlistTrack.id)}>
         <g id="icon-trash" transform="translate(0.5 0.5)">
           <path id="Shape_1765" data-name="Shape 1765" d="M291.756,3298.5l-1.083,10.284a1.2,1.2,0,0,1-1.188,1.07h-6.215a1.2,1.2,0,0,1-1.189-1.07L281,3298.5" transform="translate(-279.506 -3296.11)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
           <path id="Shape_1766" data-name="Shape 1766" d="M278.5,3298.5h13.744" transform="translate(-278.5 -3296.11)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -126,7 +162,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
       className="themeModal downloadTrack">
       <Modal.Header closeButton>
         <Modal.Title >
-          <h2 className="modalName">New Playlist</h2>
+          <h2 className="modalName">Edit Playlist</h2>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -157,7 +193,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
           </Form>
 
 					<div className="playlistNames">
-						<h4>Track appears on these playlists</h4>
+						<h4 className="mt-4">Playlist Tracks</h4>
 						<ul className="scrollingList">
 							{items}
 						</ul>

@@ -70,7 +70,7 @@ function MyPlaylists() {
 
   useEffect(() => {
     dispatch(getMyPlaylists(1))
-  }, [showModal]);
+  }, [showModal, showEditModal]);
 
   useEffect(() => {
     if (myPlaylists) {
@@ -81,56 +81,17 @@ function MyPlaylists() {
   const handleLoading = () => {
     setLoading(true)
   }
+
   const handleClose = (show) => {
     setShowModal(show)
   }
 
-  const handleEditClose = (show) => {
-    setShowEditModal(show)
-  }
-
-  const handleEditMyPlaylist = async (e, id) => {
-    e.preventDefault();
-    
-    
-    let url = `${BASE_URL}/api/v1/consumer/consumers_playlists/${id}`;
-    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
-    const URL = url;
-    await axios.request({
-      headers: {
-        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
-        "auth-token": userAuthToken
-      },
-      method: "GET",
-      url: URL,
-      
-    }).then (response => {
-      if (!response.status === 200) {
-      } else {
-        setMyPlaylistDetail(response.data.consumer_playlist)
-        setShowEditModal(true)
-      }
-    })
-    
-  }
   return (
     <>
       {isLoading ? (
         <InpageLoader/>
       ) : (
       <>
-        <ToastContainer
-          position="top-center"
-          autoClose={10000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          style={{ width: "auto" }}
-        />
         <div className={playlist.myPlaylistWrapper}>
         
         <div className="fixed-container">
@@ -152,13 +113,15 @@ function MyPlaylists() {
               {playlists &&
                 playlists.map((playlist,index)=> {
                   return(
-                    <a key={index} href="javascript:void(0)" className="tileOverlay" onClick={(e) => handleEditMyPlaylist(e, playlist.id)}>
-                      {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
-                      <span className="tileOverlayText">
-                        {playlist.name}
-                        <small className="playlistTracksCount">{playlist.tracks.count}</small>
-                      </span>
-                    </a>
+                    <Link href={"myPlaylists/" + playlist.id} key={index}>
+                      <a key={index} href="javascript:void(0)" className="tileOverlay">
+                          {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                          <span className="tileOverlayText">
+                            {playlist.name}
+                            <small className="playlistTracksCount">{playlist.tracks.count}</small>
+                          </span>
+                        </a>
+                    </Link>
                     )
                   })}
             
@@ -168,7 +131,6 @@ function MyPlaylists() {
           </section>
         </div>
         <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
-        {(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} />}
       </div>
       </>
 

@@ -1,0 +1,1 @@
+export const FILE_TYPES = ['audio/mpeg', 'audio/x-aiff', 'audio/vnd.wav']
