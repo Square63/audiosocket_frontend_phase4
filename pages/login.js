@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { TOAST_OPTIONS } from '../common/api';
 import {AuthContext} from "../store/authContext";
 import { authLogin } from "../redux/actions/authActions";
+import { facebookLogin } from "../redux/actions/authActions";
+import { gmailLogin } from "../redux/actions/authActions";
 import {useRouter} from "next/router";
 import login from "../styles/Login.module.scss";
 import ForgotPassword from "../components/modals/ForgotPassword";
@@ -20,6 +22,7 @@ function Login() {
   const cookie = useCookie()
   const dispatch = useDispatch();
   const loggedInUser = useSelector(state => state.auth);
+  const SocialLogIn = useSelector(state => state.auth.url);
   const { authActionsContext } = useContext(AuthContext);
   const form = useRef(null);
   const router = useRouter()
@@ -36,16 +39,23 @@ function Login() {
   }, [])
 
   useEffect(() => {
-    if(loggedInUser.error) {
-      toast.error(loggedInUser.error.message, TOAST_OPTIONS);
-    } else if(Object.keys(loggedInUser.user).length) {
-      localStorage.setItem("user", JSON.stringify(loggedInUser.user));
-      localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
-      localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
-      localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
-      cookie.set('user', JSON.stringify(loggedInUser.user))
-      toast.success('Successfully Logged In.');
-      router.push('/');
+    if (SocialLogIn && !(localStorage.getItem('user')))
+      window.location.assign(SocialLogIn);
+  }, [SocialLogIn])
+
+  useEffect(() => {
+    if (!SocialLogIn) {
+      if(loggedInUser.error) {
+        toast.error(loggedInUser.error.message, TOAST_OPTIONS);
+      } else if(Object.keys(loggedInUser.user).length) {
+        localStorage.setItem("user", JSON.stringify(loggedInUser.user));
+        localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
+        localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
+        localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
+        cookie.set('user', JSON.stringify(loggedInUser.user))
+        toast.success('Successfully Logged In.');
+        router.push('/');
+      }
     }
   }, [loggedInUser])
 
@@ -77,6 +87,14 @@ function Login() {
 
   const handleClose = (show) => {
     setShowModal(show)
+  }
+
+  const handleFacebookLogin = () => {
+    dispatch(facebookLogin());
+  }
+
+  const handleGmailLogin = () => {
+    dispatch(gmailLogin());
   }
 
   return (
@@ -115,7 +133,7 @@ function Login() {
                 </Form.Control.Feedback>
                 <div className={login.forgotPassword}>
                 <Link href={"/ForgotPassword"}><a>Forgot password?</a></Link>
-                  
+
                 </div>
               </Form.Group>
               <Button type="submit" className={login.submit+' '+login.loginBtn}>
@@ -131,13 +149,13 @@ function Login() {
           </div>
           <h2>Use an existing account</h2>
           <div className={login.socialBtn}>
-            <a href='' className={login.facebook+' '+login.loginBtn}>
+            <a href="javascript:void(0)" className={login.facebook+' '+login.loginBtn} onClick={handleFacebookLogin}>
               <div>
                 <div className={login.icon}></div>
                 <span>Continue  with Facebook</span>
               </div>
             </a>
-            <a href='' className={login.google+' '+login.loginBtn}>
+            <a href="javascript:void(0)" className={login.google + ' ' + login.loginBtn} onClick={handleGmailLogin}>
               <div>
                 <div className={login.icon}></div>
                 <span>Continue  with Google</span>

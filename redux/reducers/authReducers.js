@@ -1,8 +1,9 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWORD_SUCCESS, 
-         UPDATE_PASSWORD_FAIL, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL, GET_PLAYLISTS_SUCCESS, 
-         GET_PLAYLISTS_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CLEAR_ERRORS, GET_ARTISTS_SUCCESS, GET_ARTISTS_FAIL, PLAYLIST_TRACKS_SUCCESS, PLAYLIST_TRACKS_FAIL,
-         FAVORITE_TRACKS_SUCCESS, FAVORITE_TRACKS_FAIL, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAIL, GET_CART_SUCCESS, GET_CART_FAIL, 
-         DOWNLOADED_TRACKS_SUCCESS, DOWNLOADED_TRACKS_FAIL, DOWNLOADED_SFXS_SUCCESS, DOWNLOADED_SFXS_FAIL, MY_PLAYLISTS_SUCCESS, MY_PLAYLISTS_FAIL } from "../constants/authConstants";
+import { LOGIN_SUCCESS, LOGIN_FAIL, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWORD_SUCCESS, UPDATE_PASSWORD_FAIL, UPDATE_PROFILE_SUCCESS,
+         UPDATE_PROFILE_FAIL, GET_PLAYLISTS_SUCCESS, GET_PLAYLISTS_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CLEAR_ERRORS, GET_ARTISTS_SUCCESS,
+         GET_ARTISTS_FAIL, PLAYLIST_TRACKS_SUCCESS, PLAYLIST_TRACKS_FAIL, FAVORITE_TRACKS_SUCCESS, FAVORITE_TRACKS_FAIL, ADD_TO_CART_SUCCESS,
+         ADD_TO_CART_FAIL, GET_CART_SUCCESS, GET_CART_FAIL, DOWNLOADED_TRACKS_SUCCESS, DOWNLOADED_TRACKS_FAIL, DOWNLOADED_SFXS_SUCCESS,
+         DOWNLOADED_SFXS_FAIL, MY_PLAYLISTS_SUCCESS, MY_PLAYLISTS_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS,
+         SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL} from "../constants/authConstants";
 export const authReducer = (state = {user: {}, error: {}}, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
@@ -23,7 +24,28 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       return {
         error: action.payload.response.data.errors
       };
-
+    case FACEBOOK_LOGIN_SUCCESS:
+      return {
+        url: action.payload.url,
+        urlDetails: action.payload
+      };
+    case GMAIL_LOGIN_SUCCESS:
+      return {
+        url: action.payload.url,
+        urlDetails: action.payload
+      };
+    case SOCIAL_LOGIN_FAIL:
+      return {
+        error: action.payload.response.data,
+      };
+    case SOCIAL_AUTH_SUCCESS:
+      return {
+        user: action.payload.response
+      };
+    case SOCIAL_AUTH_FAIL:
+      return {
+        error: action.payload.response.data.errors
+      };
     case UPDATE_PASSWORD_SUCCESS:
       return {
         user: action.payload,
