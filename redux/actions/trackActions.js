@@ -11,6 +11,8 @@ import {
   ADD_TO_FAVOURITES_FAILURE,
   REMOVE_FROM_FAVOURITES_SUCCESS,
   REMOVE_FROM_FAVOURITES_FAILURE,
+  ALL_SFXES_SUCCESS,
+  ALL_SFXES_FAILURE,
   CLEAR_ERRORS
 } from '../constants/trackConstants';
 
@@ -167,6 +169,42 @@ export const removeFromFavorites = (trackId) => async (dispatch) => {
       })
   }
 };
+
+export const getSfxes = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
+  debugger
+  let url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`
+
+  if (explicit === false && exclude_vocals === true){
+    url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&explicit=${explicit}&exclude_vocals=${exclude_vocals}`
+  }
+  else if (explicit === false){
+    url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&explicit=${explicit}`
+  }
+  else if (exclude_vocals === true){
+    url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&exclude_vocals=${exclude_vocals}`
+  }
+
+  const cookie = useCookie()
+  const authToken = cookie.get("user")
+  try {
+    const {data} = await axios.get(url, {
+      headers: {
+        "auth-token": authToken ? authToken : ""
+      }
+    });
+    dispatch({
+      type: ALL_SFXES_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: ALL_SFXES_FAILURE,
+      payload: error
+    })
+
+  }
+
+}
 
 export const clearErrors = () => async(dispatch) => {
   dispatch({

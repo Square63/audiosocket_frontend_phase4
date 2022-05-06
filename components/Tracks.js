@@ -142,10 +142,10 @@ function Tracks(props) {
   const handleMoodColumn = (track, mood) => {
     switch(mood) {
 
-      case "moods":   return track.moods.join(", ");
-      case "genres":   return track.genres.join(", ");
-      case "themes": return track.themes.join(", ");
-      case "instruments":  return track.instruments.join(", ");
+      case "moods":   return track.moods?.join(", ");
+      case "genres":   return track.genres?.join(", ");
+      case "themes": return track.themes?.join(", ");
+      case "instruments":  return track.instruments?.join(", ");
       default: return ""
     }
   }
@@ -166,7 +166,7 @@ function Tracks(props) {
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
-        <h2>{props.tracksMeta ? "Tracks" : "Playlist Tracks"} <span className={search.tracksCount}>{props.tracksMeta ? props.tracksMeta.total_track_count : props.tracks?.count}</span></h2>
+        <h2>{props.sfxes ? "Sfxes" : props.tracksMeta ? "Tracks" : "Playlist Tracks"} <span className={search.tracksCount}>{props.sfxes ? props.tracksMeta.total_sfx_count : props.tracksMeta ? props.tracksMeta.total_track_count : props.tracks?.count}</span></h2>
         <div className={search.tracksSorting}>
 
           <form>
