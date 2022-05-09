@@ -6,6 +6,7 @@ import Image from "next/image";
 import Loader from "../../images/loader.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getTracksFromAIMS } from '../../redux/actions/trackActions';
+import * as Constants from '../../common/constants'
 
 function PreferenceModal({showModal = false, onCloseModal, loading}) {
   const dispatch = useDispatch();
@@ -39,10 +40,14 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
   }
 
   const handleFileSelect = (e) => {
-    if (e.target.value == '')
+    const file_types = Constants.FILE_TYPES
+    const file = e.target.files
+    const type = file[0].type
+    if (file_types.includes(type))
+    {
+      document.getElementById("uploadBtn").classList.remove("disabled");
+    } else {
       document.getElementById("uploadBtn").classList.add("disabled")
-    else {
-      document.getElementById("uploadBtn").classList.remove("disabled")
     }
   }
 

@@ -1,14 +1,20 @@
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../redux/actions/authActions";
 import { removeCartItem } from "../redux/actions/authActions";
-function Checkout() {
+import { editWorkTitle } from "../redux/actions/authActions";
+import Link from "next/link";
+import {AuthContext} from "../store/authContext";
+
+
+function Cart() {
   const dispatch = useDispatch()
   const cartTracks = useSelector(state => state.user.cartTracks);
   const cartLineItems = useSelector(state => state.user.cartLineItems);
+  const { authState, authActions, handleAddToCart, cartCount, totalCartPrice } = useContext(AuthContext);
 
   useEffect(() => {
     if (!cartTracks)
@@ -32,6 +38,17 @@ function Checkout() {
     dispatch(removeCartItem(itemableId))
   }
 
+  function handleEditWorkTitle(e, itemableId) {
+    dispatch(editWorkTitle(itemableId, e.target.value))
+  }
+
+  function handleIndividualWorkTitle() {
+    const className = document.getElementsByClassName("individualWorkTitle")[0].classList[0]
+    document.querySelectorAll('.' + className).forEach(element => {
+      element.classList.toggle('individualWorkTitleField');
+    });
+  }
+
   return (
     <>
     {cartTracks &&
@@ -40,7 +57,6 @@ function Checkout() {
           <h1 className="listingPageHeading">Checkout</h1>
           <div className="trackListingHeading">
             <h2>Tracks in Cart {cartTracks.length}</h2>
-            <a href="javascript:void(0)" className="btn btnMainSmall inBlack">View Downloaded Tracks</a>
           </div>
           
           <div className="trackRowWrapper">
@@ -77,8 +93,9 @@ function Checkout() {
                         Justin G. Marcellus Abady
                       </a>
                     </div>
-                    <Form style={{display: 'none'}}>
-                      <Form.Control type="text" placeholder="Enter work title…" />
+                    <Form className="individualWorkTitle individualWorkTitleField">
+                      {console.log("AAAAAAAAAAAAAAA", cartLineItems[index].work_title)}
+                      <Form.Control type="text" placeholder="Enter work title…" defaultValue={cartLineItems[index].work_title} onBlur={(e) => {handleEditWorkTitle(e, cartLineItems[index].id);}}/>
                     </Form>
                   </div>
                 </div>
@@ -89,7 +106,7 @@ function Checkout() {
                   Individual Subscription
                 </div>
                 <div className="rowParticipant price">
-                  $0.00
+                  ${totalCartPrice}
                 </div>
                 <div className="rowParticipant controls">
                 <OverlayTrigger overlay={<Tooltip>Edit</Tooltip>}>
@@ -135,24 +152,26 @@ function Checkout() {
                 <form>
                   <Form.Group>
                     <label>Please add your Video or Work Title to your License</label>
-                    <Form.Control type="text" placeholder="Enter work title…" />
+                    <Form.Control className="individualWorkTitle" type="text" placeholder="Enter work title…" />
                   </Form.Group>
                   <Form.Group>
                     <div className="toogleSwitch">
-                      <input type="checkbox" id="audiosocketEmail" />
+                      <input type="checkbox" id="audiosocketEmail" onChange={() => {handleIndividualWorkTitle()}}/>
                       <Form.Label for="audiosocketEmail">&nbsp;</Form.Label>
                       <span className="switchText">My cart has tracks for multiple videos/works</span>
                     </div>
                   </Form.Group>
                   <Form.Group>
-                    <Button variant="link" className="btn btnMainLarge btn-block">Checkout and License Tracks - <span className="">$0.00</span></Button>
+                  <Link href="/braintree">
+                    <Button className="btn btnMainLarge btn-block">Checkout and License Tracks - <span className="">${totalCartPrice}</span></Button>
+                  </Link>
                   </Form.Group>
                   <p className="text-center">By clicking checkout, you agree to your <a href="javascript:void(0)">license terms</a>.</p>
                 </form>
               </div>
             </div>
             <div className="totalPrice">
-              <span>Total: <strong>$0.00</strong></span>
+              <span>Total: <strong>${totalCartPrice}</strong></span>
             </div>
           </div>
         </div>
@@ -162,4 +181,4 @@ function Checkout() {
   );
 }
 
-export default Checkout;
+export default Cart;

@@ -15,7 +15,7 @@ import search from "../styles/Search.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from '../redux/store';
 import { getSfxFilters } from '../redux/actions/filterActions';
-import { getTracks } from '../redux/actions/trackActions';
+import { getSfxes } from '../redux/actions/trackActions';
 import { getPlaylists } from '../redux/actions/playlistActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 import { addToFavorites } from '../redux/actions/trackActions';
@@ -79,7 +79,7 @@ function Sfx(props) {
   let tracks = ""
   let tracksMeta = ""
   if (allTracks && allTracks.tracks){
-    tracks = allTracks.tracks[0].tracks
+    tracks = allTracks.tracks[0].sfxes
     tracksMeta = allTracks.tracks[0].meta
   }
   console.log("Update Tracks", updatedTracks)
@@ -211,7 +211,7 @@ function Sfx(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   const handleClearAllFilter = () => {
@@ -254,7 +254,7 @@ function Sfx(props) {
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   function hideAllFilterDiv() {
@@ -268,7 +268,7 @@ function Sfx(props) {
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     setAppliedFiltersList([])
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
@@ -317,7 +317,7 @@ function Sfx(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
+    dispatch(getSfxes(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
   }
 
   const handleAddChildrenFilter = (e) => {
@@ -365,7 +365,7 @@ function Sfx(props) {
       setAppliedFiltersListWC([vocal])
     }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
+    dispatch(getSfxes(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
   }
 
   const handleAimsSearch = () => {
@@ -408,7 +408,7 @@ function Sfx(props) {
     let explicit = !document.getElementById("excludeExplicit").checked
     let vocals = document.getElementById("excludeVocals").checked
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
 
   }
 
@@ -642,7 +642,7 @@ function Sfx(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
         )}
       </div>
 
@@ -668,7 +668,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       await store.dispatch(getSfxFilters(req))
       // await store.dispatch(getPlaylists(req))
-      await store.dispatch(getTracks("", "local_search", [], "", "", 1))
+      await store.dispatch(getSfxes("", "local_search", [], "", "", 1))
     });
 
 export default Sfx;

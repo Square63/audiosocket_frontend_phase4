@@ -170,7 +170,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
               value={
                 selectedCountry
                   ? countries.filter((option) => option.value === selectedCountry)
-                  : { label: (userInfo ? userInfo.consumer_profile.country : "") , value: (userInfo ? userInfo.consumer_profile.country : "") }
+                  : { label: (userInfo && userInfo.consumer_profile ? userInfo.consumer_profile.country : "") , value: (userInfo && userInfo.consumer_profile ? userInfo.consumer_profile.country : "") }
               }
               onChange={handleSelectCountry}
               noOptionsMessage={() => {

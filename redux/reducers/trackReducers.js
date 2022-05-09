@@ -5,6 +5,8 @@ import {
   ADD_TO_FAVOURITES_FAILURE,
   REMOVE_FROM_FAVOURITES_SUCCESS,
   REMOVE_FROM_FAVOURITES_FAILURE,
+  ALL_SFXES_SUCCESS,
+  ALL_SFXES_FAILURE,
   CLEAR_ERRORS
 } from '../constants/trackConstants';
 
@@ -49,6 +51,14 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
         ...state,
         success: false,
         message: action.payload.response.data.message
+      }
+    case ALL_SFXES_SUCCESS:
+      return {
+        tracks: [action.payload]
+      }
+    case ALL_SFXES_FAILURE:
+      return {
+        error: action.payload.error
       }
 
     default:

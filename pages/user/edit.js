@@ -20,15 +20,17 @@ function Edit({ countries }) {
   const updatedUserInfo = useSelector(state => state.user.user);
 
   useEffect(() => {
-    if(!updatedPassword?.consumer) {
-      if (updatedPassword.password_confirmation) {
-        toast.error("Confirm Password doesnot match. Please try again.", TOAST_OPTIONS_ERROR);
-      } else if (updatedPassword === 'Wrong Password'){
-        toast.error("You have entered wrong password. Please try again.", TOAST_OPTIONS_ERROR);
+    if (updatedPassword){
+      if(!updatedPassword?.consumer) {
+        if (updatedPassword.password_confirmation) {
+          toast.error("Confirm Password doesnot match. Please try again.", TOAST_OPTIONS);
+        } else if (updatedPassword === 'Wrong Password'){
+          toast.error("You have entered wrong password. Please try again.", TOAST_OPTIONS);
+        }
+        toast.error(updatedPassword.message, TOAST_OPTIONS);
+      } else {
+        toast.success("Password updated successfully.", TOAST_OPTIONS);
       }
-      toast.error(updatedPassword.message, TOAST_OPTIONS_ERROR);
-    } else {
-      toast.success("Password updated successfully.", TOAST_OPTIONS);
     }
   }, [updatedPassword])
 

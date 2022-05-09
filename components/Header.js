@@ -15,7 +15,7 @@ import { useCookie } from 'next-cookie'
 
 function Header() {
   const cookie = useCookie()
-  const { authState, authActions, handleAddToCart, cartCount } = useContext(AuthContext);
+  const { authState, authActions, handleAddToCart, cartCount, totalCartPrice } = useContext(AuthContext);
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fullName, setFullName] = useState("");
@@ -122,7 +122,7 @@ function Header() {
 
               {isLoggedIn && 
                 <div className={router.pathname.toLowerCase() === "/cart" ? "nav-link active" : "nav-link"}>
-                  <Link href="/checkout">
+                  <Link href="/cart">
                     <a className="cartItem">
                       <svg xmlns="http://www.w3.org/2000/svg" width="22.994" height="23.024" viewBox="0 0 17.994 17.024">
                         <g id="icon-cart" transform="translate(0.5 0.5)">
@@ -139,7 +139,7 @@ function Header() {
                           </g>
                         </g>
                       </svg>
-                      <span className="cartBadge">{cartCount}</span>
+                      {cartCount > 0 && <span className="cartBadge">{cartCount}</span>}
                     </a>
                   </Link>
                 </div>
