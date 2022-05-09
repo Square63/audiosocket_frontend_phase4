@@ -81,46 +81,36 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
             {track ? track.title : ""}
           </p>
           <p className="modalTrackArtist">
-            Justin G. Marcellus
+            {track ? track.composer : ""}
           </p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="modal-container">
-          <h4 className="modalBodyHeading">Versions</h4>
+          <h4 className="modalBodyHeading">Track</h4>
           <ul className="modalTrackRow">
             <li>
-              <span className="versionType">Full Track</span>
+              <span className="versionType">{track ? track.title : "-"}</span>
               <span className="versionDuration">{track ? convertSecToMin(track.duration) : "0:0"}</span>
               <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type)}>
                 <strong>MP3</strong>
-                <span>(2.52 MB)</span>
+                <span className="versionDuration">({track ? (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
               </a>
             </li>
-            <li>
-              <span className="versionType">Instrumental</span>
-              <span className="versionDuration">0:16</span>
-              <a variant="link" href={track ? track.file : ""} download className="btn btnMainLarge versionSize">
-                <strong>MP3</strong>
-                <span>(2.52 MB)</span>
-              </a>
-            </li>
-            <li>
-              <span className="versionType">Instrumental</span>
-              <span className="versionDuration">0:29</span>
-              <a variant="link" className="btn btnMainLarge  versionSize">
-                <strong>MP3</strong>
-                <span>(2.52 MB)</span>
-              </a>
-            </li>
-            <li>
-              <span className="versionType">Instrumental</span>
-              <span className="versionDuration">1:16</span>
-              <a variant="link" className="btn btnMainLarge versionSize">
-                <strong>MP3</strong>
-                <span>(2.52 MB)</span>
-              </a>
-            </li>
+            { track?.alternate_versions.length ? <h4 className="modalBodyHeading">Versions</h4> : ""}
+            { track?.alternate_versions.length ? (
+                track.alternate_versions.map(function(item, i){
+                  return(
+                  <li key={i}>
+                    <span className="versionType">{item.title}</span>
+                    <span className="versionDuration">{item ? convertSecToMin(item.duration) : "0:0"}</span>
+                    <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(item, type)}>
+                      <strong>MP3</strong>
+                      <span className="versionDuration">({item ? (item.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                    </a>
+                  </li>)
+                })
+              ) : ""}
           </ul>
         </div>
       </Modal.Body>
