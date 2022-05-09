@@ -81,6 +81,8 @@ function Search(props) {
   if (allTracks && allTracks.tracks){
     tracks = allTracks.tracks[0].tracks
     tracksMeta = allTracks.tracks[0].meta
+    if (tracksMeta.favorite_tracks_ids && tracksMeta.favorite_tracks_ids.length > 0 && favoriteTrackIds.length == 0)
+      setFavoriteTrackIds(tracksMeta.favorite_tracks_ids)
   }
   console.log("Update Tracks", updatedTracks)
 
@@ -283,7 +285,7 @@ function Search(props) {
 
   const handleAddToFavorites = (e, trackId) => {
     if (localStorage.getItem("user")) {
-      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_tracks_ids.includes(trackId)) {
+      if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
         e.target.closest("a").classList.add("controlActive")
         dispatch(addToFavorites(trackId));
