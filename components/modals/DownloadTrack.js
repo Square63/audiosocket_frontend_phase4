@@ -97,8 +97,8 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
                 <span className="versionDuration">({track ? (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
               </a>
             </li>
-            { track?.alternate_versions.length ? <h4 className="modalBodyHeading">Versions</h4> : ""}
-            { track?.alternate_versions.length ? (
+            { track?.alternate_versions ? <h4 className="modalBodyHeading">Versions</h4> : ""}
+            { track?.alternate_versions?.length ? (
                 track.alternate_versions.map(function(item, i){
                   return(
                   <li key={i}>
