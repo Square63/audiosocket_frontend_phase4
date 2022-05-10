@@ -17,13 +17,23 @@ import Sample1 from '../../../images/sample1.jpeg';
 import EditPlaylist from "../../../components/modals/EditPlaylist";
 import { duration } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
+import DownloadTrack from '../../../components/modals/DownloadTrack'
+import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicense'
+import Sidebar from '../../../components/Sidebar'
 
 const Details = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const myPlaylistDetail = useSelector(state => state.user.my_playlist_detail);
+  const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 	const [showEditModal, setShowEditModal] = useState(false);
+	const [showDownModal, setShowDownModal] = useState(false);
+	const [showLicenseModal, setShowLicenseModal] = useState(false);
+	const [index, setIndex] = useState(0)
+	const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
+	const [showSidebar, setShowSidebar] = useState(false)
+  const [sidebarType, setSidebarType] = useState("")
 
   useEffect(() => {
     if (query) {
@@ -33,7 +43,6 @@ const Details = () => {
 
   useEffect(() => {
     if (myPlaylistDetail) {
-			debugger
       setIsLoading(false)
     }
   }, [myPlaylistDetail])
@@ -75,6 +84,102 @@ const Details = () => {
       return minutes+':'+seconds
     }
 
+  }
+
+  const handleAddToFavorites = (e, trackId) => {
+    if (localStorage.getItem("user")) {
+      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_tracks_ids.includes(trackId)) {
+        setFavoriteTrackIds([...favoriteTrackIds, trackId])
+        e.target.closest("a").classList.add("controlActive")
+        dispatch(addToFavorites(trackId));
+      }
+      else {
+        favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+        e.target.closest("a").classList.remove("controlActive")
+        setFavoriteTrackIds(favoriteTrackIds)
+        dispatch(removeFromFavorites(trackId));
+      }
+    }
+    else {
+      // alert("You must be logged in to be able to add a track to your favorites.")
+      setShowSidebar(true)
+      setSidebarType("login")
+    }
+  }
+
+	function showDownloadModal(index) {
+    if (localStorage.getItem("user")) {
+      if (index > 9) {
+        setIndex(index + 10)
+      }
+      else {
+        setIndex(index)
+      }
+      setShowDownModal(true)
+    }
+    else {
+      alert("You must be logged in to be able to add a track to cart.")
+    }
+  }
+
+  const handleDownloadClose = (show) => {
+    setShowDownModal(show)
+  }
+
+	function showDownloadLicenseModal() {
+    setShowLicenseModal(true)
+  }
+
+  function handleLicenseModalClose() {
+    setShowLicenseModal(false)
+  }
+
+	function showAddTrackToCartLicenseModal(index) {
+    if (localStorage.getItem("user")) {
+      if (index > 9) {
+        setIndex(index + 10)
+      }
+      else {
+        setIndex(index)
+      }
+      setShowAddToCartLicenseModal(true)
+      setShowSidebar(true)
+      setSidebarType("cart")
+    }
+    else {
+      // alert("You must be logged in to be able to add a track to cart.")
+      setShowSidebar(true)
+      setSidebarType("login")
+    }
+  }
+
+  function handleAddToCartLicenseModalClose() {
+    setShowAddToCartLicenseModal(false)
+  }
+
+	const handleSidebarHide = () => {
+    setShowSidebar(false)
+  }
+
+	const handleDownloadZip = async (id) => {
+		debugger
+    let url = `${BASE_URL}/api/v1/consumer/curated_playlists/58/playlist_tracks/download_zip?file_type=wav_file`
+    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
+    const response = await fetch(url,
+      {
+        headers: {
+          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
+          "auth-token": userAuthToken
+        },
+        method: "GET"
+      });
+    if(response.ok) {
+      debugger
+      
+    } else {
+      
+    }
+    
   }
 
   return (
@@ -138,7 +243,7 @@ const Details = () => {
 											</svg>
 											Share
 										</Button>
-										<Button variant="link" className="btn btnMainLarge">
+										<Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)}>
 											<svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
 												<g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
 													<path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -164,7 +269,7 @@ const Details = () => {
 						</div>
 					</div>
 					<div className="fixed-container">
-						{myPlaylistDetail.tracks && myPlaylistDetail.tracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistDetail.tracks} handleSimilarSearch={handleSimilarSearch}/>}
+						{myPlaylistDetail.tracks && myPlaylistDetail.tracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistDetail.tracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
 					</div>
 					
 					<div className={playlist.artistTiles}>
@@ -207,6 +312,9 @@ const Details = () => {
 						</div>
 					</div>
 					{(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} />}
+					{myPlaylistDetail.tracks && myPlaylistDetail.tracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistDetail.tracks[index]} type="track"/> }
+      		<DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
+					<Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistDetail.tracks[index]}/>
 				</div>
 
 				
