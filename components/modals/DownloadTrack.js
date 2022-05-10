@@ -57,7 +57,6 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
         method: "POST"
       });
     if(response.ok) {
-      debugger
       const link = document.createElement("a");
       link.href = track.mp3_file;
       link.download = track.title;
@@ -87,20 +86,19 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
       </Modal.Header>
       <Modal.Body>
         <div className="modal-container">
-          <h4 className="modalBodyHeading">Track</h4>
+          <h4 className="modalBodyHeading">Versions</h4>
           <ul className="modalTrackRow">
             <li>
-              <span className="versionType">{track ? track.title : "-"}</span>
+              <span className="versionType">Full Track</span>
               <span className="versionDuration">{track ? convertSecToMin(track.duration) : "0:0"}</span>
               <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type)}>
                 <strong>MP3</strong>
                 <span className="versionDuration">({track ? (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
               </a>
             </li>
-            { track?.alternate_versions ? <h4 className="modalBodyHeading">Versions</h4> : ""}
-            { track?.alternate_versions?.length ? (
-                track.alternate_versions.map(function(item, i){
-                  return(
+            { track ? track?.alternate_versions?.map(function(item, i)
+              {
+                return(
                   <li key={i}>
                     <span className="versionType">{item.title}</span>
                     <span className="versionDuration">{item ? convertSecToMin(item.duration) : "0:0"}</span>
@@ -108,9 +106,10 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
                       <strong>MP3</strong>
                       <span className="versionDuration">({item ? (item.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
                     </a>
-                  </li>)
-                })
-              ) : ""}
+                  </li>
+                )
+              })
+            : ""}
           </ul>
         </div>
       </Modal.Body>
