@@ -21,7 +21,11 @@ import slick006 from '../images/slick006.png';
 import slick007 from '../images/slick007.png';
 import slick008 from '../images/slick008.png';
 import slick009 from '../images/slick009.png';
-import slick3 from '../images/slick03.jpg';
+import slick010 from '../images/slick010.png';
+import slick011 from '../images/slick011.png';
+import slick012 from '../images/slick012.png';
+import slick013 from '../images/slick013.png';
+import slick014 from '../images/slick014.png';
 import Sample1 from '../images/sample1.jpeg';
 import Sample2 from '../images/sample2.jpeg';
 import Sample3 from '../images/sample3.jpeg';
@@ -50,7 +54,8 @@ import { useCookie } from 'next-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const imagess = [slick001, slick002, slick003, slick004, slick005, slick006, slick007, slick008, slick009];
+const imagess = [slick001, slick002, slick003, slick004, slick005, slick006,
+   slick007, slick008, slick009, slick010, slick011, slick012, slick013, slick014];
 
 const breakPoints = [
   { width: 1, itemsToShow: 2, pagination: true },
@@ -686,52 +691,6 @@ export default function Home(props) {
               </div>
               <div className="ViewPlaylist">
                 <a href="" className="btn btnMainLarge">View All Playlists</a>
-              </div>
-            </section>
-
-            <section className="testimonial">
-              <div className="testimonialContainer">
-                <Carousel>
-                  <Carousel.Item interval={3000}>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-
-                  <Carousel.Item>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-
-                  <Carousel.Item>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-
-                </Carousel>
               </div>
             </section>
 

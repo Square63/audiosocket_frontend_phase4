@@ -63,10 +63,10 @@ export default function SearchAudioWave(props) {
   }, [props.uploadedFileUrl]);
 
   const create = async () => {
-
+    if (wavesurfer.current)
+      document.getElementsByTagName("wave")[0].remove()
 
     const WaveSurfer = (await import("wavesurfer.js")).default;
-
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
 
