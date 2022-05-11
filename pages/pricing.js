@@ -19,8 +19,25 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import pricing from "../styles/Pricing.module.scss";
 import {useState, useEffect, useRef} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getSubscriptionPlans } from "../redux/actions/authActions";
+import PricingPlan from "../components/PricingPlan";
 
 function Pricing() {
+  const dispatch = useDispatch();
+  const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
+    dispatch(getSubscriptionPlans())
+  }, []);
+
+  useEffect(() => {
+    if (subscriptionPlans) {
+      setIsLoading(false)
+    }
+  }, [subscriptionPlans])
 
   const USE_TYPES = [
     {label: 'Large Business', value: 'Large Business'},
@@ -39,10 +56,10 @@ function Pricing() {
   const [subscriptionType, setSubscriptionType] = useState("");
   const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("");
   const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("");
+  const [planId, setPlanId] = useState(null);
   const [validated, setValidated] = useState(false);
   const form = useRef(null);
   const [typeOfUseError, setTypeOfUseError] = useState(false);
-  
 
   useEffect(() => {
     
@@ -69,6 +86,7 @@ function Pricing() {
   const handleSubscriptionType = (type) => {
     setSubscriptionType(type)
     setStep(1)
+
   }
 
   const handleCommercialBack = (type) => {
@@ -96,12 +114,15 @@ function Pricing() {
     const data = new FormData(form.current);
     if (data.get("type_of_use") == "")
       setTypeOfUseError(true)
-
     setValidated(true)
   }
 
   const handleChange = async (e) => {
     setTypeOfUseError(false)
+  }
+
+  const handleSetPlan = (e) => {
+    
   }
 
   return (
@@ -476,7 +497,8 @@ function Pricing() {
                     </svg>
                   </a>
                 </div>
-                <Form>
+                {<PricingPlan/>}
+                {/* <Form>
                   <Row className="halfGutters">
                     <Col>
                       <Form.Group className="mb-4">
@@ -522,7 +544,7 @@ function Pricing() {
                   </Row>
                   <p className={pricing.paymentSetupNotice}>By clicking the “Start Membership” button, you agree to our Terms of License and Privacy Policy and that Audiosocket will automatically continue your membership and charge the membership fee on a monthly/annual basis (depending on the plan they selected) until you cancel.</p>
                   <button variant="link" className="btn btnMainLarge">Start Membership</button>
-                </Form>
+                </Form> */}
               </div>
             </div>
           </div>
