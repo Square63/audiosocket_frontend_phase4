@@ -2,7 +2,14 @@ import { Button, Carousel, FormGroup, FormControl, Row, Col, ControlLabel, Dropd
 import Form from 'react-bootstrap/Form';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Image from 'next/image';
-import testimonialAvatar from '../images/avatar.png';
+import Rob from '../images/Rob.jpg';
+import JJ from '../images/JJ.jpg';
+import Scott from '../images/Scott.png';
+import Joel from '../images/Joel.png';
+import Peter from '../images/Peter.jpg';
+import Kent from '../images/Kent.jpg';
+import Brenda from '../images/Brenda.jpg';
+import Zach from '../images/Zach.png';
 import Select from "react-select";
 import Link from "next/link";
 import Accordion from 'react-bootstrap/Accordion';
@@ -42,10 +49,10 @@ function Pricing() {
   const [validated, setValidated] = useState(false);
   const form = useRef(null);
   const [typeOfUseError, setTypeOfUseError] = useState(false);
-  
+
 
   useEffect(() => {
-    
+
   }, [step]);
 
   const handlePlan = (type) => {
@@ -116,7 +123,7 @@ function Pricing() {
 
         {/* Breadcrumb Code */}
         {
-          (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) && 
+          (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) &&
           <div className="themeBreadcrumb inPricingWay">
             <Breadcrumb>
               <Breadcrumb.Item href="#" className={planType == "Commercial" && webRights == "" ? "active" : ""} onClick={() => handlePlan(planType)}>{planType}</Breadcrumb.Item>
@@ -129,15 +136,15 @@ function Pricing() {
         <div className={pricing.planTypes} >
           <div className={pricing.pricingLeftSec}>
             {
-              planType == "" ? 
-              <p>What type of content are you creating?</p> : 
-              planType != "Personal" && employeeNo == "" && webRights == "Web Only" ? 
+              planType == "" ?
               <p>What type of content are you creating?</p> :
-              planType != "Personal" && employeeNo == "" && webRights == "" ?  
+              planType != "Personal" && employeeNo == "" && webRights == "Web Only" ?
+              <p>What type of content are you creating?</p> :
+              planType != "Personal" && employeeNo == "" && webRights == "" ?
               <p>What type of content are you creating?</p> :
               ""
             }
-            
+
           </div>
           <div className={pricing.pricingRightSec}>
             <ul className={pricing.plansList}>
@@ -527,7 +534,7 @@ function Pricing() {
             </div>
           </div>
         }
-        
+
 
         {/** Plans Landing page **/}
         { planType == "Personal" && subscriptionType == ""  &&
@@ -567,7 +574,7 @@ function Pricing() {
                 </div>
               </div>
             </div>
-    
+
             <div className={pricing.pricingRightSec}>
               <div className={pricing.planBillingWrapper}>
                 <div className="billingFrequency">
@@ -660,7 +667,7 @@ function Pricing() {
                 </div>
               </div>
             </div>
-    
+
             <div className={pricing.pricingRightSec}>
               <div className={pricing.planBillingWrapper}>
                 <div className="billingFrequency">
@@ -724,7 +731,7 @@ function Pricing() {
                   <p>Used by top creators in Film, TV &amp; Advertising, Audiosocket’s band &amp; composer roster is the largest &amp; most diverse in its class.</p>
                 </div>
               </div>
-              
+
             </div>
             <div className="greySection">
               <div className="greyInnerSec">
@@ -809,52 +816,126 @@ function Pricing() {
               </div>
             </div>
           </section>
-
-          <section className="testimonial">
-            <div className="testimonialContainer">
-              <Carousel>
-                <Carousel.Item interval={3000}>
-                  <div className="authorImg">
-                    <Image src={testimonialAvatar} alt="Picture" className=""/>
-                  </div>
-                  <Carousel.Caption>
-                    <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                    <div className="authorStatus">
-                      <p className="authorName">Pete Larson</p>
-                      <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+        {
+          planType == "Personal" ?
+            (<section className="testimonial">
+              <div className="testimonialContainer">
+                <Carousel>
+                  <Carousel.Item interval={3000}>
+                    <div className="authorImg">
+                      <Image src={Rob} alt="Picture" className=""/>
                     </div>
-                  </Carousel.Caption>
-                </Carousel.Item>
+                    <Carousel.Caption>
+                    <p>“My preference is for moody ambient music and I find it in spades on Audiosocket.Their similarity search also solves a big issue in my workflow when I use temp tracks to match a creative vision but then am unable to license those specific temps.It's been a great help for me to quickly find similar songs when these cases arise.”</p>
+                      <div className="authorStatus">
+                        <p className="authorName">Rob Ellis</p>
+                        <p><span>Cinematographer and YouTube Creator</span></p>
+                      </div>
+                    </Carousel.Caption>
+                  </Carousel.Item>
 
-                <Carousel.Item>
-                  <div className="authorImg">
-                    <Image src={testimonialAvatar} alt="Picture" className=""/>
-                  </div>
-                  <Carousel.Caption>
-                    <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                    <div className="authorStatus">
-                      <p className="authorName">Pete Larson</p>
-                      <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+                  <Carousel.Item>
+                    <div className="authorImg">
+                      <Image src={JJ} alt="Picture" className=""/>
                     </div>
-                  </Carousel.Caption>
-                </Carousel.Item>
+                    <Carousel.Caption>
+                    <p>“Audiosocket is the leader in music licensing with a huge library of amazing assets that make it incredibly easy to find high-quality music for all of your projects.And with their find similar feature, it’s faster than ever before to find music for your project.Highly recommend!!”</p>
+                      <div className="authorStatus">
+                        <p className="authorName">JJ Englert</p>
+                        <p><span>Jump Studios</span></p>
+                      </div>
+                    </Carousel.Caption>
+                  </Carousel.Item>
 
-                <Carousel.Item>
-                  <div className="authorImg">
-                    <Image src={testimonialAvatar} alt="Picture" className=""/>
-                  </div>
-                  <Carousel.Caption>
-                    <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                    <div className="authorStatus">
-                      <p className="authorName">Pete Larson</p>
-                      <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
+                  <Carousel.Item>
+                    <div className="authorImg">
+                      <Image src={Scott} alt="Picture" className=""/>
                     </div>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                
-              </Carousel>
-            </div>
-          </section>
+                    <Carousel.Caption>
+                    <p>“Just wanted to let you know that…the interface and licensing platform are just awesome.Couldn't be more intuitive and easy to use, and the stuff I'm finding is perfect for my needs.So this is just a note to say thanks for building and maintaining a platform that works great for people like me.I'm also grateful to y'all for suggesting very cool tracks.I'm sure I'll be using more of them soon.”</p>
+                      <div className="authorStatus">
+                        <p className="authorName">Scott Aiges</p>
+                        <p><span>Bird Photographer and Videographer</span></p>
+                      </div>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+
+                </Carousel>
+              </div>
+            </section>) :
+            planType == "Commercial" &&
+            (<section className="testimonial">
+              <div className="testimonialContainer">
+                <Carousel>
+                  <Carousel.Item interval={3000}>
+                    <div className="authorImg">
+                      <Image src={Joel} alt="Picture" className="" />
+                    </div>
+                    <Carousel.Caption>
+                      <p>“I have been playing around with your new Similarity Search and am excited to put it to work for us.We have licensed individual songs from you in the past and have consistently been impressed with the music content we are able to find on your site.So far, I am impressed with the collection of music your AI supplies.I have a hard time believing I could find some of these tracks by using keywords only to try and match the sound I'm looking for.”</p>
+                      <div className="authorStatus">
+                        <p className="authorName">Joel Land - Threefold Video Production Agency</p>
+                        <p><span>Project Manager</span></p>
+                      </div>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+
+                  <Carousel.Item>
+                    <div className="authorImg">
+                      <Image src={Peter} alt="Picture" className="" />
+                    </div>
+                    <Carousel.Caption>
+                      <p>“I’ve spent some time on Audiosocket’s website and am extremely impressed by the quality music that you provide.Having used several competitors, I definitely think that your offering is far superior.”</p>
+                      <div className="authorStatus">
+                        <p className="authorName">Peter Larson</p>
+                        <p><span>Ready Fire Digital</span></p>
+                      </div>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+
+                  <Carousel.Item>
+                    <div className="authorImg">
+                      <Image src={Kent} alt="Picture" className="" />
+                    </div>
+                    <Carousel.Caption>
+                      <p>“Audiosocket has always been our secret weapon for the biggest variety of music genres.Audiosocket has styles of music we have never found anywhere else…your new search feature using YouTube as a reference is really working! …This is a big time saver, which you know I'm obsessed with.”</p>
+                      <div className="authorStatus">
+                        <p className="authorName">Kent Rayhill - Ohana Films</p>
+                        <p><span>Wedding Videographer</span></p>
+                      </div>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+
+                  <Carousel.Item>
+                    <div className="authorImg">
+                      <Image src={Brenda} alt="Picture" className="" />
+                    </div>
+                    <Carousel.Caption>
+                      <p>“WOW you folks have AMAZING music and the search function is really wonderful.”</p>
+                      <div className="authorStatus">
+                        <p className="authorName">Brenda Hipsher - Calbrite / MAC Group</p>
+                        <p><span>VP Sales & Marketing / Brand Manager</span></p>
+                      </div>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+
+                  <Carousel.Item>
+                    <div className="authorImg">
+                      <Image src={Zach} alt="Picture" className="" />
+                    </div>
+                    <Carousel.Caption>
+                      <p>“I thought similarity search seemed a little gimmicky, but it has seriously proved to be a time-saving asset for me on multiple edits so far.It's kind of crazy how it works”</p>
+                      <div className="authorStatus">
+                        <p className="authorName">Zach Wentz. Threefold Video Production Agency.</p>
+                        <p><span>Senior Editor</span></p>
+                      </div>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+
+                </Carousel>
+              </div>
+            </section>)
+          }
 
           <section className="pricing">
             <div className="bgWave">
@@ -1024,8 +1105,8 @@ function Pricing() {
             </div>
           </section>
         </>
-      } 
-	              
+      }
+
     </div>
   );
 }
