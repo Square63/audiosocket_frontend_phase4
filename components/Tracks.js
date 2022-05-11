@@ -428,7 +428,7 @@ function Tracks(props) {
                             <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.3l3.553-4.053" transform="translate(-330.379 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
                           </g>
                         </svg>
-                        <span className="versionCount">1</span> alt. versions
+                        <span className="versionCount">{track?.alternate_versions?.length}</span> alt. versions
                       </Accordion.Toggle>
                       <Accordion.Collapse eventKey={index + 1}>
                         <div id={"example-collapse-text" + index + 1} >
