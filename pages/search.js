@@ -728,7 +728,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="1">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown' >
@@ -738,7 +738,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="3">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown' >
@@ -748,7 +748,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="4">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown'>
@@ -758,7 +758,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="5">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown'>
@@ -768,7 +768,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="6">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown'>
@@ -798,7 +798,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="8">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown'>
@@ -808,7 +808,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="9">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown'>
@@ -818,7 +818,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="10">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown'>
@@ -828,7 +828,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="11">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                         <li className='filterDropdown'>
@@ -838,7 +838,7 @@ function Search(props) {
                             </Accordion.Toggle>
                           </div>
                           <Accordion.Collapse eventKey="12">
-                            <div className='filterDropdownBody'>Hello! I'm the body</div>
+                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
                           </Accordion.Collapse>
                         </li>
                       </ul>
