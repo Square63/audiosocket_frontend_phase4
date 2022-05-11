@@ -149,21 +149,25 @@ export const authReducer = (state = { user: {}, error: {} }, action) => {
       return {
         ...state,
         success: true,
+        forgot_password: true,
       };
     case GET_FORGOT_PASSWORD_FAIL:
       return {
         ...state,
         success: false,
+        forgot_password: false,
       };
     case RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         success: true,
+        reset_password: true,
       };
     case RESET_PASSWORD_FAIL:
       return {
         ...state,
         success: false,
+        reset_password: false,
       };
     default:
       return state;

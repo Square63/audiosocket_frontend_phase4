@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import login from "../../styles/Login.module.scss";
@@ -18,6 +18,17 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
   const [isConfirmError, setIsConfirmError] = useState(false);
   const router = useRouter();
   const token = router.query.resetToken;
+  const confirmationModal = useSelector( state => state.auth.reset_password)
+
+  useEffect(() => {
+    if (confirmationModal) {
+      Notiflix.Report.success( 'Success', `Password updated, login to proceed!`, 'Ok', () => {
+        router.push('/login')
+      } );
+    } else if (confirmationModal == false) {
+      Notiflix.Report.failure( 'Invalid user', `Error resetting password`, 'Ok' );
+    }
+  }, [confirmationModal])
 
   const handleSubmit = async (e) => {
     const data = new FormData(form.current);
@@ -38,7 +49,6 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
       setIsLoading(false);
       e.target.reset();
       handleClose();
-      router.push("/login");
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import login from "../styles/Login.module.scss";
@@ -9,13 +9,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../redux/actions/authActions";
 import { Router } from "react-router";
 import { useRouter } from "next/router";
+import Notiflix from "notiflix";
 
 function ForgotPasswordModal({ showModal = false, onCloseModal }) {
   const dispatch = useDispatch();
   const form = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
   const router = useRouter();
+  const confirmation_modal = useSelector( state => state.auth.forgot_password)
+
+  useEffect(() => {
+    if (confirmation_modal) {
+      Notiflix.Report.success( 'Success', `Password reset link sent to ${email}!`, 'Ok', () => {
+        router.push('/login')
+      } );
+    } else if (confirmation_modal == false) {
+      Notiflix.Report.failure( 'Invalid user', `User "${email}" doesn't exist, please enter a valid email address.`, 'Ok' );
+    }
+  }, [confirmation_modal])
 
   const handleSubmit = async (e) => {
     const data = new FormData(form.current);
@@ -28,6 +41,7 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
       setValidated(true);
       setIsLoading(false);
     } else {
+      setEmail(data.get("email"))
       let email = {
         email: data.get("email"),
       };
@@ -35,8 +49,6 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
       setIsLoading(false);
       e.target.reset();
       handleClose();
-      alert("email sent");
-      router.push("/login");
     }
   };
 
