@@ -694,52 +694,6 @@ export default function Home(props) {
               </div>
             </section>
 
-            <section className="testimonial">
-              <div className="testimonialContainer">
-                <Carousel>
-                  <Carousel.Item interval={3000}>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-
-                  <Carousel.Item>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-
-                  <Carousel.Item>
-                    <div className="authorImg">
-                      <Image src={testimonialAvatar} alt="Picture" className=""/>
-                    </div>
-                    <Carousel.Caption>
-                      <p>“Audiosocket blows away the service I used to use in terms of number of tracks and quality tracks! I used to have to settle for using the same tracks over and over for my corporate clients. This service lets me find just the right track with enough variety to make each project unique.”</p>
-                      <div className="authorStatus">
-                        <p className="authorName">Pete Larson</p>
-                        <p><span>Ready Fire Digital</span> , <span>Filmmaker</span></p>
-                      </div>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-
-                </Carousel>
-              </div>
-            </section>
-
             <section className="pricing">
               <div className="bgWave">
                 <div className="pricingContainer">
