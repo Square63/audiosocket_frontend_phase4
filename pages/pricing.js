@@ -826,7 +826,7 @@ function Pricing() {
                       <Image src={Rob} alt="Picture" className=""/>
                     </div>
                     <Carousel.Caption>
-                    <p>“My preference is for moody ambient music and I find it in spades on Audiosocket.Their similarity search also solves a big issue in my workflow when I use temp tracks to match a creative vision but then am unable to license those specific temps.It's been a great help for me to quickly find similar songs when these cases arise.”</p>
+                      <p>“My preference is for moody ambient music and I find it in spades on Audiosocket.Their similarity search also solves a big issue in my workflow when I use temp tracks to match a creative vision but then am unable to license those specific temps. It’s been a great help for me to quickly find similar songs when these cases arise.”</p>
                       <div className="authorStatus">
                         <p className="authorName">Rob Ellis</p>
                         <p><span>Cinematographer and YouTube Creator</span></p>
@@ -852,7 +852,7 @@ function Pricing() {
                       <Image src={Scott} alt="Picture" className=""/>
                     </div>
                     <Carousel.Caption>
-                    <p>“Just wanted to let you know that…the interface and licensing platform are just awesome.Couldn't be more intuitive and easy to use, and the stuff I'm finding is perfect for my needs.So this is just a note to say thanks for building and maintaining a platform that works great for people like me.I'm also grateful to y'all for suggesting very cool tracks.I'm sure I'll be using more of them soon.”</p>
+                      <p>“Just wanted to let you know that…the interface and licensing platform are just awesome.Couldn’t be more intuitive and easy to use, and the stuff I’m finding is perfect for my needs.So this is just a note to say thanks for building and maintaining a platform that works great for people like me.I’m also grateful to y’all for suggesting very cool tracks.I’m sure I’ll be using more of them soon.”</p>
                       <div className="authorStatus">
                         <p className="authorName">Scott Aiges</p>
                         <p><span>Bird Photographer and Videographer</span></p>
@@ -872,7 +872,7 @@ function Pricing() {
                       <Image src={Joel} alt="Picture" className="" />
                     </div>
                     <Carousel.Caption>
-                      <p>“I have been playing around with your new Similarity Search and am excited to put it to work for us.We have licensed individual songs from you in the past and have consistently been impressed with the music content we are able to find on your site.So far, I am impressed with the collection of music your AI supplies.I have a hard time believing I could find some of these tracks by using keywords only to try and match the sound I'm looking for.”</p>
+                      <p>“I have been playing around with your new Similarity Search and am excited to put it to work for us.We have licensed individual songs from you in the past and have consistently been impressed with the music content we are able to find on your site.So far, I am impressed with the collection of music your AI supplies.I have a hard time believing I could find some of these tracks by using keywords only to try and match the sound I’m looking for.”</p>
                       <div className="authorStatus">
                         <p className="authorName">Joel Land - Threefold Video Production Agency</p>
                         <p><span>Project Manager</span></p>
@@ -898,7 +898,7 @@ function Pricing() {
                       <Image src={Kent} alt="Picture" className="" />
                     </div>
                     <Carousel.Caption>
-                      <p>“Audiosocket has always been our secret weapon for the biggest variety of music genres.Audiosocket has styles of music we have never found anywhere else…your new search feature using YouTube as a reference is really working! …This is a big time saver, which you know I'm obsessed with.”</p>
+                      <p>“Audiosocket has always been our secret weapon for the biggest variety of music genres.Audiosocket has styles of music we have never found anywhere else…your new search feature using YouTube as a reference is really working! …This is a big time saver, which you know I’m obsessed with.”</p>
                       <div className="authorStatus">
                         <p className="authorName">Kent Rayhill - Ohana Films</p>
                         <p><span>Wedding Videographer</span></p>
@@ -924,7 +924,7 @@ function Pricing() {
                       <Image src={Zach} alt="Picture" className="" />
                     </div>
                     <Carousel.Caption>
-                      <p>“I thought similarity search seemed a little gimmicky, but it has seriously proved to be a time-saving asset for me on multiple edits so far.It's kind of crazy how it works”</p>
+                      <p>“I thought similarity search seemed a little gimmicky, but it has seriously proved to be a time-saving asset for me on multiple edits so far. It’s kind of crazy how it works”</p>
                       <div className="authorStatus">
                         <p className="authorName">Zach Wentz. Threefold Video Production Agency.</p>
                         <p><span>Senior Editor</span></p>
