@@ -75,28 +75,31 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
     case GET_USER_FAIL:
       return {
         ...state,
-        error: action.payload.response.data.errors,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
       };
     case GET_PLAYLISTS_SUCCESS:
       return {
         ...state,
-        followedPlaylists: action.payload.consumer_playlists,
+        followedPlaylists: action.payload,
       };
     case GET_PLAYLISTS_FAIL:
       return {
         ...state,
-        followedPlaylists: action.payload.response.data.errors,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
       };
 
     case GET_ARTISTS_SUCCESS:
       return {
         ...state,
-        followedArtists: action.payload.users,
+        followedArtists: action.payload,
       };
     case GET_ARTISTS_FAIL:
       return {
         ...state,
-        followedArtists: action.payload.response.data.errors,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
       };
     case PLAYLIST_TRACKS_SUCCESS:
       return {
@@ -116,7 +119,8 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
     case FAVORITE_TRACKS_FAIL:
       return {
         ...state,
-        favorite_tracks: action.payload.response.data.errors,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
       };
     case ADD_TO_CART_SUCCESS:
       return {
@@ -149,9 +153,10 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       };
     case DOWNLOADED_TRACKS_FAIL:
       return {
-          ...state,
-          downloaded_tracks: action.payload.response.data.errors
-        };
+        ...state,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
+      };
     case DOWNLOADED_SFXS_SUCCESS:
       return {
         ...state,
@@ -169,10 +174,10 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       };
     case MY_PLAYLISTS_FAIL:
       return {
-          ...state,
-          my_playlists: action.payload.response.data.errors
-        };
-
+        ...state,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
+      };
     case CURATED_PLAYLISTS_SUCCESS:
       return {
         ...state,
@@ -180,9 +185,10 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       };
     case CURATED_PLAYLISTS_FAIL:
       return {
-          ...state,
-          curated_playlists: action.payload.response.data.errors
-        };
+        ...state,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
+      };
     case EDIT_WORK_TITLE_SUCCESS:
       return {
         ...state,

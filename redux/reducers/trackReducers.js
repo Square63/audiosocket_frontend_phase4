@@ -20,7 +20,8 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
       }
     case ALL_TRACKS_FAILURE:
       return {
-        error: action.payload.error
+        error: action.payload.response,
+        responseStatus: action.payload.response.status
       }
     case CLEAR_ERRORS:
       return {
@@ -58,7 +59,8 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
       }
     case ALL_SFXES_FAILURE:
       return {
-        error: action.payload.error
+        error: action.payload.response,
+        responseStatus: action.payload.response.status
       }
 
     default:

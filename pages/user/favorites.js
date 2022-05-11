@@ -15,14 +15,13 @@ import { TOAST_OPTIONS_ERROR } from '../../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
-import Router from "next/router";
-
 
 function Favorites() {
   const [type, setType] = useState('songs');
   const dispatch = useDispatch();
   const router = useRouter();
   const favoriteTracks = useSelector(state => state.user.favorite_tracks);
+  const responseStatus = useSelector(state => state.user.responseStatus);
   const [isLoading, setIsLoading] = useState(true);
   const favoritesMessage = useSelector( state => state.allTracks)
 
@@ -39,6 +38,19 @@ function Favorites() {
   }, [favoritesMessage]);
 
   useEffect(() => {
+    if (responseStatus == 422) {
+      window.localStorage.clear();
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [responseStatus])
+
+  useEffect(() => {
     if (favoriteTracks) {
       setIsLoading(false)
     }
@@ -52,9 +64,9 @@ function Favorites() {
     setIsLoading(true)
     localStorage.setItem("track_name", trackName)
     localStorage.setItem("track_id", trackId)
-    Router.push({
+    router.push({
       pathname: '/search'
-    }, 
+    },
     undefined, { shallow: true }
     )
     // router.push('/search')

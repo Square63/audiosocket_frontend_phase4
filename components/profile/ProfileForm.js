@@ -12,6 +12,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
   const updatedUserInfo = useSelector(state => state.user.user);
+  const responseStatus = useSelector(state => state.user.responseStatus);
   console.log("USER INFO", userInfo)
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
@@ -33,6 +34,19 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
     }
     dispatch(getUserInfo(JSON.parse(localStorage.getItem("user"))))
   }, [updatedUserInfo]);
+
+  useEffect(() => {
+    if (responseStatus == 422) {
+      window.localStorage.clear();
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [responseStatus]);
 
   const handleSelectCountry = (target) => {
     if (target.value) setCountryError(false);
@@ -156,8 +170,8 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
         <div className="col-lg-6">
           <Form.Group className="">
             <Form.Label className="required">Country</Form.Label>
-            
-            
+
+
             <Select
               placeholder="Select Country"
               className={
@@ -235,7 +249,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
                 },
                 height: 34,
               })}
-              
+
             />
             {stateError && (
               <small className="input-error">State is required!</small>
