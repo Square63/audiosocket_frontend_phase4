@@ -144,7 +144,6 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
       <Modal.Body style={{height: '500px'}}>
       
       <div className="favoriteInnerContent">
-        {track.title}
         <Select
           className='react-select-container'
           classNamePrefix="react-select"
