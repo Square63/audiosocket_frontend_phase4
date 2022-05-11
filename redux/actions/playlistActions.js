@@ -16,7 +16,6 @@ import {
 } from '../constants/playlistConstants';
 
 export const getPlaylists = (req) => async( dispatch ) => {
-  // debugger
   try {
     const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumers_playlists`);
     dispatch({

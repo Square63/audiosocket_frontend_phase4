@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from '../redux/store';
 import { getFilters } from '../redux/actions/filterActions';
 import { getTracks } from '../redux/actions/trackActions';
-import { getPlaylists } from '../redux/actions/playlistActions';
+import { getMyPlaylists } from '../redux/actions/authActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 import { addToFavorites } from '../redux/actions/trackActions';
 import { removeFromFavorites } from '../redux/actions/trackActions';
@@ -79,6 +79,7 @@ function Search(props) {
 
   const filters = useSelector( state => state.allFilters.filters[0])
   const allTracks = useSelector( state => state.allTracks)
+  const playlists = useSelector(state => state.user.my_playlists);
   let tracks = ""
   let tracksMeta = ""
   if (allTracks && allTracks.tracks){
@@ -102,6 +103,16 @@ function Search(props) {
   //     }
   //   }
   // }, [playlists])
+  useEffect(() => {
+    if (playlists === undefined) {
+
+      dispatch(getMyPlaylists(1))  
+    }
+  }, [playlists]);
+
+  useEffect(() => {
+    
+  }, [playlists]);
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
@@ -667,7 +678,7 @@ function Search(props) {
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
-      {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
+      {playlists && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> }
       <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
 
     </div>
