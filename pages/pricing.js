@@ -29,6 +29,9 @@ import {useState, useEffect, useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSubscriptionPlans } from "../redux/actions/authActions";
 import PricingPlan from "../components/PricingPlan";
+import { TOAST_OPTIONS } from '../common/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Pricing() {
   const dispatch = useDispatch();
@@ -61,16 +64,12 @@ function Pricing() {
   const [webRights, setWebRights] = useState("");
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
-  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("");
-  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("");
-  const [planId, setPlanId] = useState(null);
+  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Monthly");
+  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Monthly");
+  const [plan, setPlan] = useState(null);
   const [validated, setValidated] = useState(false);
   const form = useRef(null);
   const [typeOfUseError, setTypeOfUseError] = useState(false);
-<<<<<<< HEAD
-
-=======
->>>>>>> 115b926 (getting subscription plans)
 
   useEffect(() => {
 
@@ -96,8 +95,32 @@ function Pricing() {
 
   const handleSubscriptionType = (type) => {
     setSubscriptionType(type)
+    debugger
+    if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
+      setPlan(subscriptionPlans[5])
+    }
+    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+      setPlan(subscriptionPlans[8])
+    }
+    else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[7])
+    }
+    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[6])
+    }
+    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
+      setPlan(subscriptionPlans[0])
+    }
+    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+      setPlan(subscriptionPlans[3])
+    }
+    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[1])
+    }
+    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[2])
+    }
     setStep(1)
-
   }
 
   const handleCommercialBack = (type) => {
@@ -139,7 +162,18 @@ function Pricing() {
   return (
     <div className={pricing.pricingWrapper}>
       <div className={pricing.priceContentContainer}>
-
+        <ToastContainer
+          position="top-center"
+          autoClose={10000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          style={{ width: "auto" }}
+        />
         {/* Section Heading Code */}
         <div className={pricing.contentHeading}>
           <h1>Standout in a sea of content with remarkable music!</h1>
@@ -400,7 +434,7 @@ function Pricing() {
                 <hr/ >
                 <div className={pricing.planDatePrice}>
                   <strong className={pricing.planDate}>Due Today</strong>
-                  <strong className={pricing.planPrice}>$59</strong>
+                  <strong className={pricing.planPrice}>${plan.price}</strong>
                 </div>
               </div>
               <a href="javascript:void(0)" onClick={()=> handleCommercialBack("Under 100 Emplyees")}>
@@ -508,7 +542,7 @@ function Pricing() {
                     </svg>
                   </a>
                 </div>
-                {<PricingPlan/>}
+                {<PricingPlan planId={plan.id}/>}
                 {/* <Form>
                   <Row className="halfGutters">
                     <Col>

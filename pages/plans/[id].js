@@ -11,6 +11,8 @@ import Image from 'next/image';
 import cardServices from '../../images/cardServices.svg';
 import InpageLoader from '../../components/InpageLoader';
 import BASE_URL from '../../common/api'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Braintree extends React.Component {
   instance;
@@ -53,7 +55,6 @@ class Braintree extends React.Component {
       // Send nonce to your server
       const { nonce } = await this.instance.tokenize()
       let discount_id = document.getElementById("disCode").value;
-      debugger
       const authToken = JSON.parse(localStorage.getItem("user") ?? "");
       const response = await axios.post(
         this.state.redirectUrl, { nonce, discount_id },
@@ -64,10 +65,12 @@ class Braintree extends React.Component {
           }
         }
       )
-      debugger
       console.log(response)
+      toast.success(response.data.message)
+      window.location.href = "/search"
     } catch (err) {
       console.error(err)
+      toast.error("Subscription already exists. Please cancel your current subscription first.")
     }
   }
 
@@ -83,6 +86,18 @@ class Braintree extends React.Component {
       console.log(this.instance);
       return (
         <div className="container">
+          <ToastContainer
+            position="top-center"
+            autoClose={10000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            style={{ width: "auto" }}
+          />
           <BraintreeHostedFields
             className="drop-in-container"
             options={{

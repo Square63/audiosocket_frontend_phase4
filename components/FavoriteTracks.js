@@ -148,7 +148,7 @@ function FavoriteTracks(props) {
   return (
     <>
     {!tracks ? (
-      <center><p>No favotite tracks</p></center>
+      <center><p>No favorite tracks</p></center>
     ) : (
       <div className={user.favoritesListing}>
         <div className={user.listingWrapper}>

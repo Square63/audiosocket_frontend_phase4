@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { TOAST_OPTIONS } from '../common/api';
 import {useRouter} from "next/router";
+import { getSubscriptionPlans } from "../redux/actions/authActions";
 
 function Sidebar(props) {
 	
@@ -23,8 +24,8 @@ function Sidebar(props) {
   const [webRights, setWebRights] = useState("");
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
-  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("");
-  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("");
+  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Monthly");
+  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Monthly");
   const [validated, setValidated] = useState(false);
 	const [contentType, setContentType] = useState(false);
 	const [confirmPasswordError, setConfirmPasswordError] = useState(false);
@@ -33,6 +34,20 @@ function Sidebar(props) {
   const loggedInUser = useSelector(state => state.auth);
 	const form = useRef(null);
 	const router = useRouter()
+	const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
+  const [isLoading, setIsLoading] = useState(true);
+	const [plan, setPlan] = useState(null);
+
+
+  useEffect(() => {
+    dispatch(getSubscriptionPlans())
+  }, []);
+
+  useEffect(() => {
+    if (subscriptionPlans) {
+      setIsLoading(false)
+    }
+  }, [subscriptionPlans])
 
 
 	useEffect(() => {
@@ -79,9 +94,44 @@ function Sidebar(props) {
   }
 
   const handleSubscriptionType = (type) => {
-		debugger
     setSubscriptionType(type)
+		let planId = null
+		debugger
+    if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
+      setPlan(subscriptionPlans[5])
+			planId = 6
+    }
+    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+      setPlan(subscriptionPlans[8])
+			planId = 9
+    }
+    else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[7])
+			planId = 8
+    }
+    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[6])
+			planId = 7
+    }
+    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
+      setPlan(subscriptionPlans[0])
+			planId = 1
+    }
+    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+      setPlan(subscriptionPlans[3])
+			planId = 4
+    }
+    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[1])
+			planId = 2
+    }
+    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[2])
+			planId = 3
+    }
+		debugger
     setStep(1)
+		router.push(`/plans/${planId}`)
   }
 
   const handleCommercialBack = (type) => {
@@ -592,7 +642,7 @@ function Sidebar(props) {
 																<small className={pricing.billingNote}>*Monthly rates when billed annually</small>
 															</div>
 														</div>
-														<div className={pricing.oneTimePurchase}>
+														<div className={pricing.oneTimePurchase} onClick={props.addTrackToCartLicenseModalSidebar}>
 															<span className={pricing.typeName}>
 																<span className={pricing.typeHeading}>Single Track</span>
 																<span className={pricing.typeDesc}>One-time use pricing available at checkout</span>
@@ -680,7 +730,7 @@ function Sidebar(props) {
 																<small className={pricing.billingNote}>*Monthly rates when billed annually</small>
 															</div>
 														</div>
-														<div className={pricing.oneTimePurchase}>
+														<div className={pricing.oneTimePurchase} onClick={props.addTrackToCartLicenseModalSidebar}>
 															<span className={pricing.typeName}>
 																<span className={pricing.typeHeading}>Single Track</span>
 																<span className={pricing.typeDesc}>One-time use pricing available at checkout</span>

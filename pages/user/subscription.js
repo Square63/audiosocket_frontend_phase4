@@ -9,6 +9,10 @@ import { useRouter } from "next/router";
 import Router from "next/router";
 // import { Link } from "@mui/material";
 import Link from "next/link";
+import { BASE_URL } from "../../common/api";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Subscription() {
@@ -17,6 +21,7 @@ function Subscription() {
   const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
   const currentPlan = useSelector(state => state.user.currentPlan);
   const [isLoading, setIsLoading] = useState(true);
+  const [userCurrentPlan, setUserCurrentPlan] = useState(null);
 
 
   useEffect(() => {
@@ -27,8 +32,36 @@ function Subscription() {
     if (subscriptionPlans || currentPlan) {
       debugger
       setIsLoading(false)
+      setUserCurrentPlan(currentPlan)
     }
   }, [subscriptionPlans, currentPlan])
+
+  useEffect(() => {
+    debugger
+  }, [userCurrentPlan])
+
+  const handleCancelSubscription = async() =>{
+    try {
+      // Send nonce to your server
+      const authToken = JSON.parse(localStorage.getItem("user") ?? "");
+      const url = `${BASE_URL}/api/v1/consumer/plans/${currentPlan.id}/cancel_current_braintree_subscription`
+      const response = await axios.delete(
+        url,
+        {
+          headers: {
+            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+            'auth-token': authToken
+          }
+        }
+      )
+
+      toast.success(response.data.message)
+      setUserCurrentPlan(null)
+      console.log(response)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <>
@@ -36,38 +69,58 @@ function Subscription() {
         <InpageLoader/>
       ) : (
         <div className={user.editSubscription}>
-          <h3 className={user.planStatus}>Current Plan</h3>
-          {/* <div className={user.plansShelf}>
-            <div className={user.currentPlan+' boxWithOutShadow'}>
-              <div className={user.plansHeading}>
-                <h2>{currentPlan.name} <small>Monthly</small></h2>
-                <div className={user.withRate}>
-                  <span className={user.rate}>${currentPlan.price}</span>
-                  <small className={user.planDuration}>/Month</small>
-                </div>
-              </div>
-              <div className={user.planBody}>
-                <ul className={user.planFeatures}>
-                  <li><span>Unlimited Licenses</span></li>
-                  <li><span>All access to over +80,000 songs</span></li>
-                  <li><span>Use for personal and student web media</span></li>
-                  <li><span>Cleared for use on your social channels</span></li>
-                  <li><span>Monetize on your personal channels.</span></li>
-                </ul>
-                <div className={user.sideContent}>
-                  <div className="toogleSwitch">
-                    <input type="checkbox" id="toggleSubscription" />
-                    <Form.Label htmlFor="toggleSubscription">&nbsp;</Form.Label>
-                    <span className="switchText">Toggle Subscription</span>
+          <ToastContainer
+            position="top-center"
+            autoClose={10000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            style={{ width: "auto" }}
+          />
+          {userCurrentPlan && 
+          <>
+            <h3 className={user.planStatus}>Current Plan</h3>
+            <div className={user.plansShelf}>
+              <div className={user.currentPlan+' boxWithOutShadow'}>
+                <div className={user.plansHeading}>
+                  <h2>{userCurrentPlan.name} <small>Monthly</small></h2>
+                  <div className={user.withRate}>
+                    <span className={user.rate}>${userCurrentPlan.price}</span>
+                    <small className={user.planDuration}>/Month</small>
                   </div>
-                  <p>Use to pause or cancel your current subscription. You can re-enable at any time.</p>
-                  <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
-                    Switch to Yearly Billing
-                  </a>
+                </div>
+                <div className={user.planBody}>
+                  <ul className={user.planFeatures}>
+                    <li><span>Unlimited Licenses</span></li>
+                    <li><span>All access to over +80,000 songs</span></li>
+                    <li><span>Use for personal and student web media</span></li>
+                    <li><span>Cleared for use on your social channels</span></li>
+                    <li><span>Monetize on your personal channels.</span></li>
+                  </ul>
+                  <div className={user.sideContent}>
+                    {/* <div className="toogleSwitch">
+                      <input type="checkbox" id="toggleSubscription" />
+                      <Form.Label htmlFor="toggleSubscription">&nbsp;</Form.Label>
+                      <span className="switchText">Toggle Subscription</span>
+                    </div><br></br> */}
+                    <a href="javascript:void(0)" className="btn btnMainSmall inBlack mt-0" onClick={handleCancelSubscription}>
+                      Cancel Subscription
+                    </a>
+                    <p>Use to pause or cancel your current subscription. You can re-enable at any time.</p>
+                    <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
+                      Switch to Yearly Billing
+                    </a>
+                    
+                  </div>
                 </div>
               </div>
             </div>
-          </div> */}
+          </>
+          }
           <div className="billingFrequency">
             <h3 className={user.planStatus}>Change Your Plan</h3>
             <span>Billing Frequency</span>

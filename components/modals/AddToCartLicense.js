@@ -47,7 +47,7 @@ function AddToCartLicense({showModal = false, onCloseModal, track}) {
         <Modal.Title >
           <h2 className="modalName">License Track</h2>
           <p className="modalTrackName">
-            {track.title}
+            {track && track.title}
           </p>
           <p className="modalTrackArtist">
             Justin G. Marcellus

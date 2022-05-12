@@ -2,7 +2,7 @@ import Alert from 'react-bootstrap/Alert';
 import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
-// import AddToCartLicense from "../components/modals/AddToCartLicense";
+import AddToCartLicense from "../components/modals/AddToCartLicense";
 import AddToPlaylist from "../components/modals/AddToPlaylist";
 import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
@@ -198,6 +198,7 @@ function Search(props) {
   }
 
   function showAddTrackToCartLicenseModal(index) {
+    debugger
     if (localStorage.getItem("user")) {
       if (index > 9) {
         setIndex(index + 10)
@@ -205,7 +206,7 @@ function Search(props) {
       else {
         setIndex(index)
       }
-      setShowAddToCartLicenseModal(true)
+      // setShowAddToCartLicenseModal(true)
       setShowSidebar(true)
       setSidebarType("cart")
     }
@@ -214,6 +215,11 @@ function Search(props) {
       setShowSidebar(true)
       setSidebarType("login")
     }
+  }
+
+  function addTrackToCartLicenseModalSidebar(index) {
+    setShowSidebar(false)
+    setShowAddToCartLicenseModal(true)
   }
 
   function handleAddToCartLicenseModalClose() {
@@ -895,9 +901,9 @@ function Search(props) {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
+      <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} />
       {playlists && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> }
-      <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
+      <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>
 
     </div>
 
