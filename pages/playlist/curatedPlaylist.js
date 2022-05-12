@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCuratedPlaylists } from '../../redux/actions/authActions';
 import InpageLoader from '../../components/InpageLoader';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useRouter } from "next/router";
 
 
 const NextArrow = ({ onClick }) => {
@@ -53,7 +54,7 @@ const breakPoints = [
   { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
   { width: 750, itemsToShow: 3, itemsToScroll: 2, pagination: false },
   { width: 1100, itemsToShow: 4, itemsToScroll: 2, pagination: false },
-  
+
 ];
 
 function CuratedPlaylist() {
@@ -63,11 +64,25 @@ function CuratedPlaylist() {
   const [paginatedPlaylists, setPaginatedPlaylists] = useState([]);
 
   const dispatch = useDispatch();
+  const router = useRouter();
   const playlists = useSelector( state => state.user.curated_playlists)
-  
+  const responseStatus = useSelector(state => state.user.responseStatus);
 
   useEffect(() => {
-    dispatch(getCuratedPlaylists(searchValue, pageNum))  
+    if (responseStatus == 422) {
+      window.localStorage.clear();
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [responseStatus]);
+
+  useEffect(() => {
+    dispatch(getCuratedPlaylists(searchValue, pageNum))
   }, [pageNum]);
 
   useEffect(() => {
@@ -87,13 +102,13 @@ function CuratedPlaylist() {
   const handleSearch = (e) => {
     setPaginatedPlaylists([])
     setPageNum(1)
-    dispatch(getCuratedPlaylists(searchValue, pageNum))  
+    dispatch(getCuratedPlaylists(searchValue, pageNum))
   }
 
   const handlePageNum = (e) => {
     setPageNum(pageNum + 1)
   }
-  
+
   return (
     <>
     {

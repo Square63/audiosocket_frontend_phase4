@@ -54,7 +54,13 @@ function Login() {
         localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
         cookie.set('user', JSON.stringify(loggedInUser.user))
         toast.success('Successfully Logged In.');
-        router.push('/');
+        if (window.location.search){
+          let urlParams = new URLSearchParams(window.location.search);
+          let newPath = urlParams.get('returnUrl');
+          router.push(newPath);
+        } else {
+          router.push('/');
+        }
       }
     }
   }, [loggedInUser])

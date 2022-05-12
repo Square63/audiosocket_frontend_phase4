@@ -16,13 +16,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFollowedPlaylists } from "../../redux/actions/authActions";
 import { getFollowedArtists } from "../../redux/actions/authActions";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import InpageLoader from '../../components/InpageLoader';
 import Link from "next/link";
 
 function Following() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const followedPlaylists = useSelector(state => state.user.followedPlaylists);
   const followedArtists = useSelector(state => state.user.followedArtists);
+  const responseStatus = useSelector(state => state.user.responseStatus);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -31,11 +34,24 @@ function Following() {
   }, []);
 
   useEffect(() => {
+    if (responseStatus == 422) {
+      window.localStorage.clear();
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [responseStatus]);
+
+  useEffect(() => {
     if (followedPlaylists || followedArtists) {
       setIsLoading(false)
     }
   }, [followedPlaylists, followedArtists])
-  
+
   return (
     <>
       {isLoading ? (
@@ -47,26 +63,26 @@ function Following() {
               <h2>Followed Playlists</h2>
             </div>
             <div className="tilesWrapper">
-              {followedPlaylists && followedPlaylists.map((followedPlaylist, index) =>
+              {followedPlaylists?.length > 0 && followedPlaylists.map((followedPlaylist, index) =>
                 <Link href={"/playlist/" + followedPlaylist.id} key={index}>
                   <a key={index} className="tileOverlay">
                     {followedPlaylist.playlist_image ? "" : ""}
                     <span className="tileOverlayText">{followedPlaylist.name}</span>
                   </a>
                 </Link>
-                
+
               )}
             </div>
             <div className={user.listingHeading+' mt-5'}>
               <h2>Followed Artists</h2>
             </div>
             <div className="tilesWrapper">
-              {followedArtists && followedArtists.map((followedArtist, index) =>
+              {followedArtists?.length > 0 && followedArtists.map((followedArtist, index) =>
                 <a key={index} href="javascript:void(0)" className="tileOverlay">
                   {followedArtist.image ? <Image src={followedArtist.image} alt="Mood" className="tilesImg"></Image> : ""}
                   <span className="tileOverlayText">{followedArtist.first_name + ' ' + followedArtist.last_name}</span>
                 </a>
-                
+
               )}
             </div>
           </div>

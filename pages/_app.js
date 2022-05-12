@@ -23,11 +23,11 @@ axios.interceptors.request.use(request => {
 function MyApp({ Component, pageProps }) {
   // const [cartCount, setCartCount] = useState(0);
   return (
-    
+
     <Layout>
       <Component {...pageProps} />
     </Layout>
-    
+
   )
 }
 

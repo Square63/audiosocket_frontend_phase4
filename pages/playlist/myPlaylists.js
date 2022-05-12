@@ -23,18 +23,34 @@ import { ToastContainer, toast } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { BASE_URL } from "../../common/api";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 
 function MyPlaylists() {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const dispatch = useDispatch();
+  const router = useRouter();
   const myPlaylists = useSelector(state => state.user.my_playlists);
+  const responseStatus = useSelector(state => state.user.responseStatus);
   const [isLoading, setIsLoading] = useState(true);
   const [playlists, setPlaylists] = useState([])
   const [infifniteLoop, setInfiniteLoop] = useState(false)
   const [hasMore, sethasMore] = useState(true)
   const [myPlaylistDetail, setMyPlaylistDetail] = useState()
+
+  useEffect(() => {
+    if (responseStatus == 422) {
+      window.localStorage.clear();
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [responseStatus]);
 
   useEffect(() => {
     let isMounted = true;
@@ -44,8 +60,8 @@ function MyPlaylists() {
     } else {
       setPlaylists(playlists=> myPlaylists)
     }
-    
-    if (myPlaylists?.length < 15) {  
+
+    if (myPlaylists?.length < 15) {
       sethasMore(false)
     } else {
       sethasMore(true)
@@ -54,9 +70,9 @@ function MyPlaylists() {
     return () => {
       isMounted = false;
     };
-    
+
   },[myPlaylists])
-  
+
   const fetchData = () => {
     if (myPlaylists.length == 15) {
       dispatch(getMyPlaylists((playlists.length/15 + 1)))
@@ -64,7 +80,7 @@ function MyPlaylists() {
     }
     else {
       // setPlaylists(playlists=> myPlaylists)
-      setInfiniteLoop(false) 
+      setInfiniteLoop(false)
     }
   }
 
@@ -93,9 +109,9 @@ function MyPlaylists() {
       ) : (
       <>
         <div className={playlist.myPlaylistWrapper}>
-        
+
         <div className="fixed-container">
-          
+
           <div className="parallelHead">
             <h1>My playlists</h1>
             <button className="btn btnMainLarge" onClick={() => setShowModal(true)}>New Playlist</button>
@@ -109,7 +125,7 @@ function MyPlaylists() {
               endMessage={<h4>Nothing more to show</h4>}
             >
             <div className="tilesWrapper">
-            
+
               {playlists &&
                 playlists.map((playlist,index)=> {
                   return(
@@ -124,10 +140,10 @@ function MyPlaylists() {
                     </Link>
                     )
                   })}
-            
+
             </div>
             </InfiniteScroll>
-            
+
           </section>
         </div>
         <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
@@ -136,8 +152,8 @@ function MyPlaylists() {
 
       )}
     </>
-    
+
   );
 }
-  
+
 export default withPrivateRoute(MyPlaylists);

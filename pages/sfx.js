@@ -20,7 +20,7 @@ import { getPlaylists } from '../redux/actions/playlistActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 import { addToFavorites } from '../redux/actions/trackActions';
 import { removeFromFavorites } from '../redux/actions/trackActions';
-
+import { useRouter } from "next/router";
 import $ from 'jquery';
 import Tracks from '../components/Tracks';
 import RangeSlider from '../components/RangeSlider';
@@ -32,7 +32,7 @@ import Sidebar from '../components/Sidebar';
 function Sfx(props) {
 
   const dispatch = useDispatch();
-
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [showChilderDiv, setShowChilderDiv] = useState(false);
   const [lastChildFilters, setLastChildFilters] = useState([]);
@@ -97,6 +97,19 @@ function Sfx(props) {
   //     }
   //   }
   // }, [playlists])
+
+  useEffect(() => {
+    if (allTracks.responseStatus == 422) {
+      window.localStorage.clear();
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [allTracks.error]);
 
   useEffect(() => {
     if(!favoritesMessage?.success) {

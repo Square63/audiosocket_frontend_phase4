@@ -257,7 +257,7 @@ function Tracks(props) {
           loader={<InpageLoader />}
           // endMessage={<h4>Nothing more to show</h4>}
         >
-          {tracks.map((track,index)=> {
+          {tracks && tracks.map((track,index)=> {
             return(<div className="trackRow" key={index}>
               <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
               <div className="rowParticipant duration">

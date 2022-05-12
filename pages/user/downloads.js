@@ -7,13 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDownloadedTracks } from "../../redux/actions/authActions";
 import { getDownloadedSfxs } from "../../redux/actions/authActions";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import InpageLoader from '../../components/InpageLoader';
 import DownloadedTracks from "../../components/DownloadedTracks";
 
 function Downloads() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const downloadedTracks = useSelector(state => state.user.downloaded_tracks);
   const downloadedSfxs = useSelector(state => state.user.downloaded_sfxs);
+  const responseStatus = useSelector(state => state.user.responseStatus);
   const [isLoading, setIsLoading] = useState(true);
   const downloadsMessage = useSelector( state => state.allTracks)
 
@@ -36,6 +39,19 @@ function Downloads() {
     }
   }, [downloadedTracks, downloadedSfxs])
 
+  useEffect(() => {
+    if (responseStatus == 422) {
+      window.localStorage.clear();
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [responseStatus]);
+
   return (
     <>
       {isLoading ? (
@@ -47,7 +63,7 @@ function Downloads() {
 
       )}
     </>
-    
+
   );
 }
 

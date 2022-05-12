@@ -11,7 +11,7 @@ import Collapse from 'react-bootstrap/Collapse';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Accordion from 'react-bootstrap/Accordion';
 import InpageLoader from '../components/InpageLoader';
-
+import { useRouter } from "next/router";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,7 +35,7 @@ import Sidebar from '../components/Sidebar';
 import SearchAudioWave from '../components/SearchAudioWave';
 
 function Search(props) {
-
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
@@ -117,6 +117,19 @@ function Search(props) {
   useEffect(() => {
     
   }, [playlists]);
+
+  useEffect(() => {
+    if (allTracks.responseStatus == 422) {
+      window.localStorage.clear();
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [allTracks.error]);
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
