@@ -121,6 +121,7 @@ function Pricing() {
       setPlan(subscriptionPlans[2])
     }
     setStep(1)
+
   }
 
   const handleCommercialBack = (type) => {

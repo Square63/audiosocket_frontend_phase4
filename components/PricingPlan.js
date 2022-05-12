@@ -44,13 +44,12 @@ class Braintree extends React.Component {
   }
 
   async buy() {
-    debugger
     // Send the nonce to your server
     const { nonce } = await this.instance.requestPaymentMethod();
     await fetch(`server.test/purchase/${nonce}`);
   }
 
-  async purchase(e) {
+  async purchase() {
     try {
       // Send nonce to your server
       const { nonce } = await this.instance.tokenize()
