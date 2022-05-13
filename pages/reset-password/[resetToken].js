@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "../../redux/actions/authActions";
 import { useRouter } from "next/router";
 import { Router } from "react-router";
+import Notiflix from "notiflix";
 
 function ForgotPasswordModal({ showModal = false, onCloseModal }) {
   const dispatch = useDispatch();
