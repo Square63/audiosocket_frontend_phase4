@@ -28,7 +28,7 @@ const AuthProvider = (props) => {
 
   useEffect(() => {
     // if (!lineItems)
-      dispatch(getCart())
+      // dispatch(getCart())
   }, [cartCount])
 
   useEffect(() => {

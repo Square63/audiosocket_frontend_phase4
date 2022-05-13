@@ -142,13 +142,14 @@ function MyPlaylistTracks(props) {
   }
 
   const handleMoodColumn = (track, mood) => {
-    switch(mood) {
-
-      case "moods":   return track.moods.join(", ");
-      case "genres":   return track.genres.join(", ");
-      case "themes": return track.themes.join(", ");
-      case "instruments":  return track.instruments.join(", ");
-      default: return ""
+    if (track.mediable_type !== "Sfx") {
+      switch(mood) {
+        case "moods":   return track.mediable.moods.join(", ");
+        case "genres":   return track.mediable.genres.join(", ");
+        case "themes": return track.mediable.themes.join(", ");
+        case "instruments":  return track.mediable.instruments.join(", ");
+        default: return ""
+      }
     }
   }
 
@@ -272,7 +273,7 @@ function MyPlaylistTracks(props) {
                   ref={provided.innerRef}
                 >
                   {trackList.map((track,index)=> (
-                    <Draggable key={track.title} draggableId={track.title} index={index}>
+                    track.mediable_type == "Track" && <Draggable key={track.mediable.title} draggableId={track.mediable.title} index={index}>
                       {(provided) => (
                         <div
                           className=""
@@ -281,15 +282,15 @@ function MyPlaylistTracks(props) {
                           {...provided.draggableProps}
                         >
                           <div className="trackRow" key={index}>
-                            <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
+                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
                             <div className="rowParticipant duration">
-                              {convertSecToMin(track.duration)}
+                              {convertSecToMin(track.mediable.duration)}
                             </div>
                             <div className="rowParticipant mood">
                               {handleMoodColumn(track, moodColumn)}
                             </div>
                             <div className="rowParticipant BPM">
-                              {track.bpm}
+                              {track.mediable.bpm}
                             </div>
                             <div className="rowParticipant controls">
                             <OverlayTrigger overlay={<Tooltip>Remove From Playlist</Tooltip>}>
@@ -307,7 +308,7 @@ function MyPlaylistTracks(props) {
                                 </a>
                               </OverlayTrigger>
                               <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
-                                <a onClick={() => props.handleSimilarSearch(track.title, track.id)}>
+                                <a onClick={() => props.handleSimilarSearch(track.mediable.title, track.mediable.id)}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="26.536" height="26.536" viewBox="0 0 26.536 26.536">
                                     <g id="icon-like-tracks" transform="translate(0.5 0.5)">
                                       <path id="Path_1" data-name="Path 1" d="M310.243,311.623a10.621,10.621,0,1,0-10.621,10.62A10.623,10.623,0,0,0,310.243,311.623Z" transform="translate(-289 -301)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -321,7 +322,7 @@ function MyPlaylistTracks(props) {
                                 </a>
                               </OverlayTrigger>
                               <OverlayTrigger overlay={<Tooltip>Add to Favourites</Tooltip>}>
-                                <a onClick={(e) => props.handleAddToFavorites(e, track.id)} className={props.tracksMeta ? (props.tracksMeta.favorite_tracks_ids ? (props.tracksMeta.favorite_tracks_ids.includes(track.id) ? "controlActive" : "") : "") : ""}>
+                                <a onClick={(e) => props.handleAddToFavorites(e, track.mediable.id)} className={props.tracksMeta ? (props.tracksMeta.favorite_tracks_ids ? (props.tracksMeta.favorite_tracks_ids.includes(track.mediable.id) ? "controlActive" : "") : "") : ""}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
                                     <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">
                                       <path id="Shape_185" data-name="Shape 185" d="M181.253,573.9l-7.07-7.281a5.369,5.369,0,0,1-1.031-6.258h0a5.532,5.532,0,0,1,8.8-1.409l1.516,1.382,1.516-1.382a5.532,5.532,0,0,1,8.8,1.409h0a5.36,5.36,0,0,1,.182,4.452" transform="translate(-172.573 -557.365)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -442,7 +443,7 @@ function MyPlaylistTracks(props) {
                                 </Dropdown.Menu>
                               </Dropdown>
                             </div>
-                            {track.alternate_versions && track.alternate_versions.length > 0 &&
+                            {track.mediable.alternate_versions && track.mediable.alternate_versions.length > 0 &&
                               <>
                                 <div className="altVersions">
                                   <Accordion key={index + 1} >
@@ -457,7 +458,7 @@ function MyPlaylistTracks(props) {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey={index + 1}>
                                       <div id={"example-collapse-text" + index + 1} >
-                                        {track.alternate_versions.map((altVersion,index)=> {
+                                        {track.mediable.alternate_versions.map((altVersion,index)=> {
                                           return(<AltVersion key={index} altVersionTrack={altVersion}/>)
                                         })}
                                       </div>

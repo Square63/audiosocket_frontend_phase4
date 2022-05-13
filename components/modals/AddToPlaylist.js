@@ -35,9 +35,9 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
     playlists.map((playlist, index) =>
       {
         if (track) {
-          if (playlist.tracks.filter((option) => option.title === track.title).length > 0) {
-            setAddedTracks(addedTracks=>[...addedTracks, playlist.name])
-          }
+          // if (playlist.tracks.filter((option) => option.title === track.title).length > 0) {
+          //   setAddedTracks(addedTracks=>[...addedTracks, playlist.name])
+          // }
         }
       }
     )
@@ -77,16 +77,17 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
   };
   let options = [];
 
-  for(var i = 0; i < playlists.length; i++) {    
-    if (track) {
-      if (playlists[i].tracks.filter((option) => option.title === track.title).length == 0) {
-        let obj = {};
-        obj['value'] = playlists[i].id;
-        obj['label'] = playlists[i].name;
-        options.push(obj);
-      }
-    }
-  }
+  // for(var i = 0; i < playlists.length; i++) {    
+  //   if (track) {
+  //     debugger
+  //     if (playlists[i].tracks.filter((option) => option.title === track.title).length == 0) {
+  //       let obj = {};
+  //       obj['value'] = playlists[i].id;
+  //       obj['label'] = playlists[i].name;
+  //       options.push(obj);
+  //     }
+  //   }
+  // }
 
   // if (track) {
   //   options = [];

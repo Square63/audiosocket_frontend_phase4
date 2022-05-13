@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { getMyPlaylistDetail } from "../../../redux/actions/authActions";
+import { getMyPlaylistDetail, getMyPlaylistTracks } from "../../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, FormGroup, FormControl } from "react-bootstrap";
@@ -25,6 +25,7 @@ const Details = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const myPlaylistDetail = useSelector(state => state.user.my_playlist_detail);
+	const myPlaylistTracks = useSelector(state => state.user.my_playlist_tracks);
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 	const [showEditModal, setShowEditModal] = useState(false);
@@ -38,6 +39,7 @@ const Details = () => {
   useEffect(() => {
     if (query) {
       dispatch(getMyPlaylistDetail(query.id))
+	  	dispatch(getMyPlaylistTracks(query.id))
     }
   }, [showEditModal]);
 
@@ -46,6 +48,12 @@ const Details = () => {
       setIsLoading(false)
     }
   }, [myPlaylistDetail])
+
+	useEffect(() => {
+    if (myPlaylistTracks) {
+      setIsLoading(false)
+    }
+  }, [myPlaylistTracks])
 
 	const handleEditClose = (show) => {
     setShowEditModal(show)
@@ -69,7 +77,7 @@ const Details = () => {
 	function totalDuration(tracks) {
 		let duration = 0
 		tracks.map((track, index) =>
-			duration += track.duration
+			duration += track.mediable.duration
 		)
 		return convertSecToMin(duration)
 	}
@@ -162,7 +170,6 @@ const Details = () => {
   }
 
 	const handleDownloadZip = async (id) => {
-		debugger
     let url = `${BASE_URL}/api/v1/consumer/curated_playlists/58/playlist_tracks/download_zip?file_type=wav_file`
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
     const response = await fetch(url,
@@ -174,7 +181,6 @@ const Details = () => {
         method: "GET"
       });
     if(response.ok) {
-      debugger
       
     } else {
       
@@ -225,10 +231,10 @@ const Details = () => {
 										</div>
 										<div className={playlist.playlistStats}>
 											<div className={playlist.tracksCount}>
-											{myPlaylistDetail.tracks.length} Tracks
+											{myPlaylistDetail.media_count} Tracks
 											</div>
 											<div className={playlist.tracksDuration}>
-												Duration: <span>{totalDuration(myPlaylistDetail.tracks)}</span>
+												Duration: <span>{myPlaylistTracks && totalDuration(myPlaylistTracks)}</span>
 											</div>
 										</div>
 									</div>
@@ -269,7 +275,7 @@ const Details = () => {
 						</div>
 					</div>
 					<div className="fixed-container">
-						{myPlaylistDetail.tracks && myPlaylistDetail.tracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistDetail.tracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
+						{myPlaylistTracks && myPlaylistTracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
 					</div>
 					
 					<div className={playlist.artistTiles}>
@@ -314,7 +320,7 @@ const Details = () => {
 					{(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} />}
 					{myPlaylistDetail.tracks && myPlaylistDetail.tracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistDetail.tracks[index]} type="track"/> }
       		<DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-					<Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistDetail.tracks[index]}/>
+					{myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistTracks[index]}/>}
 				</div>
 
 				
