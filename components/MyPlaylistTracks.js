@@ -272,7 +272,7 @@ function MyPlaylistTracks(props) {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {trackList.map((track,index)=> (
+                  {props.tracks.map((track,index)=> (
                     track.mediable_type == "Track" && <Draggable key={track.mediable.title} draggableId={track.mediable.title} index={index}>
                       {(provided) => (
                         <div
@@ -294,7 +294,7 @@ function MyPlaylistTracks(props) {
                             </div>
                             <div className="rowParticipant controls">
                             <OverlayTrigger overlay={<Tooltip>Remove From Playlist</Tooltip>}>
-                                <a onClick={() => props.showTrackAddToPlaylistModal(index)}>
+                                <a onClick={() => props.removeTrackFromPlaylist(track.id)}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <g id="icon-trash" transform="translate(-278 -3294)">
                                       <path id="Shape_1765" data-name="Shape 1765" d="M299,3298.5l-1.812,17.209a2,2,0,0,1-1.988,1.791H284.8a2,2,0,0,1-1.989-1.791L281,3298.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
