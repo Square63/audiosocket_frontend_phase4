@@ -20,6 +20,7 @@ import { getFilters } from '../redux/actions/filterActions';
 import { getTracks } from '../redux/actions/trackActions';
 import { getMyPlaylists } from '../redux/actions/authActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
+import { getArtistTracks } from '../redux/actions/trackActions';
 import { addToFavorites } from '../redux/actions/trackActions';
 import { removeFromFavorites } from '../redux/actions/trackActions';
 import { getSegmentTracksFromAIMS } from '../redux/actions/trackActions';
@@ -110,12 +111,12 @@ function Search(props) {
   useEffect(() => {
     if (playlists === undefined) {
 
-      dispatch(getMyPlaylists(1))  
+      dispatch(getMyPlaylists(1))
     }
   }, [playlists]);
 
   useEffect(() => {
-    
+
   }, [playlists]);
 
   useEffect(() => {
@@ -317,6 +318,15 @@ function Search(props) {
     appliedFiltersList.push(trackName)
     setAppliedFiltersListWC([...appliedFiltersListWC, trackName]);
     dispatch(getTracksFromAIMS(trackId));
+  }
+
+  const handleTrackSearchOfArtist = (artistId, artistName) => {
+    setLoading(true)
+    hideAllFilterDiv()
+    document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+    appliedFiltersList.push(artistName)
+    setAppliedFiltersListWC([...appliedFiltersListWC, artistName]);
+    dispatch(getArtistTracks(artistId));
   }
 
   const handleAddToFavorites = (e, trackId) => {
@@ -711,7 +721,7 @@ function Search(props) {
                         labore wes anderson cred nesciunt sapiente ea proident.
                       </div>
                     </Collapse> */}
-                    
+
                     <Accordion>
                       <ul>
                         <li className='filterDropdown filterSelected'>
@@ -883,7 +893,7 @@ function Search(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+            <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} handleTrackSearchOfArtist={handleTrackSearchOfArtist}/>
         )}
       </div>
 
