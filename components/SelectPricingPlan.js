@@ -1,7 +1,39 @@
-import SelectPricingPlan from '../components/SelectPricingPlan'
+import { Button, Carousel, FormGroup, FormControl, Row, Col, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import Image from 'next/image';
+import Rob from '../images/Rob.jpg';
+import JJ from '../images/JJ.jpg';
+import Scott from '../images/Scott.png';
+import Joel from '../images/Joel.png';
+import Peter from '../images/Peter.jpg';
+import Kent from '../images/Kent.jpg';
+import Brenda from '../images/Brenda.jpg';
+import Zach from '../images/Zach.png';
+import Select from "react-select";
+import Link from "next/link";
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import Collapse from 'react-bootstrap/Collapse';
+import amazon from '../images/amazon.svg';
+import disnep from '../images/Disnep.svg';
+import hbo from '../images/HBO.svg';
+import mailchimp from '../images/mailchimp.svg';
+import nbc from '../images/NBC.svg';
+import netflix from '../images/netflix.svg';
+import vice from '../images/vice.svg';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import pricing from "../styles/Pricing.module.scss";
+import {useState, useEffect, useRef} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getSubscriptionPlans } from "../redux/actions/authActions";
+import PricingPlan from '../components/PricingPlan';
+import { TOAST_OPTIONS } from '../common/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Pricing() {
-<<<<<<< HEAD
+function SelectPricingPlan() {
   const dispatch = useDispatch();
   const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,7 +95,6 @@ function Pricing() {
 
   const handleSubscriptionType = (type) => {
     setSubscriptionType(type)
-    debugger
     if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
       setPlan(subscriptionPlans[5])
     }
@@ -125,7 +156,6 @@ function Pricing() {
   }
 
   const handleSetPlan = (e) => {
-    
   }
 
   return (
@@ -145,16 +175,6 @@ function Pricing() {
         />
         {/* Section Heading Code */}
         <div className={pricing.contentHeading}>
-          <a href="javascript:void(0)" className="backToHeaven">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-              <g id="icon-arrow-down" transform="translate(15.414 1.414) rotate(90)">
-                <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-              </g>
-            </svg>
-            <span>Back to Page</span>
-          </a>
           <h1>Standout in a sea of content with remarkable music!</h1>
           <p>Get unlimited music licensing with access to +80,000 songs and over 24,000 sound effects/sound design.</p>
         </div>
@@ -1148,9 +1168,6 @@ function Pricing() {
 
     </div>
   );
-=======
-  <SelectPricingPlan></SelectPricingPlan>
->>>>>>> feature/an/sign_up_pricing_plans
 }
 
-export default Pricing;
+export default SelectPricingPlan;
