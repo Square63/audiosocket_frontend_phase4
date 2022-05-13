@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../redux/actions/authActions";
-import { Router } from "react-router";
 import { useRouter } from "next/router";
 import Notiflix from "notiflix";
 
@@ -17,18 +16,19 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
-  const router = useRouter();
-  const confirmation_modal = useSelector( state => state.auth.forgot_password)
+  const confirmationModal = useSelector( state => state.auth.forgot_password)
 
   useEffect(() => {
-    if (confirmation_modal) {
+    if ((confirmationModal == true) && (email.length > 0)) {
       Notiflix.Report.success( 'Success', `Password reset link sent to ${email}!`, 'Ok', () => {
-        router.push('/login')
+        window.location = '/login'
       } );
-    } else if (confirmation_modal == false) {
-      Notiflix.Report.failure( 'Invalid user', `User "${email}" doesn't exist, please enter a valid email address.`, 'Ok' );
+    } else if ((confirmationModal == false) && (email.length > 0)) {
+      Notiflix.Report.failure( 'Invalid user', `User "${email}" doesn't exist, please enter a valid email address.`, 'Ok', () => {
+        window.location.reload();
+      } );
     }
-  }, [confirmation_modal])
+  }, [confirmationModal])
 
   const handleSubmit = async (e) => {
     const data = new FormData(form.current);
