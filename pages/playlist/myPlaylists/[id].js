@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { getMyPlaylistDetail, getMyPlaylistTracks } from "../../../redux/actions/authActions";
+import { getMyPlaylistDetail, getMyPlaylistTracks, getMyPlaylistArtists, removeFromPlaylist } from "../../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, FormGroup, FormControl } from "react-bootstrap";
@@ -26,6 +26,7 @@ const Details = () => {
   const { query } = useRouter();
   const myPlaylistDetail = useSelector(state => state.user.my_playlist_detail);
 	const myPlaylistTracks = useSelector(state => state.user.my_playlist_tracks);
+	const myPlaylistArtists = useSelector(state => state.user.my_playlist_artists);
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 	const [showEditModal, setShowEditModal] = useState(false);
@@ -40,6 +41,7 @@ const Details = () => {
     if (query) {
       dispatch(getMyPlaylistDetail(query.id))
 	  	dispatch(getMyPlaylistTracks(query.id))
+			dispatch(getMyPlaylistArtists(query.id))
     }
   }, [showEditModal]);
 
@@ -51,9 +53,16 @@ const Details = () => {
 
 	useEffect(() => {
     if (myPlaylistTracks) {
+			debugger
       setIsLoading(false)
     }
   }, [myPlaylistTracks])
+
+	useEffect(() => {
+    if (myPlaylistArtists) {
+      setIsLoading(false)
+    }
+  }, [myPlaylistArtists])
 
 	const handleEditClose = (show) => {
     setShowEditModal(show)
@@ -188,6 +197,10 @@ const Details = () => {
     
   }
 
+	const removeTrackFromPlaylist = (trackId) => {
+    dispatch(removeFromPlaylist(query.id, trackId))
+  }
+
   return (
 		<>
 		{isLoading ? (
@@ -212,26 +225,26 @@ const Details = () => {
 							<div className="fixed-container">
 								<Breadcrumb>
 									<Breadcrumb.Item href="#">My Playlists</Breadcrumb.Item>
-									<Breadcrumb.Item active>{myPlaylistDetail.name}</Breadcrumb.Item>
+									<Breadcrumb.Item active>{myPlaylistDetail && myPlaylistDetail.name}</Breadcrumb.Item>
 								</Breadcrumb>
 							</div>
 						</div>
 						<div className={playlist.playlistInfo}>
 							<div className={playlist.playlistCard}>
 								<div className={playlist.imgSec}>
-								{myPlaylistDetail.playlist_image && <Image src={myPlaylistDetail.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+								{myPlaylistDetail && myPlaylistDetail.playlist_image && <Image src={myPlaylistDetail.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
 								</div>
 								<div className={playlist.contentSec}>
 									<div className={playlist.aboutPlaylist}>
 										<div className={playlist.playlistOwner}>
-											<div className={playlist.PlaylistName}>{myPlaylistDetail.name}</div>
+											<div className={playlist.PlaylistName}>{myPlaylistDetail && myPlaylistDetail.name}</div>
 											<div className={playlist.createdBy}>
 												Created by: <span>Audiosocket</span>
 											</div>
 										</div>
 										<div className={playlist.playlistStats}>
 											<div className={playlist.tracksCount}>
-											{myPlaylistDetail.media_count} Tracks
+											{myPlaylistDetail && myPlaylistDetail.media_count} Tracks
 											</div>
 											<div className={playlist.tracksDuration}>
 												Duration: <span>{myPlaylistTracks && totalDuration(myPlaylistTracks)}</span>
@@ -275,7 +288,7 @@ const Details = () => {
 						</div>
 					</div>
 					<div className="fixed-container">
-						{myPlaylistTracks && myPlaylistTracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
+						{myPlaylistTracks && myPlaylistTracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist}/>}
 					</div>
 					
 					<div className={playlist.artistTiles}>
@@ -283,42 +296,20 @@ const Details = () => {
 							<h3>Artists On This Playlist</h3>
 							<section className={playlist.myPlaylists}>
 								<div className="tilesWrapper">
-									<a href="javascript:void(0)" className="tileOverlay">
-										<Image src={mood1} alt="Mood" className="tilesImg"></Image>
-										<span className="tileOverlayText">
-											The Kelseys
-										</span>
-									</a>
-									<a href="javascript:void(0)" className="tileOverlay">
-										<Image src={mood2} alt="Mood" className="tilesImg"></Image>
-										<span className="tileOverlayText">
-											Mark Ulrich
-										</span>
-									</a>
-									<a href="javascript:void(0)" className="tileOverlay">
-										<Image src={mood3} alt="Mood" className="tilesImg"></Image>
-										<span className="tileOverlayText">
-											Justin G. Marcellus
-										</span>
-									</a>
-									<a href="javascript:void(0)" className="tileOverlay">
-										<Image src={mood4} alt="Mood" className="tilesImg"></Image>
-										<span className="tileOverlayText">
-											Michael Ayers
-										</span>
-									</a>
-									<a href="javascript:void(0)" className="tileOverlay">
-										<Image src={Sample1} alt="Mood" className="tilesImg"></Image>
-										<span className="tileOverlayText">
-											justin abady
-										</span>
-									</a>
+									{myPlaylistArtists && myPlaylistArtists.map((artist, index) =>
+										<a key={index} href="javascript:void(0)" className="tileOverlay">
+											<Image src={index > 0 ? mood1 : mood2 } alt="Mood" className="tilesImg"></Image>
+											<span className="tileOverlayText">
+												{artist.first_name + ' ' + artist.last_name}
+											</span>
+										</a>
+									)}
 								</div>
 							</section>
 						</div>
 					</div>
 					{(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} />}
-					{myPlaylistDetail.tracks && myPlaylistDetail.tracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistDetail.tracks[index]} type="track"/> }
+					{myPlaylistDetail && myPlaylistDetail.tracks && myPlaylistDetail.tracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistDetail.tracks[index]} type="track"/> }
       		<DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
 					{myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistTracks[index]}/>}
 				</div>

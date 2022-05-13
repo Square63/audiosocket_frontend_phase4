@@ -10,7 +10,7 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          MY_PLAYLISTS_FAIL, GET_FORGOT_PASSWORD_SUCCESS, GET_FORGOT_PASSWORD_FAIL, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAIL,
          CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL, EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL,
          MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS, SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL,
-         MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL } from "../constants/authConstants";
+         MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL, REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -527,6 +527,43 @@ export const getMyPlaylistTracks = (data) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: MY_PLAYLIST_TRACKS_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const getMyPlaylistArtists = (data) => async (dispatch) => {
+  let id = data;
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/api/v1/consumer/consumers_playlists/${id}/playlist_artists`
+    );
+    dispatch({
+      type: MY_PLAYLIST_ARTISTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: MY_PLAYLIST_ARTISTS_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const removeFromPlaylist = (pId, tId) => async (dispatch) => {
+  let playlistId = pId;
+  let trackId = tId;
+  try {
+    const { data } = await axios.delete(
+      `${BASE_URL}/api/v1/consumer/consumers_playlists/${playlistId}/playlist_tracks/${trackId}?klass=consumer_playlist`
+    );
+    dispatch({
+      type: REMOVE_FROM_PLAYLIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: REMOVE_FROM_PLAYLIST_FAIL,
       payload: error,
     });
   }
