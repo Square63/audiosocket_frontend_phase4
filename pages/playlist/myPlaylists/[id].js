@@ -20,6 +20,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import DownloadTrack from '../../../components/modals/DownloadTrack'
 import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicense'
 import Sidebar from '../../../components/Sidebar'
+import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,6 @@ const Details = () => {
 
 	useEffect(() => {
     if (myPlaylistTracks) {
-			debugger
       setIsLoading(false)
     }
   }, [myPlaylistTracks])
@@ -125,6 +125,7 @@ const Details = () => {
   }
 
 	function showDownloadModal(index) {
+    debugger
     if (localStorage.getItem("user")) {
       if (index > 9) {
         setIndex(index + 10)
@@ -159,7 +160,7 @@ const Details = () => {
       else {
         setIndex(index)
       }
-      setShowAddToCartLicenseModal(true)
+      // setShowAddToCartLicenseModal(true)
       setShowSidebar(true)
       setSidebarType("cart")
     }
@@ -199,6 +200,11 @@ const Details = () => {
 
 	const removeTrackFromPlaylist = (trackId) => {
     dispatch(removeFromPlaylist(query.id, trackId))
+  }
+
+  function addTrackToCartLicenseModalSidebar(index) {
+    setShowSidebar(false)
+    setShowAddToCartLicenseModal(true)
   }
 
   return (
@@ -288,7 +294,7 @@ const Details = () => {
 						</div>
 					</div>
 					<div className="fixed-container">
-						{myPlaylistTracks && myPlaylistTracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist}/>}
+						{myPlaylistTracks && myPlaylistTracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
 					</div>
 					
 					<div className={playlist.artistTiles}>
@@ -309,9 +315,10 @@ const Details = () => {
 						</div>
 					</div>
 					{(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} />}
-					{myPlaylistDetail && myPlaylistDetail.tracks && myPlaylistDetail.tracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistDetail.tracks[index]} type="track"/> }
+					{myPlaylistDetail && myPlaylistTracks && myPlaylistTracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistTracks[index]} type="track"/> }
       		<DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-					{myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistTracks[index]}/>}
+					{myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
+          {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={myPlaylistTracks[index]} />}
 				</div>
 
 				

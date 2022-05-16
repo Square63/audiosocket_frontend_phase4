@@ -46,7 +46,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
   }
 
   const handleDownload = async (track, type) => {
-    let url = type == "track" ? `${BASE_URL}/api/v1/consumer/tracks/${track.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/4/add_download_sfx`
+    let url = type == "track" ? track.mediable ? `${BASE_URL}/api/v1/consumer/tracks/${track.mediable.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/4/add_download_sfx` : ""
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
     const response = await fetch(url,
       {
@@ -58,8 +58,8 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
       });
     if(response.ok) {
       const link = document.createElement("a");
-      link.href = track.mp3_file;
-      link.download = track.title;
+      link.href = track.mediable ? track.mediable.mp3_file : track.mp3_file;
+      link.download = track.mediable ? track.mediable.title : track.title;
       link.click();
     } else {
       
@@ -77,10 +77,10 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
         <Modal.Title >
           <h2 className="modalName">Download Track</h2>
           <p className="modalTrackName">
-            {track ? track.title : ""}
+            {track ? track.mediable ? track.mediable.title : track.title : ""}
           </p>
           <p className="modalTrackArtist">
-            {track ? track.composer : ""}
+            {track ? track.mediable ? track.mediable.composer : track.composer : ""}
           </p>
         </Modal.Title>
       </Modal.Header>
@@ -90,10 +90,10 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
           <ul className="modalTrackRow">
             <li>
               <span className="versionType">Full Track</span>
-              <span className="versionDuration">{track ? convertSecToMin(track.duration) : "0:0"}</span>
+              <span className="versionDuration">{track ? track.mediable ? convertSecToMin(track.mediable.duration) : convertSecToMin(track.duration) : "0:0"}</span>
               <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type)}>
                 <strong>MP3</strong>
-                <span className="versionDuration">({track ? (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                <span className="versionDuration">({track ? track.mediable ? (track.mediable.file_size/(1024*1024)).toFixed(2) : (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
               </a>
             </li>
             { track ? track?.alternate_versions?.map(function(item, i)
