@@ -13,7 +13,8 @@ import {
   REMOVE_FROM_FAVOURITES_FAILURE,
   ALL_SFXES_SUCCESS,
   ALL_SFXES_FAILURE,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  ARTIST_TRACKS_SUCCESS
 } from '../constants/trackConstants';
 
 export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
@@ -95,13 +96,10 @@ export const getArtistTracks = (artistId) => async (dispatch) => {
   try {
     const { data } = await axios.request({
       method: "get",
-      url: "api/v1/consumer/artist_tracks",
-      data: {
-        artist_id: artistId
-      }
+      url: `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/artist_tracks?id=${artistId}`
     })
     dispatch({
-      type: ALL_TRACKS_SUCCESS,
+      type: ARTIST_TRACKS_SUCCESS,
       payload: data
     })
   } catch (error) {

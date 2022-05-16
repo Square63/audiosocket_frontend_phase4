@@ -57,12 +57,11 @@ function Tracks(props) {
     return () => {
       isMounted = false;
     };
-
   },[props.tracks])
 
   const fetchData = () => {
     let query = document.getElementById("searchField").value
-    if (query === "" && props.appliedFiltersList.length == 0) {
+    if (query === "") {
       dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length/10 + 1)));
       // setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(true)

@@ -296,13 +296,17 @@ function Search(props) {
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
-  function hideAllFilterDiv() {
+  function startLoaderAndHideDiv() {
     setLoading(true)
     localStorage.removeItem("genre")
     localStorage.removeItem("vocal")
     $(".filterSelf").removeClass("activeFilter");
     document.getElementById("filtersList").innerHTML = "";
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
+  }
+
+  function hideAllFilterDiv() {
+    startLoaderAndHideDiv()
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
@@ -311,7 +315,6 @@ function Search(props) {
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
-    setLoading(true)
     hideAllFilterDiv()
     console.log("Track NAme", trackName)
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
@@ -321,8 +324,7 @@ function Search(props) {
   }
 
   const handleTrackSearchOfArtist = (artistId, artistName) => {
-    setLoading(true)
-    hideAllFilterDiv()
+    startLoaderAndHideDiv()
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(artistName)
     setAppliedFiltersListWC([...appliedFiltersListWC, artistName]);
