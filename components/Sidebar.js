@@ -230,7 +230,7 @@ function Sidebar(props) {
             </a>
             <div className="trackDesc">
               <h3 className="trackName">{props.track ? props.track.title : ""}</h3>
-              <p className="artistName">Lucy Bland</p>
+              <p className="artistName">{props.track ? props.track.artist_name : ""}</p>
             </div>
           </div>
 					{/* <ToastContainer

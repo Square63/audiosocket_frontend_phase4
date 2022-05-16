@@ -1,5 +1,4 @@
 import Alert from 'react-bootstrap/Alert';
-import UploadTrack from "../components/modals/UploadTrack";
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
 // import AddToCartLicense from "../components/modals/AddToCartLicense";
@@ -33,7 +32,7 @@ function Sfx(props) {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [showChilderDiv, setShowChilderDiv] = useState(false);
   const [lastChildFilters, setLastChildFilters] = useState([]);
   const [appliedFiltersList, setAppliedFiltersList] = useState([]);
@@ -144,10 +143,6 @@ function Sfx(props) {
 
   const handleLoading = () => {
     setLoading(true)
-  }
-
-  const handleClose = (show) => {
-    setShowModal(show)
   }
 
   function showDownloadModal(index) {
@@ -598,16 +593,7 @@ function Sfx(props) {
               </g>
             </svg>
           </Form>
-          <a href="javascript:void(0)" className="btn btnMainXlarge" onClick={() => setShowModal(true)}>
-            <span>Upload a Track</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="17.465" height="16.526" viewBox="0 0 17.465 16.526">
-              <g id="icon-upload" transform="translate(16.965 0.5) rotate(90)">
-                <path id="Shape_111" data-name="Shape 111" d="M8.775,3.221V.716A.7.7,0,0,0,8.1,0H.675A.7.7,0,0,0,0,.716V15.749a.7.7,0,0,0,.675.716H8.1a.7.7,0,0,0,.675-.716V13.244" fill="none" stroke="#1a1c1d" strokLinecap="round" strokeWidth="1"/>
-                <path id="Shape_112" data-name="Shape 112" d="M0,0H12.826" transform="translate(2.7 8.233)" fill="none" stroke="#1a1c1d" strokLinecap="round" strokeWidth="1"/>
-                <path id="Shape_113" data-name="Shape 113" d="M3.375,0,0,3.579,3.375,7.159" transform="translate(2.7 4.653)" fill="none" stroke="#1a1c1d" strokLinecap="round" strokeWidth="1"/>
-              </g>
-            </svg>
-          </a>
+          
         </div>
         <div className="filterBar brandWall">
           {filterItems}
@@ -664,7 +650,6 @@ function Sfx(props) {
           <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />
         </div>
       </div> */}
-      <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
