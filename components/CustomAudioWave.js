@@ -127,6 +127,7 @@ export default function CustomAudioWave(props) {
       return minutes+':'+parseInt(seconds)
     }
   }
+
   return (
     !props.footer ?
       (<>
@@ -151,8 +152,8 @@ export default function CustomAudioWave(props) {
 
             </div>
             <div className="songArtist">
-              <a href="">
-                Justin G. Marcellus Abady
+              <a href="javascript:void(0)" onClick={() => props.handleTrackSearchOfArtist(props.track.artist_id, props.track.artist_name)}>
+                {props.track.artist_name}
               </a>
             </div>
           </div>

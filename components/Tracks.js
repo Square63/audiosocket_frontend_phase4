@@ -57,12 +57,11 @@ function Tracks(props) {
     return () => {
       isMounted = false;
     };
-
   },[props.tracks])
 
   const fetchData = () => {
     let query = document.getElementById("searchField").value
-    if (query === "" && props.appliedFiltersList.length == 0) {
+    if (query === "") {
       dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length/10 + 1)));
       // setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(true)
@@ -259,7 +258,7 @@ function Tracks(props) {
         >
           {tracks && tracks.map((track,index)=> {
             return(<div className="trackRow" key={index}>
-              <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
+              <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} footer={false} footerPlaying={false}/>
               <div className="rowParticipant duration">
                 {convertSecToMin(track.duration)}
               </div>

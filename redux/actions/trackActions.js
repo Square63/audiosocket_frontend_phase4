@@ -13,7 +13,8 @@ import {
   REMOVE_FROM_FAVOURITES_FAILURE,
   ALL_SFXES_SUCCESS,
   ALL_SFXES_FAILURE,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  ARTIST_TRACKS_SUCCESS
 } from '../constants/trackConstants';
 
 export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
@@ -88,6 +89,24 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
         payload: error
       })
     }
+  }
+}
+
+export const getArtistTracks = (artistId) => async (dispatch) => {
+  try {
+    const { data } = await axios.request({
+      method: "get",
+      url: `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/artist_tracks?id=${artistId}`
+    })
+    dispatch({
+      type: ARTIST_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: ALL_TRACKS_FAILURE,
+      payload: error
+    })
   }
 }
 
@@ -171,7 +190,6 @@ export const removeFromFavorites = (trackId) => async (dispatch) => {
 };
 
 export const getSfxes = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
-  debugger
   let url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`
 
   if (explicit === false && exclude_vocals === true){
