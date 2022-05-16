@@ -17,7 +17,17 @@ function SelectPlan() {
     //   router.push('/signup');
     // }
   }, []);
-  
+
+  const [activeStep, setActiveStep] = useState(false);
+
+  function handleSteps(step) {
+    if (step == 3) {
+      setActiveStep(true);
+    } else {
+      setActiveStep(false);
+    }
+  }
+
   return(
     <div className={signup.stepWrapper+" "+signup.stepTwoWrapper}>
       <div className="fixed-container">
@@ -31,17 +41,17 @@ function SelectPlan() {
                 <li>
                   <span>1</span>Create Account
                 </li>
-                <li className={signup.active}>
+                <li className={activeStep ? "" : signup.active }>
                   <span>2</span>Select Plan
                 </li>
-                <li>
+                <li className={activeStep ? signup.active : ""}>
                   <span>3</span>Setup Payment
                 </li>
               </ul>
             </div>
           </div>
 
-          <SelectPricingPlan></SelectPricingPlan>
+          <SelectPricingPlan data={handleSteps}></SelectPricingPlan>
         </div>
       </div>
     </div>
