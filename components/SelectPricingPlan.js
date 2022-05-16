@@ -32,9 +32,11 @@ import PricingPlan from '../components/PricingPlan';
 import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/router";
 
 function SelectPricingPlan(props) {
   const dispatch = useDispatch();
+  const { query } = useRouter();
   const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -72,7 +74,19 @@ function SelectPricingPlan(props) {
   const [typeOfUseError, setTypeOfUseError] = useState(false);
 
   useEffect(() => {
-
+    if (query.personal) {
+      setPlanType("Personal")
+    }
+    else if (query.commercial) {
+      setPlanType("Commercial")
+      setWebRights("Web Only")
+      setEmployeeNo("Under 100 Emplyees")
+    }
+    else if (query.enterprise) {
+      setPlanType("Commercial")
+      setWebRights("Expanded Rights")
+      setEmployeeNo("Over 100 Emplyees")
+    }
   }, [step]);
 
   const handlePlan = (type) => {

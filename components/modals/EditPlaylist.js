@@ -1,29 +1,30 @@
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import { FileUploader } from "react-drag-drop-files";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Image from "next/image";
-import Loader from "../../images/loader.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { getTracksFromAIMS } from '../../redux/actions/trackActions';
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../common/api";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/router";
+import { removeFromPlaylist } from "../../redux/actions/authActions";
 
-import { TOAST_OPTIONS } from '../../common/api';
 import playlist from "../../styles/Playlist.module.scss";
 
-function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylistDetail}) {
-	debugger
+function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylistDetail, myPlaylistTracks}) { 
   const dispatch = useDispatch();
+  const { query } = useRouter();  
   const formNewPlaylist = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState(null);
 
   const fileTypes = ["JPG", "PNG", "GIF", "SVG", "JPEG"];
+
+  useEffect(() => {
+    debugger
+  }, [myPlaylistTracks])
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,38 +68,38 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
 
 	const handleRemoveTrack = async (e, trackId) => {
     e.preventDefault();
-    const newPlaylistForm = e.currentTarget;
-    const data = new FormData(formNewPlaylist.current);
-		data.append('playlist_tracks_attributes[][id]', trackId)
-    setIsLoading(true);
-    let url = `${BASE_URL}/api/v1/consumer/consumers_playlists/${myPlaylistDetail.id}`;
-    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
-    const URL = url;
-		await axios.request({
-			headers: {
-				"Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
-				"auth-token": userAuthToken
-			},
-			method: "patch",
-			url: URL,
-			data: data,
+    dispatch(removeFromPlaylist(query.id, trackId))
+    // const newPlaylistForm = e.currentTarget;
+    // const data = new FormData(formNewPlaylist.current);
+		// data.append('playlist_tracks_attributes[][id]', trackId)
+    // setIsLoading(true);
+    // let url = `${BASE_URL}/api/v1/consumer/consumers_playlists/${myPlaylistDetail.id}`;
+    // const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
+    // const URL = url;
+		// await axios.request({
+		// 	headers: {
+		// 		"Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+		// 		"auth-token": userAuthToken
+		// 	},
+		// 	method: "patch",
+		// 	url: URL,
+		// 	data: data,
 			
-		}).then (response => {
-			if (!response.status === 200) {
-				onCloseModal(false);
-				setValidated(false);
-				setIsLoading(false);
-				setFile(null);
-				toast.error("Error while updating playlist.");
-			} else {
-				debugger
-				// onCloseModal(false);
-				setValidated(false);
-				setIsLoading(false);
-				setFile(null);
-				toast.success('Track removed successfully.');
-			}
-		})
+		// }).then (response => {
+		// 	if (!response.status === 200) {
+		// 		onCloseModal(false);
+		// 		setValidated(false);
+		// 		setIsLoading(false);
+		// 		setFile(null);
+		// 		toast.error("Error while updating playlist.");
+		// 	} else {
+		// 		// onCloseModal(false);
+		// 		setValidated(false);
+		// 		setIsLoading(false);
+		// 		setFile(null);
+		// 		toast.success('Track removed successfully.');
+		// 	}
+		// })
   }
 
   const handleClose = () => {
@@ -128,7 +129,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
   //   dispatch(removeTrackFromPlaylist(consumerPlaylistId, removedPlaylistId));
   // }
 
-	const items = myPlaylistDetail.tracks.map((playlistTrack, index) =>
+	const items = myPlaylistTracks.map((playlistTrack, index) =>
     <li key={index}>
 			
       <a href="javascript:void(0)">
@@ -139,7 +140,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
 						<path id="Oval_14" data-name="Oval 14" d="M439,347.25a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,439,347.25Z" transform="translate(843.5 564.5) rotate(90)" fill="#6e7377"/>
 					</g>
 				</svg>
-				<span className={playlist.songTitle}>{playlistTrack.title}</span>
+				<span className={playlist.songTitle}>{playlistTrack.mediable.title}</span>
 			</a>
       <svg xmlns="http://www.w3.org/2000/svg" width="14.744" height="14.744" viewBox="0 0 14.744 14.744" onClick={(e) => handleRemoveTrack(e, playlistTrack.id)}>
         <g id="icon-trash" transform="translate(0.5 0.5)">

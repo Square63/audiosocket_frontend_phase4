@@ -277,6 +277,7 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         success: false,
       };
     case REMOVE_FROM_PLAYLIST_SUCCESS:
+      debugger
       return {
         ...state,
         my_playlist_tracks: action.payload,

@@ -709,7 +709,17 @@ export default function Home(props) {
                         Perfect if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.
                       </p>
                       <div className="PlanBtnContainer">
-                        <a href="" className="btn btnMainLarge">Learn More</a>
+                      <Link
+                        href={{
+                          pathname: "pricing",
+                          query: {
+                              personal: true,
+                          }
+                        }}
+                      >
+                      <a className="btn btnMainLarge">Learn More</a>
+                    </Link>
+                        
                       </div>
                     </div>
 
@@ -723,7 +733,16 @@ export default function Home(props) {
                         Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
                       </p>
                       <div className="PlanBtnContainer">
-                        <a href="" className="btn btnMainLarge">Learn More</a>
+                        <Link
+                          href={{
+                            pathname: "pricing",
+                            query: {
+                                commercial: true,
+                            }
+                          }}
+                        >
+                          <a className="btn btnMainLarge">Learn More</a>
+                        </Link>
                       </div>
                     </div>
 
@@ -736,7 +755,16 @@ export default function Home(props) {
                         Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
                       </p>
                       <div className="PlanBtnContainer">
-                        <a href="" className="btn btnMainLarge">Request a custom quote</a>
+                        <Link
+                          href={{
+                            pathname: "pricing",
+                            query: {
+                                enterprise: true,
+                            }
+                          }}
+                        >
+                          <a className="btn btnMainLarge">Request a custom quote</a>
+                        </Link>
                       </div>
                     </div>
 
