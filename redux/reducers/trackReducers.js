@@ -7,12 +7,19 @@ import {
   REMOVE_FROM_FAVOURITES_FAILURE,
   ALL_SFXES_SUCCESS,
   ALL_SFXES_FAILURE,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  ARTIST_TRACKS_SUCCESS
 } from '../constants/trackConstants';
 
 export const allTracksReducer = (state= {tracks: []}, action) => {
   switch (action.type) {
     case ALL_TRACKS_SUCCESS:
+      return {
+        tracksCount: 7,
+        resPerPage: 1,
+        tracks: [action.payload]
+      }
+    case ARTIST_TRACKS_SUCCESS:
       return {
         tracksCount: 7,
         resPerPage: 1,
