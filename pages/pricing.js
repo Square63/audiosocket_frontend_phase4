@@ -1,7 +1,9 @@
 import SelectPricingPlan from '../components/SelectPricingPlan'
 
 function Pricing() {
-  <SelectPricingPlan></SelectPricingPlan>
+  return (
+    <SelectPricingPlan></SelectPricingPlan>
+  )
 }
 
 export default Pricing;
