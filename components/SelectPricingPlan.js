@@ -184,10 +184,12 @@ function SelectPricingPlan(props) {
   }
 
   useEffect(() => {
-    if (subscriptionType != "") {
-      props.data(3);
-    } else {
-      props.data(2);
+    if (props.data !== undefined) {
+      if (subscriptionType != "") {
+        props.data(3);
+      } else {
+        props.data(2);
+      }
     }
   }, [subscriptionType]);
 
