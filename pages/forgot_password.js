@@ -53,10 +53,6 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
     }
   };
 
-  const backToLogin = () => {
-    router.push('/login');
-  };
-
   const handleClose = () => {
     setValidated(false);
     setIsLoading(false);
@@ -112,7 +108,9 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
                       <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
                     </g>
                   </svg>
-                  <span onClick={() => {backToLogin()}}>Back to Login</span>
+                  <Link href="#">
+                    <a onClick={() => {router.push('/login')}}>Back to Login</a>
+                  </Link>
                 </a>
               </div>
               <Button
