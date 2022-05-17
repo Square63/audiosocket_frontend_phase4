@@ -41,7 +41,7 @@ export default function CustomAudioWave(props) {
     if (wavesurfer.current == null)
       create();
     if (playing || props.footerPlaying) {
-      setTimeout(() => setSeconds(seconds ? (seconds -1) : (props.track.duration - 1)), 1000);
+      setTimeout(() => setSeconds(seconds ? (seconds -1) : (props.track ? (props.track.duration - 1) : (props.altVersionTrack.duration - 1))), 1000);
     } else {
       setSeconds(seconds);
     }
