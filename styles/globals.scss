@@ -2219,6 +2219,7 @@ hr {
 
 .tilesWrapper {
   @include flexbox;
+  @include justify-content(center);
   @include align-items(center);
   flex-wrap: wrap;
   gap: 30px;
