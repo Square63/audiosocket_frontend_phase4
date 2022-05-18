@@ -103,20 +103,7 @@ class Braintree extends React.Component {
       );
     } else {
       return (
-
         <div className="container">
-          <ToastContainer
-            position="top-center"
-            autoClose={10000}
-            hideProgressBar
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            style={{ width: "auto" }}
-          />
           <BraintreeHostedFields
             className="drop-in-container"
             options={{
