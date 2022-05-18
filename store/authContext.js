@@ -44,13 +44,19 @@ const AuthProvider = (props) => {
   }, [lineItem])
 
   useEffect(() => {
-    if (lineItems && Array.isArray(lineItems))
+    if (lineItems && Array.isArray(lineItems)){
       setCartCount(lineItems.length)
-      setTotalPrice(lineItems?.length)
+      let price = 0;
+      lineItems.map((item) => {
+        price += item.license.price
+      })
+      setTotalPrice(price)
+    }
   }, [lineItems])
 
-  const handleAddToCart = (itemableId, itemableType) => {
-    dispatch(addToCart(itemableId, itemableType))
+  const handleAddToCart = (itemableId, itemableType, mediableLicenseId) => {
+    debugger
+    dispatch(addToCart(itemableId, itemableType, mediableLicenseId))
   }
 
   return (

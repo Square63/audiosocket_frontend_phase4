@@ -24,6 +24,7 @@ import { getArtistTracks } from '../redux/actions/trackActions';
 import { addToFavorites } from '../redux/actions/trackActions';
 import { removeFromFavorites } from '../redux/actions/trackActions';
 import { getSegmentTracksFromAIMS } from '../redux/actions/trackActions';
+import { attachToMedia } from '../redux/actions/trackActions';
 
 
 import $ from 'jquery';
@@ -120,7 +121,9 @@ function Search(props) {
   }, [playlists]);
 
   useEffect(() => {
-    if (allTracks.responseStatus == 422) {
+    if (allTracks.errorMessage && allTracks.errorMessage.includes("Validation failed")){
+      toast.error(allTracks?.errorMessage, TOAST_OPTIONS);
+    } else if (allTracks.responseStatus == 422) {
       window.localStorage.clear();
       document.cookie.split(";").forEach(function (c) {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
@@ -199,7 +202,6 @@ function Search(props) {
   }
 
   function showAddTrackToCartLicenseModal(index) {
-    debugger
     if (localStorage.getItem("user")) {
       if (index > 9) {
         setIndex(index + 10)
@@ -470,6 +472,13 @@ function Search(props) {
 
   const handleSidebarHide = () => {
     setShowSidebar(false)
+  }
+
+  const handleLicenseClick = (e, trackId, licenseId) => {
+    if (licenseId) {
+      e.preventDefault()
+      dispatch(attachToMedia(trackId, licenseId));
+    }
   }
 
   const filterItems = filters.map((filter, index) =>
@@ -913,7 +922,7 @@ function Search(props) {
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} />
+      <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} handleLicenseClick={handleLicenseClick} />
       {playlists && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> }
       <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>
 
