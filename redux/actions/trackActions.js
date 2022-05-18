@@ -18,7 +18,11 @@ import {
   ALL_LICENSES_SUCCESS,
   ALL_LICENSES_FAILURE,
   ATTACH_TO_MEDIA_SUCCESS,
-  ATTACH_TO_MEDIA_FAILURE
+  ATTACH_TO_MEDIA_FAILURE,
+  FOLLOW_ARTIST_SUCCESS,
+  FOLLOW_ARTIST_FAILURE,
+  UNFOLLOW_ARTIST_SUCCESS,
+  UNFOLLOW_ARTIST_FAILURE
 } from '../constants/trackConstants';
 
 export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
@@ -160,6 +164,50 @@ export const addToFavorites = (trackId) => async (dispatch) => {
   } catch (error) {
       dispatch({
         type: ADD_TO_FAVOURITES_FAILURE,
+        payload: error
+      })
+  }
+};
+
+export const followArtist = (artistId) => async (dispatch) => {
+  const formData = new FormData();
+  formData.append('id', artistId)
+  formData.append('klass', "artist")
+  try {
+    const {data} = await axios.request({
+      method: "post",
+      url: `${BASE_URL}/api/v1/consumer/favorites_following/follow`,
+      data: formData
+    })
+    dispatch({
+      type: FOLLOW_ARTIST_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+      dispatch({
+        type: FOLLOW_ARTIST_FAILURE,
+        payload: error
+      })
+  }
+};
+
+export const unFollowArtist = (artistId) => async (dispatch) => {
+  const formData = new FormData();
+  formData.append('id', artistId)
+  formData.append('klass', "artist")
+  try {
+    const {data} = await axios.request({
+      method: "post",
+      url: `${BASE_URL}/api/v1/consumer/favorites_following/unfollow`,
+      data: formData
+    })
+    dispatch({
+      type: UNFOLLOW_ARTIST_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+      dispatch({
+        type: UNFOLLOW_ARTIST_FAILURE,
         payload: error
       })
   }

@@ -12,7 +12,11 @@ import {
   ALL_LICENSES_SUCCESS,
   ALL_LICENSES_FAILURE,
   ATTACH_TO_MEDIA_SUCCESS,
-  ATTACH_TO_MEDIA_FAILURE
+  ATTACH_TO_MEDIA_FAILURE,
+  FOLLOW_ARTIST_SUCCESS,
+  FOLLOW_ARTIST_FAILURE,
+  UNFOLLOW_ARTIST_SUCCESS,
+  UNFOLLOW_ARTIST_FAILURE
 } from '../constants/trackConstants';
 
 export const allTracksReducer = (state= {tracks: []}, action) => {
@@ -74,7 +78,6 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
         responseStatus: action.payload.response.status
       }
     case ALL_LICENSES_SUCCESS:
-
       return {
         ...state,
         licenses: action.payload.licenses
@@ -96,6 +99,30 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
         errorMessage: action.payload.response.data.message
       }
 
+    case FOLLOW_ARTIST_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        message: action.payload.status
+      }
+    case FOLLOW_ARTIST_FAILURE:
+      return {
+        ...state,
+        success: false,
+        message: action.payload.response.data.message
+      }
+    case UNFOLLOW_ARTIST_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        message: action.payload.status
+      }
+    case UNFOLLOW_ARTIST_FAILURE:
+      return {
+        ...state,
+        success: false,
+        message: action.payload.response.data.message
+      }
     default:
         return state;
   }
