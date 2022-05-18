@@ -289,12 +289,12 @@ export const getFavoriteTracks = () => async (dispatch) => {
   }
 };
 
-export const addToCart = (itemableId, itemableType, mediableLicenseId) => async (dispatch) => {
+export const addToCart = (itemableId, itemableType, mediaLicenseId) => async (dispatch) => {
   const formData = new FormData();
   formData.append("itemable_id", itemableId);
   formData.append("itemable_type", itemableType);
   formData.append("work_title", "itemableType");
-  formData.append("mediable_license_id", mediableLicenseId);
+  formData.append("media_license_id", mediaLicenseId);
   try {
     const { data } = await axios.request({
       method: "post",
