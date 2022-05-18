@@ -104,7 +104,7 @@ function AddToCartLicense({ showModal = false, onCloseModal, track}) {
             <div className="licensePriceOption">
               <Form className="newThemeRadio roundShape">
                 {['radio'].map((type) => (
-                  <div>
+                  <div key='inline'>
                     {licenses && licenses.map(license =>
                       <Form.Check
                         key={license.id}
