@@ -56,14 +56,12 @@ function AddToCartLicense({ showModal = false, onCloseModal, track}) {
         url: (`${BASE_URL}/api/v1/consumer/licenses/${selectedLicense}/attach_to_media?&mediable_type=Track&mediable_id=${track.id}`)
 
       }).then(response => {
-        debugger
         if (!response.status === 200) {
           onCloseModal(false);
           toast.error("Error while selcting license.");
         } else {
           onCloseModal(true);
           toast.success('License has been Taken.');
-          debugger
           authContext.handleAddToCart(response.data.mediable.id, response.data.mediable_type, response.data.id);
         }
       }).catch(error => {

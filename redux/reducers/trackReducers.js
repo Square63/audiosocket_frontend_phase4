@@ -85,13 +85,11 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
         responseStatus: action.payload.response.status
       }
     case ATTACH_TO_MEDIA_SUCCESS:
-      debugger
       return {
         ...state,
         licenses112: action.payload.licenses
       }
     case ATTACH_TO_MEDIA_FAILURE:
-      debugger
       return {
         error: action.payload.response,
         responseStatus: action.payload.response.status,

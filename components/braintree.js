@@ -9,6 +9,7 @@ import cardServices from '../images/cardServices.svg';
 import InpageLoader from './InpageLoader';
 import {AuthContext} from "../store/authContext";
 import router from "next/router";
+import { toast } from 'react-toastify';
 
 
 class Braintree extends React.Component {
@@ -38,7 +39,6 @@ class Braintree extends React.Component {
     const data = await response.json();
 
     const clientToken = data.token
-    debugger
     this.setState({
       clientToken: clientToken,
       invoice: data.invoice,
@@ -58,11 +58,11 @@ class Braintree extends React.Component {
       // Send nonce to your server
       const context = this.context;
       const { nonce } = await this.instance.tokenize()
-      let price =  context.totalCartPrice;
+      let transaction_amount =  context.totalCartPrice;
       let discount_id = 'OTTDD';
       const authToken = JSON.parse(localStorage.getItem("user") ?? "");
       const response = await axios.post(
-        this.state.redirectUrl, { nonce, price, discount_id },
+        this.state.redirectUrl, { nonce, transaction_amount, discount_id },
         {
           headers: {
             'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
@@ -70,13 +70,19 @@ class Braintree extends React.Component {
           }
         }
       )
-      console.log(response)
+      if (!response.status === 200) {
+        toast.error(response.data.message);
+      } else {
+        toast.success(response.data.message);
+        this.sendToHomePage();
+      }
     } catch (err) {
-      console.error(err)
+      toast.error('Error in payment process.');
     }
   }
 
   sendToHomePage() {
+    this.context.resetCartCount()
     router.push('/');
   }
 
@@ -97,7 +103,20 @@ class Braintree extends React.Component {
       );
     } else {
       return (
+
         <div className="container">
+          <ToastContainer
+            position="top-center"
+            autoClose={10000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            style={{ width: "auto" }}
+          />
           <BraintreeHostedFields
             className="drop-in-container"
             options={{

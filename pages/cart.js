@@ -54,7 +54,6 @@ function Cart() {
   }
 
   function handleCheckoutClick() {
-    debugger
     setShowBrainTree(true);
   }
 

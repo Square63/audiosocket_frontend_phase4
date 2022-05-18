@@ -54,9 +54,12 @@ const AuthProvider = (props) => {
     }
   }, [lineItems])
 
-  const handleAddToCart = (itemableId, itemableType, mediableLicenseId) => {
-    debugger
-    dispatch(addToCart(itemableId, itemableType, mediableLicenseId))
+  const handleAddToCart = (itemableId, itemableType, mediaLicenseId) => {
+    dispatch(addToCart(itemableId, itemableType, mediaLicenseId))
+  }
+
+  const resetCartCount = () => {
+    setCartCount(0)
   }
 
   return (
@@ -65,6 +68,7 @@ const AuthProvider = (props) => {
         authState: authState,
         authActions: actions,
         handleAddToCart: handleAddToCart,
+        resetCartCount: resetCartCount,
         cartCount: cartCount,
         totalCartPrice: totalPrice
       }}
