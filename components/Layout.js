@@ -23,7 +23,7 @@ function Layout({children}) {
       isMounted = false;
     };
   },[]);
-  
+
 
   useEffect(() => {
     if(localStorage.getItem('user')) {
@@ -79,7 +79,7 @@ function Layout({children}) {
           <Footer/>
         </AuthProvider>
       )}
-      
+
     </>
   )
 }
