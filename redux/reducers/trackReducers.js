@@ -8,7 +8,11 @@ import {
   ALL_SFXES_SUCCESS,
   ALL_SFXES_FAILURE,
   CLEAR_ERRORS,
-  ARTIST_TRACKS_SUCCESS
+  ARTIST_TRACKS_SUCCESS,
+  ALL_LICENSES_SUCCESS,
+  ALL_LICENSES_FAILURE,
+  ATTACH_TO_MEDIA_SUCCESS,
+  ATTACH_TO_MEDIA_FAILURE
 } from '../constants/trackConstants';
 
 export const allTracksReducer = (state= {tracks: []}, action) => {
@@ -68,6 +72,28 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
       return {
         error: action.payload.response,
         responseStatus: action.payload.response.status
+      }
+    case ALL_LICENSES_SUCCESS:
+
+      return {
+        ...state,
+        licenses: action.payload.licenses
+      }
+    case ALL_LICENSES_FAILURE:
+      return {
+        error: action.payload.response,
+        responseStatus: action.payload.response.status
+      }
+    case ATTACH_TO_MEDIA_SUCCESS:
+      return {
+        ...state,
+        licenses112: action.payload.licenses
+      }
+    case ATTACH_TO_MEDIA_FAILURE:
+      return {
+        error: action.payload.response,
+        responseStatus: action.payload.response.status,
+        errorMessage: action.payload.response.data.message
       }
 
     default:

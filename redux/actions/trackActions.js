@@ -14,7 +14,11 @@ import {
   ALL_SFXES_SUCCESS,
   ALL_SFXES_FAILURE,
   CLEAR_ERRORS,
-  ARTIST_TRACKS_SUCCESS
+  ARTIST_TRACKS_SUCCESS,
+  ALL_LICENSES_SUCCESS,
+  ALL_LICENSES_FAILURE,
+  ATTACH_TO_MEDIA_SUCCESS,
+  ATTACH_TO_MEDIA_FAILURE
 } from '../constants/trackConstants';
 
 export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
@@ -228,4 +232,40 @@ export const clearErrors = () => async(dispatch) => {
   dispatch({
     type: CLEAR_ERRORS
   })
+}
+
+export const getLicenses = () => async (dispatch) => {
+  try {
+    const { data } = await axios.request({
+      method: "get",
+      url: `${BASE_URL}/api/v1/consumer/licenses`,
+    })
+    dispatch({
+      type: ALL_LICENSES_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: ALL_LICENSES_FAILURE,
+      payload: error
+    })
+  }
+}
+
+export const attachToMedia = (trackId, licenseId) => async (dispatch) => {
+  let license_id = licenseId
+  let mediable_type = "Track"
+  let mediable_id = trackId
+  try{
+    const { data } = await axios.post(`${BASE_URL}/api/v1/consumer/licenses/3/attach_to_media`, { license_id, mediable_type, mediable_id })
+    dispatch({
+      type: ATTACH_TO_MEDIA_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: ATTACH_TO_MEDIA_FAILURE,
+      payload: error
+    })
+  }
 }
