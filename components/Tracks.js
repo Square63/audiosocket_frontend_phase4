@@ -7,7 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from "react-redux";
-import { getTracks } from '../redux/actions/trackActions';
+import { getTracks, followArtist, unFollowArtist } from '../redux/actions/trackActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
@@ -38,6 +38,7 @@ function Tracks(props) {
   const [hasMore, sethasMore] = useState(true)
   const [moodColumn, setMoodColumn] = useState("moods")
   const authContext = useContext(AuthContext)
+  const [followedArtists, setFollowedArtists] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
@@ -58,6 +59,10 @@ function Tracks(props) {
       isMounted = false;
     };
   },[props.tracks])
+
+  useEffect(() => {
+    setFollowedArtists(props.tracksMeta.followed_artist_ids);
+  },[props.tracksMeta.followed_artist_ids])
 
   const fetchData = () => {
     let query = document.getElementById("searchField").value
@@ -160,6 +165,17 @@ function Tracks(props) {
       handleDropdownSorting("featured", "DESC")
     else
       handleDropdownSorting("featured", "ASC")
+  }
+
+  const handleFollowArtist = (track) => {
+    dispatch(followArtist(track.artist_id));
+    setFollowedArtists(followedArtists=> [...followedArtists, track.artist_id])
+  }
+
+  const handleUnfollowArtist = (track) => {
+    dispatch(unFollowArtist(track.artist_id));
+    followedArtists.splice(followedArtists.indexOf(track.artist_id), 1)
+    setFollowedArtists(followedArtists)
   }
 
   return (
@@ -405,7 +421,8 @@ function Tracks(props) {
                       </svg>
                       <span>Share</span>
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/action-1">
+                    { ((localStorage?.getItem('user')) && (followedArtists?.includes(track.artist_id))) ?
+                    (<Dropdown.Item>
                       <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
                         <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
                           <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
@@ -419,8 +436,24 @@ function Tracks(props) {
                           </g>
                         </g>
                       </svg>
-                      <span>Follow Artist</span>
-                    </Dropdown.Item>
+                      <span onClick={() => {handleUnfollowArtist(track)}}>Unfollow Artist</span>
+                    </Dropdown.Item>) : (localStorage?.getItem('user')) ?
+                    (<Dropdown.Item>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
+                        <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                          <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                            <g id="Group" transform="translate(173.415 84.471)">
+                              <g id="social-profile-avatar">
+                                <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              </g>
+                            </g>
+                            <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          </g>
+                        </g>
+                      </svg>
+                      <span onClick={() => {handleFollowArtist(track)}}>Follow Artist</span>
+                    </Dropdown.Item>) : ""}
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
