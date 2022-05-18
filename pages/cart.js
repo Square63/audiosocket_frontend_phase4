@@ -117,7 +117,7 @@ function Cart() {
                       {cartLineItems[index].license.name}
                     </div>
                     <div className="rowParticipant price">
-                      {cartLineItems[index].license.price}
+                      ${cartLineItems[index].license.price}
                     </div>
                     <div className="rowParticipant controls">
                     <OverlayTrigger overlay={<Tooltip>Edit</Tooltip>}>
