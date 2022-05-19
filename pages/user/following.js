@@ -77,8 +77,8 @@ function Following() {
               <h2>Followed Artists</h2>
             </div>
             <div className="tilesWrapper">
-              {followedArtists?.length > 0 && followedArtists.map((followedArtist, index) =>
-                <a key={index} href="javascript:void(0)" className="tileOverlay">
+              {followedArtists?.users?.length > 0 && followedArtists.users.map((followedArtist, index) =>
+                <a key={index} className="tileOverlay">
                   {followedArtist.image ? <Image src={followedArtist.image} alt="Mood" className="tilesImg"></Image> : ""}
                   <span className="tileOverlayText">{followedArtist.first_name + ' ' + followedArtist.last_name}</span>
                 </a>

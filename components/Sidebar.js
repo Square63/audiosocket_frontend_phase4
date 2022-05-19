@@ -16,7 +16,7 @@ import {useRouter} from "next/router";
 import { getSubscriptionPlans } from "../redux/actions/authActions";
 
 function Sidebar(props) {
-	
+
 
 	const [showSignup, setShowSignup] = useState(false)
 	const [step, setStep] = useState(0);
@@ -53,7 +53,7 @@ function Sidebar(props) {
 	useEffect(() => {
     if(loggedInUser.error) {
       toast.error(loggedInUser.error.message, TOAST_OPTIONS);
-    } else if(Object.keys(loggedInUser.user).length) {
+    } else if (loggedInUser.user && Object.keys(loggedInUser.user).length) {
       localStorage.setItem("user", JSON.stringify(loggedInUser.user));
       localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
       localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
@@ -175,19 +175,19 @@ function Sidebar(props) {
 
 	const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    
+
     setConfirmPasswordError(false);
     const signupForm = e.currentTarget;
     const data = new FormData(form.current);
     if(data.get('password') !== data.get('confirm_password')) {
       setConfirmPasswordError(true);
-      
+
     }
     if (signupForm.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
       setValidated(true);
-      
+
     } else {
       let authData = {
 				email: data.get("email"),
@@ -216,11 +216,11 @@ function Sidebar(props) {
 	const handleSelectContentType = (target) => {
     setContentType(target.value);
   }
-   
-  
+
+
   return (
     <div>
-			
+
       <div className={props.showSidebar ? "sidebarBackdrop active" : "sidebarBackdrop" } onClick={() => props.handleSidebarHide()}></div>
       <div className={props.showSidebar ? "offcanvas offcanvas-end show" : "offcanvas offcanvas-end" } id="offcanvasRight">
 				<div className="offcanvasHeader">
@@ -277,7 +277,7 @@ function Sidebar(props) {
 														</Form.Control.Feedback>
 														</Form.Group>
 													</Col>
-				
+
 													<Col sm={6} xs={12}>
 														<Form.Group className="mb-4">
 														<Form.Control required name="last_name" type="text" placeholder="Last Name" />
@@ -306,7 +306,7 @@ function Sidebar(props) {
 														</Form.Control.Feedback>
 														</Form.Group>
 													</Col>
-				
+
 													<Col sm={6} xs={12}>
 														<Form.Group className="mb-4">
 														<Form.Control className={confirmPasswordError ? "confirm_password invalid" : "confirm_password"} name="confirm_password" type="password" placeholder="Confirm Password" onChange={handleConfirmPassword} />
@@ -356,7 +356,7 @@ function Sidebar(props) {
 											</div>
 										</div>
 									</div>
-								} 
+								}
 
 								{/* Sign In Form */}
 								{ !showSignup &&
@@ -374,7 +374,7 @@ function Sidebar(props) {
 																A valid email address is required!
 															</Form.Control.Feedback>
 														</Form.Group>
-														
+
 													</Col>
 												</Row>
 												<Row className="halfGutters">
@@ -421,20 +421,20 @@ function Sidebar(props) {
 										</div>
 									</div>
 								}
-								
+
 							</>
 					}
 
 					{
 						props.sidebarType == "cart" &&
-							
+
 							<>
 								<div className={pricing.sideBarPlansWrapper+' '+pricing.pricingWrapper}>
 									<h2 className="offcanvasHeading">License track</h2>
 									<div className={pricing.plansContent}>
 										{/* Breadcrumb Code */}
 										{
-											(planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) && 
+											(planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) &&
 											<div className="themeBreadcrumb inPricingWay">
 												<Breadcrumb>
 													<Breadcrumb.Item href="#" active={planType == "Commercial" && webRights == "" ? true : false} onClick={() => handlePlan(planType)}>{planType}</Breadcrumb.Item>
@@ -443,22 +443,22 @@ function Sidebar(props) {
 												</Breadcrumb>
 											</div>
 										}
-										
+
 										{/* Plan types Code */}
-										{planType !== "Personal" && employeeNo == "" && 
+										{planType !== "Personal" && employeeNo == "" &&
 											<div className={pricing.planTypes}>
 												<div className={pricing.pricingLeftSec}>
 												{
-													planType == "" ? 
-													<p>What type of content are you creating?</p> : 
-													planType != "Personal" && employeeNo == "" && webRights == "Web Only" ? 
+													planType == "" ?
 													<p>What type of content are you creating?</p> :
-													planType != "Personal" && employeeNo == "" && webRights == "" ?  
+													planType != "Personal" && employeeNo == "" && webRights == "Web Only" ?
+													<p>What type of content are you creating?</p> :
+													planType != "Personal" && employeeNo == "" && webRights == "" ?
 													<p>What type of content are you creating?</p> :
 													""
 												}
 												</div>
-											
+
 												<div className={pricing.pricingRightSec}>
 													<ul className={pricing.plansList}>
 													{
@@ -598,7 +598,7 @@ function Sidebar(props) {
 															</div>
 														</div>
 													</div>
-									
+
 													<div className={pricing.pricingRightSec}>
 														<div className={pricing.planBillingWrapper}>
 															<div className={pricing.planWrapperHeading}>
@@ -656,7 +656,7 @@ function Sidebar(props) {
 													</Button>
 												</div>
 											</div>
-											
+
 										}
 
 										{ (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType =="") &&
@@ -686,7 +686,7 @@ function Sidebar(props) {
 															</div>
 														</div>
 													</div>
-									
+
 													<div className={pricing.pricingRightSec}>
 														<div className={pricing.planBillingWrapper}>
 															<div className={pricing.planWrapperHeading}>
@@ -751,7 +751,7 @@ function Sidebar(props) {
 							</>
 					}
 
-          
+
         </div>
       </div>
 

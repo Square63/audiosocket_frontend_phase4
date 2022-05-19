@@ -289,11 +289,12 @@ export const getFavoriteTracks = () => async (dispatch) => {
   }
 };
 
-export const addToCart = (itemableId, itemableType) => async (dispatch) => {
+export const addToCart = (itemableId, itemableType, mediaLicenseId) => async (dispatch) => {
   const formData = new FormData();
   formData.append("itemable_id", itemableId);
   formData.append("itemable_type", itemableType);
   formData.append("work_title", "itemableType");
+  formData.append("media_license_id", mediaLicenseId);
   try {
     const { data } = await axios.request({
       method: "post",
@@ -328,6 +329,23 @@ export const getCart = () => async (dispatch) => {
 };
 
 export const removeCartItem = (itemableId) => async (dispatch) => {
+  try {
+    const { data } = await axios.delete(
+      `${BASE_URL}/api/v1/consumer/line_items/${itemableId}`
+    );
+    dispatch({
+      type: GET_CART_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_CART_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const checkout = (totalPrice) => async (dispatch) => {
   try {
     const { data } = await axios.delete(
       `${BASE_URL}/api/v1/consumer/line_items/${itemableId}`

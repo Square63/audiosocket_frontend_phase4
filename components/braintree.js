@@ -6,8 +6,10 @@ import signup from "../styles/Signup.module.scss";
 import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
 import cardServices from '../images/cardServices.svg';
-import InpageLoader from '../components/InpageLoader';
+import InpageLoader from './InpageLoader';
 import {AuthContext} from "../store/authContext";
+import router from "next/router";
+import { toast } from 'react-toastify';
 
 
 class Braintree extends React.Component {
@@ -17,7 +19,9 @@ class Braintree extends React.Component {
 
   state = {
     clientToken: null,
-    redirectUrl: null
+    invoice: null,
+    redirectUrl: null,
+    error: null
   };
 
   async componentDidMount() {
@@ -25,8 +29,7 @@ class Braintree extends React.Component {
     const context = this.context;
     console.log("TOTAL PRICE", context.totalCartPrice)
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
-
-    let url  = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/new`
+    let url = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/new?transaction_amount=${this.props.transactionAmount}`
     const response = await fetch(url, {
       headers: {
         'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
@@ -34,10 +37,13 @@ class Braintree extends React.Component {
       }
     });
     const data = await response.json();
+
     const clientToken = data.token
     this.setState({
       clientToken: clientToken,
-      redirectUrl: data.redirect_url 
+      invoice: data.invoice,
+      redirectUrl: data.redirect_url,
+      error: data.error
     });
   }
 
@@ -52,11 +58,11 @@ class Braintree extends React.Component {
       // Send nonce to your server
       const context = this.context;
       const { nonce } = await this.instance.tokenize()
-      let price =  context.totalCartPrice;
-      let discount_id = 'OTTDD';      
+      let transaction_amount =  context.totalCartPrice;
+      let discount_id = 'OTTDD';
       const authToken = JSON.parse(localStorage.getItem("user") ?? "");
       const response = await axios.post(
-        this.state.redirectUrl, { nonce, price, discount_id },
+        this.state.redirectUrl, { nonce, transaction_amount, discount_id },
         {
           headers: {
             'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
@@ -64,18 +70,35 @@ class Braintree extends React.Component {
           }
         }
       )
-      debugger
-      console.log(response)
+      if (!response.status === 200) {
+        toast.error(response.data.message);
+      } else {
+        toast.success(response.data.message);
+        this.sendToHomePage();
+      }
     } catch (err) {
-      console.error(err)
+      toast.error('Error in payment process.');
     }
   }
 
+  sendToHomePage() {
+    this.context.resetCartCount()
+    router.push('/');
+  }
+
   render() {
-    if (!this.state.clientToken) {
+    if (this.state.error == "Cart is not present"){
+      return this.sendToHomePage()
+    } else if (this.state.invoice) {
       return (
         <div>
-          <InpageLoader/>
+          <a href={this.state.invoice} target="_blank" rel="noreferrer" onClick={this.sendToHomePage()}>View Invoice</a>
+        </div>
+      );
+    } else if (!this.state.clientToken){
+      return (
+        <div>
+          <InpageLoader />
         </div>
       );
     } else {
@@ -91,7 +114,7 @@ class Braintree extends React.Component {
           <div className={signup.stepWrapper+" "+signup.stepThreeWrapper}>
             <div className="fixed-container">
               <div className={signup.signUpInner}>
-                
+
                 <div className={signup.signupBodyWrapper}>
                   <div className="boxWithShadow">
                     <div className="boxHeading">
