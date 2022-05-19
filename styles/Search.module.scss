@@ -84,3 +84,57 @@
   text-align: left;
   color: $heading-clr;
 }
+
+
+@media #{$phone-landscape} {
+  .searchWrapper {
+    .searchUploadStuff {
+      margin-bottom: 18px;
+      :global(.stickySearch) {
+        text-align: right;
+        :global(.form-control) {
+          height: 57px;
+          padding-inline: 15px;
+          background-color: #fafafa;
+          border-color: $nav-link;
+          &:focus {
+            box-shadow: none;
+          }
+        }
+        :global(.stickyBtn) {
+          position: relative;
+          top: initial;
+          height: 34px;
+          margin-top: 15px;
+        }
+        svg {
+          display: none;
+        }
+      }
+      a {
+        display: none;
+      }
+    }
+    .tracksWrapper {
+      margin-top: 0;
+      .tracksHeading {
+        @include flex-direction(column-reverse);
+        @include align-items(flex-start);
+        gap: 30px;
+        h2 {
+          font-size: 22px;
+        }
+        .tracksSorting {
+          :global(.react-select-container) {
+            width: 218px;
+            :global(.react-select__control) {
+              min-height: 38px;
+              padding-inline: 18px;
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
