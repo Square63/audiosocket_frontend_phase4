@@ -92,7 +92,7 @@ class Braintree extends React.Component {
     } else if (this.state.invoice) {
       return (
         <div>
-          <a href={this.state.invoice} target="_blank" rel="noreferrer" onClick={this.sendToHomePage()}>View Invoice</a>
+          <a href={this.state.invoice} target="_blank" rel="noreferrer" onClick={() => {this.sendToHomePage()}}>View Invoice</a>
         </div>
       );
     } else if (!this.state.clientToken){

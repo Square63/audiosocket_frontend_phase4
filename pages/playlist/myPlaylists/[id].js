@@ -17,10 +17,12 @@ import Sample1 from '../../../images/sample1.jpeg';
 import EditPlaylist from "../../../components/modals/EditPlaylist";
 import { duration } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
+import { TOAST_OPTIONS } from '../../../common/api';
 import DownloadTrack from '../../../components/modals/DownloadTrack'
 import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicense'
 import Sidebar from '../../../components/Sidebar'
 import AddToCartLicense from "../../../components/modals/AddToCartLicense";
+import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -37,6 +39,7 @@ const Details = () => {
 	const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
 	const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
+  const favoritesMessage = useSelector( state => state.allTracks)
 
   useEffect(() => {
     if (query) {
@@ -54,6 +57,7 @@ const Details = () => {
 
 	useEffect(() => {
     if (myPlaylistTracks) {
+      setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
       setIsLoading(false)
     }
   }, [myPlaylistTracks])
@@ -63,6 +67,14 @@ const Details = () => {
       setIsLoading(false)
     }
   }, [myPlaylistArtists])
+
+  useEffect(() => {
+    if(!favoritesMessage?.success) {
+      toast.error(favoritesMessage.message, TOAST_OPTIONS);
+    } else {
+      toast.success(favoritesMessage.message, TOAST_OPTIONS);
+    }
+  }, [favoritesMessage])
 
 	const handleEditClose = (show) => {
     setShowEditModal(show)
@@ -85,7 +97,7 @@ const Details = () => {
 
 	function totalDuration(tracks) {
 		let duration = 0
-		tracks.map((track, index) =>
+		tracks.playlist_tracks.map((track, index) =>
 			duration += track.mediable.duration
 		)
 		return convertSecToMin(duration)
@@ -105,7 +117,7 @@ const Details = () => {
 
   const handleAddToFavorites = (e, trackId) => {
     if (localStorage.getItem("user")) {
-      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_tracks_ids.includes(trackId)) {
+      if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
         e.target.closest("a").classList.add("controlActive")
         dispatch(addToFavorites(trackId));
@@ -294,7 +306,7 @@ const Details = () => {
 						</div>
 					</div>
 					<div className="fixed-container">
-						{myPlaylistTracks && myPlaylistTracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
+						{myPlaylistTracks && myPlaylistTracks.playlist_tracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
 					</div>
 					
 					<div className={playlist.artistTiles}>
