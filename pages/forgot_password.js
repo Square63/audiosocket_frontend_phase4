@@ -53,10 +53,6 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
     }
   };
 
-  const backToLogin = () => {
-    router.push('/login');
-  };
-
   const handleClose = () => {
     setValidated(false);
     setIsLoading(false);

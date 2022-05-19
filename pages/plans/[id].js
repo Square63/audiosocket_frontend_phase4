@@ -67,6 +67,7 @@ class Braintree extends React.Component {
       )
       console.log(response)
       toast.success(response.data.message)
+      localStorage.setItem("has_subscription", true);
       window.location.href = "/search"
     } catch (err) {
       console.error(err)
