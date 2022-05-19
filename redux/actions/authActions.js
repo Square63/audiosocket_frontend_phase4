@@ -295,7 +295,7 @@ export const addToCart = (itemableId, itemableType, mediaLicenseId) => async (di
   formData.append("itemable_id", itemableId);
   formData.append("itemable_type", itemableType);
   formData.append("work_title", "itemableType");
-  formData.append("media_license_id", mediaLicenseId);
+  mediaLicenseId.length > 0 && formData.append("media_license_id", mediaLicenseId);
   try {
     const { data } = await axios.request({
       method: "post",
@@ -454,9 +454,10 @@ export const getSubscriptionPlans = () => async (dispatch) => {
 
 }
 
-export const getCuratedPlaylists = (query, page) => async( dispatch ) => {
+export const getCuratedPlaylists = (query, filters, page) => async( dispatch ) => {
+  debugger
   try {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/curated_playlists?query=${query}&page=${page}`);
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/curated_playlists?query=${query}&filters=${filters}&page=${page}`);
     dispatch({
       type: CURATED_PLAYLISTS_SUCCESS,
       payload: data

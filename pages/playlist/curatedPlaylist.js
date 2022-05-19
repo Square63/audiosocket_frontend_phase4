@@ -61,6 +61,7 @@ function CuratedPlaylist() {
   const [searchValue, setSearchValue] = useState("");
   const [pageNum, setPageNum] = useState(1);
   const [paginatedPlaylists, setPaginatedPlaylists] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -82,7 +83,7 @@ function CuratedPlaylist() {
   }, [responseStatus]);
 
   useEffect(() => {
-    dispatch(getCuratedPlaylists(searchValue, pageNum))
+    dispatch(getCuratedPlaylists(searchValue, [], pageNum))
   }, [pageNum]);
 
   useEffect(() => {
@@ -106,13 +107,26 @@ function CuratedPlaylist() {
   console.log("Curated Playlists", playlists)
 
   const handleSearch = (e) => {
+    let filterArray = []
+    filterArray.push(selectedFilter)
     setPaginatedPlaylists([])
     setPageNum(1)
-    dispatch(getCuratedPlaylists(searchValue, pageNum))
+    dispatch(getCuratedPlaylists(searchValue, filterArray, pageNum))
   }
 
   const handlePageNum = (e) => {
     setPageNum(pageNum + 1)
+  }
+
+  const handleAddFilter = (filterName) => {
+    let filterArray = []
+    setSelectedFilter(filterName)
+    filterArray.push(filterName)
+    dispatch(getCuratedPlaylists(searchValue, filterArray, pageNum))
+  }
+
+  const handleClearSingleFilter = async() => {
+
   }
 
   const filterItems = filters && filters.length > 0 && filters.map((filter, index) =>
@@ -125,18 +139,9 @@ function CuratedPlaylist() {
         {filter.sub_filters.length > 0 && filter.sub_filters.map((sub_filter, index) =>
 
 
-          <div className="filterSelf" key={index}>
-            <Dropdown.Item href="#">{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
-            <span className="filterControl addFilter">
-              <svg width="10.005" height="10" viewBox="0 0 10.005 10">
-                <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                  <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                  <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                </g>
-              </svg>
-            </span>
-
-            <span className="filterControl discardFilter">
+          <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
+            <Dropdown.Item href="#" onClick={()=> handleAddFilter(sub_filter.name)}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+            <span className={selectedFilter == sub_filter.name ? "filterControl discardFilter" : "filterControl discardFilter disabled" } onClick={handleClearSingleFilter}>
               <svg width="10" height="10" viewBox="0 0 10 10">
                 <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
                   <circle cx="5" cy="5" r="5" stroke="none"/>

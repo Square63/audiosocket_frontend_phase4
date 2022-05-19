@@ -5,7 +5,7 @@ import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
 import AddToCartLicense from "../components/modals/AddToCartLicense";
 import AddToPlaylist from "../components/modals/AddToPlaylist";
 import CustomAudioWave from "../components/CustomAudioWave";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, Card, DropdownButton, CloseButton } from "react-bootstrap";
 import Collapse from 'react-bootstrap/Collapse';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -25,6 +25,7 @@ import { addToFavorites } from '../redux/actions/trackActions';
 import { removeFromFavorites } from '../redux/actions/trackActions';
 import { getSegmentTracksFromAIMS } from '../redux/actions/trackActions';
 import { attachToMedia } from '../redux/actions/trackActions';
+import {AuthContext} from "../store/authContext";
 
 
 import $ from 'jquery';
@@ -62,6 +63,7 @@ function Search(props) {
   const [sidebarType, setSidebarType] = useState("")
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
+  const authContext = useContext(AuthContext);
 
   // const message = useSelector(state => state.allPlaylists);
 
@@ -209,9 +211,14 @@ function Search(props) {
       else {
         setIndex(index)
       }
-      // setShowAddToCartLicenseModal(true)
-      setShowSidebar(true)
-      setSidebarType("cart")
+      if (typeof(localStorage.getItem("has_subscription")) !== undefined)
+      if (JSON.parse(localStorage.getItem("has_subscription"))) {
+        authContext.handleAddToCart(updatedTracks[index].id, "Track", "");
+      } else {
+        setShowSidebar(true)
+        setSidebarType("cart")
+      }
+      
     }
     else {
       // alert("You must be logged in to be able to add a track to cart.")

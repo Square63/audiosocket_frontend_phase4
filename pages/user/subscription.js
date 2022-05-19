@@ -56,6 +56,7 @@ function Subscription() {
       )
 
       toast.success(response.data.message)
+      localStorage.setItem("has_subscription", false);
       setUserCurrentPlan(null)
       console.log(response)
     } catch (err) {
