@@ -49,10 +49,10 @@ const images = [
 ];
 
 const breakPoints = [
-  { width: 1, itemsToShow: 2, pagination: true },
+  { width: 1, itemsToShow: 1, pagination: false },
   { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
-  { width: 750, itemsToShow: 3, itemsToScroll: 2, pagination: false },
-  { width: 1100, itemsToShow: 4, itemsToScroll: 2, pagination: false },
+  { width: 768, itemsToShow: 3, itemsToScroll: 2, pagination: false },
+  { width: 1100, itemsToShow: 4, itemsToScroll: 2, pagination: false }
 
 ];
 
@@ -158,7 +158,7 @@ function CuratedPlaylist() {
       isLoading ? (
         <InpageLoader />
       ) : (
-        <div className={playlist.playlistWrapper}>
+        <div className={playlist.playlistWrapper+' '+playlist.curatedPlaylist }>
           <h1>Curated playlists</h1>
           <div className={playlist.filterSearch}>
             <div className="filterBar">

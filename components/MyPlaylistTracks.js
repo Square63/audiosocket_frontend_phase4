@@ -222,7 +222,7 @@ function MyPlaylistTracks(props) {
               <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
             </span>
           </div>
-          <div className="rowParticipant mood controls">
+          <div className="rowParticipant mood">
             <Dropdown alignLeft>
               <Dropdown.Toggle variant="" id="headerMood">
                 Mood

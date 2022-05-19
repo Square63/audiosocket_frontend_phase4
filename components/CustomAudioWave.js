@@ -151,11 +151,11 @@ export default function CustomAudioWave(props) {
               }
 
             </div>
-            <div className="songArtist">
+            {props.track.artist_name && <div className="songArtist">
               <a href="javascript:void(0)" onClick={() => props.handleTrackSearchOfArtist(props.track.artist_id, props.track.artist_name)}>
                 {props.track.artist_name}
               </a>
-            </div>
+            </div>}
           </div>
         </div>
         <div className="rowParticipant audioWave">

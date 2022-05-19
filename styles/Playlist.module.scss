@@ -97,6 +97,10 @@
       :global(.form-control) {
         background-color: $darkGrey;
         border: 1px solid $middleGrey;
+        color: $textClr;
+        ::placeholder {
+          color: $textClr;
+        }
         &:focus {
           box-shadow: none;
         }
@@ -303,19 +307,17 @@
 .followingPlaylist,
 .myPlaylists {
   :global(.tilesWrapper) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(15px, 2vw, 30px);
     margin-top: 33px;
-    gap: 30px;
     :global(.tileOverlay) {
-      max-width: 220px;
-      max-height: 220px;
       border-radius: 18px;
       & > div {
-        max-height: 220px;
-        height: 220px;
+        height: inherit;
         :global(.tilesImg) {
           -webkit-object-fit: cover;
           object-fit: cover;
-          height: 220px;
           z-index: -2;
         }
       }
@@ -369,5 +371,83 @@
   }
   :global(.tilesWrapper) {
     margin-top: 20px;
+  }
+}
+
+
+
+
+/********************** Responsive Behaviour *****************/ 
+@media #{$desktop-start} {
+  .curatedPlaylist {
+    :global(.moodSlider) {
+      :global(.testimonialContainer) {
+        .sectionHeading {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+}
+
+@media #{$tab-landscape} {
+  .followingPlaylist,
+  .myPlaylists {
+    :global(.tilesWrapper) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .curatedPlaylist {
+    :global(.moodSlider) {
+      :global(.rec-carousel-wrapper) {
+        :global(.rec-arrow) {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media #{$tab-portrait} {
+  .curatedPlaylist .playlistTiles,
+  .followingPlaylist,
+  .myPlaylists {
+    :global(.tilesWrapper) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+@media #{$phone-landscape} {
+  .curatedPlaylist .playlistTiles,
+  .followingPlaylist,
+  .myPlaylists {
+    :global(.tilesWrapper) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media #{$phone-portrait} {
+  .curatedPlaylist .playlistTiles,
+  .followingPlaylist,
+  .myPlaylists {
+    :global(.tilesWrapper) {
+      grid-template-columns: repeat(1, 1fr);
+      place-items: center;
+      :global(.tileOverlay) {
+        max-width: 250px;
+        width: 100%;
+      }
+    }
+  }
+  .myPlaylistWrapper {
+    :global(.parallelHead) {
+      @include flex-direction(column);
+      button {
+        margin-block: 30px 0;
+      }
+    } 
   }
 }
