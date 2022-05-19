@@ -102,7 +102,7 @@ class Braintree extends React.Component {
         </div>
       );
     } else {
-      return (
+      return (loading ? <InpageLoader /> : (
         <div className="container">
           <BraintreeHostedFields
             className="drop-in-container"
@@ -144,7 +144,7 @@ class Braintree extends React.Component {
             </div>
           </div>
           </BraintreeHostedFields><br></br>
-        </div>
+        </div>)
       );
     }
   }
