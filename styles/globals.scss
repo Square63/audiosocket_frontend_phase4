@@ -5659,3 +5659,8 @@ input[type=file]::file-selector-button {
 .infinite-scroll-component {
   overflow: visible !important;
 }
+
+.notClickable {
+  pointer-events: none;
+  cursor: default;
+}
