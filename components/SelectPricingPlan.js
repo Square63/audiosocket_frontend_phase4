@@ -1154,7 +1154,7 @@ function SelectPricingPlan(props) {
                   What does an Audiosocket Subscription Include?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
-                  <Card.Body>When you purchase a subscription, you’ve got unlimited access to our entire catalog of over +80,000 tracks and 24,000 SFX/Sound Designs that can be used to create something truly original! You can license as many tracks as you like during the Term of your Subscription. Each license issued is good for that specific Work in perpetuity.</Card.Body>
+                  <Card.Body>When you purchase a subscription, you&apos;ve got unlimited access to our entire catalog of over +80,000 tracks and 24,000 SFX/Sound Designs that can be used to create something truly original! You can license as many tracks as you like during the Term of your Subscription. Each license issued is good for that specific Work in perpetuity.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -1188,7 +1188,7 @@ function SelectPricingPlan(props) {
                   Can I use any song from Audiosocket in my Subscription?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="4">
-                  <Card.Body>Yes! When you sign-up, you’ll be given access to everything in the Audiosocket catalog. That’s over 80,000 tracks and 2000 Sound Designs. Lucky you! You’re well on your way, discovering the perfect music for your media, all created by trending indie bands, artists and composers from over 200 genres.</Card.Body>
+                  <Card.Body>Yes! When you sign-up, you&apos;ll be given access to everything in the Audiosocket catalog. That&apos;s over 80,000 tracks and 2000 Sound Designs. Lucky you! You&apos;re well on your way, discovering the perfect music for your media, all created by trending indie bands, artists and composers from over 200 genres.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -1196,7 +1196,7 @@ function SelectPricingPlan(props) {
                   What is Content ID on YouTube?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="5">
-                  <Card.Body>YouTube created an automated content tracking system called Content ID (CID). CID scans videos and alerts copyright owners, such as musicians, when their music is used in videos on the YouTube Platform. If the owner of the music has registered with Content ID, you may receive a Claim. DO NOT WORRY! If you have the license, then you have legal permission to use the music in your videos. You can decide if you wish to disregard the Claim or dispute the Claim. If you are monetizing your videos on YouTube, then you will want to dispute the Claim. See "How Do I Dispute a YouTube Claim".</Card.Body>
+                  <Card.Body>YouTube created an automated content tracking system called Content ID (CID). CID scans videos and alerts copyright owners, such as musicians, when their music is used in videos on the YouTube Platform. If the owner of the music has registered with Content ID, you may receive a Claim. DO NOT WORRY! If you have the license, then you have legal permission to use the music in your videos. You can decide if you wish to disregard the Claim or dispute the Claim. If you are monetizing your videos on YouTube, then you will want to dispute the Claim. See &quot;How Do I Dispute a YouTube Claim&quot;.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -1217,7 +1217,7 @@ function SelectPricingPlan(props) {
                   <p>3. Filter for Copyright claims.</p>
                   <p>4. Hover over “Copyright claim” in the Restrictions column and click SEE DETAILS.</p>
                   <br/>
-                  <p>When you are asked to explain your claim, please state "This track was licensed through Audiosocket".</p>
+                  <p>When you are asked to explain your claim, please state &quot;This track was licensed through Audiosocket&quot;.</p>
                   <br/>
                   <p>Please submit our Claim FORM as well so we can assist with speedy resolution.</p>
                   </Card.Body>
@@ -1268,7 +1268,7 @@ function SelectPricingPlan(props) {
                   What happens to my licenses if I cancel my Subscription?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="12">
-                  <Card.Body>All of the licenses issued to you during your Subscription are perpetual. That means they’re good forever!* However, you cannot create any new licenses from the songs you downloaded after your Subscription has expired. You must click the License Now button every time you use a track during your Subscription. *Please see our Terms of Service for more info on cancellation.</Card.Body>
+                  <Card.Body>All of the licenses issued to you during your Subscription are perpetual. That means they&apos;re good forever!* However, you cannot create any new licenses from the songs you downloaded after your Subscription has expired. You must click the License Now button every time you use a track during your Subscription. *Please see our Terms of Service for more info on cancellation.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -1276,7 +1276,7 @@ function SelectPricingPlan(props) {
                   Is an Audiosocket Subscription right for me?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="13">
-                  <Card.Body>If you are consistently creating visual works that need music, or if you’re working on a production that requires a lot of music, a Subscription is right for you! The monthly price is close to that for a single track license and can be paid monthly so you can budget the spend over the course of a year. This makes the service affordable and flexible. Maybe you changed your mind 3 months after you licensed a track, no problem, just drop in a new track, your Subscription covers you!</Card.Body>
+                  <Card.Body>If you are consistently creating visual works that need music, or if you&apos;re working on a production that requires a lot of music, a Subscription is right for you! The monthly price is close to that for a single track license and can be paid monthly so you can budget the spend over the course of a year. This makes the service affordable and flexible. Maybe you changed your mind 3 months after you licensed a track, no problem, just drop in a new track, your Subscription covers you!</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -1284,7 +1284,7 @@ function SelectPricingPlan(props) {
                   How does the Subscription work?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="14">
-                  <Card.Body>Once you’ve chosen and purchased the Subscription that works for you, you’re ready to start licensing. Here’s how it works: 1.) Once you’ve found a track you wish to license, add the track to your cart 2.) Add your final work title to the Work Title field at checkout 3.) Click the Checkout button and your license will be saved in your account under the "Licenses" tab 4.) Please note, you must create a new license for each unique Work. This is a very important step that ensures you have the right to use the music in your project</Card.Body>
+                  <Card.Body>Once you&apos;ve chosen and purchased the Subscription that works for you, you&apos;re ready to start licensing. Here&apos;s how it works: 1.) Once you&apos;ve found a track you wish to license, add the track to your cart 2.) Add your final work title to the Work Title field at checkout 3.) Click the Checkout button and your license will be saved in your account under the &quot;Licenses&quot; tab 4.) Please note, you must create a new license for each unique Work. This is a very important step that ensures you have the right to use the music in your project</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -1300,7 +1300,7 @@ function SelectPricingPlan(props) {
                   Is my Subscription good for TV?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="16">
-                  <Card.Body>No, Subscription licenses are only good for web. If you’re interested in television rights, please use the Custom request form.</Card.Body>
+                  <Card.Body>No, Subscription licenses are only good for web. If you&apos;re interested in television rights, please use the Custom request form.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
@@ -1316,7 +1316,7 @@ function SelectPricingPlan(props) {
                   I licensed my music, so why did I get a Claim on YT?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="18">
-                  <Card.Body>Claims on YouTube is an indication that copyrighted music has been used in your video. If you have a license, you do not need to worry as you've paid the copyright owner to use their work legally. And you will receive all of the revenues on your video as soon as the license has been verified. The reason Audiosocket music is sometimes claimed is because we represent a large and very diverse catalog of amazingly talented artists, whose work is published by many labels across the world. This simply means that there can be more than one administrator and we need to confirm that you have secured the license. We typically hear back within the day, sometimes immediately. We will let you know when the Claim has been released. Thank you for your patience and understanding that Artists, like you, use ContentID to protect their work on YT.</Card.Body>
+                  <Card.Body>Claims on YouTube is an indication that copyrighted music has been used in your video. If you have a license, you do not need to worry as you&apos;ve paid the copyright owner to use their work legally. And you will receive all of the revenues on your video as soon as the license has been verified. The reason Audiosocket music is sometimes claimed is because we represent a large and very diverse catalog of amazingly talented artists, whose work is published by many labels across the world. This simply means that there can be more than one administrator and we need to confirm that you have secured the license. We typically hear back within the day, sometimes immediately. We will let you know when the Claim has been released. Thank you for your patience and understanding that Artists, like you, use ContentID to protect their work on YT.</Card.Body>
                 </Accordion.Collapse>
               </Card>
             </Accordion>
