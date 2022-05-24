@@ -50,9 +50,9 @@ function FavoriteTracks(props) {
     return () => {
       isMounted = false;
     };
-    
+
   },[props.tracks])
-  
+
   const fetchData = () => {
     let query = document.getElementById("searchField").value
     if (query === "" && props.appliedFiltersList.length == 0) {
@@ -78,7 +78,7 @@ function FavoriteTracks(props) {
     setSortDir(sort_dir)
     setSortBy(sort_by)
     e.target.classList.add("disableSortBtn")
-    sort_dir == "DESC" ? e.target.nextElementSibling.classList.remove("disableSortBtn") : e.target.previousElementSibling.classList.remove("disableSortBtn") 
+    sort_dir == "DESC" ? e.target.nextElementSibling.classList.remove("disableSortBtn") : e.target.previousElementSibling.classList.remove("disableSortBtn")
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), filters, sort_by, sort_dir));
   }
@@ -171,7 +171,7 @@ function FavoriteTracks(props) {
             </div>
             {tracks.map((track,index)=> {
               return(<div key={index} className="trackRow">
-                <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
+                <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} notClickable={true}/>
                 <div className="rowParticipant duration">
                   {convertSecToMin(track.duration)}
                 </div>
