@@ -182,7 +182,10 @@ function Signup() {
                     </div>
                     <div className="col-md-6">
                       <Form.Group className={signup.fieldControl} controlId="formBasicPassword">
-                        <Form.Control className={confirmPasswordError ? "confirm_password invalid" : "confirm_password"} name="confirm_password" type="password" placeholder="Confirm Password" onChange={handleConfirmPassword} />
+                        <Form.Control required className={confirmPasswordError ? "confirm_password invalid" : "confirm_password"} name="confirm_password" type="password" placeholder="Confirm Password" onChange={handleConfirmPassword} />
+                        <Form.Control.Feedback type="invalid">
+                          Confirm Password is required!
+                        </Form.Control.Feedback>
                         {confirmPasswordError &&
                         <small className="input-error">Password doesn&apos;t match!</small>
                         }

@@ -558,6 +558,7 @@ function SelectPricingPlan(props) {
                           className='react-select-container'
                           classNamePrefix="react-select"
                           placeholder="Country"
+                          options={props.countries}
                         />
                       </Form.Group>
                     </Col>
