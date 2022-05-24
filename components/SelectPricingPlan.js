@@ -66,7 +66,7 @@ function SelectPricingPlan(props) {
   const [webRights, setWebRights] = useState("");
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
-  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Monthly");
+  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Annually");
   const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Monthly");
   const [plan, setPlan] = useState(null);
   const [validated, setValidated] = useState(false);
@@ -847,9 +847,6 @@ function SelectPricingPlan(props) {
                   <div className="columnLabel destroyAfterTime">
                     Number of tracks in catalog
                   </div>
-                  <div className="columnLabel">
-                    Plans starting at
-                  </div>
                 </div>
 
                 <div className="comparisionRow">
@@ -858,9 +855,6 @@ function SelectPricingPlan(props) {
                   </div>
                   <div className="columnData trackCount">
                     <span className="AsBar">80,000+ Tracks</span>
-                  </div>
-                  <div className="columnData planRate">
-                    <span>$10<sup>.00</sup> <small>/Month</small></span>
                   </div>
                 </div>
 
@@ -871,9 +865,6 @@ function SelectPricingPlan(props) {
                   <div className="columnData trackCount">
                     <span className="epidemicBar">&nbsp;</span>
                   </div>
-                  <div className="columnData planRate">
-                    <span>$15<sup>.00</sup> <small>/Month</small></span>
-                  </div>
                 </div>
 
                 <div className="comparisionRow">
@@ -883,9 +874,6 @@ function SelectPricingPlan(props) {
                   <div className="columnData trackCount">
                     <span className="artlistBar">&nbsp;</span>
                   </div>
-                  <div className="columnData planRate">
-                    <span>$16<sup>.00</sup> <small>/Month</small></span>
-                  </div>
                 </div>
 
                 <div className="comparisionRow">
@@ -894,9 +882,6 @@ function SelectPricingPlan(props) {
                   </div>
                   <div className="columnData trackCount">
                     <span className="soundstripeBar">&nbsp;</span>
-                  </div>
-                  <div className="columnData planRate">
-                    <span>$12<sup>.00</sup> <small>/Month</small></span>
                   </div>
                 </div>
               </div>
