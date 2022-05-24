@@ -283,20 +283,22 @@ export const clearErrors = () => async(dispatch) => {
 }
 
 export const getLicenses = () => async (dispatch) => {
-  try {
-    const { data } = await axios.request({
-      method: "get",
-      url: `${BASE_URL}/api/v1/consumer/licenses`,
-    })
-    dispatch({
-      type: ALL_LICENSES_SUCCESS,
-      payload: data
-    })
-  } catch (error) {
-    dispatch({
-      type: ALL_LICENSES_FAILURE,
-      payload: error
-    })
+  if (localStorage.getItem("user")) {
+    try {
+      const { data } = await axios.request({
+        method: "get",
+        url: `${BASE_URL}/api/v1/consumer/licenses`,
+      })
+      dispatch({
+        type: ALL_LICENSES_SUCCESS,
+        payload: data
+      })
+    } catch (error) {
+      dispatch({
+        type: ALL_LICENSES_FAILURE,
+        payload: error
+      })
+    }
   }
 }
 

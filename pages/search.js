@@ -87,7 +87,7 @@ function Search(props) {
 
   const filters = useSelector( state => state.allFilters.filters[0])
   const allTracks = useSelector( state => state.allTracks)
-  const playlists = useSelector(state => state.user.my_playlists);
+  // const playlists = useSelector(state => state.user.my_playlists);
   let tracks = ""
   let tracksMeta = ""
   if (allTracks && allTracks.tracks){
@@ -111,16 +111,16 @@ function Search(props) {
   //     }
   //   }
   // }, [playlists])
-  useEffect(() => {
-    if (playlists === undefined) {
+  // useEffect(() => {
+  //   if (playlists === undefined) {
 
-      dispatch(getMyPlaylists(1))
-    }
-  }, [playlists]);
+  //     dispatch(getMyPlaylists(1))
+  //   }
+  // }, [playlists]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [playlists]);
+  // }, [playlists]);
 
   useEffect(() => {
     if (allTracks.errorMessage && allTracks.errorMessage.includes("Validation failed")){
@@ -930,7 +930,7 @@ function Search(props) {
       <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} handleLicenseClick={handleLicenseClick} />
-      {playlists && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> }
+      {localStorage.getItem("user") && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={updatedTracks[index]}/> }
       <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>
 
     </div>

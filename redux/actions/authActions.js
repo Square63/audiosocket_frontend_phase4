@@ -438,20 +438,21 @@ export const editWorkTitle = (itemableId, workTitle) => async (dispatch) => {
 }
 
 export const getSubscriptionPlans = () => async (dispatch) => {
-  try {
-    const { data } = await axios.get(`${BASE_URL}/api/v1/consumer/plans`);
-    dispatch({
-      type: GET_PLANS_SUCCESS,
-      payload: data
-    })
-  } catch (error) {
-    dispatch({
-      type: GET_PLANS_FAIL,
-      payload: error
-    })
-
+  if (localStorage.getItem("user")) {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/api/v1/consumer/plans`);
+      dispatch({
+        type: GET_PLANS_SUCCESS,
+        payload: data
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_PLANS_FAIL,
+        payload: error
+      })
+  
+    }
   }
-
 }
 
 export const getCuratedPlaylists = (query, filters, page) => async( dispatch ) => {

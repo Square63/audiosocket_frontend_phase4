@@ -47,7 +47,7 @@ function Login() {
     if (!SocialLogIn) {
       if(loggedInUser.error) {
         toast.error(loggedInUser.error.message, TOAST_OPTIONS);
-      } else if(Object.keys(loggedInUser.user).length) {
+      } else if(loggedInUser.user && Object.keys(loggedInUser.user).length) {
         debugger
         localStorage.setItem("user", JSON.stringify(loggedInUser.user));
         localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
