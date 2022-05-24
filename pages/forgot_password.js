@@ -21,7 +21,7 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
 
   useEffect(() => {
     if ((confirmationModal == true) && (email.length > 0)) {
-      Notiflix.Report.success( 'Success', `Password reset link sent to ${email}!`, 'Ok', () => {
+      Notiflix.Report.success( 'Success', `Password reset link sent to ${email}`, 'Ok', () => {
         window.location = '/login'
       } );
     } else if ((confirmationModal == false) && (email.length > 0)) {
@@ -51,10 +51,6 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
       e.target.reset();
       handleClose();
     }
-  };
-
-  const backToLogin = () => {
-    router.push('/login');
   };
 
   const handleClose = () => {

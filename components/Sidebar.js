@@ -58,6 +58,7 @@ function Sidebar(props) {
       localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
       localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
       localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
+	  localStorage.setItem("has_subscription", JSON.stringify(loggedInUser.userDetails.subscription_flag));
       cookie.set('user', JSON.stringify(loggedInUser.user))
 			router.reload(window.location.pathname)
     }

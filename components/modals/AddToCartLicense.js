@@ -21,7 +21,7 @@ function AddToCartLicense({ showModal = false, onCloseModal, track}) {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLicense, setSelectedLicense] = useState();
-  const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
+  const userAuthToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
 
   const authContext = useContext(AuthContext);
   const licenses = useSelector(state => state.allTracks.licenses);

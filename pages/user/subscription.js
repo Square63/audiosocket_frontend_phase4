@@ -44,7 +44,7 @@ function Subscription() {
     try {
       // Send nonce to your server
       const authToken = JSON.parse(localStorage.getItem("user") ?? "");
-      const url = `${BASE_URL}/api/v1/consumer/plans/${currentPlan.id}/cancel_current_braintree_subscription`
+      const url = `${BASE_URL}/api/v1/consumer/plans/cancel_current_braintree_subscription`
       const response = await axios.delete(
         url,
         {
@@ -56,6 +56,7 @@ function Subscription() {
       )
 
       toast.success(response.data.message)
+      localStorage.setItem("has_subscription", false);
       setUserCurrentPlan(null)
       console.log(response)
     } catch (err) {

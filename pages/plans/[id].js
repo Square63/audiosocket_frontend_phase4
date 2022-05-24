@@ -67,10 +67,11 @@ class Braintree extends React.Component {
       )
       console.log(response)
       toast.success(response.data.message)
+      localStorage.setItem("has_subscription", true);
       window.location.href = "/search"
     } catch (err) {
       console.error(err)
-      toast.error("Subscription already exists. Please cancel your current subscription first.")
+      toast.error(err.message)
     }
   }
 

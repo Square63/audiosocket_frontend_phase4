@@ -67,8 +67,7 @@ class Braintree extends React.Component {
       toast.success(response.data.message)
       window.location.href = "/"
     } catch (err) {
-      console.error(err)
-      toast.error("Subscription already exists. Please cancel your current subscription first.")
+      toast.error(err.message)
     }
   }
 
