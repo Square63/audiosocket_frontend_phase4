@@ -218,7 +218,7 @@ function Search(props) {
         setShowSidebar(true)
         setSidebarType("cart")
       }
-      
+
     }
     else {
       // alert("You must be logged in to be able to add a track to cart.")
@@ -445,7 +445,10 @@ function Search(props) {
   // console.log("Playlists", playlists)
 
   function removeCount(filter) {
-    return filter.substring(0, filter.indexOf(' ('));
+    if (filter.split('(').length - 1 == 1)
+      return filter.substring(0, filter.split(' (', 1).join(' (').length);
+    else
+      return filter.substring(0, filter.split(' (', 2).join(' (').length);
   }
 
   function query_type(query) {
