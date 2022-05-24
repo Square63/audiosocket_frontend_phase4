@@ -67,6 +67,13 @@ export default function CustomAudioWave(props) {
     wavesurfer.current.load("./test.mp3");
   };
 
+  useEffect(() => {
+    if (document.getElementsByClassName("play").length > 1)
+      document.getElementsByClassName("first")[0].click();
+    else if (document.getElementsByClassName("play").length == 1)
+      document.getElementsByClassName("play")[0].classList.add('first');
+  }, [playing]);
+
   const handlePlayPause = () => {
     setPlaying(!playing);
     wavesurfer.current.playPause();
@@ -90,7 +97,7 @@ export default function CustomAudioWave(props) {
         <div className="filterVersion">
           <div className="playPauseBtn" onClick={handlePlayPause}>
             <span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
-          </div>	
+          </div>
           <a href="" className="filterName">
             {props.altVersionTrack.title}
           </a>
@@ -104,7 +111,7 @@ export default function CustomAudioWave(props) {
         <div className="filterVersion">
           <div className="playPauseBtn" onClick={handlePlayPause}>
             <span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
-          </div>	
+          </div>
           <a href="" className="filterName">
             Backing Vocals
           </a>
