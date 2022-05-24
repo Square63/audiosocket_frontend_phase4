@@ -62,9 +62,9 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
       link.download = track.mediable ? track.mediable.title : track.title;
       link.click();
     } else {
-      
+
     }
-    
+
   }
 
   return (
@@ -80,7 +80,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
             {track ? track.mediable ? track.mediable.title : track.title : ""}
           </p>
           <p className="modalTrackArtist">
-            {track ? track.mediable ? track.mediable.composer : track.composer : ""}
+            {track ? track.mediable ? track.mediable.artist_name : track.artist_name : ""}
           </p>
         </Modal.Title>
       </Modal.Header>

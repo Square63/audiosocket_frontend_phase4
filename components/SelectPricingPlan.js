@@ -1152,58 +1152,172 @@ function SelectPricingPlan(props) {
               <Accordion defaultActiveKey="0">
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0" onClick={(e)=> handleCollapse(e)}>
-                  Will I be able to use these tracks on a monetized YouTube channel?
+                  What does an Audiosocket Subscription Include?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
-                  <Card.Body><strong>No</strong>. Once your channel becomes monitized, you’ll need to switch to our commercial plan.</Card.Body>
+                  <Card.Body>When you purchase a subscription, you&apos;ve got unlimited access to our entire catalog of over +80,000 tracks and 24,000 SFX/Sound Designs that can be used to create something truly original! You can license as many tracks as you like during the Term of your Subscription. Each license issued is good for that specific Work in perpetuity.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="1" onClick={(e)=> handleCollapse(e)}>
-                  Will I have access to the complete Audiosocket library?
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2" onClick={(e)=> handleCollapse(e)}>
                   Can I pay monthly?
                 </Accordion.Toggle>
-                <Accordion.Collapse eventKey="2">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                <Accordion.Collapse eventKey="1">
+                  <Card.Body>Yes! You can choose to be billed monthly or pay an up-front annual rate. When you pay for the year up-front, you get a HUGE discount!</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="3" onClick={(e)=> handleCollapse(e)}>
-                  Can I use any song from Audiosocket in my subscription?
+                  Where can I preview the legal licenses?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="3">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                  <Card.Body>
+                    <p>Review our website Terms and Conditions, our Privacy Policy and our licenses by clicking on one of the links below.</p>
+                    <br/>
+                    <p>Terms and Conditions</p>
+                    <p>Privacy Policy</p>
+                    <br/>
+                    <p>Individual License</p>
+                    <p>Indie Film License</p>
+                    <p>Small Business License</p>
+                    <p>Large Business License</p>
+                  </Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="4" onClick={(e)=> handleCollapse(e)}>
-                  What is Content ID on YouTube?
+                  Can I use any song from Audiosocket in my Subscription?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="4">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                  <Card.Body>Yes! When you sign-up, you&apos;ll be given access to everything in the Audiosocket catalog. That&apos;s over 80,000 tracks and 2000 Sound Designs. Lucky you! You&apos;re well on your way, discovering the perfect music for your media, all created by trending indie bands, artists and composers from over 200 genres.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="5" onClick={(e)=> handleCollapse(e)}>
-                  How do I dispute a Content ID claim on my YouTube video?
+                  What is Content ID on YouTube?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="5">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                  <Card.Body>YouTube created an automated content tracking system called Content ID (CID). CID scans videos and alerts copyright owners, such as musicians, when their music is used in videos on the YouTube Platform. If the owner of the music has registered with Content ID, you may receive a Claim. DO NOT WORRY! If you have the license, then you have legal permission to use the music in your videos. You can decide if you wish to disregard the Claim or dispute the Claim. If you are monetizing your videos on YouTube, then you will want to dispute the Claim. See &quot;How Do I Dispute a YouTube Claim&quot;.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="6" onClick={(e)=> handleCollapse(e)}>
-                  Will I still earn all of the revenue from my videos if I receive a YouTube claim?
+                  How Do I Dispute a Content ID Claim on my YouTube Video?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="6">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                  <Card.Body>
+                  <p>If you are NOT monetizing your video, you can chose to disregard the claim or you can dispute the claim. If you ARE monetizing your videos, you should dispute the claim. There is a simple process to do so.</p>
+                  <br/>
+                  <p>Please note, while the claim is being resolved, ads are still running and the revenue earned will be released to you as soon as the claim is released. We will work to make this happen as quickly as possible!</p>
+                  <br/>
+                  <p>YouTube has published <a href='https://support.google.com/youtube/answer/2797454?hl=en'>this VIDEO </a> to help as well as these simple instructions:</p>
+                  <br/>
+                  <p><strong>How to dispute a Content ID claim</strong></p>
+                  <p>1. Sign in to your YouTube Studio.</p>
+                  <p>2. From the left Menu, click Videos.</p>
+                  <p>3. Filter for Copyright claims.</p>
+                  <p>4. Hover over “Copyright claim” in the Restrictions column and click SEE DETAILS.</p>
+                  <br/>
+                  <p>When you are asked to explain your claim, please state &quot;This track was licensed through Audiosocket&quot;.</p>
+                  <br/>
+                  <p>Please submit our Claim FORM as well so we can assist with speedy resolution.</p>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="7" onClick={(e)=> handleCollapse(e)}>
+                  Will I still earn all of the revenue from my videos if I receive a YouTube claim?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="7">
+                  <Card.Body>Absolutely! You will still receive all of the revenue from the ads on your video. However, while the claim is being reviewed, the monies earned are held until the claim is resolved. Once the claim is released, the earnings are released to you. Please dispute the claim and then submit our FORM so we can assist you with getting the claim released quickly.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="8" onClick={(e)=> handleCollapse(e)}>
+                  How often do you add new songs to your catalog?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="8">
+                  <Card.Body>We add new songs every single week.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="9" onClick={(e)=> handleCollapse(e)}>
+                  How long is my license good for?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="9">
+                  <Card.Body>The licenses you generate during your Subscription are good forever!</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="10" onClick={(e)=> handleCollapse(e)}>
+                  Can I use the same track in multiple projects?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="10">
+                  <Card.Body>You can use the same track multiple times, BUT you will need a new license for each and every use of a track. Make sure to License Now in checkout for each unique production or you will not legally have the rights needed to use the media. A license is a legal document that is tied to your use through a Project Title.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="11" onClick={(e)=> handleCollapse(e)}>
+                  Can I cancel my Subscription?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="11">
+                  <Card.Body>For monthly subscriptions, you can cancel at any time. For prepaid annual subscriptions, you may cancel any time, however the effective date would be at the end of your paid term and no refunds are given if you cancel before the end of the term. Your prepaid subscription will automatically renew at the end of the year unless you cancel it with at least 30 days before the renewal date. You may cancel your Subscription at any time by managing your Subscription settings in your account.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="12" onClick={(e)=> handleCollapse(e)}>
+                  What happens to my licenses if I cancel my Subscription?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="12">
+                  <Card.Body>All of the licenses issued to you during your Subscription are perpetual. That means they&apos;re good forever!* However, you cannot create any new licenses from the songs you downloaded after your Subscription has expired. You must click the License Now button every time you use a track during your Subscription. *Please see our Terms of Service for more info on cancellation.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="13" onClick={(e)=> handleCollapse(e)}>
+                  Is an Audiosocket Subscription right for me?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="13">
+                  <Card.Body>If you are consistently creating visual works that need music, or if you&apos;re working on a production that requires a lot of music, a Subscription is right for you! The monthly price is close to that for a single track license and can be paid monthly so you can budget the spend over the course of a year. This makes the service affordable and flexible. Maybe you changed your mind 3 months after you licensed a track, no problem, just drop in a new track, your Subscription covers you!</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="14" onClick={(e)=> handleCollapse(e)}>
+                  How does the Subscription work?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="14">
+                  <Card.Body>Once you&apos;ve chosen and purchased the Subscription that works for you, you&apos;re ready to start licensing. Here&apos;s how it works: 1.) Once you&apos;ve found a track you wish to license, add the track to your cart 2.) Add your final work title to the Work Title field at checkout 3.) Click the Checkout button and your license will be saved in your account under the &quot;Licenses&quot; tab 4.) Please note, you must create a new license for each unique Work. This is a very important step that ensures you have the right to use the music in your project</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="15" onClick={(e)=> handleCollapse(e)}>
+                  Why is the price for a single track almost the same as a Subscription?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="15">
+                  <Card.Body>We believe in loyalty. If you use music from our artists consistently, they make more money over time than they would from a single-use one time license. We believe we have the best Subscription offering on the market, hands down! With over 80,000 high quality tracks across 200 genres from award winning bands, artists and composers, no other Subscription service comes close.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="16" onClick={(e)=> handleCollapse(e)}>
+                  Is my Subscription good for TV?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="16">
+                  <Card.Body>No, Subscription licenses are only good for web. If you&apos;re interested in television rights, please use the Custom request form.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="17" onClick={(e)=> handleCollapse(e)}>
+                  What if I need broader rights than those covered in my Subscription?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="17">
+                  <Card.Body>As a subscriber, you will receive 20% off of any custom license needed for broader rights. You simply contact our SUPPORT team and let them know that you need expanded rights.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="18" onClick={(e)=> handleCollapse(e)}>
+                  I licensed my music, so why did I get a Claim on YT?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="18">
+                  <Card.Body>Claims on YouTube is an indication that copyrighted music has been used in your video. If you have a license, you do not need to worry as you&apos;ve paid the copyright owner to use their work legally. And you will receive all of the revenues on your video as soon as the license has been verified. The reason Audiosocket music is sometimes claimed is because we represent a large and very diverse catalog of amazingly talented artists, whose work is published by many labels across the world. This simply means that there can be more than one administrator and we need to confirm that you have secured the license. We typically hear back within the day, sometimes immediately. We will let you know when the Claim has been released. Thank you for your patience and understanding that Artists, like you, use ContentID to protect their work on YT.</Card.Body>
                 </Accordion.Collapse>
               </Card>
             </Accordion>
