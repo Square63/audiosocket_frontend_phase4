@@ -614,7 +614,7 @@ function Search(props) {
   );
 
   return (
-    <div className={search.searchWrapper}>
+    <div className={search.searchWrapper+' musicSearch'}>
       <Alert variant="success" className="brandAlert">
         <Form.Group type="hidden" controlId="formFile" className="uploadComponent" style={{display: 'none'}}>
           <Form.Control type="file" />

@@ -4730,6 +4730,9 @@ input[type=file]::file-selector-button {
       }
     }
   }
+  .tooltip {
+    display: none;
+  }
 }
 
 @media #{$mid-point-tablet} {
@@ -4986,6 +4989,23 @@ input[type=file]::file-selector-button {
   }
 
   /************** Search page ****************/
+  .musicSearch {
+    .filterBar {
+      padding: 10px;
+      .dropdown {
+        .dropdown-toggle {
+          padding: 10px 7px 9px;
+        }
+        .dropdown-menu {
+          .filterWrapper:not(.durationBlock) {
+            grid-template-columns: repeat(2, auto);
+            padding: 15px 10px 15px;
+          }
+        }
+      }
+    }
+  }
+
   .trackRowWrapper {
     .trackRow {
       padding-inline: 10px;
