@@ -132,7 +132,7 @@ export default function CustomAudioWave(props) {
     !props.footer ?
       (<>
         <div className="rowParticipant artistName">
-          <div className="playPauseBtn" onClick={() => {handlePlayPause(); props.handleFooterTrack(props.track);}} >
+          <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
             <span className={(playing) ? "play" : "pause"}></span>
             <span className="pause d-none"></span>
           </div>
