@@ -2257,7 +2257,7 @@ hr {
         @include justify-content(flex-start);
         background-color: #fafafa;
         padding: 10px 10px 10px 35px;
-        overflow: hidden;
+        // overflow: hidden;
 
         .filterVersion {
           @include flexbox;
