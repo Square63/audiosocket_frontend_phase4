@@ -57,6 +57,7 @@ function Favorites() {
   }, [favoriteTracks])
 
   const handleAddToFavorites = (e, trackId) => {
+    setIsLoading(true)
     dispatch(removeFromFavorites(trackId));
   }
 
