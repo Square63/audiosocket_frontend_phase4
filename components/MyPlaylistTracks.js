@@ -272,7 +272,7 @@ function MyPlaylistTracks(props) {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {props.tracks.map((track,index)=> (
+                  {props.tracks && props.tracks.map((track,index)=> (
                     track.mediable_type == "Track" && <Draggable key={track.mediable.title} draggableId={track.mediable.title} index={index}>
                       {(provided) => (
                         <div

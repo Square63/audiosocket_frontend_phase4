@@ -43,6 +43,7 @@ function Tracks(props) {
 
   useEffect(() => {
     let isMounted = true;
+    debugger
     if (infifniteLoop) {
       setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)

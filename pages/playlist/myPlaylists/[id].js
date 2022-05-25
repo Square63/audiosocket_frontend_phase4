@@ -57,7 +57,7 @@ const Details = () => {
 
 	useEffect(() => {
     if (myPlaylistTracks) {
-      setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
+      myPlaylistTracks.meta && setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
       setIsLoading(false)
     }
   }, [myPlaylistTracks])
@@ -74,6 +74,7 @@ const Details = () => {
     } else {
       toast.success(favoritesMessage.message, TOAST_OPTIONS);
     }
+    setIsLoading(false)
   }, [favoritesMessage])
 
 	const handleEditClose = (show) => {
@@ -97,9 +98,14 @@ const Details = () => {
 
 	function totalDuration(tracks) {
 		let duration = 0
-		tracks.playlist_tracks.map((track, index) =>
-			duration += track.mediable.duration
-		)
+    if (tracks.playlist_tracks) {
+      tracks.playlist_tracks.map((track, index) =>
+			duration += track.mediable.duration)
+    } else {
+      tracks.map((track, index) =>
+			duration += track.mediable.duration)
+    }
+		
 		return convertSecToMin(duration)
 	}
 
@@ -116,6 +122,7 @@ const Details = () => {
   }
 
   const handleAddToFavorites = (e, trackId) => {
+    setIsLoading(true)
     if (localStorage.getItem("user")) {
       if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
@@ -137,7 +144,6 @@ const Details = () => {
   }
 
 	function showDownloadModal(index) {
-    debugger
     if (localStorage.getItem("user")) {
       if (index > 9) {
         setIndex(index + 10)
@@ -165,6 +171,7 @@ const Details = () => {
   }
 
 	function showAddTrackToCartLicenseModal(index) {
+    setIsLoading(true)
     if (localStorage.getItem("user")) {
       if (index > 9) {
         setIndex(index + 10)
@@ -192,6 +199,7 @@ const Details = () => {
   }
 
 	const handleDownloadZip = async (id) => {
+    setIsLoading(true)
     let url = `${BASE_URL}/api/v1/consumer/curated_playlists/58/playlist_tracks/download_zip?file_type=wav_file`
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
     const response = await fetch(url,
@@ -211,6 +219,7 @@ const Details = () => {
   }
 
 	const removeTrackFromPlaylist = (trackId) => {
+    setIsLoading(true)
     dispatch(removeFromPlaylist(query.id, trackId))
   }
 
@@ -306,7 +315,7 @@ const Details = () => {
 						</div>
 					</div>
 					<div className="fixed-container">
-						{myPlaylistTracks && myPlaylistTracks.playlist_tracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
+						{myPlaylistTracks && (myPlaylistTracks.playlist_tracks?.length > 0 || myPlaylistTracks.length > 0) && <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
 					</div>
 					
 					<div className={playlist.artistTiles}>

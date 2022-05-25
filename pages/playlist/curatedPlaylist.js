@@ -107,6 +107,7 @@ function CuratedPlaylist() {
   console.log("Curated Playlists", playlists)
 
   const handleSearch = (e) => {
+    setIsLoading(true)
     let filterArray = []
     filterArray.push(selectedFilter)
     setPaginatedPlaylists([])
@@ -115,10 +116,12 @@ function CuratedPlaylist() {
   }
 
   const handlePageNum = (e) => {
+    setIsLoading(true)
     setPageNum(pageNum + 1)
   }
 
   const handleAddFilter = (filterName) => {
+    setIsLoading(true)
     let filterArray = []
     setSelectedFilter(filterName)
     filterArray.push(filterName)

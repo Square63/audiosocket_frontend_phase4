@@ -129,7 +129,7 @@ function MyPlaylists() {
               {playlists &&
                 playlists.map((playlist,index)=> {
                   return(
-                    <Link href={"myPlaylists/" + playlist.id} key={index}>
+                    <Link href={"myPlaylists/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
                       <a key={index} href="javascript:void(0)" className="tileOverlay">
                           {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                           <span className="tileOverlayText">

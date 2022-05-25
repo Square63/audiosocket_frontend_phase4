@@ -143,7 +143,6 @@ function Search(props) {
     } else {
       toast.success(favoritesMessage.message, TOAST_OPTIONS);
     }
-    setLoading(true)
   }, [favoritesMessage])
 
   useEffect(() => {
@@ -348,7 +347,7 @@ function Search(props) {
   }
 
   const handleAddToFavorites = (e, trackId) => {
-    setLoading(true)
+    // setLoading(true)
     if (localStorage.getItem("user")) {
       if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])

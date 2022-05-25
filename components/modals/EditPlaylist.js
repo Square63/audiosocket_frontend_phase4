@@ -9,8 +9,10 @@ import { BASE_URL } from "../../common/api";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import { removeFromPlaylist } from "../../redux/actions/authActions";
+import { ToastContainer, toast } from 'react-toastify';
 
 import playlist from "../../styles/Playlist.module.scss";
+import InpageLoader from "../InpageLoader";
 
 function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylistDetail, myPlaylistTracks}) { 
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
   const fileTypes = ["JPG", "PNG", "GIF", "SVG", "JPEG"];
 
   useEffect(() => {
-    debugger
+    setIsLoading(false);
   }, [myPlaylistTracks])
   
   const handleSubmit = async (e) => {
@@ -67,6 +69,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
   }
 
 	const handleRemoveTrack = async (e, trackId) => {
+    setIsLoading(true);
     e.preventDefault();
     dispatch(removeFromPlaylist(query.id, trackId))
     // const newPlaylistForm = e.currentTarget;
@@ -129,7 +132,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
   //   dispatch(removeTrackFromPlaylist(consumerPlaylistId, removedPlaylistId));
   // }
 
-	const items = myPlaylistTracks.map((playlistTrack, index) =>
+	const items = myPlaylistTracks.playlist_tracks && myPlaylistTracks.playlist_tracks.map((playlistTrack, index) =>
     <li key={index}>
 			
       <a href="javascript:void(0)">
@@ -167,40 +170,45 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="modal-container">
-          <Form className="modalForm PlaylistForm" validated={validated} noValidate ref={formNewPlaylist} onSubmit={handleSubmit}>
-            <Form.Group className="mb-4" controlId="formBasicEmail">
-              <Form.Label>Playlist Name <span className="labelAsterik">*</span></Form.Label>
-              <Form.Control required type="text" placeholder="Enter name" name="name" defaultValue={myPlaylistDetail.name} />
-              <Form.Control.Feedback type="invalid">
-                Name is required!
-              </Form.Control.Feedback>
-            </Form.Group>
+        {isLoading ? (
+          <InpageLoader/>
+        ) : (
+          <div className="modal-container">
+            <Form className="modalForm PlaylistForm" validated={validated} noValidate ref={formNewPlaylist} onSubmit={handleSubmit}>
+              <Form.Group className="mb-4" controlId="formBasicEmail">
+                <Form.Label>Playlist Name <span className="labelAsterik">*</span></Form.Label>
+                <Form.Control required type="text" placeholder="Enter name" name="name" defaultValue={myPlaylistDetail.name} />
+                <Form.Control.Feedback type="invalid">
+                  Name is required!
+                </Form.Control.Feedback>
+              </Form.Group>
 
-            <Form.Group className="mb-4">
-              <div className="dragDropContainer">
-                {file ? <p className="dragDropContent">File Uploaded…</p> : <p className="dragDropContent">Drag &amp; Drop <br /> Project Image <br />Or <br />Choose File…</p>}
-                <FileUploader
-                  handleChange={handleChange}
-                  types={fileTypes}
-                  name="playlist_image"
-                />
-              </div>
-              <p>{file ? `File name: ${file.name}` : "No files uploaded yet"}</p>
-            </Form.Group>
-            <Button variant="link" className={isLoading ? "btn btnMainLarge btn-block disabled" : "btn btnMainLarge btn-block"} type="submit">
-              Update Playlist Details
-            </Button>
-          </Form>
+              <Form.Group className="mb-4">
+                <div className="dragDropContainer">
+                  {file ? <p className="dragDropContent">File Uploaded…</p> : <p className="dragDropContent">Drag &amp; Drop <br /> Project Image <br />Or <br />Choose File…</p>}
+                  <FileUploader
+                    handleChange={handleChange}
+                    types={fileTypes}
+                    name="playlist_image"
+                  />
+                </div>
+                <p>{file ? `File name: ${file.name}` : "No files uploaded yet"}</p>
+              </Form.Group>
+              <Button variant="link" className={isLoading ? "btn btnMainLarge btn-block disabled" : "btn btnMainLarge btn-block"} type="submit">
+                Update Playlist Details
+              </Button>
+            </Form>
 
-					<div className="playlistNames">
-						<h4 className="mt-4">Playlist Tracks</h4>
-						<ul className="scrollingList">
-							{items}
-						</ul>
-						
-					</div>
-				</div>
+            <div className="playlistNames">
+              <h4 className="mt-4">Playlist Tracks</h4>
+              <ul className="scrollingList">
+                {items}
+              </ul>
+              
+            </div>
+          </div>
+        )}
+        
       </Modal.Body>
     </Modal>
   );
