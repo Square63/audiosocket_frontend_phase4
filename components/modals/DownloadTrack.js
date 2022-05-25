@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
 import { BASE_URL } from "../../common/api";
+import InpageLoader from "../InpageLoader";
 
 function PreferenceModal({showModal = false, onCloseModal, track, type}) {
   const form = useRef(null);
@@ -46,6 +47,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
   }
 
   const handleDownload = async (track, type) => {
+    setIsLoading(true)
     let url = type == "track" ? track.mediable ? `${BASE_URL}/api/v1/consumer/tracks/${track.mediable.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/4/add_download_sfx` : ""
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
     const response = await fetch(url,
@@ -61,6 +63,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
       link.href = track.mediable ? track.mediable.mp3_file : track.mp3_file;
       link.download = track.mediable ? track.mediable.title : track.title;
       link.click();
+      setIsLoading(false)
     } else {
 
     }
@@ -85,33 +88,37 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="modal-container">
-          <h4 className="modalBodyHeading">Versions</h4>
-          <ul className="modalTrackRow">
-            <li>
-              <span className="versionType">Full Track</span>
-              <span className="versionDuration">{track ? track.mediable ? convertSecToMin(track.mediable.duration) : convertSecToMin(track.duration) : "0:0"}</span>
-              <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type)}>
-                <strong>MP3</strong>
-                <span className="versionDuration">({track ? track.mediable ? (track.mediable.file_size/(1024*1024)).toFixed(2) : (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
-              </a>
-            </li>
-            { track ? track?.alternate_versions?.map(function(item, i)
-              {
-                return(
-                  <li key={i}>
-                    <span className="versionType">{item.title}</span>
-                    <span className="versionDuration">{item ? convertSecToMin(item.duration) : "0:0"}</span>
-                    <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(item, type)}>
-                      <strong>MP3</strong>
-                      <span className="versionDuration">({item ? (item.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
-                    </a>
-                  </li>
-                )
-              })
-            : ""}
-          </ul>
-        </div>
+        {!isLoading ? (
+        
+          <div className="modal-container">
+            <h4 className="modalBodyHeading">Versions</h4>
+            <ul className="modalTrackRow">
+              <li>
+                <span className="versionType">Full Track</span>
+                <span className="versionDuration">{track ? track.mediable ? convertSecToMin(track.mediable.duration) : convertSecToMin(track.duration) : "0:0"}</span>
+                <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type)}>
+                  <strong>MP3</strong>
+                  <span className="versionDuration">({track ? track.mediable ? (track.mediable.file_size/(1024*1024)).toFixed(2) : (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                </a>
+              </li>
+              { track ? track?.alternate_versions?.map(function(item, i)
+                {
+                  return(
+                    <li key={i}>
+                      <span className="versionType">{item.title}</span>
+                      <span className="versionDuration">{item ? convertSecToMin(item.duration) : "0:0"}</span>
+                      <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(item, type)}>
+                        <strong>MP3</strong>
+                        <span className="versionDuration">({item ? (item.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                      </a>
+                    </li>
+                  )
+                })
+              : ""}
+            </ul>
+          </div>  
+        ) 
+      : (<InpageLoader/>)}
       </Modal.Body>
     </Modal>
   );
