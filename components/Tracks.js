@@ -473,7 +473,7 @@ function Tracks(props) {
                       <Accordion.Collapse eventKey={index + 1}>
                         <div id={"example-collapse-text" + index + 1} >
                           {track.alternate_versions.map((altVersion,index)=> {
-                            return(<AltVersion key={index} altVersionTrack={altVersion}/>)
+                            return (<AltVersion key={index} altVersionTrack={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)}/>)
                           })}
                         </div>
                       </Accordion.Collapse>
