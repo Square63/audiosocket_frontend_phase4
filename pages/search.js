@@ -143,6 +143,7 @@ function Search(props) {
     } else {
       toast.success(favoritesMessage.message, TOAST_OPTIONS);
     }
+    setLoading(true)
   }, [favoritesMessage])
 
   useEffect(() => {
@@ -347,6 +348,7 @@ function Search(props) {
   }
 
   const handleAddToFavorites = (e, trackId) => {
+    setLoading(true)
     if (localStorage.getItem("user")) {
       if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
@@ -920,7 +922,7 @@ function Search(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-            <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} handleTrackSearchOfArtist={handleTrackSearchOfArtist}/>
+            <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} handleTrackSearchOfArtist={handleTrackSearchOfArtist}/>
         )}
       </div>
 
