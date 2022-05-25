@@ -3,7 +3,7 @@ import { Country, State } from "country-state-city";
 
 function Pricing({countries}) {
   return (
-    <SelectPricingPlan countries={countries}></SelectPricingPlan>
+    <SelectPricingPlan countries={countries} display={false}></SelectPricingPlan>
   )
 }
 
