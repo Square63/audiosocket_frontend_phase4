@@ -90,7 +90,6 @@ export default function CustomAudioWave(props) {
 
   }
 
-
   return (
     <div className="versionTrackBody">
       <div className="versionTrackRow">
@@ -103,8 +102,9 @@ export default function CustomAudioWave(props) {
           </a>
           <div className="waveTime">
             <div id="waveform" ref={waveformRef}  />
-            <div className="durationCount totalDuration">{convertSecToMin(props.altVersionTrack.duration)}</div>
           </div>
+          <div className="durationCount totalDuration">{convertSecToMin(props.altVersionTrack.duration)}</div>
+          <div>{props.moodColumn}</div>
         </div>
       </div>
       {/* <div className="versionTrackRow">
