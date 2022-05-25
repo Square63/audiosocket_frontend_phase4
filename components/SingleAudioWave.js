@@ -27,8 +27,7 @@ export default function CustomAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
-
-  const url = props.track != undefined ? props.track.file : ""
+  const url = props.altVersionTrack.mp3_file ? props.altVersionTrack.mp3_file : "./test.mp3"
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -63,8 +62,7 @@ export default function CustomAudioWave(props) {
 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
-
-    wavesurfer.current.load("./test.mp3");
+    wavesurfer.current.load(url);
   };
 
   useEffect(() => {
