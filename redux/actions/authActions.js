@@ -456,7 +456,6 @@ export const getSubscriptionPlans = () => async (dispatch) => {
 }
 
 export const getCuratedPlaylists = (query, filters, page) => async( dispatch ) => {
-  debugger
   try {
     const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/curated_playlists?query=${query}&filters=${filters}&page=${page}`);
     dispatch({

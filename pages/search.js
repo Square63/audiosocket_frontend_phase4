@@ -63,6 +63,7 @@ function Search(props) {
   const [sidebarType, setSidebarType] = useState("")
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
+  const [altVersionTrack, setAltVersionTrack] = useState(null);
   const authContext = useContext(AuthContext);
 
   // const message = useSelector(state => state.allPlaylists);
@@ -83,11 +84,9 @@ function Search(props) {
     }
   }, []);
 
-
-
   const filters = useSelector( state => state.allFilters.filters[0])
   const allTracks = useSelector( state => state.allTracks)
-  // const playlists = useSelector(state => state.user.my_playlists);
+  
   let tracks = ""
   let tracksMeta = ""
   if (allTracks && allTracks.tracks){
@@ -99,28 +98,8 @@ function Search(props) {
   console.log("Update Tracks", updatedTracks)
 
   console.log("Tracks META", tracksMeta)
-  // const playlists = useSelector( state => state.allPlaylists)
+  
   const favoritesMessage = useSelector( state => state.allTracks)
-
-  // useEffect(() => {
-  //   if (message.message) {
-  //     if(!message?.success) {
-  //       toast.error(message.message, TOAST_OPTIONS);
-  //     } else {
-  //       toast.success(message.message, TOAST_OPTIONS);
-  //     }
-  //   }
-  // }, [playlists])
-  // useEffect(() => {
-  //   if (playlists === undefined) {
-
-  //     dispatch(getMyPlaylists(1))
-  //   }
-  // }, [playlists]);
-
-  // useEffect(() => {
-
-  // }, [playlists]);
 
   useEffect(() => {
     if (allTracks.errorMessage && allTracks.errorMessage.includes("Validation failed")){
@@ -176,13 +155,19 @@ function Search(props) {
     setShowModal(show)
   }
 
-  function showDownloadModal(index) {
+  function showDownloadModal(index, type) {
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
+      if (type == "track") {
+        setAltVersionTrack(null)
+        if (index > 9) {
+          setIndex(index%10)
+        }
+        else {
+          setIndex(index)
+        }
       }
       else {
-        setIndex(index)
+        setAltVersionTrack(index)
       }
       setShowDownModal(true)
     }
@@ -203,25 +188,31 @@ function Search(props) {
     setShowLicenseModal(false)
   }
 
-  function showAddTrackToCartLicenseModal(index) {
+  function showAddTrackToCartLicenseModal(index, type) {
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
+      if (type == "track") {
+        setAltVersionTrack(null)
+        if (index > 9) {
+          setIndex(index%10)
+        }
+        else {
+          setIndex(index)
+        }
       }
       else {
-        setIndex(index)
+        setAltVersionTrack(index)
       }
-      if (typeof(localStorage.getItem("has_subscription")) !== undefined)
-      if (JSON.parse(localStorage.getItem("has_subscription"))) {
-        authContext.handleAddToCart(updatedTracks[index].id, "Track", "");
-      } else {
-        setShowSidebar(true)
-        setSidebarType("cart")
+      if (typeof(localStorage.getItem("has_subscription")) !== undefined) {
+        if (JSON.parse(localStorage.getItem("has_subscription"))) {
+          authContext.handleAddToCart(type == "track" ? updatedTracks[index].id : index.id, "Track", "");
+        } else {
+          setShowSidebar(true)
+          setSidebarType("cart")
+        }
       }
 
     }
     else {
-      // alert("You must be logged in to be able to add a track to cart.")
       setShowSidebar(true)
       setSidebarType("login")
     }
@@ -236,13 +227,19 @@ function Search(props) {
     setShowAddToCartLicenseModal(false)
   }
 
-  function showTrackAddToPlaylistModal(index) {
+  function showTrackAddToPlaylistModal(index, type) {
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index%10)
+      if (type == "track") {
+        setAltVersionTrack(null)
+        if (index > 9) {
+          setIndex(index%10)
+        }
+        else {
+          setIndex(index)
+        }
       }
       else {
-        setIndex(index)
+        setAltVersionTrack(index)
       }
       setShowAddToPlaylistModal(true)
     }
@@ -931,11 +928,11 @@ function Search(props) {
         </div>
       </div> */}
       <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
-      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
+      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} type="track"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} handleLicenseClick={handleLicenseClick} />
-      {localStorage.getItem("user") && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={updatedTracks[index]}/> }
-      <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>
+      <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} handleLicenseClick={handleLicenseClick} />
+      {localStorage.getItem("user") && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]}/> }
+      <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>
 
     </div>
 

@@ -30,14 +30,12 @@ function Subscription() {
 
   useEffect(() => {
     if (subscriptionPlans || currentPlan) {
-      debugger
       setIsLoading(false)
       setUserCurrentPlan(currentPlan)
     }
   }, [subscriptionPlans, currentPlan])
 
   useEffect(() => {
-    debugger
   }, [userCurrentPlan])
 
   const handleCancelSubscription = async() =>{

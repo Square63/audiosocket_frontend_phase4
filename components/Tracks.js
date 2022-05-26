@@ -306,7 +306,7 @@ function Tracks(props) {
                       </a>
                     </OverlayTrigger>
                     <OverlayTrigger overlay={<Tooltip>Add to Playlist</Tooltip>}>
-                      <a onClick={() => props.showTrackAddToPlaylistModal(index)}>
+                      <a onClick={() => props.showTrackAddToPlaylistModal(index, "track")}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="29.249" height="29.25" viewBox="0 0 29.249 29.25">
                           <g id="icon-add-to-playlist" transform="translate(0.5 0.5)">
                             <g id="Group_165" data-name="Group 165" transform="translate(0)">
@@ -350,7 +350,7 @@ function Tracks(props) {
                         </Dropdown.Toggle>
                       </OverlayTrigger>
                       <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1" onClick={props.showDownloadLicenseModal}>
+                        <Dropdown.Item onClick={props.showDownloadLicenseModal}>
                           <svg xmlns="http://www.w3.org/2000/svg" width="18.528" height="18.528" viewBox="0 0 18.528 18.528">
                             <g id="Music-Audio_Playlists_playlist-lock" data-name="Music-Audio / Playlists / playlist-lock" transform="translate(-242.504 -1970.614)">
                               <g id="Group_176" data-name="Group 176" transform="translate(243.004 1971.114)">
@@ -368,7 +368,7 @@ function Tracks(props) {
                           </svg>
                           <span>Download to License</span>
                         </Dropdown.Item>
-                        <Dropdown.Item href="#/action-1" onClick={() => {props.showDownloadModal(index);}}>
+                        <Dropdown.Item href="#/action-1" onClick={() => {props.showDownloadModal(index, "track");}}>
                           <svg xmlns="http://www.w3.org/2000/svg" width="17.89" height="16.927" viewBox="0 0 17.89 16.927">
                             <g id="icon-download" transform="translate(0.5 16.427) rotate(-90)">
                               <path id="Shape_111" data-name="Shape 111" d="M9,3.3V.734A.715.715,0,0,0,8.31,0H.692A.715.715,0,0,0,0,.734V16.156a.715.715,0,0,0,.692.734H8.31A.715.715,0,0,0,9,16.156v-2.57" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -395,7 +395,7 @@ function Tracks(props) {
                         </Dropdown.Toggle>
                       </OverlayTrigger>
                       <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => {props.showAddTrackToCartLicenseModal(index)}}>
+                        <Dropdown.Item onClick={() => {props.showAddTrackToCartLicenseModal(index, "track")}}>
                           <svg xmlns="http://www.w3.org/2000/svg" width="17.994" height="17.024" viewBox="0 0 17.994 17.024">
                             <g id="icon-cart" transform="translate(0.5 0.5)">
                               <g id="Group_155" data-name="Group 155" transform="translate(0)">
@@ -480,7 +480,7 @@ function Tracks(props) {
                             <div id={"example-collapse-text" + index + 1} >
                               {track.alternate_versions.map((altVersion,index)=> {
                                 return (
-                                  <AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} />
+                                  <AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} handleSimilarSearch={props.handleSimilarSearch} showTrackAddToPlaylistModal={props.showTrackAddToPlaylistModal} handleAddToFavorites={props.handleAddToFavorites} tracksMeta={props.tracksMeta} favoriteTrackIds={props.favoriteTrackIds} showDownloadModal={props.showDownloadModal} showDownloadLicenseModal={props.showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists}/>
                                 )
                               })}
                             </div>
