@@ -35,6 +35,8 @@ function Login() {
     if(localStorage.getItem('user')) {
       alert('Already logged in')
       router.push('/')
+    } else {
+      cookie.set('user', '')
     }
   }, [])
 
@@ -47,6 +49,7 @@ function Login() {
     if (!SocialLogIn) {
       if(loggedInUser.error) {
         toast.error(loggedInUser.error.message, TOAST_OPTIONS);
+        cookie.set('user', '')
       } else if (loggedInUser.user && Object.keys(loggedInUser.user).length) {
         localStorage.setItem("user", JSON.stringify(loggedInUser.user));
         localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));

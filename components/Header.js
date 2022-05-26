@@ -114,7 +114,7 @@ function Header() {
                     <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"} onClick={(e) => toggleDropdown(e, "/user/edit")}>
                       <span>My Profile</span>
                     </NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => {authActions.userDataStateChanged(null); cookie.set('user', ""); setIsLoggedIn(false); router.push('/login')}}>
+                    <NavDropdown.Item onClick={() => {authActions.userDataStateChanged(null); cookie.set('user', ''); setIsLoggedIn(false); router.push('/login')}}>
                       <span>Sign Out</span>
                     </NavDropdown.Item>
                   </NavDropdown>
