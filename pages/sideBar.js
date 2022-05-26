@@ -243,7 +243,7 @@ function SideBar() {
                       <div className={pricing.featureInclude}>
                         <h4>What it’s good for:</h4>
                         <ul>
-                          <li>Small business media (under 100 employees)</li>
+                          <li>Small business media (under 50 employees)</li>
                           <li>Freelancers creating media for small business clients</li>
                           <li>Web streaming on social media (YouTube, Vimeo, Instagram etc)</li>
                           <li>YouTube monetization</li>

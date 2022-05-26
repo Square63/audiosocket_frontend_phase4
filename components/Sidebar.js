@@ -24,8 +24,8 @@ function Sidebar(props) {
   const [webRights, setWebRights] = useState("");
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
-  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Monthly");
-  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Monthly");
+  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Annually");
+  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Annually");
   const [validated, setValidated] = useState(false);
   const [contentType, setContentType] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
@@ -667,7 +667,7 @@ function Sidebar(props) {
                               <div className={pricing.featureInclude}>
                                 <h4>What it’s good for:</h4>
                                 <ul>
-                                  <li>Small business media (under 100 employees)</li>
+                                  <li>Small business media (under 50 employees)</li>
                                   <li>Freelancers creating media for small business clients</li>
                                   <li>Web streaming on social media (YouTube, Vimeo, Instagram etc)</li>
                                   <li>YouTube monetization</li>
