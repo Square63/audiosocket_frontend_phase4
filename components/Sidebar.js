@@ -24,8 +24,8 @@ function Sidebar(props) {
   const [webRights, setWebRights] = useState("");
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
-  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Monthly");
-  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Monthly");
+  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Annually");
+  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Annually");
   const [validated, setValidated] = useState(false);
   const [contentType, setContentType] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
@@ -58,8 +58,9 @@ function Sidebar(props) {
       localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
       localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
       localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
-    localStorage.setItem("has_subscription", JSON.stringify(loggedInUser.userDetails.subscription_flag));
-      cookie.set('user', JSON.stringify(loggedInUser.user))
+      localStorage.setItem("has_subscription", JSON.stringify(loggedInUser.userDetails.subscription_flag));
+      if (JSON.stringify(loggedInUser.user) == localStorage.getItem("user"))
+        cookie.set('user', JSON.stringify(loggedInUser.user))
       router.reload(window.location.pathname)
     }
   }, [loggedInUser])
@@ -667,7 +668,7 @@ function Sidebar(props) {
                               <div className={pricing.featureInclude}>
                                 <h4>What it’s good for:</h4>
                                 <ul>
-                                  <li>Small business media (under 100 employees)</li>
+                                  <li>Small business media (under 50 employees)</li>
                                   <li>Freelancers creating media for small business clients</li>
                                   <li>Web streaming on social media (YouTube, Vimeo, Instagram etc)</li>
                                   <li>YouTube monetization</li>
@@ -710,10 +711,11 @@ function Sidebar(props) {
                                     <p className={pricing.planName}>Music Only</p>
                                   </div>
                                   <div className={pricing.planPriceDuration}>
-                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 399 : 33.25}</span>
+                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 399 : 59}</span>
                                     <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                                   </div>
                                 </div>
+																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$33.25 / Month" : ""}</strong></small>
 
                                 <div className={pricing.planIndividual} onClick={() => handleSubscriptionType("Music + SFX")}>
                                   <div className={pricing.planType}>
@@ -721,11 +723,12 @@ function Sidebar(props) {
                                     <p className={pricing.planName}>Music + SFX</p>
                                   </div>
                                   <div className={pricing.planPriceDuration}>
-                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 549 : 45.75}</span>
+                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 549 : 72}</span>
                                     <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                                   </div>
                                 </div>
-
+																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$45.75 / Month" : ""}</strong></small>
+																<br/>
                                 <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
                               </div>
                             </div>

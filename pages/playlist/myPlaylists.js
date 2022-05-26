@@ -24,9 +24,11 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { BASE_URL } from "../../common/api";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useCookie } from 'next-cookie'
 
 
 function MyPlaylists() {
+  const cookie = useCookie()
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const dispatch = useDispatch();
@@ -41,6 +43,7 @@ function MyPlaylists() {
 
   useEffect(() => {
     if (responseStatus == 422) {
+      cookie.set('user', '')
       window.localStorage.clear();
       document.cookie.split(";").forEach(function (c) {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");

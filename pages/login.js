@@ -35,6 +35,8 @@ function Login() {
     if(localStorage.getItem('user')) {
       alert('Already logged in')
       router.push('/')
+    } else {
+      cookie.set('user', '')
     }
   }, [])
 
@@ -53,7 +55,9 @@ function Login() {
         localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
         localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
         localStorage.setItem("has_subscription", JSON.stringify(loggedInUser.userDetails.subscription_flag));
-        cookie.set('user', JSON.stringify(loggedInUser.user))
+        debugger
+        if (JSON.stringify(loggedInUser.user) == localStorage.getItem("user"))
+          cookie.set('user', JSON.stringify(loggedInUser.user))
         toast.success('Successfully Logged In.');
         if (window.location.search){
           let urlParams = new URLSearchParams(window.location.search);
