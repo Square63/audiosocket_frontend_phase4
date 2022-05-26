@@ -3096,7 +3096,7 @@ hr {
 .brandsStrip {
   @include flexbox;
   @include justify-content(space-between);
-  @include align-items(baseline);
+  @include align-items(center);
   flex-wrap: wrap;
   gap: 25px;
   margin-top: 8em;
