@@ -67,7 +67,7 @@ function SelectPricingPlan(props) {
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
   const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Annually");
-  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Monthly");
+  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Annually");
   const [plan, setPlan] = useState(null);
   const [validated, setValidated] = useState(false);
   const form = useRef(null);
@@ -176,7 +176,7 @@ function SelectPricingPlan(props) {
     setPlanType("");
     setWebRights("");
     setPersonalMonthlyAnnual("Annually");
-    setCommercialMonthlyAnnual("Monthly");
+    setCommercialMonthlyAnnual("Annually");
     setPlan(null);
   }
 
@@ -756,7 +756,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.featureInclude}>
                   <h4>What it&apos;s good for:</h4>
                   <ul>
-                    <li>Small business media (under 100 employees)</li>
+                    <li>Small business media (under 50 employees)</li>
                     <li>Freelancers creating media for small business clients</li>
                     <li>Web streaming on social media (YouTube, Vimeo, Instagram etc)</li>
                     <li>YouTube monetization</li>
