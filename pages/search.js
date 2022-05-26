@@ -36,10 +36,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../components/Sidebar';
 import SearchAudioWave from '../components/SearchAudioWave';
-import { useCookie } from 'next-cookie'
 
 function Search(props) {
-  const cookie = useCookie()
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -107,7 +105,6 @@ function Search(props) {
     if (allTracks.errorMessage && allTracks.errorMessage.includes("Validation failed")){
       toast.error(allTracks?.errorMessage, TOAST_OPTIONS);
     } else if (allTracks.responseStatus == 422) {
-      cookie.set('user', '');
       window.localStorage.clear();
       document.cookie.split(";").forEach(function (c) {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
