@@ -15,6 +15,8 @@ import { TOAST_OPTIONS_ERROR } from '../../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
+import DownloadTrack from "../../components/modals/DownloadTrack";
+import DownloadTrackLicense from "../../components/modals/DownloadTrackLicense";
 
 function Favorites() {
   const [type, setType] = useState('songs');
@@ -24,6 +26,43 @@ function Favorites() {
   const responseStatus = useSelector(state => state.user.responseStatus);
   const [isLoading, setIsLoading] = useState(true);
   const favoritesMessage = useSelector( state => state.allTracks)
+  const [showDownModal, setShowDownModal] = useState(false)
+  const [showLicenseModal, setShowLicenseModal] = useState(false)
+  const [index, setIndex] = useState(0)
+  const [updatedTracks, setUpdatedTracks] = useState([])
+
+  function showDownloadModal(index) {
+    if (localStorage.getItem("user")) {
+      if (index > 9) {
+        setIndex(index + 10)
+      }
+      else {
+        setIndex(index)
+      }
+      setShowDownModal(true)
+    }
+    else {
+      alert("You must be logged in to be able to add a track to cart.")
+    }
+  }
+
+  const handleDownloadClose = (show) => {
+    setShowDownModal(show)
+  }
+
+  function showDownloadLicenseModal() {
+    setShowLicenseModal(true)
+  }
+
+  function handleLicenseModalClose() {
+    setShowLicenseModal(false)
+  }
+
+  useEffect(() => {
+    if (favoriteTracks?.tracks?.length > 0) {
+      setUpdatedTracks(updatedTracks => [...updatedTracks, ...favoriteTracks.tracks]);
+    }
+  }, [favoriteTracks, favoritesMessage]);
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
@@ -94,7 +133,9 @@ function Favorites() {
           pauseOnHover
           style={{ width: "auto" }}
         />
-        {favoriteTracks && <FavoriteTracks type="Favorite" tracks={favoriteTracks.tracks} handleAddToFavorites={handleAddToFavorites} handleSimilarSearch={handleSimilarSearch}/>}
+        {favoriteTracks && <FavoriteTracks type="Favorite" tracks={favoriteTracks.tracks} tracksMeta={favoriteTracks.meta} handleAddToFavorites={handleAddToFavorites} handleSimilarSearch={handleSimilarSearch} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} />}
+        <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
+        <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       </>
 
       )}
