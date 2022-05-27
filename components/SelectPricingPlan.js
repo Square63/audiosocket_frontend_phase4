@@ -1069,7 +1069,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.licenseType}>
                   <span className={pricing.licenseName}>
                     Individual
-                    <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>For individual users creating media for their personal channels. Perfect for your YouTube videos, podcast, vlogs, and home videos that are self-published on 3rd party platforms. Monetization via Adsense/AdShare on 3rd party platforms is permitted.</Tooltip>}>
                       <a href="" className="info"></a>
                     </OverlayTrigger>
                   </span>
@@ -1078,7 +1078,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.licenseType}>
                   <span className={pricing.licenseName}>
                     Small Business
-                    <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>For use by businesses with 50 or fewer employees or freelancers creating content for businesses with 50 or fewer employees.</Tooltip>}>
                       <a href="" className="info"></a>
                     </OverlayTrigger>
                   </span>
@@ -1087,7 +1087,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.licenseType}>
                   <span className={pricing.licenseName}>
                     Indie Film
-                    <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>For use by individual videographers, or filmmakers in a single film or video with a budget less than $2 Million USD. Films may be distributed on the Web and submitted to film festivals. </Tooltip>}>
                       <a href="" className="info"></a>
                     </OverlayTrigger>
                   </span>
@@ -1096,7 +1096,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.licenseType}>
                   <span className={pricing.licenseName}>
                     Large Business
-                    <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>For use by businesses with 51 or more employees or freelancers creating content for businesses with 51 or more employees.</Tooltip>}>
                       <a href="" className="info"></a>
                     </OverlayTrigger>
                   </span>
