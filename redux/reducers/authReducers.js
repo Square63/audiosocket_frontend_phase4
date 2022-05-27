@@ -6,7 +6,7 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWO
          GET_FORGOT_PASSWORD_SUCCESS, GET_FORGOT_PASSWORD_FAIL, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAIL, CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL,
          EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL, MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS,
          SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL, MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL,
-         REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL, GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL } from "../constants/authConstants";
+         REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL, GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL } from "../constants/authConstants";
 
 export const authReducer = (state = {user: {}, error: {}}, action) => {
   switch (action.type) {
@@ -298,6 +298,19 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       return {
         ...state,
         curated_filters: action.payload.response.data.errors,
+        success: false,
+      };
+    case GET_CURRENT_SUBSCRIPTION_SUCCESS:
+      debugger
+      return {
+        ...state,
+        current_subscription: action.payload,
+        success: true,
+      };
+    case GET_CURRENT_SUBSCRIPTION_FAIL:
+      return {
+        ...state,
+        current_subscription: action.payload.response.data.errors,
         success: false,
       };
     default:

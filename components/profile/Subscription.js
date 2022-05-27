@@ -2,8 +2,19 @@ import React from "react";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
 import user from "../../styles/User.module.scss";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentSubscription } from "../../redux/actions/authActions";
 
 const Subscription = () => {
+  const dispatch = useDispatch();
+  const currentSubscription = useSelector(state => state);
+
+  useEffect(() => {
+    debugger
+    dispatch(getCurrentSubscription())
+  }, []);
+
   return (
     <div className={user.subscription}>
       <div className="subscriptionPlan">
