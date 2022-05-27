@@ -62,10 +62,12 @@ function CuratedPlaylist() {
   const [pageNum, setPageNum] = useState(1);
   const [paginatedPlaylists, setPaginatedPlaylists] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [paginatedPlaylistsCount, setPaginatedPlaylistsCount] = useState(0);
 
   const dispatch = useDispatch();
   const router = useRouter();
   const playlists = useSelector( state => state.user.curated_playlists)
+  const totalPlaylists = useSelector( state => state.user?.meta?.count)
   const filters = useSelector( state => state.user.curated_filters)
   const responseStatus = useSelector(state => state.user.responseStatus);
 
@@ -100,6 +102,9 @@ function CuratedPlaylist() {
     if (playlists && playlists.length > 0) {
       setPaginatedPlaylists(paginatedPlaylists=> [...paginatedPlaylists, ...playlists])
       console.log("PAGINATED PLAYLISTS", paginatedPlaylists)
+    }
+    if (playlists?.length > 0) {
+      setPaginatedPlaylistsCount(paginatedPlaylistsCount+playlists.length)
     }
 
   }, [playlists]);
@@ -210,7 +215,7 @@ function CuratedPlaylist() {
                   })}
             </div>
             <div className={playlist.btnWrapper}>
-              <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button>
+              {(totalPlaylists != paginatedPlaylistsCount) ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
             </div>
           </section>
         </div>
