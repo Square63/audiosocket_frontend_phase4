@@ -176,6 +176,17 @@ textarea.form-control {
   color: $red;
 }
 
+#cardForm {
+  .form-label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.19;
+    letter-spacing: -.4px;
+    color: #6e7377;
+    margin-bottom: 6px;
+  }
+}
+
 /************** Breadcrumbs **************/
 .themeBreadcrumb {
   background-color: $darkGrey;
@@ -3096,7 +3107,7 @@ hr {
 .brandsStrip {
   @include flexbox;
   @include justify-content(space-between);
-  @include align-items(baseline);
+  @include align-items(center);
   flex-wrap: wrap;
   gap: 25px;
   margin-top: 8em;

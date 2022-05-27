@@ -144,10 +144,10 @@ function MyPlaylistTracks(props) {
   const handleMoodColumn = (track, mood) => {
     if (track.mediable_type !== "Sfx") {
       switch(mood) {
-        case "moods":   return track.mediable.moods.join(", ");
-        case "genres":   return track.mediable.genres.join(", ");
-        case "themes": return track.mediable.themes.join(", ");
-        case "instruments":  return track.mediable.instruments.join(", ");
+        case "moods": return track?.mediable ? track.mediable.moods.join(", ") : track.moods.join(", ");
+        case "genres": return track?.mediable ? track.mediable.genres.join(", ") : track.genres.join(", ");
+        case "themes": return track?.mediable ? track.mediable.themes.join(", ") : track.themes.join(", ");
+        case "instruments": return track?.mediable ? track.mediable.instruments.join(", ") : track.instruments.join(", ");
         default: return ""
       }
     }
@@ -454,12 +454,12 @@ function MyPlaylistTracks(props) {
                                           <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.3l3.553-4.053" transform="translate(-330.379 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
                                         </g>
                                       </svg>
-                                      <span className="versionCount">1</span> alt. versions
+                                    <span className="versionCount">{track.mediable.alternate_versions.length}</span> alt. versions
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey={index + 1}>
                                       <div id={"example-collapse-text" + index + 1} >
-                                        {track.mediable.alternate_versions.map((altVersion,index)=> {
-                                          return(<AltVersion key={index} altVersionTrack={altVersion}/>)
+                                        {track.mediable.alternate_versions.map((altVersion, index)=> {
+                                          return (<AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)}/>)
                                         })}
                                       </div>
                                     </Accordion.Collapse>
@@ -478,7 +478,7 @@ function MyPlaylistTracks(props) {
               )}
             </Droppable>
           </DragDropContext>
-          
+
         </InfiniteScroll>
       </div>
     </div>

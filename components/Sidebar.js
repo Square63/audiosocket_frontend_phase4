@@ -711,10 +711,11 @@ function Sidebar(props) {
                                     <p className={pricing.planName}>Music Only</p>
                                   </div>
                                   <div className={pricing.planPriceDuration}>
-                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 399 : 33.25}</span>
+                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 399 : 59}</span>
                                     <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                                   </div>
                                 </div>
+																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$33.25 / Month" : ""}</strong></small>
 
                                 <div className={pricing.planIndividual} onClick={() => handleSubscriptionType("Music + SFX")}>
                                   <div className={pricing.planType}>
@@ -722,11 +723,12 @@ function Sidebar(props) {
                                     <p className={pricing.planName}>Music + SFX</p>
                                   </div>
                                   <div className={pricing.planPriceDuration}>
-                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 549 : 45.75}</span>
+                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 549 : 72}</span>
                                     <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                                   </div>
                                 </div>
-
+																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$45.75 / Month" : ""}</strong></small>
+																<br/>
                                 <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
                               </div>
                             </div>

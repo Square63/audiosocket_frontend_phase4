@@ -40,7 +40,7 @@ class Braintree extends React.Component {
     const clientToken = data.token
     this.setState({
       clientToken: clientToken,
-      redirectUrl: data.redirect_url 
+      redirectUrl: data.redirect_url
     });
   }
 
@@ -75,7 +75,7 @@ class Braintree extends React.Component {
   }
 
   render() {
-    
+
     if (!this.state.clientToken) {
       return (
         <div>
@@ -105,11 +105,11 @@ class Braintree extends React.Component {
             }}
             onInstance={(instance) => (this.instance = instance)}
           >
-            
+
           <div className={signup.stepWrapper+" "+signup.stepThreeWrapper}>
             <div className="fixed-container">
               <div className={signup.signUpInner}>
-                
+
                 <div className={signup.signupBodyWrapper}>
                   <div className="boxWithShadow">
                     <div className="boxHeading">
@@ -118,18 +118,28 @@ class Braintree extends React.Component {
                     </div>
                     <div className={signup.boxBody}>
                     <form id="cardForm">
-                      <label className="hosted-fields--label">Card Number</label>
-                      <div className="form-control hosted-field" id="card-number" type="text" placeholder="Enter Card Number…"></div>
+                      <div className="form-group">
+                        <label className="hosted-fields--label form-label">Card Number <sup>*</sup></label>
+                        <div className="form-control hosted-field" id="card-number" type="text" placeholder="Enter Card Number…"></div>
+                      </div>
 
-                      <label className="hosted-fields--label">Expiration Date</label>
-                      <div className="form-control hosted-field" type="text" placeholder="Expiration Date (MM/YY)" id="expiration-date"></div>
+                      <div className="form-group">
+                        <label className="hosted-fields--label form-label">Expiration Date <sup>*</sup></label>
+                        <div className="form-control hosted-field" type="text" placeholder="Expiration Date (MM/YY)" id="expiration-date"></div>
+                      </div>
 
-                      <label className="hosted-fields--label">CVV</label>
-                      <div className="form-control hosted-field" type="text" placeholder="CVV" id="cvv"></div>
-                      <label className="hosted-fields--label">Postal Code</label>
-                      <div id="postal-code" className="form-control hosted-field" type="text" placeholder="Enter Postal Code."></div>
-                      <label>Discount Code</label>
-                      <input id="disCode" className="form-control" type="text" placeholder="Enter Discount Code." />
+                      <div className="form-group">
+                        <label className="hosted-fields--label form-label">CVV <sup>*</sup></label>
+                        <div className="form-control hosted-field" type="text" placeholder="CVV" id="cvv"></div>
+                      </div>
+                      <div className="form-group">
+                        <label className="hosted-fields--label form-label">Postal Code <sup>*</sup></label>
+                        <div id="postal-code" className="form-control hosted-field" type="text" placeholder="Enter Postal Code."></div>
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Discount Code</label>
+                        <input id="disCode" className="form-control" type="text" placeholder="Enter Discount Code." />
+                      </div>
                     </form>
                     </div>
                   </div>
