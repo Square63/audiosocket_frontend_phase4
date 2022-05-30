@@ -65,13 +65,13 @@ export default function CustomAudioWave(props) {
     } else {
       setSeconds(seconds);
     }
-    // if (wavesurfer.current && props.footerPlaying) {
-    //   wavesurfer.current.play();
-    //   console.log("Inside IF")
-    // } else if (wavesurfer.current && !localStorage.getItem('playing')){
-    //   wavesurfer.current.pause();
-    //   console.log("Inside ELSEIF")
-    // }
+    if (wavesurfer.current && props.footerPlaying) {
+      wavesurfer.current.play();
+      console.log("Inside IF")
+    } else if (wavesurfer.current && !localStorage.getItem('playing')){
+      wavesurfer.current.pause();
+      console.log("Inside ELSEIF")
+    }
 
     // create();
 

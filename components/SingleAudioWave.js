@@ -28,6 +28,7 @@ export default function CustomAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
+  const [rowSeconds, setRowSeconds] = useState();
   const url = props.track.mp3_file ? props.track.mp3_file : "./test.mp3"
 
   const settings = {
@@ -57,6 +58,15 @@ export default function CustomAudioWave(props) {
     //   }
     // };
   }, [playing, seconds, props.track, props.footerPlaying]);
+
+  useEffect(() => {
+    if (playing) {
+      setTimeout(() => setRowSeconds(rowSeconds ? (rowSeconds -1) : (wavesurfer.current?.getDuration() - 1)), 1000);
+      if (!wavesurfer.current?.isPlaying()) {
+        setPlaying(false)
+      }
+    }
+  }, [rowSeconds, playing])
 
   const create = async () => {
     const WaveSurfer = (await import("wavesurfer.js")).default;
@@ -94,7 +104,7 @@ export default function CustomAudioWave(props) {
       <div className="versionTrackRow">
         <div className="filterVersion">
           <div className="playPauseBtn" onClick={handlePlayPause}>
-            <span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
+            <span className={(playing) ? "play" : "pause"}></span>
           </div>
           <a href="" className="filterName">
             {props.track.title}
