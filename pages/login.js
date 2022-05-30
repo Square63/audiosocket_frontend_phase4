@@ -54,9 +54,7 @@ function Login() {
         localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
         localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
         localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
-        // if (loggedInUser.userDetails.subscription) {
-        //   localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.subscription.name));
-        // }
+        localStorage.setItem("has_subscription", JSON.stringify(loggedInUser.userDetails.subscription_flag));
         if (JSON.stringify(loggedInUser.user) == localStorage.getItem("user"))
           cookie.set('user', JSON.stringify(loggedInUser.user))
         toast.success('Successfully Logged In.');

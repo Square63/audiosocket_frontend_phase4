@@ -31,6 +31,7 @@ const Details = () => {
 	const myPlaylistTracks = useSelector(state => state.user.my_playlist_tracks);
 	const myPlaylistArtists = useSelector(state => state.user.my_playlist_artists);
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+  const [updatedArtists, setUpdatedArtists] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [showDownModal, setShowDownModal] = useState(false);
@@ -45,7 +46,6 @@ const Details = () => {
     if (query) {
       dispatch(getMyPlaylistDetail(query.id))
 	  	dispatch(getMyPlaylistTracks(query.id))
-			dispatch(getMyPlaylistArtists(query.id))
     }
   }, [showEditModal]);
 
@@ -57,6 +57,7 @@ const Details = () => {
 
 	useEffect(() => {
     if (myPlaylistTracks) {
+      dispatch(getMyPlaylistArtists(query.id))
       myPlaylistTracks.meta && setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
       setIsLoading(false)
     }
@@ -65,6 +66,7 @@ const Details = () => {
 	useEffect(() => {
     if (myPlaylistArtists) {
       setIsLoading(false)
+      setUpdatedArtists(myPlaylistArtists)
     }
   }, [myPlaylistArtists])
 
@@ -91,7 +93,7 @@ const Details = () => {
     localStorage.setItem("track_id", trackId)
     Router.push({
       pathname: '/search'
-    }, 
+    },
     undefined, { shallow: true }
     )
   }
@@ -105,12 +107,12 @@ const Details = () => {
       tracks.map((track, index) =>
 			duration += track.mediable.duration)
     }
-		
+
 		return convertSecToMin(duration)
 	}
 
 	function convertSecToMin(duration) {
-		
+
     if (duration != null) {
       let minutes = Math.floor(duration / 60).toString();
       minutes = minutes.length == 1 ? ("0" + minutes) : minutes
@@ -211,11 +213,11 @@ const Details = () => {
         method: "GET"
       });
     if(response.ok) {
-      
+
     } else {
-      
+
     }
-    
+
   }
 
 	const removeTrackFromPlaylist = (trackId) => {
@@ -310,20 +312,20 @@ const Details = () => {
 											Edit Playlist
 										</Button>
 									</div>
-								</div> 
+								</div>
 							</div>
 						</div>
 					</div>
 					<div className="fixed-container">
 						{myPlaylistTracks && (myPlaylistTracks.playlist_tracks?.length > 0 || myPlaylistTracks.length > 0) && <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
 					</div>
-					
+
 					<div className={playlist.artistTiles}>
 						<div className="fixed-container">
 							<h3>Artists On This Playlist</h3>
 							<section className={playlist.myPlaylists}>
 								<div className="tilesWrapper">
-									{myPlaylistArtists && myPlaylistArtists.map((artist, index) =>
+                  {updatedArtists && updatedArtists.map((artist, index) =>
 										<a key={index} href="javascript:void(0)" className="tileOverlay">
 											<Image src={index > 0 ? mood1 : mood2 } alt="Mood" className="tilesImg"></Image>
 											<span className="tileOverlayText">
@@ -342,7 +344,7 @@ const Details = () => {
           {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={myPlaylistTracks[index]} />}
 				</div>
 
-				
+
 			</>
 		)}
 	</>
