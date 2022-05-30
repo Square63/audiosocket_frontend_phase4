@@ -302,7 +302,6 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         success: false,
       };
     case GET_CURRENT_SUBSCRIPTION_SUCCESS:
-      debugger
       return {
         ...state,
         current_subscription: action.payload,

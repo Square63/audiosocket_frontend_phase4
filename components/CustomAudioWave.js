@@ -42,6 +42,7 @@ export default function CustomAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
+  const [rowSeconds, setRowSeconds] = useState();
   const [footer, setFooter] = useState(false)
 
   const url = props.track.mp3_file? props.track.mp3_file : "./test.mp3"
@@ -64,13 +65,13 @@ export default function CustomAudioWave(props) {
     } else {
       setSeconds(seconds);
     }
-    if (wavesurfer.current && props.footerPlaying) {
-      wavesurfer.current.play();
-      console.log("Inside IF")
-    } else if (wavesurfer.current && !localStorage.getItem('playing')){
-      wavesurfer.current.pause();
-      console.log("Inside ELSEIF")
-    }
+    // if (wavesurfer.current && props.footerPlaying) {
+    //   wavesurfer.current.play();
+    //   console.log("Inside IF")
+    // } else if (wavesurfer.current && !localStorage.getItem('playing')){
+    //   wavesurfer.current.pause();
+    //   console.log("Inside ELSEIF")
+    // }
 
     // create();
 
@@ -82,13 +83,19 @@ export default function CustomAudioWave(props) {
   }, [seconds]);
 
   useEffect(() => {
-    console.log("footer track", props.footerTrack)
-    console.log("WaveSurfer", wavesurfer.current)
+    if (playing) {
+      setTimeout(() => setRowSeconds(rowSeconds ? (rowSeconds -1) : (wavesurfer.current?.getDuration() - 1)), 1000);
+      if (!wavesurfer.current?.isPlaying()) {
+        setPlaying(false)
+      }
+    }
+  }, [rowSeconds, playing])
+
+  useEffect(() => {
     if (props.footerTrack) {
       wavesurfer.current.destroy();
       footerCreate(props.footerTrack.file)
     }
-
   }, [props.footerTrack]);
 
   const create = async (url) => {
