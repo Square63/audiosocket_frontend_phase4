@@ -450,7 +450,7 @@ export const getSubscriptionPlans = () => async (dispatch) => {
         type: GET_PLANS_FAIL,
         payload: error
       })
-  
+
     }
   }
 }
