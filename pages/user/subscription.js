@@ -20,6 +20,7 @@ function Subscription() {
   const router = useRouter();
   const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
   const currentPlan = useSelector(state => state.user.currentPlan);
+  const yearlyPlan = useSelector(state => state.user.yearlyPlan);
   const [isLoading, setIsLoading] = useState(true);
   const [userCurrentPlan, setUserCurrentPlan] = useState(null);
 

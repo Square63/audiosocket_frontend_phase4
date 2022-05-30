@@ -609,7 +609,7 @@ export const getCuratedPlaylistFilters = () => async (dispatch) => {
 export const getCurrentSubscription = () => async (dispatch) => {
   try {
     const { data } = await axios.get(
-      `${BASE_URL}/api/v1/consumers/current_subscription`
+      `${BASE_URL}/api/v1/consumer/consumers/current_subscription`
     );
     dispatch({
       type: GET_CURRENT_SUBSCRIPTION_SUCCESS,
