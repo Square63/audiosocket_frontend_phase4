@@ -653,10 +653,10 @@ export default function Home(props) {
                     <p>Flip through some of our most popular playlists to see the high-quality tracks we carry.</p>
                   </div>
                   <div className="moodFilters hideOntablet">
-                    <a href="" className="btn btnMainOutline">Creator Kits</a>
-                    <a href="" className="btn btnMainOutline">Moods</a>
-                    <a href="" className="btn btnMainOutline">Genres</a>
-                    <a href="" className="btn btnMainOutline">Themes</a>
+                    <a href="/playlist/curatedPlaylist" className="btn btnMainOutline">Creator Kits</a>
+                    <a href="/playlist/curatedPlaylist" className="btn btnMainOutline">Moods</a>
+                    <a href="/playlist/curatedPlaylist" className="btn btnMainOutline">Genres</a>
+                    <a href="/playlist/curatedPlaylist" className="btn btnMainOutline">Themes</a>
                   </div>
                   <div className="MoodFilterDropdown ShowOntablet">
                     <Form>
@@ -682,15 +682,17 @@ export default function Home(props) {
                 </div>
                 <CarouselMood breakPoints={breakPoints}>
                   {images.map((item) => (
-                    <div key={item} className="moodSlide">
-                      <Image src={item.src} alt="Mood" className="moodImage"></Image>
-                      <span className="moodOverlayText">{item.text}</span>
-                    </div>
+                    <a href="/playlist/curatedPlaylist">
+                      <div key={item} className="moodSlide">
+                        <Image src={item.src} alt="Mood" className="moodImage"></Image>
+                        <span className="moodOverlayText">{item.text}</span>
+                      </div>
+                    </a>
                   ))}
                 </CarouselMood>
               </div>
               <div className="ViewPlaylist">
-                <a href="" className="btn btnMainLarge">View All Playlists</a>
+                <a href="/playlist/curatedPlaylist" className="btn btnMainLarge">View All Playlists</a>
               </div>
             </section>
 
