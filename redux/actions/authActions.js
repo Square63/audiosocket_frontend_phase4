@@ -11,7 +11,8 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL, EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL,
          MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS, SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL,
          MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL, REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL,
-         GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL } from "../constants/authConstants";
+         GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
+         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -622,3 +623,20 @@ export const getCurrentSubscription = () => async (dispatch) => {
     });
   }
 };
+
+export const getFeaturedPlaylists = () => async( dispatch ) => {
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/curated_playlists?featured=true`);
+    dispatch({
+      type: GET_FEATURED_PLAYLISTS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_FEATURED_PLAYLISTS_FAIL,
+      payload: error
+    })
+
+  }
+
+}

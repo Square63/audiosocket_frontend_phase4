@@ -55,8 +55,8 @@ function FavoriteTracks(props) {
   },[props.tracks])
 
   useEffect(() => {
-    setFollowedArtists(props.tracksMeta.followed_artist_ids);
-  },[props.tracksMeta.followed_artist_ids])
+    setFollowedArtists(props.tracksMeta?.followed_artist_ids);
+  },[props.tracksMeta?.followed_artist_ids])
 
   const fetchData = () => {
     let query = document.getElementById("searchField").value
