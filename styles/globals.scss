@@ -37,7 +37,9 @@ a {
     text-decoration: none;
   }
 }
-
+svg {
+  overflow: visible;
+}
 .btn {
   &:focus {
     box-shadow: none;

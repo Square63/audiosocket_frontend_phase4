@@ -646,9 +646,6 @@
 
 @media #{$mid-point-tablet} {
   .accountWrapper {
-    .accountHeader {
-      display: none;
-    }
     :global(.userAccountInner) {
       :global(.boxDivision) {
         :global(.boxColumn) {
@@ -682,6 +679,109 @@
               &:global(.controls) {
                 min-width: 150px;
               }
+              &.purchaseDate {
+                min-width: 150px;
+              }
+              &.purchaseReceipt {
+                min-width: 150px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media #{$phone-landscape} {
+  .accountWrapper {
+    padding-block: 3px 50px;
+    .accountHeader {
+      h1 {
+        display: none;
+      }
+      .userNav {
+        margin-left: 0;
+        @include flex(1);
+        gap: 0;
+        margin-inline: -20px;
+        margin-block-end: 20px;
+        li {
+          @include flex(1);
+          border: 1px solid $border-clr;
+          border-left: 0;
+          background-color: $headerColor;
+          height: 60px;
+          a {
+            padding: 0;
+            height: inherit;
+            svg {
+              margin-inline: auto;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              @include transition(all 0.3s ease-in-out);
+              path,line, circle, .rectLicense {
+                stroke: $white;
+                fill: transparent;
+              }
+            }
+          }
+          &:global(.licences) {
+            a {
+              svg {
+                width: 28px;
+                height: 28px;
+              }
+            }
+          }
+          &:global(.favorites) {
+            a {
+              svg {
+                width: 28px;
+                height: 28px;
+              }
+            }
+          }
+          &:global(.following) {
+            a {
+              svg {
+                width: 28px;
+                height: 28px;
+              }
+            }
+          }
+          
+          &:global(.selected),
+          &:hover {
+            a {
+              &:after {
+                bottom: 1px;
+              }
+              svg {
+                path,line, circle, .rectLicense {
+                  stroke: $green-light;
+                  background-color: aqua;
+                }
+              }
+            }
+          }
+
+          &:last-child {
+            border-right: 0;
+          }
+        }
+      }
+    }
+    :global(.userAccountInner) {
+      :global(.boxDivision) {
+        @include flex-direction(column);
+        :global(.boxColumn) {
+          :global(.boxWithShadow) {
+            padding-inline: 15px;
+            :global(.form-control) {
+              padding-inline: 15px;
             }
           }
         }
