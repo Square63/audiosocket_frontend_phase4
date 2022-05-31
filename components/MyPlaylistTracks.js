@@ -206,57 +206,59 @@ function MyPlaylistTracks(props) {
         </div>
       </div>
       <div className="trackRowWrapper">
-        <div className="trackRow headingRow">
-          <div className="rowParticipant artistName" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}>
-            Title / Artist
-            <span className="sortingMedium">
-              <a href="" className={titleSortDir == "DESC" ? "decending disableSortBtn" : titleSortDir == "" ? "decending" : "decending"}></a>
-              <a href="" className={titleSortDir == "ASC" ? "ascending  disableSortBtn" : titleSortDir == "" ? "ascending" : "ascending"}></a>
-            </span>
-          </div>
-          <div className="rowParticipant audioWave"></div>
-          <div className="rowParticipant duration" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}>
-            Duration
-            <span className="sortingMedium">
-              <a href="" className={durationSortDir == "DESC" ? "decending disableSortBtn" : durationSortDir == "" ? "decending" : "decending"}></a>
-              <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
-            </span>
-          </div>
-          <div className="rowParticipant mood">
-            <Dropdown alignLeft>
-              <Dropdown.Toggle variant="" id="headerMood">
-                Mood
-              </Dropdown.Toggle>
+        {props.tracks && props.tracks.length > 0 && 
+          <div className="trackRow headingRow">
+            <div className="rowParticipant artistName" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}>
+              Title / Artist
+              <span className="sortingMedium">
+                <a href="" className={titleSortDir == "DESC" ? "decending disableSortBtn" : titleSortDir == "" ? "decending" : "decending"}></a>
+                <a href="" className={titleSortDir == "ASC" ? "ascending  disableSortBtn" : titleSortDir == "" ? "ascending" : "ascending"}></a>
+              </span>
+            </div>
+            <div className="rowParticipant audioWave"></div>
+            <div className="rowParticipant duration" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}>
+              Duration
+              <span className="sortingMedium">
+                <a href="" className={durationSortDir == "DESC" ? "decending disableSortBtn" : durationSortDir == "" ? "decending" : "decending"}></a>
+                <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
+              </span>
+            </div>
+            <div className="rowParticipant mood">
+              <Dropdown alignLeft>
+                <Dropdown.Toggle variant="" id="headerMood">
+                  Mood
+                </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
-                  <span>Mood</span>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
-                  <span>Genres</span>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
-                  <span>Themes</span>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
-                  <span>Instruments</span>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            {/* <span className="sortingMedium">
-              <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
-              <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
-            </span> */}
+                <Dropdown.Menu>
+                  <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
+                    <span>Mood</span>
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
+                    <span>Genres</span>
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
+                    <span>Themes</span>
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
+                    <span>Instruments</span>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              {/* <span className="sortingMedium">
+                <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
+                <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
+              </span> */}
+            </div>
+            <div className="rowParticipant BPM" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", bpmSortDir == "ASC" ? "DESC" : "ASC")}>
+              BPM
+              <span className="sortingMedium">
+                <a href="" className={bpmSortDir == "DESC" ? "decending disableSortBtn" : bpmSortDir == "" ? "decending" : "decending"}></a>
+                <a href="" className={bpmSortDir == "ASC" ? "ascending  disableSortBtn" : bpmSortDir == "" ? "ascending" : "ascending"}></a>
+              </span>
+            </div>
+            <div className="rowParticipant controls"></div>
           </div>
-          <div className="rowParticipant BPM" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", bpmSortDir == "ASC" ? "DESC" : "ASC")}>
-            BPM
-            <span className="sortingMedium">
-              <a href="" className={bpmSortDir == "DESC" ? "decending disableSortBtn" : bpmSortDir == "" ? "decending" : "decending"}></a>
-              <a href="" className={bpmSortDir == "ASC" ? "ascending  disableSortBtn" : bpmSortDir == "" ? "ascending" : "ascending"}></a>
-            </span>
-          </div>
-          <div className="rowParticipant controls"></div>
-        </div>
+        }
         <InfiniteScroll
           dataLength={tracks.length}
           next={fetchData}
@@ -272,7 +274,7 @@ function MyPlaylistTracks(props) {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {props.tracks && props.tracks.map((track,index)=> (
+                  {props.tracks && props.tracks.length > 0 ? props.tracks.map((track,index)=> (
                     track.mediable_type == "Track" && <Draggable key={track.mediable.title} draggableId={track.mediable.title} index={index}>
                       {(provided) => (
                         <div
@@ -472,7 +474,7 @@ function MyPlaylistTracks(props) {
                         </div>
                       )}
                     </Draggable>
-                  ))}
+                  )) : "No tracks found"}
                   {provided.placeholder}
                 </div>
               )}
