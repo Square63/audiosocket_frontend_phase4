@@ -1274,6 +1274,15 @@ footer {
   display: none !important;
 }
 
+.infinite-scroll-component {
+  overflow: visible !important;
+}
+
+.notClickable {
+  pointer-events: none;
+  cursor: default;
+}
+
 /******************* Common Components ****************/
 .parallelHead {
   @include flexbox;
@@ -5426,70 +5435,72 @@ input[type=file]::file-selector-button {
     }
   }
   .trackRowWrapper {
-    margin-inline: -20px;
-    margin-block-start: 28px;
-    .trackRow {
-      padding-inline: 15px;
-      padding-block: 10px 12px;
-      @include flex-direction(column);
-      @include align-items(flex-start);
-      gap: 15px;
-      position: relative;
-      &.headingRow {
-        display: none;
-      }
-      .rowParticipant {
-        &.artistName {
-          min-width: 100%;
-          padding-left: 45px;
-          .playPauseBtn {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-          }
-          .aboutSong {
-            .songData {
-              .songName {
-                max-width: 100%;
-                font-size: 14px;
+    &:not(.userListingWrapper .trackRowWrapper) {
+      margin-inline: -20px;
+      margin-block-start: 28px;
+      .trackRow {
+        padding-inline: 15px;
+        padding-block: 10px 12px;
+        @include flex-direction(column);
+        @include align-items(flex-start);
+        gap: 15px;
+        position: relative;
+        &.headingRow {
+          display: none;
+        }
+        .rowParticipant {
+          &.artistName {
+            min-width: 100%;
+            padding-left: 45px;
+            .playPauseBtn {
+              position: absolute;
+              left: 15px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+            .aboutSong {
+              .songData {
+                .songName {
+                  max-width: 100%;
+                  font-size: 14px;
+                }
+              }
+              .songArtist {
+                a {
+                  font-size: 13px;
+                }
               }
             }
-            .songArtist {
-              a {
-                font-size: 13px;
-              }
+          }
+
+          &.audioWave {
+            display: none;
+          }
+
+          &.duration {
+            display: none;
+          }
+
+          &.mood {
+            display: none;
+          }
+
+          &.BPM {
+            display: none;
+          }
+
+          &.controls {
+            min-width: 170px;
+            margin-left: 45px;
+            svg {
+              width: 22px !important;
+              height: 22px;
             }
           }
         }
-
-        &.audioWave {
+        .altVersions {
           display: none;
         }
-
-        &.duration {
-          display: none;
-        }
-
-        &.mood {
-          display: none;
-        }
-
-        &.BPM {
-          display: none;
-        }
-
-        &.controls {
-          min-width: 170px;
-          margin-left: 45px;
-          svg {
-            width: 22px !important;
-            height: 22px;
-          }
-        }
-      }
-      .altVersions {
-        display: none;
       }
     }
   }
@@ -5693,11 +5704,3 @@ input[type=file]::file-selector-button {
   }
 }
 
-.infinite-scroll-component {
-  overflow: visible !important;
-}
-
-.notClickable {
-  pointer-events: none;
-  cursor: default;
-}

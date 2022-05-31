@@ -56,7 +56,7 @@ function FavoriteTracks(props) {
 
   useEffect(() => {
     setFollowedArtists(props.tracksMeta.followed_artist_ids);
-  },[props.tracksMeta.followed_artist_ids])
+  },[props.tracksMeta?.followed_artist_ids])
 
   const fetchData = () => {
     let query = document.getElementById("searchField").value
@@ -167,7 +167,7 @@ function FavoriteTracks(props) {
       <center><p>No favorite tracks</p></center>
     ) : (
       <div className={user.favoritesListing}>
-        <div className={user.listingWrapper}>
+        <div className={user.listingWrapper+' userListingWrapper'}>
           <div className={user.listingHeading}>
             <h2>Favorite Tracks</h2>
           </div>

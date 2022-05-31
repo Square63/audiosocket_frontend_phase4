@@ -15,7 +15,7 @@ function Licenses() {
 
   return (
     <div className={user.licenses}>
-      <div className={user.listingWrapper}>
+      <div className={user.listingWrapper+' userListingWrapper'}>
         <div className={user.listingHeading}>
           <h2>Licenses</h2>
           <p>Please be sure to create a license each time you use a track, even if you use the same track multiple times. The license agreement is the document required by law to demonstrate proof of your right to use the track in your Work. To License tracks you downloaded, toggle to “Downloads” and Select “License Track”.</p>
