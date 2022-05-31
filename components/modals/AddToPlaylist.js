@@ -54,9 +54,9 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
           onCloseModal(false);
           toast.error("Error while fetching playlists.");
         } else {
-          
           if (response.data.length > 0) {
             setAddedTracks([])
+            setIsLoading(false);
             response.data.map((playlist, index) =>
               {
                 setAddedTracks(addedTracks=>[...addedTracks, playlist])
@@ -81,8 +81,9 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
         if (!response.status === 200) {
           toast.error("Error while fetching playlists.");
         } else {
-          if (response.data.length > 0) {
+          if (response.data) {
             setOptions([])
+            setIsLoading(false);
             response.data.map((playlist, index) =>
               {
                 let obj = {};
@@ -120,7 +121,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
       if (!response.status === 200) {
         toast.error("Error while adding track to playlist.");
       } else {
-        setNewPlaylist(selectedOption[selectedOption.length - 1].label)
+        setNewPlaylist(response.data.status)
         toast.success(response.data.status);
       }
     }).catch(error => {
@@ -143,7 +144,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
       if (!response.status === 200) {
         toast.error("Error while deleting track to playlist.");
       } else {
-        setNewPlaylist(playlist.name)
+        setNewPlaylist(response.data.status)
         toast.success(response.data.status);
       }
     }).catch(error => {

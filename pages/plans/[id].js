@@ -51,27 +51,24 @@ class Braintree extends React.Component {
   }
 
   async purchase() {
-    try {
-      // Send nonce to your server
-      const { nonce } = await this.instance.tokenize()
-      let discount_id = document.getElementById("disCode").value;
-      const authToken = JSON.parse(localStorage.getItem("user") ?? "");
-      const response = await axios.post(
-        this.state.redirectUrl, { nonce, discount_id },
-        {
-          headers: {
-            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
-            'auth-token': authToken
-          }
+    const { nonce } = await this.instance.tokenize()
+    let discount_id = document.getElementById("disCode").value;
+    const authToken = JSON.parse(localStorage.getItem("user") ?? "");
+    await axios.post(
+      this.state.redirectUrl, { nonce, discount_id },
+      {
+        headers: {
+          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+          'auth-token': authToken
         }
-      )
+      }
+    ).then(response => {
       toast.success(response.data.message)
       localStorage.setItem("has_subscription", true);
-      window.location.href = "/search"
-    } catch (err) {
-      console.error(err)
-      toast.error(err.message)
-    }
+      window.location.href = "/"
+    }).catch(error => {
+      toast.error(error.response.data.message);
+    });
   }
 
   render() {

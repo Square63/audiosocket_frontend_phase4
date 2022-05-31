@@ -653,10 +653,26 @@ export default function Home(props) {
                     <p>Flip through some of our most popular playlists to see the high-quality tracks we carry.</p>
                   </div>
                   <div className="moodFilters hideOntablet">
-                    <a href="/playlist/curatedPlaylist" className="btn btnMainOutline">Creator Kits</a>
-                    <a href="/playlist/curatedPlaylist" className="btn btnMainOutline">Moods</a>
-                    <a href="/playlist/curatedPlaylist" className="btn btnMainOutline">Genres</a>
-                    <a href="/playlist/curatedPlaylist" className="btn btnMainOutline">Themes</a>
+                    <Link href="/playlist/curatedPlaylist">
+                      <a className="btn btnMainOutline">
+                        Creator Kits
+                      </a>
+                    </Link>
+                    <Link href="/playlist/curatedPlaylist">
+                      <a className="btn btnMainOutline">
+                        Moods
+                      </a>
+                    </Link>
+                    <Link href="/playlist/curatedPlaylist">
+                      <a className="btn btnMainOutline">
+                        Genres
+                      </a>
+                    </Link>
+                    <Link href="/playlist/curatedPlaylist">
+                      <a className="btn btnMainOutline">
+                        Themes
+                      </a>
+                    </Link>
                   </div>
                   <div className="MoodFilterDropdown ShowOntablet">
                     <Form>
@@ -682,17 +698,21 @@ export default function Home(props) {
                 </div>
                 <CarouselMood breakPoints={breakPoints}>
                   {images.map((item) => (
-                    <a href="/playlist/curatedPlaylist">
-                      <div key={item} className="moodSlide">
+                    <Link href="/playlist/curatedPlaylist" key={item}>
+                      <div className="moodSlide">
                         <Image src={item.src} alt="Mood" className="moodImage"></Image>
                         <span className="moodOverlayText">{item.text}</span>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </CarouselMood>
               </div>
               <div className="ViewPlaylist">
-                <a href="/playlist/curatedPlaylist" className="btn btnMainLarge">View All Playlists</a>
+                <Link href="/playlist/curatedPlaylist">
+                  <a className="btn btnMainLarge">
+                    View All Playlists
+                  </a>
+                </Link>
               </div>
             </section>
 

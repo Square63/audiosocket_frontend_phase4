@@ -42,6 +42,7 @@ export default function CustomAudioWave(props) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
+  const [rowSeconds, setRowSeconds] = useState();
   const [footer, setFooter] = useState(false)
 
   const url = props.track.mp3_file? props.track.mp3_file : "./test.mp3"
@@ -82,13 +83,19 @@ export default function CustomAudioWave(props) {
   }, [seconds]);
 
   useEffect(() => {
-    console.log("footer track", props.footerTrack)
-    console.log("WaveSurfer", wavesurfer.current)
+    if (playing) {
+      setTimeout(() => setRowSeconds(rowSeconds ? (rowSeconds -1) : (wavesurfer.current?.getDuration() - 1)), 1000);
+      if (!wavesurfer.current?.isPlaying()) {
+        setPlaying(false)
+      }
+    }
+  }, [rowSeconds, playing])
+
+  useEffect(() => {
     if (props.footerTrack) {
       wavesurfer.current.destroy();
       footerCreate(props.footerTrack.file)
     }
-
   }, [props.footerTrack]);
 
   const create = async (url) => {
@@ -139,9 +146,6 @@ export default function CustomAudioWave(props) {
           <div className="aboutSong">
             <div className="songData">
               <a href="" className="songName notClickable">{props.track.title}</a>
-              <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
-                <a href="" className={`info ${props.notClickable ? "notClickable" : ""}`}></a>
-              </OverlayTrigger>
               {props.track.featured &&
                 <>
                   <OverlayTrigger overlay={<Tooltip>Featured</Tooltip>}>

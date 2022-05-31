@@ -317,7 +317,7 @@ const Details = () => {
 						</div>
 					</div>
 					<div className="fixed-container">
-						{myPlaylistTracks && (myPlaylistTracks.playlist_tracks?.length > 0 || myPlaylistTracks.length > 0) && <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
+						{myPlaylistTracks ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/> : "No tracks found"}
 					</div>
 
 					<div className={playlist.artistTiles}>
@@ -325,14 +325,14 @@ const Details = () => {
 							<h3>Artists On This Playlist</h3>
 							<section className={playlist.myPlaylists}>
 								<div className="tilesWrapper">
-                  {updatedArtists && updatedArtists.map((artist, index) =>
+                  {updatedArtists && updatedArtists.length > 0 ? updatedArtists.map((artist, index) =>
 										<a key={index} href="javascript:void(0)" className="tileOverlay">
 											<Image src={index > 0 ? mood1 : mood2 } alt="Mood" className="tilesImg"></Image>
 											<span className="tileOverlayText">
 												{artist.first_name + ' ' + artist.last_name}
 											</span>
 										</a>
-									)}
+									) : "No artists found"}
 								</div>
 							</section>
 						</div>
