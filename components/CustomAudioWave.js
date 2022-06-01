@@ -3,6 +3,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
 import { Segment, Grid, Label, Input } from 'semantic-ui-react'
+import InpageLoader from "./InpageLoader";
 
 const formWaveSurferOptions = (ref, footer) => (
   !footer ? {
@@ -44,6 +45,7 @@ export default function CustomAudioWave(props) {
   const [seconds, setSeconds] = useState();
   const [rowSeconds, setRowSeconds] = useState();
   const [footer, setFooter] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
 
   const url = props.track.mp3_file? props.track.mp3_file : "./test.mp3"
 
@@ -104,6 +106,9 @@ export default function CustomAudioWave(props) {
     const options = formWaveSurferOptions(waveformRef.current, props.footer);
     wavesurfer.current = WaveSurfer.create(options);
     wavesurfer.current.load(url);
+    wavesurfer.current.on('ready', function () {
+      setIsLoading(false);
+    });
   };
 
   const footerCreate = async (url) => {
@@ -139,10 +144,13 @@ export default function CustomAudioWave(props) {
     !props.footer ?
       (<>
         <div className="rowParticipant artistName">
-          <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
-            <span className={(playing) ? "play" : "pause"}></span>
-            <span className="pause d-none"></span>
-          </div>
+          {isLoading ?
+            <InpageLoader /> :
+            <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
+              <span className={(playing) ? "play" : "pause"}></span>
+              <span className="pause d-none"></span>
+            </div>
+          }
           <div className="aboutSong">
             <div className="songData">
               <a href="" className="songName notClickable">{props.track.title}</a>
