@@ -1431,7 +1431,9 @@ hr {
 
       .tileOverlay {
         max-width: 105px;
+        width: 100%;
         max-height: 105px;
+        height: auto;
         border-radius: 0;
 
         &:before {
