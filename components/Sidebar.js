@@ -16,8 +16,6 @@ import {useRouter} from "next/router";
 import { getSubscriptionPlans } from "../redux/actions/authActions";
 
 function Sidebar(props) {
-
-
   const [showSignup, setShowSignup] = useState(false)
   const [step, setStep] = useState(0);
   const [planType, setPlanType] = useState("");
@@ -226,7 +224,7 @@ function Sidebar(props) {
         <div className="offcanvasHeader">
           <div className="sidebartrackInfo">
             <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={mood1} alt="Mood" className="tilesImg"></Image>
+              {props.track && props.track.album_artwork && <Image src={props.track.album_artwork} alt="Mood" className="tilesImg" layout="fill"></Image>}
             </a>
             <div className="trackDesc">
               <h3 className="trackName">{props.track ? props.track.title : ""}</h3>

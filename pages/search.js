@@ -189,15 +189,15 @@ function Search(props) {
   }
 
   function showAddTrackToCartLicenseModal(index, type) {
+    if (index > 9) {
+      setIndex(index%10)
+    }
+    else {
+      setIndex(index)
+    }
     if (localStorage.getItem("user")) {
       if (type == "track") {
         setAltVersionTrack(null)
-        if (index > 9) {
-          setIndex(index%10)
-        }
-        else {
-          setIndex(index)
-        }
       }
       else {
         setAltVersionTrack(index)
@@ -210,7 +210,6 @@ function Search(props) {
           setSidebarType("cart")
         }
       }
-
     }
     else {
       setShowSidebar(true)
