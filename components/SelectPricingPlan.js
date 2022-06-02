@@ -658,7 +658,8 @@ function SelectPricingPlan(props) {
                 </span>
                 <h3>Personal Plan</h3>
               </div>
-              <p className={pricing.plansDesc}>A Personal License does not include sponsored media, work for hire or allow anyone else to use your work. If you are creating work for use by a business or Client, please select Commercial Media.</p>
+              <p className={pricing.plansDesc}>The Personal Plan is perfect for you if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.<br></br><br></br>
+                A Personal License does not include sponsored media, work for hire or allow anyone else to use your work. If you are creating work for use by a business or client, please select Commercial Media.</p>
               <div className={pricing.plansFeatures}>
                 <div className={pricing.featureInclude}>
                   <h4>What it&apos;s good for:</h4>
@@ -702,10 +703,11 @@ function SelectPricingPlan(props) {
                       <p className={pricing.planName}>Music Only</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 120 : 10}</span>
-                      <span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 10 : 15}</span>
+                      <span className={pricing.planDuration}>/Month<sup>*</sup></span>
                     </div>
                   </div>
+                  <small><strong>{personalMonthlyAnnual == "Annually" ? "$120 / Year" : ""}</strong></small>
 
                   <div className={pricing.planIndividual} onClick={() => handleSubscriptionType("Music + SFX")}>
                     <div className={pricing.planType}>
@@ -713,11 +715,12 @@ function SelectPricingPlan(props) {
                       <p className={pricing.planName}>Music + SFX</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 199 : 16.58}</span>
-                      <span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 16.58 : 25}</span>
+                      <span className={pricing.planDuration}>/Month<sup>*</sup></span>
                     </div>
                   </div>
-
+                  <small><strong>{personalMonthlyAnnual == "Annually" ? "$199 / Year" : ""}</strong></small>
+                  <br></br>
                   <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
                 </div>
               </div>
