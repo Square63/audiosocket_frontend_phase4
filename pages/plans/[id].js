@@ -54,8 +54,10 @@ class Braintree extends React.Component {
     const { nonce } = await this.instance.tokenize()
     let discount_id = document.getElementById("disCode").value;
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
+    const queryParams = new URLSearchParams(window.location.search);
+    const yearly = queryParams.get('yearly');
     await axios.post(
-      this.state.redirectUrl, { nonce, discount_id },
+      this.state.redirectUrl, { nonce, discount_id, switch_to_yearly: (yearly === 'true') },
       {
         headers: {
           'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
