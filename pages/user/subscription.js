@@ -31,7 +31,6 @@ function Subscription() {
 
   useEffect(() => {
     if (subscriptionPlans || currentPlan || yearlyPlan) {
-      debugger
       setIsLoading(false)
       setUserCurrentPlan(currentPlan)
     }
@@ -112,11 +111,11 @@ function Subscription() {
                       Cancel Subscription
                     </a>
                     <p>Use to pause or cancel your current subscription. You can re-enable at any time.</p>
-                    <Link href={{ pathname: "/plans/" + yearlyPlan.id, query: {yearly: true }}}>
+                    {yearlyPlan && <Link href={{ pathname: "/plans/" + yearlyPlan.id, query: {yearly: true }}}>
                       <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
                         Switch to Yearly Billing
                       </a>
-                    </Link>
+                    </Link>}
                     
                     
                   </div>
