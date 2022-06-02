@@ -46,7 +46,14 @@ const Subscription = () => {
               </Link>
             </div>
           </> :
-          <>No Active subscription</>
+          <>
+            <center>
+              <span>No Active subscription</span><br></br>            
+              <Link href="/user/subscription">
+                <a className="btn btnMainLarge">Purchase Subscription</a>
+              </Link>
+            </center>
+          </>
       ) : (
         <InpageLoader/>
       )}
