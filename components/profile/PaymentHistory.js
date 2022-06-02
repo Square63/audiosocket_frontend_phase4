@@ -33,10 +33,10 @@ const PaymentHistory = () => {
       paymentHistory?.length > 0 ?
         <div className={user.paymentHistory}>
           { paymentHistory.map((payment,index)=>
-            <ul>
+            <ul key={index}>
               <li>
                 <span className={user.paymentDate}>{new Date(payment.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                <a href={payment.invoice} target= "_blank"className={user.paymentReciept}>view receipt</a>
+                <a href={payment.invoice} target= "_blank" rel="noreferrer" className={user.paymentReciept}>view receipt</a>
               </li>
             </ul>
           )}
