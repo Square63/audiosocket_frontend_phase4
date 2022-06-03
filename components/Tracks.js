@@ -68,7 +68,7 @@ function Tracks(props) {
   const fetchData = () => {
     let query = document.getElementById("searchField").value
     if (query === "") {
-      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length/10 + 1)));
+      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
       // setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(true)
     } else {
@@ -105,14 +105,14 @@ function Tracks(props) {
       setBpmSortDir(sort_dir)
     }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), filters, sort_by, dir));
+    dispatch(getTracks(query, query_type(query), filters, sort_by, dir, false, '', '', props.duration.start, props.duration.end));
   }
 
   const handleDropdownSorting = (sort_by, sort_dir) => {
     setSortDir(sort_dir)
     setSortBy(sort_by)
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir));
+    dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
   }
 
   function query_type(query) {
@@ -172,7 +172,7 @@ function Tracks(props) {
     setIsLoading(true)
     dispatch(followArtist(track.artist_id));
     setFollowedArtists(followedArtists=> [...followedArtists, track.artist_id])
-    
+
   }
 
   const handleUnfollowArtist = (track) => {
@@ -180,7 +180,7 @@ function Tracks(props) {
     dispatch(unFollowArtist(track.artist_id));
     followedArtists.splice(followedArtists.indexOf(track.artist_id), 1)
     setFollowedArtists(followedArtists)
-    
+
   }
 
   return (
@@ -494,8 +494,8 @@ function Tracks(props) {
               })}
             </InfiniteScroll>
           </div>
-        
-      
+
+
     </div>
   )
 }

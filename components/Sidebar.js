@@ -16,8 +16,6 @@ import {useRouter} from "next/router";
 import { getSubscriptionPlans } from "../redux/actions/authActions";
 
 function Sidebar(props) {
-
-
   const [showSignup, setShowSignup] = useState(false)
   const [step, setStep] = useState(0);
   const [planType, setPlanType] = useState("");
@@ -226,7 +224,7 @@ function Sidebar(props) {
         <div className="offcanvasHeader">
           <div className="sidebartrackInfo">
             <a href="javascript:void(0)" className="tileOverlay">
-              <Image src={mood1} alt="Mood" className="tilesImg"></Image>
+              {props.track && props.track.album_artwork && <Image src={props.track.album_artwork} alt="Mood" className="tilesImg" layout="fill"></Image>}
             </a>
             <div className="trackDesc">
               <h3 className="trackName">{props.track ? props.track.title : ""}</h3>
@@ -434,7 +432,7 @@ function Sidebar(props) {
                   <div className={pricing.plansContent}>
                     {/* Breadcrumb Code */}
                     {
-                      (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) &&
+                      (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 50 Employees" && subscriptionType == "")) &&
                       <div className="themeBreadcrumb inPricingWay">
                         <Breadcrumb>
                           <Breadcrumb.Item href="#" active={planType == "Commercial" && webRights == "" ? true : false} onClick={() => handlePlan(planType)}>{planType}</Breadcrumb.Item>
@@ -534,10 +532,10 @@ function Sidebar(props) {
                           {
                             planType == "Commercial" && webRights == "Web Only" && employeeNo == "" &&
                               <>
-                              <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 100 Emplyees")}>
+                              <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 50 Employees")}>
                                 <a href="javascript:void(0)">
                                   <span className={pricing.typeName}>
-                                    <span className={pricing.typeHeading}>Under 100 Emplyees</span>
+                                    <span className={pricing.typeHeading}>Under 50 Employees</span>
                                     <span className={pricing.typeDesc}>Commercial License</span>
                                   </span>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -549,10 +547,10 @@ function Sidebar(props) {
                                   </svg>
                                 </a>
                               </li>
-                              <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 100 Emplyees")}>
+                              <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 50 Employees")}>
                                 <a href="javascript:void(0)">
                                   <span className={pricing.typeName}>
-                                    <span className={pricing.typeHeading}>Over 100 Emplyees</span>
+                                    <span className={pricing.typeHeading}>Over 50 Employees</span>
                                     <span className={pricing.typeDesc}>Enterprise License</span>
                                   </span>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -659,7 +657,7 @@ function Sidebar(props) {
 
                     }
 
-                    { (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType =="") &&
+                    { (planType == "Commercial" && employeeNo == "Under 50 Employees" && subscriptionType =="") &&
                       <div className={pricing.sidebarChoosePlans}>
                         <h4>Purchase Options</h4>
                         <div className={pricing.choosePlans}>

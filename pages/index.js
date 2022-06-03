@@ -752,7 +752,7 @@ export default function Home(props) {
                         <p className="planPriceAmount"><span>$33</span>&nbsp;/Month</p>
                       </div>
                       <p className="planDescription">
-                        Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
+                        Perfect for the freelancer or business with up to 50 employees creating web media for commercial purposes. This is a single user account.
                       </p>
                       <div className="PlanBtnContainer">
                         <Link
@@ -774,7 +774,7 @@ export default function Home(props) {
                         <p className="planPriceText">Customized quote to meet your needs.</p>
                       </div>
                       <p className="planDescription">
-                        Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
+                        Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
                       </p>
                       <div className="PlanBtnContainer">
                         <Link

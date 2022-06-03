@@ -30,11 +30,11 @@ function Subscription() {
   }, []);
 
   useEffect(() => {
-    if (subscriptionPlans || currentPlan) {
+    if (subscriptionPlans || currentPlan || yearlyPlan) {
       setIsLoading(false)
       setUserCurrentPlan(currentPlan)
     }
-  }, [subscriptionPlans, currentPlan])
+  }, [subscriptionPlans, currentPlan, yearlyPlan])
 
   useEffect(() => {
   }, [userCurrentPlan])
@@ -111,9 +111,12 @@ function Subscription() {
                       Cancel Subscription
                     </a>
                     <p>Use to pause or cancel your current subscription. You can re-enable at any time.</p>
-                    <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
-                      Switch to Yearly Billing
-                    </a>
+                    {yearlyPlan && <Link href={{ pathname: "/plans/" + yearlyPlan.id, query: {yearly: true }}}>
+                      <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
+                        Switch to Yearly Billing
+                      </a>
+                    </Link>}
+                    
                     
                   </div>
                 </div>
@@ -232,7 +235,7 @@ function Subscription() {
               </div>
               <div className={user.planBody}>
                 <div className={user.planFeatures}>
-                  <p>Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights?
+                  <p>Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights?
                     Let us customize a plan just for you!
                   </p>
 
