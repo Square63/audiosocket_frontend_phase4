@@ -81,7 +81,7 @@ function Subscription() {
             pauseOnHover
             style={{ width: "auto" }}
           />
-          {userCurrentPlan && 
+          {userCurrentPlan &&
           <>
             <h3 className={user.planStatus}>Current Plan</h3>
             <div className={user.plansShelf}>
@@ -116,8 +116,8 @@ function Subscription() {
                         Switch to Yearly Billing
                       </a>
                     </Link>}
-                    
-                    
+
+
                   </div>
                 </div>
               </div>
@@ -243,7 +243,7 @@ function Subscription() {
                   <p>Please request a custom quote and one of our reps will be in touch ASAP.</p>
                 </div>
                 <div className={user.plansBtnWrapper}>
-                  <a href="https://audiosocket.activehosted.com/f/43" className="btn btnMainLarge mt-0">
+                  <a href="/pricing?enterprise=true" className="btn btnMainLarge mt-0">
                     Request a Custom Quote
                   </a>
                 </div>
