@@ -3,6 +3,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Image from 'next/image';
 import masterCard from '../../images/mastercard.svg';
+import visaCard from '../../images/visaCard.svg';
 import Link from "next/link";
 
 function Billing() {
@@ -12,6 +13,7 @@ function Billing() {
         <div className={user.cardInfo}>
           <div className={user.cardPlate}>
             <Image src={masterCard} alt="Card Name"/>
+            <Image src={visaCard} alt="Card Name"/>
           </div>
           <div className={user.cardText}>
             <span className={user.cardNumber}>Ending in 5726</span>
