@@ -109,29 +109,30 @@ function SelectPricingPlan(props) {
 
   const handleSubscriptionType = (type) => {
     setSubscriptionType(type)
+    debugger
     if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[5])
+      setPlan(subscriptionPlans[6])
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[8])
+      setPlan(subscriptionPlans[9])
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
       setPlan(subscriptionPlans[7])
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[6])
+      setPlan(subscriptionPlans[8])
     }
     else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
       setPlan(subscriptionPlans[0])
     }
     else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[3])
+      setPlan(subscriptionPlans[4])
     }
     else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[1])
+      setPlan(subscriptionPlans[2])
     }
     else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[2])
+      setPlan(subscriptionPlans[3])
     }
     setStep(1)
 
@@ -475,7 +476,7 @@ function SelectPricingPlan(props) {
 
               <div className={pricing.planInfo}>
                 <div className={pricing.planTypeDuration}>
-                  <strong className={pricing.planType}>{subscriptionType}</strong><strong className={pricing.seprater}>|</strong><span className={pricing.planDuration}>Monthly Subscription</span>
+                  <strong className={pricing.planType}>{subscriptionType}</strong><strong className={pricing.seprater}>|</strong><span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "Yearly Subscription": "Monthly Subscription"}</span>
                 </div>
                 <hr/ >
                 <div className={pricing.planDatePrice}>
@@ -1049,7 +1050,7 @@ function SelectPricingPlan(props) {
                       Perfect if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="" className="btn btnMainLarge">Learn More</a>
+                      <a href="/pricing?personal=true" className="btn btnMainLarge">Learn More</a>
                     </div>
                   </div>
 
@@ -1063,7 +1064,7 @@ function SelectPricingPlan(props) {
                       Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="" className="btn btnMainLarge">Learn More</a>
+                      <a href="/pricing?commercial=true" className="btn btnMainLarge">Learn More</a>
                     </div>
                   </div>
 
@@ -1076,7 +1077,7 @@ function SelectPricingPlan(props) {
                       Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="" className="btn btnMainLarge">Request a custom quote</a>
+                      <a href="/pricing?enterprise=true" className="btn btnMainLarge">Request a custom quote</a>
                     </div>
                   </div>
 

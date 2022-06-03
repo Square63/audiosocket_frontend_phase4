@@ -80,7 +80,7 @@ function Subscription() {
             pauseOnHover
             style={{ width: "auto" }}
           />
-          {userCurrentPlan && 
+          {userCurrentPlan &&
           <>
             <h3 className={user.planStatus}>Current Plan</h3>
             <div className={user.plansShelf}>
@@ -110,10 +110,13 @@ function Subscription() {
                       Cancel Subscription
                     </a>
                     <p>Use to pause or cancel your current subscription. You can re-enable at any time.</p>
-                    <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
-                      Switch to Yearly Billing
-                    </a>
-                    
+                    {yearlyPlan && <Link href={{ pathname: "/plans/" + yearlyPlan.id, query: {yearly: true }}}>
+                      <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
+                        Switch to Yearly Billing
+                      </a>
+                    </Link>}
+
+
                   </div>
                 </div>
               </div>
@@ -239,7 +242,7 @@ function Subscription() {
                   <p>Please request a custom quote and one of our reps will be in touch ASAP.</p>
                 </div>
                 <div className={user.plansBtnWrapper}>
-                  <a href="https://audiosocket.activehosted.com/f/43" className="btn btnMainLarge mt-0">
+                  <a href="/pricing?enterprise=true" className="btn btnMainLarge mt-0">
                     Request a Custom Quote
                   </a>
                 </div>
