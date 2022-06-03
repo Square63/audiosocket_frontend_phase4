@@ -4464,6 +4464,11 @@ input[type=file]::file-selector-button {
   padding-top: 59px;
 }
 
+.backToSelectPlan {
+  padding-top: 25px;
+  cursor: pointer;
+}
+
 /**************** Mobile Filter ***************/
 .mobileFilters {
   .filterLauncher {
