@@ -189,7 +189,7 @@ function SideBar() {
                 <Breadcrumb>
                   <Breadcrumb.Item href="#">Commercial</Breadcrumb.Item>
                   <Breadcrumb.Item href="#">Web Only</Breadcrumb.Item>
-                  <Breadcrumb.Item active>Under 100 Employees</Breadcrumb.Item>
+                  <Breadcrumb.Item active>Under 50 Employees</Breadcrumb.Item>
                 </Breadcrumb>
               </div>
 
@@ -203,7 +203,7 @@ function SideBar() {
                     <li className={pricing.plansItem}>
                       <a href="javascript:void(0)">
                         <span className={pricing.typeName}>
-                          <span className={pricing.typeHeading}>Under 100 employees</span>
+                          <span className={pricing.typeHeading}>Under 50 employees</span>
                           <span className={pricing.typeDesc}>Commercial License</span>
                         </span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -218,7 +218,7 @@ function SideBar() {
                     <li className={pricing.plansItem}>
                       <a href="javascript:void(0)">
                         <span className={pricing.typeName}>
-                          <span className={pricing.typeHeading}>Over 100 Employees</span>
+                          <span className={pricing.typeHeading}>Over 50 Employees</span>
                           <span className={pricing.typeDesc}>Enterprise License</span>
                         </span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">

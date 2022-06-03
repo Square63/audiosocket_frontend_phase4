@@ -80,12 +80,12 @@ function SelectPricingPlan(props) {
     else if (query.commercial) {
       setPlanType("Commercial")
       setWebRights("Web Only")
-      setEmployeeNo("Under 100 Emplyees")
+      setEmployeeNo("Under 50 Employees")
     }
     else if (query.enterprise) {
       setPlanType("Commercial")
       setWebRights("Expanded Rights")
-      setEmployeeNo("Over 100 Emplyees")
+      setEmployeeNo("Over 50 Employees")
     }
   }, [step]);
 
@@ -220,13 +220,13 @@ function SelectPricingPlan(props) {
                 <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
               </g>
             </svg>
-            <span onClick={() => {handleBackToPage("Under 100 Emplyees")}}>Back to Select Plan</span>
+            <span onClick={() => {handleBackToPage("Under 50 Employees")}}>Back to Select Plan</span>
           </a>
         </div>
 
         {/* Breadcrumb Code */}
         {
-          (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) &&
+          (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 50 Employees" && subscriptionType == "")) &&
           <div className="themeBreadcrumb inPricingWay">
             <Breadcrumb>
               <Breadcrumb.Item href="#" className={planType == "Commercial" && webRights == "" ? "active" : ""} onClick={() => handlePlan(planType)}>{planType}</Breadcrumb.Item>
@@ -324,10 +324,10 @@ function SelectPricingPlan(props) {
             {
               planType == "Commercial" && webRights == "Web Only" && employeeNo == "" &&
                 <>
-                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 100 Emplyees")}>
+                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 50 Employees")}>
                   <a href="javascript:void(0)">
                     <span className={pricing.typeName}>
-                      <span className={pricing.typeHeading}>Under 100 Emplyees</span>
+                      <span className={pricing.typeHeading}>Under 50 Employees</span>
                       <span className={pricing.typeDesc}>Commercial License</span>
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -339,10 +339,10 @@ function SelectPricingPlan(props) {
                     </svg>
                   </a>
                 </li>
-                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 100 Emplyees")}>
+                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 50 Employees")}>
                   <a href="javascript:void(0)">
                     <span className={pricing.typeName}>
-                      <span className={pricing.typeHeading}>Over 100 Emplyees</span>
+                      <span className={pricing.typeHeading}>Over 50 Employees</span>
                       <span className={pricing.typeDesc}>Enterprise License</span>
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -361,7 +361,7 @@ function SelectPricingPlan(props) {
         </div>
 
         {/* Enterprises Code */}
-        { (employeeNo == "Over 100 Emplyees" || webRights == "Expanded Rights") &&
+        { (employeeNo == "Over 50 Employees" || webRights == "Expanded Rights") &&
             <div className={pricing.enterprisePricing}>
               <div className={pricing.pricingLeftSec}>
                 <div className={pricing.headingWithIcon}>
@@ -382,7 +382,7 @@ function SelectPricingPlan(props) {
                   <h3>Enterprise Plan</h3>
                 </div>
                 <div className={pricing.enterpriseContent}>
-                  <p className="mb-4">Need a plan for a large business (more than 100 employees), a team account or for *TV, Film, Radio or VOD rights*? Let us customize a plan just for you!</p>
+                  <p className="mb-4">Need a plan for a large business (more than 50 employees), a team account or for *TV, Film, Radio or VOD rights*? Let us customize a plan just for you!</p>
                   <p className="mb-4">Our music is available to license for <strong>ALL MEDIA</strong>.</p>
                   <p className="mb-4">Whatever you’re creating, we’ve got you covered. Just ask!.</p>
                   <p className="mb-4">Please request a custom quote and one of our reps will be in touch ASAP.</p>
@@ -481,7 +481,7 @@ function SelectPricingPlan(props) {
                   <strong className={pricing.planPrice}>${plan.price}</strong>
                 </div>
               </div>
-              <a href="javascript:void(0)" onClick={()=> handleCommercialBack("Under 100 Emplyees")}>
+              <a href="javascript:void(0)" onClick={()=> handleCommercialBack("Under 50 Employees")}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16.611" height="17.653" viewBox="0 0 16.611 17.653">
                   <g id="Group_55" data-name="Group 55" transform="translate(-0.25 -0.097)">
                     <path id="Path_70" data-name="Path 70" d="M11.467,1.519,1.333,12.544,1,17l4.456-.334L15.592,5.643a1.773,1.773,0,0,0,0-2.507L14.476,2.021l-.5-.5A1.772,1.772,0,0,0,11.467,1.519Z" transform="translate(0 0)" fill="none" stroke="#979da2" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
@@ -732,7 +732,7 @@ function SelectPricingPlan(props) {
           </div>
         }
 
-        { (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType =="") &&
+        { (planType == "Commercial" && employeeNo == "Under 50 Employees" && subscriptionType =="") &&
           <div className={pricing.choosePlans}>
             <div className={pricing.pricingLeftSec}>
               <div className={pricing.headingWithIcon}>
@@ -752,7 +752,7 @@ function SelectPricingPlan(props) {
                 </span>
                 <h3>Commercial Plan</h3>
               </div>
-              <p className={pricing.plansDesc}>A Commercial Web License does not cover teams, online games, apps, VOD or Media Created for use by Enterprise Clients (over 100 employees). If you need any of these rights, please select Over 100 employees or Expanded Rights to speak with a representative.</p>
+              <p className={pricing.plansDesc}>A Commercial Web License does not cover teams, online games, apps, VOD or Media Created for use by Enterprise Clients (over 50 employees). If you need any of these rights, please select Over 50 employees or Expanded Rights to speak with a representative.</p>
               <div className={pricing.plansFeatures}>
                 <div className={pricing.featureInclude}>
                   <h4>What it&apos;s good for:</h4>
@@ -829,7 +829,7 @@ function SelectPricingPlan(props) {
       </div>
 
       {/* Landing page 2 */}
-      { ((planType == "Personal" && subscriptionType == "") || (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType ==""))  &&
+      { ((planType == "Personal" && subscriptionType == "") || (planType == "Commercial" && employeeNo == "Under 50 Employees" && subscriptionType ==""))  &&
         <>
           <section className="campareWithCompetitor">
             <div className="blackSection">
@@ -1058,7 +1058,7 @@ function SelectPricingPlan(props) {
                       <p className="planPriceAmount"><span>$33</span>&nbsp;/Month</p>
                     </div>
                     <p className="planDescription">
-                      Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
+                      Perfect for the freelancer or business with up to 50 employees creating web media for commercial purposes. This is a single user account.
                     </p>
                     <div className="PlanBtnContainer">
                       <a href="" className="btn btnMainLarge">Learn More</a>
@@ -1071,7 +1071,7 @@ function SelectPricingPlan(props) {
                       <p className="planPriceText">Customized quote to meet your needs.</p>
                     </div>
                     <p className="planDescription">
-                      Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
+                      Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
                     </p>
                     <div className="PlanBtnContainer">
                       <a href="" className="btn btnMainLarge">Request a custom quote</a>

@@ -432,7 +432,7 @@ function Sidebar(props) {
                   <div className={pricing.plansContent}>
                     {/* Breadcrumb Code */}
                     {
-                      (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) &&
+                      (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 50 Employees" && subscriptionType == "")) &&
                       <div className="themeBreadcrumb inPricingWay">
                         <Breadcrumb>
                           <Breadcrumb.Item href="#" active={planType == "Commercial" && webRights == "" ? true : false} onClick={() => handlePlan(planType)}>{planType}</Breadcrumb.Item>
@@ -532,10 +532,10 @@ function Sidebar(props) {
                           {
                             planType == "Commercial" && webRights == "Web Only" && employeeNo == "" &&
                               <>
-                              <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 100 Emplyees")}>
+                              <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 50 Employees")}>
                                 <a href="javascript:void(0)">
                                   <span className={pricing.typeName}>
-                                    <span className={pricing.typeHeading}>Under 100 Emplyees</span>
+                                    <span className={pricing.typeHeading}>Under 50 Employees</span>
                                     <span className={pricing.typeDesc}>Commercial License</span>
                                   </span>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -547,10 +547,10 @@ function Sidebar(props) {
                                   </svg>
                                 </a>
                               </li>
-                              <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 100 Emplyees")}>
+                              <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 50 Employees")}>
                                 <a href="javascript:void(0)">
                                   <span className={pricing.typeName}>
-                                    <span className={pricing.typeHeading}>Over 100 Emplyees</span>
+                                    <span className={pricing.typeHeading}>Over 50 Employees</span>
                                     <span className={pricing.typeDesc}>Enterprise License</span>
                                   </span>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -657,7 +657,7 @@ function Sidebar(props) {
 
                     }
 
-                    { (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType =="") &&
+                    { (planType == "Commercial" && employeeNo == "Under 50 Employees" && subscriptionType =="") &&
                       <div className={pricing.sidebarChoosePlans}>
                         <h4>Purchase Options</h4>
                         <div className={pricing.choosePlans}>

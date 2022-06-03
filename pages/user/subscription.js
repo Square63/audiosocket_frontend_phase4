@@ -235,7 +235,7 @@ function Subscription() {
               </div>
               <div className={user.planBody}>
                 <div className={user.planFeatures}>
-                  <p>Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights?
+                  <p>Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights?
                     Let us customize a plan just for you!
                   </p>
 
