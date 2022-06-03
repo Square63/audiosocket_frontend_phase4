@@ -752,7 +752,12 @@ function SelectPricingPlan(props) {
                 </span>
                 <h3>Commercial Plan</h3>
               </div>
-              <p className={pricing.plansDesc}>A Commercial Web License does not cover teams, online games, apps, VOD or Media Created for use by Enterprise Clients (over 50 employees). If you need any of these rights, please select Over 50 employees or Expanded Rights to speak with a representative.</p>
+              <p className={pricing.plansDesc}>
+                The Commercial Plan is perfect for small businesses and freelancers creating web content for themselves and their clients. This is a single user account.
+                <br/>
+                <br/>
+                A Commercial Web License does not cover teams, online games, apps, VOD or Media Created for use by Enterprise Clients (over 50 employees). If you need any of these rights, please select Over 50 employees or Expanded Rights to speak with a representative.
+              </p>
               <div className={pricing.plansFeatures}>
                 <div className={pricing.featureInclude}>
                   <h4>What it&apos;s good for:</h4>
