@@ -36,7 +36,7 @@ import { useRouter } from "next/router";
 
 function SelectPricingPlan(props) {
   const dispatch = useDispatch();
-  const { query } = useRouter();
+  const router = useRouter();
   const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -63,31 +63,48 @@ function SelectPricingPlan(props) {
 
   const [step, setStep] = useState(0);
   const [planType, setPlanType] = useState("");
+  const [newPlan, setNewPlan] = useState("");
   const [webRights, setWebRights] = useState("");
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
-  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Monthly");
-  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Monthly");
+  const [personalMonthlyAnnual, setPersonalMonthlyAnnual] = useState("Annually");
+  const [commercialMonthlyAnnual, setCommercialMonthlyAnnual] = useState("Annually");
   const [plan, setPlan] = useState(null);
   const [validated, setValidated] = useState(false);
   const form = useRef(null);
   const [typeOfUseError, setTypeOfUseError] = useState(false);
 
   useEffect(() => {
-    if (query.personal) {
+    if (router.query.personal) {
       setPlanType("Personal")
     }
-    else if (query.commercial) {
+    else if (router.query.commercial) {
       setPlanType("Commercial")
       setWebRights("Web Only")
-      setEmployeeNo("Under 100 Emplyees")
+      setEmployeeNo("Under 50 Employees")
     }
-    else if (query.enterprise) {
-      setPlanType("Commercial")
+    else if (router.query.enterprise) {
+      setPlanType("Enterprise")
       setWebRights("Expanded Rights")
-      setEmployeeNo("Over 100 Emplyees")
+      setEmployeeNo("Over 50 Employees")
     }
   }, [step]);
+
+  useEffect(() => {
+    if (newPlan == "Personal") {
+      setPlanType("Personal")
+    }
+    else if (newPlan == "Commercial") {
+      setPlanType("Commercial")
+      setWebRights("Web Only")
+      setEmployeeNo("Under 50 Employees")
+    }
+    else if (newPlan == "Enterprise") {
+      setPlanType("Enterprise")
+      setWebRights("Expanded Rights")
+      setEmployeeNo("Over 50 Employees")
+    }
+  }, [newPlan]);
 
   const handlePlan = (type) => {
     setPlanType(type)
@@ -108,32 +125,39 @@ function SelectPricingPlan(props) {
   }
 
   const handleSubscriptionType = (type) => {
-    setSubscriptionType(type)
-    if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[5])
+    if (localStorage.getItem("user")){
+      setSubscriptionType(type)
+      if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
+        setPlan(subscriptionPlans[6])
+      }
+      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+        setPlan(subscriptionPlans[9])
+      }
+      else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[7])
+      }
+      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[8])
+      }
+      else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
+        setPlan(subscriptionPlans[0])
+      }
+      else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+        setPlan(subscriptionPlans[4])
+      }
+      else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[2])
+      }
+      else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[3])
+      }
+      setStep(1)
+    } else {
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
     }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[8])
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[7])
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[6])
-    }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[0])
-    }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[3])
-    }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[1])
-    }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[2])
-    }
-    setStep(1)
 
   }
 
@@ -180,7 +204,8 @@ function SelectPricingPlan(props) {
     setPlan(null);
   }
 
-  const handleSetPlan = (e) => {
+  const handleSetStep = (type) => {
+    setNewPlan(type);
   }
 
   useEffect(() => {
@@ -210,7 +235,9 @@ function SelectPricingPlan(props) {
         />
         {/* Section Heading Code */}
         <div className={pricing.contentHeading}>
-          <a href="javascript:void(0)" className="backToHeaven">
+          <h1>Standout in a sea of content with remarkable music!</h1>
+          <p>Get unlimited music licensing with access to +80,000 songs and over 24,000 sound effects/sound design.</p>
+          <a href="javascript:void(0)" className="backToHeaven backToSelectPlan">
             <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
               <g id="icon-arrow-down" transform="translate(15.414 1.414) rotate(90)">
                 <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
@@ -218,15 +245,13 @@ function SelectPricingPlan(props) {
                 <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
               </g>
             </svg>
-            <span onClick={() => {handleBackToPage("Under 100 Emplyees")}}>Back to Select Plan</span>
+            <span onClick={() => {handleBackToPage("Under 50 Employees")}}>Back to Select Plan</span>
           </a>
-          <h1>Standout in a sea of content with remarkable music!</h1>
-          <p>Get unlimited music licensing with access to +80,000 songs and over 24,000 sound effects/sound design.</p>
         </div>
 
         {/* Breadcrumb Code */}
         {
-          (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 100 Emplyees" && subscriptionType == "")) &&
+          (planType == "Commercial" && webRights !== "Expanded Rights" && (employeeNo !== "Over 50 Employees" && subscriptionType == "")) &&
           <div className="themeBreadcrumb inPricingWay">
             <Breadcrumb>
               <Breadcrumb.Item href="#" className={planType == "Commercial" && webRights == "" ? "active" : ""} onClick={() => handlePlan(planType)}>{planType}</Breadcrumb.Item>
@@ -324,10 +349,10 @@ function SelectPricingPlan(props) {
             {
               planType == "Commercial" && webRights == "Web Only" && employeeNo == "" &&
                 <>
-                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 100 Emplyees")}>
+                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 50 Employees")}>
                   <a href="javascript:void(0)">
                     <span className={pricing.typeName}>
-                      <span className={pricing.typeHeading}>Under 100 Emplyees</span>
+                      <span className={pricing.typeHeading}>Under 50 Employees</span>
                       <span className={pricing.typeDesc}>Commercial License</span>
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -339,10 +364,10 @@ function SelectPricingPlan(props) {
                     </svg>
                   </a>
                 </li>
-                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 100 Emplyees")}>
+                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 50 Employees")}>
                   <a href="javascript:void(0)">
                     <span className={pricing.typeName}>
-                      <span className={pricing.typeHeading}>Over 100 Emplyees</span>
+                      <span className={pricing.typeHeading}>Over 50 Employees</span>
                       <span className={pricing.typeDesc}>Enterprise License</span>
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
@@ -361,7 +386,7 @@ function SelectPricingPlan(props) {
         </div>
 
         {/* Enterprises Code */}
-        { (employeeNo == "Over 100 Emplyees" || webRights == "Expanded Rights") &&
+        { (employeeNo == "Over 50 Employees" || webRights == "Expanded Rights") &&
             <div className={pricing.enterprisePricing}>
               <div className={pricing.pricingLeftSec}>
                 <div className={pricing.headingWithIcon}>
@@ -382,7 +407,7 @@ function SelectPricingPlan(props) {
                   <h3>Enterprise Plan</h3>
                 </div>
                 <div className={pricing.enterpriseContent}>
-                  <p className="mb-4">Need a plan for a large business (more than 100 employees), a team account or for *TV, Film, Radio or VOD rights*? Let us customize a plan just for you!</p>
+                  <p className="mb-4">Need a plan for a large business (more than 50 employees), a team account or for *TV, Film, Radio or VOD rights*? Let us customize a plan just for you!</p>
                   <p className="mb-4">Our music is available to license for <strong>ALL MEDIA</strong>.</p>
                   <p className="mb-4">Whatever you’re creating, we’ve got you covered. Just ask!.</p>
                   <p className="mb-4">Please request a custom quote and one of our reps will be in touch ASAP.</p>
@@ -473,7 +498,7 @@ function SelectPricingPlan(props) {
 
               <div className={pricing.planInfo}>
                 <div className={pricing.planTypeDuration}>
-                  <strong className={pricing.planType}>{subscriptionType}</strong><strong className={pricing.seprater}>|</strong><span className={pricing.planDuration}>Monthly Subscription</span>
+                  <strong className={pricing.planType}>{subscriptionType}</strong><strong className={pricing.seprater}>|</strong><span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "Yearly Subscription": "Monthly Subscription"}</span>
                 </div>
                 <hr/ >
                 <div className={pricing.planDatePrice}>
@@ -481,7 +506,7 @@ function SelectPricingPlan(props) {
                   <strong className={pricing.planPrice}>${plan.price}</strong>
                 </div>
               </div>
-              <a href="javascript:void(0)" onClick={()=> handleCommercialBack("Under 100 Emplyees")}>
+              <a href="javascript:void(0)" onClick={()=> handleCommercialBack("Under 50 Employees")}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16.611" height="17.653" viewBox="0 0 16.611 17.653">
                   <g id="Group_55" data-name="Group 55" transform="translate(-0.25 -0.097)">
                     <path id="Path_70" data-name="Path 70" d="M11.467,1.519,1.333,12.544,1,17l4.456-.334L15.592,5.643a1.773,1.773,0,0,0,0-2.507L14.476,2.021l-.5-.5A1.772,1.772,0,0,0,11.467,1.519Z" transform="translate(0 0)" fill="none" stroke="#979da2" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
@@ -558,6 +583,7 @@ function SelectPricingPlan(props) {
                           className='react-select-container'
                           classNamePrefix="react-select"
                           placeholder="Country"
+                          options={props.countries}
                         />
                       </Form.Group>
                     </Col>
@@ -655,7 +681,8 @@ function SelectPricingPlan(props) {
                 </span>
                 <h3>Personal Plan</h3>
               </div>
-              <p className={pricing.plansDesc}>A Personal License does not include sponsored media, work for hire or allow anyone else to use your work. If you are creating work for use by a business or Client, please select Commercial Media.</p>
+              <p className={pricing.plansDesc}>The Personal Plan is perfect for you if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.<br></br><br></br>
+                A Personal License does not include sponsored media, work for hire or allow anyone else to use your work. If you are creating work for use by a business or client, please select Commercial Media.</p>
               <div className={pricing.plansFeatures}>
                 <div className={pricing.featureInclude}>
                   <h4>What it&apos;s good for:</h4>
@@ -699,10 +726,11 @@ function SelectPricingPlan(props) {
                       <p className={pricing.planName}>Music Only</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 120 : 10}</span>
-                      <span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 10 : 15}</span>
+                      <span className={pricing.planDuration}>/Month<sup>*</sup></span>
                     </div>
                   </div>
+                  <small><strong>{personalMonthlyAnnual == "Annually" ? "$120 / Year" : ""}</strong></small>
 
                   <div className={pricing.planIndividual} onClick={() => handleSubscriptionType("Music + SFX")}>
                     <div className={pricing.planType}>
@@ -710,11 +738,12 @@ function SelectPricingPlan(props) {
                       <p className={pricing.planName}>Music + SFX</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 199 : 16.58}</span>
-                      <span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 16.58 : 25}</span>
+                      <span className={pricing.planDuration}>/Month<sup>*</sup></span>
                     </div>
                   </div>
-
+                  <small><strong>{personalMonthlyAnnual == "Annually" ? "$199 / Year" : ""}</strong></small>
+                  <br></br>
                   <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
                 </div>
               </div>
@@ -728,7 +757,7 @@ function SelectPricingPlan(props) {
           </div>
         }
 
-        { (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType =="") &&
+        { (planType == "Commercial" && employeeNo == "Under 50 Employees" && subscriptionType =="") &&
           <div className={pricing.choosePlans}>
             <div className={pricing.pricingLeftSec}>
               <div className={pricing.headingWithIcon}>
@@ -748,12 +777,17 @@ function SelectPricingPlan(props) {
                 </span>
                 <h3>Commercial Plan</h3>
               </div>
-              <p className={pricing.plansDesc}>A Commercial Web License does not cover teams, online games, apps, VOD or Media Created for use by Enterprise Clients (over 100 employees). If you need any of these rights, please select Over 100 employees or Expanded Rights to speak with a representative.</p>
+              <p className={pricing.plansDesc}>
+                The Commercial Plan is perfect for small businesses and freelancers creating web content for themselves and their clients. This is a single user account.
+                <br/>
+                <br/>
+                A Commercial Web License does not cover teams, online games, apps, VOD or Media Created for use by Enterprise Clients (over 50 employees). If you need any of these rights, please select Over 50 employees or Expanded Rights to speak with a representative.
+              </p>
               <div className={pricing.plansFeatures}>
                 <div className={pricing.featureInclude}>
                   <h4>What it&apos;s good for:</h4>
                   <ul>
-                    <li>Small business media (under 100 employees)</li>
+                    <li>Small business media (under 50 employees)</li>
                     <li>Freelancers creating media for small business clients</li>
                     <li>Web streaming on social media (YouTube, Vimeo, Instagram etc)</li>
                     <li>YouTube monetization</li>
@@ -792,10 +826,11 @@ function SelectPricingPlan(props) {
                       <p className={pricing.planName}>Music Only</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 399 : 33.25}</span>
-                      <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 33.25 : 59}</span>
+                      <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Month" : "/Month"}<sup>*</sup></span>
                     </div>
                   </div>
+                  <small><strong>{commercialMonthlyAnnual == "Annually" ? "$399 / Year" : ""}</strong></small>
 
                   <div className={pricing.planIndividual} onClick={() => handleSubscriptionType("Music + SFX")}>
                     <div className={pricing.planType}>
@@ -803,11 +838,12 @@ function SelectPricingPlan(props) {
                       <p className={pricing.planName}>Music + SFX</p>
                     </div>
                     <div className={pricing.planPriceDuration}>
-                      <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 549 : 45.75}</span>
-                      <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
+                      <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 45.75 : 72}</span>
+                      <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Month" : "/Month"}<sup>*</sup></span>
                     </div>
                   </div>
-
+                  <small><strong>{commercialMonthlyAnnual == "Annually" ? "$549 / Year" : ""}</strong></small>
+                  <br/>
                   <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
                 </div>
               </div>
@@ -823,7 +859,7 @@ function SelectPricingPlan(props) {
       </div>
 
       {/* Landing page 2 */}
-      { ((planType == "Personal" && subscriptionType == "") || (planType == "Commercial" && employeeNo == "Under 100 Emplyees" && subscriptionType ==""))  &&
+      { ((planType == "Personal" && subscriptionType == "") || (planType == "Commercial" && employeeNo == "Under 50 Employees" && subscriptionType ==""))  &&
         <>
           <section className="campareWithCompetitor">
             <div className="blackSection">
@@ -846,9 +882,6 @@ function SelectPricingPlan(props) {
                   <div className="columnLabel destroyAfterTime">
                     Number of tracks in catalog
                   </div>
-                  <div className="columnLabel">
-                    Plans starting at
-                  </div>
                 </div>
 
                 <div className="comparisionRow">
@@ -857,9 +890,6 @@ function SelectPricingPlan(props) {
                   </div>
                   <div className="columnData trackCount">
                     <span className="AsBar">80,000+ Tracks</span>
-                  </div>
-                  <div className="columnData planRate">
-                    <span>$10<sup>.00</sup> <small>/Month</small></span>
                   </div>
                 </div>
 
@@ -870,9 +900,6 @@ function SelectPricingPlan(props) {
                   <div className="columnData trackCount">
                     <span className="epidemicBar">&nbsp;</span>
                   </div>
-                  <div className="columnData planRate">
-                    <span>$15<sup>.00</sup> <small>/Month</small></span>
-                  </div>
                 </div>
 
                 <div className="comparisionRow">
@@ -882,9 +909,6 @@ function SelectPricingPlan(props) {
                   <div className="columnData trackCount">
                     <span className="artlistBar">&nbsp;</span>
                   </div>
-                  <div className="columnData planRate">
-                    <span>$16<sup>.00</sup> <small>/Month</small></span>
-                  </div>
                 </div>
 
                 <div className="comparisionRow">
@@ -893,9 +917,6 @@ function SelectPricingPlan(props) {
                   </div>
                   <div className="columnData trackCount">
                     <span className="soundstripeBar">&nbsp;</span>
-                  </div>
-                  <div className="columnData planRate">
-                    <span>$12<sup>.00</sup> <small>/Month</small></span>
                   </div>
                 </div>
               </div>
@@ -1056,7 +1077,9 @@ function SelectPricingPlan(props) {
                       Perfect if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="" className="btn btnMainLarge">Learn More</a>
+                      <Link href="/pricing?personal=true">
+                       <a onClick={() => handleSetStep("Personal")} className="btn btnMainLarge">Learn More</a>
+                      </Link>
                     </div>
                   </div>
 
@@ -1067,10 +1090,12 @@ function SelectPricingPlan(props) {
                       <p className="planPriceAmount"><span>$33</span>&nbsp;/Month</p>
                     </div>
                     <p className="planDescription">
-                      Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
+                      Perfect for the freelancer or business with up to 50 employees creating web media for commercial purposes. This is a single user account.
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="" className="btn btnMainLarge">Learn More</a>
+                      <Link href="/pricing?commercial=true">
+                        <a onClick={() => handleSetStep("Commercial")} className="btn btnMainLarge">Learn More</a>
+                      </Link>
                     </div>
                   </div>
 
@@ -1080,10 +1105,12 @@ function SelectPricingPlan(props) {
                       <p className="planPriceText">Customized quote to meet your needs.</p>
                     </div>
                     <p className="planDescription">
-                      Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
+                      Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="" className="btn btnMainLarge">Request a custom quote</a>
+                      <Link href="/pricing?enterprise=true">
+                        <a onClick={() => handleSetStep("Enterprise")} className="btn btnMainLarge">Request a custom quote</a>
+                      </Link>
                     </div>
                   </div>
 
@@ -1102,7 +1129,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.licenseType}>
                   <span className={pricing.licenseName}>
                     Individual
-                    <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>For individual users creating media for their personal channels. Perfect for your YouTube videos, podcast, vlogs, and home videos that are self-published on 3rd party platforms. Monetization via Adsense/AdShare on 3rd party platforms is permitted.</Tooltip>}>
                       <a href="" className="info"></a>
                     </OverlayTrigger>
                   </span>
@@ -1111,7 +1138,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.licenseType}>
                   <span className={pricing.licenseName}>
                     Small Business
-                    <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>For use by businesses with 50 or fewer employees or freelancers creating content for businesses with 50 or fewer employees.</Tooltip>}>
                       <a href="" className="info"></a>
                     </OverlayTrigger>
                   </span>
@@ -1120,7 +1147,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.licenseType}>
                   <span className={pricing.licenseName}>
                     Indie Film
-                    <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>For use by individual videographers, or filmmakers in a single film or video with a budget less than $2 Million USD. Films may be distributed on the Web and submitted to film festivals. </Tooltip>}>
                       <a href="" className="info"></a>
                     </OverlayTrigger>
                   </span>
@@ -1129,7 +1156,7 @@ function SelectPricingPlan(props) {
                 <div className={pricing.licenseType}>
                   <span className={pricing.licenseName}>
                     Large Business
-                    <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>For use by businesses with 51 or more employees or freelancers creating content for businesses with 51 or more employees.</Tooltip>}>
                       <a href="" className="info"></a>
                     </OverlayTrigger>
                   </span>
@@ -1151,58 +1178,172 @@ function SelectPricingPlan(props) {
               <Accordion defaultActiveKey="0">
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0" onClick={(e)=> handleCollapse(e)}>
-                  Will I be able to use these tracks on a monetized YouTube channel?
+                  What does an Audiosocket Subscription Include?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
-                  <Card.Body><strong>No</strong>. Once your channel becomes monitized, you’ll need to switch to our commercial plan.</Card.Body>
+                  <Card.Body>When you purchase a subscription, you&apos;ve got unlimited access to our entire catalog of over +80,000 tracks and 24,000 SFX/Sound Designs that can be used to create something truly original! You can license as many tracks as you like during the Term of your Subscription. Each license issued is good for that specific Work in perpetuity.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="1" onClick={(e)=> handleCollapse(e)}>
-                  Will I have access to the complete Audiosocket library?
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2" onClick={(e)=> handleCollapse(e)}>
                   Can I pay monthly?
                 </Accordion.Toggle>
-                <Accordion.Collapse eventKey="2">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                <Accordion.Collapse eventKey="1">
+                  <Card.Body>Yes! You can choose to be billed monthly or pay an up-front annual rate. When you pay for the year up-front, you get a HUGE discount!</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="3" onClick={(e)=> handleCollapse(e)}>
-                  Can I use any song from Audiosocket in my subscription?
+                  Where can I preview the legal licenses?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="3">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                  <Card.Body>
+                    <p>Review our website Terms and Conditions, our Privacy Policy and our licenses by clicking on one of the links below.</p>
+                    <br/>
+                    <p>Terms and Conditions</p>
+                    <p>Privacy Policy</p>
+                    <br/>
+                    <p>Individual License</p>
+                    <p>Indie Film License</p>
+                    <p>Small Business License</p>
+                    <p>Large Business License</p>
+                  </Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="4" onClick={(e)=> handleCollapse(e)}>
-                  What is Content ID on YouTube?
+                  Can I use any song from Audiosocket in my Subscription?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="4">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                  <Card.Body>Yes! When you sign-up, you&apos;ll be given access to everything in the Audiosocket catalog. That&apos;s over 80,000 tracks and 2000 Sound Designs. Lucky you! You&apos;re well on your way, discovering the perfect music for your media, all created by trending indie bands, artists and composers from over 200 genres.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="5" onClick={(e)=> handleCollapse(e)}>
-                  How do I dispute a Content ID claim on my YouTube video?
+                  What is Content ID on YouTube?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="5">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                  <Card.Body>YouTube created an automated content tracking system called Content ID (CID). CID scans videos and alerts copyright owners, such as musicians, when their music is used in videos on the YouTube Platform. If the owner of the music has registered with Content ID, you may receive a Claim. DO NOT WORRY! If you have the license, then you have legal permission to use the music in your videos. You can decide if you wish to disregard the Claim or dispute the Claim. If you are monetizing your videos on YouTube, then you will want to dispute the Claim. See &quot;How Do I Dispute a YouTube Claim&quot;.</Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="6" onClick={(e)=> handleCollapse(e)}>
-                  Will I still earn all of the revenue from my videos if I receive a YouTube claim?
+                  How Do I Dispute a Content ID Claim on my YouTube Video?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="6">
-                  <Card.Body>Hello! I&apos;m another Text</Card.Body>
+                  <Card.Body>
+                  <p>If you are NOT monetizing your video, you can chose to disregard the claim or you can dispute the claim. If you ARE monetizing your videos, you should dispute the claim. There is a simple process to do so.</p>
+                  <br/>
+                  <p>Please note, while the claim is being resolved, ads are still running and the revenue earned will be released to you as soon as the claim is released. We will work to make this happen as quickly as possible!</p>
+                  <br/>
+                  <p>YouTube has published <a href='https://support.google.com/youtube/answer/2797454?hl=en'>this VIDEO </a> to help as well as these simple instructions:</p>
+                  <br/>
+                  <p><strong>How to dispute a Content ID claim</strong></p>
+                  <p>1. Sign in to your YouTube Studio.</p>
+                  <p>2. From the left Menu, click Videos.</p>
+                  <p>3. Filter for Copyright claims.</p>
+                  <p>4. Hover over “Copyright claim” in the Restrictions column and click SEE DETAILS.</p>
+                  <br/>
+                  <p>When you are asked to explain your claim, please state &quot;This track was licensed through Audiosocket&quot;.</p>
+                  <br/>
+                  <p>Please submit our Claim FORM as well so we can assist with speedy resolution.</p>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="7" onClick={(e)=> handleCollapse(e)}>
+                  Will I still earn all of the revenue from my videos if I receive a YouTube claim?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="7">
+                  <Card.Body>Absolutely! You will still receive all of the revenue from the ads on your video. However, while the claim is being reviewed, the monies earned are held until the claim is resolved. Once the claim is released, the earnings are released to you. Please dispute the claim and then submit our FORM so we can assist you with getting the claim released quickly.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="8" onClick={(e)=> handleCollapse(e)}>
+                  How often do you add new songs to your catalog?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="8">
+                  <Card.Body>We add new songs every single week.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="9" onClick={(e)=> handleCollapse(e)}>
+                  How long is my license good for?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="9">
+                  <Card.Body>The licenses you generate during your Subscription are good forever!</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="10" onClick={(e)=> handleCollapse(e)}>
+                  Can I use the same track in multiple projects?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="10">
+                  <Card.Body>You can use the same track multiple times, BUT you will need a new license for each and every use of a track. Make sure to License Now in checkout for each unique production or you will not legally have the rights needed to use the media. A license is a legal document that is tied to your use through a Project Title.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="11" onClick={(e)=> handleCollapse(e)}>
+                  Can I cancel my Subscription?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="11">
+                  <Card.Body>For monthly subscriptions, you can cancel at any time. For prepaid annual subscriptions, you may cancel any time, however the effective date would be at the end of your paid term and no refunds are given if you cancel before the end of the term. Your prepaid subscription will automatically renew at the end of the year unless you cancel it with at least 30 days before the renewal date. You may cancel your Subscription at any time by managing your Subscription settings in your account.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="12" onClick={(e)=> handleCollapse(e)}>
+                  What happens to my licenses if I cancel my Subscription?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="12">
+                  <Card.Body>All of the licenses issued to you during your Subscription are perpetual. That means they&apos;re good forever!* However, you cannot create any new licenses from the songs you downloaded after your Subscription has expired. You must click the License Now button every time you use a track during your Subscription. *Please see our Terms of Service for more info on cancellation.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="13" onClick={(e)=> handleCollapse(e)}>
+                  Is an Audiosocket Subscription right for me?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="13">
+                  <Card.Body>If you are consistently creating visual works that need music, or if you&apos;re working on a production that requires a lot of music, a Subscription is right for you! The monthly price is close to that for a single track license and can be paid monthly so you can budget the spend over the course of a year. This makes the service affordable and flexible. Maybe you changed your mind 3 months after you licensed a track, no problem, just drop in a new track, your Subscription covers you!</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="14" onClick={(e)=> handleCollapse(e)}>
+                  How does the Subscription work?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="14">
+                  <Card.Body>Once you&apos;ve chosen and purchased the Subscription that works for you, you&apos;re ready to start licensing. Here&apos;s how it works: 1.) Once you&apos;ve found a track you wish to license, add the track to your cart 2.) Add your final work title to the Work Title field at checkout 3.) Click the Checkout button and your license will be saved in your account under the &quot;Licenses&quot; tab 4.) Please note, you must create a new license for each unique Work. This is a very important step that ensures you have the right to use the music in your project</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="15" onClick={(e)=> handleCollapse(e)}>
+                  Why is the price for a single track almost the same as a Subscription?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="15">
+                  <Card.Body>We believe in loyalty. If you use music from our artists consistently, they make more money over time than they would from a single-use one time license. We believe we have the best Subscription offering on the market, hands down! With over 80,000 high quality tracks across 200 genres from award winning bands, artists and composers, no other Subscription service comes close.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="16" onClick={(e)=> handleCollapse(e)}>
+                  Is my Subscription good for TV?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="16">
+                  <Card.Body>No, Subscription licenses are only good for web. If you&apos;re interested in television rights, please use the Custom request form.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="17" onClick={(e)=> handleCollapse(e)}>
+                  What if I need broader rights than those covered in my Subscription?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="17">
+                  <Card.Body>As a subscriber, you will receive 20% off of any custom license needed for broader rights. You simply contact our SUPPORT team and let them know that you need expanded rights.</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="18" onClick={(e)=> handleCollapse(e)}>
+                  I licensed my music, so why did I get a Claim on YT?
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="18">
+                  <Card.Body>Claims on YouTube is an indication that copyrighted music has been used in your video. If you have a license, you do not need to worry as you&apos;ve paid the copyright owner to use their work legally. And you will receive all of the revenues on your video as soon as the license has been verified. The reason Audiosocket music is sometimes claimed is because we represent a large and very diverse catalog of amazingly talented artists, whose work is published by many labels across the world. This simply means that there can be more than one administrator and we need to confirm that you have secured the license. We typically hear back within the day, sometimes immediately. We will let you know when the Claim has been released. Thank you for your patience and understanding that Artists, like you, use ContentID to protect their work on YT.</Card.Body>
                 </Accordion.Collapse>
               </Card>
             </Accordion>

@@ -63,27 +63,35 @@ function Following() {
               <h2>Followed Playlists</h2>
             </div>
             <div className="tilesWrapper">
-              {followedPlaylists?.length > 0 && followedPlaylists.map((followedPlaylist, index) =>
-                <Link href={"/playlist/" + followedPlaylist.id} key={index}>
-                  <a key={index} className="tileOverlay">
-                    {followedPlaylist.playlist_image ? "" : ""}
-                    <span className="tileOverlayText">{followedPlaylist.name}</span>
-                  </a>
-                </Link>
-
-              )}
+              {(followedPlaylists?.length > 0) ?
+                followedPlaylists.map((followedPlaylist, index) =>
+                  <Link href={"/playlist/" + followedPlaylist.id} key={index}>
+                    <a key={index} className="tileOverlay">
+                      {followedPlaylist.playlist_image ? "" : ""}
+                      <span className="tileOverlayText">{followedPlaylist.name}</span>
+                    </a>
+                  </Link>
+                ) :
+                <div>
+                  <p>No following playlists</p>
+                </div>
+              }
             </div>
             <div className={user.listingHeading+' mt-5'}>
               <h2>Followed Artists</h2>
             </div>
             <div className="tilesWrapper">
-              {followedArtists?.users?.length > 0 && followedArtists.users.map((followedArtist, index) =>
-                <a key={index} className="tileOverlay">
-                  {followedArtist.image ? <Image src={followedArtist.image} alt="Mood" className="tilesImg"></Image> : ""}
-                  <span className="tileOverlayText">{followedArtist.first_name + ' ' + followedArtist.last_name}</span>
-                </a>
-
-              )}
+              { (followedArtists?.users?.length > 0) ?
+                followedArtists.users.map((followedArtist, index) =>
+                  <a key={index} className="tileOverlay">
+                    {followedArtist.image ? <Image src={followedArtist.image} alt="Mood" className="tilesImg"></Image> : ""}
+                    <span className="tileOverlayText">{followedArtist.first_name + ' ' + followedArtist.last_name}</span>
+                  </a>
+                ) :
+                <div>
+                  <p>No following artists</p>
+                </div>
+              }
             </div>
           </div>
         </div>

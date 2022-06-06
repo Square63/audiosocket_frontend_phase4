@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import Loader from "../../images/loader.svg";
+import router from "next/router";
 
 function DownloadTrackLicense({showModal = false, onCloseModal}) {
   const form = useRef(null);
@@ -96,7 +97,7 @@ function DownloadTrackLicense({showModal = false, onCloseModal}) {
                 <p>
                   For the same price as a single track license, get an unlimited subscription.
                 </p>
-                <a href="javascript:void(0)" className="btn btnMainSmall">View Plans &amp; Pricing</a>
+                <a className="btn btnMainSmall" onClick={()=> {router.push('/pricing')}}>View Plans &amp; Pricing</a>
               </div>
             </div>
           </div>

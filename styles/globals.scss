@@ -37,7 +37,9 @@ a {
     text-decoration: none;
   }
 }
-
+svg {
+  overflow: visible;
+}
 .btn {
   &:focus {
     box-shadow: none;
@@ -174,6 +176,17 @@ textarea.form-control {
 
 .input-error {
   color: $red;
+}
+
+#cardForm {
+  .form-label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.19;
+    letter-spacing: -.4px;
+    color: #6e7377;
+    margin-bottom: 6px;
+  }
 }
 
 /************** Breadcrumbs **************/
@@ -1263,6 +1276,15 @@ footer {
   display: none !important;
 }
 
+.infinite-scroll-component {
+  overflow: visible !important;
+}
+
+.notClickable {
+  pointer-events: none;
+  cursor: default;
+}
+
 /******************* Common Components ****************/
 .parallelHead {
   @include flexbox;
@@ -1402,6 +1424,7 @@ hr {
 
     .sidebartrackInfo {
       overflow: hidden;
+      @include flex(1);
       @include flexbox;
       @include justify-content(flex-start);
       @include align-items(center);
@@ -1409,7 +1432,10 @@ hr {
 
       .tileOverlay {
         max-width: 105px;
+        min-width: 105px;
+        width: 100%;
         max-height: 105px;
+        height: auto;
         border-radius: 0;
 
         &:before {
@@ -2045,6 +2071,12 @@ hr {
         @include flexbox;
         @include justify-content(flex-start);
         @include align-items(center);
+        .sk-fading-circle {
+          width: 30px;
+          height: 30px;
+          position: relative;
+          margin: 0 15px 0 0;
+        }
 
         .aboutSong {
           .songData {
@@ -2222,6 +2254,7 @@ hr {
       margin-top: 7px;
       line-height: normal;
       margin-inline: -15px;
+      font-size: 13px;
 
       button {
         all: unset;
@@ -2256,19 +2289,20 @@ hr {
         @include justify-content(flex-start);
         background-color: #fafafa;
         padding: 10px 10px 10px 35px;
-        overflow: hidden;
+        // overflow: hidden;
 
         .filterVersion {
           @include flexbox;
           @include justify-content(flex-start);
           @include align-items(center);
+          width: 100%;
 
           .playPauseBtn {
             margin-right: 22px;
           }
 
           .filterName {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 400;
             line-height: 1.5;
             letter-spacing: -0.35px;
@@ -2290,6 +2324,10 @@ hr {
               padding-inline: 15px 25px;
               opacity: 0.7;
             }
+          }
+
+          .durationCount {
+            min-width: 10%;
           }
         }
       }
@@ -3090,7 +3128,7 @@ hr {
 .brandsStrip {
   @include flexbox;
   @include justify-content(space-between);
-  @include align-items(baseline);
+  @include align-items(center);
   flex-wrap: wrap;
   gap: 25px;
   margin-top: 8em;
@@ -4426,6 +4464,11 @@ input[type=file]::file-selector-button {
   padding-top: 59px;
 }
 
+.backToSelectPlan {
+  padding-top: 25px;
+  cursor: pointer;
+}
+
 /**************** Mobile Filter ***************/
 .mobileFilters {
   .filterLauncher {
@@ -4730,6 +4773,9 @@ input[type=file]::file-selector-button {
       }
     }
   }
+  .tooltip {
+    display: none;
+  }
 }
 
 @media #{$mid-point-tablet} {
@@ -4986,6 +5032,23 @@ input[type=file]::file-selector-button {
   }
 
   /************** Search page ****************/
+  .musicSearch {
+    .filterBar {
+      padding: 10px;
+      .dropdown {
+        .dropdown-toggle {
+          padding: 10px 7px 9px;
+        }
+        .dropdown-menu {
+          .filterWrapper:not(.durationBlock) {
+            grid-template-columns: repeat(2, auto);
+            padding: 15px 10px 15px;
+          }
+        }
+      }
+    }
+  }
+
   .trackRowWrapper {
     .trackRow {
       padding-inline: 10px;
@@ -5389,70 +5452,72 @@ input[type=file]::file-selector-button {
     }
   }
   .trackRowWrapper {
-    margin-inline: -20px;
-    margin-block-start: 28px;
-    .trackRow {
-      padding-inline: 15px;
-      padding-block: 10px 12px;
-      @include flex-direction(column);
-      @include align-items(flex-start);
-      gap: 15px;
-      position: relative;
-      &.headingRow {
-        display: none;
-      }
-      .rowParticipant {
-        &.artistName {
-          min-width: 100%;
-          padding-left: 45px;
-          .playPauseBtn {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-          }
-          .aboutSong {
-            .songData {
-              .songName {
-                max-width: 100%;
-                font-size: 14px;
+    &:not(.userListingWrapper .trackRowWrapper) {
+      margin-inline: -20px;
+      margin-block-start: 28px;
+      .trackRow {
+        padding-inline: 15px;
+        padding-block: 10px 12px;
+        @include flex-direction(column);
+        @include align-items(flex-start);
+        gap: 15px;
+        position: relative;
+        &.headingRow {
+          display: none;
+        }
+        .rowParticipant {
+          &.artistName {
+            min-width: 100%;
+            padding-left: 45px;
+            .playPauseBtn {
+              position: absolute;
+              left: 15px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+            .aboutSong {
+              .songData {
+                .songName {
+                  max-width: 100%;
+                  font-size: 14px;
+                }
+              }
+              .songArtist {
+                a {
+                  font-size: 13px;
+                }
               }
             }
-            .songArtist {
-              a {
-                font-size: 13px;
-              }
+          }
+
+          &.audioWave {
+            display: none;
+          }
+
+          &.duration {
+            display: none;
+          }
+
+          &.mood {
+            display: none;
+          }
+
+          &.BPM {
+            display: none;
+          }
+
+          &.controls {
+            min-width: 170px;
+            margin-left: 45px;
+            svg {
+              width: 22px !important;
+              height: 22px;
             }
           }
         }
-
-        &.audioWave {
+        .altVersions {
           display: none;
         }
-
-        &.duration {
-          display: none;
-        }
-
-        &.mood {
-          display: none;
-        }
-
-        &.BPM {
-          display: none;
-        }
-
-        &.controls {
-          min-width: 170px;
-          margin-left: 45px;
-          svg {
-            width: 22px !important;
-            height: 22px;
-          }
-        }
-      }
-      .altVersions {
-        display: none;
       }
     }
   }
@@ -5656,6 +5721,3 @@ input[type=file]::file-selector-button {
   }
 }
 
-.infinite-scroll-component {
-  overflow: visible !important;
-}

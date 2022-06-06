@@ -15,7 +15,7 @@ import cinemetic from '../../images/cinimetic.jpeg';
 import hiphop from '../../images/hiphop.jpeg';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { getCuratedPlaylists, getCuratedPlaylistFilters } from '../../redux/actions/authActions';
+import { getCuratedPlaylists, getCuratedPlaylistFilters, getFeaturedPlaylists } from '../../redux/actions/authActions';
 import InpageLoader from '../../components/InpageLoader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useRouter } from "next/router";
@@ -62,10 +62,13 @@ function CuratedPlaylist() {
   const [pageNum, setPageNum] = useState(1);
   const [paginatedPlaylists, setPaginatedPlaylists] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [paginatedPlaylistsCount, setPaginatedPlaylistsCount] = useState(0);
 
   const dispatch = useDispatch();
   const router = useRouter();
   const playlists = useSelector( state => state.user.curated_playlists)
+  const featuredPlaylists = useSelector( state => state.user.featured_playlists)
+  const totalPlaylists = useSelector( state => state.user?.meta?.count)
   const filters = useSelector( state => state.user.curated_filters)
   const responseStatus = useSelector(state => state.user.responseStatus);
 
@@ -93,6 +96,12 @@ function CuratedPlaylist() {
   }, [filters]);
 
   useEffect(() => {
+    if (!featuredPlaylists) {
+      dispatch(getFeaturedPlaylists())
+    }
+  }, [featuredPlaylists]);
+
+  useEffect(() => {
     if (playlists) {
       setIsLoading(false)
     }
@@ -101,12 +110,16 @@ function CuratedPlaylist() {
       setPaginatedPlaylists(paginatedPlaylists=> [...paginatedPlaylists, ...playlists])
       console.log("PAGINATED PLAYLISTS", paginatedPlaylists)
     }
+    if (playlists?.length > 0) {
+      setPaginatedPlaylistsCount(paginatedPlaylistsCount+playlists.length)
+    }
 
   }, [playlists]);
 
   console.log("Curated Playlists", playlists)
 
   const handleSearch = (e) => {
+    setIsLoading(true)
     let filterArray = []
     filterArray.push(selectedFilter)
     setPaginatedPlaylists([])
@@ -115,10 +128,12 @@ function CuratedPlaylist() {
   }
 
   const handlePageNum = (e) => {
+    setIsLoading(true)
     setPageNum(pageNum + 1)
   }
 
   const handleAddFilter = (filterName) => {
+    setIsLoading(true)
     let filterArray = []
     setSelectedFilter(filterName)
     filterArray.push(filterName)
@@ -181,14 +196,14 @@ function CuratedPlaylist() {
               <h2 className={playlist.sectionHeading}>
                 Featured playlists
               </h2>
-              <CarouselMood breakPoints={breakPoints}>
-                {images.map((item) => (
-                  <div key={item} className="moodSlide">
-                    <Image src={item.src} alt="Mood" className="moodImage"></Image>
-                    <span className="moodOverlayText">{item.text}</span>
+              {featuredPlaylists && featuredPlaylists.length > 0 ? <CarouselMood breakPoints={breakPoints}>
+                {featuredPlaylists.map((playlist) => (
+                  <div key={playlist} className="moodSlide">
+                    {playlist.playlist_image && <Image src={playlist.src} alt="Mood" className="moodImage"></Image>}
+                    <span className="moodOverlayText">{playlist.name}</span>
                   </div>
                 ))}
-              </CarouselMood>
+              </CarouselMood> : "No featured playlist"}
             </div>
           </section>
           <section className={playlist.playlistTiles}>
@@ -207,7 +222,7 @@ function CuratedPlaylist() {
                   })}
             </div>
             <div className={playlist.btnWrapper}>
-              <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button>
+              {(totalPlaylists != paginatedPlaylistsCount) ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
             </div>
           </section>
         </div>

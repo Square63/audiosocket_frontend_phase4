@@ -2,6 +2,8 @@
 
 .searchWrapper {
   padding-bottom: 40px;
+  overflow-x: hidden;
+  overflow-y: auto;
   .pageHeading {
     margin-block: 36px 18px;
   }
@@ -85,12 +87,32 @@
   color: $heading-clr;
 }
 
+@media #{$mid-point-tablet} {
+  .searchWrapper {
+    .searchUploadStuff {
+      gap: 15px;
+      :global(.stickySearch.haveIcon) {
+        svg {
+          left: 15px;
+        }
+        :global(.form-control) {
+          padding-left: 47px;
+          padding-right: 105px;
+        }
+        :global(.stickyBtn) {
+          min-width: 80px;
+          padding-inline: 25px;
+        }
+      }
+    }
+  }
+}
 
 @media #{$phone-landscape} {
   .searchWrapper {
     .searchUploadStuff {
       margin-bottom: 18px;
-      :global(.stickySearch) {
+      :global(.stickySearch.haveIcon) {
         text-align: right;
         :global(.form-control) {
           height: 57px;
@@ -106,6 +128,7 @@
           top: initial;
           height: 34px;
           margin-top: 15px;
+          line-height: 10px;
         }
         svg {
           display: none;

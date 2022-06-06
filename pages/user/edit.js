@@ -37,7 +37,7 @@ function Edit({ countries }) {
   useEffect(() => {
     if(updatedUserInfo?.error) {
       toast.error(updatedUserInfo.error, TOAST_OPTIONS_ERROR);
-    } else if (updatedUserInfo.email) {
+    } else if (updatedUserInfo?.email) {
       toast.success("User updated successfully.", TOAST_OPTIONS);
     }
   }, [updatedUserInfo])

@@ -144,10 +144,10 @@ function MyPlaylistTracks(props) {
   const handleMoodColumn = (track, mood) => {
     if (track.mediable_type !== "Sfx") {
       switch(mood) {
-        case "moods":   return track.mediable.moods.join(", ");
-        case "genres":   return track.mediable.genres.join(", ");
-        case "themes": return track.mediable.themes.join(", ");
-        case "instruments":  return track.mediable.instruments.join(", ");
+        case "moods": return track?.mediable ? track.mediable.moods.join(", ") : track.moods.join(", ");
+        case "genres": return track?.mediable ? track.mediable.genres.join(", ") : track.genres.join(", ");
+        case "themes": return track?.mediable ? track.mediable.themes.join(", ") : track.themes.join(", ");
+        case "instruments": return track?.mediable ? track.mediable.instruments.join(", ") : track.instruments.join(", ");
         default: return ""
       }
     }
@@ -206,57 +206,59 @@ function MyPlaylistTracks(props) {
         </div>
       </div>
       <div className="trackRowWrapper">
-        <div className="trackRow headingRow">
-          <div className="rowParticipant artistName" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}>
-            Title / Artist
-            <span className="sortingMedium">
-              <a href="" className={titleSortDir == "DESC" ? "decending disableSortBtn" : titleSortDir == "" ? "decending" : "decending"}></a>
-              <a href="" className={titleSortDir == "ASC" ? "ascending  disableSortBtn" : titleSortDir == "" ? "ascending" : "ascending"}></a>
-            </span>
-          </div>
-          <div className="rowParticipant audioWave"></div>
-          <div className="rowParticipant duration" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}>
-            Duration
-            <span className="sortingMedium">
-              <a href="" className={durationSortDir == "DESC" ? "decending disableSortBtn" : durationSortDir == "" ? "decending" : "decending"}></a>
-              <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
-            </span>
-          </div>
-          <div className="rowParticipant mood">
-            <Dropdown alignLeft>
-              <Dropdown.Toggle variant="" id="headerMood">
-                Mood
-              </Dropdown.Toggle>
+        {props.tracks && props.tracks.length > 0 && 
+          <div className="trackRow headingRow">
+            <div className="rowParticipant artistName" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}>
+              Title / Artist
+              <span className="sortingMedium">
+                <a href="" className={titleSortDir == "DESC" ? "decending disableSortBtn" : titleSortDir == "" ? "decending" : "decending"}></a>
+                <a href="" className={titleSortDir == "ASC" ? "ascending  disableSortBtn" : titleSortDir == "" ? "ascending" : "ascending"}></a>
+              </span>
+            </div>
+            <div className="rowParticipant audioWave"></div>
+            <div className="rowParticipant duration" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}>
+              Duration
+              <span className="sortingMedium">
+                <a href="" className={durationSortDir == "DESC" ? "decending disableSortBtn" : durationSortDir == "" ? "decending" : "decending"}></a>
+                <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
+              </span>
+            </div>
+            <div className="rowParticipant mood">
+              <Dropdown alignLeft>
+                <Dropdown.Toggle variant="" id="headerMood">
+                  Mood
+                </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
-                  <span>Mood</span>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
-                  <span>Genres</span>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
-                  <span>Themes</span>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
-                  <span>Instruments</span>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            {/* <span className="sortingMedium">
-              <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
-              <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
-            </span> */}
+                <Dropdown.Menu>
+                  <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
+                    <span>Mood</span>
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
+                    <span>Genres</span>
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
+                    <span>Themes</span>
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
+                    <span>Instruments</span>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              {/* <span className="sortingMedium">
+                <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
+                <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
+              </span> */}
+            </div>
+            <div className="rowParticipant BPM" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", bpmSortDir == "ASC" ? "DESC" : "ASC")}>
+              BPM
+              <span className="sortingMedium">
+                <a href="" className={bpmSortDir == "DESC" ? "decending disableSortBtn" : bpmSortDir == "" ? "decending" : "decending"}></a>
+                <a href="" className={bpmSortDir == "ASC" ? "ascending  disableSortBtn" : bpmSortDir == "" ? "ascending" : "ascending"}></a>
+              </span>
+            </div>
+            <div className="rowParticipant controls"></div>
           </div>
-          <div className="rowParticipant BPM" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", bpmSortDir == "ASC" ? "DESC" : "ASC")}>
-            BPM
-            <span className="sortingMedium">
-              <a href="" className={bpmSortDir == "DESC" ? "decending disableSortBtn" : bpmSortDir == "" ? "decending" : "decending"}></a>
-              <a href="" className={bpmSortDir == "ASC" ? "ascending  disableSortBtn" : bpmSortDir == "" ? "ascending" : "ascending"}></a>
-            </span>
-          </div>
-          <div className="rowParticipant controls"></div>
-        </div>
+        }
         <InfiniteScroll
           dataLength={tracks.length}
           next={fetchData}
@@ -272,7 +274,7 @@ function MyPlaylistTracks(props) {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {props.tracks.map((track,index)=> (
+                  {props.tracks && props.tracks.length > 0 ? props.tracks.map((track,index)=> (
                     track.mediable_type == "Track" && <Draggable key={track.mediable.title} draggableId={track.mediable.title} index={index}>
                       {(provided) => (
                         <div
@@ -322,7 +324,7 @@ function MyPlaylistTracks(props) {
                                 </a>
                               </OverlayTrigger>
                               <OverlayTrigger overlay={<Tooltip>Add to Favourites</Tooltip>}>
-                                <a onClick={(e) => props.handleAddToFavorites(e, track.mediable.id)} className={props.tracksMeta ? (props.tracksMeta.favorite_tracks_ids ? (props.tracksMeta.favorite_tracks_ids.includes(track.mediable.id) ? "controlActive" : "") : "") : ""}>
+                                <a onClick={(e) => props.handleAddToFavorites(e, track.mediable.id)} className={ props.favoriteTrackIds && props.favoriteTrackIds.includes(track.mediable.id) ? "controlActive" : ""}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
                                     <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">
                                       <path id="Shape_185" data-name="Shape 185" d="M181.253,573.9l-7.07-7.281a5.369,5.369,0,0,1-1.031-6.258h0a5.532,5.532,0,0,1,8.8-1.409l1.516,1.382,1.516-1.382a5.532,5.532,0,0,1,8.8,1.409h0a5.36,5.36,0,0,1,.182,4.452" transform="translate(-172.573 -557.365)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -454,12 +456,12 @@ function MyPlaylistTracks(props) {
                                           <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.3l3.553-4.053" transform="translate(-330.379 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
                                         </g>
                                       </svg>
-                                      <span className="versionCount">1</span> alt. versions
+                                    <span className="versionCount">{track.mediable.alternate_versions.length}</span> alt. versions
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey={index + 1}>
                                       <div id={"example-collapse-text" + index + 1} >
-                                        {track.mediable.alternate_versions.map((altVersion,index)=> {
-                                          return(<AltVersion key={index} altVersionTrack={altVersion}/>)
+                                        {track.mediable.alternate_versions.map((altVersion, index)=> {
+                                          return (<AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)}/>)
                                         })}
                                       </div>
                                     </Accordion.Collapse>
@@ -472,13 +474,13 @@ function MyPlaylistTracks(props) {
                         </div>
                       )}
                     </Draggable>
-                  ))}
+                  )) : "No tracks found"}
                   {provided.placeholder}
                 </div>
               )}
             </Droppable>
           </DragDropContext>
-          
+
         </InfiniteScroll>
       </div>
     </div>

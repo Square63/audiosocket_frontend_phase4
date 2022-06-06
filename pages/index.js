@@ -653,10 +653,26 @@ export default function Home(props) {
                     <p>Flip through some of our most popular playlists to see the high-quality tracks we carry.</p>
                   </div>
                   <div className="moodFilters hideOntablet">
-                    <a href="" className="btn btnMainOutline">Creator Kits</a>
-                    <a href="" className="btn btnMainOutline">Moods</a>
-                    <a href="" className="btn btnMainOutline">Genres</a>
-                    <a href="" className="btn btnMainOutline">Themes</a>
+                    <Link href="/playlist/curatedPlaylist">
+                      <a className="btn btnMainOutline">
+                        Creator Kits
+                      </a>
+                    </Link>
+                    <Link href="/playlist/curatedPlaylist">
+                      <a className="btn btnMainOutline">
+                        Moods
+                      </a>
+                    </Link>
+                    <Link href="/playlist/curatedPlaylist">
+                      <a className="btn btnMainOutline">
+                        Genres
+                      </a>
+                    </Link>
+                    <Link href="/playlist/curatedPlaylist">
+                      <a className="btn btnMainOutline">
+                        Themes
+                      </a>
+                    </Link>
                   </div>
                   <div className="MoodFilterDropdown ShowOntablet">
                     <Form>
@@ -682,15 +698,21 @@ export default function Home(props) {
                 </div>
                 <CarouselMood breakPoints={breakPoints}>
                   {images.map((item) => (
-                    <div key={item} className="moodSlide">
-                      <Image src={item.src} alt="Mood" className="moodImage"></Image>
-                      <span className="moodOverlayText">{item.text}</span>
-                    </div>
+                    <Link href="/playlist/curatedPlaylist" key={item}>
+                      <div className="moodSlide">
+                        <Image src={item.src} alt="Mood" className="moodImage"></Image>
+                        <span className="moodOverlayText">{item.text}</span>
+                      </div>
+                    </Link>
                   ))}
                 </CarouselMood>
               </div>
               <div className="ViewPlaylist">
-                <a href="" className="btn btnMainLarge">View All Playlists</a>
+                <Link href="/playlist/curatedPlaylist">
+                  <a className="btn btnMainLarge">
+                    View All Playlists
+                  </a>
+                </Link>
               </div>
             </section>
 
@@ -730,7 +752,7 @@ export default function Home(props) {
                         <p className="planPriceAmount"><span>$33</span>&nbsp;/Month</p>
                       </div>
                       <p className="planDescription">
-                        Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
+                        Perfect for the freelancer or business with up to 50 employees creating web media for commercial purposes. This is a single user account.
                       </p>
                       <div className="PlanBtnContainer">
                         <Link
@@ -752,7 +774,7 @@ export default function Home(props) {
                         <p className="planPriceText">Customized quote to meet your needs.</p>
                       </div>
                       <p className="planDescription">
-                        Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
+                        Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
                       </p>
                       <div className="PlanBtnContainer">
                         <Link
@@ -773,88 +795,6 @@ export default function Home(props) {
                   <div className="btnContainer text-center">
                     <a href="" className="btn btnMainLarge">Learn More</a>
                   </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="campareWithCompetitor">
-              <div className="blackSection">
-                <div className="blackContent">
-                  <div className="blackHeading">
-                    <h2>It’s not even close.</h2>
-                  </div>
-                  <div className="blackPara">
-                    <p>Used by top creators in Film, TV &amp; Advertising, Audiosocket’s band &amp; composer roster is the largest &amp; most diverse in its class.</p>
-                  </div>
-                </div>
-
-              </div>
-              <div className="greySection">
-                <div className="greyInnerSec">
-                  <div className="comparisionRow">
-                    <div className="columnLabel">
-                      Provider
-                    </div>
-                    <div className="columnLabel destroyAfterTime">
-                      Number of tracks in catalog
-                    </div>
-                    <div className="columnLabel">
-                      Plans starting at
-                    </div>
-                  </div>
-
-                  <div className="comparisionRow">
-                    <div className="columnData provider">
-                      Audiosocket
-                    </div>
-                    <div className="columnData trackCount">
-                      <span className="AsBar">80,000+ Tracks</span>
-                    </div>
-                    <div className="columnData planRate">
-                      <span>$10<sup>.00</sup> <small>/Month</small></span>
-                    </div>
-                  </div>
-
-                  <div className="comparisionRow">
-                    <div className="columnData provider">
-                      Epidemic Sound
-                    </div>
-                    <div className="columnData trackCount">
-                      <span className="epidemicBar">&nbsp;</span>
-                    </div>
-                    <div className="columnData planRate">
-                      <span>$15<sup>.00</sup> <small>/Month</small></span>
-                    </div>
-                  </div>
-
-                  <div className="comparisionRow">
-                    <div className="columnData provider">
-                      Artlist
-                    </div>
-                    <div className="columnData trackCount">
-                      <span className="artlistBar">&nbsp;</span>
-                    </div>
-                    <div className="columnData planRate">
-                      <span>$16<sup>.00</sup> <small>/Month</small></span>
-                    </div>
-                  </div>
-
-                  <div className="comparisionRow">
-                    <div className="columnData provider">
-                      Soundstripe
-                    </div>
-                    <div className="columnData trackCount">
-                      <span className="soundstripeBar">&nbsp;</span>
-                    </div>
-                    <div className="columnData planRate">
-                      <span>$12<sup>.00</sup> <small>/Month</small></span>
-                    </div>
-                  </div>
-                </div>
-                <div className="browseMusic">
-                  <Link href="/search">
-                    <a className="btn btnMainXlarge">Browse Music</a>
-                  </Link>
                 </div>
               </div>
             </section>

@@ -35,6 +35,8 @@ function Login() {
     if(localStorage.getItem('user')) {
       alert('Already logged in')
       router.push('/')
+    } else {
+      cookie.set('user', '')
     }
   }, [])
 
@@ -47,14 +49,14 @@ function Login() {
     if (!SocialLogIn) {
       if(loggedInUser.error) {
         toast.error(loggedInUser.error.message, TOAST_OPTIONS);
-      } else if(Object.keys(loggedInUser.user).length) {
-        debugger
+      } else if (loggedInUser.user && Object.keys(loggedInUser.user).length) {
         localStorage.setItem("user", JSON.stringify(loggedInUser.user));
         localStorage.setItem("first_name", JSON.stringify(loggedInUser.userDetails.first_name));
         localStorage.setItem("last_name", JSON.stringify(loggedInUser.userDetails.last_name));
         localStorage.setItem("email", JSON.stringify(loggedInUser.userDetails.email));
         localStorage.setItem("has_subscription", JSON.stringify(loggedInUser.userDetails.subscription_flag));
-        cookie.set('user', JSON.stringify(loggedInUser.user))
+        if (JSON.stringify(loggedInUser.user) == localStorage.getItem("user"))
+          cookie.set('user', JSON.stringify(loggedInUser.user))
         toast.success('Successfully Logged In.');
         if (window.location.search){
           let urlParams = new URLSearchParams(window.location.search);

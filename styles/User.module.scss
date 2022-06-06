@@ -61,6 +61,7 @@
   }
   :global(.userAccountInner) {
     :global(.boxDivision) {
+      gap: clamp(30px, 3.392vw, 60px);
       :global(.boxColumn) {
         :global(.boxWithShadow) {
           margin-top: 30px;
@@ -135,7 +136,7 @@
           .billingInfo {
             .cardInfoWrapper {
               border: 1px solid $headerColor;
-              border-radius: 29px;
+              border-radius: 100px;
               padding: 19px 30px 19px 20px;
               @include flexbox;
               @include justify-content(space-between);
@@ -619,6 +620,171 @@
       svg {
         vertical-align: middle;
         margin-left: 7px;
+      }
+    }
+  }
+}
+
+/***************** Responsive Behaviour *******************/
+
+@media #{$tab-landscape} {
+  .accountWrapper {
+    :global(.userAccountInner) {
+      :global(.boxDivision) {
+        :global(.boxColumn) {
+          :global(.boxWithShadow) {
+            padding-inline: 15px;
+            :global(.form-control) {
+              padding-inline: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media #{$mid-point-tablet} {
+  .accountWrapper {
+    :global(.userAccountInner) {
+      :global(.boxDivision) {
+        :global(.boxColumn) {
+          :global(.boxWithShadow) {
+            :global(.subscriptionPlan) {
+              :global(.aboutPlan) {
+                padding-left: 15px;
+              }
+              :global(.planPrice) {
+                padding-inline: 15px;
+              }
+            }
+          }
+        }
+      }
+
+      .listingWrapper {
+        :global(.trackRowWrapper) {
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          -ms-overflow-style: -ms-autohiding-scrollbar;
+          :global(.trackRow) {
+            width: intrinsic;           /* Safari/WebKit uses a non-standard name */
+            width: -moz-max-content;    /* Firefox/Gecko */
+            width: -webkit-max-content;
+            flex-wrap: nowrap;
+            padding-block: 10px;
+            :global(.rowParticipant) {
+              min-width: 220px;
+              &:global(.controls) {
+                min-width: 150px;
+              }
+              &.purchaseDate {
+                min-width: 150px;
+              }
+              &.purchaseReceipt {
+                min-width: 150px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media #{$phone-landscape} {
+  .accountWrapper {
+    padding-block: 3px 50px;
+    .accountHeader {
+      h1 {
+        display: none;
+      }
+      .userNav {
+        margin-left: 0;
+        @include flex(1);
+        gap: 0;
+        margin-inline: -20px;
+        margin-block-end: 20px;
+        li {
+          @include flex(1);
+          border: 1px solid $border-clr;
+          border-left: 0;
+          background-color: $headerColor;
+          height: 60px;
+          a {
+            padding: 0;
+            height: inherit;
+            svg {
+              margin-inline: auto;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              @include transition(all 0.3s ease-in-out);
+              path,line, circle, .rectLicense {
+                stroke: $white;
+                fill: transparent;
+              }
+            }
+          }
+          &:global(.licences) {
+            a {
+              svg {
+                width: 28px;
+                height: 28px;
+              }
+            }
+          }
+          &:global(.favorites) {
+            a {
+              svg {
+                width: 28px;
+                height: 28px;
+              }
+            }
+          }
+          &:global(.following) {
+            a {
+              svg {
+                width: 28px;
+                height: 28px;
+              }
+            }
+          }
+          
+          &:global(.selected),
+          &:hover {
+            a {
+              &:after {
+                bottom: 1px;
+              }
+              svg {
+                path,line, circle, .rectLicense {
+                  stroke: $green-light;
+                  background-color: aqua;
+                }
+              }
+            }
+          }
+
+          &:last-child {
+            border-right: 0;
+          }
+        }
+      }
+    }
+    :global(.userAccountInner) {
+      :global(.boxDivision) {
+        @include flex-direction(column);
+        :global(.boxColumn) {
+          :global(.boxWithShadow) {
+            padding-inline: 15px;
+            :global(.form-control) {
+              padding-inline: 15px;
+            }
+          }
+        }
       }
     }
   }

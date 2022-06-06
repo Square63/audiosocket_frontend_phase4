@@ -20,6 +20,7 @@ function Subscription() {
   const router = useRouter();
   const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
   const currentPlan = useSelector(state => state.user.currentPlan);
+  const yearlyPlan = useSelector(state => state.user.yearlyPlan);
   const [isLoading, setIsLoading] = useState(true);
   const [userCurrentPlan, setUserCurrentPlan] = useState(null);
 
@@ -29,15 +30,13 @@ function Subscription() {
   }, []);
 
   useEffect(() => {
-    if (subscriptionPlans || currentPlan) {
-      debugger
+    if (subscriptionPlans || currentPlan || yearlyPlan) {
       setIsLoading(false)
       setUserCurrentPlan(currentPlan)
     }
-  }, [subscriptionPlans, currentPlan])
+  }, [subscriptionPlans, currentPlan, yearlyPlan])
 
   useEffect(() => {
-    debugger
   }, [userCurrentPlan])
 
   const handleCancelSubscription = async() =>{
@@ -82,7 +81,7 @@ function Subscription() {
             pauseOnHover
             style={{ width: "auto" }}
           />
-          {userCurrentPlan && 
+          {userCurrentPlan &&
           <>
             <h3 className={user.planStatus}>Current Plan</h3>
             <div className={user.plansShelf}>
@@ -112,10 +111,13 @@ function Subscription() {
                       Cancel Subscription
                     </a>
                     <p>Use to pause or cancel your current subscription. You can re-enable at any time.</p>
-                    <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
-                      Switch to Yearly Billing
-                    </a>
-                    
+                    {yearlyPlan && <Link href={{ pathname: "/plans/" + yearlyPlan.id, query: {yearly: true }}}>
+                      <a href="javascript:void(0)" className="btn btnMainSmall mt-0">
+                        Switch to Yearly Billing
+                      </a>
+                    </Link>}
+
+
                   </div>
                 </div>
               </div>
@@ -233,7 +235,7 @@ function Subscription() {
               </div>
               <div className={user.planBody}>
                 <div className={user.planFeatures}>
-                  <p>Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights?
+                  <p>Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights?
                     Let us customize a plan just for you!
                   </p>
 
@@ -241,9 +243,11 @@ function Subscription() {
                   <p>Please request a custom quote and one of our reps will be in touch ASAP.</p>
                 </div>
                 <div className={user.plansBtnWrapper}>
-                  <a href="https://audiosocket.activehosted.com/f/43" className="btn btnMainLarge mt-0">
-                    Request a Custom Quote
-                  </a>
+                  <Link href="/pricing?enterprise=true">
+                    <a className="btn btnMainLarge mt-0">
+                      Request a Custom Quote
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>

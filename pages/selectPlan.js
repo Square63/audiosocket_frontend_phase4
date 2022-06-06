@@ -51,7 +51,7 @@ function SelectPlan() {
             </div>
           </div>
 
-          <SelectPricingPlan data={handleSteps}></SelectPricingPlan>
+          <SelectPricingPlan data={handleSteps} display={true}></SelectPricingPlan>
         </div>
       </div>
     </div>

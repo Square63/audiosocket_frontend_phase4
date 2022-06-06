@@ -3,29 +3,62 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Image from 'next/image';
 import masterCard from '../../images/mastercard.svg';
+import visaCard from '../../images/visaCard.svg';
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { getPaymentMethod } from "../../redux/actions/authActions";
+import InpageLoader from "../InpageLoader";
 
 function Billing() {
+  const dispatch = useDispatch();
+  const paymentMethod = useSelector(state => state.user.payment_details);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false)
+    if (!paymentMethod) {
+
+      dispatch(getPaymentMethod())
+    } else {
+      
+    }
+  }, [paymentMethod]);
+
   return (
-    <div className={user.billingInfo}>
-      <div className={user.cardInfoWrapper}>
-        <div className={user.cardInfo}>
-          <div className={user.cardPlate}>
-            <Image src={masterCard} alt="Card Name"/>
+    <>
+      {
+        paymentMethod ? (
+          <div className={user.billingInfo}>
+            <div className={user.cardInfoWrapper}>
+              <div className={user.cardInfo}>
+                <div className={user.cardPlate}>
+                  <Image src={paymentMethod.card_type === "Visa" ? visaCard : masterCard} alt="Card Name"/>
+                </div>
+                <div className={user.cardText}>
+                  <span className={user.cardRank}>{paymentMethod.card_type}</span>
+                  <span className={user.cardNumber}>Ending in {paymentMethod.last_4}</span>
+                </div>
+              </div>
+              
+                <OverlayTrigger overlay={<Tooltip>Edit Payment Mode</Tooltip>}>
+                  <Link href="/updateCard">    
+                    <a href="javascript:void(0)" className={user.editpaymentMode}>&nbsp;</a>
+                  </Link>
+                </OverlayTrigger>
+            </div>
+            <div className={user.anotherWay}>
+              <Link href="/updateCard">
+                <a href="javascript:void(0);">Choose another way to pay</a>
+              </Link>
+            </div>
           </div>
-          <div className={user.cardText}>
-            <span className={user.cardNumber}>Ending in 5726</span>
-            <span className={user.cardRank}>Mastercard</span>
-          </div>
-        </div>
-        <OverlayTrigger overlay={<Tooltip>Edit Payment Mode</Tooltip>}>
-          <a href="javascript:void(0)" className={user.editpaymentMode}>&nbsp;</a>
-        </OverlayTrigger>
-      </div>
-      <div className={user.anotherWay}>
-        <a href="javascript:void(0);">Choose another way to pay</a>
-      </div>
-    </div>
+        ) : (
+          <InpageLoader/>
+        )
+      }
+    </>
+    
   );
 }
 

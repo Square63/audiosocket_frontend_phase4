@@ -154,7 +154,7 @@ function DownloadedTracks(props) {
       <center><p>No downloaded tracks</p></center>
     ) : (
         <div className={user.downloadListing}>
-        <div className={user.listingWrapper}>
+        <div className={user.listingWrapper+' userListingWrapper'}>
           <div className={user.listingHeading}>
             <h2>Downloads</h2>
             <p>If you need to License tracks that you downloaded, please add the name of your Work and click “License Track”.</p>

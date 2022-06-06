@@ -5,12 +5,12 @@ import {withRouter} from 'next/router';
 
 import DropIn from "braintree-web-drop-in-react";
 import { BraintreeHostedFields } from 'braintree-web-react'
-import signup from "../../styles/Signup.module.scss";
+import signup from "../styles/Signup.module.scss";
 import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
-import cardServices from '../../images/cardServices.svg';
-import InpageLoader from '../../components/InpageLoader';
-import BASE_URL from '../../common/api'
+import cardServices from '../images/cardServices.svg';
+import InpageLoader from '../components/InpageLoader';
+import BASE_URL from '../common/api'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -25,7 +25,7 @@ class Braintree extends React.Component {
 
   async componentDidMount() {
     // Get a client token for authorization from your server
-    let planId = parseInt(this.props.router.query.id)
+		let planId = 1
     const transactionType = "subscription";
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
 
@@ -36,8 +36,10 @@ class Braintree extends React.Component {
         'auth-token': authToken
       }
     });
+    debugger
     const data = await response.json();
     const clientToken = data.token
+    
     this.setState({
       clientToken: clientToken,
       redirectUrl: data.redirect_url
@@ -52,12 +54,10 @@ class Braintree extends React.Component {
 
   async purchase() {
     const { nonce } = await this.instance.tokenize()
-    let discount_id = document.getElementById("disCode").value;
+		debugger
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
-    const queryParams = new URLSearchParams(window.location.search);
-    const yearly = queryParams.get('yearly');
-    await axios.post(
-      this.state.redirectUrl, { nonce, discount_id, switch_to_yearly: (yearly === 'true') },
+    await axios.patch(
+      "https://artist-portal-backend-phase4.square63.net/api/v1/consumer/payment_method", { nonce },
       {
         headers: {
           'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
@@ -65,9 +65,9 @@ class Braintree extends React.Component {
         }
       }
     ).then(response => {
-      toast.success(response.data.message)
+      toast.success("Card updated successfully.")
       localStorage.setItem("has_subscription", true);
-      window.location.href = "/"
+      window.location.href = "/user/edit"
     }).catch(error => {
       toast.error(error.response.data.message);
     });

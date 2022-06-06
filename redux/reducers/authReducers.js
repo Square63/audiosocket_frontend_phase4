@@ -6,7 +6,8 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWO
          GET_FORGOT_PASSWORD_SUCCESS, GET_FORGOT_PASSWORD_FAIL, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAIL, CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL,
          EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL, MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS,
          SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL, MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL,
-         REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL, GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL } from "../constants/authConstants";
+         REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL, GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
+         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL } from "../constants/authConstants";
 
 export const authReducer = (state = {user: {}, error: {}}, action) => {
   switch (action.type) {
@@ -113,6 +114,7 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         playlist_details: action.payload.response.data.errors,
       };
     case FAVORITE_TRACKS_SUCCESS:
+      debugger
       return {
         ...state,
         favorite_tracks: action.payload,
@@ -183,6 +185,7 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       return {
         ...state,
         curated_playlists: action.payload.curated_playlists,
+        meta: action.payload.meta
       };
     case CURATED_PLAYLISTS_FAIL:
       return {
@@ -204,11 +207,21 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       return {
         ...state,
         subscriptionPlans: action.payload.plans,
-        currentPlan: action.payload.current_plan
+        currentPlan: action.payload.current_plan,
+        yearlyPlan: action.payload.yearly_plan
       };
     case GET_PLANS_FAIL:
       return {
         subscriptionPlans: action.payload.response.data.errors
+      };
+    case GET_PAYMENT_HISTORY_SUCCESS:
+      return {
+        ...state,
+        paymentHistory: action.payload.orders
+      };
+    case GET_PAYMENT_HISTORY_FAIL:
+      return {
+        paymentHistory: action.payload.response.data.errors
       };
     case CLEAR_ERRORS:
       return {
@@ -301,15 +314,46 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         success: false,
       };
     case MY_LICENSES_SUCCESS:
-      debugger
       return {
         ...state,
         csonsumerLicenses: action.payload.consumer_license_media
       };
     case MY_LICENSES_FAIL:
-      debugger
       return {
         ...state,
+         error: action.payload.response.data,
+        responseStatus: action.payload.response.status
+      };
+    case GET_CURRENT_SUBSCRIPTION_SUCCESS:
+      return {
+        ...state,
+        current_subscription: action.payload,
+        success: true,
+      };
+    case GET_CURRENT_SUBSCRIPTION_FAIL:
+      return {
+        ...state,
+        current_subscription: action.payload.response.data.errors,
+        success: false,
+      };
+    case GET_FEATURED_PLAYLISTS_SUCCESS:
+      return {
+        featured_playlists: action.payload.curated_playlists,
+        meta: action.payload.meta
+      };
+    case GET_FEATURED_PLAYLISTS_FAIL:
+      return {
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
+      };
+    case GET_PAYMENT_DETAILS_SUCCESS:
+      debugger
+      return {
+        payment_details: action.payload,
+        meta: action.payload.meta
+      };
+    case GET_PAYMENT_DETAILS_FAIL:
+      return {
         error: action.payload.response.data,
         responseStatus: action.payload.response.status
       };

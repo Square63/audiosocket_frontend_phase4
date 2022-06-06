@@ -24,9 +24,11 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { BASE_URL } from "../../common/api";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useCookie } from 'next-cookie'
 
 
 function MyPlaylists() {
+  const cookie = useCookie()
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const dispatch = useDispatch();
@@ -41,6 +43,7 @@ function MyPlaylists() {
 
   useEffect(() => {
     if (responseStatus == 422) {
+      cookie.set('user', '')
       window.localStorage.clear();
       document.cookie.split(";").forEach(function (c) {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
@@ -129,7 +132,7 @@ function MyPlaylists() {
               {playlists &&
                 playlists.map((playlist,index)=> {
                   return(
-                    <Link href={"myPlaylists/" + playlist.id} key={index}>
+                    <Link href={"myPlaylists/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
                       <a key={index} href="javascript:void(0)" className="tileOverlay">
                           {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                           <span className="tileOverlayText">

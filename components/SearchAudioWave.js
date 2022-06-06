@@ -75,6 +75,12 @@ export default function SearchAudioWave(props) {
       segment.end = region.end
     });
 
+    wavesurfer.current.on('region-created', region => {
+      wavesurfer.current.regions.clear();
+      region.update({loop: false, color: 'hsla(200, 50%, 70%, 0.4)' })
+      region.id = 'region-1'
+    });
+
     wavesurfer.current.load(url);
   };
 

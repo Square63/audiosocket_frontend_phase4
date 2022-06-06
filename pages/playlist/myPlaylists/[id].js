@@ -17,10 +17,12 @@ import Sample1 from '../../../images/sample1.jpeg';
 import EditPlaylist from "../../../components/modals/EditPlaylist";
 import { duration } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
+import { TOAST_OPTIONS } from '../../../common/api';
 import DownloadTrack from '../../../components/modals/DownloadTrack'
 import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicense'
 import Sidebar from '../../../components/Sidebar'
 import AddToCartLicense from "../../../components/modals/AddToCartLicense";
+import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -29,6 +31,7 @@ const Details = () => {
 	const myPlaylistTracks = useSelector(state => state.user.my_playlist_tracks);
 	const myPlaylistArtists = useSelector(state => state.user.my_playlist_artists);
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+  const [updatedArtists, setUpdatedArtists] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [showDownModal, setShowDownModal] = useState(false);
@@ -37,12 +40,12 @@ const Details = () => {
 	const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
 	const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
+  const favoritesMessage = useSelector( state => state.allTracks)
 
   useEffect(() => {
     if (query) {
       dispatch(getMyPlaylistDetail(query.id))
 	  	dispatch(getMyPlaylistTracks(query.id))
-			dispatch(getMyPlaylistArtists(query.id))
     }
   }, [showEditModal]);
 
@@ -54,6 +57,8 @@ const Details = () => {
 
 	useEffect(() => {
     if (myPlaylistTracks) {
+      dispatch(getMyPlaylistArtists(query.id))
+      myPlaylistTracks.meta && setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
       setIsLoading(false)
     }
   }, [myPlaylistTracks])
@@ -61,8 +66,18 @@ const Details = () => {
 	useEffect(() => {
     if (myPlaylistArtists) {
       setIsLoading(false)
+      setUpdatedArtists(myPlaylistArtists)
     }
   }, [myPlaylistArtists])
+
+  useEffect(() => {
+    if(!favoritesMessage?.success) {
+      toast.error(favoritesMessage.message, TOAST_OPTIONS);
+    } else {
+      toast.success(favoritesMessage.message, TOAST_OPTIONS);
+    }
+    setIsLoading(false)
+  }, [favoritesMessage])
 
 	const handleEditClose = (show) => {
     setShowEditModal(show)
@@ -78,21 +93,26 @@ const Details = () => {
     localStorage.setItem("track_id", trackId)
     Router.push({
       pathname: '/search'
-    }, 
+    },
     undefined, { shallow: true }
     )
   }
 
 	function totalDuration(tracks) {
 		let duration = 0
-		tracks.map((track, index) =>
-			duration += track.mediable.duration
-		)
+    if (tracks.playlist_tracks) {
+      tracks.playlist_tracks.map((track, index) =>
+			duration += track.mediable.duration)
+    } else {
+      tracks.map((track, index) =>
+			duration += track.mediable.duration)
+    }
+
 		return convertSecToMin(duration)
 	}
 
 	function convertSecToMin(duration) {
-		
+
     if (duration != null) {
       let minutes = Math.floor(duration / 60).toString();
       minutes = minutes.length == 1 ? ("0" + minutes) : minutes
@@ -104,8 +124,9 @@ const Details = () => {
   }
 
   const handleAddToFavorites = (e, trackId) => {
+    setIsLoading(true)
     if (localStorage.getItem("user")) {
-      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_tracks_ids.includes(trackId)) {
+      if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
         e.target.closest("a").classList.add("controlActive")
         dispatch(addToFavorites(trackId));
@@ -125,7 +146,6 @@ const Details = () => {
   }
 
 	function showDownloadModal(index) {
-    debugger
     if (localStorage.getItem("user")) {
       if (index > 9) {
         setIndex(index + 10)
@@ -153,6 +173,7 @@ const Details = () => {
   }
 
 	function showAddTrackToCartLicenseModal(index) {
+    setIsLoading(true)
     if (localStorage.getItem("user")) {
       if (index > 9) {
         setIndex(index + 10)
@@ -180,6 +201,7 @@ const Details = () => {
   }
 
 	const handleDownloadZip = async (id) => {
+    setIsLoading(true)
     let url = `${BASE_URL}/api/v1/consumer/curated_playlists/58/playlist_tracks/download_zip?file_type=wav_file`
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
     const response = await fetch(url,
@@ -191,14 +213,15 @@ const Details = () => {
         method: "GET"
       });
     if(response.ok) {
-      
+
     } else {
-      
+
     }
-    
+
   }
 
 	const removeTrackFromPlaylist = (trackId) => {
+    setIsLoading(true)
     dispatch(removeFromPlaylist(query.id, trackId))
   }
 
@@ -289,27 +312,27 @@ const Details = () => {
 											Edit Playlist
 										</Button>
 									</div>
-								</div> 
+								</div>
 							</div>
 						</div>
 					</div>
 					<div className="fixed-container">
-						{myPlaylistTracks && myPlaylistTracks.length > 0 && <MyPlaylistTracks tracks={myPlaylistTracks} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/>}
+						{myPlaylistTracks ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/> : "No tracks found"}
 					</div>
-					
+
 					<div className={playlist.artistTiles}>
 						<div className="fixed-container">
 							<h3>Artists On This Playlist</h3>
 							<section className={playlist.myPlaylists}>
 								<div className="tilesWrapper">
-									{myPlaylistArtists && myPlaylistArtists.map((artist, index) =>
+                  {updatedArtists && updatedArtists.length > 0 ? updatedArtists.map((artist, index) =>
 										<a key={index} href="javascript:void(0)" className="tileOverlay">
 											<Image src={index > 0 ? mood1 : mood2 } alt="Mood" className="tilesImg"></Image>
 											<span className="tileOverlayText">
 												{artist.first_name + ' ' + artist.last_name}
 											</span>
 										</a>
-									)}
+									) : "No artists found"}
 								</div>
 							</section>
 						</div>
@@ -321,7 +344,7 @@ const Details = () => {
           {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={myPlaylistTracks[index]} />}
 				</div>
 
-				
+
 			</>
 		)}
 	</>

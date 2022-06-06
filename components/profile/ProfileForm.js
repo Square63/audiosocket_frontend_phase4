@@ -6,8 +6,10 @@ import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/actions/authActions";
 import { updateProfile } from "../../redux/actions/authActions";
+import { useCookie } from 'next-cookie'
 
 const ProfileForm = ({ countries, states, onCountryChange }) => {
+  const cookie = useCookie()
   // const countryRef = useRef(null)
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
@@ -38,6 +40,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
   useEffect(() => {
     if (responseStatus == 422) {
       window.localStorage.clear();
+      cookie.set('user', '')
       document.cookie.split(";").forEach(function (c) {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
       });

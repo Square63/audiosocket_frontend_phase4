@@ -11,7 +11,8 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          CURATED_PLAYLISTS_SUCCESS, CURATED_PLAYLISTS_FAIL, EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL,
          MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS, SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL,
          MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL, REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL,
-         GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL } from "../constants/authConstants";
+         GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
+         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -438,24 +439,40 @@ export const editWorkTitle = (itemableId, workTitle) => async (dispatch) => {
 }
 
 export const getSubscriptionPlans = () => async (dispatch) => {
+  if (localStorage.getItem("user")) {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/api/v1/consumer/plans`);
+      dispatch({
+        type: GET_PLANS_SUCCESS,
+        payload: data
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_PLANS_FAIL,
+        payload: error
+      })
+
+    }
+  }
+}
+
+export const getPaymentHistory = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/api/v1/consumer/plans`);
+    const { data } = await axios.get(`${BASE_URL}/api/v1/consumer/orders`);
     dispatch({
-      type: GET_PLANS_SUCCESS,
+      type: GET_PAYMENT_HISTORY_SUCCESS,
       payload: data
     })
   } catch (error) {
     dispatch({
-      type: GET_PLANS_FAIL,
+      type: GET_PAYMENT_HISTORY_FAIL,
       payload: error
     })
 
   }
-
 }
 
 export const getCuratedPlaylists = (query, filters, page) => async( dispatch ) => {
-  debugger
   try {
     const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/curated_playlists?query=${query}&filters=${filters}&page=${page}`);
     dispatch({
@@ -622,3 +639,54 @@ export const getCuratedPlaylistFilters = () => async (dispatch) => {
     });
   }
 };
+
+export const getCurrentSubscription = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/api/v1/consumer/consumers/current_subscription`
+    );
+    dispatch({
+      type: GET_CURRENT_SUBSCRIPTION_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_CURRENT_SUBSCRIPTION_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const getFeaturedPlaylists = () => async( dispatch ) => {
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/curated_playlists?featured=true`);
+    dispatch({
+      type: GET_FEATURED_PLAYLISTS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_FEATURED_PLAYLISTS_FAIL,
+      payload: error
+    })
+
+  }
+
+}
+
+export const getPaymentMethod = () => async( dispatch ) => {
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/payment_method`);
+    dispatch({
+      type: GET_PAYMENT_DETAILS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_PAYMENT_DETAILS_FAIL,
+      payload: error
+    })
+
+  }
+
+}
