@@ -243,9 +243,11 @@ function Subscription() {
                   <p>Please request a custom quote and one of our reps will be in touch ASAP.</p>
                 </div>
                 <div className={user.plansBtnWrapper}>
-                  <a href="/pricing?enterprise=true" className="btn btnMainLarge mt-0">
-                    Request a Custom Quote
-                  </a>
+                  <Link href="/pricing?enterprise=true">
+                    <a className="btn btnMainLarge mt-0">
+                      Request a Custom Quote
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>
