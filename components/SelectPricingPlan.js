@@ -36,7 +36,7 @@ import { useRouter } from "next/router";
 
 function SelectPricingPlan(props) {
   const dispatch = useDispatch();
-  const { query } = useRouter();
+  const router = useRouter();
   const subscriptionPlans = useSelector(state => state.user.subscriptionPlans);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -63,6 +63,7 @@ function SelectPricingPlan(props) {
 
   const [step, setStep] = useState(0);
   const [planType, setPlanType] = useState("");
+  const [newPlan, setNewPlan] = useState("");
   const [webRights, setWebRights] = useState("");
   const [employeeNo, setEmployeeNo] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
@@ -74,20 +75,36 @@ function SelectPricingPlan(props) {
   const [typeOfUseError, setTypeOfUseError] = useState(false);
 
   useEffect(() => {
-    if (query.personal) {
+    if (router.query.personal) {
       setPlanType("Personal")
     }
-    else if (query.commercial) {
+    else if (router.query.commercial) {
       setPlanType("Commercial")
       setWebRights("Web Only")
       setEmployeeNo("Under 100 Emplyees")
     }
-    else if (query.enterprise) {
-      setPlanType("Commercial")
+    else if (router.query.enterprise) {
+      setPlanType("Enterprise")
       setWebRights("Expanded Rights")
       setEmployeeNo("Over 100 Emplyees")
     }
   }, [step]);
+
+  useEffect(() => {
+    if (newPlan == "Personal") {
+      setPlanType("Personal")
+    }
+    else if (newPlan == "Commercial") {
+      setPlanType("Commercial")
+      setWebRights("Web Only")
+      setEmployeeNo("Under 50 Employees")
+    }
+    else if (newPlan == "Enterprise") {
+      setPlanType("Enterprise")
+      setWebRights("Expanded Rights")
+      setEmployeeNo("Over 50 Employees")
+    }
+  }, [newPlan]);
 
   const handlePlan = (type) => {
     setPlanType(type)
@@ -108,33 +125,39 @@ function SelectPricingPlan(props) {
   }
 
   const handleSubscriptionType = (type) => {
-    setSubscriptionType(type)
-    debugger
-    if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[6])
+    if (localStorage.getItem("user")){
+      setSubscriptionType(type)
+      if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
+        setPlan(subscriptionPlans[6])
+      }
+      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+        setPlan(subscriptionPlans[9])
+      }
+      else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[7])
+      }
+      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[8])
+      }
+      else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
+        setPlan(subscriptionPlans[0])
+      }
+      else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+        setPlan(subscriptionPlans[4])
+      }
+      else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[2])
+      }
+      else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[3])
+      }
+      setStep(1)
+    } else {
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
     }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[9])
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[7])
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[8])
-    }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[0])
-    }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[4])
-    }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[2])
-    }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[3])
-    }
-    setStep(1)
 
   }
 
@@ -181,7 +204,8 @@ function SelectPricingPlan(props) {
     setPlan(null);
   }
 
-  const handleSetPlan = (e) => {
+  const handleSetStep = (type) => {
+    setNewPlan(type);
   }
 
   useEffect(() => {
@@ -1050,7 +1074,9 @@ function SelectPricingPlan(props) {
                       Perfect if you’re creating and publishing videos or podcasts on your personal web channels. This is a single user account.
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="/pricing?personal=true" className="btn btnMainLarge">Learn More</a>
+                      <Link href="/pricing?personal=true">
+                       <a onClick={() => handleSetStep("Personal")} className="btn btnMainLarge">Learn More</a>
+                      </Link>
                     </div>
                   </div>
 
@@ -1064,7 +1090,9 @@ function SelectPricingPlan(props) {
                       Perfect for the freelancer or business with up to 100 employees creating web media for commercial purposes. This is a single user account.
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="/pricing?commercial=true" className="btn btnMainLarge">Learn More</a>
+                      <Link href="/pricing?commercial=true">
+                        <a onClick={() => handleSetStep("Commercial")} className="btn btnMainLarge">Learn More</a>
+                      </Link>
                     </div>
                   </div>
 
@@ -1077,7 +1105,9 @@ function SelectPricingPlan(props) {
                       Need a plan for a large business (more than 100 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
                     </p>
                     <div className="PlanBtnContainer">
-                      <a href="/pricing?enterprise=true" className="btn btnMainLarge">Request a custom quote</a>
+                      <Link href="/pricing?enterprise=true">
+                        <a onClick={() => handleSetStep("Enterprise")} className="btn btnMainLarge">Request a custom quote</a>
+                      </Link>
                     </div>
                   </div>
 
