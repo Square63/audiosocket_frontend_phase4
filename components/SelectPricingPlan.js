@@ -237,16 +237,18 @@ function SelectPricingPlan(props) {
         <div className={pricing.contentHeading}>
           <h1>Standout in a sea of content with remarkable music!</h1>
           <p>Get unlimited music licensing with access to +80,000 songs and over 24,000 sound effects/sound design.</p>
-          <a href="javascript:void(0)" className="backToHeaven backToSelectPlan">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-              <g id="icon-arrow-down" transform="translate(15.414 1.414) rotate(90)">
-                <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-              </g>
-            </svg>
-            <span onClick={() => {handleBackToPage("Under 50 Employees")}}>Back to Select Plan</span>
-          </a>
+          {planType &&
+            <a href="javascript:void(0)" className="backToHeaven backToSelectPlan">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+                <g id="icon-arrow-down" transform="translate(15.414 1.414) rotate(90)">
+                  <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                  <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                  <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                </g>
+              </svg>
+              <span onClick={() => {handleBackToPage("Under 50 Employees")}}>{"Back to Select Plan"}</span>
+            </a>
+          }
         </div>
 
         {/* Breadcrumb Code */}

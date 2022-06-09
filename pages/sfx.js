@@ -596,7 +596,7 @@ function Sfx(props) {
               </g>
             </svg>
           </Form>
-          
+
         </div>
         <div className="filterBar brandWall desktopShow">
           {filterItems}
@@ -850,7 +850,7 @@ function Sfx(props) {
           <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />
         </div>
       </div> */}
-      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
+      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="sfx"/>
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
       {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}

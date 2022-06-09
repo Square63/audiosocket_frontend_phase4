@@ -184,107 +184,57 @@ function DownloadedTracks(props) {
               <div className="rowParticipant controls"></div>
             </div>
             {tracks.length > 0 &&
-              tracks.map((track,index)=> {
-                return(<div className="trackRow" key={index}>
-                  <div className="rowParticipant artistName">
+              tracks.map((track, index)=> {
+                return(
+                  <div className="trackRow" key={index}>
+                    <div className="rowParticipant artistName">
                       <div className="playPauseBtn">
-                      <span className="play d-none"></span>
-                      <span className="pause"></span>
+                        <span className="play d-none"></span>
+                        <span className="pause"></span>
                       </div>
                       <div className="aboutSong">
-                      <div className="songData">
-                          <a href="" className="songName">{track.title}</a>
-                      </div>
-                      <div className="songArtist">
+                        <div className="songData">
+                          <a href="" className="songName">{track.mediable.title}</a>
+                        </div>
+                        <div className="songArtist">
                           <a href="" className="noTextLine">
-                          Justin G. Marcellus Abady
+                            {track.mediable.artist_name}
                           </a>
+                        </div>
                       </div>
-                      </div>
-                  </div>
-                  <div className={user.workTitle+' rowParticipant'}>
+                    </div>
+                    <div className={user.workTitle+' rowParticipant'}>
                       <Form>
-                      <Form.Control type="text" placeholder="Enter work title…" />
+                        <Form.Control type="text" placeholder="Enter work title…" defaultValue={track.work_title ? track.work_title : ""} onBlur={(e) => { props.handleSubmitWorkTitle(e, track.id) }}/>
                       </Form>
-                  </div>
-                  <div className={user.licenseBtn+' rowParticipant'}>
+                    </div>
+                    <div className={user.licenseBtn+' rowParticipant'}>
                       <button variant="link" className="btn btnMainSmall">License Track</button>
-                  </div>
-                  <div className={user.downloadDate+' rowParticipant'}>
-                      Nov 4, 2021
-                  </div>
-                  <div className="rowParticipant controls">
+                    </div>
+                    <div className={user.downloadDate+' rowParticipant'}>
+                      {new Date(track.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </div>
+                    <div className="rowParticipant controls">
                       <OverlayTrigger overlay={<Tooltip>Delete</Tooltip>}>
-                      <a href="javascript:void(0)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                          <g id="Actions" transform="translate(-1050 -29.5)">
-                          <g id="icon-trashcan" transform="translate(772 -3264.5)">
-                              <path id="Shape_1765" data-name="Shape 1765" d="M299,3298.5l-1.812,17.209a2,2,0,0,1-1.988,1.791H284.8a2,2,0,0,1-1.989-1.791L281,3298.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_1766" data-name="Shape 1766" d="M278.5,3298.5h23" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_1767" data-name="Shape 1767" d="M285.5,3298.5v-3a1,1,0,0,1,1-1h7a1,1,0,0,1,1,1v3" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_1768" data-name="Shape 1768" d="M290,3303v10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_1769" data-name="Shape 1769" d="M294.5,3303l-.5,10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_1770" data-name="Shape 1770" d="M285.5,3303l.5,10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                          </g>
-                          </g>
-                      </svg>
-                      </a>
+                        <a onClick={() => { props.handleDeleteTrack(track.id) }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                              <g id="Actions" transform="translate(-1050 -29.5)">
+                              <g id="icon-trashcan" transform="translate(772 -3264.5)">
+                                  <path id="Shape_1765" data-name="Shape 1765" d="M299,3298.5l-1.812,17.209a2,2,0,0,1-1.988,1.791H284.8a2,2,0,0,1-1.989-1.791L281,3298.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                  <path id="Shape_1766" data-name="Shape 1766" d="M278.5,3298.5h23" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                  <path id="Shape_1767" data-name="Shape 1767" d="M285.5,3298.5v-3a1,1,0,0,1,1-1h7a1,1,0,0,1,1,1v3" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                  <path id="Shape_1768" data-name="Shape 1768" d="M290,3303v10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                  <path id="Shape_1769" data-name="Shape 1769" d="M294.5,3303l-.5,10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                  <path id="Shape_1770" data-name="Shape 1770" d="M285.5,3303l.5,10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              </g>
+                              </g>
+                          </svg>
+                        </a>
                       </OverlayTrigger>
-                  </div>
+                    </div>
                   </div>
                 )
               })
-            }
-            {sfxs?.length > 0 &&
-              sfxs.map((sfx,index)=> {
-								return(<div className="trackRow" key={index}>
-									<div className="rowParticipant artistName">
-											<div className="playPauseBtn">
-											<span className="play d-none"></span>
-											<span className="pause"></span>
-											</div>
-											<div className="aboutSong">
-											<div className="songData">
-													<a href="" className="songName">{sfx.title}</a>
-											</div>
-											<div className="songArtist">
-													<a href="" className="noTextLine">
-													Justin G. Marcellus Abady
-													</a>
-											</div>
-											</div>
-									</div>
-									<div className={user.workTitle+' rowParticipant'}>
-											<Form>
-											<Form.Control type="text" placeholder="Enter work title…" />
-											</Form>
-									</div>
-									<div className={user.licenseBtn+' rowParticipant'}>
-											<button variant="link" className="btn btnMainSmall">License Track</button>
-									</div>
-									<div className={user.downloadDate+' rowParticipant'}>
-											Nov 4, 2021
-									</div>
-									<div className="rowParticipant controls">
-											<OverlayTrigger overlay={<Tooltip>Delete</Tooltip>}>
-											<a href="javascript:void(0)">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-													<g id="Actions" transform="translate(-1050 -29.5)">
-													<g id="icon-trashcan" transform="translate(772 -3264.5)">
-															<path id="Shape_1765" data-name="Shape 1765" d="M299,3298.5l-1.812,17.209a2,2,0,0,1-1.988,1.791H284.8a2,2,0,0,1-1.989-1.791L281,3298.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-															<path id="Shape_1766" data-name="Shape 1766" d="M278.5,3298.5h23" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-															<path id="Shape_1767" data-name="Shape 1767" d="M285.5,3298.5v-3a1,1,0,0,1,1-1h7a1,1,0,0,1,1,1v3" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-															<path id="Shape_1768" data-name="Shape 1768" d="M290,3303v10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-															<path id="Shape_1769" data-name="Shape 1769" d="M294.5,3303l-.5,10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-															<path id="Shape_1770" data-name="Shape 1770" d="M285.5,3303l.5,10.5" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-													</g>
-													</g>
-											</svg>
-											</a>
-											</OverlayTrigger>
-									</div>
-									</div>)
-								})
             }
           </div>
         </div>

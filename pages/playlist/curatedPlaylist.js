@@ -19,6 +19,7 @@ import { getCuratedPlaylists, getCuratedPlaylistFilters, getFeaturedPlaylists } 
 import InpageLoader from '../../components/InpageLoader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -63,6 +64,8 @@ function CuratedPlaylist() {
   const [paginatedPlaylists, setPaginatedPlaylists] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("");
   const [paginatedPlaylistsCount, setPaginatedPlaylistsCount] = useState(0);
+  const [showFeatured, setShowFeatured] = useState(true);
+  
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -119,6 +122,10 @@ function CuratedPlaylist() {
   console.log("Curated Playlists", playlists)
 
   const handleSearch = (e) => {
+    if (searchValue !== "")
+      setShowFeatured(false)
+    else
+      setShowFeatured(true)
     setIsLoading(true)
     let filterArray = []
     filterArray.push(selectedFilter)
@@ -186,26 +193,32 @@ function CuratedPlaylist() {
                 {filterItems}
             </div>
             <Form className="stickySearch">
-              <Form.Control type="text" placeholder="Search playlists by title or keyword…" onChange={(e)=> setSearchValue(e.target.value)} />
+              <Form.Control type="text" placeholder="Search playlists by title or keyword…" onChange={(e)=> setSearchValue(e.target.value)} value={searchValue} />
               <Button variant="default" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
             </Form>
           </div>
 
-          <section className="moodSlider">
-            <div className="testimonialContainer">
-              <h2 className={playlist.sectionHeading}>
-                Featured playlists
-              </h2>
-              {featuredPlaylists && featuredPlaylists.length > 0 ? <CarouselMood breakPoints={breakPoints}>
-                {featuredPlaylists.map((playlist) => (
-                  <div key={playlist} className="moodSlide">
-                    {playlist.playlist_image && <Image src={playlist.src} alt="Mood" className="moodImage"></Image>}
-                    <span className="moodOverlayText">{playlist.name}</span>
-                  </div>
-                ))}
-              </CarouselMood> : "No featured playlist"}
-            </div>
-          </section>
+          {showFeatured && 
+            <section className="moodSlider">
+              <div className="testimonialContainer">
+                <h2 className={playlist.sectionHeading}>
+                  Featured playlists
+                </h2>
+                {featuredPlaylists && featuredPlaylists.length > 0 ? <CarouselMood breakPoints={breakPoints}>
+                  {featuredPlaylists.map((playlist, index) => (
+                    <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
+                      <a key={index} href="javascript:void(0)" className="tileOverlay">
+                        <div key={playlist} className="moodSlide">
+                          {/* {playlist.playlist_image && <Image src={playlist.src} alt="Mood" className="moodImage"></Image>} */}
+                          <span className="moodOverlayText">{playlist.name}</span>
+                        </div>
+                      </a>
+                    </Link>
+                  ))}
+                </CarouselMood> : "No featured playlist"}
+              </div>
+            </section>
+          }
           <section className={playlist.playlistTiles}>
             <h2 className={playlist.sectionHeading}>
               All playlists
@@ -214,10 +227,12 @@ function CuratedPlaylist() {
               {paginatedPlaylists &&
                 paginatedPlaylists.map((playlist,index)=> {
                   return(
-                    <a key={index} href="javascript:void(0)" className="tileOverlay">
-                      {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
-                      <span className="tileOverlayText">{playlist.name}</span>
-                    </a>
+                    <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
+                      <a key={index} href="javascript:void(0)" className="tileOverlay">
+                        {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                        <span className="tileOverlayText">{playlist.name}</span>
+                      </a>
+                    </Link>
                     )
                   })}
             </div>

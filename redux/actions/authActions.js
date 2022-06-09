@@ -12,7 +12,8 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS, SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL,
          MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL, REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL,
          GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
-         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL } from "../constants/authConstants";
+         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL,
+         CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -372,7 +373,7 @@ export const clearErrors = () => async (dispatch) => {
 
 export const getDownloadedTracks = () => async( dispatch ) => {
   try {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/tracks/get_downloaded_tracks`);
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumer_downloads`);
     dispatch({
       type: DOWNLOADED_TRACKS_SUCCESS,
       payload: data
@@ -669,7 +670,77 @@ export const getPaymentMethod = () => async( dispatch ) => {
       type: GET_PAYMENT_DETAILS_FAIL,
       payload: error
     })
-
   }
-
 }
+
+export const deleteDownloadedTrack = (trackId) => async (dispatch) => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/api/v1/consumer/consumer_downloads/${trackId}`);
+    dispatch({
+      type: DOWNLOADED_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: DOWNLOADED_TRACKS_FAIL,
+      payload: error
+    })
+  }
+}
+
+export const updateWorkTitleOfDownloadedTrack = (trackId, workTitle) => async (dispatch) => {
+  let work_title = workTitle
+  try {
+    const { data } = await axios.patch(`${BASE_URL}/api/v1/consumer/consumer_downloads/${trackId}`, { work_title });
+    dispatch({
+      type: DOWNLOADED_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: DOWNLOADED_TRACKS_FAIL,
+      payload: error
+    })
+  }
+}
+
+export const getCuratedPlaylistDetail = (data) => async (dispatch) => {
+  let id = data;
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/api/v1/consumer/curated_playlists/${id}`
+    );
+    dispatch({
+      type: CURATED_PLAYLIST_DETAIL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CURATED_PLAYLIST_DETAIL_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const getCuratedPlaylistTracks = (data) => async (dispatch) => {
+  const formData = new FormData();
+  formData.append('klass', "consumer_playlist")
+  let id = data;
+  try {
+    const { data } = await axios.request({
+      method: "get",
+      url: `${BASE_URL}/api/v1/consumer/curated_playlists/${id}/playlist_tracks`,
+      data: formData
+    });
+    dispatch({
+      type: CURATED_PLAYLIST_TRACKS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CURATED_PLAYLIST_TRACKS_FAIL,
+      payload: error,
+    });
+  }
+};
+

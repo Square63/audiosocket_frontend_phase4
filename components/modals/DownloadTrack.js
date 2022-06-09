@@ -48,7 +48,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
 
   const handleDownload = async (track, type) => {
     setIsLoading(true)
-    let url = type == "track" ? track.mediable ? `${BASE_URL}/api/v1/consumer/tracks/${track.mediable.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/4/add_download_sfx` : ""
+    let url = type == "track" ? `${BASE_URL}/api/v1/consumer/tracks/${track.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/${track.id}/add_download_sfx`
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
     const response = await fetch(url,
       {
@@ -64,10 +64,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
       link.download = track.mediable ? track.mediable.title : track.title;
       link.click();
       setIsLoading(false)
-    } else {
-
     }
-
   }
 
   return (
@@ -89,7 +86,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
       </Modal.Header>
       <Modal.Body>
         {!isLoading ? (
-        
+
           <div className="modal-container">
             <h4 className="modalBodyHeading">Versions</h4>
             <ul className="modalTrackRow">
@@ -116,8 +113,8 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
                 })
               : ""}
             </ul>
-          </div>  
-        ) 
+          </div>
+        )
       : (<InpageLoader/>)}
       </Modal.Body>
     </Modal>
