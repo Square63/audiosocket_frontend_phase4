@@ -4,8 +4,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import user from "../../styles/User.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getDownloadedTracks } from "../../redux/actions/authActions";
-import { getDownloadedSfxs } from "../../redux/actions/authActions";
+import { getDownloadedTracks, getDownloadedSfxs, deleteDownloadedTrack, updateWorkTitleOfDownloadedTrack } from "../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import InpageLoader from '../../components/InpageLoader';
@@ -52,15 +51,23 @@ function Downloads() {
     }
   }, [responseStatus]);
 
+  function handleSubmitWorkTitle(e, trackId) {
+    dispatch(updateWorkTitleOfDownloadedTrack(trackId, e.target.value))
+  }
+
+  function handleDeleteTrack(trackId) {
+    setIsLoading(true)
+    dispatch(deleteDownloadedTrack(trackId));
+  }
+
   return (
     <>
       {isLoading ? (
         <InpageLoader/>
       ) : (
-      <>
-        {downloadedTracks && <DownloadedTracks tracks={downloadedTracks} sfxs={downloadedSfxs} />}
-      </>
-
+        <>
+          {downloadedTracks && <DownloadedTracks tracks={downloadedTracks} sfxs={downloadedSfxs} handleDeleteTrack={handleDeleteTrack} handleSubmitWorkTitle={handleSubmitWorkTitle} />}
+        </>
       )}
     </>
 
