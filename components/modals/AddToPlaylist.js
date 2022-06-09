@@ -199,8 +199,8 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
                 </li>
               )}
             </ul>
-            <button className="btn btnMainLarge btn-block">
-              Add to Current Playlist</button>
+            {/* <button className="btn btnMainLarge btn-block">
+              Add to Current Playlist</button> */}
           </div>
         </div>
         ) : (
