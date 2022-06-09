@@ -372,7 +372,7 @@ export const clearErrors = () => async (dispatch) => {
 
 export const getDownloadedTracks = () => async( dispatch ) => {
   try {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/tracks/get_downloaded_tracks`);
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/consumer_downloads`);
     dispatch({
       type: DOWNLOADED_TRACKS_SUCCESS,
       payload: data
@@ -669,7 +669,36 @@ export const getPaymentMethod = () => async( dispatch ) => {
       type: GET_PAYMENT_DETAILS_FAIL,
       payload: error
     })
-
   }
+}
 
+export const deleteDownloadedTrack = (trackId) => async (dispatch) => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/api/v1/consumer/consumer_downloads/${trackId}`);
+    dispatch({
+      type: DOWNLOADED_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: DOWNLOADED_TRACKS_FAIL,
+      payload: error
+    })
+  }
+}
+
+export const updateWorkTitleOfDownloadedTrack = (trackId, workTitle) => async (dispatch) => {
+  let work_title = workTitle
+  try {
+    const { data } = await axios.patch(`${BASE_URL}/api/v1/consumer/consumer_downloads/${trackId}`, { work_title });
+    dispatch({
+      type: DOWNLOADED_TRACKS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: DOWNLOADED_TRACKS_FAIL,
+      payload: error
+    })
+  }
 }
