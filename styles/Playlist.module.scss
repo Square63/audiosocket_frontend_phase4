@@ -409,6 +409,21 @@
   }
 }
 
+@media #{$mid-point-tablet} {
+  .myPlaylistShow,
+  .creatorKits {
+    .playlistBanner {
+      .playlistInfo {
+        .playlistCard {
+          padding: 20px;
+          height: 240px;
+          gap: 15px;
+        }
+      }
+    }
+  }
+}
+
 @media #{$tab-portrait} {
   .curatedPlaylist .playlistTiles,
   .followingPlaylist,
@@ -425,6 +440,28 @@
   .myPlaylists {
     :global(.tilesWrapper) {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .myPlaylistShow,
+  .creatorKits {
+    .playlistBanner {
+      .playlistInfo {
+        .playlistCard {
+          @include flex-direction(column);
+          width: 100%;
+          height: auto;
+          margin: 20px 0;
+          text-align: center;
+          gap: 25px;
+          .imgSec {
+            margin-inline: auto;
+          }
+          .cardBtnWrapper {
+            margin-top: 25px;
+          }
+        }
+      }
     }
   }
 }
@@ -449,5 +486,34 @@
         margin-block: 30px 0;
       }
     } 
+  }
+
+  .myPlaylistShow,
+  .creatorKits {
+    .playlistBanner {
+      max-height: initial;
+      .playlistInfo {
+        .playlistCard {
+          .cardBtnWrapper {
+            button {
+              @include flexbox;
+              @include justify-content(center);
+              @include align-items(center);
+              font-size: 0;
+              min-width: initial;
+              width: 50px;
+              height: 50px;
+              border-radius: 100px;
+              padding: 0;
+              svg {
+                width: 22px;
+                height: 22px;
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
