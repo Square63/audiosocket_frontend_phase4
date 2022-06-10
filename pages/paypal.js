@@ -34,6 +34,7 @@ export default class Paypal extends React.Component {
   async buy() {
     // Send the nonce to your server
     const { nonce } = await this.instance.requestPaymentMethod();
+    debugger
     await fetch(`server.test/purchase/${nonce}`);
   }
  
@@ -49,13 +50,11 @@ export default class Paypal extends React.Component {
         <div>
           <DropIn
             options={{ authorization: this.state.clientToken,
-							// paypal: { flow: "vault" },
+							paypal: { flow: "vault" },
 							preselectVaultedPaymentMethod: false,
-							// paymentOptionPriority: [
-								
-							// 	"paypal",
-								
-							// ],
+							paymentOptionPriority: [
+								"paypal",
+							],
 						}}
             onInstance={(instance) => (this.instance = instance)}
           />
