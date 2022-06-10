@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
+import { BASE_URL } from "../common/api";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import login from "../styles/Login.module.scss";
@@ -19,18 +21,6 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
   const confirmationModal = useSelector( state => state.auth.forgot_password)
   const router = useRouter();
 
-  useEffect(() => {
-    if ((confirmationModal == true) && (email.length > 0)) {
-      Notiflix.Report.success( 'Success', `Password reset link sent to ${email}`, 'Ok', () => {
-        window.location = '/login'
-      } );
-    } else if ((confirmationModal == false) && (email.length > 0)) {
-      Notiflix.Report.failure( 'Invalid user', `User "${email}" doesn't exist, please enter a valid email address.`, 'Ok', () => {
-        window.location.reload();
-      } );
-    }
-  }, [confirmationModal])
-
   const handleSubmit = async (e) => {
     const data = new FormData(form.current);
     e.preventDefault();
@@ -43,10 +33,25 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
       setIsLoading(false);
     } else {
       setEmail(data.get("email"))
-      let email = {
-        email: data.get("email"),
-      };
-      dispatch(forgotPassword(email));
+      let email = data.get("email");
+      await axios.post(
+        `${BASE_URL}/api/v1/consumer/consumers/forgot_password`, { email },
+        {
+          headers: {
+            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8'
+          }
+        }
+      ).then(response => {
+        if (response.status == 200) {
+          Notiflix.Report.success( 'Success', `Password reset link sent to ${email}`, 'Ok', () => {
+            router.push('/login')
+          } );
+        }
+      }).catch(error => {
+        Notiflix.Report.failure( 'Invalid user', `User "${email}" doesn't exist, please enter a valid email address.`, 'Ok', () => {
+          router.push('/forgot_password')
+        } );
+      });
       setIsLoading(false);
       e.target.reset();
       handleClose();

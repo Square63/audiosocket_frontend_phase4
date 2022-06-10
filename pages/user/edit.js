@@ -78,16 +78,8 @@ function Edit({ countries }) {
         </div>
         <div className="boxColumn">
           <div className="boxWithShadow">
-            <div className="boxHeading">Billing Info</div>
-            <Billing />
-          </div>
-          <div className="boxWithShadow">
             <div className="boxHeading">Subscription</div>
             <Subscription />
-          </div>
-          <div className="boxWithShadow paymentHistoryWrapper">
-            <div className="boxHeading">Payment History</div>
-            <PaymentHistory />
           </div>
           <div className="boxWithShadow">
             <div className="boxHeading">Settings</div>

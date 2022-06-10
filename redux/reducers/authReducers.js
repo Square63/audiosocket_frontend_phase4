@@ -7,7 +7,8 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWO
          EDIT_WORK_TITLE_SUCCESS, EDIT_WORK_TITLE_FAIL, GET_PLANS_SUCCESS, GET_PLANS_FAIL, MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS,
          SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL, MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL,
          REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL, GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
-         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL } from "../constants/authConstants";
+         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL,
+         CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL } from "../constants/authConstants";
 
 export const authReducer = (state = {user: {}, error: {}}, action) => {
   switch (action.type) {
@@ -345,6 +346,31 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       return {
         error: action.payload.response.data,
         responseStatus: action.payload.response.status
+      };
+    case CURATED_PLAYLIST_DETAIL_SUCCESS:
+      return {
+        ...state,
+        curated_playlist_detail: action.payload,
+        success: true,
+      };
+    case CURATED_PLAYLIST_DETAIL_FAIL:
+      return {
+        ...state,
+        curated_playlist_detail: action.payload.response.data.errors,
+        success: false,
+      };
+
+    case CURATED_PLAYLIST_TRACKS_SUCCESS:
+      return {
+        ...state,
+        curated_playlist_tracks: action.payload,
+        success: true,
+      };
+    case CURATED_PLAYLIST_TRACKS_FAIL:
+      return {
+        ...state,
+        curated_playlist_detail: action.payload.response.data.errors,
+        success: false,
       };
     default:
       return state;

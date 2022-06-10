@@ -59,28 +59,34 @@ function Header() {
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="closeConditional" />
               <div className={router.pathname.toLowerCase() === "/search" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Nav.Link href="javascript:void(0)" eventKey="1" onClick={()=> {router.push('/search')}}>
+                  <Link href="/search" eventKey="1">
                     Music
-                  </Nav.Link>
+                  </Link>
                 </Nav.Item>
               </div>
               <div className={router.pathname.toLowerCase() === "/sfx" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Nav.Link eventKey="2" href="/sfx">
+                  <Link eventKey="2" href="/sfx">
                     SFX
-                  </Nav.Link>
+                  </Link>
                 </Nav.Item>
               </div>
               <div className={playlistRoutes.includes(router.pathname.toLocaleLowerCase()) ? "nav-link active" : "nav-link"}>
                 <NavDropdown title="Playlists" className="menuDrop" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="/playlist/curatedPlaylist">
-                    <span>Curated Playlists</span>
+                  <NavDropdown.Item>
+                    <Link href="/playlist/curatedPlaylist">
+                      <span>Curated Playlists</span>
+                    </Link>
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/playlist/creatorKits">
-                    <span>Creator Kits</span>
+                  <NavDropdown.Item>
+                    <Link href="/playlist/creatorKits">
+                      <span>Creator Kits</span>
+                    </Link>
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="javascript:void(0)" onClick={()=> {router.push('/playlist/myPlaylists')}}>
-                    <span>My Playlists</span>
+                  <NavDropdown.Item>
+                    <Link href="/playlist/myPlaylists">
+                      <span>My Playlists</span>
+                    </Link>
                   </NavDropdown.Item>
                 </NavDropdown>
               </div>
@@ -105,17 +111,25 @@ function Header() {
                   </>
                 :
                   <NavDropdown title="Account" className="headerAccount btn btnMainSmall" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="/playlist/myPlaylists">
-                      <span>My Playlists</span>
+                    <NavDropdown.Item>
+                      <Link href="/playlist/myPlaylists">
+                        <span>My Playlists</span>
+                      </Link>
                     </NavDropdown.Item>
-                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/following" ? "following active" : "following"}  onClick={(e) => toggleDropdown(e, "/user/following")}>
-                      <span>Followed Playlists</span>
+                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/following" ? "following active" : "following"}>
+                      <Link href="/user/following">
+                        <span>Followed Playlists</span>
+                      </Link>
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="javascript:void(0)" className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"} onClick={(e) => toggleDropdown(e, "/user/edit")}>
-                      <span>My Profile</span>
+                    <NavDropdown.Item className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"}>
+                      <Link href="/user/edit">
+                        <span>My Profile</span>
+                      </Link>
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={() => {authActions.userDataStateChanged(null); setIsLoggedIn(false); router.push('/login')}}>
-                      <span>Sign Out</span>
+                      <Link href="/login">
+                        <span>Sign Out</span>
+                      </Link>
                     </NavDropdown.Item>
                   </NavDropdown>
               }
