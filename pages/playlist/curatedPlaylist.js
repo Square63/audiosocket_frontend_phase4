@@ -207,7 +207,7 @@ function CuratedPlaylist() {
                 {featuredPlaylists && featuredPlaylists.length > 0 ? <CarouselMood breakPoints={breakPoints}>
                   {featuredPlaylists.map((playlist, index) => (
                     <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
-                      <a key={index} href="javascript:void(0)" className="tileOverlay">
+                      <a key={index} className="tileOverlay">
                         <div key={playlist} className="moodSlide">
                           {/* {playlist.playlist_image && <Image src={playlist.src} alt="Mood" className="moodImage"></Image>} */}
                           <span className="moodOverlayText">{playlist.name}</span>
@@ -228,7 +228,7 @@ function CuratedPlaylist() {
                 paginatedPlaylists.map((playlist,index)=> {
                   return(
                     <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
-                      <a key={index} href="javascript:void(0)" className="tileOverlay">
+                      <a key={index} className="tileOverlay">
                         {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                         <span className="tileOverlayText">{playlist.name}</span>
                       </a>
