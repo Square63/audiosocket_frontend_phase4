@@ -12,7 +12,7 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          MY_PLAYLIST_DETAIL_SUCCESS, MY_PLAYLIST_DETAIL_FAIL, FACEBOOK_LOGIN_SUCCESS, GMAIL_LOGIN_SUCCESS, SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL,
          MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL, REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL,
          GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
-         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL,
+         GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL,
          CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
@@ -297,7 +297,7 @@ export const addToCart = (itemableId, itemableType, mediaLicenseId) => async (di
   formData.append("itemable_id", itemableId);
   formData.append("itemable_type", itemableType);
   formData.append("work_title", "itemableType");
-  mediaLicenseId.length > 0 && formData.append("media_license_id", mediaLicenseId);
+  mediaLicenseId && formData.append("media_license_id", mediaLicenseId);
   try {
     const { data } = await axios.request({
       method: "post",
@@ -602,6 +602,23 @@ export const removeFromPlaylist = (pId, tId) => async (dispatch) => {
     dispatch({
       type: REMOVE_FROM_PLAYLIST_FAIL,
       payload: error,
+    });
+  }
+};
+
+export const getConsumerLicenses = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/api/v1/consumer/licenses/fetch_consumer_licenses`
+    );
+    dispatch({
+      type: MY_LICENSES_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: MY_LICENSES_FAIL,
+         payload: error,
     });
   }
 };

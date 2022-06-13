@@ -28,7 +28,7 @@ import {
 export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals, duration_start, duration_end) => async( dispatch ) => {
   let urlWithParams = ''
   let pageNumber = page != false ? page : false
-  if (duration_start>=0 && duration_end>=0)
+  if (duration_start>=0 && duration_end>0)
     urlWithParams = `/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${pageNumber}&direction=${sort_dir}&per_page=10&pagination=true&duration_start=${duration_start}&duration_end=${duration_end}`
   else
     urlWithParams = `/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${pageNumber}&direction=${sort_dir}&per_page=10&pagination=true`
