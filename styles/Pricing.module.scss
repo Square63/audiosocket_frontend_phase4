@@ -636,6 +636,22 @@
   }
 }
 
+.plansPayment {
+  max-width: 576px;
+  width: 100%;
+  margin-inline: auto;
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+  gap: 12px;
+  margin-block-start: 30px;
+  .payPalBtn {
+    padding-block: 0;
+    @include flexbox;
+    @include align-items(center);
+  }
+}
+
 .formWrapper {
   @extend %pricingBoxShadow;
   padding: 26px 24px 30px;
