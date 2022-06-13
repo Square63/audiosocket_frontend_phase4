@@ -14,6 +14,7 @@ axios.interceptors.request.use(request => {
   const cookie = useCookie()
   const authToken = cookie.get("user")
   request.headers.Authorization = 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8';
+  // request.headers.Authorization = 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.9kL4HmyjCYJgdpBHX1g3JHAp235eKlLAO_vcPb4bYGk';
   if (request.url !== 'https://artist-portal-backend-phase4.square63.net/api/v1/consumer/session') {
     request.headers['auth-token'] = authToken ? authToken : ""
   } else {
