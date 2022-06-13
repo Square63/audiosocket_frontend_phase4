@@ -41,6 +41,8 @@ const Details = () => {
 	const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
   const favoritesMessage = useSelector( state => state.allTracks)
+  const firstName = JSON.parse(localStorage.getItem("first_name")).charAt(0).toUpperCase() + JSON.parse(localStorage.getItem("first_name")).slice(1)
+  const lastName = JSON.parse(localStorage.getItem("last_name")).charAt(0).toUpperCase() + JSON.parse(localStorage.getItem("last_name")).slice(1)
 
   useEffect(() => {
     if (query) {
@@ -268,7 +270,7 @@ const Details = () => {
 										<div className={playlist.playlistOwner}>
 											<div className={playlist.PlaylistName}>{myPlaylistDetail && myPlaylistDetail.name}</div>
 											<div className={playlist.createdBy}>
-												Created by: <span>Audiosocket</span>
+                        Created by: <span>{firstName + ' ' + lastName}</span>
 											</div>
 										</div>
 										<div className={playlist.playlistStats}>
