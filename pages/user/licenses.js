@@ -70,7 +70,7 @@ function Licenses() {
                     <div className="rowParticipant controls"></div>
                   </div>
                   {consumerLicenses.map((consumerLicense, index) =>
-                    <div className="trackRow">
+                    <div className="trackRow" key={index}>
                       <div className="rowParticipant artistName">
                         <div className="playPauseBtn">
                           <span className="play d-none"></span>
