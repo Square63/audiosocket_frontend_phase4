@@ -475,7 +475,7 @@ export const getPaymentHistory = () => async (dispatch) => {
 
 export const getCuratedPlaylists = (query, filters, page) => async( dispatch ) => {
   try {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/curated_playlists?query=${query}&filter=${filters}&page=${page}`);
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/curated_playlists?query=${query}&filters=${filters}&page=${page}`);
     dispatch({
       type: CURATED_PLAYLISTS_SUCCESS,
       payload: data

@@ -13,6 +13,7 @@ import InpageLoader from '../../components/InpageLoader';
 import BASE_URL from '../../common/api'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import pricing from "../../styles/Pricing.module.scss";
 
 
 class Braintree extends React.Component {
@@ -21,7 +22,8 @@ class Braintree extends React.Component {
 
   state = {
     clientToken: null,
-    redirectUrl: null
+    redirectUrl: null,
+    paypal: false
   };
 
   async componentDidMount() {
@@ -101,7 +103,7 @@ class Braintree extends React.Component {
         </div>
       );
     } else {
-      console.log(this.instance);
+      
       return (
         <div className="container">
           <ToastContainer
@@ -116,6 +118,7 @@ class Braintree extends React.Component {
             pauseOnHover
             style={{ width: "auto" }}
           />
+          
           <BraintreeHostedFields
             className="drop-in-container"
             options={{
