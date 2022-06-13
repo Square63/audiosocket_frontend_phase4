@@ -13,6 +13,8 @@ import InpageLoader from '../../components/InpageLoader';
 import BASE_URL from '../../common/api'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import pricing from "../../styles/Pricing.module.scss";
+
 
 class Braintree extends React.Component {
   instance;
@@ -20,7 +22,8 @@ class Braintree extends React.Component {
 
   state = {
     clientToken: null,
-    redirectUrl: null
+    redirectUrl: null,
+    paypal: false
   };
 
   async componentDidMount() {
@@ -47,7 +50,25 @@ class Braintree extends React.Component {
   async buy() {
     // Send the nonce to your server
     const { nonce } = await this.instance.requestPaymentMethod();
-    await fetch(`server.test/purchase/${nonce}`);
+    let discount_id = document.getElementById("disCode").value;
+    const authToken = JSON.parse(localStorage.getItem("user") ?? "");
+    const queryParams = new URLSearchParams(window.location.search);
+    const yearly = queryParams.get('yearly');
+    await axios.post(
+      this.state.redirectUrl, { nonce, discount_id, switch_to_yearly: (yearly === 'true') },
+      {
+        headers: {
+          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+          'auth-token': authToken
+        }
+      }
+    ).then(response => {
+      toast.success(response.data.message)
+      localStorage.setItem("has_subscription", true);
+      window.location.href = "/"
+    }).catch(error => {
+      toast.error(error.response.data.message);
+    });
   }
 
   async purchase() {
@@ -82,7 +103,7 @@ class Braintree extends React.Component {
         </div>
       );
     } else {
-      console.log(this.instance);
+      
       return (
         <div className="container">
           <ToastContainer
@@ -97,6 +118,7 @@ class Braintree extends React.Component {
             pauseOnHover
             style={{ width: "auto" }}
           />
+          
           <BraintreeHostedFields
             className="drop-in-container"
             options={{
@@ -150,6 +172,17 @@ class Braintree extends React.Component {
             </div>
           </div>
           </BraintreeHostedFields><br></br>
+          <DropIn
+            options={{ authorization: this.state.clientToken,
+							paypal: { flow: "vault" },
+							preselectVaultedPaymentMethod: false,
+							paymentOptionPriority: [
+								"paypal",
+							],
+						}}
+            onInstance={(instance) => (this.instance = instance)}
+          />
+          <button onClick={this.buy.bind(this)}>Buy</button>
         </div>
       );
     }

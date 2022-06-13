@@ -436,7 +436,6 @@ export const editWorkTitle = (itemableId, workTitle) => async (dispatch) => {
     })
 
   }
-
 }
 
 export const getSubscriptionPlans = () => async (dispatch) => {
@@ -668,21 +667,6 @@ export const getPaymentMethod = () => async( dispatch ) => {
   } catch (error) {
     dispatch({
       type: GET_PAYMENT_DETAILS_FAIL,
-      payload: error
-    })
-  }
-}
-
-export const deleteDownloadedTrack = (trackId) => async (dispatch) => {
-  try {
-    const { data } = await axios.delete(`${BASE_URL}/api/v1/consumer/consumer_downloads/${trackId}`);
-    dispatch({
-      type: DOWNLOADED_TRACKS_SUCCESS,
-      payload: data
-    })
-  } catch (error) {
-    dispatch({
-      type: DOWNLOADED_TRACKS_FAIL,
       payload: error
     })
   }

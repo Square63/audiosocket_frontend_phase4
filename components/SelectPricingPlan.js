@@ -73,6 +73,7 @@ function SelectPricingPlan(props) {
   const [validated, setValidated] = useState(false);
   const form = useRef(null);
   const [typeOfUseError, setTypeOfUseError] = useState(false);
+  const [paypal, setPaypal] = useState(false);
 
   useEffect(() => {
     if (router.query.personal) {
@@ -596,8 +597,8 @@ function SelectPricingPlan(props) {
               <div className={pricing.pricingRightSec+' '+pricing.planPayment}>
                 <h3 className="mb-4">Set Up Payment</h3>
                 <div className={pricing.paymentBtnWrapper}>
-                  <a href="javascript:void(0)" className={`${pricing.creditCardBtn} btn btnMainOutline`}>Credit Card</a>
-                  <a href="javascript:void(0)" className={`${pricing.payPalBtn} btn btnMainOutline`}>
+                  <a href="javascript:void(0)" className={`${pricing.creditCardBtn} btn btnMainOutline`} onClick={() => setPaypal(false)}>Credit Card</a>
+                  <a href="javascript:void(0)" className={`${pricing.payPalBtn} btn btnMainOutline`} onClick={() => setPaypal(true)}>
                     <svg id="paypal-logo-vector" xmlns="http://www.w3.org/2000/svg" width="94.62" height="24" viewBox="0 0 94.62 24">
                       <g id="Group_52" data-name="Group 52">
                         <path id="Path_60" data-name="Path 60" d="M30.473-88.961c-1.111-1.267-3.12-1.81-5.69-1.81H17.324a1.068,1.068,0,0,0-1.056.9l-3.1,19.7a.64.64,0,0,0,.146.516.64.64,0,0,0,.487.224h4.6l1.156-7.335-.036.23a1.065,1.065,0,0,1,1.051-.9h2.188c4.3,0,7.664-1.746,8.647-6.8q.044-.224.076-.437a4.77,4.77,0,0,0-1.012-4.288" transform="translate(-13.156 90.771)" fill="#003087"/>
@@ -614,54 +615,7 @@ function SelectPricingPlan(props) {
                     </svg>
                   </a>
                 </div>
-                {<PricingPlan planId={plan.id}/>}
-                {/* <Form>
-                  <Row className="halfGutters">
-                    <Col>
-                      <Form.Group className="mb-4">
-                        <Form.Label>Name on Card</Form.Label>
-                        <Form.Control type="email" placeholder="Enter Name" />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row className="halfGutters">
-                    <Col>
-                      <Form.Group className="mb-4">
-                        <Form.Label>Card Number</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Card Number" />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row className="halfGutters">
-                    <Col sm={6} xs={12}>
-                      <Form.Group className="mb-4" controlId="formBasicEmail">
-                        <Form.Label>Expiry Date</Form.Label>
-                        <Form.Control type="month" placeholder="MM/YY" />
-                      </Form.Group>
-                    </Col>
-
-                    <Col sm={6} xs={12}>
-                      <Form.Group className="mb-4" controlId="formBasicPassword">
-                        <Form.Label>Security Code</Form.Label>
-                        <Form.Control type="text" placeholder="CVV" />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-
-                  <Row className="halfGutters">
-                    <Col>
-                      <Form.Group className="mb-4" controlId="formBasicEmail">
-                        <Form.Label>Apply Discount Code</Form.Label>
-                        <div className="stickySearch discountCode">
-                          <Form.Control type="text" placeholder="Enter Code" />
-                          <Button variant="default" type="submit" className="btnMainLarge stickyBtn">Apply</Button>
-                        </div>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <p className={pricing.paymentSetupNotice}>By clicking the “Start Membership” button, you agree to our Terms of License and Privacy Policy and that Audiosocket will automatically continue your membership and charge the membership fee on a monthly/annual basis (depending on the plan they selected) until you cancel.</p>
-                  <button variant="link" className="btn btnMainLarge">Start Membership</button>
-                </Form> */}
+                {<PricingPlan planId={plan.id} paypal={paypal}/>}
               </div>
             </div>
           </div>

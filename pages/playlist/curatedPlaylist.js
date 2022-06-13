@@ -109,9 +109,11 @@ function CuratedPlaylist() {
       setIsLoading(false)
     }
 
-    if (playlists && playlists.length > 0) {
+    if (playlists && playlists.length == 10) {
       setPaginatedPlaylists(paginatedPlaylists=> [...paginatedPlaylists, ...playlists])
       console.log("PAGINATED PLAYLISTS", paginatedPlaylists)
+    } else if (playlists) {
+      setPaginatedPlaylists(playlists);
     }
     if (playlists?.length > 0) {
       setPaginatedPlaylistsCount(paginatedPlaylistsCount+playlists.length)
