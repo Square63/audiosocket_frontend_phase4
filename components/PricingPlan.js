@@ -50,11 +50,12 @@ class Braintree extends React.Component {
     await fetch(`server.test/purchase/${nonce}`);
   }
 
-  async purchase() {
+  async purchase(type) {
     // try {
       // Send nonce to your server
-    const { nonce } = await this.instance.tokenize()
-    let discount_id = document.getElementById("disCode").value;
+    // 
+    const { nonce } = type == "paypal" ? await this.instance.requestPaymentMethod() : await this.instance.tokenize()
+    let discount_id = document.getElementById("disCode")?.value;
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
     await axios.post(
       this.state.redirectUrl, { nonce, discount_id },
@@ -153,7 +154,7 @@ class Braintree extends React.Component {
                     </Row>
                     <p className={pricing.paymentSetupNotice}>By clicking the “Start Membership” button, you agree to our Terms of License and Privacy Policy and that Audiosocket will automatically continue your membership and charge the membership fee on a monthly/annual basis (depending on the plan they selected) until you cancel.</p>
                     <div className={signup.btnWrapper}>
-                      <a href="javascript:void(0)" className="btn btnMainLarge submit" onClick={this.purchase.bind(this)}>Start Membership</a>
+                      <a href="javascript:void(0)" className="btn btnMainLarge submit" onClick={this.purchase.bind(this, "cc")}>Start Membership</a>
                       {/* <button className="btn btnMainLarge submit" onClick={this.purchase.bind(e, this)}>Start Membership</button> */}
                     </div>
                   
@@ -190,7 +191,7 @@ class Braintree extends React.Component {
               {/* <button onClick={this.buy.bind(this)}>Buy</button> */}
               <p className={pricing.paymentSetupNotice}>By clicking the “Start Membership” button, you agree to our Terms of License and Privacy Policy and that Audiosocket will automatically continue your membership and charge the membership fee on a monthly/annual basis (depending on the plan they selected) until you cancel.</p>
               <div className={signup.btnWrapper}>
-                <a href="javascript:void(0)" className="btn btnMainLarge submit" onClick={this.purchase.bind(this)}>Start Membership</a>
+                <a href="javascript:void(0)" className="btn btnMainLarge submit" onClick={this.purchase.bind(this, "paypal")}>Start Membership</a>
                 {/* <button className="btn btnMainLarge submit" onClick={this.purchase.bind(e, this)}>Start Membership</button> */}
               </div>
             </>

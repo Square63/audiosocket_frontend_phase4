@@ -597,8 +597,8 @@ function SelectPricingPlan(props) {
               <div className={pricing.pricingRightSec+' '+pricing.planPayment}>
                 <h3 className="mb-4">Set Up Payment</h3>
                 <div className={pricing.paymentBtnWrapper}>
-                  <a href="javascript:void(0)" className={`${pricing.creditCardBtn} btn btnMainOutline`} onClick={() => setPaypal(false)}>Credit Card</a>
-                  <a href="javascript:void(0)" className={`${pricing.payPalBtn} btn btnMainOutline`} onClick={() => setPaypal(true)}>
+                  <a href="javascript:void(0)" className={`${pricing.creditCardBtn} btn btnMainOutline ${!paypal ? "activate" : ""}`} onClick={() => setPaypal(false)}>Credit Card</a>
+                  <a href="javascript:void(0)" className={`${pricing.payPalBtn} btn btnMainOutline ${paypal ? "activate" : ""}`} onClick={() => setPaypal(true)}>
                     <svg id="paypal-logo-vector" xmlns="http://www.w3.org/2000/svg" width="94.62" height="24" viewBox="0 0 94.62 24">
                       <g id="Group_52" data-name="Group 52">
                         <path id="Path_60" data-name="Path 60" d="M30.473-88.961c-1.111-1.267-3.12-1.81-5.69-1.81H17.324a1.068,1.068,0,0,0-1.056.9l-3.1,19.7a.64.64,0,0,0,.146.516.64.64,0,0,0,.487.224h4.6l1.156-7.335-.036.23a1.065,1.065,0,0,1,1.051-.9h2.188c4.3,0,7.664-1.746,8.647-6.8q.044-.224.076-.437a4.77,4.77,0,0,0-1.012-4.288" transform="translate(-13.156 90.771)" fill="#003087"/>

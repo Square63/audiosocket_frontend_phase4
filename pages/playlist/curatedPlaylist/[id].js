@@ -292,16 +292,6 @@ const Details = () => {
 											</svg>
 											Download
 										</Button>
-										<Button variant="link" className="btn btnMainLarge" onClick={() => setShowEditModal(true)}>
-											<svg xmlns="http://www.w3.org/2000/svg" width="13.685" height="13.686" viewBox="0 0 13.685 13.686">
-												<g id="pencil" transform="translate(-425.625 -3148.782)">
-													<path id="Shape_1730" data-name="Shape 1730" d="M432.265,3161.234l-4.554,1.952,1.952-4.555,8.131-8.132,2.6,2.6-8.131,8.132Z" transform="translate(-1.586 -1.217)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-													<path id="Shape_1731" data-name="Shape 1731" d="M439.438,3154.943l-2.6-2.6" transform="translate(-2.317 -1.365)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-													<path id="Shape_1732" data-name="Shape 1732" d="M432.435,3161.943l-2.6-2.6" transform="translate(-1.756 -1.925)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-												</g>
-											</svg>
-											Edit Playlist
-										</Button>
 									</div>
 								</div>
 							</div>

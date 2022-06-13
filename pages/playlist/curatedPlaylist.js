@@ -108,11 +108,11 @@ function CuratedPlaylist() {
     if (playlists) {
       setIsLoading(false)
     }
-
-    if (playlists && playlists.length == 10) {
+    if (playlists && playlists.length == 10 && paginatedPlaylists.length >= 10) {
       setPaginatedPlaylists(paginatedPlaylists=> [...paginatedPlaylists, ...playlists])
       console.log("PAGINATED PLAYLISTS", paginatedPlaylists)
     } else if (playlists) {
+      
       setPaginatedPlaylists(playlists);
     }
     if (playlists?.length > 0) {
@@ -146,11 +146,13 @@ function CuratedPlaylist() {
     let filterArray = []
     setSelectedFilter(filterName)
     filterArray.push(filterName)
-    dispatch(getCuratedPlaylists(searchValue, filterArray, pageNum))
+    dispatch(getCuratedPlaylists(searchValue, filterArray, filterArray.length > 0 ? 1 : pageNum))
   }
 
   const handleClearSingleFilter = async() => {
-
+    setIsLoading(true)
+    setSelectedFilter("")
+    dispatch(getCuratedPlaylists(searchValue, [], 1))
   }
 
   const filterItems = filters && filters.length > 0 && filters.map((filter, index) =>
@@ -239,7 +241,7 @@ function CuratedPlaylist() {
                   })}
             </div>
             <div className={playlist.btnWrapper}>
-              {(totalPlaylists != paginatedPlaylistsCount) ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
+              {(totalPlaylists != paginatedPlaylistsCount) && playlists?.length >= 10 ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
             </div>
           </section>
         </div>

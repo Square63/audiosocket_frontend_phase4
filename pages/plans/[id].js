@@ -71,9 +71,9 @@ class Braintree extends React.Component {
     });
   }
 
-  async purchase() {
-    const { nonce } = await this.instance.tokenize()
-    let discount_id = document.getElementById("disCode").value;
+  async purchase(type) {
+    const { nonce } = type == "paypal" ? await this.instance.requestPaymentMethod() : await this.instance.tokenize()
+    let discount_id = document.getElementById("disCode")?.value;
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
     const queryParams = new URLSearchParams(window.location.search);
     const yearly = queryParams.get('yearly');
@@ -186,7 +186,7 @@ class Braintree extends React.Component {
                     </div>
                   </div>
                   <div className={signup.btnWrapper}>
-                    <button className="btn btnMainLarge submit" onClick={this.purchase.bind(this)}>Submit</button>
+                    <button className="btn btnMainLarge submit" onClick={this.purchase.bind(this, "cc")}>Submit</button>
                   </div>
                 </div>
               </div>
@@ -195,16 +195,32 @@ class Braintree extends React.Component {
           </BraintreeHostedFields><br></br>
           </>) : (
             <>
-              <DropIn
-                options={{ authorization: this.state.clientToken,
-                paypal: { flow: "vault" },
-                preselectVaultedPaymentMethod: false,
-                paymentOptionPriority: [
-                  "paypal",
-                ],
-              }}
-              onInstance={(instance) => (this.instance = instance)}
-            />
+            <div className="container">
+              <div className={signup.stepWrapper+" "+signup.stepThreeWrapper}>
+                <div className="fixed-container">
+                  <div className={signup.signUpInner}>
+                    <div className={signup.signupBodyWrapper}>
+                      <div className="boxWithShadow">
+                        <DropIn
+                          options={{ authorization: this.state.clientToken,
+                          paypal: { flow: "vault" },
+                          preselectVaultedPaymentMethod: false,
+                          paymentOptionPriority: [
+                            "paypal",
+                          ],
+                        }}
+                        onInstance={(instance) => (this.instance = instance)}
+                        
+                      />
+                      <div className={signup.btnWrapper}>
+                        <button className="btn btnMainLarge submit" onClick={this.purchase.bind(this, "paypal")}>Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           </>
           )
         }
