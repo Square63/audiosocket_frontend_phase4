@@ -13,6 +13,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import Fade from 'react-bootstrap/Fade';
+import { ToastContainer, toast } from 'react-toastify';
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
@@ -154,6 +155,18 @@ function DownloadedTracks(props) {
       <center><p>No downloaded tracks</p></center>
     ) : (
         <div className={user.downloadListing}>
+            <ToastContainer
+              position="top-center"
+              autoClose={10000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              style={{ width: "auto" }}
+            />
         <div className={user.listingWrapper+' userListingWrapper'}>
           <div className={user.listingHeading}>
             <h2>Downloads</h2>
