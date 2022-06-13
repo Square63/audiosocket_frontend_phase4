@@ -4,11 +4,14 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import user from "../../styles/User.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getDownloadedTracks, getDownloadedSfxs, deleteDownloadedTrack, updateWorkTitleOfDownloadedTrack } from "../../redux/actions/authActions";
+import { getDownloadedTracks, getDownloadedSfxs, updateWorkTitleOfDownloadedTrack } from "../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import InpageLoader from '../../components/InpageLoader';
 import DownloadedTracks from "../../components/DownloadedTracks";
+import axios from "axios";
+import { BASE_URL } from '../../common/api';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Downloads() {
   const dispatch = useDispatch();
@@ -17,6 +20,7 @@ function Downloads() {
   const downloadedSfxs = useSelector(state => state.user.downloaded_sfxs);
   const responseStatus = useSelector(state => state.user.responseStatus);
   const [isLoading, setIsLoading] = useState(true);
+  const [tracks, setTracks] = useState([]);
   const downloadsMessage = useSelector( state => state.allTracks)
 
   // useEffect(() => {
@@ -35,6 +39,7 @@ function Downloads() {
   useEffect(() => {
     if (downloadedTracks) {
       setIsLoading(false)
+      setTracks(downloadedTracks)
     }
   }, [downloadedTracks, downloadedSfxs])
 
@@ -57,7 +62,27 @@ function Downloads() {
 
   function handleDeleteTrack(trackId) {
     setIsLoading(true)
-    dispatch(deleteDownloadedTrack(trackId));
+    const authToken = JSON.parse(localStorage.getItem("user") ?? "");
+    axios.request({
+      headers: {
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+        "auth-token": authToken
+      },
+      method: "delete",
+      url: (`${BASE_URL}/api/v1/consumer/consumer_downloads/${trackId}`)
+    }).then(response => {
+      setIsLoading(false)
+      if (!response.status === 200) {
+        toast.error("Error while deleting downloaded track.");
+      } else {
+        setIsLoading(false);
+        setTracks(response.data)
+        toast.success("Track has been deleted.");
+      }
+    }).catch(error => {
+      setIsLoading(false)
+      toast.error("Error while deleting downloaded track.");
+    });
   }
 
   return (
@@ -66,7 +91,7 @@ function Downloads() {
         <InpageLoader/>
       ) : (
         <>
-          {downloadedTracks && <DownloadedTracks tracks={downloadedTracks} sfxs={downloadedSfxs} handleDeleteTrack={handleDeleteTrack} handleSubmitWorkTitle={handleSubmitWorkTitle} />}
+          {tracks && <DownloadedTracks tracks={tracks} sfxs={downloadedSfxs} handleDeleteTrack={handleDeleteTrack} handleSubmitWorkTitle={handleSubmitWorkTitle} />}
         </>
       )}
     </>
