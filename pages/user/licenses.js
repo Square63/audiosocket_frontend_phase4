@@ -15,7 +15,6 @@ function Licenses() {
   const [isLoading, setIsLoading] = useState(true);
   const consumerLicenses = useSelector(state => state.user.csonsumerLicenses);
 
-
   useEffect(() => {
     if (!consumerLicenses)
       dispatch(getConsumerLicenses())
@@ -70,7 +69,7 @@ function Licenses() {
                     </div>
                     <div className="rowParticipant controls"></div>
                   </div>
-                  {consumerLicenses.map((license, index) =>
+                  {consumerLicenses.map((consumerLicense, index) =>
                     <div className="trackRow">
                       <div className="rowParticipant artistName">
                         <div className="playPauseBtn">
@@ -79,7 +78,7 @@ function Licenses() {
                         </div>
                         <div className="aboutSong">
                           <div className="songData">
-                            <a href="" className="songName">{license.mediable.title}</a>
+                            <a href="" className="songName">{consumerLicense.mediable.title}</a>
                           </div>
                           <div className="songArtist">
                             <a href="" className="noTextLine">
@@ -92,13 +91,17 @@ function Licenses() {
                         UBS Montage Team Video
                       </div>
                       <div className={user.licenseAgreement + ' rowParticipant'}>
-                        License Agreement
+                        <a href={consumerLicense.license_pdf} className="noTextLine" target="_blank" rel="noreferrer">
+                          License Agreement
+                        </a>
                       </div>
                       <div className={user.purchaseReceipt + ' rowParticipant'}>
-                        Receipt
+                        <a href={consumerLicense.invoice} className="noTextLine" target="_blank" rel="noreferrer">
+                          Receipt
+                        </a>
                       </div>
                       <div className={user.purchaseDate + ' rowParticipant'}>
-                        {new Date(license.license.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' })}
+                        {new Date(consumerLicense.license.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' })}
                       </div>
                       <div className="rowParticipant controls">
                         <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>

@@ -296,7 +296,7 @@ export const addToCart = (itemableId, itemableType, mediaLicenseId) => async (di
   formData.append("itemable_id", itemableId);
   formData.append("itemable_type", itemableType);
   formData.append("work_title", "itemableType");
-  mediaLicenseId.length > 0 && formData.append("media_license_id", mediaLicenseId);
+  mediaLicenseId && formData.append("media_license_id", mediaLicenseId);
   try {
     const { data } = await axios.request({
       method: "post",

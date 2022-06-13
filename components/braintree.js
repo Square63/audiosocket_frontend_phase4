@@ -10,6 +10,7 @@ import InpageLoader from './InpageLoader';
 import {AuthContext} from "../store/authContext";
 import router from "next/router";
 import { toast } from 'react-toastify';
+import { post } from "jquery";
 
 
 class Braintree extends React.Component {
@@ -21,7 +22,9 @@ class Braintree extends React.Component {
     clientToken: null,
     invoice: null,
     redirectUrl: null,
-    error: null
+    error: null,
+    loading: true,
+    orderId: null
   };
 
   async componentDidMount() {
@@ -39,12 +42,26 @@ class Braintree extends React.Component {
     const data = await response.json();
 
     const clientToken = data.token
+
     this.setState({
       clientToken: clientToken,
       invoice: data.invoice,
       redirectUrl: data.redirect_url,
-      error: data.error
+      error: data.error,
+      loading: false,
+      orderId: data.id
     });
+
+    if (data.id) {
+      let generate_license_url = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/generate_licenses?order_id=${this.state.orderId}`
+      const response = await fetch(generate_license_url, {
+        method: "POST",
+        headers: {
+          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+          'auth-token': authToken
+        }
+      });
+    }
   }
 
   async buy() {
@@ -73,7 +90,15 @@ class Braintree extends React.Component {
       if (!response.status === 200) {
         toast.error(response.data.message);
       } else {
-        toast.success(response.data.message);
+        let generate_license_redirect_url = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/generate_licenses?order_id=${response.data.order.id}`
+        const generate_license_response = await fetch(generate_license_redirect_url, {
+          method: "POST",
+          headers: {
+            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+            'auth-token': authToken
+          }
+        });
+        toast.success(generate_license_response.data.message);
         this.sendToHomePage();
       }
     } catch (err) {
@@ -102,7 +127,7 @@ class Braintree extends React.Component {
         </div>
       );
     } else {
-      return (loading ? <InpageLoader /> : (
+      return (this.state.loading ? <InpageLoader /> : (
         <div className="container">
           <BraintreeHostedFields
             className="drop-in-container"
