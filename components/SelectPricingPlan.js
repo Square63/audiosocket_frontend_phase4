@@ -139,16 +139,16 @@ function SelectPricingPlan(props) {
       else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
         setPlan(subscriptionPlans[8])
       }
-      else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-        setPlan(subscriptionPlans[0])
+      else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
+        setPlan(subscriptionPlans[1])
       }
-      else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
+      else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
         setPlan(subscriptionPlans[4])
       }
-      else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+      else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
         setPlan(subscriptionPlans[2])
       }
-      else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+      else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music + SFX") {
         setPlan(subscriptionPlans[3])
       }
       setStep(1)
