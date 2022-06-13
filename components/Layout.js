@@ -18,7 +18,7 @@ function Layout({children}) {
     let isMounted = true;
     setTimeout(function() {
       setLoading(false)
-    }.bind(this), 3000);
+    }.bind(this), 500);
     return () => {
       isMounted = false;
     };
