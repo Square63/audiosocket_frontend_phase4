@@ -382,7 +382,7 @@
 
 
 /********************** Similar Track Detail **********************/
-.similarTrackDetail {
+.similarTrackDetail.myPlaylistShow {
   .playlistBanner {
     background-color: Transparent;
     min-height: auto;
@@ -394,6 +394,7 @@
         background-color: transparent;
         width: 100%;
         height: auto;
+        overflow: hidden;
         .imgSec {
           :global(.tileOverlay) {
             width: 100%;
@@ -592,7 +593,7 @@
     }
   }
 
-  .similarTrackDetail {
+  .similarTrackDetail.myPlaylistShow {
     .playlistBanner {
       .playlistInfo {
         .playlistCard {
