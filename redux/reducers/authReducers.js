@@ -115,7 +115,6 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         playlist_details: action.payload.response.data.errors,
       };
     case FAVORITE_TRACKS_SUCCESS:
-      debugger
       return {
         ...state,
         favorite_tracks: action.payload,
@@ -348,7 +347,6 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         responseStatus: action.payload.response.status
       };
     case GET_PAYMENT_DETAILS_SUCCESS:
-      debugger
       return {
         payment_details: action.payload,
         meta: action.payload.meta

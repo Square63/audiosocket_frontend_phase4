@@ -112,7 +112,18 @@ function MyPlaylists() {
       ) : (
       <>
         <div className={playlist.myPlaylistWrapper}>
-
+          <ToastContainer
+            position="top-center"
+            autoClose={10000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            style={{ width: "auto" }}
+          />
         <div className="fixed-container">
 
           <div className="parallelHead">

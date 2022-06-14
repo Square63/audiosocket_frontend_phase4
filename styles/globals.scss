@@ -2143,7 +2143,6 @@ hr {
         @include justify-content(space-between);
         @include align-items(baseline);
         gap: 10px;
-        cursor: pointer;
 
         svg {
 

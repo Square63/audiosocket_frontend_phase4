@@ -189,9 +189,9 @@ function Tracks(props) {
           <div className={search.tracksHeading}>
             {(props.tracks?.length || props.sfxes?.length) ?
               <h2>
-                {props.sfxes ? "Sfxs " : props.tracksMeta ? "Tracks " : "Playlist Tracks "}
+                {props.sfxes ? "SFX " : props.tracksMeta ? "Tracks " : "Playlist Tracks "}
                 <span className={search.tracksCount}>
-                  {props.sfxes ? props.tracksMeta.total_sfx_count : props.tracksMeta ? props.tracksMeta.total_track_count : props.tracks?.count}
+                  {props.sfxes ? `(${props.tracksMeta.total_sfx_count})` : props.tracksMeta ? `(${props.tracksMeta.total_track_count})` : `(${props.tracks?.count})`}
                 </span>
               </h2> : <h2>No Tracks Found</h2>
             }

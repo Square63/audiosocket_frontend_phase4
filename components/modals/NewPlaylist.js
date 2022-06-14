@@ -22,7 +22,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
   const [file, setFile] = useState(null);
 
   const fileTypes = ["JPG", "PNG", "GIF", "SVG", "JPEG"];
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPlaylistForm = e.currentTarget;
@@ -44,7 +44,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
         method: "post",
         url: URL,
         data: data,
-        
+
       }).then (response => {
         if (!response.status === 200) {
           toast.error("Error while creating playlist.");
@@ -62,7 +62,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
         setFile(null);
         toast.error('Error creating Playlist: Playlist image ' + error.response.data.errors.playlist_image);
       });
-    } 
+    }
   }
 
   const handleClose = () => {
@@ -110,7 +110,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
               <p>{file ? `File name: ${file.name}` : "No files uploaded yet"}</p>
             </Form.Group>
             <Button variant="link" className={isLoading ? "btn btnMainLarge btn-block disabled" : "btn btnMainLarge btn-block"} type="submit">
-              Add Project
+              Add Playlist
             </Button>
           </Form>
         </div>
