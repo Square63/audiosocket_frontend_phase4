@@ -5469,7 +5469,8 @@ input[type=file]::file-selector-button {
           &.artistName {
             min-width: 100%;
             padding-left: 45px;
-            .playPauseBtn {
+            .playPauseBtn,
+            .sk-fading-circle {
               position: absolute;
               left: 15px;
               top: 50%;
@@ -5477,6 +5478,7 @@ input[type=file]::file-selector-button {
             }
             .aboutSong {
               .songData {
+                max-width: 70vw;
                 .songName {
                   max-width: 100%;
                   font-size: 14px;
@@ -5517,6 +5519,21 @@ input[type=file]::file-selector-button {
         }
         .altVersions {
           display: none;
+        }
+      }
+    }
+  }
+
+  /************* Theme Pagination ****************/
+  .themeBreadcrumb {
+    nav {
+      .breadcrumb {
+        .breadcrumb-item {
+          &:nth-child(n+2) {
+            &:before {
+              padding-inline: 13px;
+            }
+          }
         }
       }
     }

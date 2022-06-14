@@ -99,7 +99,7 @@ function creatorKits() {
       </div>
       <div className="fixed-container">
         <div className={playlist.creatorKitsContent}>
-          <Tabs defaultActiveKey="tracks" id="uncontrolled-tab-example" className="mb-4">
+          <Tabs defaultActiveKey="tracks" id="uncontrolled-tab-example">
             <Tab eventKey="tracks" title="Tracks">
               <p>lorem 50</p>
             </Tab>

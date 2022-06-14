@@ -300,7 +300,7 @@ const Details = () => {
 													<path id="Shape_1732" data-name="Shape 1732" d="M432.435,3161.943l-2.6-2.6" transform="translate(-1.756 -1.925)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
 												</g>
 											</svg>
-											Edit Playlist
+											Follow Playlist
 										</Button>
 									</div>
 								</div>
