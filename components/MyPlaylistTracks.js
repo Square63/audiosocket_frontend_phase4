@@ -474,7 +474,7 @@ function MyPlaylistTracks(props) {
                         </div>
                       )}
                     </Draggable>
-                  )) : "No tracks found"}
+                  )) : <div className="textCenter">No tracks found</div>}
                   {provided.placeholder}
                 </div>
               )}

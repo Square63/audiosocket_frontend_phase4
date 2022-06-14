@@ -199,6 +199,9 @@
             font-size: 13px;
             line-height: 1.23;
             letter-spacing: -0.33px;
+            &:nth-child(2) div {
+              margin-block: 5px 5px;
+            }
           }
         }
         .cardBtnWrapper {
@@ -299,6 +302,9 @@
           }
         }
       }
+    }
+    :global(.tab-content) {
+      padding-block: 20px;
     }
   }
 }
@@ -451,14 +457,61 @@
           @include flex-direction(column);
           width: 100%;
           height: auto;
-          margin: 20px 0;
+          margin: 0;
           text-align: center;
+          padding-block: 30px;
           gap: 25px;
           .imgSec {
             margin-inline: auto;
           }
           .cardBtnWrapper {
             margin-top: 25px;
+          }
+        }
+      }
+    }
+  }
+
+  .myPlaylistShow {
+    .playlistBanner {
+      margin-bottom: 30px;
+    }
+  }
+
+  .creatorKits {
+    .playlistBanner {
+      padding-bottom: 0;
+      .playlistInfo {
+        .playlistCard {
+          padding-bottom: 30px;
+        }
+      }
+    }
+    .creatorKitsContent {
+      :global(.nav-tabs) {
+        margin-inline: -20px;
+        gap: 0;
+        margin-top: 0;
+        border-top: 1px solid $border-clr;
+        & > :global(.nav-item) {
+          @include flex(1);
+          text-align: center;
+          font-size: 18px;
+          border-right: 1px solid $border-clr;
+          padding: 20px 10px;
+          &:last-child {
+            border: 0;
+          }
+          &::before {
+            content: '';
+            width: 27px;
+            height: 27px;
+            background-size: 27px;
+            margin-right: 7px;
+          }
+          &::after {
+            content: '';
+            background-size: 17px;
           }
         }
       }
@@ -511,6 +564,20 @@
                 margin: 0;
               }
             }
+          }
+        }
+      }
+    }
+  }
+
+  .creatorKits {
+    .creatorKitsContent {
+      :global(.nav-tabs) {
+        & > :global(.nav-item) {
+          font-size: 4.2vw;
+          letter-spacing: normal;
+          &::before {
+            content: none;
           }
         }
       }

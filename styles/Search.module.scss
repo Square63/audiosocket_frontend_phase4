@@ -138,23 +138,24 @@
         display: none;
       }
     }
-    .tracksWrapper {
-      margin-top: 0;
-      .tracksHeading {
-        @include flex-direction(column-reverse);
-        @include align-items(flex-start);
-        gap: 30px;
-        h2 {
-          font-size: 22px;
-        }
-        .tracksSorting {
-          :global(.react-select-container) {
-            width: 218px;
-            :global(.react-select__control) {
-              min-height: 38px;
-              padding-inline: 18px;
-              font-size: 13px;
-            }
+  }
+
+  .tracksWrapper {
+    margin-top: 0;
+    .tracksHeading {
+      @include flex-direction(column-reverse);
+      @include align-items(flex-start);
+      gap: 30px;
+      h2 {
+        font-size: 22px;
+      }
+      .tracksSorting {
+        :global(.react-select-container) {
+          width: 218px;
+          :global(.react-select__control) {
+            min-height: 38px;
+            padding-inline: 18px;
+            font-size: 13px;
           }
         }
       }
