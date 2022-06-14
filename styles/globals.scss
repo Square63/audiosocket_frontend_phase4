@@ -2061,194 +2061,6 @@ hr {
     padding: 18px 15px;
     border-top: 1px solid #dcdfe2;
 
-    .rowParticipant {
-      flex: 1;
-      user-select: none;
-      cursor: default;
-
-      &.artistName {
-        min-width: 22%;
-        @include flexbox;
-        @include justify-content(flex-start);
-        @include align-items(center);
-        .sk-fading-circle {
-          width: 30px;
-          height: 30px;
-          position: relative;
-          margin: 0 15px 0 0;
-        }
-
-        .aboutSong {
-          .songData {
-            @include flexbox;
-            @include justify-content(flex-start);
-            @include align-items(center);
-            gap: 5px;
-
-            .songName {
-              font-size: 16px;
-              font-weight: 500;
-              letter-spacing: -0.4px;
-              color: $headerColor;
-              text-transform: capitalize;
-              margin-right: 5px;
-              max-width: 150px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-
-          .songArtist {
-            a {
-              font-size: 14px;
-              font-weight: 400;
-              line-height: 1.5;
-              letter-spacing: -0.35px;
-              color: $headerColor;
-              text-decoration: underline;
-              text-transform: capitalize;
-              max-width: 150px;
-              display: inline-block;
-              vertical-align: middle;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-        }
-      }
-
-      &.audioWave {
-        min-width: 19%;
-        padding-inline: 15px 25px;
-      }
-
-      &.duration {
-        min-width: 10%;
-        padding-inline: 7px;
-        font-size: 13px;
-      }
-
-      &.mood {
-        min-width: 20%;
-        padding-inline: 7px;
-        text-transform: capitalize;
-        font-size: 13px;
-      }
-      &.mood,
-      &.controls {
-        min-width: 20%;
-        @include flexbox;
-        @include justify-content(space-between);
-        @include align-items(baseline);
-        gap: 10px;
-        cursor: pointer;
-
-        svg {
-
-          path,
-          line {
-            @include transition(all 0.25s ease-in-out);
-          }
-
-          &:hover {
-            #shopping-cart-add {
-              #path_45 {
-                stroke: transparent;
-              }
-            }
-
-            path,
-            line {
-              stroke: $green-light;
-            }
-          }
-        }
-
-        .downloadStuff {
-          svg {
-            width: 22px;
-          }
-        }
-
-        .dropdown,
-        .dropup {
-          .dropdown-toggle {
-            all: unset;
-
-            &:after {
-              content: none;
-            }
-          }
-
-          .dropdown-menu {
-            border-radius: 12px;
-            background-color: $headerColor;
-            padding-block: 12px;
-
-            .dropdown-item {
-              display: grid;
-              grid-template-columns: 20px 1fr;
-              align-items: center;
-              color: $white;
-              padding-inline: 12px;
-              padding-block: 9px 7px;
-              @include transition(all 0.25s ease-in-out);
-
-              svg {
-
-                path,
-                line {
-                  @include transition(all 0.25s ease-in-out);
-                }
-              }
-
-              span,
-              a {
-                font-size: 13px;
-                font-weight: 400;
-                line-height: normal;
-                letter-spacing: -0.33px;
-                color: $white;
-                margin-left: 7px;
-              }
-
-              &.activeState,
-              &:hover,
-              &:focus {
-                background-color: $green-light;
-
-                span {
-                  color: $headerColor;
-                }
-
-                svg {
-
-                  path,
-                  line {
-                    stroke: $headerColor;
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        a {
-          &.controlActive {
-            svg {
-
-              path,
-              line {
-                stroke: $green-light;
-              }
-            }
-          }
-        }
-      }
-    }
-
     .altVersions {
       @include flex(1 1 100%);
       margin-top: 7px;
@@ -2414,6 +2226,198 @@ hr {
     }
   }
 }
+
+/****************** Row participant ****************/
+.rowParticipant,
+.singleTrackDetail {
+  flex: 1;
+  user-select: none;
+  cursor: default;
+
+  &.artistName {
+    min-width: 22%;
+    @include flexbox;
+    @include justify-content(flex-start);
+    @include align-items(center);
+    .sk-fading-circle {
+      width: 30px;
+      height: 30px;
+      position: relative;
+      margin: 0 15px 0 0;
+    }
+
+    .aboutSong {
+      .songData {
+        @include flexbox;
+        @include justify-content(flex-start);
+        @include align-items(center);
+        gap: 5px;
+
+        .songName {
+          font-size: 16px;
+          font-weight: 500;
+          letter-spacing: -0.4px;
+          color: $headerColor;
+          text-transform: capitalize;
+          margin-right: 5px;
+          max-width: 150px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .songArtist {
+        a {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.5;
+          letter-spacing: -0.35px;
+          color: $headerColor;
+          text-decoration: underline;
+          text-transform: capitalize;
+          max-width: 150px;
+          display: inline-block;
+          vertical-align: middle;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  &.audioWave {
+    min-width: 19%;
+    padding-inline: 15px 25px;
+  }
+
+  &.duration {
+    min-width: 10%;
+    padding-inline: 7px;
+    font-size: 13px;
+  }
+
+  &.mood {
+    min-width: 20%;
+    padding-inline: 7px;
+    text-transform: capitalize;
+    font-size: 13px;
+  }
+  &.mood,
+  &.controls {
+    min-width: 20%;
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(baseline);
+    gap: 10px;
+    cursor: pointer;
+
+    svg {
+
+      path,
+      line {
+        @include transition(all 0.25s ease-in-out);
+      }
+
+      &:hover {
+        #shopping-cart-add {
+          #path_45 {
+            stroke: transparent;
+          }
+        }
+
+        path,
+        line {
+          stroke: $green-light;
+        }
+      }
+    }
+
+    .downloadStuff {
+      svg {
+        width: 22px;
+      }
+    }
+
+    .dropdown,
+    .dropup {
+      .dropdown-toggle {
+        all: unset;
+
+        &:after {
+          content: none;
+        }
+      }
+
+      .dropdown-menu {
+        border-radius: 12px;
+        background-color: $headerColor;
+        padding-block: 12px;
+
+        .dropdown-item {
+          display: grid;
+          grid-template-columns: 20px 1fr;
+          align-items: center;
+          color: $white;
+          padding-inline: 12px;
+          padding-block: 9px 7px;
+          @include transition(all 0.25s ease-in-out);
+
+          svg {
+
+            path,
+            line {
+              @include transition(all 0.25s ease-in-out);
+            }
+          }
+
+          span,
+          a {
+            font-size: 13px;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.33px;
+            color: $white;
+            margin-left: 7px;
+          }
+
+          &.activeState,
+          &:hover,
+          &:focus {
+            background-color: $green-light;
+
+            span {
+              color: $headerColor;
+            }
+
+            svg {
+
+              path,
+              line {
+                stroke: $headerColor;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    a {
+      &.controlActive {
+        svg {
+
+          path,
+          line {
+            stroke: $green-light;
+          }
+        }
+      }
+    }
+  }
+}
+/****************** Row participant End ****************/
+
 
 .info,
 .fire,
@@ -2644,6 +2648,7 @@ hr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding-inline: 15px;
     font-size: 18px;
     font-weight: 500;
     width: 100%;
@@ -2668,7 +2673,7 @@ hr {
 
   &:hover {
     &:after {
-      opacity: 0.3;
+      opacity: 0.2;
     }
   }
 }
