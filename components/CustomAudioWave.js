@@ -153,15 +153,16 @@ export default function CustomAudioWave(props) {
           }
           <div className="aboutSong">
             <div className="songData">
-              <a href="" className="songName notClickable">{props.track.title}</a>
+              <OverlayTrigger overlay={<Tooltip>{props.track.title}</Tooltip>}>
+                <a href="javascript:void(0)" className="songName defaultCursor">{props.track.title}</a>
+              </OverlayTrigger>
               {props.track.featured &&
                 <>
                   <OverlayTrigger overlay={<Tooltip>Featured</Tooltip>}>
-                  <a href="" className={`fire ${props.notClickable ? "notClickable" : ""}`}></a>
+                    <a href="" className={`fire ${props.notClickable ? "notClickable" : ""}`}></a>
                   </OverlayTrigger>
                 </>
               }
-
             </div>
             {props.track.artist_name && <div className="songArtist">
               <a href="javascript:void(0)" className={`${props.notClickable ? "notClickable" : ""}`}onClick={() => props.handleTrackSearchOfArtist(props.track.artist_id, props.track.artist_name)}>

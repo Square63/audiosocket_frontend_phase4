@@ -48,7 +48,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
 
   const handleDownload = async (track, type) => {
     setIsLoading(true)
-    let url = type == "track" ? `${BASE_URL}/api/v1/consumer/tracks/${track.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/${track.id}/add_download_sfx`
+    let url = type == "track" ? `${BASE_URL}/api/v1/consumer/tracks/${track.mediable.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/${track.mediable.id}/add_download_sfx`
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
     const response = await fetch(url,
       {

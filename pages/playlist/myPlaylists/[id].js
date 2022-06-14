@@ -293,7 +293,7 @@ const Details = () => {
                       </svg>
                       Share
                     </Button>
-                    <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)}>
+                    <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={myPlaylistTracks?.playlist_tracks.length <= 0}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
                         <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
                           <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
