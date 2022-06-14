@@ -1285,6 +1285,10 @@ footer {
   cursor: default;
 }
 
+.defaultCursor {
+  cursor: default;
+}
+
 /******************* Common Components ****************/
 .parallelHead {
   @include flexbox;
