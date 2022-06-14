@@ -26,13 +26,13 @@ const AuthProvider = (props) => {
     },
   };
 
-  useEffect(() => {
-    // if (!lineItems)
-      // dispatch(getCart())
-  }, [cartCount])
+  // useEffect(() => {
+  //   if (!lineItems && localStorage.getItem("user"))
+  //     dispatch(getCart())
+  // }, [cartCount])
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem("user")  ) {
       if (lineItem) {
         if (lineItem.success) {
           setCartCount(cartCount + 1)
@@ -41,15 +41,18 @@ const AuthProvider = (props) => {
         }
       }
     }
-  }, [lineItem])
+  }, [lineItem.cart])
 
   useEffect(() => {
+    if (!lineItems && localStorage.getItem("user"))
+      dispatch(getCart())
     if (lineItems && Array.isArray(lineItems)){
-      setCartCount(lineItems.length)
+      // setCartCount(lineItems.length)
       let price = 0;
       lineItems.map((item) => {
         price += item.license.price
       })
+      setCartCount(lineItems.length)
       setTotalPrice(price)
     }
   }, [lineItems])
