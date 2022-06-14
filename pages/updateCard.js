@@ -36,10 +36,10 @@ class Braintree extends React.Component {
         'auth-token': authToken
       }
     });
-    debugger
+
     const data = await response.json();
     const clientToken = data.token
-    
+
     this.setState({
       clientToken: clientToken,
       redirectUrl: data.redirect_url
@@ -54,7 +54,6 @@ class Braintree extends React.Component {
 
   async purchase() {
     const { nonce } = await this.instance.tokenize()
-		debugger
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
     await axios.patch(
       "https://artist-portal-backend-phase4.square63.net/api/v1/consumer/payment_method", { nonce },

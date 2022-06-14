@@ -1,16 +1,16 @@
 import React from "react";
 import DropIn from "braintree-web-drop-in-react";
- 
+
 export default class Paypal extends React.Component {
-  instance;  
- 
+  instance;
+
   state = {
     clientToken: null,
   };
- 
+
 	async componentDidMount() {
 
-    
+
     // Get a client token for authorization from your server
 		let planId = 1
     const transactionType = "subscription";
@@ -25,7 +25,7 @@ export default class Paypal extends React.Component {
     });
     const data = await response.json();
     const clientToken = data.token
-    
+
     this.setState({
       clientToken: clientToken
     });
@@ -34,10 +34,9 @@ export default class Paypal extends React.Component {
   async buy() {
     // Send the nonce to your server
     const { nonce } = await this.instance.requestPaymentMethod();
-    debugger
     await fetch(`server.test/purchase/${nonce}`);
   }
- 
+
   render() {
     if (!this.state.clientToken) {
       return (
