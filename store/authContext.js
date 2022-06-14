@@ -26,11 +26,6 @@ const AuthProvider = (props) => {
     },
   };
 
-  // useEffect(() => {
-  //   if (!lineItems && localStorage.getItem("user"))
-  //     dispatch(getCart())
-  // }, [cartCount])
-
   useEffect(() => {
     if (localStorage.getItem("user")  ) {
       if (lineItem) {
@@ -47,7 +42,6 @@ const AuthProvider = (props) => {
     if (!lineItems && localStorage.getItem("user"))
       dispatch(getCart())
     if (lineItems && Array.isArray(lineItems)){
-      // setCartCount(lineItems.length)
       let price = 0;
       lineItems.map((item) => {
         price += item.license.price
