@@ -179,7 +179,7 @@ function Cart() {
                         </Form.Group>
                         <Form.Group>
   
-                          <Button className="btn btnMainLarge btn-block" onClick={() => {handleCheckoutClick()}}>Checkout and License Tracks - <span className="">${totalCartPrice}</span></Button>
+                          <Button variant="link" className="btn btnMainLarge btn-block" onClick={() => {handleCheckoutClick()}}>Checkout and License Tracks - <span className="">${totalCartPrice}</span></Button>
   
                         </Form.Group>
                         <p className="text-center">By clicking checkout, you agree to your <a href="javascript:void(0)">license terms</a>.</p>
