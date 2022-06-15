@@ -108,11 +108,10 @@ function CuratedPlaylist() {
     if (playlists) {
       setIsLoading(false)
     }
-    if (playlists && playlists.length == 10 && paginatedPlaylists.length >= 10) {
+    if (playlists && (playlists.length == 10 || paginatedPlaylists.length >= 10)) {
       setPaginatedPlaylists(paginatedPlaylists=> [...paginatedPlaylists, ...playlists])
       console.log("PAGINATED PLAYLISTS", paginatedPlaylists)
     } else if (playlists) {
-      
       setPaginatedPlaylists(playlists);
     }
     if (playlists?.length > 0) {
@@ -124,8 +123,10 @@ function CuratedPlaylist() {
   console.log("Curated Playlists", playlists)
 
   const handleSearch = (e) => {
-    if (searchValue !== "")
+    if (searchValue !== ""){
+      setPaginatedPlaylistsCount(0)
       setShowFeatured(false)
+    }
     else
       setShowFeatured(true)
     setIsLoading(true)
@@ -241,7 +242,7 @@ function CuratedPlaylist() {
                   })}
             </div>
             <div className={playlist.btnWrapper}>
-              {(totalPlaylists != paginatedPlaylistsCount) && playlists?.length >= 10 ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
+              {(totalPlaylists != paginatedPlaylistsCount) ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
             </div>
           </section>
         </div>
