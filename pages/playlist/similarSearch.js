@@ -1,38 +1,12 @@
 import withPrivateRoute from "../../components/withPrivateRoute";
-import { getPlaylistDetail } from "../../redux/actions/authActions";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import InpageLoader from '../../components/InpageLoader';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Tooltip from 'react-bootstrap/Tooltip';
 import Tracks from "../../components/Tracks";
-import Image from 'next/image';
-import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import playlist from "../../styles/Playlist.module.scss";
-import mood1 from '../../images/mood1.png';
 
 
-  const similarSearch = () => {
-    const dispatch = useDispatch();
-    const { query } = useRouter();
-    const playlistDetails = useSelector(state => state.user.playlist_details);
-    const [isLoading, setIsLoading] = useState(true);
-  
-    useEffect(() => {
-      if (query) {
-        dispatch(getPlaylistDetail(query.id))
-      }
-    }, []);
-  
-    useEffect(() => {
-      if (playlistDetails) {
-        setIsLoading(false)
-      }
-    }, [playlistDetails])
-
-  
+function similarSearch() {
   return (
     <div className={playlist.myPlaylistShow+' '+playlist.similarTrackDetail}>
       <div className={playlist.playlistBanner}>
@@ -223,10 +197,6 @@ import mood1 from '../../images/mood1.png';
         </div>
       </div>
       <div className="fixed-container">
-        {isLoading ? (
-          <InpageLoader />
-        ) : (
-          playlistDetails && <Tracks tracks={playlistDetails.tracks}/>)}
       </div>
     </div>
   );
