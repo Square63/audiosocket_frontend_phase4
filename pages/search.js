@@ -4,7 +4,6 @@ import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
 import AddToCartLicense from "../components/modals/AddToCartLicense";
 import AddToPlaylist from "../components/modals/AddToPlaylist";
-import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect, useContext} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, Card, DropdownButton, CloseButton } from "react-bootstrap";
 import Collapse from 'react-bootstrap/Collapse';
@@ -26,6 +25,7 @@ import { removeFromFavorites } from '../redux/actions/trackActions';
 import { getSegmentTracksFromAIMS } from '../redux/actions/trackActions';
 import { attachToMedia } from '../redux/actions/trackActions';
 import {AuthContext} from "../store/authContext";
+import Notiflix from "notiflix";
 
 
 import $ from 'jquery';
@@ -173,7 +173,7 @@ function Search(props) {
       setShowDownModal(true)
     }
     else {
-      alert("You must be logged in to be able to add a track to cart.")
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to cart.', 'Ok');
     }
   }
 
@@ -244,7 +244,7 @@ function Search(props) {
       setShowAddToPlaylistModal(true)
     }
     else {
-      alert("You must be logged in to be able to add a track to your playlists.")
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to your playlists.', 'Ok');
     }
   }
 
@@ -359,7 +359,6 @@ function Search(props) {
       }
     }
     else {
-      // alert("You must be logged in to be able to add a track to your favorites.")
       setShowSidebar(true)
       setSidebarType("login")
     }
