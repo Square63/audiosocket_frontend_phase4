@@ -68,7 +68,7 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
     try {
       const {data} = await axios.request({
         method: "post",
-        url: `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/${trackId}/similar_tracks`,
+        url: `${BASE_URL}/api/v1/consumer/tracks/${trackId}/similar_tracks`,
       })
       dispatch({
         type: ALL_TRACKS_SUCCESS,
@@ -87,7 +87,7 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
     try {
       const {data} = await axios.request({
         method: "post",
-        url: "https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/upload_track_search",
+        url: "${BASE_URL}/api/v1/consumer/tracks/upload_track_search",
         data: formData
       })
       dispatch({
@@ -107,7 +107,7 @@ export const getArtistTracks = (artistId) => async (dispatch) => {
   try {
     const { data } = await axios.request({
       method: "get",
-      url: `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/tracks/artist_tracks?id=${artistId}`
+      url: `${BASE_URL}/api/v1/consumer/tracks/artist_tracks?id=${artistId}`
     })
     dispatch({
       type: ARTIST_TRACKS_SUCCESS,

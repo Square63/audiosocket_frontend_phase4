@@ -295,7 +295,7 @@ function MyPlaylistTracks(props) {
                               {track.mediable.bpm}
                             </div>
                             <div className="rowParticipant controls">
-                            <OverlayTrigger overlay={<Tooltip>Remove From Playlist</Tooltip>}>
+                            {props.showDeleteButton && <OverlayTrigger overlay={<Tooltip>Remove From Playlist</Tooltip>}>
                                 <a onClick={() => props.removeTrackFromPlaylist(track.id)}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <g id="icon-trash" transform="translate(-278 -3294)">
@@ -308,7 +308,7 @@ function MyPlaylistTracks(props) {
                                     </g>
                                   </svg>
                                 </a>
-                              </OverlayTrigger>
+                              </OverlayTrigger>}
                               <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
                                 <a onClick={() => props.handleSimilarSearch(track.mediable.title, track.mediable.id)}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="26.536" height="26.536" viewBox="0 0 26.536 26.536">
