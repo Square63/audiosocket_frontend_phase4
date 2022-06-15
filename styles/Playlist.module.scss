@@ -199,6 +199,9 @@
             font-size: 13px;
             line-height: 1.23;
             letter-spacing: -0.33px;
+            &:nth-child(2) div {
+              margin-block: 5px 5px;
+            }
           }
         }
         .cardBtnWrapper {
@@ -300,6 +303,9 @@
         }
       }
     }
+    :global(.tab-content) {
+      padding-block: 20px;
+    }
   }
 }
 
@@ -375,6 +381,81 @@
 }
 
 
+/********************** Similar Track Detail **********************/
+.similarTrackDetail.myPlaylistShow {
+  .playlistBanner {
+    background-color: Transparent;
+    min-height: auto;
+    .playlistInfo {
+      .playlistCard {
+        padding-block: 47px;
+        padding-inline: 0;
+        border-radius: 0;
+        background-color: transparent;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        .imgSec {
+          :global(.tileOverlay) {
+            width: 100%;
+            @include flexbox;
+            @include justify-content(center);
+            @include align-items(center);
+            cursor: default;
+            :global(.playPauseBtn) {
+              width: 30px !important;
+              margin: 0;
+              cursor: pointer;
+            }
+            &:after {
+              opacity: 0.2;
+            }
+          }
+           &:after {
+            content: none;
+           }
+        }
+        .contentSec {
+          @include flex(1);
+          .aboutPlaylist {
+            color: $headerColor;
+            .playlistOwner {
+              @include flexbox;
+              @include justify-content(space-between);
+              @include align-items(center);
+              .PlaylistName {
+                font-size: 0;
+                h3 {
+                  font-size: 26px;
+                  font-weight: 400;
+                  line-height: normal;
+                  letter-spacing: -0.65px;
+                  color: $headerColor;
+                  margin-bottom: 5px;
+                }
+                .artistName {
+                  font-size: 13px;
+                  line-height: normal;
+                  letter-spacing: -0.33px;
+                }
+              }
+              :global(.singleTrackDetail) {
+                max-width: 150px;
+                min-width: 150px;
+              }
+            }
+            .waveformBlock {
+              width: clamp(320px, 35vw, 519px);
+            }
+          }
+          .cardBtnWrapper {
+            justify-content: flex-start;
+          }
+        }
+      }
+    } 
+  }
+}
 
 
 /********************** Responsive Behaviour *****************/ 
@@ -451,8 +532,9 @@
           @include flex-direction(column);
           width: 100%;
           height: auto;
-          margin: 20px 0;
+          margin: 0;
           text-align: center;
+          padding-block: 30px;
           gap: 25px;
           .imgSec {
             margin-inline: auto;
@@ -463,6 +545,80 @@
         }
       }
     }
+  }
+
+  .myPlaylistShow {
+    .playlistBanner {
+      margin-bottom: 30px;
+    }
+  }
+
+  .creatorKits {
+    .playlistBanner {
+      padding-bottom: 0;
+      .playlistInfo {
+        .playlistCard {
+          padding-bottom: 30px;
+        }
+      }
+    }
+    .creatorKitsContent {
+      :global(.nav-tabs) {
+        margin-inline: -20px;
+        gap: 0;
+        margin-top: 0;
+        border-top: 1px solid $border-clr;
+        & > :global(.nav-item) {
+          @include flex(1);
+          text-align: center;
+          font-size: 18px;
+          border-right: 1px solid $border-clr;
+          padding: 20px 10px;
+          &:last-child {
+            border: 0;
+          }
+          &::before {
+            content: '';
+            width: 27px;
+            height: 27px;
+            background-size: 27px;
+            margin-right: 7px;
+          }
+          &::after {
+            content: '';
+            background-size: 17px;
+          }
+        }
+      }
+    }
+  }
+
+  .similarTrackDetail.myPlaylistShow {
+    .playlistBanner {
+      .playlistInfo {
+        .playlistCard {
+          .contentSec {
+            .aboutPlaylist {
+              .playlistOwner {
+                @include flex-direction(column);
+                :global(.singleTrackDetail) {
+                  margin-block: 25px 10px;
+                  max-width: 180px;
+                  min-width: 180px;
+                }
+              }
+            }
+            .cardBtnWrapper {
+              @include justify-content(center);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .waveformBlock {
+    display: none;
   }
 }
 
@@ -511,6 +667,20 @@
                 margin: 0;
               }
             }
+          }
+        }
+      }
+    }
+  }
+
+  .creatorKits {
+    .creatorKitsContent {
+      :global(.nav-tabs) {
+        & > :global(.nav-item) {
+          font-size: 4.2vw;
+          letter-spacing: normal;
+          &::before {
+            content: none;
           }
         }
       }

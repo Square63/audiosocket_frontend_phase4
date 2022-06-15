@@ -752,6 +752,15 @@
               }
             }
           }
+          &:global(.billing) {
+            a {
+              svg {
+                width: 28px;
+                height: 28px;
+              }
+            }
+          }
+          
           
           &:global(.selected),
           &:hover {
@@ -760,7 +769,7 @@
                 bottom: 1px;
               }
               svg {
-                path,line, circle, .rectLicense {
+                path,line, circle, .rectLicense, .reactBilling {
                   stroke: $green-light;
                   background-color: aqua;
                 }
