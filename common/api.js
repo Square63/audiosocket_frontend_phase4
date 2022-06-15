@@ -1,5 +1,5 @@
-// export const BASE_URL = "https://manage.audiosocket.com";
-export const BASE_URL = "https://artist-portal-backend-phase4.square63.net";
+export const BASE_URL = "https://manage.audiosocket.com";
+// export const BASE_URL = "https://artist-portal-backend-phase4.square63.net";
 export const TOAST_OPTIONS = {
   position: "top-center",
   autoClose: 5000,
