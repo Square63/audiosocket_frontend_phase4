@@ -2,19 +2,13 @@ import { useRouter } from "next/router";
 import { getCuratedPlaylistDetail, getCuratedPlaylistTracks, removeFromPlaylist } from "../../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, FormGroup, FormControl } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import MyPlaylistTracks from "../../../components/MyPlaylistTracks";
 import InpageLoader from '../../../components/InpageLoader';
 import Image from 'next/image';
 import Router from "next/router";
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import playlist from "../../../styles/Playlist.module.scss";
-import mood1 from '../../../images/mood1.png';
-import mood2 from '../../../images/mood2.png';
-import mood3 from '../../../images/mood3.jpg';
-import mood4 from '../../../images/mood4.jpg';
-import Sample1 from '../../../images/sample1.jpeg';
-import EditPlaylist from "../../../components/modals/EditPlaylist";
 import { duration } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
 import { TOAST_OPTIONS } from '../../../common/api';
@@ -70,9 +64,6 @@ const Details = () => {
     setIsLoading(false)
   }, [favoritesMessage])
 
-	const handleEditClose = (show) => {
-    setShowEditModal(show)
-  }
 
 	const handleLoading = () => {
     setLoading(true)
@@ -130,7 +121,6 @@ const Details = () => {
       }
     }
     else {
-      // alert("You must be logged in to be able to add a track to your favorites.")
       setShowSidebar(true)
       setSidebarType("login")
     }
@@ -172,12 +162,10 @@ const Details = () => {
       else {
         setIndex(index)
       }
-      // setShowAddToCartLicenseModal(true)
       setShowSidebar(true)
       setSidebarType("cart")
     }
     else {
-      // alert("You must be logged in to be able to add a track to cart.")
       setShowSidebar(true)
       setSidebarType("login")
     }
@@ -298,10 +286,9 @@ const Details = () => {
 						</div>
 					</div>
 					<div className="fixed-container">
-						{curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal}/> : "No tracks found"}
+						{curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} curated={true}/> : <InpageLoader />}
 					</div>
 					
-					{(showEditModal && curatedPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} curatedPlaylistDetail={curatedPlaylistDetail} curatedPlaylistTracks={curatedPlaylistTracks} />}
 					{curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistTracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={curatedPlaylistTracks[index]} type="track"/> }
       		<DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
 					{curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={curatedPlaylistTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
