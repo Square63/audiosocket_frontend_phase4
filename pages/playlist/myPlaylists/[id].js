@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { getMyPlaylistDetail, getMyPlaylistTracks, getMyPlaylistArtists, removeFromPlaylist } from "../../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, FormGroup, FormControl } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import MyPlaylistTracks from "../../../components/MyPlaylistTracks";
 import InpageLoader from '../../../components/InpageLoader';
 import Image from 'next/image';
@@ -11,11 +11,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import playlist from "../../../styles/Playlist.module.scss";
 import mood1 from '../../../images/mood1.png';
 import mood2 from '../../../images/mood2.png';
-import mood3 from '../../../images/mood3.jpg';
-import mood4 from '../../../images/mood4.jpg';
-import Sample1 from '../../../images/sample1.jpeg';
 import EditPlaylist from "../../../components/modals/EditPlaylist";
-import { duration } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
 import { TOAST_OPTIONS } from '../../../common/api';
 import DownloadTrack from '../../../components/modals/DownloadTrack'
@@ -23,6 +19,7 @@ import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicens
 import Sidebar from '../../../components/Sidebar'
 import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
+import Notiflix from "notiflix";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -141,7 +138,6 @@ const Details = () => {
       }
     }
     else {
-      // alert("You must be logged in to be able to add a track to your favorites.")
       setShowSidebar(true)
       setSidebarType("login")
     }
@@ -158,7 +154,7 @@ const Details = () => {
       setShowDownModal(true)
     }
     else {
-      alert("You must be logged in to be able to add a track to cart.")
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to cart.', 'Ok');
     }
   }
 
@@ -183,12 +179,10 @@ const Details = () => {
       else {
         setIndex(index)
       }
-      // setShowAddToCartLicenseModal(true)
       setShowSidebar(true)
       setSidebarType("cart")
     }
     else {
-      // alert("You must be logged in to be able to add a track to cart.")
       setShowSidebar(true)
       setSidebarType("login")
     }
