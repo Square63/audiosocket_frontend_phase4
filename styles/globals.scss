@@ -5107,6 +5107,44 @@ input[type=file]::file-selector-button {
       }
     }
   }
+
+  /******************** Checkout *******************/
+  .trackListingBlock {
+    .trackRowWrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+      .trackRow {
+        width: intrinsic;           /* Safari/WebKit uses a non-standard name */
+        width: -moz-max-content;    /* Firefox/Gecko */
+        width: -webkit-max-content;
+        flex-wrap: nowrap;
+        padding-block: 10px;
+        .rowParticipant {
+          &.artistName {
+            min-width: 300px;
+          }
+          &.duration {
+            min-width: 100px;
+          }
+          &.controls {
+            min-width: 100px;
+          }
+          &.price {
+            min-width: 100px;
+          }
+          &.licenseType {
+            min-width: 250px;
+          }
+        }
+      }
+    }
+    .addTitle {
+      @include flex-direction(column-reverse);
+      gap: 30px;
+    }
+  }
 }
 
 @media #{$tab-portrait} {
@@ -5462,7 +5500,7 @@ input[type=file]::file-selector-button {
     }
   }
   .trackRowWrapper {
-    &:not(.userListingWrapper .trackRowWrapper) {
+    &:not(.userListingWrapper .trackRowWrapper, .trackListingBlock .trackRowWrapper) {
       margin-inline: -20px;
       margin-block-start: 28px;
       .trackRow {
@@ -5570,6 +5608,7 @@ input[type=file]::file-selector-button {
       }
     }
   }
+
   header {
     .custom-nav {
       min-height: 58px;
@@ -5762,6 +5801,27 @@ input[type=file]::file-selector-button {
 
       .inPricingWay {
         margin-inline: -20px !important;
+      }
+    }
+  }
+
+  /******************** Checkout *******************/
+  .trackListingBlock {
+    .addTitle {
+      @include flex-direction(column-reverse);
+      gap: 30px;
+      .boxWithShadow {
+        padding: 20px 15px 17px;
+        form {
+          .form-group {
+            .toogleSwitch {
+              @include flexbox;
+            }
+            button {
+              font-size: 14px;
+            }
+          }
+        }
       }
     }
   }
