@@ -43,7 +43,7 @@ function Tracks(props) {
 
   useEffect(() => {
     let isMounted = true;
-    if (infifniteLoop) {
+    if (props.tracksMeta.total_track_count !== tracks.length) {
       setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)
     } else {
@@ -67,14 +67,8 @@ function Tracks(props) {
 
   const fetchData = () => {
     let query = document.getElementById("searchField").value
-    if (query === "") {
-      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
-      // setTracks(tracks => [...tracks, ...props.tracks])
-      setInfiniteLoop(true)
-    } else {
-      setTracks(tracks=> props.tracks)
-      setInfiniteLoop(false)
-    }
+    dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
+    setInfiniteLoop(true)
   }
 
   const options = [
