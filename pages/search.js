@@ -126,15 +126,9 @@ function Search(props) {
   }, [favoritesMessage])
 
   useEffect(() => {
-    window.analytics.identify("Landed on search", {
-
-    username: "ammanda",
-
-    email: "ammanda.asif@square63.org",
-
-    });
     if (tracks.length > 0) {
-      setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
+      if (updatedTracks[0]?.id != tracks[0].id)
+        setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
     }
 
     let isMounted = true;
@@ -145,8 +139,7 @@ function Search(props) {
       isMounted = false;
     };
 
-
-  }, [tracks, favoritesMessage]);
+  }, [tracks]);
 
   const handleLoading = () => {
     setLoading(true)
@@ -160,12 +153,7 @@ function Search(props) {
     if (localStorage.getItem("user")) {
       if (type == "track") {
         setAltVersionTrack(null)
-        if (index > 9) {
-          setIndex(index%10)
-        }
-        else {
-          setIndex(index)
-        }
+        setIndex(index)
       }
       else {
         setAltVersionTrack(index)
@@ -190,12 +178,7 @@ function Search(props) {
   }
 
   function showAddTrackToCartLicenseModal(index, type) {
-    if (index > 9) {
-      setIndex(index%10)
-    }
-    else {
-      setIndex(index)
-    }
+    setIndex(index)
     if (localStorage.getItem("user")) {
       if (type == "track") {
         setAltVersionTrack(null)
@@ -231,12 +214,7 @@ function Search(props) {
     if (localStorage.getItem("user")) {
       if (type == "track") {
         setAltVersionTrack(null)
-        if (index > 9) {
-          setIndex(index%10)
-        }
-        else {
-          setIndex(index)
-        }
+        setIndex(index)
       }
       else {
         setAltVersionTrack(index)

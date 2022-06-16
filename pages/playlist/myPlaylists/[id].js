@@ -44,7 +44,7 @@ const Details = () => {
   useEffect(() => {
     if (query) {
       dispatch(getMyPlaylistDetail(query.id))
-      dispatch(getMyPlaylistTracks(query.id))
+      dispatch(getMyPlaylistTracks(query.id, 1))
     }
   }, [showEditModal]);
 
@@ -313,7 +313,7 @@ const Details = () => {
             </div>
           </div>
           <div className="fixed-container">
-            {myPlaylistTracks ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true}/> : "No tracks found"}
+            {myPlaylistTracks ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} /> : <InpageLoader />}
           </div>
 
           <div className={playlist.artistTiles}>
@@ -327,8 +327,9 @@ const Details = () => {
                       <span className="tileOverlayText">
                         {artist.first_name + ' ' + artist.last_name}
                       </span>
-                    </a>
-                  ) : "No artists found"}
+                    </a>) :
+                    <InpageLoader />
+                  }
                 </div>
               </section>
             </div>
@@ -339,8 +340,6 @@ const Details = () => {
           {myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
           {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={myPlaylistTracks[index]} />}
         </div>
-
-
       </>
     )}
   </>
