@@ -5887,5 +5887,27 @@ input[type=file]::file-selector-button {
       }
     }
   }
+
+  .gCBtnWrapper {
+    @include flex-direction(column);
+    .btnMainLarge {
+      width: 100%;
+    }
+  }
+
+  /************* Download track license Modal *************/
+  .downloadTrackLicense {
+    .modal-dialog {
+      .modal-content {
+        padding: 20px 17px;
+        .modalPlansInfo {
+          @include flex-direction(column);
+          .discountOffer {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 
