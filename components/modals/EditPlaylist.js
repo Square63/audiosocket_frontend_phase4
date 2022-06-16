@@ -43,7 +43,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
     } else {
       await axios.request({
         headers: {
-          "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+          "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.9kL4HmyjCYJgdpBHX1g3JHAp235eKlLAO_vcPb4bYGk',
           "auth-token": userAuthToken
         },
         method: "patch",
@@ -81,7 +81,7 @@ function EditPlaylistModal({showModal = false, onCloseModal, loading, myPlaylist
     // const URL = url;
 		// await axios.request({
 		// 	headers: {
-		// 		"Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+		// 		"Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.9kL4HmyjCYJgdpBHX1g3JHAp235eKlLAO_vcPb4bYGk',
 		// 		"auth-token": userAuthToken
 		// 	},
 		// 	method: "patch",
