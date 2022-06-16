@@ -1,4 +1,4 @@
-import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
+import { Form, Button, Dropdown } from "react-bootstrap";
 import Tooltip from 'react-bootstrap/Tooltip';
 import InpageLoader from "./InpageLoader";
 import {useState, useEffect, useContext} from "react";
@@ -7,14 +7,12 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from "react-redux";
-import { getTracks } from '../redux/actions/trackActions';
+import { getMyPlaylistTracks} from "../redux/actions/authActions";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
-import Collapse from 'react-bootstrap/Collapse';
-import Fade from 'react-bootstrap/Fade';
 import {AuthContext} from "../store/authContext";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useRouter } from "next/router";
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
@@ -27,6 +25,7 @@ const AltVersion = dynamic(
 
 function MyPlaylistTracks(props) {
   const dispatch = useDispatch();
+  const { query } = useRouter();
   const [tracks, setTracks] = useState([])
   const [infifniteLoop, setInfiniteLoop] = useState(false)
   const [sortBy, setSortBy] = useState("")
@@ -43,35 +42,18 @@ function MyPlaylistTracks(props) {
 
   useEffect(() => {
     let isMounted = true;
-    if (infifniteLoop) {
-      setTracks(tracks => [...tracks, ...props.tracks])
-      setInfiniteLoop(false)
-    } else {
-      setTracks(tracks=> props.tracks)
-    }
-
-    if (props.tracks.length < 10) {
-      sethasMore(false)
-    } else {
-      sethasMore(true)
-    }
+    setTracks(tracks => [...tracks, ...props.tracks])
+    setInfiniteLoop(false)
+    props.tracks.length < 10 ? sethasMore(false) : sethasMore(true)
 
     return () => {
       isMounted = false;
     };
-
-  },[props.tracks])
+  }, [props.tracks])
 
   const fetchData = () => {
-    let query = document.getElementById("searchField").value
-    if (query === "" && props.appliedFiltersList.length == 0) {
-      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length/10 + 1)));
-      // setTracks(tracks => [...tracks, ...props.tracks])
-      setInfiniteLoop(true)
-    } else {
-      setTracks(tracks=> props.tracks)
-      setInfiniteLoop(false)
-    }
+    dispatch(getMyPlaylistTracks(query.id, props.tracks.length/10 + 1))
+    setInfiniteLoop(true)
   }
 
   const options = [
@@ -83,6 +65,7 @@ function MyPlaylistTracks(props) {
   ]
 
   const handleSorting = (e, filters, sort_by, sort_dir) => {
+    setTracks([])
     e.preventDefault()
     setSortBy(sort_by)
     let dir = ""
@@ -101,19 +84,16 @@ function MyPlaylistTracks(props) {
       setSortDir(sort_dir)
       setBpmSortDir(sort_dir)
     }
-    let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), filters, sort_by, dir));
+
+    dispatch(getMyPlaylistTracks(query.id, 1))
   }
 
   const handleDropdownSorting = (sort_by, sort_dir) => {
+    setTracks([])
     setSortDir(sort_dir)
     setSortBy(sort_by)
-    let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir));
-  }
 
-  function query_type(query) {
-    return query.includes("https") ? "aims_search" : "local_search"
+    dispatch(getMyPlaylistTracks(query.id, 1))
   }
 
   function convertSecToMin(duration) {
@@ -206,7 +186,7 @@ function MyPlaylistTracks(props) {
         </div>
       </div>
       <div className="trackRowWrapper">
-        {props.tracks && props.tracks.length > 0 && 
+        {props.tracks && props.tracks.length > 0 &&
           <div className="trackRow headingRow">
             <div className="rowParticipant artistName" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}>
               Title / Artist
@@ -274,7 +254,7 @@ function MyPlaylistTracks(props) {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {props.tracks && props.tracks.length > 0 ? props.tracks.map((track,index)=> (
+                  {tracks && tracks.length > 0 ? tracks.map((track, index)=> (
                     track.mediable_type == "Track" && <Draggable key={track.mediable.title} draggableId={track.mediable.title} index={index}>
                       {(provided) => (
                         <div

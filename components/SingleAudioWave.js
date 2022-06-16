@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { Slider } from "react-semantic-ui-range";
-import { Segment, Grid, Label, Input } from 'semantic-ui-react';
-
-
+import InpageLoader from "./InpageLoader";
 
 const formWaveSurferOptions = (ref) => ({
   container: ref,
@@ -21,6 +18,7 @@ const formWaveSurferOptions = (ref) => ({
   barGap: 1,
   normalize: true,
   partialRender: true,
+  alt: true
 });
 
 export default function CustomAudioWave(props) {
@@ -29,6 +27,7 @@ export default function CustomAudioWave(props) {
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
   const [rowSeconds, setRowSeconds] = useState();
+  const [isLoadings, setIsLoadings] = useState(true);
   const url = props.track.mp3_file ? props.track.mp3_file : "./test.mp3"
 
   const settings = {
@@ -74,6 +73,10 @@ export default function CustomAudioWave(props) {
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
     wavesurfer.current.load(url);
+    wavesurfer.current.on('ready', function (e) {
+      if (wavesurfer.current.params.alt)
+        setIsLoadings(false);
+    });
   };
 
   useEffect(() => {
@@ -103,9 +106,12 @@ export default function CustomAudioWave(props) {
     <div className="versionTrackBody">
       <div className="versionTrackRow">
         <div className="filterVersion">
-          <div className="playPauseBtn" onClick={handlePlayPause}>
-            <span className={(playing) ? "play" : "pause"}></span>
-          </div>
+          {isLoadings ?
+            <InpageLoader /> :
+            <div className="playPauseBtn" onClick={handlePlayPause}>
+              <span className={(playing) ? "play" : "pause"}></span>
+            </div>
+          }
           <a href="" className="filterName">
             {props.track.title}
           </a>

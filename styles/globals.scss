@@ -2113,6 +2113,13 @@ hr {
           @include align-items(center);
           width: 100%;
 
+          .sk-fading-circle {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            margin: 0 15px 0 0;
+          }
+
           .playPauseBtn {
             margin-right: 22px;
           }

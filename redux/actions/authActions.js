@@ -547,14 +547,13 @@ export const getMyPlaylistDetail = (data) => async (dispatch) => {
   }
 };
 
-export const getMyPlaylistTracks = (data) => async (dispatch) => {
+export const getMyPlaylistTracks = (id, page) => async (dispatch) => {
   const formData = new FormData();
   formData.append('klass', "consumer_playlist")
-  let id = data;
   try {
     const { data } = await axios.request({
       method: "get",
-      url: `${BASE_URL}/api/v1/consumer/consumers_playlists/${id}/playlist_tracks?klass=consumer_playlist`,
+      url: `${BASE_URL}/api/v1/consumer/consumers_playlists/${id}/playlist_tracks?klass=consumer_playlist&page=${page}`,
       data: formData
     });
     dispatch({
