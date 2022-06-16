@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import DownloadTrack from "../../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../../components/modals/DownloadTrackLicense";
+import Notiflix from "notiflix";
 
 function Favorites() {
   const [type, setType] = useState('songs');
@@ -42,7 +43,7 @@ function Favorites() {
       setShowDownModal(true)
     }
     else {
-      alert("You must be logged in to be able to add a track to cart.")
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to cart.', 'Ok');
     }
   }
 

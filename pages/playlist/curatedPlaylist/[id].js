@@ -17,6 +17,7 @@ import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicens
 import Sidebar from '../../../components/Sidebar'
 import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
+import Notiflix from "notiflix";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -137,7 +138,7 @@ const Details = () => {
       setShowDownModal(true)
     }
     else {
-      alert("You must be logged in to be able to add a track to cart.")
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to cart.', 'Ok');
     }
   }
 
@@ -288,7 +289,7 @@ const Details = () => {
           <div className="fixed-container">
             {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false}/> : <InpageLoader />}
           </div>
-          
+
           {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistTracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={curatedPlaylistTracks[index]} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
           {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={curatedPlaylistTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}

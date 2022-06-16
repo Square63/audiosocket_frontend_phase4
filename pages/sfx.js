@@ -1,9 +1,6 @@
 import Alert from 'react-bootstrap/Alert';
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
-// import AddToCartLicense from "../components/modals/AddToCartLicense";
-import AddToPlaylist from "../components/modals/AddToPlaylist";
-import CustomAudioWave from "../components/CustomAudioWave";
 import {useState, useEffect} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -16,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from '../redux/store';
 import { getSfxFilters } from '../redux/actions/filterActions';
 import { getSfxes } from '../redux/actions/trackActions';
-import { getPlaylists } from '../redux/actions/playlistActions';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
 import { addToFavorites } from '../redux/actions/trackActions';
 import { removeFromFavorites } from '../redux/actions/trackActions';
@@ -28,6 +24,7 @@ import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../components/Sidebar';
+import Notiflix from "notiflix";
 
 function Sfx(props) {
 
@@ -159,7 +156,7 @@ function Sfx(props) {
       setShowDownModal(true)
     }
     else {
-      alert("You must be logged in to be able to add a track to cart.")
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to cart.', 'Ok');
     }
   }
 
@@ -188,7 +185,6 @@ function Sfx(props) {
       setSidebarType("cart")
     }
     else {
-      // alert("You must be logged in to be able to add a track to cart.")
       setShowSidebar(true)
       setSidebarType("login")
     }
@@ -209,7 +205,7 @@ function Sfx(props) {
       setShowAddToPlaylistModal(true)
     }
     else {
-      alert("You must be logged in to be able to add a track to your playlists.")
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to your playlists.', 'Ok');
     }
   }
 
@@ -307,7 +303,6 @@ function Sfx(props) {
       }
     }
     else {
-      // alert("You must be logged in to be able to add a track to your favorites.")
       setShowSidebar(true)
       setSidebarType("login")
     }
