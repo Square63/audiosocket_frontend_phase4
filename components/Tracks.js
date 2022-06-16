@@ -80,6 +80,7 @@ function Tracks(props) {
   ]
 
   const handleSorting = (e, filters, sort_by, sort_dir) => {
+    setTracks([])
     e.preventDefault()
     setSortBy(sort_by)
     let dir = ""
@@ -103,6 +104,7 @@ function Tracks(props) {
   }
 
   const handleDropdownSorting = (sort_by, sort_dir) => {
+    setTracks([])
     setSortDir(sort_dir)
     setSortBy(sort_by)
     let query = document.getElementById("searchField").value
