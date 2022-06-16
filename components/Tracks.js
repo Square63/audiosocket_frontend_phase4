@@ -69,14 +69,6 @@ function Tracks(props) {
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
     setInfiniteLoop(true)
-    if (query === "") {
-      // dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
-      // setTracks(tracks => [...tracks, ...props.tracks])
-      // setInfiniteLoop(true)
-    } else {
-      // setTracks(tracks=> props.tracks)
-      setInfiniteLoop(false)
-    }
   }
 
   const options = [
