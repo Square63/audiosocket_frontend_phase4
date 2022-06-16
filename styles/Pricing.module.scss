@@ -310,7 +310,7 @@
 
     .contentHeading {
       text-align: center;
-      margin-bottom: 80px;
+      margin-bottom: 60px;
       h1 {
         font-size: 36px;
         font-weight: 400;
@@ -1059,6 +1059,33 @@
             max-width: 100%;
             .planTypeDuration {
               font-size: 18px;
+            }
+          }
+        }
+      }
+      .choosePlans {
+        .pricingRightSec {
+          .planBillingWrapper {
+            .planSelect {
+              .planIndividual {
+                padding-inline: 15px;
+                .planType {
+                  span {
+                    font-size: 14px;
+                  }
+                  .planName {
+                    font-size: 16px;
+                  }
+                }
+                .planPriceDuration {
+                  .planAmount {
+                    font-size: 20px;
+                  }
+                  .planDuration {
+                    font-size: 16px;
+                  }
+                }
+              }
             }
           }
         }

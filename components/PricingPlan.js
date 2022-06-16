@@ -84,7 +84,7 @@ class Braintree extends React.Component {
       );
     } else {
       return (
-        <div className="container">
+        <div>
           {!this.props.paypal ?
           (
             <>
