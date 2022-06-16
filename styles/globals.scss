@@ -984,11 +984,11 @@ footer {
           background: url(../images/modalClose.svg) no-repeat;
           background-size: 16px;
           padding: 0;
+          min-width: 16px;
           width: 16px;
           height: 16px;
           opacity: 1;
-          margin: 0;
-
+          margin: 0 0 0 20px;
           span {
             display: none;
           }
