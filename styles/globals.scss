@@ -4622,6 +4622,62 @@ input[type=file]::file-selector-button {
   }
 }
 
+/******************** General Content ******************/
+.generalContent {
+  padding-block: 60px;
+  color: $headerColor;
+  /**** Note! (gC stands for General Content) ****/ 
+  .gCHeading {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.19;
+    letter-spacing: -0.9px;
+    margin-bottom: 30px;
+  }
+  .gCSubHeading {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.23;
+    letter-spacing: -0.65px;
+    margin-bottom: 12px;
+  }
+  p, 
+  ul li {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.4px;
+    margin-bottom: 28px;
+    strong {
+      font-weight: 500;
+    }
+    a {
+      color: #3b5998;
+      text-decoration: underline;
+    }
+  }
+  ul {
+    list-style: disc inside none;
+    padding-left: 15px;
+    margin-bottom: 28px;
+    li {
+      margin-bottom: 5px;
+    }
+  }
+
+  hr {
+    border-color: #707070;
+    margin-bottom: 28px;
+  }
+
+  .gCBtnWrapper {
+    @include flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+    gap: 20px;
+  }
+}
+
 /******************** Keyframe **************/
 
 @-webkit-keyframes fade-in {
@@ -5124,6 +5180,12 @@ input[type=file]::file-selector-button {
         .rowParticipant {
           &.artistName {
             min-width: 300px;
+            .aboutSong {
+              .songName,
+              .songArtist a {
+                max-width: 220px !important;
+              }
+            }
           }
           &.duration {
             min-width: 100px;
