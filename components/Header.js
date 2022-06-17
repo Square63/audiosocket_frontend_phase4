@@ -83,11 +83,13 @@ function Header() {
                       <span>Creator Kits</span>
                     </Link>
                   </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Link href="/playlist/myPlaylists">
-                      <span>My Playlists</span>
-                    </Link>
-                  </NavDropdown.Item>
+                  {isLoggedIn &&
+                    <NavDropdown.Item>
+                      <Link href="/playlist/myPlaylists">
+                        <span>My Playlists</span>
+                      </Link>
+                    </NavDropdown.Item>
+                  }
                 </NavDropdown>
               </div>
 
