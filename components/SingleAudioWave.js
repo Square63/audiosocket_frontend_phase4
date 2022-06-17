@@ -27,7 +27,7 @@ export default function CustomAudioWave(props) {
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
   const [rowSeconds, setRowSeconds] = useState();
-  const [isLoadings, setIsLoadings] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const url = props.track.mp3_file ? props.track.mp3_file : "./test.mp3"
 
   const settings = {
@@ -50,12 +50,6 @@ export default function CustomAudioWave(props) {
     } else if (wavesurfer.current && !props.footerPlaying && !playing){
       wavesurfer.current.pause();
     }
-    // wavesurfer.current.playPause();
-    // return () => {
-    //   if (wavesurfer.current) {
-    //     wavesurfer.current.destroy();
-    //   }
-    // };
   }, [playing, seconds, props.track, props.footerPlaying]);
 
   useEffect(() => {
@@ -75,7 +69,7 @@ export default function CustomAudioWave(props) {
     wavesurfer.current.load(url);
     wavesurfer.current.on('ready', function (e) {
       if (wavesurfer.current.params.alt)
-        setIsLoadings(false);
+        setIsLoading(false);
     });
   };
 
@@ -106,7 +100,7 @@ export default function CustomAudioWave(props) {
     <div className="versionTrackBody">
       <div className="versionTrackRow">
         <div className="filterVersion">
-          {isLoadings ?
+          {isLoading ?
             <InpageLoader /> :
             <div className="playPauseBtn" onClick={handlePlayPause}>
               <span className={(playing) ? "play" : "pause"}></span>
@@ -298,20 +292,6 @@ export default function CustomAudioWave(props) {
           </div>
         </div>
       </div>
-      {/* <div className="versionTrackRow">
-        <div className="filterVersion">
-          <div className="playPauseBtn" onClick={handlePlayPause}>
-            <span className={(playing || props.footerPlaying) ? "play" : "pause"}></span>
-          </div>
-          <a href="" className="filterName">
-            Backing Vocals
-          </a>
-          <div className="waveTime">
-            <div id="waveform" ref={waveformRef}  />
-            <div className="durationCount totalDuration">03:43</div>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

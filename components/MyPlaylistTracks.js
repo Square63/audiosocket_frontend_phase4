@@ -32,19 +32,16 @@ function MyPlaylistTracks(props) {
   const [sortDir, setSortDir] = useState("")
   const [titleSortDir, setTitleSortDir] = useState("")
   const [durationSortDir, setDurationSortDir] = useState("")
-  const [bpmSortDir, setBpmSortDir] = useState("")
-  const [open, setOpen] = useState(false);
-  const [playing, setPlaying] = useState(false);
+  const [bpmSortDir, setBpmSortDir] = useState("");
   const [hasMore, sethasMore] = useState(true)
   const [moodColumn, setMoodColumn] = useState("moods")
-  const authContext = useContext(AuthContext)
   const [trackList, setTrackList] = useState(props.tracks)
 
   useEffect(() => {
     let isMounted = true;
     setTracks(tracks => [...tracks, ...props.tracks])
     setInfiniteLoop(false)
-    props.tracks.length < 10 ? sethasMore(false) : sethasMore(true)
+    props.tracks.length < 10 ? sethasMore(false) : sethasMore(true) // this check will get changed according to metadata.
 
     return () => {
       isMounted = false;
