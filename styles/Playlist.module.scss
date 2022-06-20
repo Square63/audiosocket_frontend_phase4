@@ -97,9 +97,9 @@
       :global(.form-control) {
         background-color: $darkGrey;
         border: 1px solid $middleGrey;
-        color: $textClr;
+        color: $white;
         ::placeholder {
-          color: $textClr;
+          color: $white;
         }
         &:focus {
           box-shadow: none;
@@ -460,6 +460,13 @@
 
 /********************** Responsive Behaviour *****************/ 
 @media #{$desktop-start} {
+  .playlistWrapper {
+    .filterSearch {
+      :global(.filterBar) {
+        max-width: 500px;
+      }
+    }
+  }
   .curatedPlaylist {
     :global(.moodSlider) {
       :global(.testimonialContainer) {
@@ -491,6 +498,16 @@
 }
 
 @media #{$mid-point-tablet} {
+  .playlistWrapper {
+    .filterSearch {
+      @include flex-direction(column-reverse);
+      :global(.filterBar),
+      :global(.stickySearch) {
+        max-width: initial;
+        width: 100%;
+      }
+    }
+  }
   .myPlaylistShow,
   .creatorKits {
     .playlistBanner {
