@@ -2,7 +2,7 @@
 module.exports =
   {
     images: {
-      domains: ['https://artist-portal-backend-phase4.square63.net', 'https://manage.audiosocket.com'],
+      domains: ['artist-portal-backend-phase4.square63.net', 'manage.audiosocket.com'],
     },
     webpack(config, options) {
       config.module.rules.push({
