@@ -7,7 +7,6 @@ import {useRouter} from "next/router";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import { TOAST_OPTIONS } from '../common/api';
 import { TOAST_OPTIONS_ERROR } from '../common/api';
 import {AuthContext} from "../store/authContext";
