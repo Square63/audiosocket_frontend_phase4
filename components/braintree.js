@@ -11,6 +11,7 @@ import {AuthContext} from "../store/authContext";
 import router from "next/router";
 import { toast } from 'react-toastify';
 import { post } from "jquery";
+import { BASE_URL } from "../common/api";
 
 
 class Braintree extends React.Component {
@@ -32,7 +33,7 @@ class Braintree extends React.Component {
     const context = this.context;
     console.log("TOTAL PRICE", context.totalCartPrice)
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
-    let url = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/new?transaction_amount=${this.props.transactionAmount}`
+    let url = `${BASE_URL}/api/v1/consumer/checkout/new?transaction_amount=${this.props.transactionAmount}`
     const response = await fetch(url, {
       headers: {
         'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
@@ -53,7 +54,7 @@ class Braintree extends React.Component {
     });
 
     if (data.id) {
-      let generate_license_url = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/generate_licenses?order_id=${this.state.orderId}`
+      let generate_license_url = `${BASE_URL}/api/v1/consumer/checkout/generate_licenses?order_id=${this.state.orderId}`
       const response = await fetch(generate_license_url, {
         method: "POST",
         headers: {
@@ -90,7 +91,7 @@ class Braintree extends React.Component {
       if (!response.status === 200) {
         toast.error(response.data.message);
       } else {
-        let generate_license_redirect_url = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/checkout/generate_licenses?order_id=${response.data.order.id}`
+        let generate_license_redirect_url = `${BASE_URL}/api/v1/consumer/checkout/generate_licenses?order_id=${response.data.order.id}`
         const generate_license_response = await fetch(generate_license_redirect_url, {
           method: "POST",
           headers: {

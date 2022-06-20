@@ -1,5 +1,6 @@
 import React from "react";
 import DropIn from "braintree-web-drop-in-react";
+import { BASE_URL } from "../common/api";
 
 export default class Paypal extends React.Component {
   instance;
@@ -16,7 +17,7 @@ export default class Paypal extends React.Component {
     const transactionType = "subscription";
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
 
-    let url  = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/payments/new?plan_id=${planId}&transaction_type=${transactionType}`
+    let url  = `${BASE_URL}/api/v1/consumer/payments/new?plan_id=${planId}&transaction_type=${transactionType}`
     const response = await fetch(url, {
       headers: {
         'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',

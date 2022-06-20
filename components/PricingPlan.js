@@ -13,6 +13,7 @@ import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DropIn from "braintree-web-drop-in-react";
+import { BASE_URL } from "../common/api";
 
 class Braintree extends React.Component {
   instance;
@@ -29,7 +30,7 @@ class Braintree extends React.Component {
     const transactionType = "subscription";
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
 
-    let url  = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/payments/new?plan_id=${planId}&transaction_type=${transactionType}`
+    let url  = `${BASE_URL}/api/v1/consumer/payments/new?plan_id=${planId}&transaction_type=${transactionType}`
     const response = await fetch(url, {
       headers: {
         'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
