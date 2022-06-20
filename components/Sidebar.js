@@ -68,6 +68,9 @@ function Sidebar(props) {
       document.body.classList.add('overflow-hidden');
     else
       document.body.classList.remove('overflow-hidden');
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
   }, [showSignup, step, props.showSidebar]);
 
   const handleShowSignUp = (type) => {
