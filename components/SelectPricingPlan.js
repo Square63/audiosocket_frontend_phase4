@@ -129,28 +129,28 @@ function SelectPricingPlan(props) {
     if (localStorage.getItem("user")){
       setSubscriptionType(type)
       if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-        setPlan(subscriptionPlans[6])
-      }
-      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
         setPlan(subscriptionPlans[9])
       }
-      else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
         setPlan(subscriptionPlans[7])
       }
-      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+      else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
         setPlan(subscriptionPlans[8])
       }
+      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[6])
+      }
       else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
-        setPlan(subscriptionPlans[1])
+        setPlan(subscriptionPlans[11])
       }
       else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
-        setPlan(subscriptionPlans[4])
+        setPlan(subscriptionPlans[14])
       }
       else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[2])
+        setPlan(subscriptionPlans[12])
       }
       else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[3])
+        setPlan(subscriptionPlans[13])
       }
       setStep(1)
     } else {
@@ -264,131 +264,132 @@ function SelectPricingPlan(props) {
           </div>
         }
         {/* Plan types Code */}
-        { planType == "" && 
-          <div className={pricing.planTypes} >
-            <div className={pricing.pricingLeftSec}>
-              {
-                planType == "" ?
-                <p>What type of content are you creating?</p> :
-                planType != "Personal" && employeeNo == "" && webRights == "Web Only" ?
-                <p>What type of content are you creating?</p> :
-                planType != "Personal" && employeeNo == "" && webRights == "" ?
-                <p>What type of content are you creating?</p> :
-                ""
-              }
 
-            </div>
-            <div className={pricing.pricingRightSec}>
-              <ul className={pricing.plansList}>
-              {
-                step == 0 && planType == "" &&
-                  <>
-                  <li className={pricing.plansItem} onClick={() => handlePlan("Personal")}>
-                    <a href="javascript:void(0)">
-                      <span className={pricing.typeName}>
-                        <span className={pricing.typeHeading}>Personal</span>
-                        <span className={pricing.typeDesc}>Personal website, social media, student work</span>
-                      </span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-                        <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
-                          <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                        </g>
-                      </svg>
-                    </a>
-                  </li>
-                  <li className={pricing.plansItem} onClick={() => handlePlan("Commercial")}>
-                    <a href="javascript:void(0)">
-                      <span className={pricing.typeName}>
-                        <span className={pricing.typeHeading}>Commercial</span>
-                        <span className={pricing.typeDesc}>Work that can be used by a business or a client</span>
-                      </span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-                        <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
-                          <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                        </g>
-                      </svg>
-                    </a>
-                  </li>
-                  </>
-              }
-              {
-                planType == "Commercial" && webRights == "" &&
-                  <>
-                  <li className={pricing.plansItem} onClick={() => handleWebOrRights("Web Only")}>
-                    <a href="javascript:void(0)">
-                      <span className={pricing.typeName}>
-                        <span className={pricing.typeHeading}>Web Only</span>
-                        <span className={pricing.typeDesc}>Website, social media, web ads</span>
-                      </span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-                        <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
-                          <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                        </g>
-                      </svg>
-                    </a>
-                  </li>
-                  <li className={pricing.plansItem} onClick={() => handleWebOrRights("Expanded Rights")}>
-                    <a href="javascript:void(0)">
-                      <span className={pricing.typeName}>
-                        <span className={pricing.typeHeading}>Expanded Rights</span>
-                        <span className={pricing.typeDesc}>Film, TV, VOD, Games, Apps</span>
-                      </span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-                        <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
-                          <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                        </g>
-                      </svg>
-                    </a>
-                  </li>
-                  </>
-              }
-              {
-                planType == "Commercial" && webRights == "Web Only" && employeeNo == "" &&
-                  <>
-                  <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 50 Employees")}>
-                    <a href="javascript:void(0)">
-                      <span className={pricing.typeName}>
-                        <span className={pricing.typeHeading}>Under 50 Employees</span>
-                        <span className={pricing.typeDesc}>Commercial License</span>
-                      </span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-                        <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
-                          <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                        </g>
-                      </svg>
-                    </a>
-                  </li>
-                  <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 50 Employees")}>
-                    <a href="javascript:void(0)">
-                      <span className={pricing.typeName}>
-                        <span className={pricing.typeHeading}>Over 50 Employees</span>
-                        <span className={pricing.typeDesc}>Enterprise License</span>
-                      </span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-                        <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
-                          <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                        </g>
-                      </svg>
-                    </a>
-                  </li>
-                  </>
-              }
-              </ul>
-            </div>
+        <div className={pricing.planTypes} >
+          <div className={pricing.pricingLeftSec}>
+            {
+              planType == "" ?
+              <p>What type of content are you creating?</p> :
+              planType != "Personal" && employeeNo == "" && webRights == "Web Only" ?
+              <p>What type of content are you creating?</p> :
+              planType != "Personal" && employeeNo == "" && webRights == "" ?
+              <p>What type of content are you creating?</p> :
+              ""
+            }
+
           </div>
-        }
+          <div className={pricing.pricingRightSec}>
+            <ul className={pricing.plansList}>
+            {
+              step == 0 && planType == "" &&
+                <>
+                <li className={pricing.plansItem} onClick={() => handlePlan("Personal")}>
+                  <a href="javascript:void(0)">
+                    <span className={pricing.typeName}>
+                      <span className={pricing.typeHeading}>Personal</span>
+                      <span className={pricing.typeDesc}>Personal website, social media, student work</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+                      <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
+                        <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li className={pricing.plansItem} onClick={() => handlePlan("Commercial")}>
+                  <a href="javascript:void(0)">
+                    <span className={pricing.typeName}>
+                      <span className={pricing.typeHeading}>Commercial</span>
+                      <span className={pricing.typeDesc}>Work that can be used by a business or a client</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+                      <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
+                        <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                </>
+            }
+
+            {
+              planType == "Commercial" && webRights == "" &&
+                <>
+                <li className={pricing.plansItem} onClick={() => handleWebOrRights("Web Only")}>
+                  <a href="javascript:void(0)">
+                    <span className={pricing.typeName}>
+                      <span className={pricing.typeHeading}>Web Only</span>
+                      <span className={pricing.typeDesc}>Website, social media, web ads</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+                      <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
+                        <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li className={pricing.plansItem} onClick={() => handleWebOrRights("Expanded Rights")}>
+                  <a href="javascript:void(0)">
+                    <span className={pricing.typeName}>
+                      <span className={pricing.typeHeading}>Expanded Rights</span>
+                      <span className={pricing.typeDesc}>Film, TV, VOD, Games, Apps</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+                      <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
+                        <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                </>
+            }
+            {
+              planType == "Commercial" && webRights == "Web Only" && employeeNo == "" &&
+                <>
+                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Under 50 Employees")}>
+                  <a href="javascript:void(0)">
+                    <span className={pricing.typeName}>
+                      <span className={pricing.typeHeading}>Under 50 Employees</span>
+                      <span className={pricing.typeDesc}>Commercial License</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+                      <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
+                        <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li className={pricing.plansItem} onClick={() => handleEmplyeeNo("Over 50 Employees")}>
+                  <a href="javascript:void(0)">
+                    <span className={pricing.typeName}>
+                      <span className={pricing.typeHeading}>Over 50 Employees</span>
+                      <span className={pricing.typeDesc}>Enterprise License</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+                      <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
+                        <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                </>
+            }
+            </ul>
+          </div>
+        </div>
+
 
         {/* Enterprises Code */}
         { (employeeNo == "Over 50 Employees" || webRights == "Expanded Rights") &&

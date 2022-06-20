@@ -55,7 +55,6 @@ function SelectPlan() {
         </div>
       </div>
     </div>
-    
   );
 }
 

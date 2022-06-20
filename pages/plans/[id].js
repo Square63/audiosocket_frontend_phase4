@@ -103,7 +103,7 @@ class Braintree extends React.Component {
         </div>
       );
     } else {
-      
+
       return (
         <div className="container">
           <ToastContainer
@@ -210,7 +210,7 @@ class Braintree extends React.Component {
                           ],
                         }}
                         onInstance={(instance) => (this.instance = instance)}
-                        
+
                       />
                       <div className={signup.btnWrapper}>
                         <button className="btn btnMainLarge submit" onClick={this.purchase.bind(this, "paypal")}>Submit</button>
