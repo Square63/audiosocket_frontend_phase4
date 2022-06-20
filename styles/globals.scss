@@ -5336,6 +5336,12 @@ input[type=file]::file-selector-button {
 
           .headerAccount {
             margin-block: 10px 20px;
+            margin-inline: 0;
+            z-index: 999;
+            opacity: 1;
+          }
+          .menuDrop {
+            text-align: center;
           }
         }
 
