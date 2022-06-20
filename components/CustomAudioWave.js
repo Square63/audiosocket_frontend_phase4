@@ -77,11 +77,11 @@ export default function CustomAudioWave(props) {
 
     // create();
 
-    // return () => {
-    //   if (wavesurfer.current) {
-    //     wavesurfer.current.destroy();
-    //   }
-    // };
+    return () => {
+      if (wavesurfer.current) {
+        wavesurfer.current.pause();
+      }
+    };
   }, [seconds]);
 
   useEffect(() => {
@@ -128,6 +128,7 @@ export default function CustomAudioWave(props) {
   }, [playing]);
 
   function handlePlayPause() {
+    debugger
     setPlaying(!playing)
     wavesurfer.current.playPause();
   };
