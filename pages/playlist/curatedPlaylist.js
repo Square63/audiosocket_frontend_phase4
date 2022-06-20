@@ -65,15 +65,16 @@ function CuratedPlaylist() {
   const [selectedFilter, setSelectedFilter] = useState("");
   const [paginatedPlaylistsCount, setPaginatedPlaylistsCount] = useState(0);
   const [showFeatured, setShowFeatured] = useState(true);
-  
+
 
   const dispatch = useDispatch();
   const router = useRouter();
   const playlists = useSelector( state => state.user.curated_playlists)
   const featuredPlaylists = useSelector( state => state.user.featured_playlists)
-  const totalPlaylists = useSelector( state => state.user?.meta?.count)
+  const totalPlaylists = useSelector( state => state.user.meta)
   const filters = useSelector( state => state.user.curated_filters)
   const responseStatus = useSelector(state => state.user.responseStatus);
+  const [hasMore, sethasMore] = useState(true)
 
   useEffect(() => {
     if (responseStatus == 422) {
@@ -107,18 +108,15 @@ function CuratedPlaylist() {
   useEffect(() => {
     if (playlists) {
       setIsLoading(false)
+      setPaginatedPlaylists(paginatedPlaylists => [...paginatedPlaylists, ...playlists])
+      setPaginatedPlaylistsCount(paginatedPlaylistsCount + playlists.length)
     }
-    if (playlists && (playlists.length == 10 || paginatedPlaylists.length >= 10)) {
-      setPaginatedPlaylists(paginatedPlaylists=> [...paginatedPlaylists, ...playlists])
-      console.log("PAGINATED PLAYLISTS", paginatedPlaylists)
-    } else if (playlists) {
-      setPaginatedPlaylists(playlists);
-    }
-    if (playlists?.length > 0) {
-      setPaginatedPlaylistsCount(paginatedPlaylistsCount+playlists.length)
-    }
-
   }, [playlists]);
+
+  useEffect(() => {
+    if (totalPlaylists && (paginatedPlaylistsCount >= totalPlaylists.count))
+      sethasMore(false)
+  }, [paginatedPlaylistsCount]);
 
   console.log("Curated Playlists", playlists)
 
@@ -138,7 +136,6 @@ function CuratedPlaylist() {
   }
 
   const handlePageNum = (e) => {
-    setIsLoading(true)
     setPageNum(pageNum + 1)
   }
 
@@ -203,7 +200,7 @@ function CuratedPlaylist() {
             </Form>
           </div>
 
-          {showFeatured && 
+          {showFeatured &&
             <section className="moodSlider">
               <div className="testimonialContainer">
                 <h2 className={playlist.sectionHeading}>
@@ -228,21 +225,28 @@ function CuratedPlaylist() {
             <h2 className={playlist.sectionHeading}>
               All playlists
             </h2>
-            <div className="tilesWrapper">
-              {paginatedPlaylists &&
-                paginatedPlaylists.map((playlist,index)=> {
-                  return(
-                    <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
-                      <a key={index} className="tileOverlay">
-                        {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
-                        <span className="tileOverlayText">{playlist.name}</span>
-                      </a>
-                    </Link>
-                    )
-                  })}
-            </div>
+            <InfiniteScroll
+              dataLength={paginatedPlaylists?.length}
+              next={handlePageNum}
+              hasMore={hasMore}
+              endMessage={<h4>Nothing more to show</h4>}
+            >
+              <div className="tilesWrapper">
+                {paginatedPlaylists &&
+                  paginatedPlaylists.map((playlist,index)=> {
+                    return(
+                      <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
+                        <a key={index} className="tileOverlay">
+                          {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                          <span className="tileOverlayText">{playlist.name}</span>
+                        </a>
+                      </Link>
+                      )
+                    })}
+              </div>
+            </InfiniteScroll>
             <div className={playlist.btnWrapper}>
-              {(totalPlaylists != paginatedPlaylistsCount) ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
+              {hasMore ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
             </div>
           </section>
         </div>
