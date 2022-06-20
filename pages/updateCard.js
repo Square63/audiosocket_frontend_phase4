@@ -29,7 +29,7 @@ class Braintree extends React.Component {
     const transactionType = "subscription";
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
 
-    let url  = `https://artist-portal-backend-phase4.square63.net/api/v1/consumer/payments/new?plan_id=${planId}&transaction_type=${transactionType}`
+    let url  = `${BASE_URL}/api/v1/consumer/payments/new?plan_id=${planId}&transaction_type=${transactionType}`
     const response = await fetch(url, {
       headers: {
         'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
@@ -56,7 +56,7 @@ class Braintree extends React.Component {
     const { nonce } = await this.instance.tokenize()
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
     await axios.patch(
-      "https://artist-portal-backend-phase4.square63.net/api/v1/consumer/payment_method", { nonce },
+      `${BASE_URL}/api/v1/consumer/payment_method`, { nonce },
       {
         headers: {
           'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
