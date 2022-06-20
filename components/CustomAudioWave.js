@@ -75,8 +75,6 @@ export default function CustomAudioWave(props) {
       console.log("Inside ELSEIF")
     }
 
-    // create();
-
     return () => {
       if (wavesurfer.current) {
         wavesurfer.current.pause();
@@ -128,7 +126,6 @@ export default function CustomAudioWave(props) {
   }, [playing]);
 
   function handlePlayPause() {
-    debugger
     setPlaying(!playing)
     wavesurfer.current.playPause();
   };
