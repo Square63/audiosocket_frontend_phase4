@@ -100,35 +100,35 @@ function Sidebar(props) {
     setSubscriptionType(type)
     let planId = null
     if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[5])
-      planId = 6
+      setPlan(subscriptionPlans[9])
+      planId = 18
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[8])
-      planId = 9
+      setPlan(subscriptionPlans[7])
+      planId = 16
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[7])
-      planId = 8
+      setPlan(subscriptionPlans[8])
+      planId = 17
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
       setPlan(subscriptionPlans[6])
-      planId = 7
+      planId = 15
     }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[0])
+    else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
+      setPlan(subscriptionPlans[11])
       planId = 1
     }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[3])
+    else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
+      setPlan(subscriptionPlans[14])
       planId = 4
     }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[1])
+    else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[12])
       planId = 2
     }
-    else if (planType == "Commercial" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[2])
+    else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music + SFX") {
+      setPlan(subscriptionPlans[13])
       planId = 3
     }
     setStep(1)
@@ -624,7 +624,7 @@ function Sidebar(props) {
                                     <p className={pricing.planName}>Music Only</p>
                                   </div>
                                   <div className={pricing.planPriceDuration}>
-                                    <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 120 : 10}</span>
+                                    <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 10 : 15}</span>
                                     <span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                                   </div>
                                 </div>
@@ -635,7 +635,7 @@ function Sidebar(props) {
                                     <p className={pricing.planName}>Music + SFX</p>
                                   </div>
                                   <div className={pricing.planPriceDuration}>
-                                    <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 199 : 16.58}</span>
+                                    <span className={pricing.planAmount}>${personalMonthlyAnnual == "Annually" ? 16.58 : 25}</span>
                                     <span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                                   </div>
                                 </div>
@@ -697,9 +697,9 @@ function Sidebar(props) {
                               <div className="billingFrequency">
                                 <span>Billing Frequency</span>
                                 <div className="toggleButton">
-                                  <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked={personalMonthlyAnnual == "Annually" ? true : false} onClick={()=> handlePersonalMonthlyAnnual("Annually")}/>
+                                <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked={commercialMonthlyAnnual == "Annually" ? true : false} onClick={() => handleCommercialMonthlyAnnual("Annually")}/>
                                   <label htmlFor="toggle-on" className="movingBtn">Annually</label>
-                                  <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" checked={personalMonthlyAnnual == "Annually" ? false : true} onClick={()=> handlePersonalMonthlyAnnual("Monthly")}/>
+                                <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" checked={commercialMonthlyAnnual == "Annually" ? false : true} onClick={() => handleCommercialMonthlyAnnual("Monthly")}/>
                                   <label htmlFor="toggle-off" className="movingBtn">Monthly</label>
                                 </div>
                                 <em>Save 44% with an annual plan</em>
@@ -712,11 +712,11 @@ function Sidebar(props) {
                                     <p className={pricing.planName}>Music Only</p>
                                   </div>
                                   <div className={pricing.planPriceDuration}>
-                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 399 : 59}</span>
+                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 33.25 : 59}</span>
                                     <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                                   </div>
                                 </div>
-																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$33.25 / Month" : ""}</strong></small>
+																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$399 / Year" : ""}</strong></small>
 
                                 <div className={pricing.planIndividual} onClick={() => handleSubscriptionType("Music + SFX")}>
                                   <div className={pricing.planType}>
@@ -724,11 +724,11 @@ function Sidebar(props) {
                                     <p className={pricing.planName}>Music + SFX</p>
                                   </div>
                                   <div className={pricing.planPriceDuration}>
-                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 549 : 72}</span>
+                                    <span className={pricing.planAmount}>${commercialMonthlyAnnual == "Annually" ? 45.75 : 72}</span>
                                     <span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "/Year" : "/Month"}<sup>*</sup></span>
                                   </div>
                                 </div>
-																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$45.75 / Month" : ""}</strong></small>
+																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$549 / Year" : ""}</strong></small>
 																<br/>
                                 <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
                               </div>

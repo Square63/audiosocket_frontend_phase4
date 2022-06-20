@@ -53,7 +53,6 @@ function SelectPlan() {
         <SelectPricingPlan data={handleSteps} display={true}></SelectPricingPlan>
       </div>
     </div>
-    
   );
 }
 
