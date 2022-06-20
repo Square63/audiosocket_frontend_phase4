@@ -211,7 +211,7 @@ function CuratedPlaylist() {
                     <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
                       <a key={index} className="tileOverlay">
                         <div key={playlist} className="moodSlide">
-                          {/* {playlist.playlist_image && <Image src={playlist.src} alt="Mood" className="moodImage"></Image>} */}
+                          {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="moodImage" layout="fill"></Image>}
                           <span className="moodOverlayText">{playlist.name}</span>
                         </div>
                       </a>
