@@ -2246,7 +2246,7 @@ hr {
   cursor: default;
 
   &.artistName {
-    min-width: 22%;
+    min-width: 26%;
     @include flexbox;
     @include justify-content(flex-start);
     @include align-items(center);
@@ -2271,7 +2271,7 @@ hr {
           color: $headerColor;
           text-transform: capitalize;
           margin-right: 5px;
-          max-width: 150px;
+          max-width: 220px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -2425,6 +2425,10 @@ hr {
         }
       }
     }
+  }
+
+  &.controls {
+    min-width: 16%;
   }
 }
 /****************** Row participant End ****************/
