@@ -249,7 +249,7 @@ const Details = () => {
             <div className="themeBreadcrumb">
               <div className="fixed-container">
                 <Breadcrumb>
-                  <Breadcrumb.Item href="#">My Playlists</Breadcrumb.Item>
+                  <Breadcrumb.Item href="/playlist/myPlaylists">My Playlists</Breadcrumb.Item>
                   <Breadcrumb.Item active>{myPlaylistDetail && myPlaylistDetail.name}</Breadcrumb.Item>
                 </Breadcrumb>
               </div>
@@ -313,26 +313,31 @@ const Details = () => {
             </div>
           </div>
           <div className="fixed-container">
-            {myPlaylistTracks ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} /> : <InpageLoader />}
-          </div>
-
-          <div className={playlist.artistTiles}>
-            <div className="fixed-container">
-              <h3>Artists On This Playlist</h3>
-              <section className={playlist.myPlaylists}>
-                <div className="tilesWrapper">
-                  {updatedArtists && updatedArtists.length > 0 ? updatedArtists.map((artist, index) =>
-                    <a key={index} href="javascript:void(0)" className="tileOverlay">
-                      <Image src={index > 0 ? mood1 : mood2 } alt="Mood" className="tilesImg"></Image>
-                      <span className="tileOverlayText">
-                        {artist.first_name + ' ' + artist.last_name}
-                      </span>
-                    </a>) :
-                    <InpageLoader />
+            {myPlaylistTracks ?
+              <>
+                <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} />
+                <div className={playlist.artistTiles}>
+                  <h3>Artists On This Playlist</h3>
+                  {updatedArtists && updatedArtists.length == 0 ?
+                    <center>No Artist Found</center> :
+                    <section className={playlist.myPlaylists}>
+                      <div className="tilesWrapper">
+                        {updatedArtists.length > 0 && updatedArtists.map((artist, index) =>
+                          <a key={index} href="javascript:void(0)" className="tileOverlay">
+                            <Image src={index > 0 ? mood1 : mood2} alt="Mood" className="tilesImg"></Image>
+                            <span className="tileOverlayText">
+                              {artist.first_name + ' ' + artist.last_name}
+                            </span>
+                          </a>)
+                        }
+                      </div>
+                    </section>
                   }
                 </div>
-              </section>
-            </div>
+              </>
+              :
+              <InpageLoader />
+            }
           </div>
           {(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} myPlaylistTracks={myPlaylistTracks} />}
           {myPlaylistDetail && myPlaylistTracks && myPlaylistTracks.playlist_tracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistTracks.playlist_tracks[index]} type="track"/> }

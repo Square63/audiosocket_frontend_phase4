@@ -233,7 +233,7 @@ const Details = () => {
             <div className="themeBreadcrumb">
               <div className="fixed-container">
                 <Breadcrumb>
-                  <Breadcrumb.Item href="#">Curated Playlists</Breadcrumb.Item>
+                  <Breadcrumb.Item href="/playlist/curatedPlaylist">Curated Playlists</Breadcrumb.Item>
                   <Breadcrumb.Item active>{curatedPlaylistDetail && curatedPlaylistDetail.name}</Breadcrumb.Item>
                 </Breadcrumb>
               </div>

@@ -75,13 +75,11 @@ export default function CustomAudioWave(props) {
       console.log("Inside ELSEIF")
     }
 
-    // create();
-
-    // return () => {
-    //   if (wavesurfer.current) {
-    //     wavesurfer.current.destroy();
-    //   }
-    // };
+    return () => {
+      if (wavesurfer.current) {
+        wavesurfer.current.pause();
+      }
+    };
   }, [seconds]);
 
   useEffect(() => {
