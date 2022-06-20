@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
 import cardServices from '../images/cardServices.svg';
 import InpageLoader from '../components/InpageLoader';
-import BASE_URL from '../common/api'
+import { BASE_URL } from '../common/api'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
