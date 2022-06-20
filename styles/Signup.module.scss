@@ -588,3 +588,37 @@
     }
   }
 }
+
+@media #{$phone-portrait} {
+  .signUpInner {
+      :global(.pricingwrapperGlobal) {
+        :global(.pricingContentGlobal) {
+        padding-inline: 20px;
+      }
+    }
+  }
+  
+  .signupWrapper {
+    .formwrapper {
+      padding-inline: 15px;
+    } 
+  }
+  .steps {
+    ul {
+      @include flex-direction(column);
+      gap: 7px;
+      li {
+        background-color: $grey;
+        flex: 1 1 100%;
+        padding: 18px 40px 15px 15px;
+        height: auto;
+        line-height: normal;
+        font-weight: 600;
+        text-align: left;
+        &:after {
+          content: none
+        }
+      }
+    }
+  }
+}

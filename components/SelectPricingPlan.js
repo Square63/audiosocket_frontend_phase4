@@ -220,8 +220,8 @@ function SelectPricingPlan(props) {
   }, [subscriptionType]);
 
   return (
-    <div className={pricing.pricingWrapper}>
-      <div className={pricing.priceContentContainer}>
+    <div className={pricing.pricingWrapper+' pricingwrapperGlobal'}>
+      <div className={pricing.priceContentContainer+' pricingContentGlobal'}>
         <ToastContainer
           position="top-center"
           autoClose={10000}

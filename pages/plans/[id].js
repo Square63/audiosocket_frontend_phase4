@@ -105,7 +105,7 @@ class Braintree extends React.Component {
     } else {
       
       return (
-        <div className="container">
+        <div>
           <ToastContainer
             position="top-center"
             autoClose={10000}
