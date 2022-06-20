@@ -82,7 +82,7 @@ function Licenses() {
                           </div>
                           <div className="songArtist">
                             <a href="" className="noTextLine">
-                              Justin G. Marcellus Abady
+                              {consumerLicense.mediable.artist_name}
                             </a>
                           </div>
                         </div>
@@ -101,7 +101,7 @@ function Licenses() {
                         </a>
                       </div>
                       <div className={user.purchaseDate + ' rowParticipant'}>
-                        {new Date(consumerLicense.license.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' })}
+                        {consumerLicense.license_purchased_date.slice(0, -5)}
                       </div>
                       <div className="rowParticipant controls">
                         <OverlayTrigger overlay={<Tooltip>Download</Tooltip>}>
