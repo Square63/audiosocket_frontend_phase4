@@ -29,6 +29,7 @@
     "next-cookie": "^2.8.0",
     "next-redux-wrapper": "^7.0.5",
     "notiflix": "^3.2.5",
+    "pluralize": "^8.0.0",
     "react": "17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-bootstrap": "^1.6.1",

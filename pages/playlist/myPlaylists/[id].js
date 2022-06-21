@@ -20,6 +20,7 @@ import Sidebar from '../../../components/Sidebar'
 import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
 import Notiflix from "notiflix";
+import Pluralize from 'pluralize';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -216,9 +217,17 @@ const Details = () => {
 
   }
 
-  const removeTrackFromPlaylist = (trackId) => {
-    setIsLoading(true)
-    dispatch(removeFromPlaylist(query.id, trackId))
+  const removeTrackFromPlaylist = (track) => {
+    Notiflix.Confirm.show(
+      'Please confirm',
+      `Are you sure you want to delete track ${track.mediable.title}?`,
+      'Yes',
+      'No',
+      function() {
+        setIsLoading(true)
+        dispatch(removeFromPlaylist(query.id, track.id))
+      }
+    );
   }
 
   function addTrackToCartLicenseModalSidebar(index) {
@@ -269,7 +278,7 @@ const Details = () => {
                     </div>
                     <div className={playlist.playlistStats}>
                       <div className={playlist.tracksCount}>
-                      {myPlaylistDetail && myPlaylistDetail.media_count} Tracks
+                        {myPlaylistTracks?.playlist_tracks?.length ? myPlaylistTracks?.playlist_tracks?.length + Pluralize(' Track', myPlaylistTracks?.playlist_tracks?.length) : '0 Track'}
                       </div>
                       <div className={playlist.tracksDuration}>
                         Duration: <span>{myPlaylistTracks && totalDuration(myPlaylistTracks)}</span>
@@ -287,7 +296,7 @@ const Details = () => {
                       </svg>
                       Share
                     </Button>
-                    <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={myPlaylistTracks?.playlist_tracks.length <= 0}>
+                    <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={myPlaylistTracks?.playlist_tracks?.length <= 0}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
                         <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
                           <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -340,7 +349,7 @@ const Details = () => {
             }
           </div>
           {(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} myPlaylistTracks={myPlaylistTracks} />}
-          {myPlaylistDetail && myPlaylistTracks && myPlaylistTracks.playlist_tracks.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistTracks.playlist_tracks[index]} type="track"/> }
+          {myPlaylistDetail && myPlaylistTracks && myPlaylistTracks.playlist_tracks?.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistTracks.playlist_tracks[index]} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
           {myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
           {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={myPlaylistTracks[index]} />}
