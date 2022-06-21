@@ -481,7 +481,9 @@ header {
       .nav-link {
         display: inherit;
         padding-inline: 15px;
-
+        &.pricingLink {
+          padding-left: 0;
+        }
         a,
         .dropdown-toggle {
           cursor: pointer;

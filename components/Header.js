@@ -95,7 +95,7 @@ function Header() {
 
               <div className={router.pathname.toLowerCase() === "/pricing" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Nav.Link eventKey="4" href="/pricing">
+                  <Nav.Link className="pricingLink" eventKey="4" href="/pricing">
                     Pricing
                   </Nav.Link>
                 </Nav.Item>
