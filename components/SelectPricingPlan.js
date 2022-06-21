@@ -479,7 +479,6 @@ function SelectPricingPlan(props) {
             </div>
         }
 
-
         {/* Billing and Payment Code */}
         { subscriptionType != "" &&
           <div className={pricing.billingPaymentSec}>
@@ -504,7 +503,10 @@ function SelectPricingPlan(props) {
 
               <div className={pricing.planInfo}>
                 <div className={pricing.planTypeDuration}>
-                  <strong className={pricing.planType}>{subscriptionType}</strong><strong className={pricing.seprater}>|</strong><span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "Yearly Subscription": "Monthly Subscription"}</span>
+                  {planType == "Personal" ?
+                    <><strong className={pricing.planType}>{subscriptionType}</strong><strong className={pricing.seprater}>|</strong><span className={pricing.planDuration}>{personalMonthlyAnnual == "Annually" ? "Yearly Subscription": "Monthly Subscription"}</span></> :
+                    <><strong className={pricing.planType}>{subscriptionType}</strong><strong className={pricing.seprater}>|</strong><span className={pricing.planDuration}>{commercialMonthlyAnnual == "Annually" ? "Yearly Subscription": "Monthly Subscription"}</span></>
+                  }
                 </div>
                 <hr/ >
                 <div className={pricing.planDatePrice}>
