@@ -154,19 +154,19 @@ function DownloadedTracks(props) {
     {!tracks && !sfxs ? (
       <center><p>No downloaded tracks</p></center>
     ) : (
-        <div className={user.downloadListing}>
-            <ToastContainer
-              position="top-center"
-              autoClose={10000}
-              hideProgressBar
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              style={{ width: "auto" }}
-            />
+      <div className={user.downloadListing}>
+        <ToastContainer
+          position="top-center"
+          autoClose={10000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          style={{ width: "auto" }}
+        />
         <div className={user.listingWrapper+' userListingWrapper'}>
           <div className={user.listingHeading}>
             <h2>Downloads</h2>
@@ -229,7 +229,7 @@ function DownloadedTracks(props) {
                     </div>
                     <div className="rowParticipant controls">
                       <OverlayTrigger overlay={<Tooltip>Delete</Tooltip>}>
-                        <a onClick={() => { props.handleDeleteTrack(track.id) }}>
+                        <a onClick={() => { props.handleDeleteTrack(track) }}>
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                               <g id="Actions" transform="translate(-1050 -29.5)">
                               <g id="icon-trashcan" transform="translate(772 -3264.5)">

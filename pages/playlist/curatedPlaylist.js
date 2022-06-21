@@ -170,7 +170,7 @@ function CuratedPlaylist() {
 
 
           <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
-            <Dropdown.Item href="#" onClick={()=> handleAddFilter(sub_filter.name)}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+            <Dropdown.Item href="#" onClick={()=> handleAddFilter(sub_filter.name)}>{sub_filter.name}</Dropdown.Item>
             <span className={selectedFilter == sub_filter.name ? "filterControl discardFilter" : "filterControl discardFilter disabled" } onClick={handleClearSingleFilter}>
               <svg width="10" height="10" viewBox="0 0 10 10">
                 <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">

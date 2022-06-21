@@ -96,9 +96,17 @@ function Favorites() {
     }
   }, [favoriteTracks])
 
-  const handleAddToFavorites = (e, trackId) => {
-    setIsLoading(true)
-    dispatch(removeFromFavorites(trackId));
+  const handleRemoveFromFavorites = (e, track) => {
+    Notiflix.Confirm.show(
+      'Please confirm',
+      `Are you sure you want to remove ${track.title} from favorites?`,
+      'Yes',
+      'No',
+      function () {
+        setIsLoading(true)
+        dispatch(removeFromFavorites(track.id));
+      }
+    );
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
@@ -135,7 +143,7 @@ function Favorites() {
           pauseOnHover
           style={{ width: "auto" }}
         />
-        {favoriteTracks && <FavoriteTracks type="Favorite" tracks={favoriteTracks.tracks} tracksMeta={favoriteTracks.meta} handleAddToFavorites={handleAddToFavorites} handleSimilarSearch={handleSimilarSearch} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} />}
+            {favoriteTracks && <FavoriteTracks type="Favorite" tracks={favoriteTracks.tracks} tracksMeta={favoriteTracks.meta} handleRemoveFromFavorites={handleRemoveFromFavorites} handleSimilarSearch={handleSimilarSearch} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} />}
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       </>
