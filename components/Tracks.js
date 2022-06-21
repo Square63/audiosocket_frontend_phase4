@@ -35,11 +35,12 @@ function Tracks(props) {
   const [bpmSortDir, setBpmSortDir] = useState("")
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [hasMore, sethasMore] = useState(true)
+  const [hasMore, sethasMore] = useState(false)
   const [moodColumn, setMoodColumn] = useState("moods")
   const authContext = useContext(AuthContext)
   const [followedArtists, setFollowedArtists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  let waveCount = 0;
 
   useEffect(() => {
     let isMounted = true;
@@ -53,7 +54,7 @@ function Tracks(props) {
     if (props.tracks.length < 10) {
       sethasMore(false)
     } else {
-      sethasMore(true)
+      sethasMore(false)
     }
 
     return () => {
@@ -179,6 +180,17 @@ function Tracks(props) {
 
   }
 
+  function incrementWaveCount() {
+    if (waveCount >= 9){
+      waveCount = 0
+      sethasMore(true)
+    }
+    else
+      waveCount = waveCount + 1;
+  }
+
+  
+
   return (
     <div className={search.tracksWrapper}>
 
@@ -276,7 +288,7 @@ function Tracks(props) {
             >
               {tracks && tracks.map((track,index)=> {
                 return(<div className="trackRow" key={index}>
-                  <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} footer={false} footerPlaying={false}/>
+                  <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} footer={false} footerPlaying={false} incrementWaveCount={incrementWaveCount}/>
                   <div className="rowParticipant duration">
                     {convertSecToMin(track.duration)}
                   </div>

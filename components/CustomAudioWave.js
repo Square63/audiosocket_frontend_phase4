@@ -105,6 +105,7 @@ export default function CustomAudioWave(props) {
     wavesurfer.current = WaveSurfer.create(options);
     wavesurfer.current.load(url);
     wavesurfer.current.on('ready', function () {
+      props.incrementWaveCount();
       setIsLoading(false);
     });
   };
