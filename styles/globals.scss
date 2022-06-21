@@ -4712,11 +4712,15 @@ input[type=file]::file-selector-button {
     }
   }
   ul {
-    list-style: disc inside none;
-    padding-left: 15px;
+    list-style: disc;
+    padding-left: 30px;
     margin-bottom: 28px;
     li {
       margin-bottom: 5px;
+      ul {
+        list-style-type: upper-roman;
+        margin-block: 15px;
+      }
     }
   }
 
