@@ -7,7 +7,7 @@ function smallBusiness() {
     <div className="generalContent">
       <div className="fixed-container">
         <h1 className="gCHeading">Small Business License Agreement</h1>
-        <p>This License Agreement ("License") is made between the Person identified in the Audiosocket Storefront ("Licensee") and Leopona, Inc.d/b/a Audiosocket (Audiosocket). By using the Licensed Tracks, Licensee accepts the terms of this License. If Licensee does not agree to the terms of this License, Licensee must not use the Licensed Tracks.</p>
+        <p>This License Agreement (&quot;License&quot;) is made between the Person identified in the Audiosocket Storefront (&quot;Licensee&quot;) and Leopona, Inc.d/b/a Audiosocket (Audiosocket). By using the Licensed Tracks, Licensee accepts the terms of this License. If Licensee does not agree to the terms of this License, Licensee must not use the Licensed Tracks.</p>
 
         <h3 className="gCSubHeading">1. Definitions</h3>
         <h5>Sublicensees</h5>
@@ -38,7 +38,7 @@ function smallBusiness() {
         <h5>License</h5> 
         <p>Audiosocket grants to Licensee the non-exclusive license, privilege and authority to copy, perform, edit and/or loop portions of (provided that no such change shall alter the fundamental character of the portion of the Licensed Track), and use the musical composition embedded in the Licensed Tracks in synchronization or timed relation in the Work during the Term throughout the world for the Permitted Purposes set forth in Section 3 (d).</p>
         <h5> License Restrictions</h5>
-        <p>The License granted in Section 3 (a) is conditioned upon Licensee’s compliance with the restrictions set forth in this Section 3 (b).</p>
+        <p>The License granted in Section 3 (a) is conditioned upon Licensee&apos;s compliance with the restrictions set forth in this Section 3 (b).</p>
         <ul>
           <li><strong>Small Business Use Only:</strong> Licensee must be a Small Business as of the Effective Date. For clarity, if you are creating the Work for a Sublicensee, that Sublicensee must be a Small Business as of the Effective Date.</li>
           <li><strong>Other Restrictions:</strong> Licensee must not use the Licensed Tracks:
@@ -47,7 +47,7 @@ function smallBusiness() {
               <li>In any audiovisual work other than the Work. For clarity, use of the Licensed Track in multiple videos will require separate licenses;</li>
               <li>Separately and independently as a music-only product;</li>
               <li>In broadcast, cable, web television, video games, mobile applications, theatrical releases or radio;</li>
-              <li>To physically perform or lip-synch the lyrics of the music of the Licensed Track, or in any way use the artist’s image or likeness except
+              <li>To physically perform or lip-synch the lyrics of the music of the Licensed Track, or in any way use the artist&apos;s image or likeness except
 for the purposes of providing artist credit;</li>
               <li>In pornographic work; or</li>
               <li>In any audiovisual work or any other use that has a political purpose (including, but not limited to, supporting or opposing any government policy, government official, political action, or candidate for political office).</li>
@@ -69,14 +69,14 @@ for the purposes of providing artist credit;</li>
           <li>This License grants Licensee the right to publicly display and distribute the Licensed Tracks as embodied in only the Work in the following ways:
             <ul>
               <li>online, including on website(s) and social media sites/platforms such as Vimeo, Facebook, Twitch, Tik Tok and YouTube; which includes media buys; and</li>
-              <li>via distribution of the Work on DVD’s or flashdrives; and</li>
+              <li>via distribution of the Work on DVD&apos;s or flashdrives; and</li>
               <li>at a tradeshow, conference, or other Company-related event (rights to any other method of public performance or distribution is not granted under this License and may cause Licensee to incur additional royalty fees for such use). Please contact <a href="mailto:licensing@audiosocket.com">licensing@audiosocket.com</a> should you need additional rights.</li>
             </ul>
           </li>
         </ul>
 
         <h5> Damages </h5> 
-        <p>Any use of the Licensed Tracks outside the scope of the license rights granted hereunder may subject the Licensee to damages to Audiosocket and to third parties, including Audiosocket’s licensors.</p>
+        <p>Any use of the Licensed Tracks outside the scope of the license rights granted hereunder may subject the Licensee to damages to Audiosocket and to third parties, including Audiosocket&apos;s licensors.</p>
         
         <h3 className="gCSubHeading">4. Term and Termination</h3>
         <ul>
@@ -94,15 +94,15 @@ for the purposes of providing artist credit;</li>
         <p>In consideration of the rights granted under this License, Licensee agrees to pay the License Fees.</p>
 
         <h3 className="gCSubHeading">8. Credit and Attribution</h3>
-        <p>Licensee shall use best efforts to credit Audiosocket and the artist, and include such credit in the final edited version of the Work in each case in which credits for music are included in the Work. No casual or inadvertent failure by Licensee to comply with the credit requirements set forth above, nor any failure by third parties to so comply, shall constitute a breach of this License by Licensee. Recommended language for credit is: "[Name of Licensed Track]" by [Name of Artist], licensed by Audiosocket." If the Work is posted to YouTube, the credit language should be posted in the video description.</p>
+        <p>Licensee shall use best efforts to credit Audiosocket and the artist, and include such credit in the final edited version of the Work in each case in which credits for music are included in the Work. No casual or inadvertent failure by Licensee to comply with the credit requirements set forth above, nor any failure by third parties to so comply, shall constitute a breach of this License by Licensee. Recommended language for credit is: &quot;[Name of Licensed Track]&quot; by [Name of Artist], licensed by Audiosocket.&quot; If the Work is posted to YouTube, the credit language should be posted in the video description.</p>
 
         <h3 className="gCSubHeading">9. Representations and Warranties.</h3>
         <h5>Audiosocket.</h5> 
-        <p>Audiosocket hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it has all necessary rights to license the Licensed Tracks to Licensee under the terms of this License; and (iii) Licensee’s exercise of rights hereunder will not infringe any third party's intellectual property rights.</p>
+        <p>Audiosocket hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it has all necessary rights to license the Licensed Tracks to Licensee under the terms of this License; and (iii) Licensee&apos;s exercise of rights hereunder will not infringe any third party's intellectual property rights.</p>
         <h5>Licensee.</h5>
         <p>Licensee hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it meets the criteria set forth in Section 3 .</p>
         <h3 className="gCSubHeading">10. Indemnification</h3>
-        <p>Licensee agrees to indemnify, defend, and hold harmless Audiosocket and its agents and licensors from and against any claim, actions or demands by a third party and all related liabilities, losses, damages, judgments, settlements, costs, and expenses (including reasonable attorneys' fees) arising out of or based on any breach of any representation, warranty or covenant made herein. Licensee shall provide Audiosocket prompt notice in writing of any such claims under this Section 10 and provide Audiosocket with reasonable information and assistance, at Audiosocket’s expense, to help the defend such Claims.</p>
+        <p>Licensee agrees to indemnify, defend, and hold harmless Audiosocket and its agents and licensors from and against any claim, actions or demands by a third party and all related liabilities, losses, damages, judgments, settlements, costs, and expenses (including reasonable attorneys' fees) arising out of or based on any breach of any representation, warranty or covenant made herein. Licensee shall provide Audiosocket prompt notice in writing of any such claims under this Section 10 and provide Audiosocket with reasonable information and assistance, at Audiosocket&apos;s expense, to help the defend such Claims.</p>
 
         <h3 className="gCSubHeading">11. Limitation of Liability</h3>
         <p>IN NO EVENT SHALL AUDIOSOCKET BE LIABLE TO LICENSEE OR ITS AFFILIATES FOR ANY SPECIAL, INDIRECT, INCIDENTAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES OF ANY NATURE ARISING OUT OF OR RELATED TO THIS AGREEMENT, EVEN IF AUDIOSOCKET HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES; AND IN NO EVENT SHALL THE TOTAL CUMULATIVE LIABILITY OF AUDIOSOCKET TO LICENSEE OR ANY THIRD PARTY RELATED TO THIS AGREEMENT EXCEED THE AMOUNT OF THE LICENSE FEE PAID BY LICENSEE HEREUNDER. THE FOREGOING SHALL APPLY REGARDLESS OF THE NEGLIGENCE OR OTHER FAULT OF AUDIOSOCKET AND REGARDLESS OF WHETHER SUCH LIABILITY ARISES IN CONTRACT, NEGLIGENCE, TORT, STRICT LIABILITY OR UNDER ANY OTHER THEORY OF LIABILITY.</p>
@@ -111,9 +111,9 @@ for the purposes of providing artist credit;</li>
         <h5>Governing Law</h5>
         <p>This License is governed by the law of the State of Washington (without regard to conflicts of law principles). Any dispute arising out of or relating to this License shall be commenced in the federal or state courts located in King County, Washington. In any such dispute, the substantially prevailing party shall be entitled to recover its reasonable attorneys' fees from the other party.</p>
         <h5>Damages</h5>
-        <p>Licensee agrees that damages for the breach of this License are difficult to accurately calculate because of the negative impacts on Audiosocket’s goodwill and reputation in the marketplace and with its artists. Therefore, both parties agree to fix as liquidated damages, and not as a penalty, an amount equal to $25,000 USD, plus Audiosocket’s reasonable attorneys’ fees and costs. These liquidated damages are meant to be in addition to Audiosocket’s other remedies, and Licensee agrees they are a reasonable measure of the harm that would be suffered by Audiosocket.</p>
+        <p>Licensee agrees that damages for the breach of this License are difficult to accurately calculate because of the negative impacts on Audiosocket&apos;s goodwill and reputation in the marketplace and with its artists. Therefore, both parties agree to fix as liquidated damages, and not as a penalty, an amount equal to $25,000 USD, plus Audiosocket&apos;s reasonable attorneys&apos; fees and costs. These liquidated damages are meant to be in addition to Audiosocket&apos;s other remedies, and Licensee agrees they are a reasonable measure of the harm that would be suffered by Audiosocket.</p>
         <h5>Injunctive Relief</h5>
-        <p>If Licensee breaches this License, Audiosocket will be entitled to injunctive relief without necessity of posting bond in order to restrain Licensee’s breach.</p>
+        <p>If Licensee breaches this License, Audiosocket will be entitled to injunctive relief without necessity of posting bond in order to restrain Licensee&apos;s breach.</p>
         <h5>Assignment; Waiver; Modification.</h5> 
         <p>This License may not be transferred or assigned by Licensee, and is binding on permitted successors and assigns. No modification of this License will be binding unless made in a writing signed by both parties. No waiver of any term, condition or obligation of this License will be valid unless made in writing and signed by the party to which such performance is due. No failure or delay by any party at any time to enforce one or more of the terms, conditions or obligations of this License will (i) constitute waiver of such term, condition or obligation, (ii) preclude such party from requiring performance by the other party at any later time, or (iii) be deemed to be a waiver of any other subsequent term, condition or obligation, whether of like or different nature.</p>
         <h5>Entire License; Severability.</h5>

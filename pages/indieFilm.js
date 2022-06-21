@@ -8,8 +8,8 @@ function indieFilm() {
       <div className="fixed-container">
         <h1 className="gCHeading">Indie Film License Agreement</h1>
         <p>Our Indie Film License allows an individual, videographer, or filmmaker to use one track in a single film or video with a budget less than $1 Million United States Dollars that may be distributed on the Web and submitted to film festivals. This license does not include broadcast rights, theatrical release outside of film festivals, DVD distribution, or use as an advertisement. Please see Section 2 for further details on permitted uses and restrictions.</p>
-        <p>This License Agreement ("License") is made between the Person identified in the Audiosocket Storefront (“Licensee”) and Leopona, Inc. d/b/a Audiosocket (“Audiosocket”). By clicking "I ACCEPT" or by downloading or using the Licensed Tracks, Licensee accepts the terms of this License. If Licensee does not agree to the terms of this License, Licensee must click the "CANCEL" button and not download or use the Licensed Tracks.</p>
-        <p>This License Agreement ("License") is made and entered into as of (replace_with_date) (the “Effective Date”), between (replace_with_licensee_name) (“Licensee”) and Leopona, Inc. d/b/a Audiosocket (“Audiosocket”).</p>
+        <p>This License Agreement (&quot;License&quot;) is made between the Person identified in the Audiosocket Storefront (&quot;Licensee&quot;) and Leopona, Inc. d/b/a Audiosocket (&quot;Audiosocket&quot;). By clicking &quot;I ACCEPT&quot; or by downloading or using the Licensed Tracks, Licensee accepts the terms of this License. If Licensee does not agree to the terms of this License, Licensee must click the &quot;CANCEL&quot; button and not download or use the Licensed Tracks.</p>
+        <p>This License Agreement (&quot;License&quot;) is made and entered into as of (replace_with_date) (the &quot;Effective Date&quot;), between (replace_with_licensee_name) (&quot;Licensee&quot;) and Leopona, Inc. d/b/a Audiosocket (&quot;Audiosocket&quot;).</p>
 
         <h3 className="gCSubHeading">1. Definitions</h3>
         <h5>Sublicensees</h5>
@@ -28,8 +28,8 @@ function indieFilm() {
         <h3 className="gCSubHeading">2. Licensed Tracks</h3>
         <ul>
           <li>Licensed Tracks Title(s) and Information Number(s): [insert]</li>
-          <li>Name and description of the audiovisual work in which Licensed Track(s) will be used (“Work”): [insert]</li>
-          <li>Name and contact information for each individual, corporation, company, organization, or other entity (“Person”) who will be using or distributing the Work: [insert]</li>
+          <li>Name and description of the audiovisual work in which Licensed Track(s) will be used (&quot;Work&quot;): [insert]</li>
+          <li>Name and contact information for each individual, corporation, company, organization, or other entity (&quot;Person&quot;) who will be using or distributing the Work: [insert]</li>
           <li>License ID: [insert]</li>
           <li>License Fee: [insert]</li>
         </ul>
@@ -38,7 +38,7 @@ function indieFilm() {
         <h5>License</h5> 
         <p>Audiosocket grants to Licensee the non-exclusive license, privilege and authority to copy, perform, edit and/or loop portions of (provided that no such change shall alter the fundamental character of the portion of the Licensed Track), and use the musical composition embedded in the Licensed Tracks in synchronization or timed relation in the Work during the Term throughout the world for the Permitted Purposes set forth in Section 2(d). Notwithstanding the foregoing, the musical compositions contained in the Licensed Tracks shall not be distributed or exploited separately or independently of the Work by the Licensee.</p>
         <h5>License Restrictions</h5>
-        <p>The License granted in Section 2(a) is conditioned upon Licensee’s compliance with the restrictions set forth in this Section 2(b).</p>
+        <p>The License granted in Section 2(a) is conditioned upon Licensee&apos;s compliance with the restrictions set forth in this Section 2(b).</p>
         <h5>Other Restrictions.</h5>
         <p>Licensee must not use the Licensed Tracks:</p>
         <ul>
@@ -51,7 +51,7 @@ function indieFilm() {
               <li>in any direct media buys (e.g., a paid ad such as a pre-roll, post-roll, or pop-up video ad), including a direct advertising campaign on third party websites;</li>
               <li>in broadcast, cable, paid streaming, or web television, video games, mobile applications, podcasts or radio;</li>
               <li>on any physical device (including, but not limited to CDs and DVDs);</li>
-              <li>to physically perform or lip-synch the lyrics of the music of the Licensed Track, or in anyway use the artist’s image or likeness except for the purposes of providing artist credit;</li>
+              <li>to physically perform or lip-synch the lyrics of the music of the Licensed Track, or in anyway use the artist&apos;s image or likeness except for the purposes of providing artist credit;</li>
               <li>in pornographic work; </li>
               <li>in theatrical releases outside the screening at a film festival; or </li>
               <li>in any audiovisual work or any other use that has a political purpose (including, but not limited to, supporting or opposing any government policy, government official, political action, or candidate for political office).</li>
@@ -73,7 +73,7 @@ function indieFilm() {
         </ul>
 
         <h5> Damages </h5> 
-        <p>Any use of the Licensed Tracks outside the scope of the license rights granted hereunder may subject the Licensee to damages to Audiosocket and to third parties, including Audiosocket’s licensors.</p>
+        <p>Any use of the Licensed Tracks outside the scope of the license rights granted hereunder may subject the Licensee to damages to Audiosocket and to third parties, including Audiosocket&apos;s licensors.</p>
 
         <h3 className="gCSubHeading">4. Term and Termination</h3>
         <p>This License begins on the Effective Date and is granted in perpetuity. This License shall terminate immediately without notice if Licensee breaches this License.</p>
@@ -88,25 +88,25 @@ function indieFilm() {
         <p>In consideration of the rights granted under this License, Licensee agrees to pay the License Fees.</p>
 
         <h3 className="gCSubHeading">8. Credit and Attribution</h3>
-        <p>Licensee shall use best efforts to credit Audiosocket and the artist, and include such credit in the final edited version of the Work in each case in which credits for music are included in the Work. No casual or inadvertent failure by Licensee to comply with the credit requirements set forth above, nor any failure by third parties to so comply, shall constitute a breach of this License by Licensee.  Recommended language for credit is: "[Name of Licensed Track]" by [Name of Artist], licensed by Audiosocket.” If the Work is posted to YouTube, the credit language should be posted in the video description.</p>
+        <p>Licensee shall use best efforts to credit Audiosocket and the artist, and include such credit in the final edited version of the Work in each case in which credits for music are included in the Work. No casual or inadvertent failure by Licensee to comply with the credit requirements set forth above, nor any failure by third parties to so comply, shall constitute a breach of this License by Licensee.  Recommended language for credit is: &quot;[Name of Licensed Track]&quot; by [Name of Artist], licensed by Audiosocket.&quot; If the Work is posted to YouTube, the credit language should be posted in the video description.</p>
 
         <h3 className="gCSubHeading">9. Representations and Warranties.</h3>
         <h5>Audiosocket.</h5> 
-        <p>Audiosocket hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it has all necessary rights to license the Licensed Tracks to Licensee under the terms of this License; and (iii) Licensee’s exercise of rights hereunder will not infringe any third party's intellectual property rights.</p>
+        <p>Audiosocket hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it has all necessary rights to license the Licensed Tracks to Licensee under the terms of this License; and (iii) Licensee&apos;s exercise of rights hereunder will not infringe any third party&apos;s intellectual property rights.</p>
         <h5>Licensee.</h5>
         <p>Licensee hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it meets the criteria set forth in Section 2(b)(i).</p>
 
         <h3 className="gCSubHeading">10. Indemnification</h3>
-        <p>Licensee agrees to indemnify, defend, and hold harmless Audiosocket and its agents and licensors from and against any claim, actions or demands by a third party and all related liabilities, losses, damages, judgments, settlements, costs, and expenses (including reasonable attorneys' fees) arising out of or based on any breach of any representation, warranty or covenant made herein. Licensee will shall provide Audiosocket prompt notice in writing of any such claims under this Section 9 and provide Audiosocket with reasonable information and assistance, at Audiosocket’s expense, to help the defend such Claims.</p>
+        <p>Licensee agrees to indemnify, defend, and hold harmless Audiosocket and its agents and licensors from and against any claim, actions or demands by a third party and all related liabilities, losses, damages, judgments, settlements, costs, and expenses (including reasonable attorney&apos;s fees) arising out of or based on any breach of any representation, warranty or covenant made herein. Licensee will shall provide Audiosocket prompt notice in writing of any such claims under this Section 9 and provide Audiosocket with reasonable information and assistance, at Audiosocket&apos;s expense, to help the defend such Claims.</p>
 
         <h3 className="gCSubHeading">11. Limitation of Liability</h3>
         <p>IN NO EVENT SHALL AUDIOSOCKET BE LIABLE TO LICENSEE OR ITS AFFILIATES FOR ANY SPECIAL, INDIRECT, INCIDENTAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES OF ANY NATURE ARISING OUT OF OR RELATED TO THIS AGREEMENT, EVEN IF AUDIOSOCKET HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES; AND IN NO EVENT SHALL THE TOTAL CUMULATIVE LIABILITY OF AUDIOSOCKET TO LICENSEE OR ANY THIRD PARTY RELATED TO THIS AGREEMENT EXCEED THE AMOUNT OF THE LICENSE FEE PAID BY LICENSEE HEREUNDER. THE FOREGOING SHALL APPLY REGARDLESS OF THE NEGLIGENCE OR OTHER FAULT OF AUDIOSOCKET AND REGARDLESS OF WHETHER SUCH LIABILITY ARISES IN CONTRACT, NEGLIGENCE, TORT, STRICT LIABILITY OR UNDER ANY OTHER THEORY OF LIABILITY.</p>
 
         <h3 className="gCSubHeading">12. General</h3>
         <h5>Governing Law</h5>
-        <p>This License is governed by the law of the State of Washington (without regard to conflicts of law principles). Any dispute arising out of or relating to this License shall be commenced in the federal or state courts located in King County, Washington. In any such dispute, the substantially prevailing party shall be entitled to its reasonable attorneys' fees.</p>
+        <p>This License is governed by the law of the State of Washington (without regard to conflicts of law principles). Any dispute arising out of or relating to this License shall be commenced in the federal or state courts located in King County, Washington. In any such dispute, the substantially prevailing party shall be entitled to its reasonable attorneys&apos; fees.</p>
         <h5>Damages</h5>
-        <p>Licensee agrees that damages for the breach of this License are difficult to accurately calculate because of the negative impacts on Audiosocket’s goodwill and reputation in the marketplace and with its artists. Therefore, both parties agree to fix as liquidated damages, and not as a penalty, an amount equal to $25,000 USD, plus Audiosocket’s reasonable attorneys’ fees and costs. These liquidated damages are meant to be in addition to Audiosocket’s other remedies, and Licensee agrees they are a reasonable measure of the harm that would be suffered by Audiosocket.</p>
+        <p>Licensee agrees that damages for the breach of this License are difficult to accurately calculate because of the negative impacts on Audiosocket&apos;s goodwill and reputation in the marketplace and with its artists. Therefore, both parties agree to fix as liquidated damages, and not as a penalty, an amount equal to $25,000 USD, plus Audiosocket&apos;s reasonable attorneys&apos; fees and costs. These liquidated damages are meant to be in addition to Audiosocket&apos;s other remedies, and Licensee agrees they are a reasonable measure of the harm that would be suffered by Audiosocket.</p>
         <h5>Assignment; Waiver; Modification.</h5> 
         <p>This License may not be transferred or assigned by Licensee, and is binding on permitted successors and assigns. No modification of this License will be binding unless made in a writing signed by both parties.  No waiver of any term, condition or obligation of this License will be valid unless made in writing and signed by the party to which such performance is due.  No failure or delay by any party at any time to enforce one or more of the terms, conditions or obligations of this License will (i) constitute waiver of such term, condition or obligation, (ii) preclude such party from requiring performance by the other party at any later time, or (iii) be deemed to be a waiver of any other subsequent term, condition or obligation, whether of like or different nature.</p>
         <h5>Entire License; Severability.</h5>
