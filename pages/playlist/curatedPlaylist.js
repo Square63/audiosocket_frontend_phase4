@@ -428,7 +428,7 @@ function CuratedPlaylist() {
           }
           <section className={playlist.playlistTiles}>
             <h2 className={playlist.sectionHeading}>
-              All playlists
+              {paginatedPlaylists.length > 0 ? 'All playlists' :  'No playlist found'}
             </h2>
             <InfiniteScroll
               dataLength={paginatedPlaylists?.length}
@@ -446,8 +446,9 @@ function CuratedPlaylist() {
                           <span className="tileOverlayText">{playlist.name}</span>
                         </a>
                       </Link>
-                      )
-                    })}
+                    )
+                  })
+                }
               </div>
             </InfiniteScroll>
             <div className={playlist.btnWrapper}>

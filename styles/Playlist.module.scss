@@ -309,6 +309,19 @@
   }
 }
 
+.curatedPlaylist {
+  :global(.moodSlider) {
+    padding-bottom: 0;
+    :global(.rec-carousel-wrapper) {
+      margin-bottom: 0;
+    }
+  }
+
+  .playlistTiles {
+    padding-top: 50px;
+  }
+}
+
 /*********************** Following Listing *******************/
 .followingPlaylist,
 .myPlaylists {
@@ -453,12 +466,12 @@
           }
         }
       }
-    } 
+    }
   }
 }
 
 
-/********************** Responsive Behaviour *****************/ 
+/********************** Responsive Behaviour *****************/
 @media #{$desktop-start} {
   .playlistWrapper {
     .filterSearch {
@@ -658,7 +671,7 @@
       button {
         margin-block: 30px 0;
       }
-    } 
+    }
   }
 
   .myPlaylistShow,
