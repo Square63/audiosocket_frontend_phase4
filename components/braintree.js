@@ -113,7 +113,6 @@ class Braintree extends React.Component {
   }
 
   sendToHomePage() {
-    document.getElementsByClassName('submit')[0].classList.remove('disabled')
     this.context.resetCartCount()
     router.push('/');
   }
