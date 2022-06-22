@@ -244,18 +244,21 @@ export const removeFromFavorites = (trackId) => async (dispatch) => {
   }
 };
 
-export const getSfxes = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals) => async( dispatch ) => {
-  let url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`
+export const getSfxes = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals, duration_start, duration_end) => async( dispatch ) => {
+  let urlWithParams = ''
+  let pageNumber = page != false ? page : false
+  if (duration_start >= 0 && duration_end > 0)
+    urlWithParams = `/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${encodeURIComponent(filters)}&order_by=${sort_by}&page=${pageNumber}&direction=${sort_dir}&per_page=10&pagination=true&duration_start=${duration_start}&duration_end=${duration_end}`
+  else
+    urlWithParams = `/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${encodeURIComponent(filters)}&order_by=${sort_by}&page=${pageNumber}&direction=${sort_dir}&per_page=10&pagination=true`
 
-  if (explicit === false && exclude_vocals === true){
-    url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&explicit=${explicit}&exclude_vocals=${exclude_vocals}`
-  }
-  else if (explicit === false){
-    url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&explicit=${explicit}`
-  }
-  else if (exclude_vocals === true){
-    url = `${BASE_URL}/api/v1/consumer/sfxes?query=${query}&query_type=${query_type}&filters=${filters}&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true&exclude_vocals=${exclude_vocals}`
-  }
+  let url = `${BASE_URL + urlWithParams}`
+  if (explicit === false && exclude_vocals === true)
+    url = `${BASE_URL + urlWithParams}&explicit=${explicit}&exclude_vocals=${exclude_vocals}`
+  else if (explicit === false)
+    url = `${BASE_URL + urlWithParams}&explicit=${explicit}`
+  else if (exclude_vocals === true)
+    url = `${BASE_URL + urlWithParams}&exclude_vocals=${exclude_vocals}`
 
   const cookie = useCookie()
   const authToken = cookie.get("user")
@@ -274,9 +277,7 @@ export const getSfxes = (query, query_type, filters, sort_by, sort_dir, page, ex
       type: ALL_SFXES_FAILURE,
       payload: error
     })
-
   }
-
 }
 
 export const clearErrors = () => async(dispatch) => {

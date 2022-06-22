@@ -51,6 +51,7 @@ function Sfx(props) {
   const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
   const [filterOpen, setFilterOpen] = useState(false);
+  const [durationFilter, setDurationFilter] = useState({ start: 0, end: 0 })
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
 
   // const message = useSelector(state => state.allPlaylists);
@@ -326,6 +327,17 @@ function Sfx(props) {
     dispatch(getSfxes(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
   }
 
+  const handleAddDurationFilter = async (start, end) => {
+    setLoading(true)
+    setDurationFilter({ start: start, end: end })
+    document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+    setAppliedFiltersListWC([...appliedFiltersListWC, document.getElementsByClassName('durationFilter')[0].text]);
+    let query = document.getElementById("searchField").value
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
+    dispatch(getSfxes(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals, start, end));
+  }
+
   const handleAddChildrenFilter = (e) => {
     $(".custom").removeClass("activeFilter");
     let filter = e.target.closest('span').id
@@ -431,7 +443,7 @@ function Sfx(props) {
           (<Dropdown.Menu>
             <div className="filterWrapper durationBlock">
               <h3>Duration</h3>
-             <RangeSlider/>
+              <RangeSlider handleAddDurationFilter={handleAddDurationFilter}/>
               <div className="filterSelf">
                 <Dropdown.Item href="#" className="durationFilter">00:00 - 00:00</Dropdown.Item>
                 <span className="filterControl addFilter">
@@ -836,7 +848,7 @@ function Sfx(props) {
         {loading ? (
           <InpageLoader />
         ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites}/>
+          <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} />
         )}
       </div>
 
