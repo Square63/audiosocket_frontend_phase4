@@ -32,7 +32,7 @@ function largeBusiness() {
 
         <p>replace_with_license_price</p>
 
-        <h3 className="gCSubHeading">3. Grant of License.</h3>
+        <h3 className="gCSubHeading">3. Grant of License</h3>
         <p>Subject to the terms of this License and Licensee&apos;s payment of the applicable license fees, Licensor hereby grants to Licensee a perpetual (subject to Section 5), non-exclusive right and license within the Territory to use all or any part of the audio track(s), including the composition and master recording of the audio tracks, identified in Section 2 (each a &quot;<strong>Licensed Track</strong>&quot; and collectively, the &quot;<strong>Licensed Track</strong>&quot;) in Licensee&apos;s short form editorial videos, promotional videos, online games, branded entertainment or ads (&quot;<strong>Work</strong>&quot;). Each Licensed Track downloaded by Licensee is licensed solely for a particular Work and, to the extent that Licensee uses that same audio track in a different Work, such use will count as an additional and separate Licensed Track against the total number of Licensed Tracks licensed under this License. The foregoing license is granted solely for the purpose of:</p>
         <ul>
           <li>combining and synchronizing the Licensed Tracks with a Work; and</li>
@@ -42,7 +42,7 @@ function largeBusiness() {
         </ul>
 
 
-        <h3 className="gCSubHeading">4.Restrictions.</h3>
+        <h3 className="gCSubHeading">4. Restrictions</h3>
         <p>Except as expressly permitted above, neither Licensee nor its permitted sublicensees may use the Licensed Tracks:</p>
         <ul>
           <li>as a standalone feature separate from a Work;</li>
@@ -52,7 +52,7 @@ function largeBusiness() {
         </ul>
         <p>Further, Licensee may not use the Licensed Tracks for political purposes (including, but not limited to, supporting or opposing any government policy, government official, political action, or candidate for political office).</p>
 
-        <h3 className="gCSubHeading">5. Termination.</h3>
+        <h3 className="gCSubHeading">5. Termination</h3>
         <p>This License is perpetual. However, if Licensee breaches the License, Licensor reserves the right to terminate the License immediately.</p>
 
         <h3 className="gCSubHeading">6. Royalties</h3>
@@ -61,10 +61,10 @@ function largeBusiness() {
         <h3 className="gCSubHeading">7. Intellectual Property</h3>
         <p>As between the parties, Licensor owns all right, title, and interest in and to the Licensed Tracks. Except as expressly set forth in this License, nothing contained herein shall be deemed to convey or transfer to Licensee any interest, including copyright, in any Licensed Tracks hereunder. All rights not expressly granted by Licensor to Licensee pursuant to this License are specifically reserved by Licensor.</p>
 
-        <h3 className="gCSubHeading">Licensee&apos;s Representations and Warranties.</h3>
+        <h3 className="gCSubHeading">Licensee&apos;s Representations and Warranties</h3>
         <p>Licensee hereby represents and warrants that it is of legal age in its jurisdiction and that it has the power, capacity and authority to enter into this License. If Licensee is entering into this License on behalf of an organization, Licensee represents and warrants that it has the authority to bind that organization, in which case &quot;Licensee&quot; shall mean that organization.</p>
 
-        <h3 className="gCSubHeading">Licensor&apos;s Representations and Warranties.</h3>
+        <h3 className="gCSubHeading">Licensor&apos;s Representations and Warranties</h3>
         <p>Licensor hereby represents and warrants that: (a) Licensor has the power, capacity, and authority to enter into this License; (b) Licensor has all necessary rights (including consents, authorizations, licenses, and permissions) to license the Licensed Tracks (including all rights in the musical composition and master recording) to Licensee under the terms hereof; and (c) Licensee&apos;s exercise of rights hereunder will not infringe any third party&apos;s intellectual property rights.</p>
 
 

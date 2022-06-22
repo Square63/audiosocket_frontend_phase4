@@ -96,10 +96,10 @@ for the purposes of providing artist credit;</li>
         <h3 className="gCSubHeading">8. Credit and Attribution</h3>
         <p>Licensee shall use best efforts to credit Audiosocket and the artist, and include such credit in the final edited version of the Work in each case in which credits for music are included in the Work. No casual or inadvertent failure by Licensee to comply with the credit requirements set forth above, nor any failure by third parties to so comply, shall constitute a breach of this License by Licensee. Recommended language for credit is: &quot;[Name of Licensed Track]&quot; by [Name of Artist], licensed by Audiosocket.&quot; If the Work is posted to YouTube, the credit language should be posted in the video description.</p>
 
-        <h3 className="gCSubHeading">9. Representations and Warranties.</h3>
-        <h5>Audiosocket.</h5> 
+        <h3 className="gCSubHeading">9. Representations and Warranties</h3>
+        <h5>Audiosocket</h5> 
         <p>Audiosocket hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it has all necessary rights to license the Licensed Tracks to Licensee under the terms of this License; and (iii) Licensee&apos;s exercise of rights hereunder will not infringe any third party&apos;s intellectual property rights.</p>
-        <h5>Licensee.</h5>
+        <h5>Licensee</h5>
         <p>Licensee hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it meets the criteria set forth in Section 3 .</p>
         <h3 className="gCSubHeading">10. Indemnification</h3>
         <p>Licensee agrees to indemnify, defend, and hold harmless Audiosocket and its agents and licensors from and against any claim, actions or demands by a third party and all related liabilities, losses, damages, judgments, settlements, costs, and expenses (including reasonable attorneys&apos; fees) arising out of or based on any breach of any representation, warranty or covenant made herein. Licensee shall provide Audiosocket prompt notice in writing of any such claims under this Section 10 and provide Audiosocket with reasonable information and assistance, at Audiosocket&apos;s expense, to help the defend such Claims.</p>
@@ -114,11 +114,11 @@ for the purposes of providing artist credit;</li>
         <p>Licensee agrees that damages for the breach of this License are difficult to accurately calculate because of the negative impacts on Audiosocket&apos;s goodwill and reputation in the marketplace and with its artists. Therefore, both parties agree to fix as liquidated damages, and not as a penalty, an amount equal to $25,000 USD, plus Audiosocket&apos;s reasonable attorneys&apos; fees and costs. These liquidated damages are meant to be in addition to Audiosocket&apos;s other remedies, and Licensee agrees they are a reasonable measure of the harm that would be suffered by Audiosocket.</p>
         <h5>Injunctive Relief</h5>
         <p>If Licensee breaches this License, Audiosocket will be entitled to injunctive relief without necessity of posting bond in order to restrain Licensee&apos;s breach.</p>
-        <h5>Assignment; Waiver; Modification.</h5> 
+        <h5>Assignment; Waiver; Modification</h5> 
         <p>This License may not be transferred or assigned by Licensee, and is binding on permitted successors and assigns. No modification of this License will be binding unless made in a writing signed by both parties. No waiver of any term, condition or obligation of this License will be valid unless made in writing and signed by the party to which such performance is due. No failure or delay by any party at any time to enforce one or more of the terms, conditions or obligations of this License will (i) constitute waiver of such term, condition or obligation, (ii) preclude such party from requiring performance by the other party at any later time, or (iii) be deemed to be a waiver of any other subsequent term, condition or obligation, whether of like or different nature.</p>
-        <h5>Entire License; Severability.</h5>
+        <h5>Entire License; Severability</h5>
         <p>This License constitutes the entire agreement between the parties with respect to the subject matter hereof and merges all prior and contemporaneous communications. If any provision of this License is held to be invalid or unenforceable to any extent, then the remainder of this License will have full force and effect and such provision will be interpreted, construed or reformed to the extent reasonably required to render the same valid, enforceable and consistent with the original intent underlying such provision.</p>
-        <h5>Notices.</h5>
+        <h5>Notices</h5>
         <p>Any notice of breach or termination hereunder shall be sent via express or registered mail. Notices sent to Audiosocket shall be sent to storefront@audiosocket.com. Notices to Licensee shall be sent to the address provided by Licensee in its online account with Audiosocket. Notices will be deemed delivered upon receipt or three (3) business days after deposit with such mail service.</p>
       </div>
     </div>

@@ -90,7 +90,7 @@ function indieFilm() {
         <h3 className="gCSubHeading">8. Credit and Attribution</h3>
         <p>Licensee shall use best efforts to credit Audiosocket and the artist, and include such credit in the final edited version of the Work in each case in which credits for music are included in the Work. No casual or inadvertent failure by Licensee to comply with the credit requirements set forth above, nor any failure by third parties to so comply, shall constitute a breach of this License by Licensee.  Recommended language for credit is: &quot;[Name of Licensed Track]&quot; by [Name of Artist], licensed by Audiosocket.&quot; If the Work is posted to YouTube, the credit language should be posted in the video description.</p>
 
-        <h3 className="gCSubHeading">9. Representations and Warranties.</h3>
+        <h3 className="gCSubHeading">9. Representations and Warranties</h3>
         <h5>Audiosocket.</h5> 
         <p>Audiosocket hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it has all necessary rights to license the Licensed Tracks to Licensee under the terms of this License; and (iii) Licensee&apos;s exercise of rights hereunder will not infringe any third party&apos;s intellectual property rights.</p>
         <h5>Licensee.</h5>
