@@ -7,7 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from "react-redux";
-import { getTracks, followArtist, unFollowArtist } from '../redux/actions/trackActions';
+import { getSfxes, getTracks, followArtist, unFollowArtist } from '../redux/actions/trackActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
@@ -68,7 +68,10 @@ function Tracks(props) {
 
   const fetchData = () => {
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
+    if (props.sfxes)
+      dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
+    else
+      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
     setInfiniteLoop(true)
   }
 
@@ -101,7 +104,10 @@ function Tracks(props) {
       setBpmSortDir(sort_dir)
     }
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), filters, sort_by, dir, false, '', '', props.duration.start, props.duration.end));
+    if (props.sfxes)
+      dispatch(getSfxes(query, query_type(query), filters, sort_by, dir, false, '', '', props.duration.start, props.duration.end));
+    else
+      dispatch(getTracks(query, query_type(query), filters, sort_by, dir, false, '', '', props.duration.start, props.duration.end));
   }
 
   const handleDropdownSorting = (sort_by, sort_dir) => {
@@ -109,7 +115,10 @@ function Tracks(props) {
     setSortDir(sort_dir)
     setSortBy(sort_by)
     let query = document.getElementById("searchField").value
-    dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
+    if (props.sfxes)
+      dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sort_by, sort_by, false, '', '', props.duration.start, props.duration.end));
+    else
+      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_by, false, '', '', props.duration.start, props.duration.end));
   }
 
   function query_type(query) {
@@ -189,7 +198,7 @@ function Tracks(props) {
       waveCount = waveCount + 1;
   }
 
-  
+
 
   return (
     <div className={search.tracksWrapper}>
