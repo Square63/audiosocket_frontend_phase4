@@ -72,6 +72,7 @@ class Braintree extends React.Component {
   }
 
   async purchase() {
+    document.getElementsByClassName('submit')[0].classList.add('disabled')
     try {
       // Send nonce to your server
       const context = this.context;
@@ -98,16 +99,21 @@ class Braintree extends React.Component {
             'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
             'auth-token': authToken
           }
-        });
-        toast.success(generate_license_response.data.message);
-        this.sendToHomePage();
+        }).then(res => {
+          if (res.status == 200){
+            toast.success("Transaction has been successful.");
+            this.sendToHomePage();
+          }
+        })
       }
     } catch (err) {
+      document.getElementsByClassName('submit')[0].classList.remove('disabled')
       toast.error('Error in payment process.');
     }
   }
 
   sendToHomePage() {
+    document.getElementsByClassName('submit')[0].classList.remove('disabled')
     this.context.resetCartCount()
     router.push('/');
   }
