@@ -22,7 +22,7 @@ function creatorKits() {
           <div className="fixed-container">
             <Breadcrumb>
               <Breadcrumb.Item href="#">Playlists</Breadcrumb.Item>
-              <Breadcrumb.Item href="#">Curator Kits</Breadcrumb.Item>
+              <Breadcrumb.Item href="#">Creator Kits</Breadcrumb.Item>
               <Breadcrumb.Item active>Action</Breadcrumb.Item>
             </Breadcrumb>
           </div>
@@ -40,7 +40,7 @@ function creatorKits() {
                     Created by: <span>plarson</span>
                   </div>
                 </div>
-                
+
 
 
                 <div className={playlist.playlistStats}>
@@ -93,7 +93,7 @@ function creatorKits() {
                   Follow Kit
                 </Button>
               </div>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
