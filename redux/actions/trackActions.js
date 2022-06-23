@@ -87,7 +87,7 @@ export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
     try {
       const {data} = await axios.request({
         method: "post",
-        url: "${BASE_URL}/api/v1/consumer/tracks/upload_track_search",
+        url: `${BASE_URL}/api/v1/consumer/tracks/upload_track_search`,
         data: formData
       })
       dispatch({

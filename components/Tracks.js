@@ -45,7 +45,8 @@ function Tracks(props) {
   useEffect(() => {
     let isMounted = true;
     if (props.tracksMeta.total_track_count !== tracks.length) {
-      setTracks(tracks => [...tracks, ...props.tracks])
+      if (tracks[0]?.id != props.tracks[0].id)
+        setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)
     } else {
       setTracks(tracks=> props.tracks)
@@ -197,8 +198,6 @@ function Tracks(props) {
     else
       waveCount = waveCount + 1;
   }
-
-
 
   return (
     <div className={search.tracksWrapper}>
