@@ -1161,13 +1161,25 @@ function SelectPricingPlan(props) {
                   <Card.Body>
                     <p>Review our website Terms and Conditions, our Privacy Policy and our licenses by clicking on one of the links below.</p>
                     <br/>
-                    <p>Terms and Conditions</p>
-                    <p>Privacy Policy</p>
+                    <Link href="/termsConditions" eventKey="1">
+                      <p className="pointerCursor">Terms and conditions</p>
+                    </Link>
+                    <Link href="/privacyPolicy" eventKey="1">
+                      <p className="pointerCursor">Privacy Policy</p>
+                    </Link>
                     <br/>
-                    <p>Individual License</p>
-                    <p>Indie Film License</p>
-                    <p>Small Business License</p>
-                    <p>Large Business License</p>
+                    <Link href="/individualLicense" eventKey="1">
+                      <p className="pointerCursor">Individual License</p>
+                    </Link>
+                    <Link href="/indieFilm" eventKey="1">
+                      <p className="pointerCursor">Indie Film License</p>
+                    </Link>
+                    <Link href="/smallBusiness" eventKey="1">
+                      <p className="pointerCursor">Small Business License</p>
+                    </Link>
+                    <Link href="/largeBusiness" eventKey="1">
+                      <p className="pointerCursor">Large Business License</p>
+                    </Link>
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>

@@ -4493,6 +4493,12 @@ input[type=file]::file-selector-button {
   cursor: pointer;
 }
 
+.pointerCursor {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 /**************** Mobile Filter ***************/
 .mobileFilters {
   .filterLauncher {
@@ -4683,7 +4689,7 @@ input[type=file]::file-selector-button {
 .generalContent {
   padding-block: 60px;
   color: $headerColor;
-  /**** Note! (gC stands for General Content) ****/ 
+  /**** Note! (gC stands for General Content) ****/
   .gCHeading {
     font-size: 36px;
     font-weight: 400;
@@ -4698,7 +4704,7 @@ input[type=file]::file-selector-button {
     letter-spacing: -0.65px;
     margin-bottom: 12px;
   }
-  p, 
+  p,
   ul li {
     font-size: 16px;
     font-weight: 400;

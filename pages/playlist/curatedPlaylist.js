@@ -452,7 +452,7 @@ function CuratedPlaylist() {
               </div>
             </InfiniteScroll>
             <div className={playlist.btnWrapper}>
-              {hasMore ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
+              {paginatedPlaylists.length > 0 && hasMore ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
             </div>
           </section>
         </div>
