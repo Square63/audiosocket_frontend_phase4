@@ -186,7 +186,7 @@ export default function Home(props) {
     centerPadding: '0',
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    responsive: [{breakpoint: 1200, settings: {slidesToShow: 5, slidesToScroll: 2}}, {breakpoint: 768, settings: {slidesToShow: 3}},{breakpoint: 550, settings: {slidesToShow: 1, centerPadding: '50px'}}],
+    responsive: [{breakpoint: 1200, settings: {slidesToShow: 5, slidesToScroll: 2}}, {breakpoint: 768, settings: {slidesToShow: 3}},{breakpoint: 550, settings: {slidesToShow: 1, centerPadding: '70px'}}],
     beforeChange: (current, next) => setImageIndex(next),
   };
   var settings = {

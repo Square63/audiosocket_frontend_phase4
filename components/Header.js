@@ -59,20 +59,20 @@ function Header() {
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="closeConditional" />
               <div className={router.pathname.toLowerCase() === "/search" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Link href="/search" eventKey="1">
+                  <Nav.Link href="/search" eventKey="1">
                     Music
-                  </Link>
+                  </Nav.Link>
                 </Nav.Item>
               </div>
               <div className={router.pathname.toLowerCase() === "/sfx" ? "nav-link active" : "nav-link"}>
                 <Nav.Item>
-                  <Link eventKey="2" href="/sfx">
+                  <Nav.Link eventKey="2" href="/sfx">
                     SFX
-                  </Link>
+                  </Nav.Link>
                 </Nav.Item>
               </div>
               <div className={playlistRoutes.includes(router.pathname.toLocaleLowerCase()) ? "nav-link active" : "nav-link"}>
-                <NavDropdown title="Playlists" className="menuDrop" id="basic-nav-dropdown">
+                <NavDropdown title="Playlists" className="menuDrop" id="collasible-nav-dropdown">
                   <NavDropdown.Item>
                     <Link href="/playlist/curatedPlaylist">
                       <span>Curated Playlists</span>
@@ -112,7 +112,7 @@ function Header() {
                     </div>
                   </>
                 :
-                  <NavDropdown title="Account" className="headerAccount btn btnMainSmall" id="basic-nav-dropdown">
+                  <NavDropdown title="Account" className="headerAccount btn btnMainSmall" id="collasible-nav-dropdown">
                     <NavDropdown.Item>
                       <Link href="/playlist/myPlaylists">
                         <span>My Playlists</span>
