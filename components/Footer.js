@@ -6,6 +6,7 @@ import logo from '../images/logoAudiosocket.svg'
 import {LoaderImage} from "./LoaderImage";
 import MusicPlayer from "./MusicPlayer";
 import React from "react";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -51,16 +52,24 @@ function Footer() {
                 <div className="footer-list">
                   <ul>
                     <li><a href="">blog</a></li>
-                    
+
                     <li><a href="">about us</a></li>
-                    
+
                     <li><a href="">our work</a></li>
-                    
+
                     <li><a href="">pricing</a></li>
-                    
-                    <li><a href="">privacy policy</a></li>
-                    
-                    <li><a href="">terms and conditions</a></li>
+
+                    <li>
+                      <Link href="/privacyPolicy" eventKey="1">
+                        privacy policy
+                      </Link>
+                    </li>
+
+                    <li>
+                      <Link href="/termsConditions" eventKey="1">
+                        terms and conditions
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -84,7 +93,7 @@ function Footer() {
                         </svg>
                       </a>
                     </li>
-                    
+
                     <li>
                       <a href="" className="socialLinks">
                       <svg xmlns="http://www.w3.org/2000/svg" width="11.809" height="11.809" viewBox="0 0 11.809 11.809">
