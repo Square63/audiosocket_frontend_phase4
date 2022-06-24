@@ -13,7 +13,8 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL, REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL,
          GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
          GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL,
-         CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL } from "../constants/authConstants";
+         CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL, CREATOR_KITS_SUCCESS, CREATOR_KITS_FAIL,
+         CREATOR_KITS_DETAIL_SUCCESS, CREATOR_KITS_DETAIL_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -744,3 +745,37 @@ export const getCuratedPlaylistTracks = (data) => async (dispatch) => {
   }
 };
 
+export const getCreatorKits = (page) => async( dispatch ) => {
+  try {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/creator_kits?page=${page}&per_page=15`);
+    dispatch({
+      type: CREATOR_KITS_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: CREATOR_KITS_FAIL,
+      payload: error
+    })
+
+  }
+
+}
+
+export const getCreatotKitsDetail = (data, type, page) => async (dispatch) => {
+  let id = data;
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/api/v1/consumer/creator_kits/${id}?type=${type}&pagination=true&page=${page}`
+    );
+    dispatch({
+      type: CREATOR_KITS_DETAIL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATOR_KITS_DETAIL_FAIL,
+      payload: error,
+    });
+  }
+};
