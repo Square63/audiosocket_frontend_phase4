@@ -38,7 +38,7 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
         `${BASE_URL}/api/v1/consumer/consumers/forgot_password`, { email },
         {
           headers: {
-            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8'
+            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.9kL4HmyjCYJgdpBHX1g3JHAp235eKlLAO_vcPb4bYGk'
           }
         }
       ).then(response => {
