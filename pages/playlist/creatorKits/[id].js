@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Form, Button, FormGroup, FormControl, Tabs, Tab, TabContainer, TabContent, TabPane } from "react-bootstrap";
-import { getCreatotKitsDetail } from "../../../redux/actions/authActions";
+import { getCreatotKitsDetail, getCreatorKitsTracks } from "../../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from 'next/image';
@@ -33,7 +33,7 @@ import Pluralize from 'pluralize';
 const Details = ()  => {
   const dispatch = useDispatch();
   const { query } = useRouter();
-  const [type, setType] = useState("tracks")
+  const [type, setType] = useState("track")
   const [isLoading, setIsLoading] = useState(true);
   const [showLicenseModal, setShowLicenseModal] = useState(false);
   const [index, setIndex] = useState(0)
@@ -44,36 +44,42 @@ const Details = ()  => {
   const [showDownModal, setShowDownModal] = useState(false);
   const [updatedTracks, setUpdatedTracks] = useState([])
   const creatorKitsDetail = useSelector(state => state.user.creator_kits_detail);
-  // const creatorKitsTracks = useSelector(state => state.user.meta.tracks);
-  // const creatorKitsSfxes = useSelector(state => state.user.meta.sfxes);
+  const creatorKitsTracks = useSelector(state => state.user.creator_kits_tracks);
 
   useEffect(() => {
     if (query && !creatorKitsDetail) {
-      dispatch(getCreatotKitsDetail(query.id, type, 1))
-      // dispatch(getMyPlaylistTracks(query.id, 1))
+      dispatch(getCreatotKitsDetail(query.id))
     }
   }, [creatorKitsDetail]);
 
   useEffect(() => {
-    if (creatorKitsDetail) {
-      if (type == "tracks") {
-        if (creatorKitsDetail.meta.tracks.length > 0) {
-          if (updatedTracks[0]?.id != creatorKitsDetail.meta.tracks[0].id)
-            setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsDetail.meta.tracks]);
+    if (query && !creatorKitsTracks) {
+      // dispatch(getCreatotKitsDetail(query.id))
+      dispatch(getCreatorKitsTracks(query.id, type, 1))
+    }
+  }, [creatorKitsTracks]);
+
+  useEffect(() => {
+    if (creatorKitsTracks) {
+      if (type == "track") {
+        if (creatorKitsTracks.playlist_tracks.length > 0) {
+          if (updatedTracks[0]?.id != creatorKitsTracks.playlist_tracks[0].id)
+            setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsTracks.playlist_tracks]);
+            creatorKitsTracks.meta && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_tracks_ids)
         }
       } else {
-        if (creatorKitsDetail.meta.sfxes?.length > 0) {
-          if (updatedTracks[0]?.id != creatorKitsDetail.meta.sfxes[0].id)
-            setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsDetail.meta.sfxes]);
+        if (creatorKitsTracks.playlist_tracks?.length > 0) {
+          if (updatedTracks[0]?.id != creatorKitsTracks.playlist_tracks[0].id)
+            setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsTracks.playlist_tracks]);
+            creatorKitsTracks.meta && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_sfxes_ids)
         }
       }
       setIsLoading(false)
-      creatorKitsDetail.meta && setFavoriteTrackIds(creatorKitsDetail.meta.favorite_tracks_ids)
     }
-  }, [creatorKitsDetail])
+  }, [creatorKitsTracks?.playlist_tracks])
 
   useEffect(() => {
-    dispatch(getCreatotKitsDetail(query.id, type, 1))
+    dispatch(getCreatorKitsTracks(query.id, type == "tracks" ? "track" : type, 1))
   }, [type])
 
   const handleType = (e) => {
@@ -222,7 +228,7 @@ const Details = ()  => {
   const handleAddFilter = async(e) => {
     
   }
-
+  
   return (
     <>
     {creatorKitsDetail ? 
@@ -256,10 +262,10 @@ const Details = ()  => {
 
                 <div className={playlist.playlistStats}>
                   <div className={playlist.tracksCount}>
-                    71 Music Tracks
+                    {creatorKitsDetail.meta.track_count} Music Tracks
                   </div>
                   <div className={playlist.tracksDuration}>
-                    21 SFX
+                  {creatorKitsDetail.meta.sfx_count} SFX
                   </div>
                   <div className={playlist.tracksDuration}>
                     18 Sound Design Tracks
@@ -312,15 +318,15 @@ const Details = ()  => {
         <div className={playlist.creatorKitsContent}>
           <Tabs defaultActiveKey="tracks" id="uncontrolled-tab-example" onSelect={(e)=> handleType(e)}>
             <Tab eventKey="tracks" title="Tracks">      
-            {creatorKitsDetail.meta && creatorKitsDetail.meta.tracks?
-              <CreatorKitsTracks tracks={creatorKitsDetail.meta.tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
+            {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0].mediable_type == "Track" ?
+              <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
               :
               <InpageLoader/>
             }
             </Tab>
             <Tab eventKey="sfx" title="SFX">
-            {creatorKitsDetail.meta && creatorKitsDetail.meta.sfxes?
-              <CreatorKitsTracks tracks={creatorKitsDetail.meta.sfxes} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
+            {creatorKitsTracks &&  creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks &&  creatorKitsTracks.playlist_tracks[0].mediable_type == "Sfx" ?
+              <CreatorKitsTracks tracks={updatedTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
               :
               <InpageLoader/>
             }
@@ -331,10 +337,10 @@ const Details = ()  => {
           </Tabs>
         </div>
       </div>
-      {creatorKitsDetail && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type={type}/> }
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type={type}/> }
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      {creatorKitsDetail && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
-      {creatorKitsDetail && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} type={type}/>}
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} type={type}/>}
     </div> : <InpageLoader/>
     }
     </>
