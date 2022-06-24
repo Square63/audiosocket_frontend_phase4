@@ -1,7 +1,3 @@
-import withPrivateRoute from "../components/withPrivateRoute";
-
-
-
 function privacyPolicy() {
   return (
     <div className="generalContent">
@@ -95,4 +91,5 @@ function privacyPolicy() {
     </div>
   );
 }
-export default withPrivateRoute(privacyPolicy);
+
+export default privacyPolicy;

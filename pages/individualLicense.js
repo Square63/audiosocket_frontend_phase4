@@ -1,7 +1,3 @@
-import withPrivateRoute from "../components/withPrivateRoute";
-
-
-
 function generalContent() {
   return (
     <div className="generalContent">
@@ -31,7 +27,7 @@ function generalContent() {
         <p>replace_with_license_price</p>
 
         <h3 className="gCSubHeading">3. License and License Restrictions</h3>
-        <h5>License</h5> 
+        <h5>License</h5>
         <p>Audiosocket grants to Licensee the non-exclusive license, privilege and authority to copy, perform, edit and/or loop portions of (provided that no such change shall alter the fundamental character of the portion of the Licensed Track), and use the musical composition embedded in the Licensed Tracks in synchronization or timed relation in the Work during the Term throughout the world for the Permitted Purposes set forth in Section 3(c). Notwithstanding the foregoing, the musical compositions contained in the Licensed Tracks shall not be distributed or exploited separately or independently of the Work by the Licensee. Licensee may not sublicense or assign this License.</p>
         <h5> License Restrictions</h5>
         <p>The License granted in Section 3(a) is conditioned upon Licensee&apos;s compliance with the restrictions set forth in this Section 3(b).</p>
@@ -79,7 +75,7 @@ function generalContent() {
         <p>Licensee shall use best efforts to credit Audiosocket and the artist, and include such credit in the final edited version of the Work in each case in which credits for music are included in the Work. No casual or inadvertent failure by Licensee to comply with the credit requirements set forth above, nor any failure by third parties to so comply, shall constitute a breach of this License by Licensee. Recommended language for credit is: &quot;[Name of Licensed Track]&quot; by [Name of Artist], licensed by Audiosocket.&quot; If the Work is posted to YouTube, the credit language should be posted in the video description.</p>
 
         <h3 className="gCSubHeading">9. Representations and Warranties</h3>
-        <h5>Audiosocket.</h5> 
+        <h5>Audiosocket.</h5>
         <p>Audiosocket hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it has all necessary rights to license the Licensed Tracks to Licensee under the terms of this License; and (iii) Licensee&apos;s exercise of rights hereunder will not infringe any third party&apos;s intellectual property rights.</p>
         <h5>Licensee.</h5>
         <p>Licensee hereby represents and warrants that: (i) it has the power, capacity, and authority to enter into this Agreement; (ii) it meets the criteria set forth in Section 2(b)(i).</p>
@@ -94,7 +90,7 @@ function generalContent() {
         <p>This License is governed by the law of the State of Washington (without regard to conflicts of law principles). Any dispute arising out of or relating to this License shall be commenced in the federal or state courts located in King County, Washington. In any such dispute, the substantially prevailing party shall be entitled to its reasonable attorneys&apos; fees.</p>
         <h5>Damages</h5>
         <p>Licensee agrees that damages for the breach of this License are difficult to accurately calculate because of the negative impacts on Audiosocket&apos;s goodwill and reputation in the marketplace and with its artists. Therefore, both parties agree to fix as liquidated damages, and not as a penalty, an amount equal to $25,000 USD, plus Audiosocket&apos;s reasonable attorneys&apos; fees and costs. These liquidated damages are meant to be in addition to Audiosocket&apos;s other remedies, and Licensee agrees they are a reasonable measure of the harm that would be suffered by Audiosocket.</p>
-        <h5>Assignment; Waiver; Modification</h5> 
+        <h5>Assignment; Waiver; Modification</h5>
         <p>This License may not be transferred or assigned by Licensee, and is binding on permitted successors and assigns. No modification of this License will be binding unless made in a writing signed by both parties. No waiver of any term, condition or obligation of this License will be valid unless made in writing and signed by the party to which such performance is due. No failure or delay by any party at any time to enforce one or more of the terms, conditions or obligations of this License will (i) constitute waiver of such term, condition or obligation, (ii) preclude such party from requiring performance by the other party at any later time, or (iii) be deemed to be a waiver of any other subsequent term, condition or obligation, whether of like or different nature.</p>
         <h5>Entire License; Severability</h5>
         <p>This License constitutes the entire agreement between the parties with respect to the subject matter hereof and merges all prior and contemporaneous communications. If any provision of this License is held to be invalid or unenforceable to any extent, then the remainder of this License will have full force and effect and such provision will be interpreted, construed or reformed to the extent reasonably required to render the same valid, enforceable and consistent with the original intent underlying such provision.</p>
@@ -104,4 +100,5 @@ function generalContent() {
     </div>
   );
 }
-export default withPrivateRoute(generalContent);
+
+export default generalContent;

@@ -1,7 +1,3 @@
-import withPrivateRoute from "../components/withPrivateRoute";
-
-
-
 function termsConditions() {
   return (
     <div className="generalContent">
@@ -106,4 +102,5 @@ function termsConditions() {
     </div>
   );
 }
-export default withPrivateRoute(termsConditions);
+
+export default termsConditions;
