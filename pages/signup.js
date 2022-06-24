@@ -55,6 +55,7 @@ function Signup() {
       localStorage.setItem("first_name", JSON.stringify(signUpUser.userDetails.first_name));
       localStorage.setItem("last_name", JSON.stringify(signUpUser.userDetails.last_name));
       localStorage.setItem("email", JSON.stringify(signUpUser.userDetails.email));
+      localStorage.setItem("has_subscription", false);
       cookie.set('user', JSON.stringify(signUpUser.user))
       router.push('/selectPlan');
     }
