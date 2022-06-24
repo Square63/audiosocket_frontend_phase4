@@ -8,7 +8,8 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, SIGN_UP_SUCCESS, SIGN_UP_FAIL, UPDATE_PASSWO
          SOCIAL_LOGIN_FAIL, SOCIAL_AUTH_SUCCESS, SOCIAL_AUTH_FAIL, MY_PLAYLIST_TRACKS_SUCCESS, MY_PLAYLIST_TRACKS_FAIL, MY_PLAYLIST_ARTISTS_SUCCESS, MY_PLAYLIST_ARTISTS_FAIL,
          REMOVE_FROM_PLAYLIST_SUCCESS, REMOVE_FROM_PLAYLIST_FAIL, GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
          GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL,
-         CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL } from "../constants/authConstants";
+         CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL, CREATOR_KITS_SUCCESS, CREATOR_KITS_FAIL,
+         CREATOR_KITS_DETAIL_SUCCESS, CREATOR_KITS_DETAIL_FAIL } from "../constants/authConstants";
 
 export const authReducer = (state = {user: {}, error: {}}, action) => {
   switch (action.type) {
@@ -380,6 +381,28 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         ...state,
         curated_playlist_detail: action.payload.response.data.errors,
         success: false,
+      };
+    case CREATOR_KITS_SUCCESS:
+      return {
+        ...state,
+        creator_kits: action.payload,
+      };
+    case CREATOR_KITS_FAIL:
+      return {
+        ...state,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
+      };
+    case CREATOR_KITS_DETAIL_SUCCESS:
+      return {
+        ...state,
+        creator_kits_detail: action.payload,
+      };
+    case CREATOR_KITS_DETAIL_FAIL:
+      return {
+        ...state,
+        error: action.payload.response.data,
+        responseStatus: action.payload.response.status
       };
     default:
       return state;
