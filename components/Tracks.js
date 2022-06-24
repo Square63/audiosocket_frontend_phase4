@@ -45,7 +45,7 @@ function Tracks(props) {
   useEffect(() => {
     let isMounted = true;
     if (props.tracksMeta.total_track_count !== tracks.length) {
-      if (tracks[0]?.id != props.tracks[0].id)
+      if (tracks[0]?.id != props.tracks[0]?.id)
         setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)
     } else {
