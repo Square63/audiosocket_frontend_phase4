@@ -1,7 +1,3 @@
-import withPrivateRoute from "../components/withPrivateRoute";
-
-
-
 function largeBusiness() {
   return (
     <div className="generalContent">
@@ -82,4 +78,5 @@ function largeBusiness() {
     </div>
   );
 }
-export default withPrivateRoute(largeBusiness);
+
+export default largeBusiness;
