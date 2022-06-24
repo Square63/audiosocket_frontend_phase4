@@ -125,11 +125,6 @@ function CreatorKits() {
             style={{ width: "auto" }}
           />
         <div className="fixed-container">
-
-          <div className="parallelHead">
-            <h1>Creator Kits</h1>
-            <button className="btn btnMainLarge" onClick={() => setShowModal(true)}>New Playlist</button>
-          </div>
           <section className={playlist.myPlaylists}>
           <InfiniteScroll
               dataLength={creatorKitsArray.length}

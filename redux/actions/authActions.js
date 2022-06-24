@@ -14,7 +14,7 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
          GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL,
          CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL, CREATOR_KITS_SUCCESS, CREATOR_KITS_FAIL,
-         CREATOR_KITS_DETAIL_SUCCESS, CREATOR_KITS_DETAIL_FAIL } from "../constants/authConstants";
+         CREATOR_KITS_DETAIL_SUCCESS, CREATOR_KITS_DETAIL_FAIL, CREATOR_KITS_TRACKS_SUCCESS, CREATOR_KITS_TRACKS_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -762,11 +762,11 @@ export const getCreatorKits = (page) => async( dispatch ) => {
 
 }
 
-export const getCreatotKitsDetail = (data, type, page) => async (dispatch) => {
+export const getCreatotKitsDetail = (data) => async (dispatch) => {
   let id = data;
   try {
     const { data } = await axios.get(
-      `${BASE_URL}/api/v1/consumer/creator_kits/${id}?type=${type}&pagination=true&page=${page}`
+      `${BASE_URL}/api/v1/consumer/creator_kits/${id}`
     );
     dispatch({
       type: CREATOR_KITS_DETAIL_SUCCESS,
@@ -775,6 +775,24 @@ export const getCreatotKitsDetail = (data, type, page) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CREATOR_KITS_DETAIL_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const getCreatorKitsTracks = (id, type, page) => async (dispatch) => {
+  try {
+    const { data } = await axios.request({
+    method: "get",
+      url: `${BASE_URL}/api/v1/consumer/creator_kits/${id}/playlist_tracks/creator_kit_media?media=${type}&media_type=${type}&klass=creator_kit&page=${page}`
+    });
+    dispatch({
+      type: CREATOR_KITS_TRACKS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATOR_KITS_TRACKS_FAIL,
       payload: error,
     });
   }
