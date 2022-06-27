@@ -1,23 +1,9 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import {useState, useRef, useContext, useEffect} from "react";
-import {AuthContext} from "../store/authContext";
-import Select from "react-select";
-import Link from "next/link"
-import router, {Router} from "next/router";
-import {faqSection} from "../styles/Pricing.module.scss";
+import {useState} from "react";
 import signup from "../styles/Signup.module.scss";
-import PricingPlan from '../components/PricingPlan';
 import SelectPricingPlan from '../components/SelectPricingPlan'
+import { Country } from "country-state-city";
 
-function SelectPlan() {
-
-  useEffect(() => {
-    // if(!localStorage.getItem('user')) {
-    //   router.push('/signup');
-    // }
-  }, []);
-
+function SelectPlan({countries}) {
   const [activeStep, setActiveStep] = useState(false);
 
   function handleSteps(step) {
@@ -50,10 +36,34 @@ function SelectPlan() {
           </div>
         </div>
 
-        <SelectPricingPlan data={handleSteps} display={true}></SelectPricingPlan>
+        <SelectPricingPlan data={handleSteps} countries={countries} display={true}></SelectPricingPlan>
       </div>
     </div>
   );
 }
 
 export default SelectPlan;
+
+export const getStaticProps = () => {
+  const countriesList = Country.getAllCountries();
+  const countries = [];
+  countries.push({ label: "Select Country", value: null, countryCode: null });
+  countries.push({
+    label: "United States",
+    value: "United States",
+    countryCode: "US",
+  });
+  countriesList.forEach((country, key) => {
+    if (country.isoCode !== "US")
+      countries.push({
+        label: country.name,
+        value: country.name,
+        countryCode: country.isoCode,
+      });
+  });
+  return {
+    props: {
+      countries,
+    },
+  };
+};
