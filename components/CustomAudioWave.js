@@ -142,12 +142,13 @@ export default function CustomAudioWave(props) {
     !props.footer ?
       (<>
         <div className="rowParticipant artistName">
-          
+          {isLoading ?
+            <InpageLoader /> :
             <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
               <span className={(playing) ? "play" : "pause"}></span>
               <span className="pause d-none"></span>
             </div>
-          
+          }
           <div className="aboutSong">
             <div className="songData">
               <OverlayTrigger overlay={<Tooltip>{props.track.title}</Tooltip>}>
