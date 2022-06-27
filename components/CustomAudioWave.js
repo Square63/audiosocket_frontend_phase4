@@ -46,7 +46,8 @@ export default function CustomAudioWave(props) {
   const [rowSeconds, setRowSeconds] = useState();
   const [footer, setFooter] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
-  const url = props.track.mp3_file_compressed? props.track.mp3_file_compressed : props.track.mp3_file_compressed
+
+  const url = props.track.mp3_file_compressed? props.track.mp3_file_compressed : "./test.mp3"
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -60,7 +61,7 @@ export default function CustomAudioWave(props) {
     // console.log("PLaying", playing)
     if (wavesurfer.current == null)
       console.log("Under IF current wave is null")
-      // create(url);
+      create(url);
     if (props.footerPlaying) {
       setTimeout(() => setSeconds(seconds ? (seconds -1) : (30 - 1)), 1000);
     } else {
@@ -104,8 +105,8 @@ export default function CustomAudioWave(props) {
     wavesurfer.current = WaveSurfer.create(options);
     wavesurfer.current.load(url);
     wavesurfer.current.on('ready', function () {
-      setIsLoading(false);
       props.incrementWaveCount();
+      setIsLoading(false);
     });
   };
 
