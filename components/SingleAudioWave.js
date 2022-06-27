@@ -28,7 +28,7 @@ export default function CustomAudioWave(props) {
   const [seconds, setSeconds] = useState();
   const [rowSeconds, setRowSeconds] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const url = props.track.mp3_file ? props.track.mp3_file : "./test.mp3"
+  const url = props.track.mp3_file_compressed ? props.track.mp3_file_compressed : "./test.mp3"
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
