@@ -1,19 +1,15 @@
-import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
+import { Form, Button, Dropdown } from "react-bootstrap";
 import Tooltip from 'react-bootstrap/Tooltip';
 import InpageLoader from "./InpageLoader";
-import {useState, useEffect, useContext} from "react";
+import {useState, useEffect} from "react";
 import Select from "react-select";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 import dynamic from 'next/dynamic'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getSfxes, getTracks, followArtist, unFollowArtist } from '../redux/actions/trackActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
-import Collapse from 'react-bootstrap/Collapse';
-import Fade from 'react-bootstrap/Fade';
-import {AuthContext} from "../store/authContext";
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
@@ -28,16 +24,14 @@ function Tracks(props) {
   const dispatch = useDispatch();
   const [tracks, setTracks] = useState([])
   const [infifniteLoop, setInfiniteLoop] = useState(false)
+  const [alternateVersionCollapseTrackId, setAlternateVersionCollapseTrackId] = useState()
   const [sortBy, setSortBy] = useState("")
   const [sortDir, setSortDir] = useState("")
   const [titleSortDir, setTitleSortDir] = useState("")
   const [durationSortDir, setDurationSortDir] = useState("")
   const [bpmSortDir, setBpmSortDir] = useState("")
-  const [open, setOpen] = useState(false);
-  const [playing, setPlaying] = useState(false);
   const [hasMore, sethasMore] = useState(false)
   const [moodColumn, setMoodColumn] = useState("moods")
-  const authContext = useContext(AuthContext)
   const [followedArtists, setFollowedArtists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   let waveCount = 0;
@@ -134,11 +128,11 @@ function Tracks(props) {
       seconds = seconds.length == 1 ? ("0" + seconds) : seconds
       return minutes+':'+seconds
     }
-
   }
 
-  const handleCollapse = (e) => {
+  const handleCollapse = (e, trackId) => {
     e.target.classList.toggle("rotateArrow")
+    setAlternateVersionCollapseTrackId(trackId)
   }
 
 
@@ -443,39 +437,40 @@ function Tracks(props) {
                           </svg>
                           <span>Share</span>
                         </Dropdown.Item>
-                        { ((localStorage?.getItem('user')) && (followedArtists?.includes(track.artist_id))) ?
-                        (<Dropdown.Item>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
-                            <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
-                              <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
-                                <g id="Group" transform="translate(173.415 84.471)">
-                                  <g id="social-profile-avatar">
-                                    <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                        {((localStorage?.getItem('user')) && !props.sfxes && followedArtists?.includes(track.artist_id)) ?
+                          (<Dropdown.Item>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
+                              <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                                <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                                  <g id="Group" transform="translate(173.415 84.471)">
+                                    <g id="social-profile-avatar">
+                                      <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                    </g>
                                   </g>
+                                  <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                  <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                                 </g>
-                                <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                               </g>
-                            </g>
-                          </svg>
-                          <span onClick={() => {handleUnfollowArtist(track)}}>Unfollow Artist</span>
-                        </Dropdown.Item>) : (localStorage?.getItem('user')) ?
-                        (<Dropdown.Item>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
-                            <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
-                              <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
-                                <g id="Group" transform="translate(173.415 84.471)">
-                                  <g id="social-profile-avatar">
-                                    <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            </svg>
+                            <span onClick={() => {handleUnfollowArtist(track)}}>Unfollow Artist</span>
+                          </Dropdown.Item>) : ((localStorage?.getItem('user')) && !props.sfxes) ?
+                          (<Dropdown.Item>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
+                              <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                                <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                                  <g id="Group" transform="translate(173.415 84.471)">
+                                    <g id="social-profile-avatar">
+                                      <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                    </g>
                                   </g>
+                                  <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                  <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                                 </g>
-                                <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                               </g>
-                            </g>
-                          </svg>
-                          <span onClick={() => {handleFollowArtist(track)}}>Follow Artist</span>
-                        </Dropdown.Item>) : ""}
+                            </svg>
+                            <span onClick={() => {handleFollowArtist(track)}}>Follow Artist</span>
+                          </Dropdown.Item>) : ""
+                        }
                       </Dropdown.Menu>
                     </Dropdown>
                   </div>
@@ -483,7 +478,7 @@ function Tracks(props) {
                     <>
                       <div className="altVersions">
                         <Accordion key={index + 1} >
-                          <Accordion.Toggle as={Button} variant="link" eventKey={index + 1} onClick={(e)=> handleCollapse(e)}>
+                          <Accordion.Toggle as={Button} variant="link" eventKey={index + 1} onClick={(e)=> handleCollapse(e, track.id)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="8.844" height="6.17" viewBox="0 0 8.844 6.17">
                               <g id="icon-arrow-down-small" transform="translate(0.18 1.058)">
                                 <path id="Shape_1939" data-name="Shape 1939" d="M335.361,2401.3l-3.179-4.053" transform="translate(-331.309 -2397.247)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
@@ -494,7 +489,7 @@ function Tracks(props) {
                           </Accordion.Toggle>
                           <Accordion.Collapse eventKey={index + 1}>
                             <div id={"example-collapse-text" + index + 1} >
-                              {track.alternate_versions.map((altVersion,index)=> {
+                              {track.id == alternateVersionCollapseTrackId && track.alternate_versions.map((altVersion, index)=> {
                                 return (
                                   <AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} handleSimilarSearch={props.handleSimilarSearch} showTrackAddToPlaylistModal={props.showTrackAddToPlaylistModal} handleAddToFavorites={props.handleAddToFavorites} tracksMeta={props.tracksMeta} favoriteTrackIds={props.favoriteTrackIds} showDownloadModal={props.showDownloadModal} showDownloadLicenseModal={props.showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists}/>
                                 )
