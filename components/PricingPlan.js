@@ -41,7 +41,7 @@ class Braintree extends React.Component {
     const clientToken = data.token
     this.setState({
       clientToken: clientToken,
-      redirectUrl: data.redirect_url 
+      redirectUrl: data.redirect_url
     });
   }
 
@@ -52,9 +52,6 @@ class Braintree extends React.Component {
   }
 
   async purchase(type) {
-    // try {
-      // Send nonce to your server
-    // 
     const { nonce } = type == "paypal" ? await this.instance.requestPaymentMethod() : await this.instance.tokenize()
     let discount_id = document.getElementById("disCode")?.value;
     const authToken = JSON.parse(localStorage.getItem("user") ?? "");
@@ -67,16 +64,20 @@ class Braintree extends React.Component {
         }
       }
     ).then(response => {
-      toast.success(response.data.message)
-      localStorage.setItem("has_subscription", true);
-      window.location.href = "/"
+      if (response.data.success){
+        toast.success(response.data.message)
+        localStorage.setItem("has_subscription", true);
+        window.location.href = "/"
+      } else {
+        toast.error(response.data.message)
+      }
     }).catch(error => {
       toast.error(error.response.data.message);
     });
   }
 
   render() {
-    
+
     if (!this.state.clientToken) {
       return (
         <div>
@@ -95,9 +96,9 @@ class Braintree extends React.Component {
                   authorization: this.state.clientToken
                 }}
                 onInstance={(instance) => (this.instance = instance)}
-              >   
+              >
                 <form id="cardForm">
-                
+
                     <Row className="halfGutters">
                       <Col>
                         <Form.Group className="mb-4">
@@ -158,7 +159,7 @@ class Braintree extends React.Component {
                       <a href="javascript:void(0)" className="btn btnMainLarge submit" onClick={this.purchase.bind(this, "cc")}>Start Membership</a>
                       {/* <button className="btn btnMainLarge submit" onClick={this.purchase.bind(e, this)}>Start Membership</button> */}
                     </div>
-                  
+
                     {/* <label className="hosted-fields--label">Card Number</label>
                   <div className="form-control hosted-field" id="card-number" type="text" placeholder="Enter Card Number…"></div>
                   <label className="hosted-fields--label">Expiration Date</label>
@@ -171,7 +172,7 @@ class Braintree extends React.Component {
                   <label>Discount Code</label>
                   <input id="disCode" className="form-control" type="text" placeholder="Enter Discount Code." /> */}
                 </form>
-                
+
               {/* <div className={signup.btnWrapper}>
                 <button className="btn btnMainLarge submit" onClick={this.purchase.bind(this)}>Submit</button>
               </div> */}
