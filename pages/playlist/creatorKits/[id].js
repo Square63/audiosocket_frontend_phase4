@@ -47,10 +47,10 @@ const Details = ()  => {
   const creatorKitsTracks = useSelector(state => state.user.creator_kits_tracks);
 
   useEffect(() => {
-    if (query && !creatorKitsDetail) {
+    if (query) {
       dispatch(getCreatotKitsDetail(query.id))
     }
-  }, [creatorKitsDetail]);
+  }, []);
 
   useEffect(() => {
     if (query && !creatorKitsTracks) {
@@ -318,14 +318,14 @@ const Details = ()  => {
         <div className={playlist.creatorKitsContent}>
           <Tabs defaultActiveKey="tracks" id="uncontrolled-tab-example" onSelect={(e)=> handleType(e)}>
             <Tab eventKey="tracks" title="Tracks">      
-            {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0].mediable_type == "Track" ?
+            {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Track" ?
               <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
               :
               <InpageLoader/>
             }
             </Tab>
             <Tab eventKey="sfx" title="SFX">
-            {creatorKitsTracks &&  creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks &&  creatorKitsTracks.playlist_tracks[0].mediable_type == "Sfx" ?
+            {creatorKitsTracks &&  creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks &&  creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Sfx" ?
               <CreatorKitsTracks tracks={updatedTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
               :
               <InpageLoader/>

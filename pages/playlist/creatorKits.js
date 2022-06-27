@@ -1,4 +1,3 @@
-import withPrivateRoute from "../../components/withPrivateRoute";
 import user from "../../styles/User.module.scss";
 import playlist from "../../styles/Playlist.module.scss";
 import Image from 'next/image';
@@ -165,4 +164,4 @@ function CreatorKits() {
   );
 }
 
-export default withPrivateRoute(CreatorKits);
+export default CreatorKits;
