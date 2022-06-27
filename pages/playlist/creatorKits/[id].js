@@ -238,8 +238,7 @@ const Details = ()  => {
         <div className="themeBreadcrumb">
           <div className="fixed-container">
             <Breadcrumb>
-              <Breadcrumb.Item href="#">Playlists</Breadcrumb.Item>
-              <Breadcrumb.Item href="#">Creator Kits</Breadcrumb.Item>
+              <Breadcrumb.Item href="/playlist/creatorKits">Creator Kits</Breadcrumb.Item>
               <Breadcrumb.Item active>{creatorKitsDetail.curated_playlist.name}</Breadcrumb.Item>
             </Breadcrumb>
           </div>
@@ -317,19 +316,27 @@ const Details = ()  => {
       <div className="fixed-container">
         <div className={playlist.creatorKitsContent}>
           <Tabs defaultActiveKey="tracks" id="uncontrolled-tab-example" onSelect={(e)=> handleType(e)}>
-            <Tab eventKey="tracks" title="Tracks">      
-            {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Track" ?
+            <Tab eventKey="tracks" title="Tracks">    
+            {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
+            (creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Track" ?
               <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
               :
               <InpageLoader/>
-            }
+            ):
+            ( 
+              <center>No tracks found</center>
+            )}
             </Tab>
             <Tab eventKey="sfx" title="SFX">
-            {creatorKitsTracks &&  creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks &&  creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Sfx" ?
-              <CreatorKitsTracks tracks={updatedTracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
+            {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
+            (creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Sfx" ?
+              <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
               :
               <InpageLoader/>
-            }
+            ):
+            ( 
+              <center>No sfx found</center>
+            )}
             </Tab>
             <Tab eventKey="soundDesign" title="Sound Design">
             <p>lorem 52</p>
