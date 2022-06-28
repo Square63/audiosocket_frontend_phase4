@@ -254,7 +254,7 @@ const Details = () => {
           style={{ width: "auto" }}
         />
         <div className={playlist.myPlaylistShow}>
-          <div className={playlist.playlistBanner}>
+          <div className={playlist.playlistBanner} style={myPlaylistDetail && {backgroundImage: "url(" + myPlaylistDetail.banner_image + ")"}}>
             <div className="themeBreadcrumb">
               <div className="fixed-container">
                 <Breadcrumb>
