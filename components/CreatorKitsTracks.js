@@ -33,16 +33,23 @@ function CreatorKitsTracks(props) {
   const [titleSortDir, setTitleSortDir] = useState("")
   const [durationSortDir, setDurationSortDir] = useState("")
   const [bpmSortDir, setBpmSortDir] = useState("");
-  const [hasMore, sethasMore] = useState(true)
+  const [hasMore, sethasMore] = useState(false)
   const [moodColumn, setMoodColumn] = useState("moods")
   const [trackList, setTrackList] = useState(props.tracks)
+  let waveCount = 0;
 
   useEffect(() => {
     let isMounted = true;
+    
     if (tracks[0]?.id != props.tracks[0]?.id)
-        setTracks(tracks => [...tracks, ...props.tracks])
+      setTracks(tracks => [...tracks, ...props.tracks])
     setInfiniteLoop(false)
-    props.tracks.length < 10 ? sethasMore(false) : sethasMore(true) // this check will get changed according to metadata.
+  
+    if (props.tracks.length < 10) {
+      sethasMore(false)
+    } else {
+      sethasMore(false)
+    }
 
     return () => {
       isMounted = false;
@@ -156,6 +163,16 @@ function CreatorKitsTracks(props) {
     setTrackList(updatedList);
   }
 
+  function incrementWaveCount() {
+    debugger
+    if (waveCount >= 9){
+      waveCount = 0
+      sethasMore(true)
+    }
+    else
+      waveCount = waveCount + 1;
+  }
+
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
@@ -262,7 +279,7 @@ function CreatorKitsTracks(props) {
                           {...provided.draggableProps}
                         >
                           <div className="trackRow" key={index}>
-                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
+                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} incrementWaveCount={incrementWaveCount}/>
                             <div className="rowParticipant duration">
                               {convertSecToMin(track.mediable.duration)}
                             </div>

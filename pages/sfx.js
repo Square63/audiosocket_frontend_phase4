@@ -594,7 +594,7 @@ function Sfx(props) {
         <h1 className={search.pageHeading}>Search SFX</h1>
         <div className={search.searchUploadStuff}>
           <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
-            <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" onChange={handleSearch} id="searchField" />
+            <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" id="searchField" />
             <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
             <svg xmlns="http://www.w3.org/2000/svg" className="" width="22.414" height="22.414" viewBox="0 0 22.414 22.414">
               <g id="icon-magnifying-glass" transform="translate(1 1)">

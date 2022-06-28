@@ -7,7 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import search from "../styles/Search.module.scss";
 import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from "react-redux";
-import { getMyPlaylistTracks} from "../redux/actions/authActions";
+import { getMyPlaylistTracks, getCuratedPlaylistTracks} from "../redux/actions/authActions";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Accordion from 'react-bootstrap/Accordion';
 import {AuthContext} from "../store/authContext";
@@ -33,23 +33,33 @@ function MyPlaylistTracks(props) {
   const [titleSortDir, setTitleSortDir] = useState("")
   const [durationSortDir, setDurationSortDir] = useState("")
   const [bpmSortDir, setBpmSortDir] = useState("");
-  const [hasMore, sethasMore] = useState(true)
+  const [hasMore, sethasMore] = useState(false)
   const [moodColumn, setMoodColumn] = useState("moods")
   const [trackList, setTrackList] = useState(props.tracks)
+  let waveCount = 0;
 
   useEffect(() => {
     let isMounted = true;
-    setTracks(tracks => [...tracks, ...props.tracks])
+    if (tracks[0]?.id != props.tracks[0]?.id)
+      setTracks(tracks => [...tracks, ...props.tracks])
     setInfiniteLoop(false)
-    props.tracks.length < 10 ? sethasMore(false) : sethasMore(true) // this check will get changed according to metadata.
-
+  
+    if (props.tracks.length < 10) {
+      sethasMore(false)
+    } else {
+      sethasMore(false)
+    }
+  
     return () => {
       isMounted = false;
     };
   }, [props.tracks])
 
   const fetchData = () => {
-    dispatch(getMyPlaylistTracks(query.id, props.tracks.length/10 + 1))
+    if (props.type == "myplaylist")
+      dispatch(getMyPlaylistTracks(query.id, tracks.length/10 + 1))
+    else
+      dispatch(getCuratedPlaylistTracks(query.id, tracks.length/10 + 1))
     setInfiniteLoop(true)
   }
 
@@ -153,6 +163,15 @@ function MyPlaylistTracks(props) {
     updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
     // Update State
     setTrackList(updatedList);
+  }
+
+  function incrementWaveCount() {
+    if (waveCount >= 9){
+      waveCount = 0
+      sethasMore(true)
+    }
+    else
+      waveCount = waveCount + 1;
   }
 
   return (
@@ -261,7 +280,7 @@ function MyPlaylistTracks(props) {
                           {...provided.draggableProps}
                         >
                           <div className="trackRow" key={index}>
-                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
+                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} incrementWaveCount={incrementWaveCount}/>
                             <div className="rowParticipant duration">
                               {convertSecToMin(track.mediable.duration)}
                             </div>

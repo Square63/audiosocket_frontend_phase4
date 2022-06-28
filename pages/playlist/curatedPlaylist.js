@@ -401,7 +401,7 @@ function CuratedPlaylist() {
 
             <Form className="stickySearch">
               <Form.Control type="text" placeholder="Search playlists by title or keyword…" onChange={(e)=> setSearchValue(e.target.value)} value={searchValue} />
-              <Button variant="default" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
+              <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
             </Form>
           </div>
 

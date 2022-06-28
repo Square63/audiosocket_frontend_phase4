@@ -228,13 +228,13 @@ const Details = ()  => {
   const handleAddFilter = async(e) => {
     
   }
-  
+
   return (
     <>
     {creatorKitsDetail ? 
     <div className={playlist.creatorKits}>
       
-      <div className={playlist.playlistBanner}>
+      <div className={playlist.playlistBanner} style={{backgroundImage: "url(" + creatorKitsDetail.curated_playlist.banner_image + ")"}}>
         <div className="themeBreadcrumb">
           <div className="fixed-container">
             <Breadcrumb>
@@ -246,7 +246,7 @@ const Details = ()  => {
         <div className={playlist.playlistInfo}>
           <div className={playlist.playlistCard}>
             <div className={playlist.imgSec}>
-              <Image src={mood1} alt="Mood" className="tilesImg"></Image>
+              {creatorKitsDetail.curated_playlist && creatorKitsDetail.curated_playlist.playlist_image && <Image src={creatorKitsDetail.curated_playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
             </div>
             <div className={playlist.contentSec}>
               <div className={playlist.aboutPlaylist}>

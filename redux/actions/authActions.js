@@ -723,15 +723,12 @@ export const getCuratedPlaylistDetail = (data) => async (dispatch) => {
   }
 };
 
-export const getCuratedPlaylistTracks = (data) => async (dispatch) => {
-  const formData = new FormData();
-  formData.append('klass', "consumer_playlist")
+export const getCuratedPlaylistTracks = (data, page) => async (dispatch) => {
   let id = data;
   try {
     const { data } = await axios.request({
       method: "get",
-      url: `${BASE_URL}/api/v1/consumer/curated_playlists/${id}/playlist_tracks`,
-      data: formData
+      url: `${BASE_URL}/api/v1/consumer/curated_playlists/${id}/playlist_tracks?klass=curated_playlist&page=${page}`
     });
     dispatch({
       type: CURATED_PLAYLIST_TRACKS_SUCCESS,

@@ -383,7 +383,6 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         success: false,
       };
     case CREATOR_KITS_SUCCESS:
-      debugger
       return {
         ...state,
         creator_kits: action.payload,
