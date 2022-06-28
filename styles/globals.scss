@@ -425,13 +425,32 @@ header {
         }
       }
 
+      .nav-link, .dropdown:not(.headerAccount) {
+        display: inherit;
+        padding-inline: 15px;
+        cursor: pointer;
+        font-size: 16px;
+        color: $nav-link;
+        text-transform: initial;
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: -0.32px;
+        line-height: 19px;
+
+        &:hover {
+          color: $green-light;
+        }
+      }
+
       .headerAccount {
         font-weight: 400;
-        padding: 4px 13px;
+        padding: 0 13px;
         height: 30px;
-        line-height: 20px;
-        margin-inline: 7px 15px;
+        font-size: 14px;
+        line-height: 28px;
+        margin-inline: 15px;
         min-width: auto;
+        color: $headerColor;
 
         .dropdown-toggle {
           line-height: normal !important;
@@ -441,6 +460,10 @@ header {
             width: 10px;
             height: 11px;
             filter: invert(0);
+          }
+          &:hover,
+          &:active {
+            color: $headerColor;
           }
         }
 
@@ -474,29 +497,6 @@ header {
               background-size: 10px;
               transform: rotate(180deg);
             }
-          }
-        }
-      }
-
-      .nav-link {
-        display: inherit;
-        padding-inline: 15px;
-        &.pricingLink {
-          padding-left: 0;
-        }
-        a,
-        .dropdown-toggle {
-          cursor: pointer;
-          font-size: 16px;
-          color: $nav-link;
-          text-transform: initial;
-          font-weight: 400;
-          font-style: normal;
-          letter-spacing: -0.32px;
-          line-height: 19px;
-
-          &:hover {
-            color: $green-light;
           }
         }
       }
@@ -5349,6 +5349,7 @@ input[type=file]::file-selector-button {
           @include align-items(center);
           opacity: 0;
           z-index: -1;
+          gap: 30px;
           will-change: z-index, opacity;
           transition: all 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530);
 
@@ -5362,11 +5363,15 @@ input[type=file]::file-selector-button {
             }
           }
 
+          .menuDrop {
+            margin-left: 12px;
+          }
+
           .headerAccount {
-            margin-block: 10px 20px;
             margin-inline: 0;
             z-index: 999;
             opacity: 1;
+            min-width: 80px;
           }
           .menuDrop {
             text-align: center;
@@ -5377,6 +5382,13 @@ input[type=file]::file-selector-button {
           .navbar-nav {
             opacity: 1;
             z-index: 1100;
+            & > {
+              .nav-link,
+              .dropdown:not(.headerAccount) {
+                padding: 0;
+                @include flex-direction(column);
+              }
+            }
           }
         }
       }
@@ -5669,11 +5681,11 @@ input[type=file]::file-selector-button {
         .rowParticipant {
           &.artistName {
             min-width: 100%;
-            padding-left: 45px;
+            padding-left: 55px;
             .playPauseBtn,
             .sk-fading-circle {
               position: absolute;
-              left: 15px;
+              left: 20px;
               top: 50%;
               transform: translateY(-50%);
             }
@@ -5711,7 +5723,7 @@ input[type=file]::file-selector-button {
 
           &.controls {
             min-width: 170px;
-            margin-left: 45px;
+            margin-left: 55px;
             svg {
               width: 22px !important;
               height: 22px;

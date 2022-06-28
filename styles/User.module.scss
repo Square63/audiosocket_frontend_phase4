@@ -250,7 +250,8 @@
     @include flexbox;
     @include justify-content(center);
     flex-wrap: wrap;
-    gap: 30px 60px;
+    row-gap: 30px;
+    column-gap: clamp(30px, 5vw, 60px);
     :global(.boxWithOutShadow) {
       flex: 0 1 47%;
       padding: 0;
@@ -642,6 +643,43 @@
       }
     }
   }
+
+  .editSubscription {
+    .plansShelf {
+      :global(.boxWithOutShadow) {
+        @include flexbox;
+        @include flex-direction(column);
+        .plansHeading {
+          @include flex-direction(column);
+          padding-left: 0;
+          h2 {
+            padding: 25px 15px 20px;
+            min-height: 100px;
+            font-size: 23px;
+            font-weight: 500;
+            @include flexbox;
+            @include justify-content(center);
+            @include align-items(center);
+            text-align: center;
+          }
+          .withRate {
+            max-width: 100%;
+          }
+        }
+        .planBody {
+          height: 100%;
+          .planFeatures {
+            margin-bottom: 32px;
+          }
+        }
+        &.enterprises {
+          .plansHeading {
+            min-height: 100px;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media #{$mid-point-tablet} {
@@ -792,6 +830,18 @@
             :global(.form-control) {
               padding-inline: 15px;
             }
+          }
+        }
+      }
+    }
+  }
+  .editSubscription {
+    .plansShelf {
+      :global(.boxWithOutShadow) {
+        flex: 0 1 100%;
+        .plansHeading {
+          h2 {
+            min-height: 70px;
           }
         }
       }
