@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Alert from 'react-bootstrap/Alert';
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
@@ -25,6 +26,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../components/Sidebar';
 import Notiflix from "notiflix";
+import { Sticky, StickyScrollUp, StickyProvider } from 'react-stickup';
 
 function Sfx(props) {
 
@@ -53,6 +55,7 @@ function Sfx(props) {
   const [filterOpen, setFilterOpen] = useState(false);
   const [durationFilter, setDurationFilter] = useState({ start: 0, end: 0 })
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
+  const container = React.createRef();
 
   // const message = useSelector(state => state.allPlaylists);
 
@@ -567,303 +570,309 @@ function Sfx(props) {
   );
 
   return (
-    <div className={search.searchWrapper+' musicSearch'}>
-      <Alert variant="success" className="brandAlert">
-        <Form.Group type="hidden" controlId="formFile" className="uploadComponent" style={{display: 'none'}}>
-          <Form.Control type="file" />
-        </Form.Group>
+    <StickyProvider>
+      <div className={search.searchWrapper+' musicSearch'}>
+        <Alert variant="success" className="brandAlert">
+          <Form.Group type="hidden" controlId="formFile" className="uploadComponent" style={{display: 'none'}}>
+            <Form.Control type="file" />
+          </Form.Group>
+          <div className="fixed-container">
+            <p>
+              Special Offer! 20% off all spooky tracks for the month of December!
+            </p>
+          </div>
+        </Alert>
+        <ToastContainer
+          position="top-center"
+          autoClose={10000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          style={{ width: "auto" }}
+        />
         <div className="fixed-container">
-          <p>
-            Special Offer! 20% off all spooky tracks for the month of December!
-          </p>
-        </div>
-      </Alert>
-      <ToastContainer
-        position="top-center"
-        autoClose={10000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        style={{ width: "auto" }}
-      />
-      <div className="fixed-container">
-        <h1 className={search.pageHeading}>Search SFX</h1>
-        <div className={search.searchUploadStuff}>
-          <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
-            <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" id="searchField" />
-            <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
-            <svg xmlns="http://www.w3.org/2000/svg" className="" width="22.414" height="22.414" viewBox="0 0 22.414 22.414">
-              <g id="icon-magnifying-glass" transform="translate(1 1)">
-                <path id="Path_1" data-name="Path 1" d="M305.541,309.272a8.271,8.271,0,1,0-8.271,8.27A8.272,8.272,0,0,0,305.541,309.272Z" transform="translate(-289 -301)" fill="none" stroke="#c1d72e" strokLinecap="round" strokeWidth="2"/>
-                <line id="Line_2" data-name="Line 2" x2="5.989" y2="5.866" transform="translate(14.011 14.134)" fill="none" stroke="#c1d72e" strokLinecap="round" strokeWidth="2"/>
-              </g>
-            </svg>
-          </Form>
-
-        </div>
-        <div className="filterBar brandWall desktopShow">
-          {filterItems}
-          <Dropdown className="d-inline setting">
-            <Dropdown.Toggle id="dropdown-autoclose-true">
-              Settings
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <div className="settingFilterWrapper">
-                <form>
-                  <div className="toogleSwitch">
-                    <input type="checkbox" id="excludeExplicit" onChange={(e) => handleExcludeFilters(e)}/>
-                    <Form.Label htmlFor="excludeExplicit">&nbsp;</Form.Label>
-                    <span className="switchText">Exclude Explicit</span>
-                  </div>
-                  <div className="toogleSwitch">
-                    <input type="checkbox" id="youtubeContent" />
-                    <Form.Label htmlFor="youtubeContent">&nbsp;</Form.Label>
-                    <span className="switchText">YouTube ContentID Cleared</span>
-                  </div>
-                  <div className="toogleSwitch">
-                    <input type="checkbox" id="excludeVocals" onChange={(e) => handleExcludeFilters(e)}/>
-                    <Form.Label htmlFor="excludeVocals">&nbsp;</Form.Label>
-                    <span className="switchText">Exclude Vocals</span>
-                  </div>
-                </form>
-              </div>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-        <div className="mobileShow">
-          <div className="mobileFilters">
-            <Button
-              variant="link"
-              onClick={() => setFilterOpen(!filterOpen)}
-              aria-controls="example-collapse-text"
-              aria-expanded={filterOpen}
-              className="filterLauncher"
-            >
-              Filters
-              <svg xmlns="http://www.w3.org/2000/svg" width="10.145" height="6.133" viewBox="0 0 10.145 6.133">
-                <g id="icon-arrow-down" transform="translate(9.084 5.072) rotate(180)">
-                  <path id="Shape_1939" data-name="Shape 1939" d="M336.194,2401.259l-4.012-4.011" transform="translate(-332.182 -2397.247)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                  <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.259l4.012-4.011" transform="translate(-330.42 -2397.247)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+          <h1 className={search.pageHeading}>Search SFX</h1>
+          <div className={search.searchUploadStuff}>
+            <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
+              <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" id="searchField" />
+              <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
+              <svg xmlns="http://www.w3.org/2000/svg" className="" width="22.414" height="22.414" viewBox="0 0 22.414 22.414">
+                <g id="icon-magnifying-glass" transform="translate(1 1)">
+                  <path id="Path_1" data-name="Path 1" d="M305.541,309.272a8.271,8.271,0,1,0-8.271,8.27A8.272,8.272,0,0,0,305.541,309.272Z" transform="translate(-289 -301)" fill="none" stroke="#c1d72e" strokLinecap="round" strokeWidth="2"/>
+                  <line id="Line_2" data-name="Line 2" x2="5.989" y2="5.866" transform="translate(14.011 14.134)" fill="none" stroke="#c1d72e" strokLinecap="round" strokeWidth="2"/>
                 </g>
               </svg>
-            </Button>
-            <Collapse in={filterOpen}>
-              <div id="example-collapse-text" className='collapseBody'>
-                <div className="filterShowCase">
-                  <div className="frontLineFilters">
-                    <ul>
-                      <li><a href="javascript:void(0)">Genres</a></li>
-                      <li><a href="javascript:void(0)">Moods</a></li>
-                      <li><a href="javascript:void(0)">Themes</a></li>
-                      <li><a href="javascript:void(0)">Vocals</a></li>
-                      <li><a href="javascript:void(0)">Instruments</a></li>
-                      <li><a href="javascript:void(0)">Settings</a></li>
-                    </ul>
-                  </div>
-                  <div className="secondLineFilters">
-                    {/* <Button
-                      variant="link"
-                      onClick={() => setFilterTypeOpen(!filterTypeOpen)}
-                      aria-controls="example-collapse-text1"
-                      aria-expanded={filterTypeOpen}
-                    >
-                      filter
-                    </Button>
-                    <Collapse in={filterTypeOpen}>
-                      <div id="example-collapse-text1">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                        terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                        labore wes anderson cred nesciunt sapiente ea proident.
-                      </div>
-                    </Collapse> */}
+            </Form>
 
-                    <Accordion>
-                      <ul>
-                        <li className='filterDropdown filterSelected'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                            Ambient
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="0">
-                            <ul className='filterDropdownBody'>
-                              <li><a href="javascript:void(0)">50’s Rock <span>(4)</span></a></li>
-                              <li><a href="javascript:void(0)">60’s Rock <span>(34)</span></a></li>
-                              <li><a href="javascript:void(0)">Alternative Rock <span>(78)</span></a></li>
-                              <li><a href="javascript:void(0)">Cabaret <span>(2)</span></a></li>
-                              <li><a href="javascript:void(0)">Death Metal <span>(19)</span></a></li>
-                              <li><a href="javascript:void(0)">Emo <span>(23)</span></a></li>
-                              <li><a href="javascript:void(0)">Hard Rock <span>(162)</span></a></li>
-                              <li><a href="javascript:void(0)">Heavy Metal <span>(45)</span></a></li>
-                              <li><a href="javascript:void(0)">Indie Rock <span>(432)</span></a></li>
-                            </ul>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                              Avant-Garde
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="1">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown' >
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="3">
-                            Bluegrass
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="3">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown' >
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="4">
-                              Blues
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="4">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="5">
-                              Cajun
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="5">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="6">
-                              Cinematic
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="6">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="7">
-                              Rock
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="7">
-                            <ul className='filterDropdownBody'>
-                              <li><a href="javascript:void(0)">50’s Rock <span>(4)</span></a></li>
-                              <li><a href="javascript:void(0)">60’s Rock <span>(34)</span></a></li>
-                              <li><a href="javascript:void(0)">Alternative Rock <span>(78)</span></a></li>
-                              <li><a href="javascript:void(0)">Cabaret <span>(2)</span></a></li>
-                              <li><a href="javascript:void(0)">Death Metal <span>(19)</span></a></li>
-                              <li><a href="javascript:void(0)">Emo <span>(23)</span></a></li>
-                              <li><a href="javascript:void(0)">Hard Rock <span>(162)</span></a></li>
-                              <li><a href="javascript:void(0)">Heavy Metal <span>(45)</span></a></li>
-                              <li><a href="javascript:void(0)">Indie Rock <span>(432)</span></a></li>
-                            </ul>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="8">
-                              Country
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="8">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="9">
-                              Downtempo
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="9">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="10">
-                              Easy Listening
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="10">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="11">
-                              Electronic
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="11">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                        <li className='filterDropdown'>
-                          <div className='filterDropdownlabel'>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="12">
-                              Film & TV
-                            </Accordion.Toggle>
-                          </div>
-                          <Accordion.Collapse eventKey="12">
-                            <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
-                          </Accordion.Collapse>
-                        </li>
-                      </ul>
-                    </Accordion>
-                  </div>
+          </div>
+          <div ref={container}>
+            <Sticky container={container} className="stickUp" defaultOffsetTop={70}>
+              <div className="filterBar brandWall desktopShow">
+            {filterItems}
+            <Dropdown className="d-inline setting">
+              <Dropdown.Toggle id="dropdown-autoclose-true">
+                Settings
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <div className="settingFilterWrapper">
+                  <form>
+                    <div className="toogleSwitch">
+                      <input type="checkbox" id="excludeExplicit" onChange={(e) => handleExcludeFilters(e)}/>
+                      <Form.Label htmlFor="excludeExplicit">&nbsp;</Form.Label>
+                      <span className="switchText">Exclude Explicit</span>
+                    </div>
+                    <div className="toogleSwitch">
+                      <input type="checkbox" id="youtubeContent" />
+                      <Form.Label htmlFor="youtubeContent">&nbsp;</Form.Label>
+                      <span className="switchText">YouTube ContentID Cleared</span>
+                    </div>
+                    <div className="toogleSwitch">
+                      <input type="checkbox" id="excludeVocals" onChange={(e) => handleExcludeFilters(e)}/>
+                      <Form.Label htmlFor="excludeVocals">&nbsp;</Form.Label>
+                      <span className="switchText">Exclude Vocals</span>
+                    </div>
+                  </form>
                 </div>
+              </Dropdown.Menu>
+            </Dropdown>
               </div>
-            </Collapse>
+            </Sticky>
+            <div className="mobileShow">
+              <div className="mobileFilters">
+                <Button
+                  variant="link"
+                  onClick={() => setFilterOpen(!filterOpen)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={filterOpen}
+                  className="filterLauncher"
+                >
+                  Filters
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10.145" height="6.133" viewBox="0 0 10.145 6.133">
+                    <g id="icon-arrow-down" transform="translate(9.084 5.072) rotate(180)">
+                      <path id="Shape_1939" data-name="Shape 1939" d="M336.194,2401.259l-4.012-4.011" transform="translate(-332.182 -2397.247)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                      <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2401.259l4.012-4.011" transform="translate(-330.42 -2397.247)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                    </g>
+                  </svg>
+                </Button>
+                <Collapse in={filterOpen}>
+                  <div id="example-collapse-text" className='collapseBody'>
+                    <div className="filterShowCase">
+                      <div className="frontLineFilters">
+                        <ul>
+                          <li><a href="javascript:void(0)">Genres</a></li>
+                          <li><a href="javascript:void(0)">Moods</a></li>
+                          <li><a href="javascript:void(0)">Themes</a></li>
+                          <li><a href="javascript:void(0)">Vocals</a></li>
+                          <li><a href="javascript:void(0)">Instruments</a></li>
+                          <li><a href="javascript:void(0)">Settings</a></li>
+                        </ul>
+                      </div>
+                      <div className="secondLineFilters">
+                        {/* <Button
+                          variant="link"
+                          onClick={() => setFilterTypeOpen(!filterTypeOpen)}
+                          aria-controls="example-collapse-text1"
+                          aria-expanded={filterTypeOpen}
+                        >
+                          filter
+                        </Button>
+                        <Collapse in={filterTypeOpen}>
+                          <div id="example-collapse-text1">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                            terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+                            labore wes anderson cred nesciunt sapiente ea proident.
+                          </div>
+                        </Collapse> */}
+
+                        <Accordion>
+                          <ul>
+                            <li className='filterDropdown filterSelected'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                Ambient
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="0">
+                                <ul className='filterDropdownBody'>
+                                  <li><a href="javascript:void(0)">50’s Rock <span>(4)</span></a></li>
+                                  <li><a href="javascript:void(0)">60’s Rock <span>(34)</span></a></li>
+                                  <li><a href="javascript:void(0)">Alternative Rock <span>(78)</span></a></li>
+                                  <li><a href="javascript:void(0)">Cabaret <span>(2)</span></a></li>
+                                  <li><a href="javascript:void(0)">Death Metal <span>(19)</span></a></li>
+                                  <li><a href="javascript:void(0)">Emo <span>(23)</span></a></li>
+                                  <li><a href="javascript:void(0)">Hard Rock <span>(162)</span></a></li>
+                                  <li><a href="javascript:void(0)">Heavy Metal <span>(45)</span></a></li>
+                                  <li><a href="javascript:void(0)">Indie Rock <span>(432)</span></a></li>
+                                </ul>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                                  Avant-Garde
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="1">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown' >
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="3">
+                                Bluegrass
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="3">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown' >
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="4">
+                                  Blues
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="4">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="5">
+                                  Cajun
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="5">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="6">
+                                  Cinematic
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="6">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="7">
+                                  Rock
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="7">
+                                <ul className='filterDropdownBody'>
+                                  <li><a href="javascript:void(0)">50’s Rock <span>(4)</span></a></li>
+                                  <li><a href="javascript:void(0)">60’s Rock <span>(34)</span></a></li>
+                                  <li><a href="javascript:void(0)">Alternative Rock <span>(78)</span></a></li>
+                                  <li><a href="javascript:void(0)">Cabaret <span>(2)</span></a></li>
+                                  <li><a href="javascript:void(0)">Death Metal <span>(19)</span></a></li>
+                                  <li><a href="javascript:void(0)">Emo <span>(23)</span></a></li>
+                                  <li><a href="javascript:void(0)">Hard Rock <span>(162)</span></a></li>
+                                  <li><a href="javascript:void(0)">Heavy Metal <span>(45)</span></a></li>
+                                  <li><a href="javascript:void(0)">Indie Rock <span>(432)</span></a></li>
+                                </ul>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="8">
+                                  Country
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="8">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="9">
+                                  Downtempo
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="9">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="10">
+                                  Easy Listening
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="10">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="11">
+                                  Electronic
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="11">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                            <li className='filterDropdown'>
+                              <div className='filterDropdownlabel'>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="12">
+                                  Film & TV
+                                </Accordion.Toggle>
+                              </div>
+                              <Accordion.Collapse eventKey="12">
+                                <div className='filterDropdownBody'>Hello! I&apos;m the body</div>
+                              </Accordion.Collapse>
+                            </li>
+                          </ul>
+                        </Accordion>
+                      </div>
+                    </div>
+                  </div>
+                </Collapse>
+              </div>
+            </div>
+            <div className="selectedFilter brandWall">
+              <ul id="filtersList">
+                {appliedFiltersListWC.map((item,index)=> {
+                  return (<li key={index}>
+                    <span className="tagText"><div>{item}</div></span>
+                    <span className="clearTag" onClick={handleClearSingleFilter}></span>
+                  </li>)
+                })}
+              </ul>
+              <OverlayTrigger overlay={<Tooltip>Clear All</Tooltip>}>
+                <span className="clearAllTag" onClick={handleClearAllFilter}></span>
+              </OverlayTrigger>
+            </div>
+
+            {loading ? (
+              <InpageLoader />
+            ) : (
+              <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} />
+            )}
           </div>
         </div>
-        <div className="selectedFilter brandWall">
-          <ul id="filtersList">
-            {appliedFiltersListWC.map((item,index)=> {
-              return (<li key={index}>
-                <span className="tagText"><div>{item}</div></span>
-                <span className="clearTag" onClick={handleClearSingleFilter}></span>
-              </li>)
-            })}
-          </ul>
-          <OverlayTrigger overlay={<Tooltip>Clear All</Tooltip>}>
-            <span className="clearAllTag" onClick={handleClearAllFilter}></span>
-          </OverlayTrigger>
-        </div>
 
-        {loading ? (
-          <InpageLoader />
-        ) : (
-          <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} />
-        )}
+        {/* <div className="stickyMiniPlayer">
+          <div className="fixed-container">
+            <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />
+          </div>
+        </div> */}
+        <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="sfx"/>
+        <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
+        {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
+        {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
+        <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
+
       </div>
-
-      {/* <div className="stickyMiniPlayer">
-        <div className="fixed-container">
-          <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />
-        </div>
-      </div> */}
-      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="sfx"/>
-      <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
-      {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
-      <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
-
-    </div>
+    </StickyProvider>
 
   );
 }

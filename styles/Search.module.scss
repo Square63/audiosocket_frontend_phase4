@@ -29,8 +29,8 @@
     }
   }
   :global(.filterBar) {
-    margin-bottom:15px
-    ;
+    margin-bottom:15px;
+    z-index: 999;
   }
   :global(.selectedFilter) {
     margin-bottom: 15px;
@@ -48,6 +48,8 @@
 
 .tracksWrapper {
   margin: 27px 0 35px;
+  overflow-x: hidden;
+  overflow-y: auto;
   .tracksHeading {
     @include flexbox;
     @include justify-content(space-between);

@@ -57,59 +57,39 @@ function Header() {
             </Nav>
             <Nav >
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="closeConditional" />
-              <div className={router.pathname.toLowerCase() === "/search" ? "nav-link active" : "nav-link"}>
-                <Nav.Item>
-                  <Nav.Link href="/search" eventKey="1">
-                    Music
-                  </Nav.Link>
-                </Nav.Item>
-              </div>
-              <div className={router.pathname.toLowerCase() === "/sfx" ? "nav-link active" : "nav-link"}>
-                <Nav.Item>
-                  <Nav.Link eventKey="2" href="/sfx">
-                    SFX
-                  </Nav.Link>
-                </Nav.Item>
-              </div>
-              <div className={playlistRoutes.includes(router.pathname.toLocaleLowerCase()) ? "nav-link active" : "nav-link"}>
-                <NavDropdown title="Playlists" className="menuDrop" id="collasible-nav-dropdown">
-                  <NavDropdown.Item>
-                    <Link href="/playlist/curatedPlaylist">
+                <Nav.Link href="/search" eventKey="1" className={router.pathname.toLowerCase() === "/search" && "active"}>
+                  Music
+                </Nav.Link>
+                <Nav.Link eventKey="2" href="/sfx" className={router.pathname.toLowerCase() === "/sfx" && "active"}>
+                  SFX
+                </Nav.Link>
+              <div >
+                <NavDropdown title="Playlists" id="collasible-nav-dropdown" className={playlistRoutes.includes(router.pathname.toLocaleLowerCase()) ? "menuDrop active" : "menuDrop"}>
+                  <NavDropdown.Item href="/playlist/curatedPlaylist">
                       <span>Curated Playlists</span>
-                    </Link>
                   </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Link href="/playlist/creatorKits">
+                  <NavDropdown.Item href="/playlist/creatorKits">
                       <span>Creator Kits</span>
-                    </Link>
                   </NavDropdown.Item>
                   {isLoggedIn &&
-                    <NavDropdown.Item>
-                      <Link href="/playlist/myPlaylists">
-                        <span>My Playlists</span>
-                      </Link>
+                    <NavDropdown.Item href="/playlist/myPlaylists">
+                      <span>My Playlists</span>
                     </NavDropdown.Item>
                   }
                 </NavDropdown>
               </div>
 
-              <div className={router.pathname.toLowerCase() === "/pricing" ? "nav-link active" : "nav-link"}>
-                <Nav.Item>
-                  <Nav.Link className="pricingLink" eventKey="4" href="/pricing">
-                    Pricing
-                  </Nav.Link>
-                </Nav.Item>
+              <div >
+                <Nav.Link eventKey="4" href="/pricing" className={`pricingLink${router.pathname.toLowerCase() === "/pricing" ? " active" : ''}`}>
+                  Pricing
+                </Nav.Link>
               </div>
 
               {!isLoggedIn
                 ?
                   <>
-                    <div className={router.pathname.toLowerCase() === "/login" ? "nav-link active" : "nav-link"}>
-                      <Nav.Link href="/login">Sign in</Nav.Link>
-                    </div>
-                    <div className={router.pathname.toLowerCase() === "/signup" ? "btn nav-link active" : "btn nav-link"}>
-                      <Nav.Link href="/signup">Sign up</Nav.Link>
-                    </div>
+                      <Nav.Link href="/login" className={router.pathname.toLowerCase() === "/login" ? "active" : ""}>Sign in</Nav.Link>
+                      <Nav.Link href="/signup" className={router.pathname.toLowerCase() === "/signup" ? "btn nav-link active" : "btn nav-link"}>Sign up</Nav.Link>
                   </>
                 :
                   <NavDropdown title="Account" className="headerAccount btn btnMainSmall" id="collasible-nav-dropdown">

@@ -1579,6 +1579,12 @@ hr {
   }
 }
 
+/******************* Sticky Filter *****************/
+.stickUp {
+  & > div {
+    z-index: 9999 !important;
+  }
+}
 /******************* Filter bar *****************/
 .filterBar {
   position: relative;
@@ -4823,6 +4829,16 @@ input[type=file]::file-selector-button {
 
 
 /******************** Responsive Behaviour *****************/
+@media #{$desktop-between} {
+  .stickUp {
+    & > div {
+      .filterBar {
+        margin-inline: -20px;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+}
 @media #{$desktop-start} {
   .pricing {
     .pricingPlans {
