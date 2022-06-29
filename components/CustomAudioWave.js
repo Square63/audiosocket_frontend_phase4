@@ -46,8 +46,8 @@ export default function CustomAudioWave(props) {
   const [rowSeconds, setRowSeconds] = useState();
   const [footer, setFooter] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
-
   const url = props.track.mp3_file_compressed? props.track.mp3_file_compressed : "./test.mp3"
+  const peaks = props.track.audio_peak.peak_data
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -57,22 +57,19 @@ export default function CustomAudioWave(props) {
   }
 
   useEffect(() => {
-    // console.log("Footer PLaying", props.footerPlaying)
-    // console.log("PLaying", playing)
     if (wavesurfer.current == null)
-      console.log("Under IF current wave is null")
       create(url);
+
     if (props.footerPlaying) {
       setTimeout(() => setSeconds(seconds ? (seconds -1) : (30 - 1)), 1000);
     } else {
       setSeconds(seconds);
     }
+
     if (wavesurfer.current && props.footerPlaying) {
       wavesurfer.current.play();
-      console.log("Inside IF")
     } else if (wavesurfer.current && !localStorage.getItem('playing')){
       wavesurfer.current.pause();
-      console.log("Inside ELSEIF")
     }
 
     return () => {
@@ -83,41 +80,11 @@ export default function CustomAudioWave(props) {
   }, [seconds]);
 
   useEffect(() => {
-    if (playing) {
-      setTimeout(() => setRowSeconds(rowSeconds ? (rowSeconds -1) : (wavesurfer.current?.getDuration() - 1)), 1000);
-      if (!wavesurfer.current?.isPlaying()) {
-        setPlaying(false)
-      }
-    }
-  }, [rowSeconds, playing])
-
-  useEffect(() => {
     if (props.footerTrack) {
       wavesurfer.current.destroy();
       footerCreate(props.footerTrack.file)
     }
   }, [props.footerTrack]);
-
-  const create = async (url) => {
-    const WaveSurfer = (await import("wavesurfer.js")).default;
-
-    const options = formWaveSurferOptions(waveformRef.current, props.footer);
-    wavesurfer.current = WaveSurfer.create(options);
-    wavesurfer.current.load(url);
-    wavesurfer.current.on('ready', function () {
-      props.incrementWaveCount();
-      setIsLoading(false);
-    });
-  };
-
-  const footerCreate = async (url) => {
-    const WaveSurfer = (await import("wavesurfer.js")).default;
-
-    const options = formWaveSurferOptions(waveformRef.current, true);
-    wavesurfer.current = WaveSurfer.create(options);
-    wavesurfer.current.load(url);
-    wavesurfer.current.play();
-  };
 
   useEffect(() => {
     if (document.getElementsByClassName("play").length > 1)
@@ -139,17 +106,31 @@ export default function CustomAudioWave(props) {
     }
   }
 
+  const create = async (url) => {
+    const WaveSurfer = (await import("wavesurfer.js")).default;
+
+    const options = formWaveSurferOptions(waveformRef.current, props.footer);
+    wavesurfer.current = WaveSurfer.create(options);
+    wavesurfer.current.load(url, peaks);
+  };
+
+  const footerCreate = async (url) => {
+    const WaveSurfer = (await import("wavesurfer.js")).default;
+
+    const options = formWaveSurferOptions(waveformRef.current, true);
+    wavesurfer.current = WaveSurfer.create(options);
+    wavesurfer.current.load(url);
+    wavesurfer.current.play();
+  };
+
   return (
     !props.footer ?
       (<>
         <div className="rowParticipant artistName">
-          {isLoading ?
-            <InpageLoader /> :
-            <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
-              <span className={(playing) ? "play" : "pause"}></span>
-              <span className="pause d-none"></span>
-            </div>
-          }
+          <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
+            <span className={(playing) ? "play" : "pause"}></span>
+            <span className="pause d-none"></span>
+          </div>
           <div className="aboutSong">
             <div className="songData">
               <OverlayTrigger overlay={<Tooltip>{props.track.title}</Tooltip>}>
