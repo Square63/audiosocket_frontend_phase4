@@ -60,7 +60,6 @@ function Search(props) {
   const [homeFilters, setHomeFilters] = useState([])
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
   const [updatedTracks, setUpdatedTracks] = useState([])
-  const [trackName, setTrackName] = useState(localStorage.getItem("track_name"))
   const [showSidebar, setShowSidebar] = useState(false)
   const [durationFilter, setDurationFilter] = useState({start:0, end: 0})
   const [sidebarType, setSidebarType] = useState("")
@@ -69,8 +68,6 @@ function Search(props) {
   const [altVersionTrack, setAltVersionTrack] = useState(null);
   const authContext = useContext(AuthContext);
   const container = React.createRef();
-
-  // const message = useSelector(state => state.allPlaylists);
 
   useEffect(() => {
 
@@ -702,7 +699,7 @@ function Search(props) {
                 </Dropdown>
               </div>
             </Sticky>
-          
+
 
 
           <div className="mobileShow">
