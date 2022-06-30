@@ -76,7 +76,7 @@ function CuratedPlaylist() {
   const playlists = useSelector( state => state.user.curated_playlists)
   const featuredPlaylists = useSelector( state => state.user.featured_playlists)
   const totalPlaylists = useSelector( state => state.user.meta)
-  const filters = useSelector( state => state.user.curated_filters)
+  const curatedPlaylists = useSelector( state => state.user.curated_filters)
   const responseStatus = useSelector(state => state.user.responseStatus);
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
@@ -100,10 +100,10 @@ function CuratedPlaylist() {
   }, [pageNum]);
 
   useEffect(() => {
-    if (!filters) {
+    if (!curatedPlaylists) {
       dispatch(getCuratedPlaylistFilters())
     }
-  }, [filters]);
+  }, [curatedPlaylists]);
 
   useEffect(() => {
     if (!featuredPlaylists) {
@@ -159,7 +159,7 @@ function CuratedPlaylist() {
     dispatch(getCuratedPlaylists(searchValue, [], 1))
   }
 
-  const filterItems = filters && filters.filters.length > 0 && filters.filters.map((filter, index) =>
+  const filterItems = curatedPlaylists && curatedPlaylists.filters.length > 0 && curatedPlaylists.filters.map((filter, index) =>
     <Dropdown className="d-inline" key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
         {filter.name}
@@ -195,15 +195,15 @@ function CuratedPlaylist() {
           <h1>Curated playlists</h1>
           <div className={playlist.filterSearch}>
             <div className="filterBar desktopShowFlex">
-                <a href="javascript:void(0)" className={playlist.linkFilter}>All playlists</a>
-                {filterItems}
-                <Dropdown className="d-inline">
-                  <Dropdown.Toggle id="dropdown-autoclose-true">
-                    Creator Kits
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <div className="filterWrapper">
-                    {filters && filters.creator_kits && filters.creator_kits.length > 0 && filters.creator_kits.map((sub_filter, index) =>
+              <a href="javascript:void(0)" className={playlist.linkFilter}>All playlists</a>
+              {filterItems}
+              <Dropdown className="d-inline">
+                <Dropdown.Toggle id="dropdown-autoclose-true">
+                  Creator Kits
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <div className="filterWrapper">
+                    {curatedPlaylists && curatedPlaylists.creator_kits && curatedPlaylists.creator_kits.length > 0 && curatedPlaylists.creator_kits.map((sub_filter, index) =>
                       <Link key={index} href={"creatorKits/" + sub_filter.id}>
                         <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
                           <Dropdown.Item href="javascript:void(0)">{sub_filter.name}</Dropdown.Item>
@@ -219,9 +219,9 @@ function CuratedPlaylist() {
                         </div>
                       </Link>
                     )}
-                    </div>
-                  </Dropdown.Menu>
-                </Dropdown>
+                  </div>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
 
             <div className="mobileShow">
