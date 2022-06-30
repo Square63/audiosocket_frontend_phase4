@@ -18,7 +18,7 @@ function Layout({children}) {
     let isMounted = true;
     setTimeout(function() {
       setLoading(false)
-    }.bind(this), 500);
+    }.bind(this), 100);
     return () => {
       isMounted = false;
     };
@@ -41,20 +41,7 @@ function Layout({children}) {
 
   return (
     <>
-      {loading ? (
-        <div className="siteLoader">
-          <div className="brandLogo">
-            <Image src={logo} alt="LOGO" className="loaderLogo" />
-          </div>
-          <div className="spinner">
-            <div className="rect1"></div>
-            <div className="rect2"></div>
-            <div className="rect3"></div>
-            <div className="rect4"></div>
-            <div className="rect5"></div>
-          </div>
-        </div>
-      ) : (
+      {!loading &&
         <AuthProvider >
           <Header/>
           <div className="content-area">
@@ -78,8 +65,7 @@ function Layout({children}) {
           </div>
           <Footer/>
         </AuthProvider>
-      )}
-
+      }
     </>
   )
 }
