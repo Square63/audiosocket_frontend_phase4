@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
-import { Segment, Grid, Label, Input } from 'semantic-ui-react'
-import InpageLoader from "./InpageLoader";
+import { Grid } from 'semantic-ui-react'
 
 const formWaveSurferOptions = (ref, footer) => (
   !footer ? {
@@ -46,8 +45,8 @@ export default function CustomAudioWave(props) {
   const [rowSeconds, setRowSeconds] = useState();
   const [footer, setFooter] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
+  const [peaks, setPeaks] = useState([]);
   const url = props.track.mp3_file_compressed? props.track.mp3_file_compressed : "./test.mp3"
-  const peaks = props.track.audio_peak.peak_data
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -57,9 +56,26 @@ export default function CustomAudioWave(props) {
   }
 
   useEffect(() => {
-    if (wavesurfer.current == null)
-      create(url);
+    const getJson = async () => {
+      const data = await fetch(props.track.audio_peak.file, {
+        headers: {
+          accept : "application/json"
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(peaks => {
+        if (wavesurfer.current == null)
+          create(url, peaks.data);
+        setPeaks(peaks.data)
+      })
+    }
 
+    getJson()
+  }, []);
+
+  useEffect(() => {
     if (props.footerPlaying) {
       setTimeout(() => setSeconds(seconds ? (seconds -1) : (30 - 1)), 1000);
     } else {
@@ -106,7 +122,7 @@ export default function CustomAudioWave(props) {
     }
   }
 
-  const create = async (url) => {
+  const create = async (url, peaks) => {
     const WaveSurfer = (await import("wavesurfer.js")).default;
 
     const options = formWaveSurferOptions(waveformRef.current, props.footer);
