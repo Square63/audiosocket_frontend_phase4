@@ -624,7 +624,7 @@ function Search(props) {
   return (
     <StickyProvider>
       <div className={search.searchWrapper+' musicSearch'}>
-        <Alert variant="success" className="brandAlert">
+        {/* <Alert variant="success" className="brandAlert">
           <Form.Group type="hidden" controlId="formFile" className="uploadComponent" style={{display: 'none'}}>
             <Form.Control type="file" />
           </Form.Group>
@@ -633,7 +633,7 @@ function Search(props) {
               Special Offer! 20% off all spooky tracks for the month of December!
             </p>
           </div>
-        </Alert>
+        </Alert> */}
         <ToastContainer
           position="top-center"
           autoClose={10000}
