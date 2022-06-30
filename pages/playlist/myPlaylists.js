@@ -124,49 +124,46 @@ function MyPlaylists() {
             pauseOnHover
             style={{ width: "auto" }}
           />
-        <div className="fixed-container">
+          <div className="fixed-container">
 
-          <div className="parallelHead">
-            <h1>My playlists</h1>
-            <button className="btn btnMainLarge" onClick={() => setShowModal(true)}>New Playlist</button>
-          </div>
-          <section className={playlist.myPlaylists}>
-          <InfiniteScroll
-              dataLength={playlists.length}
-              next={fetchData}
-              hasMore={hasMore}
-              loader={<InpageLoader />}
-              endMessage={<h4>Nothing more to show</h4>}
-            >
-            <div className="tilesWrapper">
-
-              {playlists &&
-                playlists.map((playlist,index)=> {
-                  return(
-                    <Link href={"myPlaylists/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
-                      <a key={index} className="tileOverlay">
-                          {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
-                          <span className="tileOverlayText">
-                            {playlist.name}
-                            <small className="playlistTracksCount">{playlist.media_count} Tracks</small>
-                          </span>
-                        </a>
-                    </Link>
-                    )
-                  })}
-
+            <div className="parallelHead">
+              <h1>My playlists</h1>
+              <button className="btn btnMainLarge" onClick={() => setShowModal(true)}>New Playlist</button>
             </div>
-            </InfiniteScroll>
-
-          </section>
+            <section className={playlist.myPlaylists}>
+              <InfiniteScroll
+                  dataLength={playlists.length}
+                  next={fetchData}
+                  hasMore={hasMore}
+                  loader={<InpageLoader />}
+                  endMessage={<h4>Nothing more to show</h4>}
+                >
+                <div className="tilesWrapper">
+                  {playlists && playlist.length > 0 ?
+                    playlists.map((playlist,index)=> {
+                      return(
+                        <Link href={"myPlaylists/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
+                          <a key={index} className="tileOverlay">
+                              {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                              <span className="tileOverlayText">
+                                {playlist.name}
+                                <small className="playlistTracksCount">{playlist.media_count} Tracks</small>
+                              </span>
+                            </a>
+                        </Link>
+                      )
+                    }) :
+                    <h1>No Playlist Found</h1>
+                  }
+                </div>
+              </InfiniteScroll>
+            </section>
+          </div>
+          <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
         </div>
-        <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
-      </div>
       </>
-
       )}
     </>
-
   );
 }
 
