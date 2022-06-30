@@ -107,60 +107,58 @@ function CreatorKits() {
   return (
     <>
       {isLoading ? (
-        <InpageLoader/>
-      ) : (
-      <>
-        <div className={playlist.myPlaylistWrapper}>
-          <ToastContainer
-            position="top-center"
-            autoClose={10000}
-            hideProgressBar
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            style={{ width: "auto" }}
-          />
-        <div className="fixed-container">
-          <section className={playlist.myPlaylists}>
-          <InfiniteScroll
-              dataLength={creatorKitsArray.length}
-              next={fetchData}
-              hasMore={hasMore}
-              loader={<InpageLoader />}
-              endMessage={<h4>Nothing more to show</h4>}
-            >
-            <div className="tilesWrapper">
+        <InpageLoader/>) :
+        (
+          <>
+            <div className={playlist.myPlaylistWrapper}>
+              <ToastContainer
+                position="top-center"
+                autoClose={10000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                style={{ width: "auto" }}
+              />
+              <div className="fixed-container">
+                <section className={playlist.myPlaylists}>
+                  <h1>Creator Kits</h1>
+                  <InfiniteScroll
+                    dataLength={creatorKitsArray.length}
+                    next={fetchData}
+                    hasMore={hasMore}
+                    loader={<InpageLoader />}
+                    endMessage={<h4>Nothing more to show</h4>}
+                  >
+                  <div className="tilesWrapper">
 
-              {creatorKitsArray &&
-                creatorKitsArray.map((creatorKit,index)=> {
-                  return(
-                    <Link href={"creatorKits/" + creatorKit.id} key={index} onClick={() => {setIsLoading(true)}}>
-                      <a key={index} className="tileOverlay">
-                          {creatorKit.playlist_image && <Image src={creatorKit.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
-                          <span className="tileOverlayText">
-                            {creatorKit.name}
-                            <small className="playlistTracksCount">{creatorKit.media_count} Tracks</small>
-                          </span>
-                        </a>
-                    </Link>
-                    )
-                  })}
+                    {creatorKitsArray &&
+                      creatorKitsArray.map((creatorKit,index)=> {
+                        return(
+                          <Link href={"creatorKits/" + creatorKit.id} key={index} onClick={() => {setIsLoading(true)}}>
+                            <a key={index} className="tileOverlay">
+                                {creatorKit.playlist_image && <Image src={creatorKit.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                                <span className="tileOverlayText">
+                                  {creatorKit.name}
+                                  <small className="playlistTracksCount">{creatorKit.media_count} Tracks</small>
+                                </span>
+                              </a>
+                          </Link>
+                          )
+                        })}
 
+                  </div>
+                  </InfiniteScroll>
+                </section>
+              </div>
             </div>
-            </InfiniteScroll>
-
-          </section>
-        </div>
-        {/* <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} /> */}
-      </div>
-      </>
-
-      )}
+          </>
+        )
+      }
     </>
-
   );
 }
 
