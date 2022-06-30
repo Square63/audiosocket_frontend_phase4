@@ -159,16 +159,14 @@ function CuratedPlaylist() {
     dispatch(getCuratedPlaylists(searchValue, [], 1))
   }
 
-  const filterItems = filters && filters.length > 0 && filters.map((filter, index) =>
+  const filterItems = filters && filters.filters.length > 0 && filters.filters.map((filter, index) =>
     <Dropdown className="d-inline" key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
         {filter.name}
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <div className="filterWrapper">
-        {filter.sub_filters.length > 0 && filter.sub_filters.map((sub_filter, index) =>
-
-
+        {filter.sub_filters && filter.sub_filters.length > 0 && filter.sub_filters.map((sub_filter, index) =>
           <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
             <Dropdown.Item href="#" onClick={()=> handleAddFilter(sub_filter.name)}>{sub_filter.name}</Dropdown.Item>
             <span className={selectedFilter == sub_filter.name ? "filterControl discardFilter" : "filterControl discardFilter disabled" } onClick={handleClearSingleFilter}>
@@ -199,6 +197,31 @@ function CuratedPlaylist() {
             <div className="filterBar desktopShowFlex">
                 <a href="javascript:void(0)" className={playlist.linkFilter}>All playlists</a>
                 {filterItems}
+                <Dropdown className="d-inline">
+                  <Dropdown.Toggle id="dropdown-autoclose-true">
+                    Creator Kits
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <div className="filterWrapper">
+                    {filters && filters.creator_kits && filters.creator_kits.length > 0 && filters.creator_kits.map((sub_filter, index) =>
+                      <Link key={index} href={"creatorKits/" + sub_filter.id}>
+                        <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
+                          <Dropdown.Item href="javascript:void(0)">{sub_filter.name}</Dropdown.Item>
+                          <span className={selectedFilter == sub_filter.name ? "filterControl discardFilter" : "filterControl discardFilter disabled" } onClick={handleClearSingleFilter}>
+                            <svg width="10" height="10" viewBox="0 0 10 10">
+                              <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
+                                <circle cx="5" cy="5" r="5" stroke="none"/>
+                                <circle cx="5" cy="5" r="4.5" fill="none"/>
+                              </g>
+                              <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
+                            </svg>
+                          </span>
+                        </div>
+                      </Link>
+                    )}
+                    </div>
+                  </Dropdown.Menu>
+                </Dropdown>
             </div>
 
             <div className="mobileShow">
