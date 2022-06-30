@@ -87,6 +87,7 @@ function Search(props) {
 
   const filters = useSelector( state => state.allFilters.filters[0])
   const allTracks = useSelector( state => state.allTracks)
+  const cartItem = useSelector( state => state.user.cart)
 
   let tracks = ""
   let tracksMeta = ""
@@ -101,6 +102,14 @@ function Search(props) {
   console.log("Tracks META", tracksMeta)
 
   const favoritesMessage = useSelector( state => state.allTracks)
+
+  useEffect(() => {
+    if (cartItem && cartItem.id){
+      toast.success("License has been added to cart successfully.")
+    } else {
+      toast.error(cartItem)
+    }
+  }, [cartItem]);
 
   useEffect(() => {
     if (allTracks.errorMessage && allTracks.errorMessage.includes("Validation failed")){

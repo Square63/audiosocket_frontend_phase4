@@ -61,7 +61,6 @@ function AddToCartLicense({ showModal = false, onCloseModal, track}) {
           toast.error("Error while selcting license.");
         } else {
           onCloseModal(true);
-          toast.success('License has been Taken.');
           authContext.handleAddToCart(response.data.mediable.id, response.data.mediable_type, response.data.id);
         }
       }).catch(error => {

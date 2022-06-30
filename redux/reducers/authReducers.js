@@ -131,13 +131,13 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         ...state,
         success: true,
         cart: action.payload.line_item,
-        cartTrack: action.payload.track,
+        cartTrack: action.payload.track
       };
     case ADD_TO_CART_FAIL:
       return {
         ...state,
         success: false,
-        cart: action.payload.response.data.errors,
+        cart: action.payload.response.data.message,
       };
     case GET_CART_SUCCESS:
       return {
