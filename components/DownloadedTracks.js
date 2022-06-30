@@ -14,6 +14,7 @@ import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import Fade from 'react-bootstrap/Fade';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
