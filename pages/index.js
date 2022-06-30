@@ -48,7 +48,7 @@ import { getFilters } from '../redux/actions/filterActions';
 import { useDispatch, useSelector } from "react-redux";
 import InpageLoader from '../components/InpageLoader';
 import { getTracksFromAIMS } from '../redux/actions/trackActions';
-import { facebookCallback } from '../redux/actions/authActions';
+import { facebookCallback, getTrendingPlaylists } from '../redux/actions/authActions';
 import { gmailCallback } from '../redux/actions/authActions';
 import { useCookie } from 'next-cookie';
 import { ToastContainer, toast } from 'react-toastify';
@@ -91,6 +91,7 @@ export default function Home(props) {
   const router = useRouter();
   const socialLogin = useSelector(state => state.auth.user);
   const filters = useSelector( state => state.allFilters.filters[0])
+  const trendingPlaylists = useSelector( state => state.auth.trending_playlists)
   filters.map((filter, index) =>
     filter.name == "Genres" &&
       genresArray.push(filter.sub_filters.slice(0, 5))
@@ -696,11 +697,11 @@ export default function Home(props) {
                   </div>
                 </div>
                 <CarouselMood breakPoints={breakPoints}>
-                  {images.map((item) => (
-                    <Link href="/playlist/curatedPlaylist" key={item}>
+                  {trendingPlaylists.map((playlist) => (
+                    <Link href={"/playlist/curatedPlaylist/" + playlist.id} key={playlist}>
                       <div className="moodSlide">
-                        <Image src={item.src} alt="Mood" className="moodImage"></Image>
-                        <span className="moodOverlayText">{item.text}</span>
+                        {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="moodImage" layout="fill"></Image>}
+                        <span className="moodOverlayText">{playlist.name}</span>
                       </div>
                     </Link>
                   ))}
@@ -828,4 +829,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
+      await store.dispatch(getTrendingPlaylists(req))
     });
