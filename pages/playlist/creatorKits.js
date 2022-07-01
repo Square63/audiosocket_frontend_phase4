@@ -110,9 +110,9 @@ function CreatorKits() {
                     <div className="tilesWrapper">
                       {creatorKitsList && creatorKitsList.map((creatorKit,index)=> {
                         return(
-                          <div className={playlist.creatorKitsItem}>
+                          <div key={index} className={playlist.creatorKitsItem}>
                             <Link href={"creatorKits/" + creatorKit.id} key={index} onClick={() => {setIsLoading(true)}}>
-                              <a key={index} className="tileOverlay">
+                              <a className="tileOverlay">
                                 {creatorKit.playlist_image && <Image src={creatorKit.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                               </a>
                             </Link>
