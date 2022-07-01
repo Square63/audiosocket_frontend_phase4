@@ -169,15 +169,6 @@ function CuratedPlaylist() {
         {filter.sub_filters && filter.sub_filters.length > 0 && filter.sub_filters.map((sub_filter, index) =>
           <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
             <Dropdown.Item href="#" onClick={()=> handleAddFilter(sub_filter.name)}>{sub_filter.name}</Dropdown.Item>
-            <span className={selectedFilter == sub_filter.name ? "filterControl discardFilter" : "filterControl discardFilter disabled" } onClick={handleClearSingleFilter}>
-              <svg width="10" height="10" viewBox="0 0 10 10">
-                <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1">
-                  <circle cx="5" cy="5" r="5" stroke="none"/>
-                  <circle cx="5" cy="5" r="4.5" fill="none"/>
-                </g>
-                <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1"/>
-              </svg>
-            </span>
           </div>
         )}
         </div>
