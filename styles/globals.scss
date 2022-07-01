@@ -1632,8 +1632,7 @@ hr {
       overflow: hidden;
 
       .filterWrapper {
-        display: grid;
-        grid-template-columns: repeat(4, auto);
+        columns: 3;
         padding: 25px 15px 20px;
         max-height: 500px;
         overflow-y: auto;
@@ -1811,7 +1810,7 @@ hr {
         .durationBlock {
           display: block;
           padding: 30px;
-
+          columns: initial;
           h3 {
             margin-left: 0;
           }
@@ -1827,6 +1826,7 @@ hr {
         }
 
         .filterSibling {
+          display: grid;
           grid-template-columns: repeat(2, auto);
 
           h3 {
@@ -4925,6 +4925,25 @@ input[type=file]::file-selector-button {
   .tooltip {
     display: none;
   }
+
+  .musicSearch,
+  .curatedPlaylistGlobal {
+    .filterBar {
+      padding: 10px;
+      .dropdown {
+        .dropdown-toggle {
+          padding: 10px 7px 9px;
+        }
+        .dropdown-menu {
+          .filterWrapper:not(.durationBlock) {
+            columns: 2;
+            padding: 15px 10px 15px;
+            max-height: none;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media #{$mid-point-tablet} {
@@ -5180,25 +5199,28 @@ input[type=file]::file-selector-button {
     padding-inline: 20px;
   }
 
-  /************** Search page ****************/
-  .musicSearch,
-  .curatedPlaylistGlobal {
-    .filterBar {
-      padding: 10px;
-      .dropdown {
-        .dropdown-toggle {
-          padding: 10px 7px 9px;
-        }
+
+  /************* Filters bar **************/
+  .filterBar {
+    .dropdown {
+      &.durationTempo {
         .dropdown-menu {
-          .filterWrapper:not(.durationBlock) {
-            grid-template-columns: repeat(2, auto);
-            padding: 15px 10px 15px;
+          @include flex-direction(column);
+
+          .filterSibling {
+            @include flexbox;
+            @include flex-direction(column);
+
+            h3 {
+              grid-column: span 2;
+            }
           }
         }
       }
     }
   }
 
+  /************** Search page ****************/
   .trackRowWrapper {
     .trackRow {
       padding-inline: 10px;
