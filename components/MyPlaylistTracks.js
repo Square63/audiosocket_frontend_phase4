@@ -36,20 +36,19 @@ function MyPlaylistTracks(props) {
   const [hasMore, sethasMore] = useState(false)
   const [moodColumn, setMoodColumn] = useState("moods")
   const [trackList, setTrackList] = useState(props.tracks)
-  let waveCount = 0;
 
   useEffect(() => {
     let isMounted = true;
     if (tracks[0]?.id != props.tracks[0]?.id)
       setTracks(tracks => [...tracks, ...props.tracks])
     setInfiniteLoop(false)
-  
+
     if (props.tracks.length < 10) {
       sethasMore(false)
     } else {
-      sethasMore(false)
+      sethasMore(true)
     }
-  
+
     return () => {
       isMounted = false;
     };
@@ -165,21 +164,11 @@ function MyPlaylistTracks(props) {
     setTrackList(updatedList);
   }
 
-  function incrementWaveCount() {
-    if (waveCount >= 9){
-      waveCount = 0
-      sethasMore(true)
-    }
-    else
-      waveCount = waveCount + 1;
-  }
-
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
         <h2>{props.tracksMeta ? "Tracks" : "Playlist Tracks"} <span className={search.tracksCount}>{props.tracksMeta ? props.tracksMeta.total_track_count : props.tracks?.count}</span></h2>
         <div className={search.tracksSorting}>
-
           <form>
               <Form.Label className="required">Sort By:</Form.Label>
               <Select
@@ -280,7 +269,7 @@ function MyPlaylistTracks(props) {
                           {...provided.draggableProps}
                         >
                           <div className="trackRow" key={index}>
-                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} incrementWaveCount={incrementWaveCount}/>
+                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
                             <div className="rowParticipant duration">
                               {convertSecToMin(track.mediable.duration)}
                             </div>
