@@ -234,7 +234,7 @@ const Details = ()  => {
     {creatorKitsDetail ? 
     <div className={playlist.creatorKits}>
       
-      <div className={playlist.playlistBanner} style={{backgroundImage: "url(" + creatorKitsDetail.curated_playlist.banner_image + ")"}}>
+      <div className={playlist.playlistBanner} style={{backgroundImage: "url(" + creatorKitsDetail.curated_playlist.compressed_banner_image + ")"}}>
         <div className="themeBreadcrumb">
           <div className="fixed-container">
             <Breadcrumb>
@@ -246,7 +246,7 @@ const Details = ()  => {
         <div className={playlist.playlistInfo}>
           <div className={playlist.playlistCard}>
             <div className={playlist.imgSec}>
-              {creatorKitsDetail.curated_playlist && creatorKitsDetail.curated_playlist.playlist_image && <Image src={creatorKitsDetail.curated_playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+              {creatorKitsDetail.curated_playlist && creatorKitsDetail.curated_playlist.compressed_playlist_image && <Image src={creatorKitsDetail.curated_playlist.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
             </div>
             <div className={playlist.contentSec}>
               <div className={playlist.aboutPlaylist}>

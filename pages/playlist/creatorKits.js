@@ -113,7 +113,7 @@ function CreatorKits() {
                           <div key={index} className={playlist.creatorKitsItem}>
                             <Link href={"creatorKits/" + creatorKit.id} key={index} onClick={() => {setIsLoading(true)}}>
                               <a className="tileOverlay">
-                                {creatorKit.playlist_image && <Image src={creatorKit.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                                {creatorKit.compressed_playlist_image && <Image src={creatorKit.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                               </a>
                             </Link>
                             <span className="tileOverlayText">

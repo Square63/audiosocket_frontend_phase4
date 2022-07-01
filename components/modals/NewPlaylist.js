@@ -60,7 +60,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
         setValidated(false);
         setIsLoading(false);
         setFile(null);
-        toast.error('Error creating Playlist: Playlist image ' + error.response.data.errors.playlist_image);
+        toast.error('Error creating Playlist: Playlist image ' + error.response.data.errors.compressed_playlist_image);
       });
     }
   }

@@ -229,7 +229,7 @@ const Details = () => {
           style={{ width: "auto" }}
         />
         <div className={playlist.myPlaylistShow}>
-          <div className={playlist.playlistBanner} style={curatedPlaylistDetail && {backgroundImage: "url(" + curatedPlaylistDetail.banner_image + ")"}}>
+          <div className={playlist.playlistBanner} style={curatedPlaylistDetail && {backgroundImage: "url(" + curatedPlaylistDetail.compressed_banner_image + ")"}}>
             <div className="themeBreadcrumb">
               <div className="fixed-container">
                 <Breadcrumb>
@@ -241,7 +241,7 @@ const Details = () => {
             <div className={playlist.playlistInfo}>
               <div className={playlist.playlistCard}>
                 <div className={playlist.imgSec}>
-                {curatedPlaylistDetail && curatedPlaylistDetail.playlist_image && <Image src={curatedPlaylistDetail.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                {curatedPlaylistDetail && curatedPlaylistDetail.compressed_playlist_image && <Image src={curatedPlaylistDetail.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                 </div>
                 <div className={playlist.contentSec}>
                   <div className={playlist.aboutPlaylist}>
