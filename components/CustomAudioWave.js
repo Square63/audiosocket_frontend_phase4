@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
-import { Grid } from 'semantic-ui-react'
+import {Grid} from 'semantic-ui-react'
+import MultiCanvas from "wavesurfer.js"
+import $ from 'jquery';
 
-const formWaveSurferOptions = (ref, footer) => (
-  !footer ? {
+const formWaveSurferOptions = (ref) => (
+  {
     container: ref,
     waveColor: "#CDD2DA",
     progressColor: "#C1D72E",
@@ -19,7 +21,10 @@ const formWaveSurferOptions = (ref, footer) => (
     barGap: 1,
     normalize: true,
     partialRender: true
-  } :
+  }
+);
+
+const footerFormWaveSurferOptions = (ref) => (
   {
     container: ref,
     waveColor: "#CDD2DA",
@@ -40,13 +45,15 @@ const formWaveSurferOptions = (ref, footer) => (
 export default function CustomAudioWave(props) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
+  const footerwaveformRef = useRef(null);
+  const footerwavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState();
   const [rowSeconds, setRowSeconds] = useState();
   const [footer, setFooter] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const [peaks, setPeaks] = useState([]);
-  const url = props.track.mp3_file_compressed? props.track.mp3_file_compressed : "./test.mp3"
+  const url = props.track ? props.track.mp3_file_compressed : '';
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -56,6 +63,45 @@ export default function CustomAudioWave(props) {
   }
 
   useEffect(() => {
+    if (props.track) {
+      const getJson = async () => {
+        const data = await fetch(props.track.audio_peak.file, {
+          headers: {
+            accept : "application/json"
+          }
+        })
+        .then(response => {
+          return response.json()
+        })
+        .then(peaks => {
+          if (wavesurfer.current == null)
+            create(url, peaks.data);
+          setPeaks(peaks.data)
+        })
+      }
+      getJson()
+    }
+  });
+
+  useEffect(() => {
+    if (document.getElementsByClassName("play").length > 1) {
+      document.getElementsByClassName("first")[0].click();
+      document.getElementById("footerPlayPause").classList.remove("footerPause")
+      document.getElementById("footerPlayPause").classList.add("footerPlay")
+    }
+    else if (document.getElementsByClassName("play").length == 1) {
+      document.getElementsByClassName("play")[0].classList.add('first');
+      document.getElementById("footerPlayPause").classList.remove("footerPause")
+      document.getElementById("footerPlayPause").classList.add("footerPlay")
+    }
+    
+  }, [playing]);
+
+  const handlePlayPause = (id) => {
+    if(id && id != localStorage.getItem("playing_track_id")) {
+      localStorage.setItem("playing_track_id", id)
+    }
+
     const getJson = async () => {
       const data = await fetch(props.track.audio_peak.file, {
         headers: {
@@ -66,52 +112,11 @@ export default function CustomAudioWave(props) {
         return response.json()
       })
       .then(peaks => {
-        if (wavesurfer.current == null)
-          create(url, peaks.data);
+        footerCreate(props.track, peaks.data)
         setPeaks(peaks.data)
       })
     }
-
     getJson()
-  }, []);
-
-  useEffect(() => {
-    if (props.footerPlaying) {
-      setTimeout(() => setSeconds(seconds ? (seconds -1) : (30 - 1)), 1000);
-    } else {
-      setSeconds(seconds);
-    }
-
-    if (wavesurfer.current && props.footerPlaying) {
-      wavesurfer.current.play();
-    } else if (wavesurfer.current && !localStorage.getItem('playing')){
-      wavesurfer.current.pause();
-    }
-
-    return () => {
-      if (wavesurfer.current) {
-        wavesurfer.current.pause();
-      }
-    };
-  }, [seconds]);
-
-  useEffect(() => {
-    if (props.footerTrack) {
-      wavesurfer.current.destroy();
-      footerCreate(props.footerTrack.file)
-    }
-  }, [props.footerTrack]);
-
-  useEffect(() => {
-    if (document.getElementsByClassName("play").length > 1)
-      document.getElementsByClassName("first")[0].click();
-    else if (document.getElementsByClassName("play").length == 1)
-      document.getElementsByClassName("play")[0].classList.add('first');
-  }, [playing]);
-
-  function handlePlayPause() {
-    setPlaying(!playing)
-    wavesurfer.current.playPause();
   };
 
   function convertSecToMin(duration) {
@@ -123,31 +128,70 @@ export default function CustomAudioWave(props) {
   }
 
   const create = async (url, peaks) => {
-    const WaveSurfer = (await import("wavesurfer.js")).default;
-
-    const options = formWaveSurferOptions(waveformRef.current, props.footer);
-    wavesurfer.current = WaveSurfer.create(options);
-    wavesurfer.current.load(url, peaks);
+    // const WaveSurfer = (await import("wavesurfer.js")).default;
+    const options = formWaveSurferOptions(waveformRef.current ? waveformRef.current : footerwaveformRef.current);
+    wavesurfer.current = MultiCanvas.create(options);
+    url && wavesurfer.current.load(url, peaks);
+    // wavesurfer.current.on('ready', function () {
+    //   props.incrementWaveCount();
+    //   setIsLoading(false);
+    // });
   };
 
-  const footerCreate = async (url) => {
-    const WaveSurfer = (await import("wavesurfer.js")).default;
+  const footerCreate = async (track, peaks) => {
+    // const WaveSurfer = (await import("wavesurfer.js")).default;
+    if (footerwaveformRef.current == null) {
+      document.getElementById("footerPlayPause").classList.remove("footerPlay")
+      document.getElementById("footerPlayPause").classList.add("footerPause")
+      document.getElementById("footerwaveform").innerHTML = ''
 
-    const options = formWaveSurferOptions(waveformRef.current, true);
-    wavesurfer.current = WaveSurfer.create(options);
-    wavesurfer.current.load(url);
-    wavesurfer.current.play();
+      footerwaveformRef.current = document.getElementById("footerwaveform")
+      const options = footerFormWaveSurferOptions(footerwaveformRef.current);
+      footerwavesurfer.current = MultiCanvas.create(options);
+      footerwavesurfer.current.load(track.mp3_file_compressed, peaks);
+      setPlaying(!playing)
+      // wavesurfer.current.pause()
+      // footerwavesurfer.current.pause();
+      document.getElementsByClassName("SongArtist")[0].innerHTML = track.artist_name
+      wavesurfer.current.playPause()
+      footerwavesurfer.current.playPause();
+        // setTimeout(() => setSeconds(seconds ? (seconds -1) : (footerwavesurfer.current?.getDuration() - 1)), 1000);
+        // setSeconds(wavesurfer.current.getDuration())
+      
+    } else {
+      debugger
+      setPlaying(!playing)
+      if (wavesurfer.current.isPlaying()) {
+        document.getElementById("footerPlayPause").classList.remove("footerPlay")
+        document.getElementById("footerPlayPause").classList.add("footerPause")
+        // document.getElementsByClassName("first")[0]?.click();
+        wavesurfer.current.pause()
+        footerwavesurfer.current?.pause();
+      }
+      else if(document.getElementsByClassName("play").length == 1){
+        document.getElementsByClassName("first")[0]?.click();
+        
+        // wavesurfer.current.pause()
+        // footerwavesurfer.current?.pause();
+      }
+      else {
+        document.getElementById(localStorage.getItem("playing_track_id")).click();
+        wavesurfer.current?.play()
+        footerwavesurfer.current?.play();
+      }
+    }
+    
   };
-
+  
   return (
     !props.footer ?
       (<>
         <div className="rowParticipant artistName">
-          <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
-            <span className={(playing) ? "play" : "pause"}></span>
+          <div className="playPauseBtn" onClick={() => { handlePlayPause(props.track.id); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
+            <span id={props.track.id} className={(playing) ? "play" : "pause"}></span>
             <span className="pause d-none"></span>
           </div>
-          <div className="aboutSong">
+          {props.track && <div className="aboutSong">
             <div className="songData">
               <OverlayTrigger overlay={<Tooltip>{props.track.title}</Tooltip>}>
                 <a href="javascript:void(0)" className="songName defaultCursor">{props.track.title}</a>
@@ -161,11 +205,11 @@ export default function CustomAudioWave(props) {
               }
             </div>
             {props.track.artist_name && <div className="songArtist">
-              <a href="javascript:void(0)" className={`${props.notClickable ? "notClickable" : ""}`}onClick={() => props.handleTrackSearchOfArtist(props.track.artist_id, props.track.artist_name)}>
+              <a href="javascript:void(0)" className={`${props.notClickable ? "notClickable" : ""}`} onClick={() => props.handleTrackSearchOfArtist(props.track.artist_id, props.track.artist_name)}>
                 {props.track.artist_name}
               </a>
             </div>}
-          </div>
+          </div>}
         </div>
         <div className="rowParticipant audioWave">
           <div id="waveform" ref={waveformRef}  />
@@ -188,15 +232,15 @@ export default function CustomAudioWave(props) {
     (<>
       <div className="stickyMiniPlayerInner">
         <div className="songsStuff">
-          <a href="javascript:void(0)" className="SongName">Saving</a>
+          {props.footertrack && <a href="javascript:void(0)" className="SongName">{props.footertrack.title}</a>}
           <a href="javascript:void(0)" className="SongArtist">Justin G. Marcellus</a>
         </div>
         <div className="playPauseBtn" onClick={() => {handlePlayPause(); props.handleFooterTrack(props.track);}}>
-          <span className={(props.footerPlaying) ? "play" : "pause"}></span>
+          <div id="footerPlayPause" className="footerPause"></div>
         </div>
         <div className="waveWithDuration">
           <div className="durationCount durationObtained">{convertSecToMin(seconds)}</div>
-          <div id="waveform" ref={waveformRef}  />
+          <div id="footerwaveform" ref={footerwaveformRef}/>
           <div className="durationCount totalDuration">{props.track ? convertSecToMin(props.track.duration) : "0:0"}</div>
         </div>
         <div className="volumeBarWrapper">

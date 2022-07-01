@@ -38,11 +38,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../components/Sidebar';
 import SearchAudioWave from '../components/SearchAudioWave';
 import { Sticky, StickyScrollUp, StickyProvider } from 'react-stickup';
+import dynamic from 'next/dynamic'
+
+const CustomAudioWave = dynamic(
+  () => import('../components/CustomAudioWave'),
+  { ssr: false }
+)
 
 function Search(props) {
   const router = useRouter();
   const dispatch = useDispatch();
-
   const [showModal, setShowModal] = useState(false);
   const [showChilderDiv, setShowChilderDiv] = useState(false);
   const [lastChildFilters, setLastChildFilters] = useState([]);
@@ -454,11 +459,7 @@ function Search(props) {
   }
 
   const handleFooterTrack = (track) => {
-    setFooterPlaying(!footerPlaying)
-		setTrack(track)
-    if (track) {
-      console.log("track url", track.file)
-    }
+    // setFooterPlaying(!footerPlaying)
   }
 
 
@@ -924,11 +925,12 @@ function Search(props) {
           )}
         </div>
 
-        {/* <div className="stickyMiniPlayer">
+        <div className="stickyMiniPlayer">
           <div className="fixed-container">
-            <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />
+            <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={updatedTracks[index]} />
           </div>
-        </div> */}
+        </div>
+
         <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} type="track"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
