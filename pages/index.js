@@ -700,7 +700,7 @@ export default function Home(props) {
                   {trendingPlaylists.map((playlist) => (
                     <Link href={"/playlist/curatedPlaylist/" + playlist.id} key={playlist}>
                       <div className="moodSlide">
-                        {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="moodImage" layout="fill"></Image>}
+                        {playlist.compressed_playlist_image && <Image src={playlist.compressed_playlist_image} alt="Mood" className="moodImage" layout="fill"></Image>}
                         <span className="moodOverlayText">{playlist.name}</span>
                       </div>
                     </Link>
