@@ -470,6 +470,39 @@
   }
 }
 
+/****************** Creator Kits Listing *****************/
+.creatorKitsListing {
+  :global(.parallelHead) {
+    padding-bottom: 50px;
+    :global(.stickySearch) {
+      flex-basis: clamp(400px, 50%, 550px);
+      :global(.form-control) {
+        background-color: #313438;
+        border: 1px solid #6e7377;
+        color: #ffffff;
+      }
+     }
+  }
+  .creatorKitsItem {
+    :global(.tileOverlay) {
+      @include flexbox;
+    }
+    :global(.tileOverlayText) {
+      font-size: 18px;
+      font-weight: 500;
+      width: 100%;
+      line-height: 1.28;
+      letter-spacing: -0.45px;
+      text-align: center;
+      text-transform: capitalize;
+      color: #ffffff;
+      display: inline-block;
+      padding-inline: 10px;
+      margin-block: 12px;
+    }
+  }
+}
+
 
 /********************** Responsive Behaviour *****************/
 @media #{$desktop-start} {
@@ -650,6 +683,18 @@
   .waveformBlock {
     display: none;
   }
+
+  .creatorKitsListing {
+    :global(.parallelHead) {
+      @include flex-direction(column);
+      @include align-items(flex-start);
+      gap: 30px;
+
+      :global(.stickySearch) {
+        width: 100%;
+      }
+    }
+  }
 }
 
 @media #{$phone-portrait} {
@@ -714,6 +759,24 @@
           }
         }
       }
+    }
+  }
+
+  .creatorKitsListing {
+    :global(.parallelHead) {
+      @include align-items(flex-start);
+      gap: 30px;
+
+      :global(.stickySearch) {
+        width: 100%;
+        :global(.stickyBtn) {
+          top: 15px;
+        }
+      }
+    }
+    .creatorKitsItem {
+      max-width: 250px;
+      width: 100%;
     }
   }
 }

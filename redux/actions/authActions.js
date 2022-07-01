@@ -742,9 +742,9 @@ export const getCuratedPlaylistTracks = (data, page) => async (dispatch) => {
   }
 };
 
-export const getCreatorKits = (page) => async( dispatch ) => {
+export const getCreatorKits = (query, page) => async( dispatch ) => {
   try {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/consumer/creator_kits?page=${page}&per_page=15`);
+    const { data } = await axios.get(`${BASE_URL}/api/v1/consumer/creator_kits?query=${query}&page=${page}&per_page=15&kind=creator_kit`);
     dispatch({
       type: CREATOR_KITS_SUCCESS,
       payload: data
@@ -756,7 +756,6 @@ export const getCreatorKits = (page) => async( dispatch ) => {
     })
 
   }
-
 }
 
 export const getCreatotKitsDetail = (data) => async (dispatch) => {

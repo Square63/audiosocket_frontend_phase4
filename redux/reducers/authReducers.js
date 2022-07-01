@@ -385,7 +385,8 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
     case CREATOR_KITS_SUCCESS:
       return {
         ...state,
-        creator_kits: action.payload,
+        creator_kits: action.payload.curated_playlists,
+        creatorKitsMeta: action.payload.meta
       };
     case CREATOR_KITS_FAIL:
       return {

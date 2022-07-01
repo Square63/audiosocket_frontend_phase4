@@ -5,22 +5,24 @@ import { getCreatorKits } from "../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import InpageLoader from '../../components/InpageLoader';
 import Link from "next/link";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useRouter } from "next/router";
 import { useCookie } from 'next-cookie'
+import { Form, Button } from "react-bootstrap";
 
 
 function CreatorKits() {
   const cookie = useCookie()
-  const [showModal, setShowModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [pageNum, setPageNum] = useState(1);
   const dispatch = useDispatch();
   const router = useRouter();
   const creatorKits = useSelector(state => state.user.creator_kits);
+  const creatorKitsMeta = useSelector(state => state.user.creatorKitsMeta);
   const responseStatus = useSelector(state => state.user.responseStatus);
   const [isLoading, setIsLoading] = useState(true);
-  const [creatorKitsArray, setCreatorKitsArray] = useState([])
+  const [creatorKitsList, setCreatorKitsList] = useState([])
   const [infifniteLoop, setInfiniteLoop] = useState(false)
   const [hasMore, sethasMore] = useState(true)
 
@@ -39,53 +41,35 @@ function CreatorKits() {
   }, [responseStatus]);
 
   useEffect(() => {
-    let isMounted = true;
-    if (infifniteLoop) {
-      setCreatorKitsArray(creatorKitsArray => [...creatorKitsArray, ...creatorKits])
-      setInfiniteLoop(false)
-    } else {
-      setCreatorKitsArray(creatorKitsArray=> creatorKits)
-    }
+    let page;
+    pageNum == 0 ? page = 1 : page = pageNum
+    dispatch(getCreatorKits(searchValue, page))
+  }, [pageNum]);
 
-    if (creatorKits?.length < 15) {
-      sethasMore(false)
-    } else {
-      sethasMore(true)
+  useEffect(() => {
+    let isMounted = true;
+    if (creatorKits){
+      if (infifniteLoop)
+        setInfiniteLoop(false)
+      setCreatorKitsList(creatorKitsList => [...creatorKitsList, ...creatorKits])
+      creatorKitsMeta.total_creator_kits_count == (creatorKitsList.length + creatorKits.length) ? sethasMore(false) : sethasMore(true)
+      setIsLoading(false)
     }
 
     return () => {
       isMounted = false;
     };
-
-  },[creatorKits])
+  }, [creatorKits])
 
   const fetchData = () => {
-    if (creatorKits.length == 15) {
-      dispatch(getCreatorKits((creatorKitsArray.length/15 + 1)))
-      setInfiniteLoop(true)
-    }
-    else {
-      // setcreatorKitsArray(creatorKitsArray=> creatorKits)
-      setInfiniteLoop(false)
-    }
+    setPageNum(creatorKitsList.length / 15 + 1)
+    creatorKitsMeta.total_creator_kits_count == creatorKitsList.length ? setInfiniteLoop(false) : setInfiniteLoop(true)
   }
 
-  useEffect(() => {
-    dispatch(getCreatorKits(1))
-  }, [showModal, showEditModal]);
-
-  useEffect(() => {
-    if (creatorKits) {
-      setIsLoading(false)
-    }
-  }, [creatorKits]);
-
-  const handleLoading = () => {
-    setLoading(true)
-  }
-
-  const handleClose = (show) => {
-    setShowModal(show)
+  const handleSearch = (e) => {
+    setIsLoading(true)
+    setCreatorKitsList([])
+    setPageNum(0)
   }
 
   return (
@@ -94,7 +78,7 @@ function CreatorKits() {
         <InpageLoader/>) :
         (
           <>
-            <div className={playlist.myPlaylistWrapper}>
+            <div className={playlist.myPlaylistWrapper+' '+playlist.creatorKitsListing}>
               <ToastContainer
                 position="top-center"
                 autoClose={10000}
@@ -109,25 +93,33 @@ function CreatorKits() {
               />
               <div className="fixed-container">
                 <section className={playlist.myPlaylists}>
-                  <h1>Creator Kits</h1>
+                  <div className="parallelHead">
+                    <h1>Creator Kits</h1>
+                    <Form className="stickySearch">
+                      <Form.Control type="text" placeholder="Search playlists by title or keyword…" onChange={(e) => setSearchValue(e.target.value)} value={searchValue} />
+                      <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
+                    </Form>
+                  </div>
                   <InfiniteScroll
-                    dataLength={creatorKitsArray.length}
+                    dataLength={creatorKitsList.length}
                     next={fetchData}
                     hasMore={hasMore}
                     loader={<InpageLoader />}
                     endMessage={<h4>Nothing more to show</h4>}
                   >
                     <div className="tilesWrapper">
-                      {creatorKitsArray && creatorKitsArray.map((creatorKit,index)=> {
+                      {creatorKitsList && creatorKitsList.map((creatorKit,index)=> {
                         return(
-                          <Link href={"creatorKits/" + creatorKit.id} key={index} onClick={() => {setIsLoading(true)}}>
-                            <a key={index} className="tileOverlay">
-                              {creatorKit.playlist_image && <Image src={creatorKit.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
-                              <span className="tileOverlayText">
-                                {creatorKit.name}
-                              </span>
-                            </a>
-                          </Link>
+                          <div className={playlist.creatorKitsItem}>
+                            <Link href={"creatorKits/" + creatorKit.id} key={index} onClick={() => {setIsLoading(true)}}>
+                              <a key={index} className="tileOverlay">
+                                {creatorKit.playlist_image && <Image src={creatorKit.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                              </a>
+                            </Link>
+                            <span className="tileOverlayText">
+                              {creatorKit.name}
+                            </span>
+                          </div>
                         )
                       })}
                     </div>
