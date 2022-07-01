@@ -36,7 +36,6 @@ function CreatorKitsTracks(props) {
   const [hasMore, sethasMore] = useState(false)
   const [moodColumn, setMoodColumn] = useState("moods")
   const [trackList, setTrackList] = useState(props.tracks)
-  let waveCount = 0;
 
   useEffect(() => {
     let isMounted = true;
@@ -48,7 +47,7 @@ function CreatorKitsTracks(props) {
     if (props.tracks.length < 10) {
       sethasMore(false)
     } else {
-      sethasMore(false)
+      sethasMore(true)
     }
 
     return () => {
@@ -163,16 +162,6 @@ function CreatorKitsTracks(props) {
     setTrackList(updatedList);
   }
 
-  function incrementWaveCount() {
-    debugger
-    if (waveCount >= 9){
-      waveCount = 0
-      sethasMore(true)
-    }
-    else
-      waveCount = waveCount + 1;
-  }
-
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
@@ -279,7 +268,7 @@ function CreatorKitsTracks(props) {
                           {...provided.draggableProps}
                         >
                           <div className="trackRow" key={index}>
-                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} incrementWaveCount={incrementWaveCount}/>
+                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} />
                             <div className="rowParticipant duration">
                               {convertSecToMin(track.mediable.duration)}
                             </div>
