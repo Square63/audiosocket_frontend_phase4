@@ -3052,19 +3052,26 @@ hr {
       justify-self: flex-end;
       margin-right: 0;
 
-      .play {
+      .footerPlay {
         background: url(../images/pauseIconBlack.svg) no-repeat;
         background-size: 13px;
         width: 13px;
         height: 17px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
 
-      .pause {
+      .footerPause {
         background: url(../images/playBlack.svg) no-repeat;
         background-size: 14px;
         width: 14px;
         height: 20px;
+        position: absolute;
+        top: 50%;
         left: calc(50% + 1px);
+        transform: translate(-50%, -50%);
       }
     }
 
@@ -3082,7 +3089,7 @@ hr {
         color: $middleGrey;
       }
 
-      #waveform {
+      #waveform, #footerwaveform {
         flex: 1;
         max-width: 480px;
         width: 100%;
