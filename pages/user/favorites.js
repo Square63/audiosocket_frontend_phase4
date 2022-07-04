@@ -16,6 +16,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import DownloadTrack from "../../components/modals/DownloadTrack";
+import AddToPlaylist from "../../components/modals/AddToPlaylist";
 import DownloadTrackLicense from "../../components/modals/DownloadTrackLicense";
 import Notiflix from "notiflix";
 
@@ -25,10 +26,12 @@ function Favorites() {
   const router = useRouter();
   const favoriteTracks = useSelector(state => state.user.favorite_tracks);
   const responseStatus = useSelector(state => state.user.responseStatus);
+  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const favoritesMessage = useSelector( state => state.allTracks)
   const [showDownModal, setShowDownModal] = useState(false)
   const [showLicenseModal, setShowLicenseModal] = useState(false)
+  const [altVersionTrack, setAltVersionTrack] = useState(null);
   const [index, setIndex] = useState(0)
   const [updatedTracks, setUpdatedTracks] = useState([])
 
@@ -125,6 +128,22 @@ function Favorites() {
     setType(type);
   }
 
+  function showTrackAddToPlaylistModal(index, type) {
+    if (type == "track") {
+      setAltVersionTrack(null)
+      setIndex(index)
+    }
+    else {
+      setAltVersionTrack(index)
+    }
+    setShowAddToPlaylistModal(true)
+
+  }
+
+  function handleAddToPlaylistModalClose() {
+    setShowAddToPlaylistModal(false)
+  }
+
   return (
     <>
       {isLoading ? (
@@ -143,7 +162,8 @@ function Favorites() {
           pauseOnHover
           style={{ width: "auto" }}
         />
-            {favoriteTracks && <FavoriteTracks type="Favorite" tracks={favoriteTracks.tracks} tracksMeta={favoriteTracks.meta} handleRemoveFromFavorites={handleRemoveFromFavorites} handleSimilarSearch={handleSimilarSearch} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} />}
+        {favoriteTracks && <FavoriteTracks type="Favorite" tracks={favoriteTracks.tracks} tracksMeta={favoriteTracks.meta} handleRemoveFromFavorites={handleRemoveFromFavorites} handleSimilarSearch={handleSimilarSearch} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} />}
+        <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} />
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       </>

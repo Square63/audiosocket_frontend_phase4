@@ -196,7 +196,7 @@ function FavoriteTracks(props) {
                 </div>
                 <div className="rowParticipant controls">
                   <OverlayTrigger overlay={<Tooltip>Add to Playlist</Tooltip>}>
-                    <a href="">
+                    <a onClick={() => props.showTrackAddToPlaylistModal(index, "track")}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="29.249" height="29.25" viewBox="0 0 29.249 29.25">
                         <g id="icon-add-to-playlist" transform="translate(0.5 0.5)">
                           <g id="Group_165" data-name="Group 165" transform="translate(0)">
@@ -210,8 +210,8 @@ function FavoriteTracks(props) {
                               <path id="Shape_1150" data-name="Shape 1150" d="M211,1941.114h4.913" transform="translate(-191.352 -1919.006)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                             </g>
                           </g>
-                          </g>
-                        </svg>
+                        </g>
+                      </svg>
                     </a>
                   </OverlayTrigger>
                   <OverlayTrigger overlay={<Tooltip>Remove from Favourites</Tooltip>}>

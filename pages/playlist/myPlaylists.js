@@ -137,7 +137,7 @@ function MyPlaylists() {
                   hasMore={hasMore}
                   loader={<InpageLoader />}
                 >
-                {playlists && playlist.length > 0 ?
+                {playlists && playlists.length > 0 ?
                   <div className="tilesWrapper">
                     {playlists.map((playlist,index)=> {
                       return(
