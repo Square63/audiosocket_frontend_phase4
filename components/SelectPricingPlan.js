@@ -435,7 +435,7 @@ function SelectPricingPlan(props) {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Control required type="text" placeholder="Phone Number *" />
+                    <Form.Control required type="number" placeholder="Phone Number *" />
                     <Form.Control.Feedback type="invalid">
                       Phone Number is required!
                     </Form.Control.Feedback>

@@ -154,7 +154,7 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
         <div className="col-lg-6">
           <Form.Group className="">
             <Form.Label>Phone Number</Form.Label>
-            <Form.Control name="phone" type="text" placeholder="Enter phone" defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.phone : "") : ""} />
+            <Form.Control name="phone" type="number" placeholder="Enter phone" defaultValue={userInfo ? (userInfo.consumer_profile ? userInfo.consumer_profile.phone : "") : ""} />
           </Form.Group>
         </div>
 
