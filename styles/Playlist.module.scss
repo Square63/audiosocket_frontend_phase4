@@ -349,6 +349,7 @@
 .myPlaylistWrapper {
   background-color: $headerColor;
   padding-block: 50px;
+  min-height: calc(100vh - ($headerHeightDesktop + $footerHeightDesktop));
   h1 {
     color: $white;
     font-weight: 400;
@@ -562,6 +563,11 @@
           padding: 20px;
           height: 240px;
           gap: 15px;
+          .contentSec {
+            .cardBtnWrapper {
+              gap: 10px;
+            }
+          }
         }
       }
     }

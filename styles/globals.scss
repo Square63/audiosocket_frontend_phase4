@@ -1270,6 +1270,16 @@ footer {
   }
 }
 
+.noContent {
+  text-align: center;
+  color: $white;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.23;
+  letter-spacing: -0.65px;
+  padding-block: 3em;
+}
+
 .desktopShow {
   display: block !important;
 }
