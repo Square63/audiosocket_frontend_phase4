@@ -226,14 +226,14 @@ const Details = ()  => {
   }
 
   const handleAddFilter = async(e) => {
-    
+
   }
 
   return (
     <>
-    {creatorKitsDetail ? 
+    {creatorKitsDetail ?
     <div className={playlist.creatorKits}>
-      
+
       <div className={playlist.playlistBanner} style={{backgroundImage: "url(" + creatorKitsDetail.curated_playlist.compressed_banner_image + ")"}}>
         <div className="themeBreadcrumb">
           <div className="fixed-container">
@@ -316,25 +316,25 @@ const Details = ()  => {
       <div className="fixed-container">
         <div className={playlist.creatorKitsContent}>
           <Tabs defaultActiveKey="tracks" id="uncontrolled-tab-example" onSelect={(e)=> handleType(e)}>
-            <Tab eventKey="tracks" title="Tracks">    
+            <Tab eventKey="tracks" title="Tracks">
             {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
             (creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Track" ?
               <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
               :
               <InpageLoader/>
             ):
-            ( 
+            (
               <center>No tracks found</center>
             )}
             </Tab>
             <Tab eventKey="sfx" title="SFX">
             {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
             (creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Sfx" ?
-              <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
+              <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} type={type}/>
               :
               <InpageLoader/>
             ):
-            ( 
+            (
               <center>No sfx found</center>
             )}
             </Tab>
