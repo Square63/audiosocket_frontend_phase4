@@ -1,4 +1,4 @@
-/**************** Variables ***************/
+/**************** Colors Variables ***************/
 $headerColor: #1A1C1D;
 $hero-dark: #1B1D1D;
 $textClr: #979da2;
@@ -24,6 +24,10 @@ $clr-green-bright: hsl(68deg, 80%, 55%);
 $clr-green-hover: hsl(68deg, 68%, 51%);
 $clr-blue-light: #007bff;
 $clr-blue-extra-light: rgb(222, 235, 255);
+
+/**************** Spacing Variable **************/
+$headerHeightDesktop: 70px;
+$footerHeightDesktop: 539px;
 /**************** Mixins & Functions ***************/
 
 @mixin flexbox() {

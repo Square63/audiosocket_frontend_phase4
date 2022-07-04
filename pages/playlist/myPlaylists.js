@@ -136,11 +136,10 @@ function MyPlaylists() {
                   next={fetchData}
                   hasMore={hasMore}
                   loader={<InpageLoader />}
-                  endMessage={<h4>Nothing more to show</h4>}
                 >
-                <div className="tilesWrapper">
-                  {playlists && playlist.length > 0 ?
-                    playlists.map((playlist,index)=> {
+                {playlists && playlist.length > 0 ?
+                  <div className="tilesWrapper">
+                    {playlists.map((playlist,index)=> {
                       return(
                         <Link href={"myPlaylists/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
                           <a key={index} className="tileOverlay">
@@ -152,10 +151,10 @@ function MyPlaylists() {
                             </a>
                         </Link>
                       )
-                    }) :
-                    <h1>No Playlist Found</h1>
-                  }
-                </div>
+                    })}
+                  </div> :
+                  <div className="noContent">No Playlist Found</div>
+                }
               </InfiniteScroll>
             </section>
           </div>
