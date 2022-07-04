@@ -289,7 +289,7 @@ function Tracks(props) {
             >
               {tracks && tracks.map((track,index)=> {
                 return(<div className="trackRow" key={index}>
-                  <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} footer={false} footerPlaying={false}/>
+                  <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} footer={false} footerPlaying={false} tracks={props.tracks}/>
                   <div className="rowParticipant duration">
                     {convertSecToMin(track.duration)}
                   </div>
