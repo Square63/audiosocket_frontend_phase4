@@ -928,11 +928,11 @@ function Search(props) {
           )}
         </div>
 
-        <div className="stickyMiniPlayer">
+        {/* <div className="stickyMiniPlayer">
           <div className="fixed-container">
             <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={updatedTracks[index]} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} />
           </div>
-        </div>
+        </div> */}
 
         <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} type="track"/>

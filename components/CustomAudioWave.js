@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
-import {Grid} from 'semantic-ui-react'
-import MultiCanvas from "wavesurfer.js"
-import $ from 'jquery';
+import { Grid } from 'semantic-ui-react'
 
-const formWaveSurferOptions = (ref) => (
-  {
+const formWaveSurferOptions = (ref, footer) => (
+  !footer ? {
     container: ref,
     waveColor: "#CDD2DA",
     progressColor: "#C1D72E",
@@ -21,10 +19,7 @@ const formWaveSurferOptions = (ref) => (
     barGap: 1,
     normalize: true,
     partialRender: true
-  }
-);
-
-const footerFormWaveSurferOptions = (ref) => (
+  } :
   {
     container: ref,
     waveColor: "#CDD2DA",
@@ -45,91 +40,78 @@ const footerFormWaveSurferOptions = (ref) => (
 export default function CustomAudioWave(props) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
-  const lastwavesurfer = useRef(null);
-  const footerwaveformRef = useRef(null);
-  const footerwavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
+  const [seconds, setSeconds] = useState();
+  const [rowSeconds, setRowSeconds] = useState();
   const [footer, setFooter] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const [peaks, setPeaks] = useState([]);
-  const [seconds, setSeconds] = useState(false)
-  const url = props.track ? props.track.mp3_file_compressed : '';
- 
+  const url = props.track.mp3_file_compressed? props.track.mp3_file_compressed : "./test.mp3"
+
   const settings = {
-    start: localStorage.getItem("volume"), min: 0,max: 1,step: 0.2,
-
+    start: 2, min: 0,max: 10,step: 1,
     onChange: function(value) {
-      
-      localStorage.setItem("volume", value)
+      wavesurfer.current.setVolume(value)
     }
   }
 
   useEffect(() => {
-    if (props.track) {
-      getJson(props.track, "row")
+    const getJson = async () => {
+      const data = await fetch(props.track.audio_peak.file, {
+        headers: {
+          accept : "application/json"
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(peaks => {
+        if (wavesurfer.current == null)
+          create(url, peaks.data);
+        setPeaks(peaks.data)
+      })
     }
-  });
 
-  const getJson = async (track, type) => {
-    const data = await fetch(track.audio_peak.file, {
-      headers: {
-        accept : "application/json"
-      }
-    })
-    .then(response => {
-      return response.json()
-    })
-    .then(peaks => {
-      if (type == "row" && wavesurfer.current == null) {
-        create(url, peaks.data);
-      } else if (type == "footer") {
-        footerwavesurfer.current.load(track.mp3_file_compressed, peaks.data);
-        wavesurfer.current.pause()
-        footerwavesurfer.current.pause();
-        wavesurfer.current.playPause()
-        footerwavesurfer.current.playPause();
-        setPlaying(!playing)
-      }
-      else if (type == "last"){
-        lastwavesurfer.current.load(track.mp3_file_compressed, peaks.data);
-      }
-      setPeaks(peaks.data)
-    })
-  }
+    getJson()
+  }, []);
 
   useEffect(() => {
-    if (document.getElementsByClassName("play").length > 1) {
-      clearLastPlaying(document.getElementsByClassName("first")[0].id)
+    if (props.footerPlaying) {
+      setTimeout(() => setSeconds(seconds ? (seconds -1) : (30 - 1)), 1000);
+    } else {
+      setSeconds(seconds);
+    }
+
+    if (wavesurfer.current && props.footerPlaying) {
+      wavesurfer.current.play();
+    } else if (wavesurfer.current && !localStorage.getItem('playing')){
+      wavesurfer.current.pause();
+    }
+
+    return () => {
+      if (wavesurfer.current) {
+        wavesurfer.current.pause();
+      }
+    };
+  }, [seconds]);
+
+  useEffect(() => {
+    if (props.footerTrack) {
+      wavesurfer.current.destroy();
+      footerCreate(props.footerTrack.file)
+    }
+  }, [props.footerTrack]);
+
+  useEffect(() => {
+    if (document.getElementsByClassName("play").length > 1)
       document.getElementsByClassName("first")[0].click();
-      document.getElementById("footerPlayPause").classList.remove("footerPause")
-      document.getElementById("footerPlayPause").classList.add("footerPlay")
-    }
-    else if (document.getElementsByClassName("play").length == 1) {
+    else if (document.getElementsByClassName("play").length == 1)
       document.getElementsByClassName("play")[0].classList.add('first');
-      document.getElementById("footerPlayPause").classList.remove("footerPause")
-      document.getElementById("footerPlayPause").classList.add("footerPlay")
-    }
-    
   }, [playing]);
 
-  wavesurfer.current?.on('audioprocess', function() {
-    if (wavesurfer.current.isPlaying()) {
-      footerwavesurfer.current.setVolume(localStorage.getItem("volume"))
-      wavesurfer.current.setVolume(localStorage.getItem("volume"))
-      let totalTime = wavesurfer.current.getDuration(),
-        currentTime = wavesurfer.current.getCurrentTime(),
-        remainingTime = totalTime - currentTime;
-      document.getElementsByClassName('totalDuration')[0].innerText = convertSecToMin(totalTime.toFixed(1));
-      document.getElementsByClassName('durationObtained')[0].innerText = convertSecToMin(remainingTime.toFixed(1));
-    }
-  });
-
-  const handlePlayPause = (id) => {
-    if(id && id !== localStorage.getItem("playing_track_id")) {
-      localStorage.setItem("last_playing_track_id", localStorage.getItem("playing_track_id"))
-      localStorage.setItem("playing_track_id", id)
-    }
-    footerCreate(props.track)
+  function handlePlayPause() {
+    setPlaying(!playing)
+    wavesurfer.current.playPause();
   };
 
   function convertSecToMin(duration) {
@@ -141,65 +123,31 @@ export default function CustomAudioWave(props) {
   }
 
   const create = async (url, peaks) => {
-    const options = formWaveSurferOptions(waveformRef.current ? waveformRef.current : footerwaveformRef.current);
-    wavesurfer.current = MultiCanvas.create(options);
-    url && wavesurfer.current.load(url, peaks);
+    const WaveSurfer = (await import("wavesurfer.js")).default;
+
+    const options = formWaveSurferOptions(waveformRef.current, props.footer);
+    wavesurfer.current = WaveSurfer.create(options);
+    wavesurfer.current.load(url, peaks);
   };
 
-  const footerCreate = async (track) => {
-    if (footerwaveformRef.current == null) {
-      document.getElementById("footerPlayPause").classList.remove("footerPlay")
-      document.getElementById("footerPlayPause").classList.add("footerPause")
-      document.getElementById("footerwaveform").innerHTML = ''
+  const footerCreate = async (url) => {
+    const WaveSurfer = (await import("wavesurfer.js")).default;
 
-      footerwaveformRef.current = document.getElementById("footerwaveform")
-      const options = footerFormWaveSurferOptions(footerwaveformRef.current);
-      footerwavesurfer.current = MultiCanvas.create(options);
-      getJson(track, "footer")
-      document.getElementsByClassName("SongArtist")[0].innerHTML = track.artist_name
-      document.getElementsByClassName("SongName")[0].innerHTML = track.title
-
-    } else {
-      if (wavesurfer.current?.isPlaying()) {
-        document.getElementById("footerPlayPause").classList.remove("footerPlay")
-        document.getElementById("footerPlayPause").classList.add("footerPause")
-        // document.getElementsByClassName("first")[0]?.click();
-        wavesurfer.current.pause()
-        footerwavesurfer.current?.pause();
-      }
-      else if(document.getElementsByClassName("play").length == 1){
-        document.getElementsByClassName("first")[0]?.click();
-      }
-      else {
-        document.getElementById(localStorage.getItem("playing_track_id")).click();
-        wavesurfer.current?.play()
-        footerwavesurfer.current?.play();
-      }
-      setPlaying(!playing)
-    }
-    
+    const options = formWaveSurferOptions(waveformRef.current, true);
+    wavesurfer.current = WaveSurfer.create(options);
+    wavesurfer.current.load(url);
+    wavesurfer.current.play();
   };
-
-  const clearLastPlaying = (id) => {
-    let track = props.tracks.filter(track => track.id == id)[0]
-    document.getElementsByClassName(id)[0].innerHTML = ''
-
-    document.getElementsByClassName(id)[0]
-    const options = formWaveSurferOptions(document.getElementsByClassName(id)[0]);
-    lastwavesurfer.current = MultiCanvas.create(options);
-    
-    getJson(track, "last")
-  }
 
   return (
     !props.footer ?
       (<>
         <div className="rowParticipant artistName">
-          <div className="playPauseBtn" onClick={() => { handlePlayPause(props.track.id); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
-            <span id={props.track.id} className={(playing) ? "play" : "pause"}></span>
+          <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
+            <span className={(playing) ? "play" : "pause"}></span>
             <span className="pause d-none"></span>
           </div>
-          {props.track && <div className="aboutSong">
+          <div className="aboutSong">
             <div className="songData">
               <OverlayTrigger overlay={<Tooltip>{props.track.title}</Tooltip>}>
                 <a href="javascript:void(0)" className="songName defaultCursor">{props.track.title}</a>
@@ -213,14 +161,14 @@ export default function CustomAudioWave(props) {
               }
             </div>
             {props.track.artist_name && <div className="songArtist">
-              <a href="javascript:void(0)" className={`${props.notClickable ? "notClickable" : ""}`} onClick={() => props.handleTrackSearchOfArtist(props.track.artist_id, props.track.artist_name)}>
+              <a href="javascript:void(0)" className={`${props.notClickable ? "notClickable" : ""}`}onClick={() => props.handleTrackSearchOfArtist(props.track.artist_id, props.track.artist_name)}>
                 {props.track.artist_name}
               </a>
             </div>}
-          </div>}
+          </div>
         </div>
         <div className="rowParticipant audioWave">
-          <div id="waveform" ref={waveformRef} className={props.track.id} />
+          <div id="waveform" ref={waveformRef}  />
           <div className="PlayerControls">
             <div className="startStopBtn">
               {/* {<SingleAudioWave/>} */}
@@ -240,15 +188,15 @@ export default function CustomAudioWave(props) {
     (<>
       <div className="stickyMiniPlayerInner">
         <div className="songsStuff">
-          <a href="javascript:void(0)" className="SongName"></a>
-          <a href="javascript:void(0)" className="SongArtist"></a>
+          <a href="javascript:void(0)" className="SongName">Saving</a>
+          <a href="javascript:void(0)" className="SongArtist">Justin G. Marcellus</a>
         </div>
         <div className="playPauseBtn" onClick={() => {handlePlayPause(); props.handleFooterTrack(props.track);}}>
-          <div id="footerPlayPause" className="footerPause"></div>
+          <span className={(props.footerPlaying) ? "play" : "pause"}></span>
         </div>
         <div className="waveWithDuration">
           <div className="durationCount durationObtained">{convertSecToMin(seconds)}</div>
-          <div id="footerwaveform" ref={footerwaveformRef}/>
+          <div id="waveform" ref={waveformRef}  />
           <div className="durationCount totalDuration">{props.track ? convertSecToMin(props.track.duration) : "0:0"}</div>
         </div>
         <div className="volumeBarWrapper">
@@ -265,12 +213,12 @@ export default function CustomAudioWave(props) {
 
             <Grid>
               <Grid.Column width={100}>
-                <Slider discrete color="red" inverted={false} settings={settings} />
+                <Slider discrete color="red" inverted={false} settings={settings}/>
               </Grid.Column>
             </Grid>
           </div>
         </div>
-        {/* <button className="btn btnMainLarge" onClick={() => {props.showAddTrackToCartLicenseModal(localStorage.getItem("playing_track_id"), "footer")}}>Add to Cart</button> */}
+        <button className="btn btnMainLarge">Add to Cart</button>
       </div>
     </>)
   )
