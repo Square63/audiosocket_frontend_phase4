@@ -1,34 +1,21 @@
 import { useRouter } from "next/router";
-import { Form, Button, FormGroup, FormControl, Tabs, Tab, TabContainer, TabContent, TabPane } from "react-bootstrap";
-import { getCreatotKitsDetail, getCreatorKitsTracks } from "../../../redux/actions/authActions";
 import { useState, useEffect } from "react";
+import { Button, Tabs, Tab } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Image from 'next/image';
-import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import playlist from "../../../styles/Playlist.module.scss";
-import anime from '../../../images/animi.jpeg';
-import cinemetic from '../../../images/cinimetic.jpeg';
-import hiphop from '../../../images/hiphop.jpeg';
-import mood1 from '../../../images/mood1.png';
-import mood2 from '../../../images/mood2.png';
-import mood3 from '../../../images/mood3.jpg';
-import mood4 from '../../../images/mood4.jpg';
-import Sample1 from '../../../images/sample1.jpeg';
-import Sample2 from '../../../images/sample2.jpeg';
-import CreatorKitsTracks from "../../../components/CreatorKitsTracks";
-import InpageLoader from '../../../components/InpageLoader';
-import Router from "next/router";
-import { ToastContainer, toast } from 'react-toastify';
-import { TOAST_OPTIONS } from '../../../common/api';
-import DownloadTrack from '../../../components/modals/DownloadTrack'
-import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicense'
-import Sidebar from '../../../components/Sidebar'
-import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
+import { getCreatotKitsDetail, getCreatorKitsTracks } from "../../../redux/actions/authActions";
+
+import Image from 'next/image';
 import Notiflix from "notiflix";
-import Pluralize from 'pluralize';
-
-
+import Router from "next/router";
+import Sidebar from '../../../components/Sidebar'
+import Breadcrumb from 'react-bootstrap/Breadcrumb'
+import InpageLoader from '../../../components/InpageLoader';
+import playlist from "../../../styles/Playlist.module.scss";
+import DownloadTrack from '../../../components/modals/DownloadTrack'
+import CreatorKitsTracks from "../../../components/CreatorKitsTracks";
+import AddToCartLicense from "../../../components/modals/AddToCartLicense";
+import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicense'
 
 const Details = ()  => {
   const dispatch = useDispatch();
@@ -54,7 +41,6 @@ const Details = ()  => {
 
   useEffect(() => {
     if (query && !creatorKitsTracks) {
-      // dispatch(getCreatotKitsDetail(query.id))
       dispatch(getCreatorKitsTracks(query.id, type, 1))
     }
   }, [creatorKitsTracks]);
@@ -79,7 +65,7 @@ const Details = ()  => {
   }, [creatorKitsTracks?.playlist_tracks])
 
   useEffect(() => {
-    dispatch(getCreatorKitsTracks(query.id, type == "tracks" ? "track" : type, 1))
+    dispatch(getCreatorKitsTracks(query.id, type, 1))
   }, [type])
 
   const handleType = (e) => {
@@ -96,19 +82,6 @@ const Details = ()  => {
     },
     undefined, { shallow: true }
     )
-  }
-
-  function totalDuration(tracks) {
-    let duration = 0
-    if (tracks.playlist_tracks) {
-      tracks.playlist_tracks.map((track, index) =>
-      duration += track.mediable.duration)
-    } else {
-      tracks.map((track, index) =>
-      duration += track.mediable.duration)
-    }
-
-    return convertSecToMin(duration)
   }
 
   function convertSecToMin(duration) {
@@ -187,26 +160,6 @@ const Details = ()  => {
     setShowSidebar(false)
   }
 
-  const handleDownloadZip = async (id) => {
-    setIsLoading(true)
-    let url = `${BASE_URL}/api/v1/consumer/curated_playlists/58/playlist_tracks/download_zip?file_type=wav_file`
-    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
-    const response = await fetch(url,
-      {
-        headers: {
-          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-          "auth-token": userAuthToken
-        },
-        method: "GET"
-      });
-    if(response.ok) {
-
-    } else {
-
-    }
-
-  }
-
   const removeTrackFromPlaylist = (track) => {
     Notiflix.Confirm.show(
       'Please confirm',
@@ -223,10 +176,6 @@ const Details = ()  => {
   function addTrackToCartLicenseModalSidebar(index) {
     setShowSidebar(false)
     setShowAddToCartLicenseModal(true)
-  }
-
-  const handleAddFilter = async(e) => {
-
   }
 
   return (
@@ -315,31 +264,42 @@ const Details = ()  => {
       </div>
       <div className="fixed-container">
         <div className={playlist.creatorKitsContent}>
-          <Tabs defaultActiveKey="tracks" id="uncontrolled-tab-example" onSelect={(e)=> handleType(e)}>
-            <Tab eventKey="tracks" title="Tracks">
-            {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
-            (creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Track" ?
-              <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
-              :
-              <InpageLoader/>
-            ):
-            (
-              <center>No tracks found</center>
-            )}
+          <Tabs defaultActiveKey="track" id="uncontrolled-tab-example" onSelect={(e)=> handleType(e)}>
+            <Tab eventKey="track" title="Tracks">
+              {creatorKitsTracks && creatorKitsTracks.meta ?
+                creatorKitsTracks.playlist_tracks.length > 0 ?
+                  (creatorKitsTracks.meta.type == "track" ?
+                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
+                  :
+                    <InpageLoader/>
+                  )
+                  :
+                    <center>No Tracks Found</center>
+                :
+                  <InpageLoader />
+              }
             </Tab>
             <Tab eventKey="sfx" title="SFX">
-            {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
-            (creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && creatorKitsTracks.playlist_tracks[0]?.mediable_type == "Sfx" ?
-              <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} type={type}/>
-              :
-              <InpageLoader/>
-            ):
-            (
-              <center>No sfx found</center>
-            )}
+              {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
+                (creatorKitsTracks.meta.type == "sfx" ?
+                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
+                :
+                  <InpageLoader/>
+                )
+                :
+                  <center>No Sfx Found</center>
+              }
             </Tab>
-            <Tab eventKey="soundDesign" title="Sound Design">
-            <p>lorem 52</p>
+            <Tab eventKey="sound_design" title="Sound Design">
+              {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
+                (creatorKitsTracks.meta.type == "sound_design" ?
+                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} />
+                :
+                  <InpageLoader />
+                )
+                :
+                  <center>No Sound Design Found</center>
+              }
             </Tab>
           </Tabs>
         </div>
