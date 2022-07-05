@@ -8,6 +8,9 @@ import { getConsumerLicenses } from "../../redux/actions/authActions";
 import InpageLoader from '../../components/InpageLoader';
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/router";
 
 function Licenses() {
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ function Licenses() {
   const [isLoading, setIsLoading] = useState(true);
   const [index, setIndex] = useState();
   const consumerLicenses = useSelector(state => state.user.csonsumerLicenses);
+  const { query } = useRouter();
 
   useEffect(() => {
     if (!consumerLicenses)
@@ -23,6 +27,11 @@ function Licenses() {
 
   useEffect(() => {
     if (consumerLicenses) {
+      if (query.from) {
+        debugger
+        toast.success("License purchased successfully")
+        window.history.replaceState(null, '', '/user/licenses')
+      }
       setIsLoading(false)
     }
   }, [consumerLicenses])
@@ -38,6 +47,18 @@ function Licenses() {
       ) : (
           <>
             <div className={user.licenses}>
+              <ToastContainer
+                position="top-center"
+                autoClose={10000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                style={{ width: "auto" }}
+              />
               <div className={user.listingWrapper}>
                 <div className={user.listingHeading}>
                   <h2>Licenses</h2>
