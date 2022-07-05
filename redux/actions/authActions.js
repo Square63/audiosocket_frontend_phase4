@@ -777,10 +777,13 @@ export const getCreatotKitsDetail = (data) => async (dispatch) => {
 };
 
 export const getCreatorKitsTracks = (id, type, page) => async (dispatch) => {
+  let media = ''
+  type == 'sound_design' ? media = 'sfx' : media = type
+
   try {
     const { data } = await axios.request({
     method: "get",
-      url: `${BASE_URL}/api/v1/consumer/creator_kits/${id}/playlist_tracks/creator_kit_media?media=${type}&media_type=${type}&klass=creator_kit&page=${page}`
+      url: `${BASE_URL}/api/v1/consumer/creator_kits/${id}/playlist_tracks/creator_kit_media?media=${media}&media_type=${type}&klass=creator_kit&page=${page}`
     });
     dispatch({
       type: CREATOR_KITS_TRACKS_SUCCESS,

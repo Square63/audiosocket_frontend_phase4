@@ -56,7 +56,7 @@ function CreatorKitsTracks(props) {
   }, [props.tracks])
 
   const fetchData = () => {
-    dispatch(getCreatorKitsTracks(query.id, props.type == "tracks" ? "track" : props.type, tracks.length/10 + 1))
+    dispatch(getCreatorKitsTracks(query.id, props.type, tracks.length/10 + 1))
     setInfiniteLoop(true)
   }
 
@@ -268,7 +268,7 @@ function CreatorKitsTracks(props) {
                           {...provided.draggableProps}
                         >
                           <div className="trackRow" key={index}>
-                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} />
+                            <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
                             <div className="rowParticipant duration">
                               {convertSecToMin(track.mediable.duration)}
                             </div>
