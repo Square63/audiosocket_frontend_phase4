@@ -20,12 +20,14 @@ function Cart() {
   const [isLoading, setIsLoading] = useState(true);
   const cartTracks = useSelector(state => state.user.cartTracks);
   const cartLineItems = useSelector(state => state.user.cartLineItems);
+  const [validated, setValidated] = useState(false);
   const { authState, authActions, handleAddToCart, cartCount, totalCartPrice } = useContext(AuthContext);
 
   useEffect(() => {
-    setIsLoading(false);
     if (!cartTracks)
       dispatch(getCart())
+    else
+      setIsLoading(false);
   }, [cartTracks])
 
   function convertSecToMin(duration) {
@@ -65,8 +67,15 @@ function Cart() {
     });
   }
 
-  function handleCheckoutClick() {
-    setShowBrainTree(true);
+  const handleSubmit = async (e) => {
+    const cartForm = e.currentTarget;
+    if (cartForm.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      setValidated(true);
+    } else {
+      setShowBrainTree(true);
+    }
   }
 
   return (
@@ -118,7 +127,6 @@ function Cart() {
                             </a>
                           </div>
                           <Form className="individualWorkTitle individualWorkTitleField">
-                            {console.log("AAAAAAAAAAAAAAA", cartLineItems[index].work_title)}
                             <Form.Control type="text" placeholder="Enter work title…" defaultValue={cartLineItems[index].work_title} onBlur={(e) => {handleEditWorkTitle(e, cartLineItems[index].id);}}/>
                           </Form>
                         </div>
@@ -173,25 +181,24 @@ function Cart() {
                 <div className="addTitle">
                   <div className="addTitleSection">
                     <div className="boxWithShadow">
-                      <form>
-                        <Form.Group>
+                      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                        <Form.Group controlId="formWorkTitle">
                           <label>Please add your Video or Work Title to your License</label>
-                          <Form.Control className="individualWorkTitle" type="text" placeholder="Enter work title…" />
+                          <Form.Control required className="individualWorkTitle" type="text" placeholder="Enter work title…" />
+                          <Form.Control.Feedback type="invalid">
+                            Work Title is required!
+                          </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="formWorkTitleCheckbox">
                           <div className="toogleSwitch">
                             <input type="checkbox" id="audiosocketEmail" onChange={() => {handleIndividualWorkTitle()}}/>
                             <Form.Label for="audiosocketEmail">&nbsp;</Form.Label>
                             <span className="switchText">My cart has tracks for multiple videos/works</span>
                           </div>
                         </Form.Group>
-                        <Form.Group>
-
-                          <Button variant="link" className="btn btnMainLarge btn-block" onClick={() => {handleCheckoutClick()}}>Checkout and License Tracks - <span className="">${totalCartPrice}</span></Button>
-
-                        </Form.Group>
+                          <Button variant="link" type="submit" disabled={cartTracks.length> 0 ? false : true} className="btn btnMainLarge btn-block">Checkout and License Tracks - <span className="">${totalCartPrice}</span></Button>
                         <p className="text-center">By clicking checkout, you agree to your <a href="javascript:void(0)">license terms</a>.</p>
-                      </form>
+                      </Form>
                     </div>
                   </div>
                   <div className="totalPrice">
@@ -203,9 +210,8 @@ function Cart() {
           }
         </>)
     ) : (
-      <InpageLoader></InpageLoader>
+      <InpageLoader />
     )}
-
     </>
   );
 }

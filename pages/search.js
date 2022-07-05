@@ -110,7 +110,7 @@ function Search(props) {
 
   useEffect(() => {
     if (cartItem && cartItem.id){
-      toast.success("License has been added to cart successfully.")
+      toast.success("Track added to the cart successfully!")
     } else {
       toast.error(cartItem)
     }

@@ -107,30 +107,29 @@ function MyPlaylists() {
 
   return (
     <>
-      {isLoading ? (
-        <InpageLoader/>
-      ) : (
-      <>
-        <div className={playlist.myPlaylistWrapper}>
-          <ToastContainer
-            position="top-center"
-            autoClose={10000}
-            hideProgressBar
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            style={{ width: "auto" }}
-          />
-          <div className="fixed-container">
+      <div className={playlist.myPlaylistWrapper}>
+        <ToastContainer
+          position="top-center"
+          autoClose={10000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          style={{ width: "auto" }}
+        />
+        <div className="fixed-container">
 
-            <div className="parallelHead">
-              <h1>My playlists</h1>
-              <button className="btn btnMainLarge" onClick={() => setShowModal(true)}>New Playlist</button>
-            </div>
-            <section className={playlist.myPlaylists}>
+          <div className="parallelHead">
+            <h1>My playlists</h1>
+            <button className="btn btnMainLarge" onClick={() => setShowModal(true)}>New Playlist</button>
+          </div>
+          <section className={playlist.myPlaylists}>
+            {isLoading ? (
+              <InpageLoader />
+              ) :
               <InfiniteScroll
                   dataLength={playlists.length}
                   next={fetchData}
@@ -156,12 +155,11 @@ function MyPlaylists() {
                   <div className="noContent">No Playlist Found</div>
                 }
               </InfiniteScroll>
-            </section>
-          </div>
-          <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
+            }
+          </section>
         </div>
-      </>
-      )}
+        <NewPlaylist showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
+      </div>
     </>
   );
 }

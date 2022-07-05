@@ -15,7 +15,7 @@ const Settings = () => {
             <Form.Label for="youtubeWhitelisting">&nbsp;</Form.Label>
             <span className="switchText">YouTube whitelisting Enabled</span>
             <OverlayTrigger overlay={<Tooltip>Info</Tooltip>}>
-              <a href="" className={user.info}></a>
+              <a href="javascript:void(0)" className={user.info}></a>
             </OverlayTrigger>
           </div>
         </Form.Group>
