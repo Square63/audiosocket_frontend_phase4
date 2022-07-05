@@ -101,7 +101,6 @@ class Braintree extends React.Component {
           }
         }).then(res => {
           if (res.status == 200){
-            toast.success("Transaction has been successful.");
             this.sendToHomePage();
           }
         })
@@ -114,7 +113,7 @@ class Braintree extends React.Component {
 
   sendToHomePage() {
     this.context.resetCartCount()
-    router.push('/');
+    router.push('/user/licenses?from=checkout');
   }
 
   render() {
