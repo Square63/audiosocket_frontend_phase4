@@ -79,7 +79,7 @@ function Search(props) {
   }, [appliedFiltersListWC]);
 
   useEffect(() => {
-    // handleAimsSearch()
+    localStorage.setItem("playing_track_id", '')
     let trackName = localStorage.getItem("track_name")
     let trackId = localStorage.getItem("track_id")
     handleAddHomeFilter()
@@ -192,7 +192,7 @@ function Search(props) {
   }
 
   function showAddTrackToCartLicenseModal(index, type) {
-    setIndex(index)
+    setIndex(type == "footer" ? updatedTracks.findIndex(i => i.id == index) : index)
     if (localStorage.getItem("user")) {
       if (type == "track") {
         setAltVersionTrack(null)
@@ -202,7 +202,10 @@ function Search(props) {
       }
       if (typeof(localStorage.getItem("has_subscription")) !== undefined) {
         if (JSON.parse(localStorage.getItem("has_subscription"))) {
-          authContext.handleAddToCart(type == "track" ? updatedTracks[index].id : index.id, "Track", "");
+          if (type == "footer")
+            authContext.handleAddToCart(index, "Track", "");
+          else
+            authContext.handleAddToCart(type == "track" ? updatedTracks[index].id : index.id, "Track", "");
         } else {
           setShowSidebar(true)
           setSidebarType("cart")
@@ -927,7 +930,7 @@ function Search(props) {
 
         <div className="stickyMiniPlayer">
           <div className="fixed-container">
-            <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={updatedTracks[index]} />
+            <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={updatedTracks[index]} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} />
           </div>
         </div>
 
