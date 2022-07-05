@@ -653,7 +653,7 @@ export default function Home(props) {
                     <p>Flip through some of our most popular playlists to see the high-quality tracks we carry.</p>
                   </div>
                   <div className="moodFilters hideOntablet">
-                    <Link href="/playlist/curatedPlaylist">
+                    <Link href="/playlist/creatorKits">
                       <a className="btn btnMainOutline">
                         Creator Kits
                       </a>
@@ -741,7 +741,7 @@ export default function Home(props) {
                       >
                       <a className="btn btnMainLarge">Learn More</a>
                     </Link>
-                        
+
                       </div>
                     </div>
 

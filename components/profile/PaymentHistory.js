@@ -26,13 +26,12 @@ const PaymentHistory = () => {
     }
   }, [paymentHistory])
 
-
   return (
-    isLoading ?
+    !userPaymentHistory ?
       <InpageLoader /> :
-      paymentHistory?.length > 0 ?
+      userPaymentHistory?.length > 0 ?
         <div className={user.paymentHistory}>
-          { paymentHistory.map((payment,index)=>
+          {userPaymentHistory.map((payment, index)=>
             <ul key={index}>
               <li>
                 <span className={user.paymentDate}>{new Date(payment.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' })}</span>
