@@ -56,10 +56,11 @@ export default function CustomAudioWave(props) {
   const url = props.track ? props.track.mp3_file_compressed : '';
  
   const settings = {
-    start: 0.4, min: 0,max: 1,step: 0.2,
+    start: localStorage.getItem("volume"), min: 0,max: 1,step: 0.2,
 
     onChange: function(value) {
-      setVolume(value)
+      
+      localStorage.setItem("volume", value)
     }
   }
 
@@ -113,6 +114,8 @@ export default function CustomAudioWave(props) {
 
   wavesurfer.current?.on('audioprocess', function() {
     if (wavesurfer.current.isPlaying()) {
+      footerwavesurfer.current.setVolume(localStorage.getItem("volume"))
+      wavesurfer.current.setVolume(localStorage.getItem("volume"))
       let totalTime = wavesurfer.current.getDuration(),
         currentTime = wavesurfer.current.getCurrentTime(),
         remainingTime = totalTime - currentTime;
@@ -154,6 +157,7 @@ export default function CustomAudioWave(props) {
       footerwavesurfer.current = MultiCanvas.create(options);
       getJson(track, "footer")
       document.getElementsByClassName("SongArtist")[0].innerHTML = track.artist_name
+      document.getElementsByClassName("SongName")[0].innerHTML = track.title
 
     } else {
       if (wavesurfer.current?.isPlaying()) {
@@ -236,7 +240,7 @@ export default function CustomAudioWave(props) {
     (<>
       <div className="stickyMiniPlayerInner">
         <div className="songsStuff">
-          {props.footertrack && <a href="javascript:void(0)" className="SongName">{props.footertrack.title}</a>}
+          <a href="javascript:void(0)" className="SongName"></a>
           <a href="javascript:void(0)" className="SongArtist"></a>
         </div>
         <div className="playPauseBtn" onClick={() => {handlePlayPause(); props.handleFooterTrack(props.track);}}>
@@ -247,7 +251,7 @@ export default function CustomAudioWave(props) {
           <div id="footerwaveform" ref={footerwaveformRef}/>
           <div className="durationCount totalDuration">{props.track ? convertSecToMin(props.track.duration) : "0:0"}</div>
         </div>
-        {/* <div className="volumeBarWrapper">
+        <div className="volumeBarWrapper">
           <div className="volumeBar">
             <svg xmlns="http://www.w3.org/2000/svg" width="19.368" height="18.115" viewBox="0 0 19.368 18.115">
               <g id="Group_204" data-name="Group 204" transform="translate(0.5 0.513)">
@@ -261,12 +265,12 @@ export default function CustomAudioWave(props) {
 
             <Grid>
               <Grid.Column width={100}>
-                <Slider discrete color="red" inverted={false} ref={footerwaveformRef} settings={settings} />
+                <Slider discrete color="red" inverted={false} settings={settings} />
               </Grid.Column>
             </Grid>
           </div>
-        </div> */}
-        {/* <button className="btn btnMainLarge">Add to Cart</button> */}
+        </div>
+        {/* <button className="btn btnMainLarge" onClick={() => {props.showAddTrackToCartLicenseModal(localStorage.getItem("playing_track_id"), "footer")}}>Add to Cart</button> */}
       </div>
     </>)
   )
