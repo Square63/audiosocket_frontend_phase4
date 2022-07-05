@@ -6,8 +6,9 @@ import Image from "next/image";
 import Loader from "../../images/loader.svg";
 import user from "../../styles/User.module.scss";
 
-function License({showModal = false, onCloseModal, license}) {
+function License({showModal = false, onCloseModal}) {
   const [isLoading, setIsLoading] = useState(false);
+
 
   const handleClose = () => {
     onCloseModal(false);
@@ -29,15 +30,17 @@ function License({showModal = false, onCloseModal, license}) {
         </Modal.Header>
         <Modal.Body className={user.licenseCheckout}>
           <div className="modal-container">
-            <p><strong>Thank you, <span className="text-capitalize">{JSON.parse(localStorage.getItem("first_name")) + ' ' + JSON.parse(localStorage.getItem("last_name"))}</span>!</strong></p>
+            <p><strong>Thank you, <span className="text-capitalize">peter larson</span>!</strong></p>
 
             <p>Your music has been successfully licensed and cleared.</p>
 
-            <p>You may now download and use {license && license.mediable.title} according to our license agreement(s).</p>
+            <p>You may now download and use Friday Night (inst), Khao Lak (inst) according to our license agreement(s).</p>
 
-            <p>We will also send you a confirmation email to {JSON.parse(localStorage.getItem("email"))} with the download link and .pdf of the license attached, Or you can easily download your items below.</p>
+            <p>We will also send you a confirmation email to pete@readyfiredigital.com with the download link and .pdf of the license attached, Or you can easily download your items below.</p>
 
-            <a href={license?.license_pdf} className={user.viewLicense} target="_blank" rel="noreferrer">View License</a>
+            <p>You confirmation number is: <span>47900</span>.</p>
+
+            <a href="" className={user.viewLicense}>View License</a>
           </div>
           <div className="modalBtnWrapper">
             <Button type="submit" variant="link" className="btn btnMainXlarge">
