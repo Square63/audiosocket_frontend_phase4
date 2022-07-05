@@ -13,6 +13,7 @@ function Licenses() {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [index, setIndex] = useState();
   const consumerLicenses = useSelector(state => state.user.csonsumerLicenses);
 
   useEffect(() => {
@@ -105,7 +106,7 @@ function Licenses() {
                       </div>
                       <div className="rowParticipant controls">
                         <OverlayTrigger overlay={<Tooltip>Download</Tooltip>}>
-                          <a href="javascript:void(0)" onClick={() => setShowModal(true)}>
+                          <a href="javascript:void(0)" onClick={() => {setShowModal(true); setIndex(index)}}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22.743" height="21.503" viewBox="0 0 22.743 21.503">
                               <g id="icon-download" transform="translate(0.5 21.003) rotate(-90)">
                                 <path id="Shape_111" data-name="Shape 111" d="M11.589,4.254V.945A.92.92,0,0,0,10.7,0H.891A.92.92,0,0,0,0,.945V20.8a.92.92,0,0,0,.891.945H10.7a.92.92,0,0,0,.891-.945V17.489" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
@@ -120,7 +121,7 @@ function Licenses() {
                   )}
                 </div>
               </div>
-              <License showModal={showModal} onCloseModal={handleClose} />
+              <License showModal={showModal} onCloseModal={handleClose} license={consumerLicenses[index]} />
             </div>
           </>
         )
