@@ -104,9 +104,9 @@ function Tracks(props) {
     setSortBy(sort_by)
     let query = document.getElementById("searchField").value
     if (props.sfxes)
-      dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sort_by, sort_by, false, '', '', props.duration.start, props.duration.end));
+      dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
     else
-      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_by, false, '', '', props.duration.start, props.duration.end));
+      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
   }
 
   function query_type(query) {
