@@ -207,32 +207,29 @@ function CreatorKitsTracks(props) {
                 <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
               </span>
             </div>
-            <div className="rowParticipant mood">
-              <Dropdown alignLeft>
-                <Dropdown.Toggle variant="" id="headerMood">
-                  Mood
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
-                    <span>Mood</span>
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
-                    <span>Genres</span>
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
-                    <span>Themes</span>
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
-                    <span>Instruments</span>
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-              {/* <span className="sortingMedium">
-                <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
-                <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
-              </span> */}
-            </div>
+            {props.type == "track" &&
+              <div className="rowParticipant mood">
+                <Dropdown alignLeft>
+                  <Dropdown.Toggle variant="" id="headerMood">
+                    Mood
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
+                      <span>Mood</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
+                      <span>Genres</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
+                      <span>Themes</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
+                      <span>Instruments</span>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            }
             <div className="rowParticipant BPM" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", bpmSortDir == "ASC" ? "DESC" : "ASC")}>
               BPM
               <span className="sortingMedium">
@@ -272,9 +269,11 @@ function CreatorKitsTracks(props) {
                             <div className="rowParticipant duration">
                               {convertSecToMin(track.mediable.duration)}
                             </div>
-                            <div className="rowParticipant mood">
-                              {handleMoodColumn(track, moodColumn)}
-                            </div>
+                            {props.type == "track" &&
+                              <div className="rowParticipant mood">
+                                {handleMoodColumn(track, moodColumn)}
+                              </div>
+                            }
                             <div className="rowParticipant BPM">
                               {track.mediable.bpm}
                             </div>
