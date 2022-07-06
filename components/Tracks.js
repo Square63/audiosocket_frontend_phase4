@@ -38,18 +38,12 @@ function Tracks(props) {
   useEffect(() => {
     let isMounted = true;
     if (props.tracksMeta.total_track_count !== tracks.length) {
-      if (tracks[0]?.id != props.tracks[0]?.id)
-        setTracks(tracks => [...tracks, ...props.tracks])
+      tracks[0]?.id != props.tracks[0]?.id && setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)
-    } else {
-      setTracks(tracks=> props.tracks)
-    }
+    } else
+        setTracks(tracks=> props.tracks)
 
-    if (props.tracks.length < 10) {
-      sethasMore(false)
-    } else {
-      sethasMore(true)
-    }
+    props.tracks.length + tracks.length >= props.tracksMeta.total_track_count ? sethasMore(false) : sethasMore(true)
 
     return () => {
       isMounted = false;

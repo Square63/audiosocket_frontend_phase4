@@ -44,7 +44,7 @@ function FavoriteTracks(props) {
       setTracks(tracks=> props.tracks)
     }
 
-    if (props.tracks && props.tracks.length < 10) {
+    if (props.tracks.length + tracks.length >= props.tracksMeta.count) {
       sethasMore(false)
     }
 

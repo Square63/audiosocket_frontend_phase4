@@ -57,7 +57,7 @@ export default function CustomAudioWave(props) {
 
   useEffect(() => {
     const getJson = async () => {
-      const data = await fetch(props.track.audio_peak.file, {
+      const data = await fetch(props.track.audio_peak?.file, {
         headers: {
           accept : "application/json"
         }

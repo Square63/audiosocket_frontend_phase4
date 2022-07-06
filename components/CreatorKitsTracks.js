@@ -39,16 +39,10 @@ function CreatorKitsTracks(props) {
 
   useEffect(() => {
     let isMounted = true;
+    (tracks[0]?.id != props.tracks[0]?.id) && setTracks(tracks => [...tracks, ...props.tracks])
 
-    if (tracks[0]?.id != props.tracks[0]?.id)
-      setTracks(tracks => [...tracks, ...props.tracks])
     setInfiniteLoop(false)
-
-    if (props.tracks.length < 10) {
-      sethasMore(false)
-    } else {
-      sethasMore(true)
-    }
+    props.tracks.length + tracks.length >= props.creatorKitsCount ? sethasMore(false) : sethasMore(true)
 
     return () => {
       isMounted = false;
