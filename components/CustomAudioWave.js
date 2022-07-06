@@ -109,6 +109,11 @@ export default function CustomAudioWave(props) {
       document.getElementsByClassName("play")[0].classList.add('first');
   }, [playing]);
 
+  wavesurfer.current?.on('ready', function() {
+    if ((document.getElementsByClassName("play").length == 0) || (document.getElementsByClassName("play").length == 1 && !document.getElementsByClassName("play")[0].classList.contains(wavesurfer.current.container.classList)))
+      wavesurfer.current.pause();
+  });
+
   function handlePlayPause() {
     setPlaying(!playing)
     wavesurfer.current.playPause();
@@ -144,7 +149,7 @@ export default function CustomAudioWave(props) {
       (<>
         <div className="rowParticipant artistName">
           <div className="playPauseBtn" onClick={() => { handlePlayPause(); props.handleFooterTrack && props.handleFooterTrack(props.track);}} >
-            <span className={(playing) ? "play" : "pause"}></span>
+            <span className={(playing) ? "play" + ' ' +props.track.id : "pause" + ' ' +props.track.id}></span>
             <span className="pause d-none"></span>
           </div>
           <div className="aboutSong">
@@ -168,7 +173,7 @@ export default function CustomAudioWave(props) {
           </div>
         </div>
         <div className="rowParticipant audioWave">
-          <div id="waveform" ref={waveformRef}  />
+          <div id="waveform" ref={waveformRef} className={props.track.id}  />
           <div className="PlayerControls">
             <div className="startStopBtn">
               {/* {<SingleAudioWave/>} */}
