@@ -63,12 +63,12 @@ export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, e
 
 }
 
-export const getTracksFromAIMS = (trackId) => async( dispatch ) => {
-  if (trackId) {
+export const getTracksFromAIMS = (aimsId) => async( dispatch ) => {
+  if (aimsId) {
     try {
       const {data} = await axios.request({
-        method: "post",
-        url: `${BASE_URL}/api/v1/consumer/tracks/${trackId}/similar_tracks`,
+        method: "get",
+        url: `${BASE_URL}/api/v1/consumer/tracks/similar_tracks?aims_id=${aimsId}`,
       })
       dispatch({
         type: ALL_TRACKS_SUCCESS,
