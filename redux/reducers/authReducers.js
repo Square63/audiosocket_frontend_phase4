@@ -175,6 +175,7 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
       return {
         ...state,
         my_playlists: action.payload.consumer_playlists,
+        myPlaylistsMeta: action.payload.meta
       };
     case MY_PLAYLISTS_FAIL:
       return {

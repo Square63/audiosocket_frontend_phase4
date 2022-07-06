@@ -34,6 +34,7 @@ function MyPlaylists() {
   const dispatch = useDispatch();
   const router = useRouter();
   const myPlaylists = useSelector(state => state.user.my_playlists);
+  const myPlaylistsMeta = useSelector(state => state.user.myPlaylistsMeta);
   const responseStatus = useSelector(state => state.user.responseStatus);
   const [isLoading, setIsLoading] = useState(true);
   const [playlists, setPlaylists] = useState([])
@@ -64,7 +65,7 @@ function MyPlaylists() {
       setPlaylists(playlists=> myPlaylists)
     }
 
-    if (myPlaylists?.length < 15) {
+    if (playlists ? myPlaylists?.length + playlists?.length >= myPlaylistsMeta?.count : myPlaylists?.length >= myPlaylistsMeta?.count) {
       sethasMore(false)
     } else {
       sethasMore(true)
@@ -131,23 +132,23 @@ function MyPlaylists() {
               <InpageLoader />
               ) :
               <InfiniteScroll
-                  dataLength={playlists.length}
-                  next={fetchData}
-                  hasMore={hasMore}
-                  loader={<InpageLoader />}
-                >
+                dataLength={playlists.length}
+                next={fetchData}
+                hasMore={hasMore}
+                loader={<InpageLoader />}
+              >
                 {playlists && playlists.length > 0 ?
                   <div className="tilesWrapper">
                     {playlists.map((playlist,index)=> {
                       return(
                         <Link href={"myPlaylists/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
                           <a key={index} className="tileOverlay">
-                              {playlist.compressed_playlist_image && <Image src={playlist.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
-                              <span className="tileOverlayText">
-                                {playlist.name}
-                                <small className="playlistTracksCount">{playlist.media_count} Tracks</small>
-                              </span>
-                            </a>
+                            {playlist.compressed_playlist_image && <Image src={playlist.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                            <span className="tileOverlayText">
+                              {playlist.name}
+                              <small className="playlistTracksCount">{playlist.media_count} Tracks</small>
+                            </span>
+                          </a>
                         </Link>
                       )
                     })}

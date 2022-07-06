@@ -43,7 +43,7 @@ function MyPlaylistTracks(props) {
       setTracks(tracks => [...tracks, ...props.tracks])
     setInfiniteLoop(false)
 
-    if (props.tracks.length < 10) {
+    if (props.tracks.length + tracks.length >= props.myPlaylistTracksMeta.playlist_track_count) {
       sethasMore(false)
     } else {
       sethasMore(true)
