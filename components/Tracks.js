@@ -301,7 +301,7 @@ function Tracks(props) {
                   </div>
                   <div className="rowParticipant controls">
                     <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
-                      <a onClick={() => props.handleSimilarSearch(track.title, track.id)}>
+                      <a onClick={() => props.handleSimilarSearch(track.title, track.aims_id)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26.536" height="26.536" viewBox="0 0 26.536 26.536">
                           <g id="icon-like-tracks" transform="translate(0.5 0.5)">
                             <path id="Path_1" data-name="Path 1" d="M310.243,311.623a10.621,10.621,0,1,0-10.621,10.62A10.623,10.623,0,0,0,310.243,311.623Z" transform="translate(-289 -301)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
