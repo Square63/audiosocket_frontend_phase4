@@ -43,7 +43,13 @@ function Tracks(props) {
     } else
         setTracks(tracks=> props.tracks)
 
-    props.tracks.length + tracks.length >= props.tracksMeta.total_track_count ? sethasMore(false) : sethasMore(true)
+    if (props.tracks.length + tracks.length >= props.tracksMeta.total_track_count) {
+      sethasMore(false)
+    } else if (props.tracksMeta.query_type == "Artist tracks")
+      sethasMore(false)
+    else {
+      sethasMore(true)
+    }
 
     return () => {
       isMounted = false;
@@ -58,6 +64,8 @@ function Tracks(props) {
     let query = document.getElementById("searchField").value
     if (props.sfxes)
       dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
+    else if (props.tracksMeta.query_type == "Artist tracks")
+      dispatch(getArtistTracks(artistId));
     else
       dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
     setInfiniteLoop(true)
