@@ -43,7 +43,9 @@ function Tracks(props) {
     } else
         setTracks(tracks=> props.tracks)
 
-    if (props.tracks.length + tracks.length >= props.tracksMeta.total_track_count) {
+    if (!props.tracksMeta.total_track_count)
+      sethasMore(false)
+    else if (props.tracks.length + tracks.length >= props.tracksMeta.total_track_count) {
       sethasMore(false)
     } else if (props.tracksMeta.query_type == "Artist tracks")
       sethasMore(false)
@@ -64,6 +66,9 @@ function Tracks(props) {
     let query = document.getElementById("searchField").value
     if (props.sfxes)
       dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
+    else if (props.fromAims){
+      props.updateSegmentTracksIndex(tracks.length)
+    }
     else if (props.tracksMeta.query_type == "Artist tracks")
       dispatch(getArtistTracks(artistId));
     else
@@ -184,15 +189,6 @@ function Tracks(props) {
     setFollowedArtists(followedArtists)
 
   }
-
-  // function incrementWaveCount() {
-  //   if (waveCount >= 9){
-  //     waveCount = 0
-  //     sethasMore(true)
-  //   }
-  //   else
-  //     waveCount = waveCount + 1;
-  // }
 
   return (
     <div className={search.tracksWrapper}>
