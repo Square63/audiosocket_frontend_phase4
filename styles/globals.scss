@@ -5361,6 +5361,14 @@ input[type=number]::-webkit-outer-spin-button {
       gap: 30px;
     }
   }
+
+  /******** About us *********/
+  .aboutUs {
+    .staffWrapper {
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+    }
+  }
 }
 
 @media #{$tab-portrait} {
@@ -5821,6 +5829,12 @@ input[type=number]::-webkit-outer-spin-button {
       }
     }
   }
+  /********** About Us *******/
+  .aboutUs {
+    .staffWrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 }
 
 @media #{$phone-portrait} {
@@ -6087,6 +6101,15 @@ input[type=number]::-webkit-outer-spin-button {
           }
         }
       }
+    }
+  }
+
+  /********** About Us *******/
+  .aboutUs {
+    .staffWrapper {
+      grid-template-columns: repeat(1, 1fr);
+      max-width: 250px;
+      margin-inline: auto;
     }
   }
 }
