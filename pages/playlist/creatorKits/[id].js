@@ -230,7 +230,7 @@ const Details = ()  => {
                   {creatorKitsDetail.meta.sfx_count} SFX
                   </div>
                   <div className={playlist.tracksDuration}>
-                    18 Sound Design Tracks
+                    {creatorKitsDetail.meta.sound_design_count} Sound Design Tracks
                   </div>
                 </div>
               </div>
