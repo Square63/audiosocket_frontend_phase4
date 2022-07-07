@@ -155,6 +155,7 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         ...state,
         cartLineItems: action.payload.line_items,
         cartTracks: action.payload.tracks,
+        cartSfxes: action.payload.sfxes,
       };
     case GET_CART_FAIL:
       return {

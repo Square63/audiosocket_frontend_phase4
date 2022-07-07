@@ -2,7 +2,7 @@ import * as React from 'react';
 import Alert from 'react-bootstrap/Alert';
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
 import Tooltip from 'react-bootstrap/Tooltip';
 import InpageLoader from '../components/InpageLoader';
@@ -27,6 +27,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../components/Sidebar';
 import Notiflix from "notiflix";
 import { Sticky, StickyScrollUp, StickyProvider } from 'react-stickup';
+import {AuthContext} from "../store/authContext";
+import AddToCartLicense from "../components/modals/AddToCartLicense";
 
 function Sfx(props) {
 
@@ -55,7 +57,9 @@ function Sfx(props) {
   const [filterOpen, setFilterOpen] = useState(false);
   const [durationFilter, setDurationFilter] = useState({ start: 0, end: 0 })
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
+  const [altVersionTrack, setAltVersionTrack] = useState(null);
   const container = React.createRef();
+  const authContext = useContext(AuthContext);
 
   // const message = useSelector(state => state.allPlaylists);
 
@@ -79,6 +83,7 @@ function Sfx(props) {
 
   const filters = useSelector( state => state.allFilters.filters[0])
   const allTracks = useSelector( state => state.allTracks)
+  const cartItem = useSelector( state => state.user.cart)
   let tracks = ""
   let tracksMeta = ""
   if (allTracks && allTracks.tracks){
@@ -93,15 +98,13 @@ function Sfx(props) {
   // const playlists = useSelector( state => state.allPlaylists)
   const favoritesMessage = useSelector( state => state.allTracks)
 
-  // useEffect(() => {
-  //   if (message.message) {
-  //     if(!message?.success) {
-  //       toast.error(message.message, TOAST_OPTIONS);
-  //     } else {
-  //       toast.success(message.message, TOAST_OPTIONS);
-  //     }
-  //   }
-  // }, [playlists])
+  useEffect(() => {
+    if (cartItem && cartItem.id){
+      toast.success("Sfx added to the cart successfully!")
+    } else {
+      toast.error(cartItem)
+    }
+  }, [cartItem]);
 
   useEffect(() => {
     if (allTracks.responseStatus == 422) {
@@ -133,7 +136,8 @@ function Sfx(props) {
 
     });
     if (tracks.length > 0) {
-      setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
+      if (updatedTracks[0]?.id != tracks[0].id)
+        setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
     }
 
     let isMounted = true;
@@ -178,22 +182,36 @@ function Sfx(props) {
     setShowLicenseModal(false)
   }
 
-  function showAddTrackToCartLicenseModal(index) {
+  function showAddTrackToCartLicenseModal(index, type) {
+    setIndex(index)
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
+      if (type == "track" || "sfx") {
+        setAltVersionTrack(null)
       }
       else {
-        setIndex(index)
+        setAltVersionTrack(index)
       }
-      setShowAddToCartLicenseModal(true)
-      setShowSidebar(true)
-      setSidebarType("cart")
+      if (typeof(localStorage.getItem("has_subscription")) !== undefined) {
+        if (JSON.parse(localStorage.getItem("has_subscription"))) {
+          if (type == "footer")
+            authContext.handleAddToCart(index, type, "");
+          else
+            authContext.handleAddToCart(updatedTracks[index].id, type.charAt(0).toUpperCase() + type.slice(1), "");
+        } else {
+          setShowSidebar(true)
+          setSidebarType("cart")
+        }
+      }
     }
     else {
       setShowSidebar(true)
       setSidebarType("login")
     }
+  }
+
+  function addTrackToCartLicenseModalSidebar(index) {
+    setShowSidebar(false)
+    setShowAddToCartLicenseModal(true)
   }
 
   function handleAddToCartLicenseModalClose() {
@@ -437,6 +455,13 @@ function Sfx(props) {
 
   const handleSidebarHide = () => {
     setShowSidebar(false)
+  }
+
+  const handleLicenseClick = (e, trackId, licenseId) => {
+    if (licenseId) {
+      e.preventDefault()
+      dispatch(attachToMedia(trackId, licenseId));
+    }
   }
 
   const filterItems = filters.map((filter, index) =>
@@ -857,7 +882,7 @@ function Sfx(props) {
             {loading ? (
               <InpageLoader />
             ) : (
-              <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} />
+              <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} type="sfx"/>
             )}
           </div>
         </div>
@@ -869,9 +894,9 @@ function Sfx(props) {
         </div> */}
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="sfx"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-        {/* <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={tracks[index]} /> */}
+        <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} handleLicenseClick={handleLicenseClick} type="Sfx"/>
         {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
-        <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]}/>
+        <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>
 
       </div>
     </StickyProvider>
