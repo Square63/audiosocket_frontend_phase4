@@ -74,7 +74,7 @@ function Footer() {
                       </Link>
                     </li>
 
-                    <li><a href="https://www.youtube.com/user/audiosocket" target="_blank">our work</a></li>
+                    <li><a href="https://www.youtube.com/user/audiosocket" target="_blank" rel="noreferrer">our work</a></li>
 
                     <li>
                       <Link href="/pricing" eventKey="1">
