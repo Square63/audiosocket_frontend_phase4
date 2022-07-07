@@ -19,7 +19,9 @@ const formWaveSurferOptions = (ref, footer) => (
     height: 35,
     barGap: 1,
     normalize: true,
-    partialRender: true
+    partialRender: true,
+    pixelRatio: 1,
+    hideScrollbar: true
   } :
   {
     container: ref,
@@ -34,7 +36,9 @@ const formWaveSurferOptions = (ref, footer) => (
     height: 50,
     barGap: 1,
     normalize: true,
-    partialRender: true
+    partialRender: true,
+    pixelRatio: 1,
+    hideScrollbar: true
   }
 );
 
