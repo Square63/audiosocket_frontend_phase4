@@ -63,12 +63,12 @@ export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, e
 
 }
 
-export const getTracksFromAIMS = (aimsId) => async( dispatch ) => {
+export const getTracksFromAIMS = (aimsId, file) => async( dispatch ) => {
   if (aimsId) {
     try {
       const {data} = await axios.request({
         method: "get",
-        url: `${BASE_URL}/api/v1/consumer/tracks/similar_tracks?aims_id=${aimsId}`,
+        url: `${BASE_URL}/api/v1/consumer/tracks/similar_tracks?aims_id=${aimsId}&page=1&per_page=100&pagination=true`,
       })
       dispatch({
         type: ALL_TRACKS_SUCCESS,
@@ -81,13 +81,13 @@ export const getTracksFromAIMS = (aimsId) => async( dispatch ) => {
       })
     }
   } else {
-    let uploadedFile = document.getElementById("uploadedFile").files[0]
+    let uploadedFile = file
     const formData = new FormData();
     formData.append('file', uploadedFile)
     try {
       const {data} = await axios.request({
         method: "post",
-        url: `${BASE_URL}/api/v1/consumer/tracks/upload_track_search`,
+        url: `${BASE_URL}/api/v1/consumer/tracks/upload_track_search?page=1&per_page=100&pagination=true`,
         data: formData
       })
       dispatch({

@@ -8,11 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTracksFromAIMS } from '../../redux/actions/trackActions';
 import * as Constants from '../../common/constants'
 
-function PreferenceModal({showModal = false, onCloseModal, loading}) {
+function PreferenceModal({ showModal = false, onCloseModal, loading, handleSegmentFileUploaded}) {
   const dispatch = useDispatch();
   const form = useRef(null);
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState();
   const fileTypes = ".mp3, .wav, .aiff";
 
   const handleSubmit = async (e) => {
@@ -41,8 +42,9 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
 
   const handleFileSelect = (e) => {
     const file_types = Constants.FILE_TYPES
-    const file = e.target.files
-    const type = file[0].type
+    const files = e.target.files
+    setSelectedFile(files[0])
+    const type = files[0].type
     if (file_types.includes(type))
     {
       document.getElementById("uploadBtn").classList.remove("disabled");
@@ -54,7 +56,8 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
   const handleUploadSearch = () => {
     onCloseModal(false);
     loading();
-    dispatch(getTracksFromAIMS());
+    handleSegmentFileUploaded()
+    dispatch(getTracksFromAIMS('', selectedFile));
   }
 
   return (

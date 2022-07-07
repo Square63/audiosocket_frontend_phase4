@@ -5,7 +5,7 @@ import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
 import AddToCartLicense from "../components/modals/AddToCartLicense";
 import AddToPlaylist from "../components/modals/AddToPlaylist";
-import {useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, Card, DropdownButton, CloseButton } from "react-bootstrap";
 import Collapse from 'react-bootstrap/Collapse';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -70,6 +70,8 @@ function Search(props) {
   const [sidebarType, setSidebarType] = useState("")
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
+  const [fromAims, setFromAims] = useState(false);
+  const [segmentTracksIndex, setSegmentTracksIndex] = useState(0);
   const [altVersionTrack, setAltVersionTrack] = useState(null);
   const authContext = useContext(AuthContext);
   const container = React.createRef();
@@ -191,6 +193,15 @@ function Search(props) {
     setShowLicenseModal(false)
   }
 
+  function handleSegmentFileUploaded() {
+    setFromAims(true)
+    startLoaderAndHideDiv()
+  }
+
+  function updateSegmentTracksIndex(index){
+    setSegmentTracksIndex(index)
+  }
+
   function showAddTrackToCartLicenseModal(index, type) {
     setIndex(index)
     if (localStorage.getItem("user")) {
@@ -249,6 +260,7 @@ function Search(props) {
 
   const handleSearch = async(e) => {
     setLoading(true)
+    setFromAims(false)
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
@@ -260,11 +272,13 @@ function Search(props) {
   }
 
   const handleUploadSearch = (url, start, end) => {
+    setFromAims(false)
     setLoading(true)
     dispatch(getSegmentTracksFromAIMS(url, start, end));
   }
 
   function handleClearSingleFilter(e) {
+    setFromAims(false)
     setLoading(true)
     let singleFilterText
     if (e.target.getAttribute("name") != null) {
@@ -313,6 +327,7 @@ function Search(props) {
   }
 
   function hideAllFilterDiv() {
+    setFromAims(false)
     startLoaderAndHideDiv()
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
@@ -322,15 +337,16 @@ function Search(props) {
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
-    hideAllFilterDiv()
-    console.log("Track NAme", trackName)
-    document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+    startLoaderAndHideDiv()
+    setFromAims(true)
     appliedFiltersList.push(trackName)
     setAppliedFiltersListWC([...appliedFiltersListWC, trackName]);
+    document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     dispatch(getTracksFromAIMS(trackId));
   }
 
   const handleTrackSearchOfArtist = (artistId, artistName) => {
+    setFromAims(false)
     startLoaderAndHideDiv()
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(artistName)
@@ -378,6 +394,7 @@ function Search(props) {
   }
 
   const handleAddDurationFilter = async (start, end) => {
+    setFromAims(false)
     setLoading(true)
     setDurationFilter({start: start, end: end})
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
@@ -414,6 +431,7 @@ function Search(props) {
   }
 
   const handleAddHomeFilter = async(e) => {
+    setFromAims(false)
     setLoading(true)
     let genre = localStorage.getItem('genre')
     let vocal = localStorage.getItem('vocal')
@@ -438,6 +456,7 @@ function Search(props) {
 
   const handleAimsSearch = () => {
     setLoading(true)
+    setFromAims(false)
     document.getElementById("formFile").files[0] = localStorage.getItem("file")
 
     dispatch(getTracksFromAIMS());
@@ -471,6 +490,7 @@ function Search(props) {
   }
 
   const handleExcludeFilters = (e) => {
+    setFromAims(false)
     setLoading(true)
     let explicit = !document.getElementById("excludeExplicit").checked
     let vocals = document.getElementById("excludeVocals").checked
@@ -924,7 +944,7 @@ function Search(props) {
           {loading ? (
             <InpageLoader />
           ) : (
-            <Tracks appliedFiltersList={appliedFiltersList} tracks={tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} handleTrackSearchOfArtist={handleTrackSearchOfArtist} type="track"/>
+            <Tracks appliedFiltersList={appliedFiltersList} tracks={fromAims ? tracks.slice(segmentTracksIndex, segmentTracksIndex + 10) :  tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} handleTrackSearchOfArtist={handleTrackSearchOfArtist} fromAims={fromAims} updateSegmentTracksIndex={updateSegmentTracksIndex} type="track"/>
           )}
         </div>
 
@@ -934,7 +954,7 @@ function Search(props) {
           </div>
         </div> */}
 
-        <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} />
+          <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} handleSegmentFileUploaded={handleSegmentFileUploaded}/>
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} type="track"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
         <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} handleLicenseClick={handleLicenseClick} type="Track" />
