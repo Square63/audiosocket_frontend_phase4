@@ -77,7 +77,6 @@ function Tracks(props) {
   }
 
   const options = [
-    { value: 'relevence', label: 'Relevence' },
     { value: 'featured', label: 'Featured' },
     { value: 'mostRecentlyPublished', label: ' Most Recently Published' },
     { value: 'durationLongtoShort', label: 'Duration Long to Short' },
@@ -106,9 +105,9 @@ function Tracks(props) {
     }
     let query = document.getElementById("searchField").value
     if (props.sfxes)
-      dispatch(getSfxes(query, query_type(query), filters, sort_by, dir, false, '', '', props.duration.start, props.duration.end));
+      dispatch(getSfxes(query, query_type(query), filters, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
     else
-      dispatch(getTracks(query, query_type(query), filters, sort_by, dir, false, '', '', props.duration.start, props.duration.end));
+      dispatch(getTracks(query, query_type(query), filters, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
   }
 
   const handleDropdownSorting = (sort_by, sort_dir) => {
@@ -117,9 +116,9 @@ function Tracks(props) {
     setSortBy(sort_by)
     let query = document.getElementById("searchField").value
     if (props.sfxes)
-      dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sort_by, sort_by, false, '', '', props.duration.start, props.duration.end));
+      dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
     else
-      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_by, false, '', '', props.duration.start, props.duration.end));
+      dispatch(getTracks(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
   }
 
   function query_type(query) {

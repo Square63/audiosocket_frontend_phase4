@@ -159,21 +159,63 @@ function CuratedPlaylist() {
     dispatch(getCuratedPlaylists(searchValue, [], 1))
   }
 
-  const filterItems = curatedPlaylists && curatedPlaylists.filters.length > 0 && curatedPlaylists.filters.map((filter, index) =>
-    <Dropdown className="d-inline" key={index}>
-      <Dropdown.Toggle id="dropdown-autoclose-true">
-        {filter.name}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        <div className="filterWrapper">
-        {filter.sub_filters && filter.sub_filters.length > 0 && filter.sub_filters.map((sub_filter, index) =>
-          <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
-            <Dropdown.Item href="#" onClick={()=> handleAddFilter(sub_filter.name)}>{sub_filter.name}</Dropdown.Item>
+  const filterItems = (
+    <>
+      <Dropdown className="d-inline">
+        <Dropdown.Toggle id="dropdown-autoclose-true">
+          Mood
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <div className="filterWrapper">
+          {curatedPlaylists && curatedPlaylists.moods.length > 0 && curatedPlaylists.moods.map((sub_filter, index) =>
+            <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
+              <Link key={index} href={"/playlist/curatedPlaylist/" + sub_filter.id}>
+                <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
+                  <Dropdown.Item href="javascript:void(0)">{sub_filter.name}</Dropdown.Item>
+                </div>
+              </Link>
+            </div>
+          )}
           </div>
-        )}
-        </div>
-      </Dropdown.Menu>
-    </Dropdown>
+        </Dropdown.Menu>
+      </Dropdown>
+      <Dropdown className="d-inline">
+        <Dropdown.Toggle id="dropdown-autoclose-true">
+          Genres
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <div className="filterWrapper">
+          {curatedPlaylists && curatedPlaylists.genres.length > 0 && curatedPlaylists.genres.map((sub_filter, index) =>
+            <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
+              <Link key={index} href={"/playlist/curatedPlaylist/" + sub_filter.id}>
+                <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
+                  <Dropdown.Item href="javascript:void(0)">{sub_filter.name}</Dropdown.Item>
+                </div>
+              </Link>
+            </div>
+          )}
+          </div>
+        </Dropdown.Menu>
+      </Dropdown>
+      <Dropdown className="d-inline">
+        <Dropdown.Toggle id="dropdown-autoclose-true">
+          Themes
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <div className="filterWrapper">
+          {curatedPlaylists && curatedPlaylists.themes.length > 0 && curatedPlaylists.themes.map((sub_filter, index) =>
+            <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
+              <Link key={index} href={"/playlist/curatedPlaylist/" + sub_filter.id}>
+                <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
+                  <Dropdown.Item href="javascript:void(0)">{sub_filter.name}</Dropdown.Item>
+                </div>
+              </Link>
+            </div>
+          )}
+          </div>
+        </Dropdown.Menu>
+      </Dropdown>
+    </>
   )
 
   return (
