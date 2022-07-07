@@ -5,7 +5,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import user from "../../styles/User.module.scss";
 import Image from 'next/image';
 import { useDispatch, useSelector } from "react-redux";
-import { getFavoriteTracks } from "../../redux/actions/authActions";
+import { getFavoriteTracks, getFavoriteSfxes } from "../../redux/actions/authActions";
 import { useState, useEffect } from "react";
 import InpageLoader from '../../components/InpageLoader';
 import FavoriteTracks from "../../components/FavoriteTracks";
@@ -25,6 +25,7 @@ function Favorites() {
   const dispatch = useDispatch();
   const router = useRouter();
   const favoriteTracks = useSelector(state => state.user.favorite_tracks);
+  const favoriteSfxes = useSelector(state => state.user.favorite_sfxes);
   const responseStatus = useSelector(state => state.user.responseStatus);
   const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
@@ -65,8 +66,9 @@ function Favorites() {
   useEffect(() => {
     if (favoriteTracks?.tracks?.length > 0) {
       setUpdatedTracks(updatedTracks => [...updatedTracks, ...favoriteTracks.tracks]);
-    }
-  }, [favoriteTracks, favoritesMessage]);
+    } else if (favoriteSfxes?.sfxes?.length > 0)
+      setUpdatedTracks(updatedTracks => [...updatedTracks, ...favoriteSfxes.sfxes]);
+  }, [favoriteTracks, favoritesMessage, favoriteSfxes]);
 
   useEffect(() => {
     if(!favoritesMessage?.success) {
@@ -78,6 +80,7 @@ function Favorites() {
 
   useEffect(() => {
     dispatch(getFavoriteTracks())
+    dispatch(getFavoriteSfxes())
   }, [favoritesMessage]);
 
   useEffect(() => {
@@ -99,7 +102,7 @@ function Favorites() {
     }
   }, [favoriteTracks])
 
-  const handleRemoveFromFavorites = (e, track) => {
+  const handleRemoveFromFavorites = (e, track, type) => {
     Notiflix.Confirm.show(
       'Please confirm',
       `Are you sure you want to remove ${track.title} from favorites?`,
@@ -107,7 +110,7 @@ function Favorites() {
       'No',
       function () {
         setIsLoading(true)
-        dispatch(removeFromFavorites(track.id));
+        dispatch(removeFromFavorites(track.id, type));
       }
     );
   }
@@ -162,7 +165,7 @@ function Favorites() {
           pauseOnHover
           style={{ width: "auto" }}
         />
-        {favoriteTracks && <FavoriteTracks type="Favorite" tracks={favoriteTracks.tracks} tracksMeta={favoriteTracks.meta} handleRemoveFromFavorites={handleRemoveFromFavorites} handleSimilarSearch={handleSimilarSearch} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} />}
+        {favoriteTracks && <FavoriteTracks type="Favorite" sfxes={favoriteSfxes?.sfxes} tracks={favoriteTracks.tracks} tracksMeta={favoriteTracks.meta} handleRemoveFromFavorites={handleRemoveFromFavorites} handleSimilarSearch={handleSimilarSearch} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} />}
         <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} />
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
