@@ -278,7 +278,7 @@ const Details = () => {
                     </div>
                     <div className={playlist.playlistStats}>
                       <div className={playlist.tracksCount}>
-                        {myPlaylistTracks?.playlist_tracks?.length ? myPlaylistTracks?.playlist_tracks?.length + Pluralize(' Track', myPlaylistTracks?.playlist_tracks?.length) : '0 Track'}
+                        {myPlaylistDetail && myPlaylistDetail?.media_count != 0 ? myPlaylistDetail?.media_count + Pluralize(' Track', myPlaylistDetail?.media_count) : '0 Track'}
                       </div>
                       <div className={playlist.tracksDuration}>
                         Duration: <span>{myPlaylistTracks && totalDuration(myPlaylistTracks)}</span>
