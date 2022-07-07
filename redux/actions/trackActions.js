@@ -144,8 +144,8 @@ export const getSegmentTracksFromAIMS = (url, start, end) => async (dispatch) =>
   }
 }
 
-export const addToFavorites = (trackId) => async (dispatch) => {
-  let klass = "track";
+export const addToFavorites = (trackId, type) => async (dispatch) => {
+  let klass = type;
   const cookie = useCookie()
   let authToken = cookie.get("user")
   try {
@@ -216,8 +216,8 @@ export const unFollowArtist = (artistId) => async (dispatch) => {
   }
 };
 
-export const removeFromFavorites = (trackId) => async (dispatch) => {
-  let klass = "track";
+export const removeFromFavorites = (trackId, type) => async (dispatch) => {
+  let klass = type;
   const cookie = useCookie()
   let authToken = cookie.get("user")
   try {

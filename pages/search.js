@@ -344,13 +344,13 @@ function Search(props) {
       if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
         e.target.closest("a").classList.add("controlActive")
-        dispatch(addToFavorites(trackId));
+        dispatch(addToFavorites(trackId, "track"));
       }
       else {
         favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
         e.target.closest("a").classList.remove("controlActive")
         setFavoriteTrackIds(favoriteTrackIds)
-        dispatch(removeFromFavorites(trackId));
+        dispatch(removeFromFavorites(trackId, "track"));
       }
     }
     else {

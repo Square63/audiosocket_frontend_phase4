@@ -84,6 +84,8 @@ function Sfx(props) {
   if (allTracks && allTracks.tracks){
     tracks = allTracks.tracks[0].sfxes
     tracksMeta = allTracks.tracks[0].meta
+    if (tracksMeta.favorite_sfx_ids && tracksMeta.favorite_sfx_ids.length > 0 && favoriteTrackIds.length == 0)
+      setFavoriteTrackIds(tracksMeta.favorite_sfx_ids)
   }
   console.log("Update Tracks", updatedTracks)
 
@@ -294,16 +296,16 @@ function Sfx(props) {
 
   const handleAddToFavorites = (e, trackId) => {
     if (localStorage.getItem("user")) {
-      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_tracks_ids.includes(trackId)) {
+      if (!favoriteTrackIds.includes(trackId) && !tracksMeta.favorite_sfx_ids.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
         e.target.closest("a").classList.add("controlActive")
-        dispatch(addToFavorites(trackId));
+        dispatch(addToFavorites(trackId, "sfx"));
       }
       else {
         favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
         e.target.closest("a").classList.remove("controlActive")
         setFavoriteTrackIds(favoriteTrackIds)
-        dispatch(removeFromFavorites(trackId));
+        dispatch(removeFromFavorites(trackId, "sfx"));
       }
     }
     else {

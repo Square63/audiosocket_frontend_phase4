@@ -57,7 +57,7 @@ const Details = ()  => {
         if (creatorKitsTracks.playlist_tracks?.length > 0) {
           if (updatedTracks[0]?.id != creatorKitsTracks.playlist_tracks[0].id)
             setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsTracks.playlist_tracks]);
-            creatorKitsTracks.meta && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_sfxes_ids)
+            creatorKitsTracks.meta && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_sfx_ids)
         }
       }
       setIsLoading(false)
@@ -96,19 +96,19 @@ const Details = ()  => {
 
   }
 
-  const handleAddToFavorites = (e, trackId) => {
+  const handleAddToFavorites = (e, trackId, type) => {
     setIsLoading(true)
     if (localStorage.getItem("user")) {
       if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
         e.target.closest("a").classList.add("controlActive")
-        dispatch(addToFavorites(trackId));
+        dispatch(addToFavorites(trackId, type));
       }
       else {
         favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
         e.target.closest("a").classList.remove("controlActive")
         setFavoriteTrackIds(favoriteTrackIds)
-        dispatch(removeFromFavorites(trackId));
+        dispatch(removeFromFavorites(trackId, type));
       }
     }
     else {
