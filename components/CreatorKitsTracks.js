@@ -55,7 +55,6 @@ function CreatorKitsTracks(props) {
   }
 
   const options = [
-    { value: 'relevence', label: 'Relevence' },
     { value: 'featured', label: 'Featured' },
     { value: 'mostRecentlyPublished', label: ' Most Recently Published' },
     { value: 'durationLongtoShort', label: 'Duration Long to Short' },

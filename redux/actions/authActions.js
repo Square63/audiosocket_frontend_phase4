@@ -644,7 +644,7 @@ export const getConsumerLicenses = () => async (dispatch) => {
 export const getCuratedPlaylistFilters = () => async (dispatch) => {
   try {
     const { data } = await axios.get(
-      `${BASE_URL}/api/v1/filters/curated_playlist_filters`
+      `${BASE_URL}/api/v1/consumer/curated_playlists/categories`
     );
     dispatch({
       type: GET_CURATED_FILTERS_SUCCESS,
