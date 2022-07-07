@@ -15,7 +15,7 @@ import { TOAST_OPTIONS } from '../../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 
 
-function AddToCartLicense({ showModal = false, onCloseModal, track}) {
+function AddToCartLicense({ showModal = false, onCloseModal, track, type}) {
   const form = useRef(null);
   const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
@@ -53,7 +53,7 @@ function AddToCartLicense({ showModal = false, onCloseModal, track}) {
           "auth-token": userAuthToken
         },
         method: "post",
-        url: (`${BASE_URL}/api/v1/consumer/licenses/${selectedLicense}/attach_to_media?&mediable_type=Track&mediable_id=${track.id}`)
+        url: (`${BASE_URL}/api/v1/consumer/licenses/${selectedLicense}/attach_to_media?&mediable_type=${type}&mediable_id=${track.id}`)
 
       }).then(response => {
         if (!response.status === 200) {
