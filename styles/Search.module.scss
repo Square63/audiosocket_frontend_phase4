@@ -50,6 +50,7 @@
   margin: 27px 0 35px;
   overflow-x: hidden;
   overflow-y: auto;
+  min-height: 250px;
   .tracksHeading {
     @include flexbox;
     @include justify-content(space-between);

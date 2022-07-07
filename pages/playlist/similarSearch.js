@@ -56,7 +56,7 @@ function similarSearch() {
                       </a>
                     </OverlayTrigger>
 
-                    <Dropdown drop="up" alignLeft className="downloadStuff">
+                    <Dropdown alignLeft className="downloadStuff">
                       <OverlayTrigger overlay={<Tooltip>Download Track</Tooltip>}>
                         <Dropdown.Toggle variant="" id="dropdown-autoclose-true dropdown-button-drop-up">
                           <svg xmlns="http://www.w3.org/2000/svg" width="22.743" height="21.503" viewBox="0 0 22.743 21.503">
@@ -100,7 +100,7 @@ function similarSearch() {
                       </Dropdown.Menu>
                     </Dropdown>
 
-                    <Dropdown drop="up" alignCenter>
+                    <Dropdown alignCenter>
                       <OverlayTrigger overlay={<Tooltip>More</Tooltip>}>
                         <Dropdown.Toggle variant="" id="dropdown-autoclose-true dropdown-button-drop-up">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
