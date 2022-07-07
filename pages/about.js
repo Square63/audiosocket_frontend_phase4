@@ -120,7 +120,7 @@ function about() {
             </div>
             <div className="staffBio">
               <p className="name">Duddy</p>
-              <p className="designation">Lead Producer Pop, The RED Collective</p>
+              <p className="designation">Lead Producer Pop,<br/> The RED Collective</p>
             </div>
           </div>
 
@@ -140,7 +140,7 @@ function about() {
             </div>
             <div className="staffBio">
               <p className="name">Josh Collopy</p>
-              <p className="designation">Producer, The Red Collective.
+              <p className="designation">Producer, <br/>The Red Collective. <br/>
               Music Licensing Sales</p>
             </div>
           </div>
