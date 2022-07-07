@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button, Tabs, Tab } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
@@ -16,6 +16,7 @@ import DownloadTrack from '../../../components/modals/DownloadTrack'
 import CreatorKitsTracks from "../../../components/CreatorKitsTracks";
 import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicense'
+import {AuthContext} from "../../../store/authContext";
 
 const Details = ()  => {
   const dispatch = useDispatch();
@@ -32,6 +33,8 @@ const Details = ()  => {
   const [updatedTracks, setUpdatedTracks] = useState([])
   const creatorKitsDetail = useSelector(state => state.user.creator_kits_detail);
   const creatorKitsTracks = useSelector(state => state.user.creator_kits_tracks);
+  const [altVersionTrack, setAltVersionTrack] = useState(null);
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     if (query) {
@@ -140,11 +143,22 @@ const Details = ()  => {
   }
 
   function showAddTrackToCartLicenseModal(index) {
-    setIsLoading(true)
+    setIndex(index)
     if (localStorage.getItem("user")) {
-      setIndex(index)
-      setShowSidebar(true)
-      setSidebarType("cart")
+      if (type == "track") {
+        setAltVersionTrack(null)
+      }
+      else {
+        setAltVersionTrack(index)
+      }
+      if (typeof(localStorage.getItem("has_subscription")) !== undefined) {
+        if (JSON.parse(localStorage.getItem("has_subscription"))) {
+          authContext.handleAddToCart(type == "track" ? updatedTracks[index].id : index.id, "Track", "");
+        } else {
+          setShowSidebar(true)
+          setSidebarType("cart")
+        }
+      }
     }
     else {
       setShowSidebar(true)

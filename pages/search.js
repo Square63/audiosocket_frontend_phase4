@@ -192,7 +192,7 @@ function Search(props) {
   }
 
   function showAddTrackToCartLicenseModal(index, type) {
-    setIndex(type == "footer" ? updatedTracks.findIndex(i => i.id == index) : index)
+    setIndex(index)
     if (localStorage.getItem("user")) {
       if (type == "track") {
         setAltVersionTrack(null)
