@@ -507,21 +507,28 @@ header {
     position: relative;
 
     .cartBadge {
-      width: 17px;
+      min-width: 17px;
       height: 17px;
       display: inline-block;
       padding: 3px 3px 3px 2px;
-      background: $green-light;
-      color: $headerColor;
-      border-radius: 100%;
+      background: #C1D72E;
+      color: #1A1C1D;
+      border-radius: 50px;
       font-size: 11px;
       font-weight: 500;
       text-align: center;
       line-height: 11px;
       white-space: nowrap;
       position: absolute;
-      top: -7px;
-      right: -10px;
+      top: -1px;
+      right: 5px;
+      @include transition(all 0.25s ease-in-out);
+      transform: scale(0.9);
+    }
+    &:hover {
+      .cartBadge {
+        transform: scale(1.1);
+      }
     }
   }
 }
