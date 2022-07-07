@@ -42,6 +42,7 @@ function FavoriteTracks(props) {
       setInfiniteLoop(false)
     } else {
       setTracks(tracks=> props.tracks)
+      
     }
 
     if (props.tracks.length + tracks.length >= props.tracksMeta.count) {
@@ -129,10 +130,10 @@ function FavoriteTracks(props) {
   const handleMoodColumn = (track, mood) => {
     switch(mood) {
 
-      case "moods":   return track.moods.join(", ");
-      case "genres":   return track.genres.join(", ");
-      case "themes": return track.themes.join(", ");
-      case "instruments":  return track.instruments.join(", ");
+      case "moods":   return track.moods?.join(", ");
+      case "genres":   return track.genres?.join(", ");
+      case "themes": return track.themes?.join(", ");
+      case "instruments":  return track.instruments?.join(", ");
       default: return ""
     }
   }
@@ -215,7 +216,131 @@ function FavoriteTracks(props) {
                     </a>
                   </OverlayTrigger>
                   <OverlayTrigger overlay={<Tooltip>Remove from Favourites</Tooltip>}>
-                    <a onClick={(e) => props.handleRemoveFromFavorites(e, track)} className={user.favoriteSong}>
+                    <a onClick={(e) => props.handleRemoveFromFavorites(e, track, "track")} className={user.favoriteSong}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
+                        <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">
+                          <path id="Shape_185" data-name="Shape 185" d="M181.253,573.9l-7.07-7.281a5.369,5.369,0,0,1-1.031-6.258h0a5.532,5.532,0,0,1,8.8-1.409l1.516,1.382,1.516-1.382a5.532,5.532,0,0,1,8.8,1.409h0a5.36,5.36,0,0,1,.182,4.452" transform="translate(-172.573 -557.365)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          <path id="Oval_11" data-name="Oval 11" d="M189.254,577.1a5.683,5.683,0,1,0-5.684-5.683A5.683,5.683,0,0,0,189.254,577.1Z" transform="translate(-173.153 -557.807)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73v5.684" transform="translate(-173.469 -557.965)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          <path id="Shape_187" data-name="Shape 187" d="M192.254,571.73h-5.683" transform="translate(-173.311 -558.123)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                        </g>
+                      </svg>
+                    </a>
+                  </OverlayTrigger>
+
+                  <Dropdown drop="up" alignLeft>
+                    <OverlayTrigger overlay={<Tooltip>Download Track</Tooltip>}>
+                      <Dropdown.Toggle variant="" id="dropdown-autoclose-true dropdown-button-drop-up">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22.743" height="21.503" viewBox="0 0 22.743 21.503">
+                          <g id="icon-download" transform="translate(0.5 21.003) rotate(-90)">
+                            <path id="Shape_111" data-name="Shape 111" d="M11.589,4.254V.945A.92.92,0,0,0,10.7,0H.891A.92.92,0,0,0,0,.945V20.8a.92.92,0,0,0,.891.945H10.7a.92.92,0,0,0,.891-.945V17.489" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Shape_112" data-name="Shape 112" d="M0,0H16.937" transform="translate(3.566 10.872)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Shape_113" data-name="Shape 113" d="M4.457,0,0,4.727,4.457,9.454" transform="translate(3.566 6.145)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          </g>
+                        </svg>
+                      </Dropdown.Toggle>
+                    </OverlayTrigger>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#/action-1" onClick={props.showDownloadLicenseModal}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18.528" height="18.528" viewBox="0 0 18.528 18.528">
+                          <g id="Music-Audio_Playlists_playlist-lock" data-name="Music-Audio / Playlists / playlist-lock" transform="translate(-242.504 -1970.614)">
+                            <g id="Group_176" data-name="Group 176" transform="translate(243.004 1971.114)">
+                              <g id="playlist-lock">
+                                <path id="Shape_1189" data-name="Shape 1189" d="M256.722,1977.973v-6.1a.762.762,0,0,0-.762-.762H243.766a.761.761,0,0,0-.762.762v12.194a.762.762,0,0,0,.762.762h7.621" transform="translate(-243.004 -1971.114)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Oval_216" data-name="Oval 216" d="M254.147,1983.4a1.143,1.143,0,1,0-1.143-1.143A1.144,1.144,0,0,0,254.147,1983.4Z" transform="translate(-245.383 -1973.493)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Oval_217" data-name="Oval 217" d="M247.147,1984.4a1.143,1.143,0,1,0-1.143-1.143A1.144,1.144,0,0,0,247.147,1984.4Z" transform="translate(-243.718 -1973.731)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Shape_1190" data-name="Shape 1190" d="M249,1981.673v-4.379a.762.762,0,0,1,.553-.732l3.81-1.089a.762.762,0,0,1,.972.733v4.705" transform="translate(-244.431 -1972.144)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Rectangle-path_81" data-name="Rectangle-path 81" d="M257,1987.876a.761.761,0,0,1,.762-.762H263.1a.762.762,0,0,1,.762.762v3.81a.762.762,0,0,1-.762.762h-5.335a.762.762,0,0,1-.762-.762Z" transform="translate(-246.335 -1974.92)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Shape_1191" data-name="Shape 1191" d="M261.266,1989.614a.762.762,0,1,0,.762.762A.761.761,0,0,0,261.266,1989.614Z" transform="translate(-247.167 -1975.515)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Shape_1192" data-name="Shape 1192" d="M259,1986.162v-1.143a1.905,1.905,0,1,1,3.81,0v1.143" transform="translate(-246.81 -1973.969)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                        <span>Download to License</span>
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-1" onClick={() => {props.showDownloadModal(index);}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17.89" height="16.927" viewBox="0 0 17.89 16.927">
+                          <g id="icon-download" transform="translate(0.5 16.427) rotate(-90)">
+                            <path id="Shape_111" data-name="Shape 111" d="M9,3.3V.734A.715.715,0,0,0,8.31,0H.692A.715.715,0,0,0,0,.734V16.156a.715.715,0,0,0,.692.734H8.31A.715.715,0,0,0,9,16.156v-2.57" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Shape_112" data-name="Shape 112" d="M0,0H13.157" transform="translate(2.77 8.445)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Shape_113" data-name="Shape 113" d="M3.462,0,0,3.672,3.462,7.344" transform="translate(2.77 4.773)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          </g>
+                        </svg>
+                        <span>Download to Preview</span>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  { ((localStorage?.getItem('user')) && (followedArtists?.includes(track.artist_id))) ?
+                    <OverlayTrigger overlay={<Tooltip>Unfollow Artist</Tooltip>}>
+                      <a onClick={() => {handleUnfollowArtist(track)}} className={user.favoriteSong}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 22.93 20.303">
+                          <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                            <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                              <g id="Group" transform="translate(173.415 84.471)">
+                                <g id="social-profile-avatar">
+                                  <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.90"></path>
+                                </g>
+                              </g>
+                              <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.90"></path>
+                            </g>
+                          </g>
+                        </svg>
+                      </a>
+                    </OverlayTrigger> :
+                    <OverlayTrigger overlay={<Tooltip>Follow Artist</Tooltip>}>
+                      <a onClick={() => {handleFollowArtist(track)}} className={user.favoriteSong}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 22.93 20.303">
+                          <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                            <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                              <g id="Group" transform="translate(173.415 84.471)">
+                                <g id="social-profile-avatar">
+                                  <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.90"/>
+                                </g>
+                              </g>
+                              <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.90"/>
+                              <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.90"/>
+                            </g>
+                          </g>
+                        </svg>
+                      </a>
+                    </OverlayTrigger>
+                  }
+                </div>
+              </div>)
+              })}
+            
+            {props.sfxes && props.sfxes.map((track,index)=> {
+              return(<div key={index} className="trackRow">
+                <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} notClickable={true}/>
+                <div className="rowParticipant duration">
+                  {convertSecToMin(track.duration)}
+                </div>
+                <div className="rowParticipant genres">
+                  {handleMoodColumn(track, moodColumn)}
+                </div>
+                <div className="rowParticipant controls">
+                  <OverlayTrigger overlay={<Tooltip>Add to Playlist</Tooltip>}>
+                    <a onClick={() => props.showTrackAddToPlaylistModal(index, "sfx")}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="29.249" height="29.25" viewBox="0 0 29.249 29.25">
+                        <g id="icon-add-to-playlist" transform="translate(0.5 0.5)">
+                          <g id="Group_165" data-name="Group 165" transform="translate(0)">
+                            <g id="playlist-add">
+                              <path id="Shape_1147" data-name="Shape 1147" d="M217.112,1936.624v-12.282a1.228,1.228,0,0,0-1.228-1.229H196.232a1.227,1.227,0,0,0-1.228,1.229v19.652a1.228,1.228,0,0,0,1.228,1.228h12.282" transform="translate(-195.004 -1923.114)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              <path id="Oval_187" data-name="Oval 187" d="M206.846,1936.8a1.842,1.842,0,1,0-1.842-1.842A1.843,1.843,0,0,0,206.846,1936.8Z" transform="translate(-192.722 -1920.831)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              <path id="Oval_188" data-name="Oval 188" d="M199.846,1937.8a1.843,1.843,0,1,0-1.842-1.842A1.843,1.843,0,0,0,199.846,1937.8Z" transform="translate(-194.319 -1920.603)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              <path id="Shape_1148" data-name="Shape 1148" d="M201,1937.484v-7.057a1.229,1.229,0,0,1,.891-1.18l6.141-1.755a1.228,1.228,0,0,1,1.566,1.182v7.583" transform="translate(-193.635 -1922.126)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              <path id="Oval_189" data-name="Oval 189" d="M214.145,1948.4a6.141,6.141,0,1,0-6.141-6.141A6.142,6.142,0,0,0,214.145,1948.4Z" transform="translate(-192.037 -1920.147)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              <path id="Shape_1149" data-name="Shape 1149" d="M213,1939.114v4.913" transform="translate(-190.896 -1919.462)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              <path id="Shape_1150" data-name="Shape 1150" d="M211,1941.114h4.913" transform="translate(-191.352 -1919.006)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </a>
+                  </OverlayTrigger>
+                  <OverlayTrigger overlay={<Tooltip>Remove from Favourites</Tooltip>}>
+                    <a onClick={(e) => props.handleRemoveFromFavorites(e, track, "sfx")} className={user.favoriteSong}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
                         <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">
                           <path id="Shape_185" data-name="Shape 185" d="M181.253,573.9l-7.07-7.281a5.369,5.369,0,0,1-1.031-6.258h0a5.532,5.532,0,0,1,8.8-1.409l1.516,1.382,1.516-1.382a5.532,5.532,0,0,1,8.8,1.409h0a5.36,5.36,0,0,1,.182,4.452" transform="translate(-172.573 -557.365)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
