@@ -2333,12 +2333,6 @@ hr {
     padding-inline: 15px 25px;
   }
 
-  // #waveform {
-  //   wave {
-  //     overflow: hidden !important;
-  //   }
-  // }
-
   &.duration {
     min-width: 10%;
     padding-inline: 7px;
@@ -4785,6 +4779,70 @@ input[type=number]::-webkit-outer-spin-button {
     @include justify-content(center);
     @include align-items(center);
     gap: 20px;
+  }
+}
+
+/******************** About us ********************/
+.aboutUs {
+  background-color: $headerColor;
+  color: $white;
+  padding-block: 50px;
+  .aboutUsHead {
+    text-align: center;
+    h1 {
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.28;
+      letter-spacing: -.45px;
+    }
+  }
+  .staffWrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(15px,2vw,30px);
+    margin-block: 50px 40px;
+    .staffItem {
+      .staffImg {
+        aspect-ratio: 1/1;
+        border-radius: 18px;
+        overflow: hidden;
+        & > div {
+          width: 100%;
+          aspect-ratio: 1/1;
+        }
+        .staffItemImg {
+          object-fit: cover;
+          aspect-ratio: 1/1;
+          max-height: 250px !important;
+        }
+      }
+      .staffBio {
+        text-align: center;
+        .name, .designation {
+          font-size: 18px;
+          font-weight: 500;
+          width: 100%;
+          line-height: 1.28;
+          letter-spacing: -.45px;
+          text-align: center;
+          text-transform: capitalize;
+          color: #fff;
+          display: inline-block;
+          padding-inline: 10px;
+          margin-block: 10px 5px;
+        }
+        .designation {
+          font-size: 16px;
+          font-weight: 400;
+          margin: 0;
+        }
+      }
+    }
   }
 }
 

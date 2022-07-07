@@ -41,7 +41,7 @@ function Footer() {
                 <div className="footer-list">
                   <ul>
                     <li><a href="">Curated Playlists</a></li>
-                    <li><a href="">Influencer Application</a></li>
+                    <li><a href="https://audiosocket.firstpromoter.com/">Influencer Application</a></li>
                   </ul>
                 </div>
               </div>
@@ -55,7 +55,7 @@ function Footer() {
 
                     <li><a href="">about us</a></li>
 
-                    <li><a href="">our work</a></li>
+                    <li><a href="https://www.youtube.com/user/audiosocket" target="_blank">our work</a></li>
 
                     <li><a href="">pricing</a></li>
 
