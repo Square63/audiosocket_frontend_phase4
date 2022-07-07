@@ -22,8 +22,16 @@ function Footer() {
                 <span className="footer-heading">Music</span>
                 <div className="footer-list">
                   <ul>
-                    <li><a href="">All Songs</a></li>
-                    <li><a href="">Curated Playlists</a></li>
+                    <li>
+                      <Link href="/search" eventKey="1">
+                        All Songs
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/playlist/curatedPlaylist" eventKey="1">
+                        Curated Playlists
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -31,8 +39,12 @@ function Footer() {
                 <span className="footer-heading">Support</span>
                 <div className="footer-list">
                   <ul>
-                    <li><a href="">Contact Us</a></li>
-                    <li><a href="">FAQs</a></li>
+                    <li><a href={"mailto:" + "storefront@audiosocket.com"}>Contact Us</a></li>
+                    <li>
+                      <Link href="/faqs" eventKey="1">
+                        FAQs
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -40,8 +52,12 @@ function Footer() {
                 <span className="footer-heading">Contribute</span>
                 <div className="footer-list">
                   <ul>
-                    <li><a href="">Curated Playlists</a></li>
-                    <li><a href="https://audiosocket.firstpromoter.com/">Influencer Application</a></li>
+                    <li>
+                      <Link href="https://artists.audiosocket.com" eventKey="1">
+                        Submit Music
+                      </Link>
+                    </li>
+                    <li><a href="https://audiosocket.firstpromoter.com">Influencer Application</a></li>
                   </ul>
                 </div>
               </div>
@@ -51,13 +67,20 @@ function Footer() {
                 <span className="footer-heading">Company</span>
                 <div className="footer-list">
                   <ul>
-                    <li><a href="">blog</a></li>
-
-                    <li><a href="">about us</a></li>
+                    <li><a href="https://www.audiosocket.com/blog/">blog</a></li>
+                    <li>
+                      <Link href="/about" eventKey="1">
+                        about us
+                      </Link>
+                    </li>
 
                     <li><a href="https://www.youtube.com/user/audiosocket" target="_blank">our work</a></li>
 
-                    <li><a href="">pricing</a></li>
+                    <li>
+                      <Link href="/pricing" eventKey="1">
+                        pricing
+                      </Link>
+                    </li>
 
                     <li>
                       <Link href="/privacyPolicy" eventKey="1">
@@ -80,14 +103,14 @@ function Footer() {
                 <div className="footer-list">
                   <ul className="socialList">
                     <li>
-                      <a href="" className="socialLinks">
+                      <a href="https://www.facebook.com/Audiosocket" className="socialLinks">
                         <svg xmlns="http://www.w3.org/2000/svg" width="6.865" height="12.359" viewBox="0 0 6.865 12.359">
                           <path id="icon-facebook" d="M38.993,6253.653H37.032c-.232,0-.491.305-.491.713v1.417h2.452v2.017H36.541v6.063H34.227V6257.8h-2.1v-2.017h2.1v-1.189a2.912,2.912,0,0,1,2.805-3.089h1.961Z" transform="translate(-32.128 -6251.504)" fill="#979da2"/>
                         </svg>
                       </a>
                     </li>
                     <li>
-                      <a href="" className="socialLinks">
+                      <a href="https://twitter.com/audiosocket" className="socialLinks">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12.632" height="10.266" viewBox="0 0 12.632 10.266">
                           <path id="icon-twitter" d="M109.794,6254.9a5.183,5.183,0,0,1-1.489.408,2.6,2.6,0,0,0,1.14-1.433,5.185,5.185,0,0,1-1.646.628,2.594,2.594,0,0,0-4.416,2.364,7.357,7.357,0,0,1-5.342-2.708,2.6,2.6,0,0,0,.8,3.46,2.579,2.579,0,0,1-1.174-.324v.033a2.592,2.592,0,0,0,2.079,2.541,2.58,2.58,0,0,1-.683.092,2.626,2.626,0,0,1-.487-.047,2.6,2.6,0,0,0,2.421,1.8,5.2,5.2,0,0,1-3.219,1.109,5.374,5.374,0,0,1-.618-.036,7.37,7.37,0,0,0,11.346-6.21c0-.112,0-.224-.007-.335A5.273,5.273,0,0,0,109.794,6254.9Z" transform="translate(-97.162 -6253.683)" fill="#979da2"/>
                         </svg>
@@ -95,7 +118,7 @@ function Footer() {
                     </li>
 
                     <li>
-                      <a href="" className="socialLinks">
+                      <a href="https://www.instagram.com/audiosocket/?hl=en" className="socialLinks">
                       <svg xmlns="http://www.w3.org/2000/svg" width="11.809" height="11.809" viewBox="0 0 11.809 11.809">
                         <g id="icon-instagram" transform="translate(0)">
                           <path id="Path_22" data-name="Path 22" d="M174.958,6253.141c1.576,0,1.763.005,2.385.034a3.277,3.277,0,0,1,1.1.2,1.952,1.952,0,0,1,1.121,1.121,3.263,3.263,0,0,1,.2,1.1c.028.623.034.81.034,2.385s-.006,1.764-.034,2.387a3.279,3.279,0,0,1-.2,1.1,1.824,1.824,0,0,1-.442.678,1.843,1.843,0,0,1-.679.442,3.268,3.268,0,0,1-1.1.2c-.622.029-.809.035-2.385.035s-1.764-.006-2.386-.035a3.261,3.261,0,0,1-1.1-.2,1.958,1.958,0,0,1-1.121-1.12,3.255,3.255,0,0,1-.2-1.1c-.028-.623-.035-.809-.035-2.387s.006-1.763.035-2.384a3.241,3.241,0,0,1,.2-1.1,1.952,1.952,0,0,1,1.121-1.121,3.271,3.271,0,0,1,1.1-.2c.623-.028.809-.034,2.386-.034m0-1.064c-1.6,0-1.8.007-2.434.036a4.308,4.308,0,0,0-1.433.274,3.016,3.016,0,0,0-1.727,1.727,4.334,4.334,0,0,0-.274,1.434c-.029.629-.036.831-.036,2.433s.007,1.806.036,2.435a4.325,4.325,0,0,0,.274,1.433,3.021,3.021,0,0,0,1.727,1.728,4.344,4.344,0,0,0,1.433.275c.63.028.831.035,2.434.035s1.8-.007,2.434-.035a4.35,4.35,0,0,0,1.434-.275,3.022,3.022,0,0,0,1.727-1.728,4.314,4.314,0,0,0,.274-1.433c.029-.629.036-.83.036-2.435s-.007-1.8-.036-2.433a4.322,4.322,0,0,0-.274-1.434,3.017,3.017,0,0,0-1.727-1.727,4.314,4.314,0,0,0-1.434-.274c-.63-.028-.83-.036-2.434-.036Z" transform="translate(-169.053 -6252.077)" fill="#979da2"/>
@@ -107,7 +130,7 @@ function Footer() {
                       </a>
                     </li>
                     <li>
-                      <a href="" className="socialLinks">
+                      <a href="https://www.youtube.com/user/audiosocket" className="socialLinks">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12.883" height="12.6" viewBox="0 0 12.883 12.6">
                           <g id="icon-youtube" transform="translate(0)">
                             <path id="Path_16" data-name="Path 16" d="M249.5,6263.742h-8.175a2.354,2.354,0,0,0-2.354,2.354v1.891a2.354,2.354,0,0,0,2.354,2.354H249.5a2.354,2.354,0,0,0,2.354-2.354V6266.1A2.355,2.355,0,0,0,249.5,6263.742Zm-6.458,1.473h-.76v3.776h-.734v-3.776h-.76v-.643h2.254Zm2.147,3.776h-.652v-.357a1.358,1.358,0,0,1-.376.3.784.784,0,0,1-.379.1.406.406,0,0,1-.341-.146.7.7,0,0,1-.114-.437v-2.726h.651v2.5a.276.276,0,0,0,.041.167.161.161,0,0,0,.134.052.369.369,0,0,0,.182-.069.861.861,0,0,0,.2-.175v-2.477h.652Zm2.364-.672a.817.817,0,0,1-.153.531.54.54,0,0,1-.443.184.781.781,0,0,1-.341-.071.841.841,0,0,1-.279-.221v.249h-.659v-4.419h.659V6266a1,1,0,0,1,.279-.227.646.646,0,0,1,.3-.078.563.563,0,0,1,.472.208.974.974,0,0,1,.163.61Zm2.26-.879h-1.247v.614a.713.713,0,0,0,.064.358.242.242,0,0,0,.221.1.271.271,0,0,0,.227-.085.707.707,0,0,0,.064-.372v-.148h.67v.167a1.046,1.046,0,0,1-.246.756.976.976,0,0,1-.731.252.9.9,0,0,1-.69-.269,1.037,1.037,0,0,1-.252-.739v-1.464a.92.92,0,0,1,.277-.691.98.98,0,0,1,.713-.267.918.918,0,0,1,.688.247.981.981,0,0,1,.24.711Z" transform="translate(-238.97 -6257.741)" fill="#979da2"/>
@@ -121,14 +144,14 @@ function Footer() {
                       </a>
                     </li>
                     <li>
-                      <a href="" className="socialLinks" >
+                      <a href="https://vimeo.com/audiosocket" className="socialLinks" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="12.357" height="10.984" viewBox="0 0 12.357 10.984">
                           <path id="icon-vimeo" d="M322.847,6255.57c-.691,3.964-4.548,7.319-5.709,8.085s-2.219-.306-2.6-1.118c-.44-.925-1.757-5.943-2.1-6.359s-1.38.416-1.38.416l-.5-.671s2.1-2.557,3.7-2.877c1.7-.338,1.693,2.653,2.1,4.314.395,1.606.66,2.525,1,2.525s1-.9,1.725-2.27-.031-2.589-1.443-1.725C318.2,6252.439,323.537,6251.609,322.847,6255.57Z" transform="translate(-310.551 -6252.935)" fill="#979da2"/>
                         </svg>
                       </a>
                     </li>
                     <li>
-                      <a href="" className="socialLinks">
+                      <a href="https://www.tiktok.com/@audiosocketlicensing" className="socialLinks">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10.455" height="11.955" viewBox="0 0 10.455 11.955">
                           <path id="icon-tik-tok" d="M10.1,2.626A2.278,2.278,0,0,1,7.829.35.35.35,0,0,0,7.478,0H5.6a.35.35,0,0,0-.35.35V8.041A1.338,1.338,0,1,1,3.914,6.7a.35.35,0,0,0,.35-.35V4.477a.35.35,0,0,0-.35-.35A3.914,3.914,0,1,0,7.829,8.041v-3.4A4.818,4.818,0,0,0,10.1,5.2a.35.35,0,0,0,.35-.35V2.976A.35.35,0,0,0,10.1,2.626Zm0,0" fill="#979da2"/>
                         </svg>
