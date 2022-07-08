@@ -73,7 +73,7 @@ function FavoriteTracks(props) {
 
   const options = [
     { value: 'featured', label: 'Featured' },
-    { value: 'mostRecentlyPublished', label: ' Most Recently Published' },
+    { value: 'mostRecentlyPublished', label: ' Recently Published' },
     { value: 'durationLongtoShort', label: 'Duration Long to Short' },
     { value: 'durationShorttoLong', label: 'Duration Short to Long' }
   ]

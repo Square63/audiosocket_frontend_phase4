@@ -55,7 +55,7 @@ function CreatorKitsTracks(props) {
   }
 
   const options = [
-    { value: 'mostRecentlyPublished', label: 'Most Recently Published' },
+    { value: 'mostRecentlyPublished', label: 'Recently Published' },
     { value: 'featured', label: 'Featured' },
     { value: 'durationLongtoShort', label: 'Duration Long to Short' },
     { value: 'durationShorttoLong', label: 'Duration Short to Long' }
@@ -166,10 +166,10 @@ function CreatorKitsTracks(props) {
               <Select
                 className='react-select-container'
                 classNamePrefix="react-select"
-                placeholder="Most Recently Published"
+                placeholder="Recently Published"
                 options={options}
                 onChange={(e) => handleFilterDropdown(e)}
-                defaultValue='Most Recently Published'
+                defaultValue='Recently Published'
                 theme={theme => ({
                   ...theme,
                   colors: {
