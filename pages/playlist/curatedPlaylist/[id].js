@@ -18,6 +18,8 @@ import Sidebar from '../../../components/Sidebar'
 import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
 import Notiflix from "notiflix";
+import axios from "axios";
+import { BASE_URL } from '../../../common/api';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -36,6 +38,7 @@ const Details = () => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
   const favoritesMessage = useSelector( state => state.allTracks)
+  const [followed, setFollowed] = useState(false)
 
   useEffect(() => {
     if (query) {
@@ -211,6 +214,29 @@ const Details = () => {
     setShowAddToCartLicenseModal(true)
   }
 
+  const handleFollowUnfollow = async (id, action) => {
+    const userAuthToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
+    await axios.request({
+      headers: {
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+        "auth-token": userAuthToken
+      },
+      method: "post",
+      url: (`${BASE_URL}/api/v1/consumer/favorites_following/${action}?id=${query.id}&klass=curated_playlist`)
+
+    }).then(response => {
+      if (!response.status === 200) {
+        toast.error("Error while following playlist")
+      } else {
+        toast.success(response.data.status)
+        setFollowed(action == "unfollow" ? false : true)
+      }
+    }).catch(error => {
+      toast.error(error.response.data.message);
+    });
+    
+  }
+
   return (
     <>
     {isLoading ? (
@@ -282,7 +308,7 @@ const Details = () => {
                       </svg>
                       Download
                     </Button>
-                    <Button variant="link" className="btn btnMainLarge">
+                    {localStorage.getItem("user") && <Button variant="link" className="btn btnMainLarge" onClick={() => handleFollowUnfollow(query.id, followed ? "unfollow" : "follow")}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="17.39" height="17.39" viewBox="0 0 17.39 17.39">
                         <g id="Group_165" data-name="Group 165" transform="translate(0.5 0.5)">
                           <g id="playlist-add">
@@ -296,15 +322,15 @@ const Details = () => {
                           </g>
                         </g>
                       </svg>
-                      Follow Playlist
-                    </Button>
+                      {followed ? "Unfollow Playlist" : "Follow Playlist"}
+                    </Button>}
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="fixed-container">
-            {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail.media_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated"/> : <InpageLoader />}
+            {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated"/> : <InpageLoader />}
           </div>
 
           {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={curatedPlaylistTracks.playlist_tracks[index]} type="track"/> }

@@ -222,7 +222,7 @@ export const getFollowedPlaylists = () => async (dispatch) => {
   try {
     const { data } = await axios.get(
       `${BASE_URL}/api/v1/consumer/favorites_following/favorited_followed_playlists`,
-      { params: { type: "favorite" } }
+      { params: { type: "follow" } }
     );
     dispatch({
       type: GET_PLAYLISTS_SUCCESS,
