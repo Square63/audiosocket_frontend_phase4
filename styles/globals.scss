@@ -437,7 +437,8 @@ header {
         letter-spacing: -0.32px;
         line-height: 19px;
 
-        &:hover {
+        &:hover,
+        &.active {
           color: $green-light;
         }
       }

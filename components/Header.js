@@ -41,9 +41,9 @@ function Header() {
     e.target.closest('div#responsive-navbar-nav').classList.remove('show')
   }
 
-  const playlistRoutes = ["/curatedplaylist", "/myplaylists"];
+  const playlistRoutes = ["/curatedplaylist", "/myplaylists", "/creatorkit"];
 
-
+  debugger
   return (
     <header className="fixed-top">
       <div className="fixed-container">
@@ -63,15 +63,15 @@ function Header() {
                 <Nav.Link eventKey="2" href="/sfx" className={router.pathname.toLowerCase() === "/sfx" && "active"}>
                   SFX
                 </Nav.Link>
-                <NavDropdown title="Playlists" id="collasible-nav-dropdown" className={playlistRoutes.includes(router.pathname.toLocaleLowerCase()) ? "menuDrop active" : "menuDrop"}>
-                  <NavDropdown.Item href="/playlist/curatedPlaylist">
+                <NavDropdown title="Playlists" id="collasible-nav-dropdown" className={playlistRoutes.some(route => router.pathname.toLowerCase().includes(route)) ? "menuDrop active" : "menuDrop"}>
+                  <NavDropdown.Item href="/playlist/curatedPlaylist" className={router.pathname.toLowerCase().includes("/curatedplaylist") && "active"}>
                       <span>Curated Playlists</span>
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/playlist/creatorKits">
+                  <NavDropdown.Item href="/playlist/creatorKits" className={router.pathname.toLowerCase().includes("/creatorkit") && "active"}>
                       <span>Creator Kits</span>
                   </NavDropdown.Item>
                   {isLoggedIn &&
-                    <NavDropdown.Item href="/playlist/myPlaylists">
+                    <NavDropdown.Item href="/playlist/myPlaylists" className={router.pathname.toLowerCase().includes("/myplaylists") && "active"}>
                       <span>My Playlists</span>
                     </NavDropdown.Item>
                   }
