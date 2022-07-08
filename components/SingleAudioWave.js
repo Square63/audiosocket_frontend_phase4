@@ -18,6 +18,7 @@ const formWaveSurferOptions = (ref) => ({
   barGap: 1,
   normalize: true,
   partialRender: true,
+  hideScrollbar: true,
   alt: true
 });
 
@@ -28,6 +29,7 @@ export default function CustomAudioWave(props) {
   const [seconds, setSeconds] = useState();
   const [rowSeconds, setRowSeconds] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [peaks, setPeaks] = useState([]);
   const url = props.track.mp3_file_compressed ? props.track.mp3_file_compressed : "./test.mp3"
 
   const settings = {
@@ -38,39 +40,41 @@ export default function CustomAudioWave(props) {
   }
 
   useEffect(() => {
-    if (wavesurfer.current == null)
-      create();
-    if (playing || props.footerPlaying) {
-      setTimeout(() => setSeconds(seconds ? (seconds -1) : (props.track ? (props.track.duration - 1) : (props.track.duration - 1))), 1000);
-    } else {
-      setSeconds(seconds);
+    const getJson = async () => {
+      const data = await fetch(props.track.audio_peak?.file, {
+        headers: {
+          accept : "application/json"
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(peaks => {
+        debugger
+        if (wavesurfer.current == null)
+          create(url, peaks.data);
+        setPeaks(peaks.data)
+      })
     }
-    if (wavesurfer.current && props.footerPlaying) {
-      wavesurfer.current.play();
-    } else if (wavesurfer.current && !props.footerPlaying && !playing){
-      wavesurfer.current.pause();
-    }
-  }, [playing, seconds, props.track, props.footerPlaying]);
 
-  useEffect(() => {
-    if (playing) {
-      setTimeout(() => setRowSeconds(rowSeconds ? (rowSeconds -1) : (wavesurfer.current?.getDuration() - 1)), 1000);
-      if (!wavesurfer.current?.isPlaying()) {
-        setPlaying(false)
+    getJson()
+
+    return () => {
+      if (wavesurfer.current) {
+        wavesurfer.current.pause();
       }
-    }
-  }, [rowSeconds, playing])
+    };
+  }, []);
 
-  const create = async () => {
+
+  const create = async (url, peaks) => {
     const WaveSurfer = (await import("wavesurfer.js")).default;
 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
-    wavesurfer.current.load(url);
-    wavesurfer.current.on('ready', function (e) {
-      if (wavesurfer.current.params.alt)
-        setIsLoading(false);
-    });
+    wavesurfer.current.load(url, peaks);    
+    setIsLoading(false);
+ 
   };
 
   useEffect(() => {
