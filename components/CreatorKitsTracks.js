@@ -158,7 +158,7 @@ function CreatorKitsTracks(props) {
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
-        <h2>Playlist {props.type} <span className={search.tracksCount}>{props.tracksMeta ? props.tracksMeta.total_track_count : props.tracks?.count}</span></h2>
+        <h2>Playlist {props.title} <span className={search.tracksCount}>({props.count})</span></h2>
         <div className={search.tracksSorting}>
 
           <form>
