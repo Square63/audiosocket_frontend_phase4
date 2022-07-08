@@ -50,7 +50,6 @@ export default function CustomAudioWave(props) {
         return response.json()
       })
       .then(peaks => {
-        debugger
         if (wavesurfer.current == null)
           create(url, peaks.data);
         setPeaks(peaks.data)
@@ -104,15 +103,17 @@ export default function CustomAudioWave(props) {
     <div className="versionTrackBody">
       <div className="versionTrackRow">
         <div className="filterVersion">
-          {isLoading ?
-            <InpageLoader /> :
-            <div className="playPauseBtn" onClick={handlePlayPause}>
-              <span className={(playing) ? "play" : "pause"}></span>
-            </div>
-          }
-          <a href="" className="filterName">
-            {props.track.title}
-          </a>
+          <div className="altVerArtist">
+            {isLoading ?
+              <InpageLoader /> :
+              <div className="playPauseBtn" onClick={handlePlayPause}>
+                <span className={(playing) ? "play" : "pause"}></span>
+              </div>
+            }
+            <a href="" className="filterName">
+              {props.track.title}
+            </a>
+          </div>
           <div className="waveTime">
             <div id="waveform" ref={waveformRef}  />
           </div>
