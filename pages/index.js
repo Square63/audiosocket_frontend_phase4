@@ -859,7 +859,7 @@ export default function Home(props) {
                         aria-expanded={open}
                         className="btnMainLarge"
                       >   
-                        See More
+                        See {open ? "Less" : "More"}
                       </Button>
                     </div>
                   </div>
