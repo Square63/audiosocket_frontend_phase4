@@ -151,7 +151,7 @@ function DownloadedTracks(props) {
 
   return (
     <>
-    {!tracks && !sfxs ? (
+    {!tracks.length > 0 && !sfxs.length > 0 ? (
       <center><p>No downloaded tracks</p></center>
     ) : (
       <div className={user.downloadListing}>

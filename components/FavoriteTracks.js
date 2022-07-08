@@ -42,10 +42,10 @@ function FavoriteTracks(props) {
       setInfiniteLoop(false)
     } else {
       setTracks(tracks=> props.tracks)
-      
+
     }
 
-    if (props.tracks.length + tracks.length >= props.tracksMeta.count) {
+    if (props.tracks?.length + tracks?.length >= props.tracksMeta?.count) {
       sethasMore(false)
     }
 
@@ -308,7 +308,7 @@ function FavoriteTracks(props) {
                 </div>
               </div>)
               })}
-            
+
             {props.sfxes && props.sfxes.map((track,index)=> {
               return(<div key={index} className="trackRow">
                 <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} notClickable={true}/>
