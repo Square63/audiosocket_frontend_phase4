@@ -17,6 +17,10 @@ import CreatorKitsTracks from "../../../components/CreatorKitsTracks";
 import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 import DownloadTrackLicense from '../../../components/modals/DownloadTrackLicense'
 import {AuthContext} from "../../../store/authContext";
+import axios from "axios";
+import { BASE_URL } from '../../../common/api';
+import { ToastContainer, toast } from 'react-toastify';
+import { TOAST_OPTIONS } from '../../../common/api';
 
 const Details = ()  => {
   const dispatch = useDispatch();
@@ -35,6 +39,7 @@ const Details = ()  => {
   const creatorKitsTracks = useSelector(state => state.user.creator_kits_tracks);
   const [altVersionTrack, setAltVersionTrack] = useState(null);
   const authContext = useContext(AuthContext);
+  const [followed, setFollowed] = useState(false)
 
   useEffect(() => {
     if (query) {
@@ -192,11 +197,46 @@ const Details = ()  => {
     setShowAddToCartLicenseModal(true)
   }
 
+  const handleFollowUnfollow = async (action) => {
+    const userAuthToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
+    await axios.request({
+      headers: {
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+        "auth-token": userAuthToken
+      },
+      method: "post",
+      url: (`${BASE_URL}/api/v1/consumer/favorites_following/${action}?id=${query.id}&klass=curated_playlist`)
+
+    }).then(response => {
+      if (!response.status === 200) {
+        toast.error("Error while following playlist")
+      } else {
+        debugger
+        toast.success(response.data.status)
+        setFollowed(action == "unfollow" ? false : true)
+      }
+    }).catch(error => {
+      toast.error(error.response.data.message);
+    });
+  }
+
   return (
     <>
     {creatorKitsDetail ?
+    
     <div className={playlist.creatorKits}>
-
+      <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "auto" }}
+      />
       <div className={playlist.playlistBanner} style={{backgroundImage: "url(" + creatorKitsDetail.curated_playlist.compressed_banner_image + ")"}}>
         <div className="themeBreadcrumb">
           <div className="fixed-container">
@@ -255,7 +295,7 @@ const Details = ()  => {
                   </svg>
                   Download
                 </Button>
-                <Button variant="link" className="btn btnMainLarge">
+                {localStorage.getItem("user") && <Button variant="link" className="btn btnMainLarge" onClick={() => handleFollowUnfollow(followed ? "unfollow" : "follow")}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="17.39" height="17.39" viewBox="0 0 17.39 17.39">
                     <g id="Group_165" data-name="Group 165" transform="translate(0.5 0.5)">
                       <g id="playlist-add">
@@ -269,8 +309,8 @@ const Details = ()  => {
                       </g>
                     </g>
                   </svg>
-                  Follow Kit
-                </Button>
+                  {followed ? "Unfollow Kit" : "Follow Kit"}
+                </Button>}
               </div>
             </div>
           </div>

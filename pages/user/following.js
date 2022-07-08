@@ -63,11 +63,11 @@ function Following() {
               <h2>Followed Playlists</h2>
             </div>
             <div className="tilesWrapper">
-              {(followedPlaylists?.length > 0) ?
-                followedPlaylists.map((followedPlaylist, index) =>
-                  <Link href={"/playlist/" + followedPlaylist.id} key={index}>
+              {(followedPlaylists && followedPlaylists.curated_playlists?.length > 0) ?
+                followedPlaylists.curated_playlists.map((followedPlaylist, index) =>
+                  <Link href={"/playlist/curatedPlaylist/" + followedPlaylist.id} key={index}>
                     <a key={index} className="tileOverlay">
-                      {followedPlaylist.compressed_playlist_image ? "" : ""}
+                      {followedPlaylist.compressed_playlist_image && <Image src={followedPlaylist.compressed_playlist_image} alt="Mood" className="moodImage" layout="fill"></Image>}
                       <span className="tileOverlayText">{followedPlaylist.name}</span>
                     </a>
                   </Link>
