@@ -63,8 +63,8 @@ function MyPlaylistTracks(props) {
   }
 
   const options = [
-    { value: 'featured', label: 'Featured' },
     { value: 'mostRecentlyPublished', label: ' Most Recently Published' },
+    { value: 'featured', label: 'Featured' },
     { value: 'durationLongtoShort', label: 'Duration Long to Short' },
     { value: 'durationShorttoLong', label: 'Duration Short to Long' }
   ]
@@ -173,10 +173,10 @@ function MyPlaylistTracks(props) {
               <Select
                 className='react-select-container'
                 classNamePrefix="react-select"
-                placeholder="Featured"
+                placeholder="Most Recently Published"
                 options={options}
                 onChange={(e) => handleFilterDropdown(e)}
-                defaultValue='Featured'
+                defaultValue='Most Recently Published'
                 theme={theme => ({
                   ...theme,
                   colors: {
