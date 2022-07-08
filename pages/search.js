@@ -604,7 +604,7 @@ function Search(props) {
           {lastChildFilters.length > 0 && showChilderDiv &&
             <div className="filterChildren filterWrapper" id={appliedFiltersList.length}>
               {lastChildFilters.map((sub_filter, index) =>
-                <div className={appliedFiltersList.includes(sub_filter.name) ? "custom filterSelf activeFilter" : "custom filterSelf"}>
+                <div className={appliedFiltersList.includes(sub_filter.name) ? "custom filterSelf activeFilter" : "custom filterSelf"} key={index}>
                   <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                 </div>
               )}
