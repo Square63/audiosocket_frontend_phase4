@@ -120,7 +120,7 @@ function CuratedPlaylist() {
   }, [playlists]);
 
   useEffect(() => {
-    if (totalPlaylists && (paginatedPlaylistsCount >= totalPlaylists.count))
+    if (totalPlaylists && (paginatedPlaylistsCount >= totalPlaylists.total_curated_playlist_count))
       sethasMore(false)
   }, [paginatedPlaylistsCount]);
 
@@ -217,7 +217,7 @@ function CuratedPlaylist() {
       </Dropdown>
     </>
   )
-
+ debugger
   return (
     <>
     {
