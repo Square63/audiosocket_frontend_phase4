@@ -166,10 +166,10 @@ function CreatorKitsTracks(props) {
               <Select
                 className='react-select-container'
                 classNamePrefix="react-select"
-                placeholder="Relevence"
+                placeholder="Featured"
                 options={options}
                 onChange={(e) => handleFilterDropdown(e)}
-                defaultValue='Relevence'
+                defaultValue='Featured'
                 theme={theme => ({
                   ...theme,
                   colors: {
