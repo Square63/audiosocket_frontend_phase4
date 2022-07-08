@@ -4844,6 +4844,95 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+/*********** Single License Offer *************/
+.singleLicenseOffer {
+  padding-block: 60px 100px;
+  .licenseHeading {
+    margin-bottom: 25px;
+    h3 {
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.23;
+      letter-spacing: -0.65px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.28;
+      letter-spacing: -0.45px;
+      text-align: center;
+    }
+  }
+  .licenseTypeWrapper {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    gap: 20px;
+    max-width: 1110px;
+    width: 100%;
+    padding-inline: 15px;
+    margin-inline: auto;
+    margin-block-start: 43px;
+
+
+    .licenseType {
+      .licenseName {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.28;
+        letter-spacing: -0.45px;
+        text-align: center;
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+      a {
+        margin-left: 7px;
+      }
+    }
+    .licenseAmount {
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 1.21;
+      letter-spacing: -1.2px;
+      text-align: center;
+    }
+    .contactSale {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.19;
+      letter-spacing: normal;
+      text-align: center;
+      color: #3b5998;
+      text-decoration: underline;
+      @include transition(all 0.25s ease-in-out);
+      display: block;
+      margin-top: 20px;
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+  }
+}
+
+.homeColorTrend {
+  color: $white;
+  padding-block: 100px 0;
+  .licenseTypeWrapper {
+    .contactSale {
+      color: $green-light;
+    }
+  }
+  .singleTrackDesc {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.28;
+    letter-spacing: -0.45px;
+    text-align: center;
+  }
+}
+
 /******************** Keyframe **************/
 
 @-webkit-keyframes fade-in {
@@ -5425,6 +5514,14 @@ input[type=number]::-webkit-outer-spin-button {
       grid-gap: 20px;
     }
   }
+
+  /********** single track **********/
+  .singleLicenseOffer {
+    .licenseTypeWrapper {
+      padding-inline: 0;
+      gap: 15px;
+    }
+  }
 }
 
 @media #{$tab-portrait} {
@@ -5889,6 +5986,15 @@ input[type=number]::-webkit-outer-spin-button {
   .aboutUs {
     .staffWrapper {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /*********** Single Track ************/
+  .singleLicenseOffer {
+    .licenseTypeWrapper {
+      flex-wrap: wrap;
+      @include justify-content(space-around);
+      gap: 30px;
     }
   }
 }

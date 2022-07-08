@@ -28,7 +28,6 @@ function Licenses() {
   useEffect(() => {
     if (consumerLicenses) {
       if (query.from) {
-        debugger
         toast.success("License purchased successfully")
         window.history.replaceState(null, '', '/user/licenses')
       }

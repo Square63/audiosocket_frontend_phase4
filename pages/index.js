@@ -2,6 +2,7 @@ import Link from "next/link";
 import Head from 'next/head';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Collapse from 'react-bootstrap/Collapse'
 import Image from 'next/image';
 import Select from "react-select";
 import amazon from '../images/amazon.svg';
@@ -12,6 +13,8 @@ import nbc from '../images/NBC.svg';
 import netflix from '../images/netflix.svg';
 import vice from '../images/vice.svg';
 import Slider from "react-slick";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import slick001 from '../images/slick001.png';
 import slick002 from '../images/slick002.png';
 import slick003 from '../images/slick003.png';
@@ -256,6 +259,8 @@ export default function Home(props) {
     setLoading(true)
     router.push('/playlist/curatedPlaylist')
   }
+
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
@@ -791,13 +796,78 @@ export default function Home(props) {
                     </div>
 
                   </div>
-                  <p className="plansBottDesc">We also offer single-use licenses.</p>
-                  <div className="btnContainer text-center">
-                    <a href="" className="btn btnMainLarge">Learn More</a>
+                </div>
+                <div className="singleLicenseOffer homeColorTrend">
+                  <div className="fixed-container">
+                    <div className="licenseHeading">
+                      <h3>We also offer single-use licenses.</h3>
+                    </div>
+                    <Collapse in={open}>
+                      <div id="example-collapse-text">
+                        <p className="singleTrackDesc">When browsing for tracks, click the Add To Cart button and select a single license from the pop-up.</p>
+                        <div className="licenseTypeWrapper">
+                          <div className="licenseType">
+                            <span className="licenseName">
+                              Individual
+                              <OverlayTrigger overlay={<Tooltip>For individual users creating media for their personal channels. Perfect for your YouTube videos, podcast, vlogs, and home videos that are self-published on 3rd party platforms. Monetization via Adsense/AdShare on 3rd party platforms is permitted.</Tooltip>}>
+                                <a href="" className="info"></a>
+                              </OverlayTrigger>
+                            </span>
+                            <p className="licenseAmount">$15</p>
+                          </div>
+                          <div className="licenseType">
+                            <span className="licenseName">
+                              Small Business
+                              <OverlayTrigger overlay={<Tooltip>For use by businesses with 50 or fewer employees or freelancers creating content for businesses with 50 or fewer employees.</Tooltip>}>
+                                <a href="" className="info"></a>
+                              </OverlayTrigger>
+                            </span>
+                            <p className="licenseAmount">$99</p>
+                          </div>
+                          <div className="licenseType">
+                            <span className="licenseName">
+                              Indie Film
+                              <OverlayTrigger overlay={<Tooltip>For use by individual videographers, or filmmakers in a single film or video with a budget less than $2 Million USD. Films may be distributed on the Web and submitted to film festivals. </Tooltip>}>
+                                <a href="" className="info"></a>
+                              </OverlayTrigger>
+                            </span>
+                            <p className="licenseAmount">$129</p>
+                          </div>
+                          <div className="licenseType">
+                            <span className="licenseName">
+                              Large Business
+                              <OverlayTrigger overlay={<Tooltip>For use by businesses with 51 or more employees or freelancers creating content for businesses with 51 or more employees.</Tooltip>}>
+                                <a href="" className="info"></a>
+                              </OverlayTrigger>
+                            </span>
+                            <p className="licenseAmount">$995</p>
+                          </div>
+                          <div className="licenseType">
+                            <span className="licenseName">
+                              Custom License
+                            </span>
+                            <a href="javascript:void(0)" className="contactSale">Contact Sales</a>
+                          </div>
+                        </div>
+                      </div>
+                    </Collapse>
+                    <div className="text-center mt-5">
+                      <Button
+                        variant="link"
+                        onClick={() => setOpen(!open)}
+                        aria-controls="example-collapse-text"
+                        aria-expanded={open}
+                        className="btnMainLarge"
+                      >   
+                        See More
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
+
+            
 
             <section className="slickSlider">
             <div className="testimonialContainer">

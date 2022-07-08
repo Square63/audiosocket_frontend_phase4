@@ -42,8 +42,6 @@ function Header() {
   }
 
   const playlistRoutes = ["/curatedplaylist", "/myplaylists", "/creatorkit"];
-
-  debugger
   return (
     <header className="fixed-top">
       <div className="fixed-container">
