@@ -2176,7 +2176,8 @@ hr {
             @include align-items(center);
 
             #waveform {
-              width: 230px;
+              max-width: 230px;
+              width: 17vw;
               padding-inline: 15px 25px;
               opacity: 0.7;
             }
@@ -5096,6 +5097,18 @@ input[type=number]::-webkit-outer-spin-button {
           min-width: 9%;
         }
       }
+      .altVersions {
+        .versionTrackRow {
+          .filterVersion {
+            .altVerArtist {
+              min-width: calc(27% - 17.5px);
+            }
+            .durationCount {
+              min-width: 13%;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -5459,6 +5472,9 @@ input[type=number]::-webkit-outer-spin-button {
         .versionTrackBody {
           .versionTrackRow {
             .filterVersion {
+              .altVerArtist {
+                min-width: calc(33% - 17.5px);
+              }
               .waveTime {
                 display: none;
               }
