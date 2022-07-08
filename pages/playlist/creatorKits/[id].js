@@ -224,13 +224,13 @@ const Details = ()  => {
 
                 <div className={playlist.playlistStats}>
                   <div className={playlist.tracksCount}>
-                    {creatorKitsDetail.meta.track_count} Music Tracks
+                    {creatorKitsDetail.meta.track_count} Music
                   </div>
                   <div className={playlist.tracksDuration}>
                   {creatorKitsDetail.meta.sfx_count} SFX
                   </div>
                   <div className={playlist.tracksDuration}>
-                    {creatorKitsDetail.meta.sound_design_count} Sound Design Tracks
+                    {creatorKitsDetail.meta.sound_design_count} Sound Design
                   </div>
                 </div>
               </div>
@@ -279,11 +279,11 @@ const Details = ()  => {
       <div className="fixed-container">
         <div className={playlist.creatorKitsContent}>
           <Tabs defaultActiveKey="track" id="uncontrolled-tab-example" onSelect={(e)=> handleType(e)}>
-            <Tab eventKey="track" title="Tracks">
+            <Tab eventKey="track" title="Music">
               {creatorKitsTracks && creatorKitsTracks.meta ?
                 creatorKitsTracks.playlist_tracks.length > 0 ?
                   (creatorKitsTracks.meta.type == "track" ?
-                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount ={creatorKitsDetail.meta.track_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
+                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount ={creatorKitsDetail.meta.track_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count}/>
                   :
                     <InpageLoader/>
                   )
@@ -296,7 +296,7 @@ const Details = ()  => {
             <Tab eventKey="sfx" title="SFX">
               {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
                 (creatorKitsTracks.meta.type == "sfx" ?
-                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount={creatorKitsDetail.meta.sfx_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type}/>
+                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount={creatorKitsDetail.meta.sfx_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="SFX" count={creatorKitsDetail.meta.sfx_count}/>
                 :
                   <InpageLoader/>
                 )
@@ -307,7 +307,7 @@ const Details = ()  => {
             <Tab eventKey="sound_design" title="Sound Design">
               {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
                 (creatorKitsTracks.meta.type == "sound_design" ?
-                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount={creatorKitsDetail.meta.sound_design_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} />
+                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount={creatorKitsDetail.meta.sound_design_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Sound Design" count={creatorKitsDetail.meta.sound_design_count}/>
                 :
                   <InpageLoader />
                 )
