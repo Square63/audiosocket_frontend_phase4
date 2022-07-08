@@ -1,4 +1,4 @@
-import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import React, { useContext, useEffect, useState } from "react";
@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../redux/actions/authActions";
 import { removeCartItem } from "../redux/actions/authActions";
 import { editWorkTitle } from "../redux/actions/authActions";
-import Link from "next/link";
 import {AuthContext} from "../store/authContext";
 import { useRouter } from "next/router";
 import Braintree from "../components/braintree";
@@ -15,14 +14,14 @@ import Notiflix from "notiflix";
 
 function Cart() {
   const dispatch = useDispatch();
-  const router = useRouter();
   const [showBrainTree, setShowBrainTree] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const cartTracks = useSelector(state => state.user.cartTracks);
   const cartSfxes = useSelector(state => state.user.cartSfxes);
   const cartLineItems = useSelector(state => state.user.cartLineItems);
   const [validated, setValidated] = useState(false);
-  const { authState, authActions, handleAddToCart, cartCount, totalCartPrice } = useContext(AuthContext);
+  const [multipleVideosChecked, setMultipleVideosChecked] = useState(false);
+  const { totalCartPrice } = useContext(AuthContext);
 
   useEffect(() => {
     if (!cartTracks)
@@ -62,6 +61,7 @@ function Cart() {
   }
 
   function handleIndividualWorkTitle() {
+    setMultipleVideosChecked(!multipleVideosChecked)
     const className = document.getElementsByClassName("individualWorkTitle")[0].classList[0]
     document.querySelectorAll('.' + className).forEach(element => {
       element.classList.toggle('individualWorkTitleField');
@@ -70,7 +70,7 @@ function Cart() {
 
   const handleSubmit = async (e) => {
     const cartForm = e.currentTarget;
-    if (cartForm.checkValidity() === false) {
+    if (!multipleVideosChecked && cartForm.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
       setValidated(true);
@@ -190,7 +190,7 @@ function Cart() {
                           <div className="songData">
                             <a href="" className="songName">{sfx.title}</a>
                           </div>
-                          
+
                           <Form className="individualWorkTitle individualWorkTitleField">
                             <Form.Control type="text" placeholder="Enter work title…" defaultValue={cartLineItems[index].work_title} onBlur={(e) => {handleEditWorkTitle(e, cartLineItems[index].id);}}/>
                           </Form>
@@ -250,9 +250,11 @@ function Cart() {
                         <Form.Group controlId="formWorkTitle">
                           <label>Please add your Video or Work Title to your License</label>
                           <Form.Control required className="individualWorkTitle" type="text" placeholder="Enter work title…" />
-                          <Form.Control.Feedback type="invalid">
-                            Work Title is required!
-                          </Form.Control.Feedback>
+                          {!multipleVideosChecked &&
+                            <Form.Control.Feedback type="invalid">
+                              Work Title is required!
+                            </Form.Control.Feedback>
+                          }
                         </Form.Group>
                         <Form.Group controlId="formWorkTitleCheckbox">
                           <div className="toogleSwitch">
