@@ -271,20 +271,22 @@ function CreatorKitsTracks(props) {
                               {track.mediable.bpm}
                             </div>
                             <div className="rowParticipant controls">
-                              <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
-                                <a onClick={() => props.handleSimilarSearch(track.mediable.title, track.mediable.id)}>
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="26.536" height="26.536" viewBox="0 0 26.536 26.536">
-                                    <g id="icon-like-tracks" transform="translate(0.5 0.5)">
-                                      <path id="Path_1" data-name="Path 1" d="M310.243,311.623a10.621,10.621,0,1,0-10.621,10.62A10.623,10.623,0,0,0,310.243,311.623Z" transform="translate(-289 -301)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                      <line id="Line_2" data-name="Line 2" x2="7.706" y2="6.672" transform="translate(17.624 18.659)" fill="none" stroke="#6e7377" strokLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                      <g id="Icon_-_Mag-note" data-name="Icon - Mag-note" transform="translate(5.818 5.227)">
-                                        <path id="Shape_1577" data-name="Shape 1577" d="M244.306,2627.369c0,1.034-1.241,1.871-2.773,1.871s-2.773-.837-2.773-1.871,1.241-1.87,2.773-1.87S244.306,2626.334,244.306,2627.369Z" transform="translate(-238.759 -2618.826)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                        <path id="Shape_1578" data-name="Shape 1578" d="M248.693,2622.028v-7.518a1.109,1.109,0,0,1,1.664-.963l2.219,1.27" transform="translate(-243.228 -2613.398)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              {props.title == 'Music' &&
+                                <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
+                                  <a onClick={() => props.handleSimilarSearch(track.mediable.title, track.mediable.aims_id)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.536" height="26.536" viewBox="0 0 26.536 26.536">
+                                      <g id="icon-like-tracks" transform="translate(0.5 0.5)">
+                                        <path id="Path_1" data-name="Path 1" d="M310.243,311.623a10.621,10.621,0,1,0-10.621,10.62A10.623,10.623,0,0,0,310.243,311.623Z" transform="translate(-289 -301)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                        <line id="Line_2" data-name="Line 2" x2="7.706" y2="6.672" transform="translate(17.624 18.659)" fill="none" stroke="#6e7377" strokLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                        <g id="Icon_-_Mag-note" data-name="Icon - Mag-note" transform="translate(5.818 5.227)">
+                                          <path id="Shape_1577" data-name="Shape 1577" d="M244.306,2627.369c0,1.034-1.241,1.871-2.773,1.871s-2.773-.837-2.773-1.871,1.241-1.87,2.773-1.87S244.306,2626.334,244.306,2627.369Z" transform="translate(-238.759 -2618.826)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                          <path id="Shape_1578" data-name="Shape 1578" d="M248.693,2622.028v-7.518a1.109,1.109,0,0,1,1.664-.963l2.219,1.27" transform="translate(-243.228 -2613.398)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                        </g>
                                       </g>
-                                    </g>
-                                  </svg>
-                                </a>
-                              </OverlayTrigger>
+                                    </svg>
+                                  </a>
+                                </OverlayTrigger>
+                              }
                               <OverlayTrigger overlay={<Tooltip>Add to Favourites</Tooltip>}>
                                 <a onClick={(e) => props.handleAddToFavorites(e, track.mediable.id, props.type)} className={ props.favoriteTrackIds && props.favoriteTrackIds.includes(track.mediable.id) ? "controlActive" : ""}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
