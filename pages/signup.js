@@ -107,7 +107,7 @@ function Signup() {
     <div className={signup.signupWrapper}>
       <div className={signup.signupHeading}>
         <h1>Sign Up</h1>
-        <p>Subscribe and gain unlimited access to 80k+ tracks and 24k+ SFX.<br /> New artists added every month.</p>
+        <p>Sign Up for an account so you can create playlists, add favorites,<br /> follow artists and receive new music updates. <br /> New artists added every month!</p>
         <p>Already have an account?<Link href={"/login"}>Sign in</Link></p>
       </div>
       <ToastContainer
@@ -247,7 +247,7 @@ function Signup() {
             </div>
           </div>
           <div className={signup.privacy}>
-            By creating an account you agree to Audiosocket’s <Link href={"#"}>Terms of Use</Link> and <Link href={"#"}>Privacy Policy.</Link>
+            By creating an account you agree to Audiosocket’s <Link href={"/termsConditions"}>Terms of Use</Link> and <Link href={"/privacyPolicy"}>Privacy Policy.</Link>
           </div>
         </div>
       </div> 
