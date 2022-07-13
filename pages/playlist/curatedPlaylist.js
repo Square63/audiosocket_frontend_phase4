@@ -217,7 +217,6 @@ function CuratedPlaylist() {
       </Dropdown>
     </>
   )
- debugger
   return (
     <>
     {

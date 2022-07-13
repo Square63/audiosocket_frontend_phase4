@@ -1202,6 +1202,46 @@ footer {
       margin-top: 30px;
     }
   }
+
+  /************* Share Modal ************/
+  &.shareModal {
+    .linkContainer {
+      @include flexbox;
+      @include justify-content(flex-start);
+      @include align-items(center);
+      border: 1px solid $border-clr;
+      border-radius: 100px;
+      height: 50px;
+      overflow: hidden;
+      .shareLink {
+        @include flex(1);
+        white-space: nowrap;
+        padding:10px 15px;
+        text-align: left;
+        font-size: 16px;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .copyLink {
+        border-left: 1px solid $border-clr;
+        background-color: $green-light;
+        width: 75px;
+        text-align: center;
+        height: inherit;
+        line-height: 48px;
+        cursor: pointer;
+        svg {
+          @include transition(all 0.25s ease-in-out);
+        }
+        &:active {
+          svg {
+            transform: scale(0.92);
+          }
+        }
+      }
+    }
+  }
 }
 
 /************* Scrolling list component *************/

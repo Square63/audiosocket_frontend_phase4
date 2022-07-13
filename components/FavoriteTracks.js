@@ -171,6 +171,14 @@ function FavoriteTracks(props) {
           <div className={user.listingHeading}>
             <h2>Favorite Tracks</h2>
           </div>
+          <div className="textCenter mt-3">
+            <div className="toggleButton">
+              <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked />
+              <label htmlFor="toggle-on" className="movingBtn">Music</label>
+              <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" />
+              <label htmlFor="toggle-off" className="movingBtn">SFX</label>
+            </div>
+          </div>
           <div className="trackRowWrapper">
             <div className="trackRow headingRow">
               <div className="rowParticipant artistName">

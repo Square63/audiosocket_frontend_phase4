@@ -21,6 +21,7 @@ import axios from "axios";
 import { BASE_URL } from '../../../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import { TOAST_OPTIONS } from '../../../common/api';
+import ShareModal from "../../../components/modals/ShareModal";
 
 const Details = ()  => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const Details = ()  => {
   const [altVersionTrack, setAltVersionTrack] = useState(null);
   const authContext = useContext(AuthContext);
   const [followed, setFollowed] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false)
 
   useEffect(() => {
     if (query) {
@@ -147,6 +149,10 @@ const Details = ()  => {
     setShowLicenseModal(false)
   }
 
+  function handleShareModalClose() {
+    setShowShareModal(false)
+  }
+
   function showAddTrackToCartLicenseModal(index) {
     setIndex(index)
     if (localStorage.getItem("user")) {
@@ -211,7 +217,6 @@ const Details = ()  => {
       if (!response.status === 200) {
         toast.error("Error while following playlist")
       } else {
-        debugger
         toast.success(response.data.status)
         setFollowed(action == "unfollow" ? false : true)
       }
@@ -275,7 +280,7 @@ const Details = ()  => {
                 </div>
               </div>
               <div className={playlist.cardBtnWrapper}>
-                <Button variant="link" className="btn btnMainLarge">
+                <Button variant="link" className="btn btnMainLarge" onClick={() => setShowShareModal(true)}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                     <g id="share-2" transform="translate(0.5 0.707)">
                       <path id="Shape_1972" data-name="Shape 1972" d="M528.887,3851.192v9a.693.693,0,0,1-.693.693h-9a.693.693,0,0,1-.692-.693v-9a.693.693,0,0,1,.692-.692h2.77" transform="translate(-518.5 -3844.96)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -362,6 +367,7 @@ const Details = ()  => {
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} type={type}/>}
+      <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
     </div> : <InpageLoader/>
     }
     </>
