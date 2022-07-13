@@ -604,6 +604,15 @@
       }
     }
   }
+  :global(.toggleButton) {
+    input[type=radio] {
+      &:global(.toggle) {
+        & + label {
+          min-width: 80px;
+        }
+      }
+    }
+  }
 }
 
 /******************* license Checkout Modal ********************/

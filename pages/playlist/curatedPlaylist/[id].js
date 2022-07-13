@@ -20,6 +20,7 @@ import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trac
 import Notiflix from "notiflix";
 import axios from "axios";
 import { BASE_URL } from '../../../common/api';
+import ShareModal from "../../../components/modals/ShareModal";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const Details = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDownModal, setShowDownModal] = useState(false);
   const [showLicenseModal, setShowLicenseModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false)
   const [index, setIndex] = useState(0)
   const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
@@ -146,6 +148,7 @@ const Details = () => {
     }
   }
 
+
   const handleDownloadClose = (show) => {
     setShowDownModal(show)
   }
@@ -156,6 +159,10 @@ const Details = () => {
 
   function handleLicenseModalClose() {
     setShowLicenseModal(false)
+  }
+
+  function handleShareModalClose() {
+    setShowShareModal(false)
   }
 
   function showAddTrackToCartLicenseModal(index) {
@@ -288,7 +295,7 @@ const Details = () => {
                     </div>
                   </div>
                   <div className={playlist.cardBtnWrapper}>
-                    <Button variant="link" className="btn btnMainLarge">
+                    <Button variant="link" className="btn btnMainLarge" onClick={() => setShowShareModal(true)}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                         <g id="share-2" transform="translate(0.5 0.707)">
                           <path id="Shape_1972" data-name="Shape 1972" d="M528.887,3851.192v9a.693.693,0,0,1-.693.693h-9a.693.693,0,0,1-.692-.693v-9a.693.693,0,0,1,.692-.692h2.77" transform="translate(-518.5 -3844.96)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -337,6 +344,7 @@ const Details = () => {
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
           {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={curatedPlaylistTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
           {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={curatedPlaylistTracks[index]} />}
+          <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
         </div>
 
 
