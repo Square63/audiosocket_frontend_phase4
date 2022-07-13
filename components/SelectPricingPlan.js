@@ -1127,7 +1127,7 @@ function SelectPricingPlan(props) {
                   <span className="licenseName">
                     Custom License
                   </span>
-                  <a href="javascript:void(0)" className="contactSale">Contact Sales</a>
+                  <a href="/pricing?enterprise=true" className="contactSale">Contact Sales</a>
                 </div>
               </div>
             </div>
