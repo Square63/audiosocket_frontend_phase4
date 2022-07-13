@@ -710,7 +710,7 @@ function SelectPricingPlan(props) {
               </div>
               <div className={pricing.oneTimePurchase}>
                 <span className={pricing.typeName}>
-                  <span className={pricing.typeHeading}>Single Track</span>
+                  <span className={pricing.typeHeading} onClick={() => window.location.replace("#single-license")}>Single Track</span>
                   <span className={pricing.typeDesc}>One-time use pricing available at checkout</span>
                 </span>
               </div>
@@ -810,7 +810,7 @@ function SelectPricingPlan(props) {
               </div>
               <div className={pricing.oneTimePurchase}>
                 <span className={pricing.typeName}>
-                  <span className={pricing.typeHeading}>Single Track</span>
+                  <span className={pricing.typeHeading} onClick={() => window.location.replace("#single-license")}>Single Track</span>
                   <span className={pricing.typeDesc}>One-time use pricing available at checkout</span>
                 </span>
               </div>
@@ -1080,7 +1080,7 @@ function SelectPricingPlan(props) {
             </div>
           </section>
 
-          <section className="singleLicenseOffer">
+          <section id="single-license" className="singleLicenseOffer">
             <div className="fixed-container">
               <div className="licenseHeading">
                 <h3>We also offer single-use licenses.</h3>
