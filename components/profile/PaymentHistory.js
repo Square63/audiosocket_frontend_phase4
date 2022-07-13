@@ -40,7 +40,7 @@ const PaymentHistory = () => {
             </ul>
           )}
         </div> :
-        <>No Payment History</>
+        <>No Payment History Available</>
   );
 };
 
