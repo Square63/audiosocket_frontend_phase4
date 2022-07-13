@@ -50,7 +50,7 @@ import { wrapper } from '../redux/store';
 import { getFilters } from '../redux/actions/filterActions';
 import { useDispatch, useSelector } from "react-redux";
 import InpageLoader from '../components/InpageLoader';
-import { getTracksFromAIMS } from '../redux/actions/trackActions';
+import { getTracks, getTracksFromAIMS } from '../redux/actions/trackActions';
 import { facebookCallback, getTrendingPlaylists } from '../redux/actions/authActions';
 import { gmailCallback } from '../redux/actions/authActions';
 import { useCookie } from 'next-cookie';
@@ -239,14 +239,16 @@ export default function Home(props) {
   }
 
   function handleSearch(e) {
-    setLoading(true)
-    localStorage.setItem('keyword', e.target.previousElementSibling.value)
+    let searchQuery = e.target.previousElementSibling.value
+    localStorage.setItem('keyword', searchQuery)
+    dispatch(getTracks(searchQuery, 'aims_search', [], "", "", 1));
     router.push('/search')
   }
 
-  const handleUploadTrack = async() => {
-    setLoading(true)
-    dispatch(getTracksFromAIMS());
+  const handleUploadTrack = async(e) => {
+    const file = e.target.files[0]
+    localStorage.setItem("uploadFileFromWelcome", file)
+    dispatch(getTracksFromAIMS('', file));
     router.push('/search')
   }
 
@@ -537,7 +539,7 @@ export default function Home(props) {
                           <a href="" className="tryOut">Try it Out</a>
                           <Form.Group controlId="formFile" className="uploadComponent">
                             <Form.Label>Chose an mp3 or WAV file from your computer to get results within seconds!</Form.Label>
-                            <Form.Control type="file" onChange={() => handleUploadTrack()}/>
+                            <Form.Control type="file" onChange={(e) => handleUploadTrack(e)}/>
                           </Form.Group>
 
                         </div>
@@ -860,7 +862,7 @@ export default function Home(props) {
                         aria-controls="example-collapse-text"
                         aria-expanded={open}
                         className="btnMainLarge"
-                      >   
+                      >
                         See {open ? "Less" : "More"}
                       </Button>
                     </div>
@@ -869,7 +871,7 @@ export default function Home(props) {
               </div>
             </section>
 
-            
+
 
             <section className="slickSlider">
             <div className="testimonialContainer">
