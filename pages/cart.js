@@ -263,7 +263,7 @@ function Cart() {
                             <span className="switchText">My cart has tracks for multiple videos/works</span>
                           </div>
                         </Form.Group>
-                          <Button variant="link" type="submit" disabled={cartTracks.length> 0 ? false : true} className="btn btnMainLarge btn-block">Checkout and License Tracks - <span className="">${totalCartPrice}</span></Button>
+                          <Button variant="link" type="submit" disabled={cartLineItems.length> 0 ? false : true} className="btn btnMainLarge btn-block">Checkout and License Tracks - <span className="">${totalCartPrice}</span></Button>
                         <p className="text-center">By clicking checkout, you agree to your <a href="javascript:void(0)">license terms</a>.</p>
                       </Form>
                     </div>
