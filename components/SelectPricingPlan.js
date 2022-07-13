@@ -1127,7 +1127,9 @@ function SelectPricingPlan(props) {
                   <span className="licenseName">
                     Custom License
                   </span>
-                  <a href="/pricing?enterprise=true" className="contactSale">Contact Sales</a>
+                  <Link href="/pricing?enterprise=true" >
+                    <a onClick={() => handleSetStep("Enterprise")} className="contactSale">Contact Sales</a>
+                  </Link>
                 </div>
               </div>
             </div>
