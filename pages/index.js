@@ -97,7 +97,7 @@ export default function Home(props) {
   const trendingPlaylists = useSelector( state => state.auth.trending_playlists)
   filters.map((filter, index) =>
     filter.name == "Genres" &&
-      genresArray.push(filter.sub_filters.slice(0, 5))
+      genresArray.push(...filter.sub_filters.slice(0, 5), ...filter.sub_filters.filter(sub => sub.name == "Electronic "))
   );
 
   filters.map((filter, index) =>
@@ -262,6 +262,11 @@ export default function Home(props) {
     router.push('/playlist/curatedPlaylist')
   }
 
+  const handleCreatorKits = async() => {
+    setLoading(true)
+    router.push('/playlist/creatorKits')
+  }
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -365,7 +370,7 @@ export default function Home(props) {
                         </div>
                         <div className="outOfScenario">
                           <h5>Try out this scenario.</h5>
-                          <p>You’re looking for a cool contemporary electronic rock track with female vocals that is moody for your travel video. Something that fans of Phantogram would love.</p>
+                          <p>You’re looking for a cool contemporary electronic track with female vocals that is moody for your travel video. Something that fans of Phantogram would love.</p>
                         </div>
                         <div className="stepsWrapper">
                           <div className="stepSection">
@@ -377,7 +382,7 @@ export default function Home(props) {
                               <div className="roundedForm">
                                 <select aria-label="Default select example" className="form-control circularInput" onChange={(e) => handleFiltersKeywordStep1(e)}>
                                   <option>Select Genre</option>
-                                  {genresArray[0].map(filter =>
+                                  {genresArray.map(filter =>
                                     <option key={filter.id} value={filter.name}>{filter.name}</option>
                                   )}
                                 </select>
@@ -486,11 +491,14 @@ export default function Home(props) {
                         <div className="outOfScenario">
                           <h5>Curated Playlists</h5>
                           <p>Use our curated playlists to find the perfect track for your project. Playlists are created by genre/mood or by the type of project you’re working on.</p>
+                          <div className="catalogBtn-block text-center mt-5" onClick={handleSearchPlaylists}>
+                            <button className="btn btnMainLarge">Try it Now</button>
+                          </div>
                         </div>
                         <div className="outOfScenario">
                           <h5>Creator Kits</h5>
                           <p>Creator Kits include everything you need to add audio to your project including: Music, Sound Effects, and Sound Design. The projects includes stems so you can tailor the kit to fit your needs.</p>
-                          <div className="catalogBtn-block text-center mt-5" onClick={handleSearchPlaylists}>
+                          <div className="catalogBtn-block text-center mt-5" onClick={handleCreatorKits}>
                             <button className="btn btnMainLarge">Try it Now</button>
                           </div>
                         </div>
@@ -598,52 +606,6 @@ export default function Home(props) {
                             <Form.Control type="text" placeholder="Paste in a YouTube link or Spotify song link" />
                             <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={(e) => handleSearch(e)}>Search</Button>
                           </Form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="tabs">
-                    <div className="tab" onClick={toggleClass}>
-                      <div className="tabImg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="37.411" height="37.41" viewBox="0 0 37.411 37.41">
-                          <g id="Icon_-_Mag-note" data-name="Icon - Mag-note" transform="translate(1 1)">
-                            <g id="Icon_-_Magnifying_Glass" data-name="Icon - Magnifying Glass">
-                              <g id="Group_10" data-name="Group 10">
-                                <path id="Path_1" data-name="Path 1" d="M318.352,315.678a14.676,14.676,0,1,0-14.676,14.674A14.678,14.678,0,0,0,318.352,315.678Z" transform="translate(-289 -301)" fill="none" stroke="#c1d72e" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                                <line id="Line_2" data-name="Line 2" x2="10.648" y2="9.218" transform="translate(24.352 25.781)" fill="none" stroke="#c1d72e" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                              </g>
-                            </g>
-                            <path id="Shape_1577" data-name="Shape 1577" d="M246.423,2628.083c0,1.43-1.715,2.586-3.832,2.586s-3.832-1.156-3.832-2.586,1.715-2.584,3.832-2.584S246.423,2626.654,246.423,2628.083Z" transform="translate(-230.72 -2609.057)" fill="none" stroke="#c1d72e" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.987"/>
-                            <path id="Shape_1578" data-name="Shape 1578" d="M248.693,2625.322v-10.388a1.533,1.533,0,0,1,2.3-1.331l3.066,1.755" transform="translate(-233.103 -2606.176)" fill="none" stroke="#c1d72e" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.987"/>
-                          </g>
-                        </svg>
-                      </div>
-                      <div className="tabHeading">
-                        <h3>Search by project type.</h3>
-                        <p>Search by the type of project you’re working on to find recommendations.</p>
-                      </div>
-                    </div>
-                    <div className="tabsContent">
-                      <div className="tabsInnerContent">
-                        <div className="searchvideoSection">
-                          <p>Watch the project type search guide.</p>
-                          <div className="videoContainer" onClick={togglePlay}>
-                            <span></span>
-                            <video poster="./screenSearch.png" controls>
-                              <source src="./simpleSearch.mp4" type="video/mp4"/>
-                            </video>
-                          </div>
-                          <div className="catalogBtn-block" onClick={handleSearchCatalog}>
-                            <button className="btn btnMainLarge">Search catalog</button>
-                          </div>
-                        </div>
-                        <div className="outOfScenario">
-                          <h5>Search by project type</h5>
-                          <p>Want a simple way to drive into our catalog? Start with staff recommendations based on the type of media you are creating. Once you find a track you love, click on the magnifying glass icon to find more similar tracks from our roster. </p>
-                          <div className="text-center mt-5" onClick={handleSearchCatalog}>
-                            <button className="btn btnMainLarge">Try it Now</button>
-                          </div>
                         </div>
                       </div>
                     </div>
