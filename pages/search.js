@@ -59,7 +59,8 @@ function Search(props) {
   const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
   const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
 	const [footerPlaying, setFooterPlaying] = useState(false)
-  const [track, setTrack] = useState()
+  const [tracks, setTracks] = useState()
+  const [tracksMeta, setTracksMeta] = useState()
   const [loading, setLoading] = useState(true)
   const [index, setIndex] = useState(0)
   const [homeFilters, setHomeFilters] = useState([])
@@ -73,6 +74,9 @@ function Search(props) {
   const [fromAims, setFromAims] = useState(false);
   const [segmentTracksIndex, setSegmentTracksIndex] = useState(0);
   const [altVersionTrack, setAltVersionTrack] = useState(null);
+  const filters = useSelector(state => state.allFilters.filters[0])
+  const allTracks = useSelector(state => state.allTracks)
+  const cartItem = useSelector(state => state.user.cart)
   const authContext = useContext(AuthContext);
   const container = React.createRef();
 
@@ -81,34 +85,17 @@ function Search(props) {
   }, [appliedFiltersListWC]);
 
   useEffect(() => {
-    localStorage.setItem("playing_track_id", '')
     let trackName = localStorage.getItem("track_name")
     let trackId = localStorage.getItem("track_id")
-    handleAddHomeFilter()
     if (trackName && trackId) {
+      setFromAims(true)
       handleSimilarSearch(trackName, trackId)
       localStorage.removeItem("track_name")
       localStorage.removeItem("track_id")
+    } else if (!fromAims && !allTracks.tracks[0]?.tracks.length > 0){
+      dispatch(getTracks("", "local_search", [], "", "", 1))
     }
-  }, []);
-
-  const filters = useSelector( state => state.allFilters.filters[0])
-  const allTracks = useSelector( state => state.allTracks)
-  const cartItem = useSelector( state => state.user.cart)
-
-  let tracks = ""
-  let tracksMeta = ""
-  if (allTracks && allTracks.tracks){
-    tracks = allTracks.tracks[0].tracks
-    tracksMeta = allTracks.tracks[0].meta
-    if (tracksMeta.favorite_tracks_ids && tracksMeta.favorite_tracks_ids.length > 0 && favoriteTrackIds.length == 0)
-      setFavoriteTrackIds(tracksMeta.favorite_tracks_ids)
-  }
-  console.log("Update Tracks", updatedTracks)
-
-  console.log("Tracks META", tracksMeta)
-
-  const favoritesMessage = useSelector( state => state.allTracks)
+  }, [allTracks]);
 
   useEffect(() => {
     if (cartItem && cartItem.id){
@@ -134,27 +121,31 @@ function Search(props) {
   }, [allTracks.error]);
 
   useEffect(() => {
-    if(!favoritesMessage?.success) {
-      toast.error(favoritesMessage.message, TOAST_OPTIONS);
-    } else {
-      toast.success(favoritesMessage.message, TOAST_OPTIONS);
+    if (allTracks && allTracks.tracks[0]?.tracks.length > 0) {
+      setTracks(allTracks.tracks[0].tracks)
+      setTracksMeta(allTracks.tracks[0].meta)
+      if (allTracks.tracks[0].meta.favorite_tracks_ids && allTracks.tracks[0].meta.favorite_tracks_ids.length > 0 && favoriteTrackIds.length == 0)
+        setFavoriteTrackIds(allTracks.tracks[0].meta.favorite_tracks_ids)
     }
-  }, [favoritesMessage])
+
+    if(!allTracks?.success) {
+      toast.error(allTracks.message, TOAST_OPTIONS);
+    } else {
+      toast.success(allTracks.message, TOAST_OPTIONS);
+    }
+  }, [allTracks])
 
   useEffect(() => {
-    if (tracks.length > 0) {
+    let isMounted = true;
+    if (tracks?.length > 0) {
+      setLoading(false)
       if (updatedTracks[0]?.id != tracks[0].id)
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
     }
 
-    let isMounted = true;
-    setTimeout(function() {
-      setLoading(false)
-    }.bind(this), 1000);
     return () => {
       isMounted = false;
     };
-
   }, [tracks]);
 
   const handleLoading = () => {
@@ -259,12 +250,20 @@ function Search(props) {
   }
 
   const handleSearch = async(e) => {
-    setLoading(true)
+    let filters
+    if (fromAims){
+      filters = []
+      setAppliedFiltersList([])
+      startLoaderAndHideDiv()
+    } else{
+      filters = appliedFiltersList
+      setLoading(true)
+    }
     setFromAims(false)
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    dispatch(getTracks(query, query_type(query), filters, "", "", 1, explicit, vocals));
   }
 
   const handleClearAllFilter = () => {
@@ -911,7 +910,7 @@ function Search(props) {
               <span className="clearAllTag" onClick={handleClearAllFilter}></span>
             </OverlayTrigger>
           </div>
-          {tracksMeta.aims_segment_search_track &&
+          {!loading && tracksMeta.aims_segment_search_track &&
             <div className="singleWave"><SearchAudioWave uploadedFileUrl={tracksMeta.aims_segment_search_track} handleUploadSearch={handleUploadSearch} /></div>
           }
           {loading ? (
@@ -927,7 +926,7 @@ function Search(props) {
           </div>
         </div> */}
 
-          <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} handleSegmentFileUploaded={handleSegmentFileUploaded}/>
+        <UploadTrack showModal={showModal} onCloseModal={handleClose} loading={handleLoading} handleSegmentFileUploaded={handleSegmentFileUploaded}/>
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} type="track"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
         <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} handleLicenseClick={handleLicenseClick} type="Track" />
@@ -946,7 +945,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       await store.dispatch(getFilters(req))
       // await store.dispatch(getPlaylists(req))
-      await store.dispatch(getTracks("", "local_search", [], "", "", 1))
     });
 
 export default Search;

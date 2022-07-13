@@ -88,7 +88,6 @@ const Details = () => {
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
-    setIsLoading(true)
     localStorage.setItem("track_name", trackName)
     localStorage.setItem("track_id", trackId)
     Router.push({
