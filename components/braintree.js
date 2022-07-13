@@ -9,7 +9,8 @@ import cardServices from '../images/cardServices.svg';
 import InpageLoader from './InpageLoader';
 import {AuthContext} from "../store/authContext";
 import router from "next/router";
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { post } from "jquery";
 import { BASE_URL } from "../common/api";
 
@@ -107,7 +108,7 @@ class Braintree extends React.Component {
       }
     } catch (err) {
       document.getElementsByClassName('submit')[0].classList.remove('disabled')
-      toast.error('Error in payment process.');
+      toast.error('Error in payment process. Please try with another card');
     }
   }
 
@@ -134,6 +135,18 @@ class Braintree extends React.Component {
     } else {
       return (this.state.loading ? <InpageLoader /> : (
         <div className="container">
+          <ToastContainer
+            position="top-center"
+            autoClose={10000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            style={{ width: "auto" }}
+          />
           <BraintreeHostedFields
             className="drop-in-container"
             options={{
