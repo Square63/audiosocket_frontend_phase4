@@ -223,13 +223,6 @@ function CreatorKitsTracks(props) {
                 </Dropdown>
               </div>
             }
-            <div className="rowParticipant BPM" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", bpmSortDir == "ASC" ? "DESC" : "ASC")}>
-              BPM
-              <span className="sortingMedium">
-                <a href="" className={bpmSortDir == "DESC" ? "decending disableSortBtn" : bpmSortDir == "" ? "decending" : "decending"}></a>
-                <a href="" className={bpmSortDir == "ASC" ? "ascending  disableSortBtn" : bpmSortDir == "" ? "ascending" : "ascending"}></a>
-              </span>
-            </div>
             <div className="rowParticipant controls"></div>
           </div>
         }
@@ -267,9 +260,6 @@ function CreatorKitsTracks(props) {
                                 {handleMoodColumn(track, moodColumn)}
                               </div>
                             }
-                            <div className="rowParticipant BPM">
-                              {track.mediable.bpm}
-                            </div>
                             <div className="rowParticipant controls">
                               {props.title == 'Music' &&
                                 <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>

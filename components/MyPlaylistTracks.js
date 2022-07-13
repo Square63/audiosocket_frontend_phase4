@@ -235,13 +235,6 @@ function MyPlaylistTracks(props) {
                 <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
               </span> */}
             </div>
-            <div className="rowParticipant BPM" onClick={(e) => handleSorting(e, props.appliedFiltersList, "bpm", bpmSortDir == "ASC" ? "DESC" : "ASC")}>
-              BPM
-              <span className="sortingMedium">
-                <a href="" className={bpmSortDir == "DESC" ? "decending disableSortBtn" : bpmSortDir == "" ? "decending" : "decending"}></a>
-                <a href="" className={bpmSortDir == "ASC" ? "ascending  disableSortBtn" : bpmSortDir == "" ? "ascending" : "ascending"}></a>
-              </span>
-            </div>
             <div className="rowParticipant controls"></div>
           </div>
         }
@@ -276,9 +269,6 @@ function MyPlaylistTracks(props) {
                             </div>
                             <div className="rowParticipant mood">
                               {handleMoodColumn(track, moodColumn)}
-                            </div>
-                            <div className="rowParticipant BPM">
-                              {track.mediable.bpm}
                             </div>
                             <div className="rowParticipant controls">
                             {props.showDeleteButton && <OverlayTrigger overlay={<Tooltip>Remove From Playlist</Tooltip>}>
