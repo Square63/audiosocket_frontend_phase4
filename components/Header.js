@@ -83,7 +83,7 @@ function Header() {
                 ?
                   <>
                       <Nav.Link href="/login" className={router.pathname.toLowerCase() === "/login" ? "active" : ""}>Sign in</Nav.Link>
-                      <Nav.Link href="/signup" className={`headerAccount btn btnMainSmall${router.pathname.toLowerCase() === "/signup" ? " active" : ""}`}>Sign up</Nav.Link>
+                      <Nav.Link href="/signup" className={`headerAccount btn btnMainSmall sign-up-btn ${router.pathname.toLowerCase() === "/signup" ? " active" : ""}`}>Sign up</Nav.Link>
                   </>
                 :
                   <NavDropdown title="Account" className="headerAccount btn btnMainSmall" id="collasible-nav-dropdown">
