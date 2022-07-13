@@ -315,6 +315,18 @@ const Details = () => {
                       Download
                     </Button>
                     {localStorage.getItem("user") && <Button variant="link" className="btn btnMainLarge" onClick={() => handleFollowUnfollow(query.id, followed ? "unfollow" : "follow")}>
+                      {followed ? <svg xmlns="http://www.w3.org/2000/svg" width="17.39" height="17.39" viewBox="0 0 17.39 17.39">
+                        <g id="Group_165" data-name="Group 165" transform="translate(0.5 0.5)">
+                          <g id="playlist-add">
+                            <path id="Shape_1147" data-name="Shape 1147" d="M207.831,1930.952v-7.126a.712.712,0,0,0-.713-.713h-11.4a.712.712,0,0,0-.713.713v11.4a.712.712,0,0,0,.713.712h7.126" transform="translate(-195.004 -1923.114)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Oval_187" data-name="Oval 187" d="M206.073,1935.251a1.069,1.069,0,1,0-1.069-1.069A1.069,1.069,0,0,0,206.073,1935.251Z" transform="translate(-197.878 -1925.988)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Oval_188" data-name="Oval 188" d="M199.073,1936.252a1.069,1.069,0,1,0-1.069-1.069A1.069,1.069,0,0,0,199.073,1936.252Z" transform="translate(-195.866 -1926.275)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Shape_1148" data-name="Shape 1148" d="M201,1933.268v-4.094a.713.713,0,0,1,.517-.685l3.563-1.018a.713.713,0,0,1,.909.686v4.4" transform="translate(-196.728 -1924.358)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Oval_189" data-name="Oval 189" d="M211.567,1943.24a3.563,3.563,0,1,0-3.563-3.563A3.563,3.563,0,0,0,211.567,1943.24Z" transform="translate(-198.74 -1926.85)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                            <path id="Shape_1150" data-name="Shape 1150" d="M211,1941.114h2.85" transform="translate(-199.603 -1928.287)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          </g>
+                        </g>
+                      </svg> :
                       <svg xmlns="http://www.w3.org/2000/svg" width="17.39" height="17.39" viewBox="0 0 17.39 17.39">
                         <g id="Group_165" data-name="Group 165" transform="translate(0.5 0.5)">
                           <g id="playlist-add">
@@ -328,6 +340,7 @@ const Details = () => {
                           </g>
                         </g>
                       </svg>
+                      }
                       {followed ? "Unfollow Playlist" : "Follow Playlist"}
                     </Button>}
                   </div>
