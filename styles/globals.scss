@@ -441,6 +441,10 @@ header {
         &.active {
           color: $green-light;
         }
+
+        &.sign-up-btn {
+          color: $clr-black;
+        }
       }
 
       .headerAccount {
