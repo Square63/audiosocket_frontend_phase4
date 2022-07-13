@@ -109,7 +109,7 @@ export default function CustomAudioWave(props) {
 
   useEffect(() => {
     if (document.getElementsByClassName("play").length > 1)
-      document.getElementsByClassName("first")[0].click();
+      document.getElementsByClassName("first")[0]?.click();
     else if (document.getElementsByClassName("play").length == 1)
       document.getElementsByClassName("play")[0].classList.add('first');
   }, [playing]);
@@ -123,8 +123,10 @@ export default function CustomAudioWave(props) {
     document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.remove("play")
     document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.remove("first")
     document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.add("pause")
+
+    if (document.getElementsByClassName("play").length != 1)
+      document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].parentElement.parentElement.parentElement.nextElementSibling.children[0].childNodes[0].childNodes[0].click();
     setPlaying(!playing)
-    wavesurfer.current.pause();
   });
 
   function handlePlayPause() {
