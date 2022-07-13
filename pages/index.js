@@ -619,7 +619,7 @@ export default function Home(props) {
                 <div className="moodContent">
                   <div className="moodText">
                     <h2>Curated playlists to fit your project.</h2>
-                    <p>Flip through some of our most popular playlists to see the high-quality tracks we carry.</p>
+                    <p>Flip through some of our most popular playlists to listen to the high-quality tracks we offer.</p>
                   </div>
                   <div className="moodFilters hideOntablet">
                     <Link href="/playlist/creatorKits">
