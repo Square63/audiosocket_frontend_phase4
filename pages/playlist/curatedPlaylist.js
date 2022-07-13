@@ -79,7 +79,7 @@ function CuratedPlaylist() {
   const curatedPlaylists = useSelector( state => state.user.curated_filters)
   const responseStatus = useSelector(state => state.user.responseStatus);
   const [filterOpen, setFilterOpen] = useState(false);
-  const [filterTypeOpen, setFilterTypeOpen] = useState(false);
+  const [filterType, setFilterType] = useState("");
   const [hasMore, sethasMore] = useState(true)
 
   useEffect(() => {
@@ -159,65 +159,6 @@ function CuratedPlaylist() {
     dispatch(getCuratedPlaylists(searchValue, [], 1))
   }
 
-  const filterItems = (
-    <>
-      <Dropdown className="d-inline">
-        <Dropdown.Toggle id="dropdown-autoclose-true">
-          Mood
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <div className="filterWrapper">
-          {curatedPlaylists && curatedPlaylists.moods.length > 0 && curatedPlaylists.moods.map((sub_filter, index) =>
-            <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
-              <Link key={index} href={"/playlist/curatedPlaylist/" + sub_filter.id}>
-                <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
-                  <Dropdown.Item href="javascript:void(0)">{sub_filter.name}</Dropdown.Item>
-                </div>
-              </Link>
-            </div>
-          )}
-          </div>
-        </Dropdown.Menu>
-      </Dropdown>
-      <Dropdown className="d-inline">
-        <Dropdown.Toggle id="dropdown-autoclose-true">
-          Genres
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <div className="filterWrapper">
-          {curatedPlaylists && curatedPlaylists.genres.length > 0 && curatedPlaylists.genres.map((sub_filter, index) =>
-            <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
-              <Link key={index} href={"/playlist/curatedPlaylist/" + sub_filter.id}>
-                <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
-                  <Dropdown.Item href="javascript:void(0)">{sub_filter.name}</Dropdown.Item>
-                </div>
-              </Link>
-            </div>
-          )}
-          </div>
-        </Dropdown.Menu>
-      </Dropdown>
-      <Dropdown className="d-inline">
-        <Dropdown.Toggle id="dropdown-autoclose-true">
-          Themes
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <div className="filterWrapper">
-          {curatedPlaylists && curatedPlaylists.themes.length > 0 && curatedPlaylists.themes.map((sub_filter, index) =>
-            <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
-              <Link key={index} href={"/playlist/curatedPlaylist/" + sub_filter.id}>
-                <div className={selectedFilter == sub_filter.name ? "filterSelf activeFilter" : "filterSelf"} key={index}>
-                  <Dropdown.Item href="javascript:void(0)">{sub_filter.name}</Dropdown.Item>
-                </div>
-              </Link>
-            </div>
-          )}
-          </div>
-        </Dropdown.Menu>
-      </Dropdown>
-    </>
-  )
-
   return (
     <>
     {
@@ -228,8 +169,11 @@ function CuratedPlaylist() {
           <h1>Curated playlists</h1>
           <div className={playlist.filterSearch}>
             <div className="filterBar desktopShowFlex">
-              <a href="javascript:void(0)" className={playlist.linkFilter}>All playlists</a>
-              {filterItems}
+              <a href="javascript:void(0)" className={playlist.linkFilter} onClick={() => { setFilterType()}}>All playlists</a>
+              <a href="javascript:void(0)" className={playlist.linkFilter} onClick={() => { setFilterType('moods')}}>Mood</a>
+              <a href="javascript:void(0)" className={playlist.linkFilter} onClick={() => { setFilterType('genres')}}>Genres</a>
+              <a href="javascript:void(0)" className={playlist.linkFilter} onClick={() => { setFilterType('themes')}}>Themes</a>
+
               <Dropdown className="d-inline">
                 <Dropdown.Toggle id="dropdown-autoclose-true">
                   Creator Kits
@@ -452,7 +396,7 @@ function CuratedPlaylist() {
             </Form>
           </div>
 
-          {showFeatured &&
+          {!filterType && showFeatured &&
             <section className="moodSlider">
               <div className="testimonialContainer">
                 <h2 className={playlist.sectionHeading}>
@@ -474,9 +418,11 @@ function CuratedPlaylist() {
             </section>
           }
           <section className={playlist.playlistTiles}>
-            <h2 className={playlist.sectionHeading}>
-              {paginatedPlaylists.length > 0 ? 'All playlists' :  'No playlist found'}
-            </h2>
+            {!filterType &&
+              <h2 className={playlist.sectionHeading}>
+                {paginatedPlaylists.length > 0 ? 'All playlists' :  'No playlist found'}
+              </h2>
+            }
             <InfiniteScroll
               dataLength={paginatedPlaylists?.length}
               next={handlePageNum}
@@ -484,17 +430,35 @@ function CuratedPlaylist() {
               endMessage={<h4>Nothing more to show</h4>}
             >
               <div className="tilesWrapper">
-                {paginatedPlaylists &&
-                  paginatedPlaylists.map((playlist,index)=> {
-                    return(
-                      <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
-                        <a key={index} className="tileOverlay">
-                          {playlist.compressed_playlist_image && <Image src={playlist.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
-                          <span className="tileOverlayText">{playlist.name}</span>
-                        </a>
-                      </Link>
-                    )
-                  })
+                {filterType ?
+                  <>
+                    {curatedPlaylists && curatedPlaylists[filterType].length > 0 &&
+                      curatedPlaylists[filterType].map((playlist, index) => {
+                        return (
+                          <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => { setIsLoading(true) }}>
+                            <a key={index} className="tileOverlay">
+                              {playlist.compressed_playlist_image && <Image src={playlist.compressed_playlist_image} alt={filterType} className="tilesImg" layout="fill"></Image>}
+                              <span className="tileOverlayText">{playlist.name}</span>
+                            </a>
+                          </Link>
+                        )
+                      })
+                    }
+                  </> :
+                  <>
+                    {paginatedPlaylists &&
+                      paginatedPlaylists.map((playlist, index)=> {
+                        return(
+                          <Link href={"curatedPlaylist/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
+                            <a key={index} className="tileOverlay">
+                              {playlist.compressed_playlist_image && <Image src={playlist.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                              <span className="tileOverlayText">{playlist.name}</span>
+                            </a>
+                          </Link>
+                        )
+                      })
+                    }
+                  </>
                 }
               </div>
             </InfiniteScroll>
