@@ -3,8 +3,15 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { ToastContainer, toast } from 'react-toastify';
 
 function ShareModal({showModal = false, onCloseModal}) {
+  const shareLink = window.location.href;
+
+  const handleSharePlaylist = () => {
+    {navigator.clipboard.writeText(shareLink)};
+    toast.success("Link copied to clipboard");
+  }
 
   const handleClose = () => {
     onCloseModal(false);
@@ -28,9 +35,9 @@ function ShareModal({showModal = false, onCloseModal}) {
             <div className="form-group">
               <Form.Label className="required">Copy a link to share playlist.</Form.Label>
               <div className="linkContainer">
-                <div className="shareLink">https://prod.audiosocket.com/playlist/curatedPlaylist/1</div>
+                <div className="shareLink">{shareLink}</div>
                 <OverlayTrigger overlay={<Tooltip>Copy Link</Tooltip>}>
-                  <div className="copyLink">
+                  <div onClick={() => {handleSharePlaylist()}} className="copyLink">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="#000000" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="80" y1="128" x2="176" y2="128" fill="none" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line><path d="M104,176H64a48,48,0,0,1,0-96h40" fill="none" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path><path d="M152,176h40a48,48,0,0,0,0-96H152" fill="none" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path></svg>
                   </div>
                 </OverlayTrigger>
