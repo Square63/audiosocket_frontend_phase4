@@ -119,6 +119,14 @@ export default function CustomAudioWave(props) {
       wavesurfer.current.pause();
   });
 
+  wavesurfer.current?.on('finish', function() {
+    document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.remove("play")
+    document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.remove("first")
+    document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.add("pause")
+    setPlaying(!playing)
+    wavesurfer.current.pause();
+  });
+
   function handlePlayPause() {
     setPlaying(!playing)
     wavesurfer.current?.playPause();
