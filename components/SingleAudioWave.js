@@ -83,6 +83,19 @@ export default function CustomAudioWave(props) {
       document.getElementsByClassName("play")[0].classList.add('first');
   }, [playing]);
 
+  wavesurfer.current?.on('ready', function() {
+    if ((document.getElementsByClassName("play").length == 0) || (document.getElementsByClassName("play").length == 1 && !document.getElementsByClassName("play")[0].classList.contains(wavesurfer.current.container.classList)))
+      wavesurfer.current.pause();
+  });
+
+  wavesurfer.current?.on('finish', function() {
+    document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.remove("play")
+    document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.remove("first")
+    document.getElementsByClassName(wavesurfer.current.container.classList[0])[0].classList.add("pause")
+    setPlaying(!playing)
+    wavesurfer.current.pause();
+  });
+
   const handlePlayPause = () => {
     setPlaying(!playing);
     wavesurfer.current.playPause();
@@ -107,7 +120,7 @@ export default function CustomAudioWave(props) {
             {isLoading ?
               <InpageLoader /> :
               <div className="playPauseBtn" onClick={handlePlayPause}>
-                <span className={(playing) ? "play" : "pause"}></span>
+                <span className={(playing) ? "play" + ' ' +props.track.id+'alt' : "pause" + ' ' +props.track.id+'alt'}></span>
               </div>
             }
             <a href="" className="filterName">
@@ -115,7 +128,7 @@ export default function CustomAudioWave(props) {
             </a>
           </div>
           <div className="waveTime">
-            <div id="waveform" ref={waveformRef}  />
+            <div id="waveform" ref={waveformRef} className={props.track.id+'alt'} />
           </div>
           <div className="durationCount totalDuration">{convertSecToMin(props.track.duration)}</div>
           <div className="rowParticipant mood">{props.moodColumn}</div>
