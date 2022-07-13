@@ -34,6 +34,7 @@ function FavoriteTracks(props) {
   const [hasMore, sethasMore] = useState(true)
   const [moodColumn, setMoodColumn] = useState("moods")
   const [followedArtists, setFollowedArtists] = useState([]);
+  const [tracksSfxToggle, setTracksSfxToggle] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -161,6 +162,10 @@ function FavoriteTracks(props) {
     setFollowedArtists(followedArtists)
   }
 
+  const handleTracksSfxToggle = (value) => {
+    setTracksSfxToggle(value);
+  }
+
   return (
     <>
     {!tracks ? (
@@ -173,9 +178,9 @@ function FavoriteTracks(props) {
           </div>
           <div className="textCenter mt-3">
             <div className="toggleButton">
-              <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked />
+              <input id="toggle-on" onClick={() => { handleTracksSfxToggle(false) }} className="toggle toggleLeft" name="toggle" value="false" type="radio" checked={!tracksSfxToggle}/>
               <label htmlFor="toggle-on" className="movingBtn">Music</label>
-              <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" />
+              <input id="toggle-off" onClick={() => { handleTracksSfxToggle(true) }} className="toggle toggleRight" name="toggle" value="true" type="radio" checked={tracksSfxToggle}/>
               <label htmlFor="toggle-off" className="movingBtn">SFX</label>
             </div>
           </div>
@@ -193,7 +198,7 @@ function FavoriteTracks(props) {
               </div>
               <div className="rowParticipant controls"></div>
             </div>
-            {tracks.map((track,index)=> {
+            {!tracksSfxToggle && tracks.map((track,index)=> {
               return(<div key={index} className="trackRow">
                 <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} notClickable={true}/>
                 <div className="rowParticipant duration">
@@ -317,7 +322,7 @@ function FavoriteTracks(props) {
               </div>)
               })}
 
-            {props.sfxes && props.sfxes.map((track,index)=> {
+            {props.sfxes && tracksSfxToggle && props.sfxes.map((track,index)=> {
               return(<div key={index} className="trackRow">
                 <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} notClickable={true}/>
                 <div className="rowParticipant duration">
