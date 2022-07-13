@@ -53,9 +53,8 @@ function Billing() {
               </Link>
             </div>
           </div>
-        ) : (
-          <InpageLoader/>
-        )
+        ) :
+          <>No Billing Info Available</>
       }
     </>
     
