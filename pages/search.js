@@ -69,6 +69,7 @@ function Search(props) {
   const [showSidebar, setShowSidebar] = useState(false)
   const [durationFilter, setDurationFilter] = useState({start:0, end: 0})
   const [sidebarType, setSidebarType] = useState("")
+  const [searchQuery, setSearchQuery] = useState("")
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
   const [fromAims, setFromAims] = useState(false);
@@ -87,7 +88,16 @@ function Search(props) {
   useEffect(() => {
     let trackName = localStorage.getItem("track_name")
     let trackId = localStorage.getItem("track_id")
-    if (trackName && trackId) {
+    let file = localStorage.getItem("uploadFileFromWelcome")
+    let keyword = localStorage.getItem("keyword")
+    if (keyword){
+      setFromAims(true)
+      setSearchQuery(keyword)
+      localStorage.removeItem("keyword")
+    } else if (file) {
+      setFromAims(true)
+      localStorage.removeItem("uploadFileFromWelcome")
+    } else if (trackName && trackId) {
       setFromAims(true)
       handleSimilarSearch(trackName, trackId)
       localStorage.removeItem("track_name")
@@ -259,11 +269,14 @@ function Search(props) {
       filters = appliedFiltersList
       setLoading(true)
     }
-    setFromAims(false)
+
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    dispatch(getTracks(query, query_type(query), filters, "", "", 1, explicit, vocals));
+    let typeOfSearch = query_type(query)
+    typeOfSearch == 'aims_search' ? setFromAims(true) : setFromAims(false)
+    setSearchQuery(query)
+    dispatch(getTracks(query, typeOfSearch, filters, "", "", 1, explicit, vocals));
   }
 
   const handleClearAllFilter = () => {
@@ -643,7 +656,7 @@ function Search(props) {
           <h1 className={search.pageHeading}>Search Music</h1>
           <div className={search.searchUploadStuff}>
             <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
-              <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" id="searchField" />
+              <Form.Control type="text" value={searchQuery} placeholder="Search by YouTube link, Spotify song link, or Keyword" id="searchField" />
               <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
               <svg xmlns="http://www.w3.org/2000/svg" className="" width="22.414" height="22.414" viewBox="0 0 22.414 22.414">
                 <g id="icon-magnifying-glass" transform="translate(1 1)">
