@@ -113,6 +113,7 @@ function CuratedPlaylist() {
 
   useEffect(() => {
     if (playlists) {
+      localStorage.removeItem("curatedPlaylistFilterType")
       setIsLoading(false)
       setPaginatedPlaylists(paginatedPlaylists => [...paginatedPlaylists, ...playlists])
       setPaginatedPlaylistsCount(paginatedPlaylistsCount + playlists.length)
