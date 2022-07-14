@@ -47,7 +47,7 @@ function Login() {
 
   useEffect(() => {
     if (!SocialLogIn) {
-      if(loggedInUser.error) {
+      if(!loggedInUser.user) {
         toast.error(loggedInUser.error.message, TOAST_OPTIONS);
       } else if (loggedInUser.user && Object.keys(loggedInUser.user).length) {
         localStorage.setItem("user", JSON.stringify(loggedInUser.user));

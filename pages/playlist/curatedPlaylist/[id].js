@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { getCuratedPlaylistDetail, getCuratedPlaylistTracks, removeFromPlaylist } from "../../../redux/actions/authActions";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import MyPlaylistTracks from "../../../components/MyPlaylistTracks";
@@ -21,6 +21,7 @@ import Notiflix from "notiflix";
 import axios from "axios";
 import { BASE_URL } from '../../../common/api';
 import ShareModal from "../../../components/modals/ShareModal";
+import {AuthContext} from "../../../store/authContext";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,17 @@ const Details = () => {
   const [sidebarType, setSidebarType] = useState("")
   const favoritesMessage = useSelector( state => state.allTracks)
   const [followed, setFollowed] = useState(false)
+  const [altVersionTrack, setAltVersionTrack] = useState(null);
+  const cartItem = useSelector(state => state.user.cart)
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    if (cartItem && cartItem.id){
+      toast.success("Track added to the cart successfully!")
+    } else {
+      toast.error(cartItem)
+    }
+  }, [cartItem]);
 
   useEffect(() => {
     if (query) {
@@ -164,17 +176,26 @@ const Details = () => {
     setShowShareModal(false)
   }
 
-  function showAddTrackToCartLicenseModal(index) {
-    setIsLoading(true)
+  function showAddTrackToCartLicenseModal(index, type) {
+    setIndex(index%10)
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
+      if (type == "track") {
+        setAltVersionTrack(null)
       }
       else {
-        setIndex(index)
+        setAltVersionTrack(index)
       }
-      setShowSidebar(true)
-      setSidebarType("cart")
+      if (typeof(localStorage.getItem("has_subscription")) !== undefined) {
+        if (JSON.parse(localStorage.getItem("has_subscription"))) {
+          if (type == "footer")
+            authContext.handleAddToCart(index, "Track", "");
+          else
+            authContext.handleAddToCart(type == "track" ? curatedPlaylistTracks.playlist_tracks[index%10].mediable.id : index.id, "Track", "");
+        } else {
+          setShowSidebar(true)
+          setSidebarType("cart")
+        }
+      }
     }
     else {
       setShowSidebar(true)
@@ -354,8 +375,8 @@ const Details = () => {
 
           {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={curatedPlaylistTracks.playlist_tracks[index]} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-          {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={curatedPlaylistTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
-          {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={curatedPlaylistTracks[index]} />}
+          {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={curatedPlaylistTracks.playlist_tracks[index].mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
+          {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={curatedPlaylistTracks.playlist_tracks[index].mediable} type="Track" />}
           <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
         </div>
 
