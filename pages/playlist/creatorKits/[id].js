@@ -22,6 +22,7 @@ import { BASE_URL } from '../../../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import { TOAST_OPTIONS } from '../../../common/api';
 import ShareModal from "../../../components/modals/ShareModal";
+import DownloadPlaylist from "../../../components/modals/DownloadPlaylist";
 
 const Details = ()  => {
   const dispatch = useDispatch();
@@ -42,7 +43,8 @@ const Details = ()  => {
   const [showDownloadMessage, setShowDownloadMessage] = useState(false);
   const authContext = useContext(AuthContext);
   const [followed, setFollowed] = useState(false)
-  const [showShareModal, setShowShareModal] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [showDownloadPlaylist, setShowDownloadPlaylist] = useState(false);
 
   useEffect(() => {
     if (query) {
@@ -156,6 +158,10 @@ const Details = ()  => {
 
   function handleShareModalClose() {
     setShowShareModal(false)
+  }
+
+  function handleDownloadPlaylistClose() {
+    setShowDownloadPlaylist(false)
   }
 
   function showAddTrackToCartLicenseModal(index) {
@@ -317,7 +323,7 @@ const Details = ()  => {
                   </svg>
                   Share
                 </Button>
-                    <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={(creatorKitsDetail.meta.track_count <= 0 && creatorKitsDetail.meta.sfx_count <= 0 && creatorKitsDetail.meta.sound_design_count <= 0) || showDownloadMessage}>
+                    <Button variant="link" className="btn btnMainLarge" onClick={() => setShowDownloadPlaylist(true)} disabled={(creatorKitsDetail.meta.track_count <= 0 && creatorKitsDetail.meta.sfx_count <= 0 && creatorKitsDetail.meta.sound_design_count <= 0) || showDownloadMessage}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
                     <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
                       <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -411,6 +417,7 @@ const Details = ()  => {
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type={type}/>}
       <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
+      <DownloadPlaylist showModal={showDownloadPlaylist} onCloseModal={handleDownloadPlaylistClose} />
     </div> : <InpageLoader/>
     }
     </>
