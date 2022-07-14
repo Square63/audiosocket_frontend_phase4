@@ -79,6 +79,11 @@ const Details = ()  => {
     dispatch(getCreatorKitsTracks(query.id, type, 1))
   }, [type])
 
+  useEffect(() => {
+    if (creatorKitsDetail)
+      setFollowed(creatorKitsDetail?.meta?.followed)
+  }, [creatorKitsDetail])
+
   const handleType = (e) => {
     setUpdatedTracks([])
     setType(e)
