@@ -42,6 +42,7 @@ const Details = () => {
   const [sidebarType, setSidebarType] = useState("")
   const favoritesMessage = useSelector( state => state.allTracks)
   const [followed, setFollowed] = useState(false)
+  const [showDownloadMessage, setShowDownloadMessage] = useState(false);
   const [altVersionTrack, setAltVersionTrack] = useState(null);
   const cartItem = useSelector(state => state.user.cart)
   const authContext = useContext(AuthContext);
@@ -212,23 +213,25 @@ const Details = () => {
   }
 
   const handleDownloadZip = async (id) => {
-    setIsLoading(true)
-    let url = `${BASE_URL}/api/v1/consumer/curated_playlists/58/playlist_tracks/download_zip?file_type=wav_file`
-    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
-    const response = await fetch(url,
-      {
-        headers: {
-          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-          "auth-token": userAuthToken
-        },
-        method: "GET"
-      });
-    if(response.ok) {
+    setShowDownloadMessage(true)
+    await axios.request({
+      headers: {
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+      },
+      method: "get",
+      url: (`${BASE_URL}/api/v1/consumer/curated_playlists/${id}/playlist_tracks/download_zip?file_type=mp3_file`)
 
-    } else {
-
-    }
-
+    }).then(response => {
+      if (response.status == 200) {
+        const link = document.createElement("a");
+        link.href = response.data.zip_file;
+        link.download = curatedPlaylistDetail.name;
+        link.click();
+        setShowDownloadMessage(false)
+      } else {
+        toast.error("Error while downloading curated playlist.");
+      }
+    })
   }
 
   const removeTrackFromPlaylist = (trackId) => {
@@ -261,7 +264,7 @@ const Details = () => {
     }).catch(error => {
       toast.error(error.response.data.message);
     });
-    
+
   }
 
   return (
@@ -325,7 +328,7 @@ const Details = () => {
                       </svg>
                       Share
                     </Button>
-                    <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={curatedPlaylistDetail?.media_count <= 0}>
+                        <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={curatedPlaylistDetail?.media_count <= 0 || showDownloadMessage}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
                         <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
                           <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -365,6 +368,9 @@ const Details = () => {
                       {followed ? "Unfollow Playlist" : "Follow Playlist"}
                     </Button>}
                   </div>
+                  {showDownloadMessage &&
+                    <div className={playlist.downloadMessage}>Please wait while your download is in progress...</div>
+                  }
                 </div>
               </div>
             </div>

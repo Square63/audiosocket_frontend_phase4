@@ -21,6 +21,8 @@ import AddToCartLicense from "../../../components/modals/AddToCartLicense";
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions/trackActions';
 import Notiflix from "notiflix";
 import Pluralize from 'pluralize';
+import axios from "axios";
+import { BASE_URL } from '../../../common/api';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ const Details = () => {
   const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
+  const [showDownloadMessage, setShowDownloadMessage] = useState(false);
   const favoritesMessage = useSelector( state => state.allTracks)
   const firstName = JSON.parse(localStorage.getItem("first_name")).charAt(0).toUpperCase() + JSON.parse(localStorage.getItem("first_name")).slice(1)
   const lastName = JSON.parse(localStorage.getItem("last_name")).charAt(0).toUpperCase() + JSON.parse(localStorage.getItem("last_name")).slice(1)
@@ -197,23 +200,24 @@ const Details = () => {
   }
 
   const handleDownloadZip = async (id) => {
-    setIsLoading(true)
-    let url = `${BASE_URL}/api/v1/consumer/curated_playlists/58/playlist_tracks/download_zip?file_type=wav_file`
-    const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
-    const response = await fetch(url,
-      {
-        headers: {
-          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8",
-          "auth-token": userAuthToken
-        },
-        method: "GET"
-      });
-    if(response.ok) {
-
-    } else {
-
-    }
-
+    setShowDownloadMessage(true)
+    await axios.request({
+      headers: {
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+      },
+      method: "get",
+      url: (`${BASE_URL}/api/v1/consumer/consumers_playlists/${id}/playlist_tracks/download_zip?klass=consumer_playlist&file_type=mp3_file`)
+    }).then(response => {
+      if (response.status == 200) {
+        const link = document.createElement("a");
+        link.href = response.data.zip_file;
+        link.download = myPlaylistDetail.name;
+        link.click();
+        setShowDownloadMessage(false)
+      } else {
+        toast.error("Error while downloading your playlist.");
+      }
+    })
   }
 
   const removeTrackFromPlaylist = (track) => {
@@ -295,7 +299,7 @@ const Details = () => {
                       </svg>
                       Share
                     </Button>
-                    <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={myPlaylistTracks?.playlist_tracks?.length <= 0}>
+                      <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={myPlaylistTracks?.playlist_tracks?.length <= 0 || showDownloadMessage}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
                         <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
                           <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -316,6 +320,9 @@ const Details = () => {
                       Edit Playlist
                     </Button>
                   </div>
+                  {showDownloadMessage &&
+                    <div className={playlist.downloadMessage}>Please wait while your download is in progress...</div>
+                  }
                 </div>
               </div>
             </div>
