@@ -95,6 +95,7 @@ export default function Home(props) {
   const socialLogin = useSelector(state => state.auth.user);
   const filters = useSelector( state => state.allFilters.filters[0])
   const trendingPlaylists = useSelector( state => state.auth.trending_playlists)
+  const [searchValue, setSearchValue] = useState("");
   filters.map((filter, index) =>
     filter.name == "Genres" &&
       genresArray.push(filter.sub_filters.slice(0, 5))
@@ -238,10 +239,17 @@ export default function Home(props) {
     router.push('/search')
   }
 
-  function handleSearch(e) {
+  function handleAimsSearch(e) {
     let searchQuery = e.target.previousElementSibling.value
     localStorage.setItem('keyword', searchQuery)
     dispatch(getTracks(searchQuery, 'aims_search', [], "", "", 1));
+    router.push('/search')
+  }
+
+  function handleSearch(e) {
+    let type = searchValue.includes("https") ? "aims_search" : "local_search"
+    localStorage.setItem('localKeyword', searchValue)
+    localStorage.setItem('localKeywordType', type)
     router.push('/search')
   }
 
@@ -308,7 +316,7 @@ export default function Home(props) {
                 <h1>A Musical Journey Awaits.</h1>
                 <p>Audiosocket makes finding and licensing great music simple. Use our Search Guides below to start your journey &amp; let the music inspire.</p>
                 <Form className="stickySearch heroForm" onSubmit={e => { e.preventDefault(); }}>
-                  <Form.Control type="text" placeholder="Enter a keyword, YouTube link, or Spotify song link…" />
+                  <Form.Control type="text" placeholder="Enter a keyword, YouTube link, or Spotify song link…" onChange={(e) => setSearchValue(e.target.value)} />
                   <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={(e) => handleSearch(e)}>Search</Button>
                 </Form>
                 <div className="brandsStrip">
@@ -596,7 +604,7 @@ export default function Home(props) {
                           <a href="" className="tryOut">Try it Out</a>
                           <Form className="stickySearch" onSubmit={e => { e.preventDefault(); }}>
                             <Form.Control type="text" placeholder="Paste in a YouTube link or Spotify song link" />
-                            <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={(e) => handleSearch(e)}>Search</Button>
+                            <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={(e) => handleAimsSearch(e)}>Search</Button>
                           </Form>
                         </div>
                       </div>
