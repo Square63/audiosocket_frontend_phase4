@@ -64,6 +64,10 @@ class Braintree extends React.Component {
         }
       });
     }
+
+    if (data.invoice) {
+      this.sendToHomePage();
+    }
   }
 
   async buy() {
@@ -123,7 +127,7 @@ class Braintree extends React.Component {
     } else if (this.state.invoice) {
       return (
         <div>
-          <a href={this.state.invoice} target="_blank" rel="noreferrer" onClick={() => {this.sendToHomePage()}}>View Invoice</a>
+          <InpageLoader />        
         </div>
       );
     } else if (!this.state.clientToken){
