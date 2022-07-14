@@ -270,7 +270,8 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
     case MY_PLAYLIST_DETAIL_SUCCESS:
       return {
         ...state,
-        my_playlist_detail: action.payload,
+        my_playlist_detail: action.payload.consumer_playlist,
+        meta: action.payload.meta,
         success: true,
       };
     case MY_PLAYLIST_DETAIL_FAIL:
@@ -374,7 +375,8 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
     case CURATED_PLAYLIST_DETAIL_SUCCESS:
       return {
         ...state,
-        curated_playlist_detail: action.payload,
+        curated_playlist_detail: action.payload.curated_playlist,
+        meta: action.payload.meta,
         success: true,
       };
     case CURATED_PLAYLIST_DETAIL_FAIL:

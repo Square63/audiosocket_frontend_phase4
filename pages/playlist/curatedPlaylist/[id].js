@@ -27,6 +27,7 @@ const Details = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const curatedPlaylistDetail = useSelector(state => state.user.curated_playlist_detail);
+  const curatedPlaylistMeta = useSelector(state => state.user.meta);
   const curatedPlaylistTracks = useSelector(state => state.user.curated_playlist_tracks);
   const curatedPlaylistTracksMeta = useSelector(state => state.user.curatedPlaylistTrackMeta);
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
@@ -65,6 +66,7 @@ const Details = () => {
 
   useEffect(() => {
     if (curatedPlaylistDetail) {
+      setFollowed(curatedPlaylistMeta.followed)
       setIsLoading(false)
     }
   }, [curatedPlaylistDetail])
