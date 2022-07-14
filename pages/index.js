@@ -750,7 +750,7 @@ export default function Home(props) {
                         <p className="planPriceText">Customized quote to meet your needs.</p>
                       </div>
                       <p className="planDescription">
-                        Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
+                        Need a plan for a large business (more than 50 employees), a team account with multiple seats, or TV, Film, Radio, VOD or expanded media rights? Let us customize a license or a plan just for you!
                       </p>
                       <div className="PlanBtnContainer">
                         <Link

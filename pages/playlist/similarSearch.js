@@ -146,6 +146,7 @@ function similarSearch() {
                           </svg>
                           <span>Share</span>
                         </Dropdown.Item>
+                        { (localStorage?.getItem('user')) ?
                         <Dropdown.Item href="#/action-1">
                           <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
                             <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
@@ -161,7 +162,7 @@ function similarSearch() {
                             </g>
                           </svg>
                           <span>Follow Artist</span>
-                        </Dropdown.Item>
+                        </Dropdown.Item> : "" }
                       </Dropdown.Menu>
                     </Dropdown>
                   </div>
