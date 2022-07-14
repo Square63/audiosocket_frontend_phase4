@@ -229,7 +229,7 @@ const Details = ()  => {
     setShowDownloadMessage(true)
     await axios.request({
       headers: {
-        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.9kL4HmyjCYJgdpBHX1g3JHAp235eKlLAO_vcPb4bYGk',
       },
       method: "get",
       url: (`${BASE_URL}/api/v1/consumer/creator_kits/${id}/playlist_tracks/download_zip?klass=creator_kit&file_type=mp3_file`)
