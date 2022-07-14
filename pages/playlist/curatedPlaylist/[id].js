@@ -30,6 +30,7 @@ const Details = () => {
   const curatedPlaylistTracks = useSelector(state => state.user.curated_playlist_tracks);
   const curatedPlaylistTracksMeta = useSelector(state => state.user.curatedPlaylistTrackMeta);
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+  const [followedArtistsIds, setFollowedArtistsIds] = useState([]);
   const [updatedArtists, setUpdatedArtists] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -71,12 +72,14 @@ const Details = () => {
 
   useEffect(() => {
     if (curatedPlaylistTracks) {
-      curatedPlaylistTracks.meta && setFavoriteTrackIds(curatedPlaylistTracks.meta.favorite_tracks_ids)
+      if (curatedPlaylistTracks.meta){
+        setFavoriteTrackIds(curatedPlaylistTracks.meta.favorite_tracks_ids)
+        setFollowedArtistsIds(curatedPlaylistTracks.meta.followed_artist_ids)
+      }
       setIsLoading(false)
       if (updatedTracks[0]?.id != curatedPlaylistTracks.playlist_tracks[0]?.id){
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...curatedPlaylistTracks.playlist_tracks]);
       }
-        
     }
   }, [curatedPlaylistTracks])
 
@@ -153,7 +156,7 @@ const Details = () => {
   function showDownloadModal(index) {
     setIndex(index)
     if (localStorage.getItem("user")) {
-      
+
       setShowDownModal(true)
     }
     else {
@@ -377,7 +380,7 @@ const Details = () => {
             </div>
           </div>
           <div className="fixed-container">
-            {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated"/> : <InpageLoader />}
+            {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated"/> : <InpageLoader />}
           </div>
 
           {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/> }
