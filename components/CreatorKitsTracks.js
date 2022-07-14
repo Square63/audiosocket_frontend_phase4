@@ -232,7 +232,7 @@ function CreatorKitsTracks(props) {
           hasMore={hasMore}
           loader={<InpageLoader />}
           // endMessage={<h4>Nothing more to show</h4>}
-        >       
+        >
           {tracks && tracks.length > 0 ? tracks.map((track, index)=> (
             <div className="trackRow" key={index}>
               <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
@@ -376,11 +376,11 @@ function CreatorKitsTracks(props) {
                 </>
               }
             </div>
-                
-            
+
+
           )) : <div className="textCenter">No tracks found</div>}
-                  
-                
+
+
 
         </InfiniteScroll>
       </div>
