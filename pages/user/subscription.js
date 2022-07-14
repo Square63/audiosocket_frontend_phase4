@@ -235,12 +235,10 @@ function Subscription() {
               </div>
               <div className={user.planBody}>
                 <div className={user.planFeatures}>
-                  <p>Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights?
-                    Let us customize a plan just for you!
-                  </p>
-
-                  <p>Our music is available to license for ALL MEDIA. Whatever you’re creating, we’ve got you covered. Just ask!.</p>
-                  <p>Please request a custom quote and one of our reps will be in touch ASAP.</p>
+                  <p className="mb-4">Need a plan for a large business (more than 50 employees), a team account with multiple seats, or TV, Film, Radio, VOD or expanded media rights? Let us customize a license or a plan just for you!</p>
+                  <p className="mb-4">Our music is available to license for <strong>ALL MEDIA</strong>.</p>
+                  <p className="mb-4">Whatever you’re creating, we’ve got you covered. Just ask!</p>
+                  <p className="mb-4">Please request a custom quote and one of our reps will be in touch ASAP.</p>
                 </div>
                 <div className={user.plansBtnWrapper}>
                   <Link href="/pricing?enterprise=true">

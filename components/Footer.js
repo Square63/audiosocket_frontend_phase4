@@ -15,7 +15,9 @@ function Footer() {
         <div className="fixed-container">
           <div className="row">
             <div className="footer-logo col-md-12 col-lg-3">
-              <Image loader={LoaderImage} src={logo} alt="LOGO" className="logo-icon"/>
+              <Link href="/">
+                <Image loader={LoaderImage} src={logo} alt="LOGO" className="logo-icon pointer-cursor"/>
+              </Link>
             </div>
             <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 footer-links">
               <div className="footerListPack">

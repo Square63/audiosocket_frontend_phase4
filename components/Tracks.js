@@ -326,7 +326,7 @@ function Tracks(props) {
                         </svg>
                       </a>
                     </OverlayTrigger>
-                    <OverlayTrigger overlay={<Tooltip>Add to Favourites</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>{props.favoriteTrackIds.includes(track.id) ? "Remove from Favourites" : "Add to Favourites"}</Tooltip>}>
                       <a onClick={(e) => props.handleAddToFavorites(e, track.id)} className={props.tracksMeta ? (props.tracksMeta.favorite_tracks_ids ? ((props.tracksMeta.favorite_tracks_ids.includes(track.id) || props.favoriteTrackIds.includes(track.id)) ? "controlActive" : "") : props.tracksMeta.favorite_sfx_ids && (props.tracksMeta.favorite_sfx_ids.includes(track.id) || props.favoriteTrackIds.includes(track.id)) ? "controlActive" : "") : ""}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
                           <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">

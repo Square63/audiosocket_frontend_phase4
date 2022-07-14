@@ -54,7 +54,7 @@ function SelectPricingPlan(props) {
   const USE_TYPES = [
     {label: 'Large Business', value: 'Large Business'},
     {label: 'Schools', value: 'Schools'},
-    {label: 'Churche', value: 'Churche'},
+    {label: 'Church', value: 'Church'},
     {label: 'Non-profit', value: 'Non-profit'},
     {label: 'TV or Digital Media Network', value: 'TV or Digital Media Network'},
     {label: 'Film Production Company', value: 'Film Production Company'},
@@ -413,9 +413,9 @@ function SelectPricingPlan(props) {
                   <h3>Enterprise Plan</h3>
                 </div>
                 <div className={pricing.enterpriseContent}>
-                  <p className="mb-4">Need a plan for a large business (more than 50 employees), a team account or for *TV, Film, Radio or VOD rights*? Let us customize a plan just for you!</p>
+                  <p className="mb-4">Need a plan for a large business (more than 50 employees), a team account with multiple seats, or TV, Film, Radio, VOD or expanded media rights? Let us customize a license or a plan just for you!</p>
                   <p className="mb-4">Our music is available to license for <strong>ALL MEDIA</strong>.</p>
-                  <p className="mb-4">Whatever you’re creating, we’ve got you covered. Just ask!.</p>
+                  <p className="mb-4">Whatever you’re creating, we’ve got you covered. Just ask!</p>
                   <p className="mb-4">Please request a custom quote and one of our reps will be in touch ASAP.</p>
                 </div>
               </div>
@@ -1066,7 +1066,7 @@ function SelectPricingPlan(props) {
                       <p className="planPriceText">Customized quote to meet your needs.</p>
                     </div>
                     <p className="planDescription">
-                      Need a plan for a large business (more than 50 employees), a team account or for TV, Film, Radio or VOD rights? Let us customize a license or plan just for you!
+                      Need a plan for a large business (more than 50 employees), a team account with multiple seats, or TV, Film, Radio, VOD or expanded media rights? Let us customize a license or a plan just for you!
                     </p>
                     <div className="PlanBtnContainer">
                       <Link href="/pricing?enterprise=true">
