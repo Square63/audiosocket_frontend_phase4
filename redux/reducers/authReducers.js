@@ -15,6 +15,7 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return {
+        ...state,
         user: action.payload.auth_token,
         userDetails: action.payload,
       };
