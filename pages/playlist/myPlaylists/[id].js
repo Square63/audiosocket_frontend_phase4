@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { getMyPlaylistDetail, getMyPlaylistTracks, getMyPlaylistArtists, removeFromPlaylist } from "../../../redux/actions/authActions";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import MyPlaylistTracks from "../../../components/MyPlaylistTracks";
@@ -23,6 +23,7 @@ import Notiflix from "notiflix";
 import Pluralize from 'pluralize';
 import axios from "axios";
 import { BASE_URL } from '../../../common/api';
+import {AuthContext} from "../../../store/authContext";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,18 @@ const Details = () => {
   const favoritesMessage = useSelector( state => state.allTracks)
   const firstName = JSON.parse(localStorage.getItem("first_name")).charAt(0).toUpperCase() + JSON.parse(localStorage.getItem("first_name")).slice(1)
   const lastName = JSON.parse(localStorage.getItem("last_name")).charAt(0).toUpperCase() + JSON.parse(localStorage.getItem("last_name")).slice(1)
+  const [altVersionTrack, setAltVersionTrack] = useState(null);
+  const cartItem = useSelector(state => state.user.cart)
+  const authContext = useContext(AuthContext);
+  const [updatedTracks, setUpdatedTracks] = useState([])
+
+  useEffect(() => {
+    if (cartItem && cartItem.id){
+      toast.success("Track added to the cart successfully!")
+    } else {
+      toast.error(cartItem)
+    }
+  }, [cartItem]);
 
   useEffect(() => {
     if (query) {
@@ -63,6 +76,9 @@ const Details = () => {
       dispatch(getMyPlaylistArtists(query.id))
       myPlaylistTracks.meta && setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
       setIsLoading(false)
+      if (updatedTracks[0]?.id != myPlaylistTracks.playlist_tracks[0]?.id){
+        setUpdatedTracks(updatedTracks => [...updatedTracks, ...myPlaylistTracks.playlist_tracks]);
+      }
     }
   }, [myPlaylistTracks])
 
@@ -147,13 +163,9 @@ const Details = () => {
   }
 
   function showDownloadModal(index) {
+    setIndex(index)
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
-      }
-      else {
-        setIndex(index)
-      }
+      
       setShowDownModal(true)
     }
     else {
@@ -173,17 +185,26 @@ const Details = () => {
     setShowLicenseModal(false)
   }
 
-  function showAddTrackToCartLicenseModal(index) {
-    setIsLoading(true)
+  function showAddTrackToCartLicenseModal(index, type) {
+    setIndex(index)
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
+      if (type == "track") {
+        setAltVersionTrack(null)
       }
       else {
-        setIndex(index)
+        setAltVersionTrack(index)
       }
-      setShowSidebar(true)
-      setSidebarType("cart")
+      if (typeof(localStorage.getItem("has_subscription")) !== undefined) {
+        if (JSON.parse(localStorage.getItem("has_subscription"))) {
+          if (type == "footer")
+            authContext.handleAddToCart(index, "Track", "");
+          else
+            authContext.handleAddToCart(type == "track" ? updatedTracks[index].mediable.id : index.id, "Track", "");
+        } else {
+          setShowSidebar(true)
+          setSidebarType("cart")
+        }
+      }
     }
     else {
       setShowSidebar(true)
@@ -355,10 +376,10 @@ const Details = () => {
             }
           </div>
           {(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} myPlaylistTracks={myPlaylistTracks} />}
-          {myPlaylistDetail && myPlaylistTracks && myPlaylistTracks.playlist_tracks?.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={myPlaylistTracks.playlist_tracks[index]} type="track"/> }
+          {myPlaylistDetail && myPlaylistTracks && myPlaylistTracks.playlist_tracks?.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-          {myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={myPlaylistTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
-          {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={myPlaylistTracks[index]} />}
+          {myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
+          {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type="Track" />}
         </div>
       </>
     )}

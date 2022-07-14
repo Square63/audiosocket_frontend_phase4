@@ -37,13 +37,8 @@ function Favorites() {
   const [updatedTracks, setUpdatedTracks] = useState([])
 
   function showDownloadModal(index) {
+    setIndex(index)
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
-      }
-      else {
-        setIndex(index)
-      }
       setShowDownModal(true)
     }
     else {

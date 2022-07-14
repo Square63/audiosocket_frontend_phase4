@@ -46,6 +46,7 @@ const Details = () => {
   const [altVersionTrack, setAltVersionTrack] = useState(null);
   const cartItem = useSelector(state => state.user.cart)
   const authContext = useContext(AuthContext);
+  const [updatedTracks, setUpdatedTracks] = useState([])
 
   useEffect(() => {
     if (cartItem && cartItem.id){
@@ -72,6 +73,10 @@ const Details = () => {
     if (curatedPlaylistTracks) {
       curatedPlaylistTracks.meta && setFavoriteTrackIds(curatedPlaylistTracks.meta.favorite_tracks_ids)
       setIsLoading(false)
+      if (updatedTracks[0]?.id != curatedPlaylistTracks.playlist_tracks[0]?.id){
+        setUpdatedTracks(updatedTracks => [...updatedTracks, ...curatedPlaylistTracks.playlist_tracks]);
+      }
+        
     }
   }, [curatedPlaylistTracks])
 
@@ -146,13 +151,9 @@ const Details = () => {
   }
 
   function showDownloadModal(index) {
+    setIndex(index)
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
-      }
-      else {
-        setIndex(index)
-      }
+      
       setShowDownModal(true)
     }
     else {
@@ -178,7 +179,7 @@ const Details = () => {
   }
 
   function showAddTrackToCartLicenseModal(index, type) {
-    setIndex(index%10)
+    setIndex(index)
     if (localStorage.getItem("user")) {
       if (type == "track") {
         setAltVersionTrack(null)
@@ -191,7 +192,7 @@ const Details = () => {
           if (type == "footer")
             authContext.handleAddToCart(index, "Track", "");
           else
-            authContext.handleAddToCart(type == "track" ? curatedPlaylistTracks.playlist_tracks[index%10].mediable.id : index.id, "Track", "");
+            authContext.handleAddToCart(type == "track" ? updatedTracks[index].mediable.id : index.id, "Track", "");
         } else {
           setShowSidebar(true)
           setSidebarType("cart")
@@ -379,10 +380,10 @@ const Details = () => {
             {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated"/> : <InpageLoader />}
           </div>
 
-          {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={curatedPlaylistTracks.playlist_tracks[index]} type="track"/> }
+          {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-          {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={curatedPlaylistTracks.playlist_tracks[index].mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
-          {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={curatedPlaylistTracks.playlist_tracks[index].mediable} type="Track" />}
+          {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
+          {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type="Track" />}
           <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
         </div>
 
