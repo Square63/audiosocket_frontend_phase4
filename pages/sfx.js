@@ -465,6 +465,7 @@ function Sfx(props) {
   }
 
   const filterItems = filters.map((filter, index) =>
+    !filter.name.includes('Keys') && !filter.name.includes('Instruments') &&
     <Dropdown alignRight className={filter.name === "Moods" ? "d-inline mood" : filter.name === "Tempos" ? "d-inline durationTempo" : "d-inline"} key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
         {filter.name == "Tempos" ? "Duration / Tempo" : filter.name}
@@ -639,33 +640,7 @@ function Sfx(props) {
           <div ref={container}>
             <Sticky container={container} className="stickUp" defaultOffsetTop={70}>
               <div className="filterBar brandWall desktopShow">
-            {filterItems}
-            <Dropdown className="d-inline setting">
-              <Dropdown.Toggle id="dropdown-autoclose-true">
-                Settings
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <div className="settingFilterWrapper">
-                  <form>
-                    <div className="toogleSwitch">
-                      <input type="checkbox" id="excludeExplicit" onChange={(e) => handleExcludeFilters(e)}/>
-                      <Form.Label htmlFor="excludeExplicit">&nbsp;</Form.Label>
-                      <span className="switchText">Exclude Explicit</span>
-                    </div>
-                    <div className="toogleSwitch">
-                      <input type="checkbox" id="youtubeContent" />
-                      <Form.Label htmlFor="youtubeContent">&nbsp;</Form.Label>
-                      <span className="switchText">YouTube ContentID Cleared</span>
-                    </div>
-                    <div className="toogleSwitch">
-                      <input type="checkbox" id="excludeVocals" onChange={(e) => handleExcludeFilters(e)}/>
-                      <Form.Label htmlFor="excludeVocals">&nbsp;</Form.Label>
-                      <span className="switchText">Exclude Vocals</span>
-                    </div>
-                  </form>
-                </div>
-              </Dropdown.Menu>
-            </Dropdown>
+                {filterItems}
               </div>
             </Sticky>
             <div className="mobileShow">
