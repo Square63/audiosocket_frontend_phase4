@@ -60,7 +60,8 @@
         line-height: 1.19;
         letter-spacing: -0.4px;
         text-transform: capitalize;
-        &:hover {
+        &:hover,
+        &:global(.active) {
           color: $green-light;
         }
       }
