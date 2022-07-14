@@ -169,11 +169,10 @@ function CuratedPlaylist() {
           <h1>Curated playlists</h1>
           <div className={playlist.filterSearch}>
             <div className="filterBar desktopShowFlex">
-              <a href="javascript:void(0)" className={playlist.linkFilter} onClick={() => { setFilterType()}}>All playlists</a>
-              <a href="javascript:void(0)" className={playlist.linkFilter} onClick={() => { setFilterType('moods')}}>Mood</a>
-              <a href="javascript:void(0)" className={playlist.linkFilter} onClick={() => { setFilterType('genres')}}>Genres</a>
-              <a href="javascript:void(0)" className={playlist.linkFilter} onClick={() => { setFilterType('themes')}}>Themes</a>
-
+              <a href="javascript:void(0)" className={!filterType ? `active ${playlist.linkFilter}` : `${playlist.linkFilter}`} onClick={() => { setFilterType() }}>All playlists</a>
+              <a href="javascript:void(0)" className={filterType == 'moods' ? `active ${playlist.linkFilter}` : `${playlist.linkFilter}`} onClick={() => { setFilterType('moods') }}>Mood</a>
+              <a href="javascript:void(0)" className={filterType == 'genres' ? `active ${playlist.linkFilter}` : `${playlist.linkFilter}`} onClick={() => { setFilterType('genres') }}>Genres</a>
+              <a href="javascript:void(0)" className={filterType == 'themes' ? `active ${playlist.linkFilter}` : `${playlist.linkFilter}`} onClick={() => { setFilterType('themes') }}>Themes</a>
               <Dropdown className="d-inline">
                 <Dropdown.Toggle id="dropdown-autoclose-true">
                   Creator Kits
