@@ -253,6 +253,11 @@ export default function Home(props) {
     router.push('/search')
   }
 
+  function handleCuratedPlaylistFilter(type) {
+    localStorage.setItem('curatedPlaylistFilterType', type)
+    router.push('/playlist/curatedPlaylist')
+  }
+
   const handleUploadTrack = async(e) => {
     const file = e.target.files[0]
     localStorage.setItem("uploadFileFromWelcome", file)
@@ -635,21 +640,15 @@ export default function Home(props) {
                         Creator Kits
                       </a>
                     </Link>
-                    <Link href="/playlist/curatedPlaylist">
-                      <a className="btn btnMainOutline">
-                        Moods
-                      </a>
-                    </Link>
-                    <Link href="/playlist/curatedPlaylist">
-                      <a className="btn btnMainOutline">
-                        Genres
-                      </a>
-                    </Link>
-                    <Link href="/playlist/curatedPlaylist">
-                      <a className="btn btnMainOutline">
-                        Themes
-                      </a>
-                    </Link>
+                    <a href="javascript:void(0)" onClick={() => {handleCuratedPlaylistFilter('moods')}} className="btn btnMainOutline">
+                      Moods
+                    </a>
+                    <a href="javascript:void(0)" onClick={() => { handleCuratedPlaylistFilter('genres') }} className="btn btnMainOutline">
+                      Genres
+                    </a>
+                    <a href="javascript:void(0)" onClick={() => { handleCuratedPlaylistFilter('themes') }} className="btn btnMainOutline">
+                      Themes
+                    </a>
                   </div>
                   <div className="MoodFilterDropdown ShowOntablet">
                     <Form>
@@ -841,28 +840,25 @@ export default function Home(props) {
               </div>
             </section>
 
-
-
             <section className="slickSlider">
-            <div className="testimonialContainer">
-              <div className="slickContent">
-                <h2>Built for creators, blockbuster approved.</h2>
-                <p>A strong storyline and script can move us, but the soundtrack transports us. If you love cinema as much as us, check out some of our featured placements. <br />Let the music inspire your next masterpiece!</p>
-              </div>
-              <Slider {...settings2}>
-                {imagess.map((img, idx) => (
-                  <div className={idx === imageIndex ? "slide activeSlide" : "slide"} key={idx}>
-                    <div className="slickSlides">
-                      <Image src={img} alt={img} />
+              <div className="testimonialContainer">
+                <div className="slickContent">
+                  <h2>Built for creators, blockbuster approved.</h2>
+                  <p>A strong storyline and script can move us, but the soundtrack transports us. If you love cinema as much as us, check out some of our featured placements. <br />Let the music inspire your next masterpiece!</p>
+                </div>
+                <Slider {...settings2}>
+                  {imagess.map((img, idx) => (
+                    <div className={idx === imageIndex ? "slide activeSlide" : "slide"} key={idx}>
+                      <div className="slickSlides">
+                        <Image src={img} alt={img} />
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </Slider>
-            </div>
-          </section>
-        </>
+                  ))}
+                </Slider>
+              </div>
+            </section>
+          </>
         )}
-
       </main>
     </div>
 

@@ -79,7 +79,7 @@ function CuratedPlaylist() {
   const curatedPlaylists = useSelector( state => state.user.curated_filters)
   const responseStatus = useSelector(state => state.user.responseStatus);
   const [filterOpen, setFilterOpen] = useState(false);
-  const [filterType, setFilterType] = useState("");
+  const [filterType, setFilterType] = useState(localStorage.getItem("curatedPlaylistFilterType") ? localStorage.getItem("curatedPlaylistFilterType") : '');
   const [hasMore, sethasMore] = useState(true)
 
   useEffect(() => {
@@ -462,7 +462,7 @@ function CuratedPlaylist() {
               </div>
             </InfiniteScroll>
             <div className={playlist.btnWrapper}>
-              {paginatedPlaylists.length > 0 && hasMore ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
+              {!filterType && paginatedPlaylists.length > 0 && hasMore ? <button className="btn btnMainLarge disable" onClick={handlePageNum}>Load More</button> : ""}
             </div>
           </section>
         </div>
