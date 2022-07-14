@@ -1246,7 +1246,19 @@ footer {
       }
     }
   }
+
+  /************* Download Playlist Modal **************/
+  &.downloadPlaylistModal {
+    .siteLoader {
+      width: auto;
+      height: auto;
+      .spinner {
+        margin: 20px auto;
+      }
+    }
+  }
 }
+
 
 /************* Scrolling list component *************/
 .addToFavorite {
