@@ -403,8 +403,8 @@ const Details = ()  => {
       </div>
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type={type}/> }
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
-      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]} type={type}/>}
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type={type}/>}
       <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
     </div> : <InpageLoader/>
     }
