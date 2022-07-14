@@ -39,6 +39,7 @@ const Details = ()  => {
   const creatorKitsDetail = useSelector(state => state.user.creator_kits_detail);
   const creatorKitsTracks = useSelector(state => state.user.creator_kits_tracks);
   const [altVersionTrack, setAltVersionTrack] = useState(null);
+  const [showDownloadMessage, setShowDownloadMessage] = useState(false);
   const authContext = useContext(AuthContext);
   const [followed, setFollowed] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
@@ -224,10 +225,32 @@ const Details = ()  => {
     });
   }
 
+  const handleDownloadZip = async (id) => {
+    setShowDownloadMessage(true)
+    await axios.request({
+      headers: {
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+      },
+      method: "get",
+      url: (`${BASE_URL}/api/v1/consumer/creator_kits/${id}/playlist_tracks/download_zip?klass=creator_kit&file_type=mp3_file`)
+
+    }).then(response => {
+      if (response.status == 200) {
+        const link = document.createElement("a");
+        link.href = response.data.zip_file;
+        link.download = creatorKitsDetail.curated_playlist.name;
+        link.click();
+        setShowDownloadMessage(false)
+      } else {
+        toast.error("Error while downloading creator kt.");
+      }
+    })
+  }
+
   return (
     <>
     {creatorKitsDetail ?
-    
+
     <div className={playlist.creatorKits}>
       <ToastContainer
         position="top-center"
@@ -289,7 +312,7 @@ const Details = ()  => {
                   </svg>
                   Share
                 </Button>
-                <Button variant="link" className="btn btnMainLarge">
+                    <Button variant="link" className="btn btnMainLarge" onClick={() => handleDownloadZip(query.id)} disabled={(creatorKitsDetail.meta.track_count <= 0 && creatorKitsDetail.meta.sfx_count <= 0 && creatorKitsDetail.meta.sound_design_count <= 0) || showDownloadMessage}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
                     <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
                       <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -329,6 +352,9 @@ const Details = ()  => {
                   {followed ? "Unfollow Kit" : "Follow Kit"}
                 </Button>}
               </div>
+              {showDownloadMessage &&
+                <div className={playlist.downloadMessage}>Please wait while your download is in progress...</div>
+              }
             </div>
           </div>
         </div>
