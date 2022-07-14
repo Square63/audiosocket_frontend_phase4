@@ -167,7 +167,7 @@ function Footer() {
                 <div className="footer-list">
                 <Form className="footerForm">
                   <div className="roundedForm">
-                    <Form.Control type="text" className="circularInput invert" placeholder="Enter your email." />
+                    <Form.Control type="email" className="circularInput invert" placeholder="Enter your email." />
                     <Button variant="default" type="submit" className="circularBtn">
                       <svg xmlns="http://www.w3.org/2000/svg" width="15.014" height="12.278" viewBox="0 0 15.014 12.278">
                         <g id="Group_16" data-name="Group 16" transform="translate(1 10.864) rotate(-90)">
