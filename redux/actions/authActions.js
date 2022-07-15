@@ -566,13 +566,13 @@ export const getMyPlaylistDetail = (data) => async (dispatch) => {
   }
 };
 
-export const getMyPlaylistTracks = (id, page) => async (dispatch) => {
+export const getMyPlaylistTracks = (id, page, sort_by, sort_dir) => async (dispatch) => {
   const formData = new FormData();
   formData.append('klass', "consumer_playlist")
   try {
     const { data } = await axios.request({
       method: "get",
-      url: `${BASE_URL}/api/v1/consumer/consumers_playlists/${id}/playlist_tracks?klass=consumer_playlist&page=${page}`,
+      url: `${BASE_URL}/api/v1/consumer/consumers_playlists/${id}/playlist_tracks?klass=consumer_playlist&&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`,
       data: formData
     });
     dispatch({
@@ -741,12 +741,12 @@ export const getCuratedPlaylistDetail = (data) => async (dispatch) => {
   }
 };
 
-export const getCuratedPlaylistTracks = (data, page) => async (dispatch) => {
+export const getCuratedPlaylistTracks = (data, page, sort_by, sort_dir) => async (dispatch) => {
   let id = data;
   try {
     const { data } = await axios.request({
       method: "get",
-      url: `${BASE_URL}/api/v1/consumer/curated_playlists/${id}/playlist_tracks?klass=curated_playlist&page=${page}`
+      url: `${BASE_URL}/api/v1/consumer/curated_playlists/${id}/playlist_tracks?klass=curated_playlist&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`
     });
     dispatch({
       type: CURATED_PLAYLIST_TRACKS_SUCCESS,
@@ -794,14 +794,15 @@ export const getCreatotKitsDetail = (data) => async (dispatch) => {
   }
 };
 
-export const getCreatorKitsTracks = (id, type, page) => async (dispatch) => {
+export const getCreatorKitsTracks = (id, type, page, sort_by, sort_dir) => async (dispatch) => {
+  debugger
   let media = ''
   type == 'sound_design' ? media = 'sfx' : media = type
 
   try {
     const { data } = await axios.request({
     method: "get",
-      url: `${BASE_URL}/api/v1/consumer/creator_kits/${id}/playlist_tracks/creator_kit_media?media=${media}&media_type=${type}&klass=creator_kit&page=${page}`
+      url: `${BASE_URL}/api/v1/consumer/creator_kits/${id}/playlist_tracks/creator_kit_media?media=${media}&media_type=${type}&klass=creator_kit&order_by=${sort_by}&page=${page}&direction=${sort_dir}&per_page=10&pagination=true`
     });
     dispatch({
       type: CREATOR_KITS_TRACKS_SUCCESS,
