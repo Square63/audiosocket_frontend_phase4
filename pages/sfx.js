@@ -29,6 +29,7 @@ import Notiflix from "notiflix";
 import { Sticky, StickyScrollUp, StickyProvider } from 'react-stickup';
 import {AuthContext} from "../store/authContext";
 import AddToCartLicense from "../components/modals/AddToCartLicense";
+import AddToPlaylist from "../components/modals/AddToPlaylist";
 
 function Sfx(props) {
 
@@ -136,7 +137,7 @@ function Sfx(props) {
 
     });
     if (tracks.length > 0) {
-      if (updatedTracks[0]?.id != tracks[0].id)
+      if (updatedTracks[0]?.id != tracks[0].id && updatedTracks[updatedTracks.length -10]?.id != tracks[0].id)
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
     }
 
@@ -218,13 +219,14 @@ function Sfx(props) {
     setShowAddToCartLicenseModal(false)
   }
 
-  function showTrackAddToPlaylistModal(index) {
+  function showTrackAddToPlaylistModal(index, type) {
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index%10)
+      if (type == "track" || type == "sfx") {
+        setAltVersionTrack(null)
+        setIndex(index)
       }
       else {
-        setIndex(index)
+        setAltVersionTrack(index)
       }
       setShowAddToPlaylistModal(true)
     }
@@ -870,7 +872,7 @@ function Sfx(props) {
         <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="sfx"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
         <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} handleLicenseClick={handleLicenseClick} type="Sfx"/>
-        {/* <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} playlists={playlists} track={updatedTracks[index]}/> */}
+        {localStorage.getItem("user") && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} type="sfxes"/> }
         <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>
 
       </div>

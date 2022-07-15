@@ -308,7 +308,7 @@ function Tracks(props) {
                       </OverlayTrigger>
                     }
                     <OverlayTrigger overlay={<Tooltip>Add to Playlist</Tooltip>}>
-                      <a onClick={() => props.showTrackAddToPlaylistModal(index, "track")}>
+                      <a onClick={() => props.showTrackAddToPlaylistModal(index, props.type)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="29.249" height="29.25" viewBox="0 0 29.249 29.25">
                           <g id="icon-add-to-playlist" transform="translate(0.5 0.5)">
                             <g id="Group_165" data-name="Group 165" transform="translate(0)">
