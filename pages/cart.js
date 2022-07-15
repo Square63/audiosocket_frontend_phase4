@@ -91,7 +91,7 @@ function Cart() {
               <div className="trackListingBlock">
                 <h1 className="listingPageHeading">Checkout</h1>
                 <div className="trackListingHeading">
-                  <h2>Items in Cart {cartLineItems.length}</h2>
+                  <h2>Items in Cart ({cartLineItems.length})</h2>
                 </div>
 
                 <div className="trackRowWrapper">
