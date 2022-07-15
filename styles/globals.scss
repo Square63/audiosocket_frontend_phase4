@@ -2337,7 +2337,7 @@ hr {
   cursor: default;
 
   &.artistName {
-    min-width: 23%;
+    min-width: 30%;
     @include flexbox;
     @include justify-content(flex-start);
     @include align-items(center);
@@ -2390,7 +2390,7 @@ hr {
   }
 
   &.audioWave {
-    min-width: 19%;
+    min-width: 23%;
     padding-inline: 15px 25px;
   }
 
@@ -2520,6 +2520,7 @@ hr {
 
   &.controls {
     min-width: 16%;
+    max-width: 165px;
   }
 }
 /****************** Row participant End ****************/
@@ -3230,7 +3231,7 @@ hr {
       line-height: 1.18;
       letter-spacing: -0.55px;
       text-align: left;
-      color: $textClr;
+      color: $nav-link;
       margin-bottom: 65px;
     }
 
@@ -5130,7 +5131,7 @@ input[type=number]::-webkit-outer-spin-button {
     .trackRow {
       .rowParticipant {
         &.artistName {
-          min-width: 27%;
+          min-width: 30%;
         }
 
         &.audioWave {
