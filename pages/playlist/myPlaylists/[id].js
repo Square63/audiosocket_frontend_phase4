@@ -33,6 +33,7 @@ const Details = () => {
   const myPlaylistTracks = useSelector(state => state.user.my_playlist_tracks);
   const myPlaylistArtists = useSelector(state => state.user.my_playlist_artists);
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+  const [favoriteSfxIds, setFavoriteSfxIds] = useState([])
   const [followedArtistsIds, setFollowedArtistsIds] = useState([]);
   const [updatedArtists, setUpdatedArtists] = useState([])
   const [isLoading, setIsLoading] = useState(true);
@@ -52,6 +53,7 @@ const Details = () => {
   const cartItem = useSelector(state => state.user.cart)
   const authContext = useContext(AuthContext);
   const [updatedTracks, setUpdatedTracks] = useState([])
+  const [mediableType, setMediableType] = useState("")
 
   useEffect(() => {
     if (cartItem && cartItem.id){
@@ -80,6 +82,7 @@ const Details = () => {
       if (myPlaylistTracks.meta) {
         setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
         setFollowedArtistsIds(myPlaylistTracks.meta.followed_artist_ids)
+        setFavoriteSfxIds(myPlaylistTracks.meta.followed_sfx_ids)
       }
       setIsLoading(false)
       if (updatedTracks[0]?.id != myPlaylistTracks.playlist_tracks[0]?.id){
@@ -197,8 +200,9 @@ const Details = () => {
 
   function showAddTrackToCartLicenseModal(index, type) {
     setIndex(index)
+    setMediableType(type)
     if (localStorage.getItem("user")) {
-      if (type == "track") {
+      if (type == "Track" || type == "Sfx") {
         setAltVersionTrack(null)
       }
       else {
@@ -209,7 +213,7 @@ const Details = () => {
           if (type == "footer")
             authContext.handleAddToCart(index, "Track", "");
           else
-            authContext.handleAddToCart(type == "track" ? updatedTracks[index].mediable.id : index.id, "Track", "");
+            authContext.handleAddToCart(type == "Track" || type == "Sfx"? updatedTracks[index].mediable.id : index.id, type, "");
         } else {
           setShowSidebar(true)
           setSidebarType("cart")
@@ -389,7 +393,7 @@ const Details = () => {
           {myPlaylistDetail && myPlaylistTracks && myPlaylistTracks.playlist_tracks?.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
           {myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
-          {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type="Track" />}
+          {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type={mediableType} />}
           <DownloadPlaylist showModal={showDownloadPlaylist} onCloseModal={handleDownloadPlaylistClose} />
         </div>
       </>

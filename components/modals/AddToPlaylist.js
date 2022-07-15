@@ -15,7 +15,7 @@ import axios from "axios";
 import InpageLoader from "../InpageLoader";
 
 
-function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
+function AddToPlaylist({showModal = false, onCloseModal, playlists, track, type}) {
   const dispatch = useDispatch();
   let message = useSelector(state => state.allPlaylists);
   // const [removedPlaylistId, setRemovedPlaylistId] = useState()
@@ -47,7 +47,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
           "auth-token": userAuthToken
         },
         method: "get",
-        url: (`${BASE_URL}/api/v1/consumer/tracks/${track.id}/consumers_playlists?filter_type=include`)
+        url: (`${BASE_URL}/api/v1/consumer/${type}/${track.id}/consumers_playlists?filter_type=include`)
 
       }).then(response => {
         if (!response.status === 200) {
@@ -75,7 +75,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
           "auth-token": userAuthToken
         },
         method: "get",
-        url: (`${BASE_URL}/api/v1/consumer/tracks/${track.id}/consumers_playlists?filter_type=exclude`)
+        url: (`${BASE_URL}/api/v1/consumer/${type}/${track.id}/consumers_playlists?filter_type=exclude`)
 
       }).then(response => {
         if (!response.status === 200) {
@@ -115,11 +115,11 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
         "auth-token": userAuthToken
       },
       method: "POST",
-      url: (`${BASE_URL}/api/v1/consumer/tracks/${track.id}/consumers_playlists/?id=${selectedOption[selectedOption.length - 1].value}`)
+      url: (`${BASE_URL}/api/v1/consumer/${type}/${track.id}/consumers_playlists/?id=${selectedOption[selectedOption.length - 1].value}`)
 
     }).then(response => {
       if (!response.status === 200) {
-        toast.error("Error while adding track to playlist.");
+        toast.error("Error while adding item to playlist.");
       } else {
         setNewPlaylist(response.data.status)
         toast.success(response.data.status);
@@ -138,11 +138,11 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track}) {
         "auth-token": userAuthToken
       },
       method: "DELETE",
-      url: (`${BASE_URL}/api/v1/consumer/tracks/${track.id}/consumers_playlists/${playlist.id}`)
+      url: (`${BASE_URL}/api/v1/consumer/${type}/${track.id}/consumers_playlists/${playlist.id}`)
 
     }).then(response => {
       if (!response.status === 200) {
-        toast.error("Error while deleting track to playlist.");
+        toast.error("Error while deleting item to playlist.");
       } else {
         setNewPlaylist(response.data.status)
         toast.success(response.data.status);
