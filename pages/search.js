@@ -122,7 +122,10 @@ function Search(props) {
       setSearchQuery(localWord)
       localStorage.removeItem("localKeywordType")
       localStorage.removeItem("localKeyword")
-    } else if ((!localKeyword && !fromAims) && appliedFiltersListWC.length == 0 && !allTracks.tracks[0]?.tracks.length > 0 && !genre & !vocal && !filterKeyword){
+    } else if (genre || vocal || filterKeyword) {
+      setSearchQuery(filterKeyword)
+      localStorage.removeItem('filterKeyword')
+    } else if ((!localKeyword && !fromAims) && appliedFiltersListWC.length == 0 && !allTracks.tracks[0]?.tracks.length > 0 && !genre & !vocal && !searchQuery){
       dispatch(getTracks("", "local_search", [], "", "", 1))
     }
   }, [allTracks]);
