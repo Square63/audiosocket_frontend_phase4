@@ -43,7 +43,7 @@ function Tracks(props) {
     } else
         setTracks(tracks=> props.tracks)
 
-    if (props.sfxes ? !props.tracksMeta?.total_sfx_count : !props.tracksMeta?.total_track_count)
+    if (props.sfxes ? props.tracks.length < 10 : !props.tracksMeta.total_track_count)
       sethasMore(false)
     else if (props.tracks.length + tracks.length >= props.tracksMeta?.total_track_count) {
       sethasMore(false)

@@ -310,7 +310,7 @@ const Details = () => {
             </div>
             <div className={playlist.playlistInfo}>
               <div className={playlist.playlistCard}>
-                <div className={playlist.imgSec}>
+                <div className={playlist.imgSec+" "+ 'tileOverlay'}>
                 {curatedPlaylistDetail && curatedPlaylistDetail.compressed_playlist_image && <Image src={curatedPlaylistDetail.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                 </div>
                 <div className={playlist.contentSec}>

@@ -143,7 +143,7 @@ function MyPlaylists() {
                       return(
                         <Link href={"myPlaylists/" + playlist.id} key={index} onClick={() => {setIsLoading(true)}}>
                           <a key={index} className="tileOverlay">
-                            {playlist.compressed_playlist_image && <Image src={playlist.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                            {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                             <span className="tileOverlayText">
                               {playlist.name}
                               <small className="playlistTracksCount">{playlist.media_count} Tracks</small>

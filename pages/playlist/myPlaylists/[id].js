@@ -304,8 +304,8 @@ const Details = () => {
             </div>
             <div className={playlist.playlistInfo}>
               <div className={playlist.playlistCard}>
-                <div className={playlist.imgSec}>
-                {myPlaylistDetail && myPlaylistDetail.compressed_playlist_image && <Image src={myPlaylistDetail.compressed_playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
+                <div className={playlist.imgSec+" "+ 'tileOverlay'}>
+                  {myPlaylistDetail && myPlaylistDetail.playlist_image && <Image src={myPlaylistDetail.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                 </div>
                 <div className={playlist.contentSec}>
                   <div className={playlist.aboutPlaylist}>
