@@ -87,11 +87,21 @@ function Search(props) {
   }, [appliedFiltersListWC]);
 
   useEffect(() => {
+    if (!localStorage.getItem("localKeyword")){
+      handleAddHomeFilter()
+    }
+  }, []);
+
+  useEffect(() => {
     let trackName = localStorage.getItem("track_name")
     let trackId = localStorage.getItem("track_id")
     let file = localStorage.getItem("uploadFileFromWelcome")
     let keyword = localStorage.getItem("keyword")
     let localWord = localStorage.getItem("localKeyword")
+    let genre = localStorage.getItem('genre')
+    let vocal = localStorage.getItem('vocal')
+    let filterKeyword = localStorage.getItem('filterKeyword')
+    
     if (keyword){
       setFromAims(true)
       setSearchQuery(keyword)
@@ -112,8 +122,7 @@ function Search(props) {
       setSearchQuery(localWord)
       localStorage.removeItem("localKeywordType")
       localStorage.removeItem("localKeyword")
-    }
-    else if ((!localKeyword && !fromAims) && !allTracks.tracks[0]?.tracks.length > 0){
+    } else if ((!localKeyword && !fromAims) && appliedFiltersListWC.length == 0 && !allTracks.tracks[0]?.tracks.length > 0 && !genre & !vocal && !filterKeyword){
       dispatch(getTracks("", "local_search", [], "", "", 1))
     }
   }, [allTracks]);
@@ -142,11 +151,12 @@ function Search(props) {
   }, [allTracks.error]);
 
   useEffect(() => {
-    if (allTracks && allTracks.tracks[0]?.tracks.length > 0) {
-      setTracks(allTracks.tracks[0].tracks)
-      setTracksMeta(allTracks.tracks[0].meta)
-      if (allTracks.tracks[0].meta.favorite_tracks_ids && allTracks.tracks[0].meta.favorite_tracks_ids.length > 0 && favoriteTrackIds.length == 0)
-        setFavoriteTrackIds(allTracks.tracks[0].meta.favorite_tracks_ids)
+    setLoading(false)
+    if (allTracks && allTracks.tracks) {
+      setTracks(allTracks.tracks[0]?.tracks)
+      setTracksMeta(allTracks.tracks[0]?.meta)
+      if (allTracks.tracks[0]?.meta?.favorite_tracks_ids && allTracks.tracks[0]?.meta?.favorite_tracks_ids?.length > 0 && favoriteTrackIds?.length == 0)
+        setFavoriteTrackIds(allTracks.tracks[0]?.meta?.favorite_tracks_ids)
     }
 
     if(!allTracks?.success) {
@@ -158,8 +168,7 @@ function Search(props) {
 
   useEffect(() => {
     let isMounted = true;
-    if (tracks?.length > 0) {
-      setLoading(false)
+    if (tracks?.length > 0) { 
       if (updatedTracks[0]?.id != tracks[0].id)
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
     }
@@ -458,9 +467,9 @@ function Search(props) {
     setLoading(true)
     let genre = localStorage.getItem('genre')
     let vocal = localStorage.getItem('vocal')
-    let keyword = localStorage.getItem('keyword')
+    let keyword = localStorage.getItem('filterKeyword')
+    setSearchQuery(keyword)
     document.getElementById("searchField").value = keyword
-
     genre ? appliedFiltersList.push(genre) : null
     vocal ? appliedFiltersList.push(vocal) : null
     if (genre && vocal) {
@@ -499,8 +508,10 @@ function Search(props) {
   function query_type(query) {
     if (query)
       return query.includes("https") ? "aims_search" : "local_search"
-    else
+    else{
       localStorage.removeItem("keyword")
+    }
+      
   }
 
   const handleFooterTrack = (track) => {
@@ -637,7 +648,6 @@ function Search(props) {
         )}
     </Dropdown>
   );
-
   return (
     <StickyProvider>
       <div className={search.searchWrapper+' musicSearch'}>
@@ -934,8 +944,8 @@ function Search(props) {
               <span className="clearAllTag" onClick={handleClearAllFilter}></span>
             </OverlayTrigger>
           </div>
-          {!loading && tracksMeta.aims_segment_search_track &&
-            <div className="singleWave"><SearchAudioWave uploadedFileUrl={tracksMeta.aims_segment_search_track} handleUploadSearch={handleUploadSearch} /></div>
+          {!loading && tracksMeta?.aims_segment_search_track &&
+            <div className="singleWave"><SearchAudioWave uploadedFileUrl={tracksMeta?.aims_segment_search_track} handleUploadSearch={handleUploadSearch} /></div>
           }
           {loading ? (
             <InpageLoader />

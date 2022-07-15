@@ -235,7 +235,7 @@ export default function Home(props) {
     setLoading(true)
     localStorage.setItem('genre', step1);
     localStorage.setItem('vocal', step2);
-    localStorage.setItem('keyword', step3)
+    localStorage.setItem('filterKeyword', step3)
     router.push('/search')
   }
 
