@@ -87,7 +87,7 @@ function Search(props) {
   }, [appliedFiltersListWC]);
 
   useEffect(() => {
-    if (!localStorage.getItem("localKeyword")){
+    if (!localStorage.getItem("localKeyword") && !localStorage.getItem("keyword")){
       handleAddHomeFilter()
     }
   }, []);
