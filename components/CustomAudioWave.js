@@ -175,9 +175,7 @@ export default function CustomAudioWave(props) {
           <div className="aboutSong">
             <div className="songData">
               <OverlayTrigger overlay={<Tooltip>{props.track.title}</Tooltip>}>
-                <Link href={"search/" + props.track.id} key={props.track.id} onClick={() => {setIsLoading(true)}}>
-                  <a key={props.track.id} className="songName">{props.track.title}</a>
-                </Link>
+                <a href={window.location.origin + "/search/" + props.track.id} key={props.track.id} onClick={() => { setIsLoading(true) }} className="songName">{props.track.title}</a>
               </OverlayTrigger>
               {props.track.featured &&
                 <OverlayTrigger overlay={<Tooltip>Featured</Tooltip>}>
