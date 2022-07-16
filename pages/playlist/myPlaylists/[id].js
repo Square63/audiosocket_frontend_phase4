@@ -387,7 +387,7 @@ const Details = () => {
                     <section className={playlist.myPlaylists}>
                       <div className="tilesWrapper">
                         {updatedArtists.length > 0 && updatedArtists.map((artist, index) =>
-                          <a key={index} href="javascript:void(0)" className="tileOverlay">
+                          <a key={index} className="tileOverlay">
                             <Image src={index > 0 ? mood1 : mood2} alt="Mood" className="tilesImg"></Image>
                             <span className="tileOverlayText">
                               {artist.first_name + ' ' + artist.last_name}

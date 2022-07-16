@@ -88,31 +88,31 @@ function MyPlaylistShow() {
         <h3>Artists On This Playlist</h3>
         <section className={playlist.myPlaylists}>
           <div className="tilesWrapper">
-            <a href="javascript:void(0)" className="tileOverlay">
+            <a className="tileOverlay">
               <Image src={mood1} alt="Mood" className="tilesImg"></Image>
               <span className="tileOverlayText">
                 The Kelseys
               </span>
             </a>
-            <a href="javascript:void(0)" className="tileOverlay">
+            <a className="tileOverlay">
               <Image src={mood2} alt="Mood" className="tilesImg"></Image>
               <span className="tileOverlayText">
                 Mark Ulrich
               </span>
             </a>
-            <a href="javascript:void(0)" className="tileOverlay">
+            <a className="tileOverlay">
               <Image src={mood3} alt="Mood" className="tilesImg"></Image>
               <span className="tileOverlayText">
                 Justin G. Marcellus
               </span>
             </a>
-            <a href="javascript:void(0)" className="tileOverlay">
+            <a className="tileOverlay">
               <Image src={mood4} alt="Mood" className="tilesImg"></Image>
               <span className="tileOverlayText">
                 Michael Ayers
               </span>
             </a>
-            <a href="javascript:void(0)" className="tileOverlay">
+            <a className="tileOverlay">
               <Image src={Sample1} alt="Mood" className="tilesImg"></Image>
               <span className="tileOverlayText">
                 justin abady
