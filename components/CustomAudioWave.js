@@ -4,6 +4,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
 import { Grid } from 'semantic-ui-react';
 import InpageLoader from "./InpageLoader";
+import Link from "next/link";
 
 const formWaveSurferOptions = (ref, footer) => (
   !footer ? {
@@ -173,14 +174,14 @@ export default function CustomAudioWave(props) {
           <div className="aboutSong">
             <div className="songData">
               <OverlayTrigger overlay={<Tooltip>{props.track.title}</Tooltip>}>
-                <a href="javascript:void(0)" className="songName defaultCursor">{props.track.title}</a>
+                <Link href={"search/" + props.track.id} key={props.track.id} onClick={() => {setIsLoading(true)}}>
+                  <a key={props.track.id} className="songName">{props.track.title}</a>
+                </Link>
               </OverlayTrigger>
               {props.track.featured &&
-                <>
-                  <OverlayTrigger overlay={<Tooltip>Featured</Tooltip>}>
-                    <a href="" className={`fire ${props.notClickable ? "notClickable" : ""}`}></a>
-                  </OverlayTrigger>
-                </>
+                <OverlayTrigger overlay={<Tooltip>Featured</Tooltip>}>
+                  <a href="javascript:void(0)" className={`fire ${props.notClickable ? "notClickable" : ""}`}></a>
+                </OverlayTrigger>
               }
             </div>
             {props.track.artist_name && <div className="songArtist">

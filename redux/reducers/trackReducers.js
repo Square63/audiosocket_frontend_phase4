@@ -16,7 +16,9 @@ import {
   FOLLOW_ARTIST_SUCCESS,
   FOLLOW_ARTIST_FAILURE,
   UNFOLLOW_ARTIST_SUCCESS,
-  UNFOLLOW_ARTIST_FAILURE
+  UNFOLLOW_ARTIST_FAILURE,
+  TRACK_DETAIL_SUCCESS,
+  TRACK_DETAIL_FAILURE
 } from '../constants/trackConstants';
 
 export const allTracksReducer = (state= {tracks: []}, action) => {
@@ -121,6 +123,17 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
       return {
         ...state,
         success: false,
+        message: action.payload.response.data.message
+      }
+    case TRACK_DETAIL_SUCCESS:
+      return {
+        ...state,
+        track: action.payload.track,
+        similarTracks: action.payload.similar_tracks
+      }
+    case TRACK_DETAIL_FAILURE:
+      return {
+        ...state,
         message: action.payload.response.data.message
       }
     default:

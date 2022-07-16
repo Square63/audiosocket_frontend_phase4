@@ -22,7 +22,9 @@ import {
   FOLLOW_ARTIST_SUCCESS,
   FOLLOW_ARTIST_FAILURE,
   UNFOLLOW_ARTIST_SUCCESS,
-  UNFOLLOW_ARTIST_FAILURE
+  UNFOLLOW_ARTIST_FAILURE,
+  TRACK_DETAIL_SUCCESS,
+  TRACK_DETAIL_FAILURE
 } from '../constants/trackConstants';
 
 export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals, duration_start, duration_end) => async( dispatch ) => {
@@ -100,6 +102,24 @@ export const getTracksFromAIMS = (aimsId, file) => async( dispatch ) => {
         payload: error
       })
     }
+  }
+}
+
+export const getTrackDetails = (trackId) => async (dispatch) => {
+  try {
+    const { data } = await axios.request({
+      method: "get",
+      url: `${BASE_URL}/api/v1/consumer/tracks/${trackId}`
+    })
+    dispatch({
+      type: TRACK_DETAIL_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: TRACK_DETAIL_FAILURE,
+      payload: error
+    })
   }
 }
 
