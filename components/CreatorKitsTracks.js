@@ -13,6 +13,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import {AuthContext} from "../store/authContext";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useRouter } from "next/router";
+import ShareModal from "./modals/ShareModal"
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
@@ -36,6 +37,8 @@ function CreatorKitsTracks(props) {
   const [hasMore, sethasMore] = useState(false)
   const [moodColumn, setMoodColumn] = useState("moods")
   const [trackList, setTrackList] = useState(props.tracks)
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareId, setShareId] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -153,6 +156,14 @@ function CreatorKitsTracks(props) {
     updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
     // Update State
     setTrackList(updatedList);
+  }
+
+  function handleShareModalClose() {
+    setShowShareModal(false)
+  }
+
+  function handleShareId(id) {
+    setShareId(id);
   }
 
   return (
@@ -318,7 +329,7 @@ function CreatorKitsTracks(props) {
                       </svg>
                       <span>Add to Cart</span>
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/action-1">
+                    <Dropdown.Item onClick={() => {handleShareId(track.id); setShowShareModal(true) }}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                         <g id="Interface-Essential_Share_share-2" data-name="Interface-Essential / Share / share-2" transform="translate(-518 -3841.793)">
                           <g id="Group_395" data-name="Group 395" transform="translate(518.5 3842.5)">
@@ -384,6 +395,7 @@ function CreatorKitsTracks(props) {
 
         </InfiniteScroll>
       </div>
+      <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} shareId={shareId} />
     </div>
   )
 }

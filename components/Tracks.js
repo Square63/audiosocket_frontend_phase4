@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { getSfxes, getTracks, followArtist, unFollowArtist } from '../redux/actions/trackActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Accordion from 'react-bootstrap/Accordion';
+import ShareModal from "./modals/ShareModal";
 
 const CustomAudioWave = dynamic(
   () => import('../components/CustomAudioWave'),
@@ -34,6 +35,8 @@ function Tracks(props) {
   const [moodColumn, setMoodColumn] = useState("moods")
   const [followedArtists, setFollowedArtists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareId, setShareId] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -192,6 +195,14 @@ function Tracks(props) {
     followedArtists.splice(followedArtists.indexOf(track.artist_id), 1)
     setFollowedArtists(followedArtists)
 
+  }
+
+  function handleShareModalClose() {
+    setShowShareModal(false)
+  }
+
+  function handleShareId(id) {
+    setShareId(id);
   }
 
   return (
@@ -397,7 +408,7 @@ function Tracks(props) {
                             </svg>
                             <span>Add to Playlist</span>
                           </Dropdown.Item>
-                          <Dropdown.Item href="#/action-1">
+                          <Dropdown.Item onClick={() => {handleShareId(track.id); setShowShareModal(true) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                               <g id="Interface-Essential_Share_share-2" data-name="Interface-Essential / Share / share-2" transform="translate(-518 -3841.793)">
                                 <g id="Group_395" data-name="Group 395" transform="translate(518.5 3842.5)">
@@ -483,8 +494,7 @@ function Tracks(props) {
           )
           : <InpageLoader/>
         }
-
-
+        <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} shareId={shareId} />
     </div>
   )
 }

@@ -5,8 +5,9 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { ToastContainer, toast } from 'react-toastify';
 
-function ShareModal({showModal = false, onCloseModal}) {
-  const shareLink = window.location.href;
+function ShareModal({showModal = false, onCloseModal, shareId}) {
+  const id = shareId;
+  const shareLink = id == null ? window.location.href : `${window.location.origin}/search/${id}`;
 
   const handleSharePlaylist = () => {
     {navigator.clipboard.writeText(shareLink)};

@@ -21,6 +21,7 @@ import { TOAST_OPTIONS } from '../../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import { AuthContext } from "../../store/authContext";
 import Sidebar from '../../components/Sidebar';
+import ShareModal from "../../components/modals/ShareModal";
 
 const AltVersion = dynamic(
   () => import('../../components/SingleAudioWave'),
@@ -69,6 +70,8 @@ const Details = () => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
   const [showDownModal, setShowDownModal] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareId, setShareId] = useState(null);
   const authContext = useContext(AuthContext);
   const dispatch = useDispatch();
 
@@ -214,6 +217,14 @@ const Details = () => {
 
   function handleAddToPlaylistModalClose() {
     setShowAddToPlaylistModal(false)
+  }
+
+  function handleShareModalClose() {
+    setShowShareModal(false)
+  }
+
+  function handleShareId(id) {
+    setShareId(id);
   }
 
   const handleAddToFavorites = (e, trackId) => {
@@ -397,7 +408,7 @@ const Details = () => {
                             </svg>
                             <span>Add to Cart</span>
                           </Dropdown.Item>
-                          <Dropdown.Item href="#/action-1">
+                          <Dropdown.Item onClick={() => {handleShareId(track.id); setShowShareModal(true) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                               <g id="Interface-Essential_Share_share-2" data-name="Interface-Essential / Share / share-2" transform="translate(-518 -3841.793)">
                                 <g id="Group_395" data-name="Group 395" transform="translate(518.5 3842.5)">
@@ -438,7 +449,7 @@ const Details = () => {
                 </div>
               </div>
               <div className={playlist.cardBtnWrapper}>
-                <Button variant="link" className="btn btnMainLarge">
+                <Button variant="link" className="btn btnMainLarge" onClick={() => {handleShareId(null); setShowShareModal(true) }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                     <g id="share-2" transform="translate(0.5 0.707)">
                       <path id="Shape_1972" data-name="Shape 1972" d="M528.887,3851.192v9a.693.693,0,0,1-.693.693h-9a.693.693,0,0,1-.692-.693v-9a.693.693,0,0,1,.692-.692h2.77" transform="translate(-518.5 -3844.96)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -480,6 +491,7 @@ const Details = () => {
       {localStorage.getItem("user") && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : similarTracks[index]} />}
       <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : similarTracks[index]} handleLicenseClick={handleLicenseClick} type="Track" />
       <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={altVersionTrack ? altVersionTrack : similarTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} />
+      <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} shareId={shareId} />
     </div>
   );
 }

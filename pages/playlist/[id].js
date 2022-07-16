@@ -9,12 +9,15 @@ import Image from 'next/image';
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import playlist from "../../styles/Playlist.module.scss";
 import mood1 from '../../images/mood1.png';
+import ShareModal from "../../components/modals/ShareModal";
 
 const Details = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const playlistDetails = useSelector(state => state.user.playlist_details);
   const [isLoading, setIsLoading] = useState(true);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareId, setShareId] = useState(null);
 
   useEffect(() => {
     if (query) {
@@ -27,6 +30,14 @@ const Details = () => {
       setIsLoading(false)
     }
   }, [playlistDetails])
+
+  function handleShareModalClose() {
+    setShowShareModal(false)
+  }
+
+  function handleShareId(id) {
+    setShareId(id);
+  }
 
   return (
     <div className={playlist.playlistShow}>
@@ -65,7 +76,7 @@ const Details = () => {
                 </div>
               </div>
               <div className={playlist.cardBtnWrapper}>
-                <Button variant="link" className="btn btnMainLarge">
+                <Button variant="link" className="btn btnMainLarge" onClick={() => {handleShareId(track.id); setShowShareModal(true) }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                     <g id="share-2" transform="translate(0.5 0.707)">
                       <path id="Shape_1972" data-name="Shape 1972" d="M528.887,3851.192v9a.693.693,0,0,1-.693.693h-9a.693.693,0,0,1-.692-.693v-9a.693.693,0,0,1,.692-.692h2.77" transform="translate(-518.5 -3844.96)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -113,6 +124,7 @@ const Details = () => {
         ) : (
           playlistDetails && <Tracks tracks={playlistDetails.tracks}/>)}
       </div>
+      <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} shareId={shareId} />
     </div>
   );
 }
