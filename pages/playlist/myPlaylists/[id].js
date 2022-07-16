@@ -85,7 +85,7 @@ const Details = () => {
         setFavoriteSfxIds(myPlaylistTracks.meta.followed_sfx_ids)
       }
       setIsLoading(false)
-      if (updatedTracks[0]?.id != myPlaylistTracks.playlist_tracks[0]?.id){
+      if (myPlaylistTracks.meta && updatedTracks[0]?.id != myPlaylistTracks.playlist_tracks[0]?.id){
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...myPlaylistTracks.playlist_tracks]);
       }
     }
@@ -127,12 +127,14 @@ const Details = () => {
 
   function totalDuration(tracks) {
     let duration = 0
-    if (tracks.playlist_tracks) {
-      tracks.playlist_tracks.map((track, index) =>
-      duration += track.mediable.duration)
-    } else {
-      tracks.map((track, index) =>
-      duration += track.mediable.duration)
+    if (!(tracks.tracks == 'No Track Found')){
+      if (tracks.playlist_tracks) {
+        tracks.playlist_tracks.map((track, index) =>
+        duration += track.mediable.duration)
+      } else {
+        tracks.map((track, index) =>
+        duration += track.mediable.duration)
+      }
     }
 
     return convertSecToMin(duration)
@@ -317,7 +319,7 @@ const Details = () => {
                     </div>
                     <div className={playlist.playlistStats}>
                       <div className={playlist.tracksCount}>
-                        {myPlaylistDetail && myPlaylistDetail?.media_count != 0 ? myPlaylistDetail?.media_count + Pluralize(' Track', myPlaylistDetail?.media_count) : '0 Track'}
+                        {myPlaylistDetail && myPlaylistDetail?.media_count == 0 || myPlaylistDetail?.media_count == null ? '0 Tracks' : myPlaylistDetail?.media_count + Pluralize(' Track', myPlaylistDetail?.media_count) }
                       </div>
                       <div className={playlist.tracksDuration}>
                         Duration: <span>{myPlaylistTracks && totalDuration(myPlaylistTracks)}</span>
@@ -366,7 +368,7 @@ const Details = () => {
           <div className="fixed-container">
             {myPlaylistTracks ?
               <>
-                <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} myPlaylistTracksCount={myPlaylistTracks.meta.playlist_track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type="myplaylist"/>
+                {myPlaylistTracks.meta ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} myPlaylistTracksCount={myPlaylistTracks.meta.playlist_track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type="myplaylist"/> :  <center>No Tracks Found</center>}
                 <div className={playlist.artistTiles}>
                   <h3>Artists On This Playlist</h3>
                   {updatedArtists && updatedArtists.length == 0 ?

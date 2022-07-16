@@ -191,7 +191,7 @@ function MyPlaylistTracks(props) {
   return (
     <div className={search.tracksWrapper}>
       <div className={search.tracksHeading}>
-        <h2>{props.tracksMeta ? "Tracks" : "Playlist Tracks"} <span className={search.tracksCount}>({props.tracksMeta ? props.tracksMeta.total_track_count : props.tracks?.length})</span></h2>
+        <h2>{props.tracksMeta ? "Tracks" : "Playlist Tracks"} <span className={search.tracksCount}>({props.tracksMeta ? props.tracksMeta.total_track_count : props.myPlaylistTracksCount})</span></h2>
         <div className={search.tracksSorting}>
           <form>
               <Form.Label className="required">Sort By:</Form.Label>
