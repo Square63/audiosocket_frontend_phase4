@@ -22,7 +22,8 @@ const formWaveSurferOptions = (ref, footer) => (
     normalize: true,
     partialRender: true,
     pixelRatio: 1,
-    hideScrollbar: true
+    hideScrollbar: true,
+    backend: 'MediaElement'
   } :
   {
     container: ref,

@@ -22,6 +22,7 @@ const formWaveSurferOptions = (ref) => ({
   barGap: 1.5,
   normalize: true,
   partialRender: true,
+  backend: 'MediaElement',
   plugins: [
     RegionsPlugin.create({
         regionsMinLength: 1,

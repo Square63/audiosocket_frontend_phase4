@@ -209,34 +209,34 @@ function Tracks(props) {
               }
 
               <div className={search.tracksSorting}>
-                {!props.type == 'similarTrack' &&
+                {!(props.type == 'similarTrack') &&
                   <form>
-                      <Form.Label className="required">Sort By:</Form.Label>
-                      <Select
-                        className='react-select-container'
-                        classNamePrefix="react-select"
-                        placeholder="Recently Published"
-                        options={options}
-                        onChange={(e) => handleFilterDropdown(e)}
-                        defaultValue='Recently Published'
-                        theme={theme => ({
-                          ...theme,
-                          colors: {
-                            ...theme.colors,
-                            primary: '#c0d72d',
-                          },
-                          height: 43,
-                        })}
-                      />
+                    <Form.Label className="required">Sort By:</Form.Label>
+                    <Select
+                      className='react-select-container'
+                      classNamePrefix="react-select"
+                      placeholder="Recently Published"
+                      options={options}
+                      onChange={(e) => handleFilterDropdown(e)}
+                      defaultValue='Recently Published'
+                      theme={theme => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary: '#c0d72d',
+                        },
+                        height: 43,
+                      })}
+                    />
                   </form>
                 }
               </div>
             </div>
           <div className="trackRowWrapper">
             <div className="trackRow headingRow">
-              <div className="rowParticipant artistName" onClick={(e) => {!props.type == 'similarTrack' && handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}}>
+              <div className="rowParticipant artistName" onClick={(e) => {!(props.type == 'similarTrack') && handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}}>
                 Title / Artist
-                {!props.type == 'similarTrack' &&
+                {!(props.type == 'similarTrack') &&
                   <span className="sortingMedium">
                     <a href="" className={titleSortDir == "DESC" ? "decending disableSortBtn" : titleSortDir == "" ? "decending" : "decending"}></a>
                     <a href="" className={titleSortDir == "ASC" ? "ascending  disableSortBtn" : titleSortDir == "" ? "ascending" : "ascending"}></a>
@@ -244,16 +244,16 @@ function Tracks(props) {
                 }
               </div>
               <div className="rowParticipant audioWave"></div>
-              <div className="rowParticipant duration" onClick={(e) => {!props.type == 'similarTrack' && handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}}>
+              <div className="rowParticipant duration" onClick={(e) => {!(props.type == 'similarTrack') && handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}}>
                 Duration
-                {!props.type == 'similarTrack' &&
+                {!(props.type == 'similarTrack') &&
                   <span className="sortingMedium">
                     <a href="" className={durationSortDir == "DESC" ? "decending disableSortBtn" : durationSortDir == "" ? "decending" : "decending"}></a>
                     <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
                   </span>
                 }
               </div>
-              {!props.sfxes && !props.type == 'similarTrack' ?
+              {!props.sfxes && !(props.type == 'similarTrack') ?
                 <div className="rowParticipant mood">
                   <Dropdown alignLeft>
                     <Dropdown.Toggle variant="" id="headerMood">

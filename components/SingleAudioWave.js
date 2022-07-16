@@ -19,7 +19,7 @@ const formWaveSurferOptions = (ref) => ({
   normalize: true,
   partialRender: true,
   hideScrollbar: true,
-  alt: true
+  backend: 'MediaElement'
 });
 
 export default function CustomAudioWave(props) {
@@ -71,9 +71,9 @@ export default function CustomAudioWave(props) {
 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
-    wavesurfer.current.load(url, peaks);    
+    wavesurfer.current.load(url, peaks);
     setIsLoading(false);
- 
+
   };
 
   useEffect(() => {
