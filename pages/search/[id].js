@@ -48,7 +48,7 @@ const formWaveSurferOptions = (ref) => (
   }
 );
 
-function similarSearch() {
+const Details = () => {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const { query } = useRouter();
@@ -483,4 +483,4 @@ function similarSearch() {
     </div>
   );
 }
-export default similarSearch;
+export default Details;
