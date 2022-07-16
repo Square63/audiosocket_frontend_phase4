@@ -3,6 +3,7 @@ import { Dropdown } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import InpageLoader from "./InpageLoader";
+import ShareModal from "./modals/ShareModal";
 
 const formWaveSurferOptions = (ref) => ({
   container: ref,
@@ -30,6 +31,8 @@ export default function CustomAudioWave(props) {
   const [rowSeconds, setRowSeconds] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [peaks, setPeaks] = useState([]);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareId, setShareId] = useState(null);
   const url = props.track.mp3_file_compressed ? props.track.mp3_file_compressed : "./test.mp3"
 
   const settings = {
@@ -101,6 +104,14 @@ export default function CustomAudioWave(props) {
     setPlaying(!playing);
     wavesurfer.current.playPause();
   };
+
+  function handleShareModalClose() {
+    setShowShareModal(false)
+  }
+
+  function handleShareId(id) {
+    setShareId(id);
+  }
 
   function convertSecToMin(duration) {
     if (duration != null) {
@@ -259,7 +270,7 @@ export default function CustomAudioWave(props) {
                   </svg>
                   <span>Add to Cart</span>
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-1">
+                <Dropdown.Item onClick={() => {handleShareId(track.id); setShowShareModal(true) }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                     <g id="Interface-Essential_Share_share-2" data-name="Interface-Essential / Share / share-2" transform="translate(-518 -3841.793)">
                       <g id="Group_395" data-name="Group 395" transform="translate(518.5 3842.5)">
@@ -311,6 +322,7 @@ export default function CustomAudioWave(props) {
           </div>
         </div>
       </div>
+      <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} shareId={shareId} />
     </div>
   );
 }
