@@ -795,7 +795,6 @@ export const getCreatotKitsDetail = (data) => async (dispatch) => {
 };
 
 export const getCreatorKitsTracks = (id, type, page, sort_by, sort_dir) => async (dispatch) => {
-  debugger
   let media = ''
   type == 'sound_design' ? media = 'sfx' : media = type
 
