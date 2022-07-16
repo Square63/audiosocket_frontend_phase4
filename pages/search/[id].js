@@ -114,20 +114,20 @@ const Details = () => {
     // if (false) {
     //   setTimeout(() => setSeconds(seconds ? (seconds - 1) : (30 - 1)), 1000);
     // } else {
-      setSeconds(seconds);
+    //   setSeconds(seconds);
 
 
-    if (wavesurfer.current) {
-      wavesurfer.current.play();
-    } else if (wavesurfer.current && !localStorage.getItem('playing')) {
-      wavesurfer.current.pause();
-    }
+    // if (wavesurfer.current) {
+    //   wavesurfer.current.play();
+    // } else if (wavesurfer.current && !localStorage.getItem('playing')) {
+    //   wavesurfer.current.pause();
+    // }
 
-    return () => {
-      if (wavesurfer.current) {
-        wavesurfer.current.pause();
-      }
-    };
+    // return () => {
+    //   if (wavesurfer.current) {
+    //     wavesurfer.current.pause();
+    //   }
+    // };
   }, [seconds]);
 
   useEffect(() => {
@@ -469,10 +469,10 @@ const Details = () => {
           <>
             {track.alternate_versions?.map((altVersion, index) => {
               return (
-                <AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} handleSimilarSearch={props.handleSimilarSearch} showTrackAddToPlaylistModal={props.showTrackAddToPlaylistModal} handleAddToFavorites={props.handleAddToFavorites} tracksMeta={props.tracksMeta} favoriteTrackIds={props.favoriteTrackIds} showDownloadModal={props.showDownloadModal} showDownloadLicenseModal={props.showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists} />
+                <AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} handleSimilarSearch={handleSimilarSearch} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} handleAddToFavorites={handleAddToFavorites} tracksMeta={tracksMeta} favoriteTrackIds={favoriteTrackIds} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists} />
               )
             })}
-            <Tracks tracks={similarTracks.slice(similarTracksIndex, similarTracksIndex + 10)} tracksMeta={similarTracks.length} showDownloadModal={showDownloadModal} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleAddToFavorites={handleAddToFavorites} handleSimilarSearch={handleSimilarSearch} fromAims={true} updateSegmentTracksIndex={updateSegmentTracksIndex} type="similarTrack" />
+            {similarTracks.length > 0 ? <Tracks tracks={similarTracks.slice(similarTracksIndex, similarTracksIndex + 10)} tracksMeta={similarTracks.length} showDownloadModal={showDownloadModal} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleAddToFavorites={handleAddToFavorites} handleSimilarSearch={handleSimilarSearch} fromAims={true} updateSegmentTracksIndex={updateSegmentTracksIndex} type="similarTrack" />: <center>No Similar Track Found</center>}
           </>
         }
       </div>
