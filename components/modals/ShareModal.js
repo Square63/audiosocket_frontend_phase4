@@ -28,13 +28,13 @@ function ShareModal({showModal = false, onCloseModal, shareId}) {
       <Form>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h2 className="modalName">Share Playlist Link</h2>
+            <h2 className="modalName">Share Link</h2>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="modal-container">
             <div className="form-group">
-              <Form.Label className="required">Copy a link to share playlist.</Form.Label>
+              <Form.Label className="required">Copy the link to share.</Form.Label>
               <div className="linkContainer">
                 <div className="shareLink">{shareLink}</div>
                 <OverlayTrigger overlay={<Tooltip>Copy Link</Tooltip>}>
