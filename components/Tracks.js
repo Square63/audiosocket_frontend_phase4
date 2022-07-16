@@ -43,7 +43,9 @@ function Tracks(props) {
     } else
         setTracks(tracks=> props.tracks)
 
-    if (props.sfxes ? !props.tracksMeta?.total_sfx_count : !props.tracksMeta?.total_track_count)
+    if (props.type == 'similarTrack')
+      props.tracks.length + tracks.length >= props.tracksMeta && sethasMore(false)
+    else if (props.sfxes ? !props.tracksMeta?.total_sfx_count : !props.tracksMeta?.total_track_count)
       sethasMore(false)
     else if (props.sfxes && props.tracks.length + tracks.length >= props.tracksMeta?.total_sfx_count) {
       sethasMore(false)
@@ -51,9 +53,8 @@ function Tracks(props) {
       sethasMore(false)
     } else if (props.tracksMeta?.query_type == "Artist tracks")
       sethasMore(false)
-    else {
+    else
       sethasMore(true)
-    }
 
     return () => {
       isMounted = false;
@@ -61,16 +62,18 @@ function Tracks(props) {
   },[props.tracks])
 
   useEffect(() => {
-    setFollowedArtists(props.tracksMeta?.followed_artist_ids);
+    props.type == 'similarTrack' ? setFollowedArtists([]) : setFollowedArtists(props.tracksMeta?.followed_artist_ids);
   },[props.tracksMeta?.followed_artist_ids])
 
   const fetchData = () => {
-    let query = document.getElementById("searchField").value
+    let query;
+    if (!props.type == 'similarTrack')
+      query = document.getElementById("searchField").value
+
     if (props.sfxes)
       dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sortBy, sortDir, (tracks.length / 10 + 1), '', '', props.duration.start, props.duration.end));
-    else if (props.fromAims){
+    else if (props.fromAims)
       props.updateSegmentTracksIndex(tracks.length)
-    }
     else if (props.tracksMeta?.query_type == "Artist tracks")
       dispatch(getArtistTracks(artistId));
     else
@@ -192,90 +195,98 @@ function Tracks(props) {
   }
 
   return (
-    
     <div className={search.tracksWrapper}>
         { props.tracksMeta ? (
           <>
             <div className={search.tracksHeading}>
               {(props.tracks?.length || props.sfxes?.length) ?
                 <h2>
-                  {props.sfxes ? "SFX " : props.tracksMeta ? "Tracks " : "Playlist Tracks "}
+                  {props.sfxes ? "SFX " : props.type == 'similarTrack' ? "Similar Tracks " : props.tracksMeta ? "Tracks " : "Playlist Tracks "}
                   <span className={search.tracksCount}>
-                    {props.sfxes ? `(${props.tracksMeta?.total_sfx_count})` : props.tracksMeta ? `(${props.tracksMeta?.total_track_count})` : `(${props.tracks?.count})`}
+                    {props.sfxes ? `(${props.tracksMeta.total_sfx_count})` : props.type == 'similarTrack' ? `(${props.tracksMeta})` : props.tracksMeta ? `(${props.tracksMeta.total_track_count})` : `(${props.tracks?.count})`}
                   </span>
                 </h2> : <h2>No Tracks Found</h2>
               }
 
               <div className={search.tracksSorting}>
-
-                <form>
-                    <Form.Label className="required">Sort By:</Form.Label>
-                    <Select
-                      className='react-select-container'
-                      classNamePrefix="react-select"
-                      placeholder="Recently Published"
-                      options={options}
-                      onChange={(e) => handleFilterDropdown(e)}
-                      defaultValue='Recently Published'
-                      theme={theme => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary: '#c0d72d',
-                        },
-                        height: 43,
-                      })}
-                    />
-                </form>
+                {!props.type == 'similarTrack' &&
+                  <form>
+                      <Form.Label className="required">Sort By:</Form.Label>
+                      <Select
+                        className='react-select-container'
+                        classNamePrefix="react-select"
+                        placeholder="Recently Published"
+                        options={options}
+                        onChange={(e) => handleFilterDropdown(e)}
+                        defaultValue='Recently Published'
+                        theme={theme => ({
+                          ...theme,
+                          colors: {
+                            ...theme.colors,
+                            primary: '#c0d72d',
+                          },
+                          height: 43,
+                        })}
+                      />
+                  </form>
+                }
               </div>
             </div>
-            <div className="trackRowWrapper">
-              <div className="trackRow headingRow">
-                <div className="rowParticipant artistName" onClick={(e) => handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}>
-                  Title / Artist
+          <div className="trackRowWrapper">
+            <div className="trackRow headingRow">
+              <div className="rowParticipant artistName" onClick={(e) => {!props.type == 'similarTrack' && handleSorting(e, props.appliedFiltersList, "title", titleSortDir == "ASC" ? "DESC" : "ASC")}}>
+                Title / Artist
+                {!props.type == 'similarTrack' &&
                   <span className="sortingMedium">
                     <a href="" className={titleSortDir == "DESC" ? "decending disableSortBtn" : titleSortDir == "" ? "decending" : "decending"}></a>
                     <a href="" className={titleSortDir == "ASC" ? "ascending  disableSortBtn" : titleSortDir == "" ? "ascending" : "ascending"}></a>
                   </span>
-                </div>
-                <div className="rowParticipant audioWave"></div>
-                <div className="rowParticipant duration" onClick={(e) => handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}>
-                  Duration
+                }
+              </div>
+              <div className="rowParticipant audioWave"></div>
+              <div className="rowParticipant duration" onClick={(e) => {!props.type == 'similarTrack' && handleSorting(e, props.appliedFiltersList, "duration", durationSortDir == "ASC" ? "DESC" : "ASC")}}>
+                Duration
+                {!props.type == 'similarTrack' &&
                   <span className="sortingMedium">
                     <a href="" className={durationSortDir == "DESC" ? "decending disableSortBtn" : durationSortDir == "" ? "decending" : "decending"}></a>
                     <a href="" className={durationSortDir == "ASC" ? "ascending  disableSortBtn" : durationSortDir == "" ? "ascending" : "ascending"}></a>
                   </span>
-                </div>
-                {!props.sfxes &&
-                  <div className="rowParticipant mood">
-                    <Dropdown alignLeft>
-                      <Dropdown.Toggle variant="" id="headerMood">
-                        Mood
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu>
-                        <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
-                          <span>Mood</span>
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
-                          <span>Genres</span>
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
-                          <span>Themes</span>
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
-                          <span>Instruments</span>
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    {/* <span className="sortingMedium">
-                      <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
-                      <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
-                    </span> */}
-                  </div>
                 }
-                <div className="rowParticipant controls"></div>
               </div>
+              {!props.sfxes && !props.type == 'similarTrack' ?
+                <div className="rowParticipant mood">
+                  <Dropdown alignLeft>
+                    <Dropdown.Toggle variant="" id="headerMood">
+                      Mood
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item className="activeState" onClick={(e)=> handleMood(e, "moods")}>
+                        <span>Mood</span>
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={(e)=> handleMood(e, "genres")}>
+                        <span>Genres</span>
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={(e)=> handleMood(e, "themes")}>
+                        <span>Themes</span>
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={(e)=> handleMood(e, "instruments")}>
+                        <span>Instruments</span>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  {/* <span className="sortingMedium">
+                    <a href="" className="decending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "DESC")}></a>
+                    <a href="" className="ascending" onClick={(e) => handleSorting(e, props.appliedFiltersList, "mood", "ASC")}></a>
+                  </span> */}
+                </div>
+                : props.type == 'similarTrack' &&
+                <div className="rowParticipant mood">
+                  Mood
+                </div>
+              }
+              <div className="rowParticipant controls"></div>
+            </div>
               <InfiniteScroll
                 dataLength={tracks.length}
                 next={fetchData}
@@ -295,7 +306,7 @@ function Tracks(props) {
                       </div>
                     }
                     <div className="rowParticipant controls">
-                      {props.type == "track" &&
+                      {(props.type == "track" || props.type == "similarTrack")&&
                         <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
                           <a onClick={() => props.handleSimilarSearch(track.title, track.aims_id)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="26.536" height="26.536" viewBox="0 0 26.536 26.536">
@@ -311,7 +322,7 @@ function Tracks(props) {
                           </a>
                         </OverlayTrigger>
                       }
-                      <OverlayTrigger overlay={<Tooltip>{props.favoriteTrackIds.includes(track.id) ? "Remove from Favourites" : "Add to Favourites"}</Tooltip>}>
+                      <OverlayTrigger overlay={<Tooltip>{props.favoriteTrackIds?.includes(track.id) ? "Remove from Favourites" : "Add to Favourites"}</Tooltip>}>
                         <a onClick={(e) => props.handleAddToFavorites(e, track.id)} className={props.tracksMeta ? (props.tracksMeta?.favorite_tracks_ids ? ((props.tracksMeta?.favorite_tracks_ids.includes(track.id) || props.favoriteTrackIds.includes(track.id)) ? "controlActive" : "") : props.tracksMeta?.favorite_sfx_ids && (props.tracksMeta?.favorite_sfx_ids.includes(track.id) || props.favoriteTrackIds.includes(track.id)) ? "controlActive" : "") : ""}>
                           <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
                             <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">
@@ -385,7 +396,7 @@ function Tracks(props) {
                               </g>
                             </svg>
                             <span>Add to Playlist</span>
-                          </Dropdown.Item>           
+                          </Dropdown.Item>
                           <Dropdown.Item href="#/action-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                               <g id="Interface-Essential_Share_share-2" data-name="Interface-Essential / Share / share-2" transform="translate(-518 -3841.793)">
