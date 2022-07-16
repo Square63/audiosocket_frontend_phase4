@@ -67,7 +67,7 @@ function Tracks(props) {
 
   const fetchData = () => {
     let query;
-    if (!props.type == 'similarTrack')
+    if (!(props.type == 'similarTrack'))
       query = document.getElementById("searchField").value
 
     if (props.sfxes)
