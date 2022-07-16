@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function ShareModal({showModal = false, onCloseModal, shareId}) {
   const id = shareId;
-  const shareLink = id == null ? window.location.href : `${window.location.origin}/search/${id}`;
+  const shareLink = id ? `${window.location.origin}/search/${id}` : window.location.href;
 
   const handleSharePlaylist = () => {
     {navigator.clipboard.writeText(shareLink)};
