@@ -1,27 +1,24 @@
-import { useEffect, useRef, useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
-import Tooltip from 'react-bootstrap/Tooltip';
-import Tracks from "../../components/Tracks";
-import playlist from "../../styles/Playlist.module.scss";
-import { Slider } from "react-semantic-ui-range";
-import { Grid } from 'semantic-ui-react';
-import InpageLoader from "../../components/InpageLoader";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import Router from "next/router";
-import { addToFavorites, removeFromFavorites, getTrackDetails, attachToMedia } from '../../redux/actions/trackActions';
-import dynamic from 'next/dynamic'
 import Notiflix from "notiflix";
+import Router from "next/router";
+import dynamic from 'next/dynamic'
+import { useRouter } from "next/router";
+import Tracks from "../../components/Tracks";
+import Tooltip from 'react-bootstrap/Tooltip';
+import Sidebar from '../../components/Sidebar';
+import { TOAST_OPTIONS } from '../../common/api';
+import {Button, Dropdown} from "react-bootstrap";
+import { AuthContext } from "../../store/authContext";
+import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch, useSelector } from "react-redux";
+import InpageLoader from "../../components/InpageLoader";
+import playlist from "../../styles/Playlist.module.scss";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import ShareModal from "../../components/modals/ShareModal";
+import { useEffect, useRef, useState, useContext } from "react";
 import AddToPlaylist from "../../components/modals/AddToPlaylist";
 import DownloadTrack from "../../components/modals/DownloadTrack";
 import AddToCartLicense from "../../components/modals/AddToCartLicense";
-import { TOAST_OPTIONS } from '../../common/api';
-import { ToastContainer, toast } from 'react-toastify';
-import { AuthContext } from "../../store/authContext";
-import Sidebar from '../../components/Sidebar';
-import ShareModal from "../../components/modals/ShareModal";
+import { addToFavorites, removeFromFavorites, getTrackDetails, attachToMedia } from '../../redux/actions/trackActions';
 
 const AltVersion = dynamic(
   () => import('../../components/SingleAudioWave'),
@@ -50,30 +47,31 @@ const formWaveSurferOptions = (ref) => (
 );
 
 const Details = () => {
-  const waveformRef = useRef(null);
-  const wavesurfer = useRef(null);
   const { query } = useRouter();
-  const [playing, setPlaying] = useState(false);
-  const [seconds, setSeconds] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [track, setTrack] = useState([])
-  const [similarTracks, setSimilarTracks] = useState([])
-  const [peaks, setPeaks] = useState([]);
-  const allTracks = useSelector(state => state.allTracks)
-  const cartItem = useSelector(state => state.user.cart)
-  const [similarTracksIndex, setSimilarTracksIndex] = useState(0);
-  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
-  const [altVersionTrack, setAltVersionTrack] = useState(null);
-  const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
-  const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false)
-  const [index, setIndex] = useState(0)
-  const [showSidebar, setShowSidebar] = useState(false)
-  const [sidebarType, setSidebarType] = useState("")
-  const [showDownModal, setShowDownModal] = useState(false)
-  const [showShareModal, setShowShareModal] = useState(false);
-  const [shareId, setShareId] = useState(null);
-  const authContext = useContext(AuthContext);
   const dispatch = useDispatch();
+  const wavesurfer = useRef(null);
+  const waveformRef = useRef(null);
+  const authContext = useContext(AuthContext);
+  const cartItem = useSelector(state => state.user.cart);
+  const allTracks = useSelector(state => state.allTracks);
+
+  const [index, setIndex] = useState(0);
+  const [track, setTrack] = useState([]);
+  const [peaks, setPeaks] = useState([]);
+  const [seconds, setSeconds] = useState();
+  const [shareId, setShareId] = useState(null);
+  const [playing, setPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [sidebarType, setSidebarType] = useState("");
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [similarTracks, setSimilarTracks] = useState([]);
+  const [showDownModal, setShowDownModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [favoriteTrackIds, setFavoriteTrackIds] = useState([]);
+  const [altVersionTrack, setAltVersionTrack] = useState(null);
+  const [similarTracksIndex, setSimilarTracksIndex] = useState(0);
+  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false);
+  const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false);
 
   useEffect(() => {
     if (!allTracks.similarTracks) {
@@ -478,11 +476,11 @@ const Details = () => {
         {isLoading ?
           <InpageLoader /> :
           <>
-            {track.alternate_versions?.map((altVersion, index) => {
+            {/* {track.alternate_versions?.map((altVersion, index) => {
               return (
                 <AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} handleSimilarSearch={handleSimilarSearch} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} handleAddToFavorites={handleAddToFavorites} tracksMeta={tracksMeta} favoriteTrackIds={favoriteTrackIds} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists} />
               )
-            })}
+            })} */}
             {similarTracks.length > 0 ? <Tracks tracks={similarTracks.slice(similarTracksIndex, similarTracksIndex + 10)} tracksMeta={similarTracks.length} showDownloadModal={showDownloadModal} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleAddToFavorites={handleAddToFavorites} handleSimilarSearch={handleSimilarSearch} fromAims={true} updateSegmentTracksIndex={updateSegmentTracksIndex} type="similarTrack" />: <center>No Similar Track Found</center>}
           </>
         }
@@ -495,4 +493,5 @@ const Details = () => {
     </div>
   );
 }
+
 export default Details;
