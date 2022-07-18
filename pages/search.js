@@ -83,16 +83,6 @@ function Search(props) {
   const container = React.createRef();
 
   useEffect(() => {
-
-  }, [appliedFiltersListWC]);
-
-  useEffect(() => {
-    if (!localStorage.getItem("localKeyword") && !localStorage.getItem("keyword")){
-      handleAddHomeFilter()
-    }
-  }, []);
-
-  useEffect(() => {
     let trackName = localStorage.getItem("track_name")
     let trackId = localStorage.getItem("track_id")
     let file = localStorage.getItem("uploadFileFromWelcome")
@@ -101,7 +91,7 @@ function Search(props) {
     let genre = localStorage.getItem('genre')
     let vocal = localStorage.getItem('vocal')
     let filterKeyword = localStorage.getItem('filterKeyword')
-    
+
     if (keyword){
       setFromAims(true)
       setSearchQuery(keyword)
@@ -124,6 +114,7 @@ function Search(props) {
       localStorage.removeItem("localKeyword")
     } else if (genre || vocal || filterKeyword) {
       setSearchQuery(filterKeyword)
+      handleAddHomeFilter()
       localStorage.removeItem('filterKeyword')
     } else if ((!localKeyword && !fromAims) && appliedFiltersListWC.length == 0 && !allTracks.tracks[0]?.tracks.length > 0 && !genre & !vocal && !searchQuery){
       dispatch(getTracks("", "local_search", [], "", "", 1))
@@ -171,7 +162,7 @@ function Search(props) {
 
   useEffect(() => {
     let isMounted = true;
-    if (tracks?.length > 0) { 
+    if (tracks?.length > 0) {
       if (updatedTracks[0]?.id != tracks[0].id)
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...tracks]);
     }
@@ -487,6 +478,8 @@ function Search(props) {
     }
     let query = document.getElementById("searchField").value
     dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
+    localStorage.removeItem('genre')
+    localStorage.removeItem('vocal')
   }
 
   const handleAimsSearch = () => {
@@ -514,7 +507,7 @@ function Search(props) {
     else{
       localStorage.removeItem("keyword")
     }
-      
+
   }
 
   const handleFooterTrack = (track) => {
@@ -953,7 +946,7 @@ function Search(props) {
           {loading ? (
             <InpageLoader />
           ) : (
-            <Tracks appliedFiltersList={appliedFiltersList} tracks={fromAims ? tracks.slice(segmentTracksIndex, segmentTracksIndex + 10) :  tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} handleTrackSearchOfArtist={handleTrackSearchOfArtist} fromAims={fromAims} updateSegmentTracksIndex={updateSegmentTracksIndex} type="track"/>
+            <Tracks appliedFiltersList={appliedFiltersList} tracks={fromAims ? tracks?.slice(segmentTracksIndex, segmentTracksIndex + 10) :  tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} handleTrackSearchOfArtist={handleTrackSearchOfArtist} fromAims={fromAims} updateSegmentTracksIndex={updateSegmentTracksIndex} type="track"/>
           )}
         </div>
 

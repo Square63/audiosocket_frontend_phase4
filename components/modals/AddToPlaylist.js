@@ -208,7 +208,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track, type}
             <InpageLoader />
           </div>
         )}
-        
+
       </Modal.Body>
     </Modal>
   );
