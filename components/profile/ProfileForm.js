@@ -15,7 +15,6 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
   const userInfo = useSelector(state => state.user.userInfo);
   const updatedUserInfo = useSelector(state => state.user.user);
   const responseStatus = useSelector(state => state.user.responseStatus);
-  console.log("USER INFO", userInfo)
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [countryError, setCountryError] = useState(false);
