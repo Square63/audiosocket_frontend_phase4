@@ -18,7 +18,7 @@ import { useEffect, useRef, useState, useContext } from "react";
 import AddToPlaylist from "../../components/modals/AddToPlaylist";
 import DownloadTrack from "../../components/modals/DownloadTrack";
 import AddToCartLicense from "../../components/modals/AddToCartLicense";
-import { addToFavorites, removeFromFavorites, getTrackDetails, attachToMedia } from '../../redux/actions/trackActions';
+import { addToFavorites, removeFromFavorites, getTrackDetails, attachToMedia, followArtist, unFollowArtist } from '../../redux/actions/trackActions';
 
 const AltVersion = dynamic(
   () => import('../../components/SingleAudioWave'),
@@ -55,31 +55,48 @@ const Details = () => {
   const cartItem = useSelector(state => state.user.cart);
   const allTracks = useSelector(state => state.allTracks);
 
+
   const [index, setIndex] = useState(0);
   const [track, setTrack] = useState([]);
   const [peaks, setPeaks] = useState([]);
   const [seconds, setSeconds] = useState();
   const [shareId, setShareId] = useState(null);
   const [playing, setPlaying] = useState(false);
+  const [tracksMeta, setTracksMeta] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarType, setSidebarType] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const [similarTracks, setSimilarTracks] = useState([]);
   const [showDownModal, setShowDownModal] = useState(false);
+  const [followedArtists, setFollowedArtists] = useState([]);
   const [showShareModal, setShowShareModal] = useState(false);
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([]);
+  const [favoriteTrackIdsList, setFavoriteTrackIdsList] = useState([]);
+  const [followedArtistsList, setFollowedArtistsList] = useState([]);
   const [altVersionTrack, setAltVersionTrack] = useState(null);
   const [similarTracksIndex, setSimilarTracksIndex] = useState(0);
   const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false);
+  const [showModalForTrackDetail, setShowModalForTrackDetail] = useState(false);
   const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false);
+
 
   useEffect(() => {
     if (!allTracks.similarTracks) {
       dispatch(getTrackDetails(query.id))
     }
-    else if (allTracks && allTracks.similarTracks) {
+    else if (allTracks && allTracks.similarTracks && allTracks.trackDetailMeta) {
       setTrack(allTracks.track)
       setSimilarTracks(allTracks.similarTracks)
+      setTracksMeta(allTracks.trackDetailMeta)
+      if (allTracks.trackDetailMeta.favorite_tracks_ids){
+        setFavoriteTrackIds(allTracks.trackDetailMeta.favorite_tracks_ids)
+        favoriteTrackIdsList.length == 0 && setFavoriteTrackIdsList(allTracks.trackDetailMeta.favorite_tracks_ids)
+      }
+      if (allTracks.trackDetailMeta.followed_artist_ids){
+        setFollowedArtists(allTracks.trackDetailMeta.followed_artist_ids)
+        followedArtistsList.length == 0 && setFollowedArtistsList(allTracks.trackDetailMeta.followed_artist_ids)
+      }
+      setIsLoading(false);
     }
 
     if (!allTracks?.success) {
@@ -92,19 +109,22 @@ const Details = () => {
   useEffect(() => {
     if (track.audio_peak) {
       const getJson = async () => {
-        const data = await fetch(track.audio_peak?.file, {
-          headers: {
-            accept: "application/json"
-          }
-        })
+        if (peaks.length == 0){
+          const data = await fetch(track.audio_peak?.file, {
+            headers: {
+              accept: "application/json"
+            }
+          })
           .then(response => {
             return response.json()
           })
-          .then(peaks => {
-            if (wavesurfer.current == null)
-              create(track.mp3_file_compressed, peaks.data);
-            setPeaks(peaks.data)
+          .then(peaksValues => {
+            if (wavesurfer.current == null && peaks.length == 0){
+              create(track.mp3_file_compressed, peaksValues.data);
+              setPeaks(peaksValues.data)
+            }
           })
+        }
       }
       getJson()
     }
@@ -171,7 +191,6 @@ const Details = () => {
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
     wavesurfer.current.load(url, peaks);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -226,17 +245,17 @@ const Details = () => {
   }
 
   const handleAddToFavorites = (e, trackId) => {
-    // setLoading(true)
+
     if (localStorage.getItem("user")) {
-      if (!favoriteTrackIds.includes(trackId)) {
-        setFavoriteTrackIds([...favoriteTrackIds, trackId])
+      if (!favoriteTrackIdsList.includes(trackId)) {
+        setFavoriteTrackIdsList([...favoriteTrackIdsList, trackId])
         e.target.closest("a").classList.add("controlActive")
         dispatch(addToFavorites(trackId, "track"));
       }
       else {
-        favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
+        favoriteTrackIdsList.splice(favoriteTrackIdsList.indexOf(trackId), 1)
         e.target.closest("a").classList.remove("controlActive")
-        setFavoriteTrackIds(favoriteTrackIds)
+        setFavoriteTrackIdsList(favoriteTrackIdsList)
         dispatch(removeFromFavorites(trackId, "track"));
       }
     }
@@ -251,9 +270,13 @@ const Details = () => {
       if (type == "track") {
         setAltVersionTrack(null)
         setIndex(index)
+        setShowModalForTrackDetail(false)
       }
+      else if (type == 'similarTrack')
+        setShowModalForTrackDetail(true)
       else {
         setAltVersionTrack(index)
+        setShowModalForTrackDetail(false)
       }
       setShowDownModal(true)
     }
@@ -271,9 +294,11 @@ const Details = () => {
     if (localStorage.getItem("user")) {
       if (type=="similarTrack") {
         setAltVersionTrack(null)
+        setShowModalForTrackDetail(true)
       }
       else {
         setAltVersionTrack(index)
+        setShowModalForTrackDetail(false)
       }
       if (typeof (localStorage.getItem("has_subscription")) !== undefined) {
         if (JSON.parse(localStorage.getItem("has_subscription"))) {
@@ -310,6 +335,20 @@ const Details = () => {
     setShowSidebar(false)
   }
 
+  const handleFollowArtist = (track) => {
+    dispatch(followArtist(track.artist_id));
+    setFollowedArtists(followedArtists => [...followedArtists, track.artist_id])
+    setFollowedArtistsList(followedArtistsList => [...followedArtistsList, track.artist_id])
+  }
+
+  const handleUnfollowArtist = (track) => {
+    dispatch(unFollowArtist(track.artist_id));
+    followedArtists.splice(followedArtists.indexOf(track.artist_id), 1)
+    followedArtistsList.splice(followedArtistsList.indexOf(track.artist_id), 1)
+    setFollowedArtists(followedArtists)
+    setFollowedArtists(followedArtistsList)
+  }
+
   return (
     <div className={playlist.myPlaylistShow+' '+playlist.similarTrackDetail}>
       <ToastContainer
@@ -327,166 +366,160 @@ const Details = () => {
       <div className={playlist.playlistBanner}>
         <div className={playlist.playlistInfo}>
           <div className={playlist.playlistCard}>
-            <div className={playlist.imgSec}>
-              <a href="javascript:void(0)" className="tileOverlay">
-                {/* <Image src={mood1} alt="Mood" className="tilesImg"></Image> */}
-                {isLoading ?
-                  <InpageLoader /> :
-                  <div className="playPauseBtn" onClick={() => { handlePlayPause() }} >
-                    <span className={(playing) ? "play" + ' ' + query.id : "pause" + ' ' + query.id}></span>
-                    <span className="pause d-none"></span>
-                  </div>
-                }
-              </a>
-            </div>
-            <div className={playlist.contentSec}>
-              <div className={playlist.aboutPlaylist}>
-                {isLoading ?
-                  <InpageLoader /> :
-                  <div className={playlist.playlistOwner}>
-                    <div className={playlist.PlaylistName}>
-                      <h3>{track.title}</h3>
-                      <span className={playlist.artistName}>{track.artist_name}</span>
+            {isLoading ?
+              <InpageLoader /> :
+              <>
+                <div className={playlist.imgSec}>
+                  <a href="javascript:void(0)" className="tileOverlay">
+                    {/* <Image src={mood1} alt="Mood" className="tilesImg"></Image> */}
+                    <div className="playPauseBtn" onClick={() => { handlePlayPause() }} >
+                      <span className={(playing) ? "play" + ' ' + query.id : "pause" + ' ' + query.id}></span>
+                      <span className="pause d-none"></span>
                     </div>
-                    <div className="singleTrackDetail controls">
-                      <OverlayTrigger overlay={<Tooltip>Add to Favourites</Tooltip>}>
-                        <a>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
-                            <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">
-                              <path id="Shape_185" data-name="Shape 185" d="M181.253,573.9l-7.07-7.281a5.369,5.369,0,0,1-1.031-6.258h0a5.532,5.532,0,0,1,8.8-1.409l1.516,1.382,1.516-1.382a5.532,5.532,0,0,1,8.8,1.409h0a5.36,5.36,0,0,1,.182,4.452" transform="translate(-172.573 -557.365)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Oval_11" data-name="Oval 11" d="M189.254,577.1a5.683,5.683,0,1,0-5.684-5.683A5.683,5.683,0,0,0,189.254,577.1Z" transform="translate(-173.153 -557.807)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73v5.684" transform="translate(-173.469 -557.965)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_187" data-name="Shape 187" d="M192.254,571.73h-5.683" transform="translate(-173.311 -558.123)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                            </g>
-                          </svg>
-                        </a>
-                      </OverlayTrigger>
+                  </a>
+                </div>
+                <div className={playlist.contentSec}>
+                  <div className={playlist.aboutPlaylist}>
 
-                      <OverlayTrigger overlay={<Tooltip>Download Track</Tooltip>}>
-                        <a>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="22.743" height="21.503" viewBox="0 0 22.743 21.503">
-                            <g id="icon-download" transform="translate(0.5 21.003) rotate(-90)">
-                              <path id="Shape_111" data-name="Shape 111" d="M11.589,4.254V.945A.92.92,0,0,0,10.7,0H.891A.92.92,0,0,0,0,.945V20.8a.92.92,0,0,0,.891.945H10.7a.92.92,0,0,0,.891-.945V17.489" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_112" data-name="Shape 112" d="M0,0H16.937" transform="translate(3.566 10.872)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                              <path id="Shape_113" data-name="Shape 113" d="M4.457,0,0,4.727,4.457,9.454" transform="translate(3.566 6.145)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                            </g>
-                          </svg>
-                        </a>
-                      </OverlayTrigger>
-
-                      <Dropdown alignCenter>
-                        <OverlayTrigger overlay={<Tooltip>More</Tooltip>}>
-                          <Dropdown.Toggle variant="" id="dropdown-autoclose-true dropdown-button-drop-up">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
-                                <g id="icon-elipsis" transform="translate(-422 -334)">
-                                  <path id="Oval_12" data-name="Oval 12" d="M429,347.25a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,429,347.25Z" transform="translate(-1 -1)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                  <path id="Oval_13" data-name="Oval 13" d="M434,347.25a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,434,347.25Z" transform="translate(-1 -1)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                  <path id="Oval_14" data-name="Oval 14" d="M439,347.25a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,439,347.25Z" transform="translate(-1 -1)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                  <path id="Oval_15" data-name="Oval 15" d="M433,355.5A10.5,10.5,0,1,0,422.5,345,10.5,10.5,0,0,0,433,355.5Z" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                </g>
-                              </svg>
-                          </Dropdown.Toggle>
+                    <div className={playlist.playlistOwner}>
+                      <div className={playlist.PlaylistName}>
+                        <h3>{track.title}</h3>
+                        <span className={playlist.artistName}>{track.artist_name}</span>
+                      </div>
+                      <div className="singleTrackDetail controls">
+                        <OverlayTrigger overlay={<Tooltip>Add to Favourites</Tooltip>}>
+                          <a onClick={(e) => handleAddToFavorites(e, track.id)} className={((tracksMeta && (tracksMeta.favorite_tracks_ids?.includes(track.id) || favoriteTrackIdsList.includes(track.id))) ? "controlActive" : "")}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
+                              <g id="icon-add-to-favorites" transform="translate(0.619 0.513)">
+                                <path id="Shape_185" data-name="Shape 185" d="M181.253,573.9l-7.07-7.281a5.369,5.369,0,0,1-1.031-6.258h0a5.532,5.532,0,0,1,8.8-1.409l1.516,1.382,1.516-1.382a5.532,5.532,0,0,1,8.8,1.409h0a5.36,5.36,0,0,1,.182,4.452" transform="translate(-172.573 -557.365)" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Oval_11" data-name="Oval 11" d="M189.254,577.1a5.683,5.683,0,1,0-5.684-5.683A5.683,5.683,0,0,0,189.254,577.1Z" transform="translate(-173.153 -557.807)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73v5.684" transform="translate(-173.469 -557.965)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Shape_187" data-name="Shape 187" d="M192.254,571.73h-5.683" transform="translate(-173.311 -558.123)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                              </g>
+                            </svg>
+                          </a>
                         </OverlayTrigger>
-                        <Dropdown.Menu>
-                          <Dropdown.Item>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="17.994" height="17.024" viewBox="0 0 17.994 17.024">
-                              <g id="icon-cart" transform="translate(0.5 0.5)">
-                                <g id="Group_155" data-name="Group 155" transform="translate(0)">
-                                  <g id="shopping-cart-add">
-                                    <path id="Oval_67" data-name="Oval 67" d="M255.607,1411.542a1.047,1.047,0,1,0-1.108-1.045A1.078,1.078,0,0,0,255.607,1411.542Z" transform="translate(-250.067 -1397.608)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1172" data-name="Shape 1172" d="M248.5,1392.452h2a.732.732,0,0,1,.72.537l2.822,11.306H257" transform="translate(-248.5 -1392.452)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1173" data-name="Shape 1173" d="M265.656,1401.62l.8-2.251a.663.663,0,0,0-.1-.628.753.753,0,0,0-.6-.289H253.412" transform="translate(-249.783 -1394.272)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1174" data-name="Shape 1174" d="M255.293,1406.452h3.459" transform="translate(-250.274 -1396.698)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Oval_68" data-name="Oval 68" d="M265.2,1412.419a3.489,3.489,0,1,0-3.694-3.483A3.594,3.594,0,0,0,265.2,1412.419Z" transform="translate(-251.895 -1396.395)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1175" data-name="Shape 1175" d="M266.5,1408.452v2.787" transform="translate(-253.201 -1397.305)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1176" data-name="Shape 1176" d="M264.5,1410.452h2.955" transform="translate(-252.679 -1397.912)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                  </g>
-                                </g>
+
+                        <OverlayTrigger overlay={<Tooltip>Download Track</Tooltip>}>
+                          <a onClick={() => {showDownloadModal(track, "similarTrack"); }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22.743" height="21.503" viewBox="0 0 22.743 21.503">
+                              <g id="icon-download" transform="translate(0.5 21.003) rotate(-90)">
+                                <path id="Shape_111" data-name="Shape 111" d="M11.589,4.254V.945A.92.92,0,0,0,10.7,0H.891A.92.92,0,0,0,0,.945V20.8a.92.92,0,0,0,.891.945H10.7a.92.92,0,0,0,.891-.945V17.489" fill="#fff" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Shape_112" data-name="Shape 112" d="M0,0H16.937" transform="translate(3.566 10.872)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                <path id="Shape_113" data-name="Shape 113" d="M4.457,0,0,4.727,4.457,9.454" transform="translate(3.566 6.145)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                               </g>
                             </svg>
-                            <span>Add to Cart</span>
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => {handleShareId(track.id); setShowShareModal(true) }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
-                              <g id="Interface-Essential_Share_share-2" data-name="Interface-Essential / Share / share-2" transform="translate(-518 -3841.793)">
-                                <g id="Group_395" data-name="Group 395" transform="translate(518.5 3842.5)">
-                                  <g id="share-2">
-                                    <path id="Shape_1972" data-name="Shape 1972" d="M528.887,3851.192v9a.693.693,0,0,1-.693.693h-9a.693.693,0,0,1-.692-.693v-9a.693.693,0,0,1,.692-.692h2.77" transform="translate(-518.5 -3844.96)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1973" data-name="Shape 1973" d="M537.5,3842.5l2.77,2.77-2.77,2.77" transform="translate(-524.343 -3842.5)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1974" data-name="Shape 1974" d="M536.887,3846.5h-6.578a3.808,3.808,0,0,0-3.809,3.809v1.039" transform="translate(-520.96 -3843.73)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          </a>
+                        </OverlayTrigger>
+
+                        <Dropdown alignCenter>
+                          <OverlayTrigger overlay={<Tooltip>More</Tooltip>}>
+                            <Dropdown.Toggle variant="" id="dropdown-autoclose-true dropdown-button-drop-up">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+                                  <g id="icon-elipsis" transform="translate(-422 -334)">
+                                    <path id="Oval_12" data-name="Oval 12" d="M429,347.25a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,429,347.25Z" transform="translate(-1 -1)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                    <path id="Oval_13" data-name="Oval 13" d="M434,347.25a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,434,347.25Z" transform="translate(-1 -1)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                    <path id="Oval_14" data-name="Oval 14" d="M439,347.25a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,439,347.25Z" transform="translate(-1 -1)" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                    <path id="Oval_15" data-name="Oval 15" d="M433,355.5A10.5,10.5,0,1,0,422.5,345,10.5,10.5,0,0,0,433,355.5Z" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                                   </g>
-                                </g>
-                              </g>
-                            </svg>
-                            <span>Share</span>
-                          </Dropdown.Item>
-                          { (localStorage?.getItem('user')) ?
-                          <Dropdown.Item href="#/action-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
-                              <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
-                                <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
-                                  <g id="Group" transform="translate(173.415 84.471)">
-                                    <g id="social-profile-avatar">
-                                      <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                </svg>
+                            </Dropdown.Toggle>
+                          </OverlayTrigger>
+                          <Dropdown.Menu>
+                            <Dropdown.Item onClick={() => { showAddTrackToCartLicenseModal(index, 'track') }}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="17.994" height="17.024" viewBox="0 0 17.994 17.024">
+                                <g id="icon-cart" transform="translate(0.5 0.5)">
+                                  <g id="Group_155" data-name="Group 155" transform="translate(0)">
+                                    <g id="shopping-cart-add">
+                                      <path id="Oval_67" data-name="Oval 67" d="M255.607,1411.542a1.047,1.047,0,1,0-1.108-1.045A1.078,1.078,0,0,0,255.607,1411.542Z" transform="translate(-250.067 -1397.608)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                      <path id="Shape_1172" data-name="Shape 1172" d="M248.5,1392.452h2a.732.732,0,0,1,.72.537l2.822,11.306H257" transform="translate(-248.5 -1392.452)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                      <path id="Shape_1173" data-name="Shape 1173" d="M265.656,1401.62l.8-2.251a.663.663,0,0,0-.1-.628.753.753,0,0,0-.6-.289H253.412" transform="translate(-249.783 -1394.272)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                      <path id="Shape_1174" data-name="Shape 1174" d="M255.293,1406.452h3.459" transform="translate(-250.274 -1396.698)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                      <path id="Oval_68" data-name="Oval 68" d="M265.2,1412.419a3.489,3.489,0,1,0-3.694-3.483A3.594,3.594,0,0,0,265.2,1412.419Z" transform="translate(-251.895 -1396.395)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                      <path id="Shape_1175" data-name="Shape 1175" d="M266.5,1408.452v2.787" transform="translate(-253.201 -1397.305)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                      <path id="Shape_1176" data-name="Shape 1176" d="M264.5,1410.452h2.955" transform="translate(-252.679 -1397.912)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                                     </g>
                                   </g>
-                                  <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                  <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
                                 </g>
-                              </g>
-                            </svg>
-                            <span>Follow Artist</span>
-                          </Dropdown.Item> : "" }
-                        </Dropdown.Menu>
-                      </Dropdown>
+                              </svg>
+                              <span>Add to Cart</span>
+                            </Dropdown.Item>
+                            {((localStorage?.getItem('user')) && followedArtistsList.includes(track.artist_id)) ?
+                              (<Dropdown.Item>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
+                                  <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                                    <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                                      <g id="Group" transform="translate(173.415 84.471)">
+                                        <g id="social-profile-avatar">
+                                          <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                        </g>
+                                      </g>
+                                      <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                      <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                    </g>
+                                  </g>
+                                </svg>
+                                <span onClick={() => { handleUnfollowArtist(track) }}>Unfollow Artist</span>
+                              </Dropdown.Item>) : localStorage?.getItem('user') ?
+                              (<Dropdown.Item>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
+                                  <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                                    <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                                      <g id="Group" transform="translate(173.415 84.471)">
+                                        <g id="social-profile-avatar">
+                                          <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                        </g>
+                                      </g>
+                                      <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                      <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                    </g>
+                                  </g>
+                                </svg>
+                                <span onClick={() => { handleFollowArtist(track) }}>Follow Artist</span>
+                              </Dropdown.Item>) : ""
+                            }
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </div>
+                    </div>
+
+                    <div className={playlist.waveformBlock}>
+                      <div id="waveform" ref={waveformRef} className={query.id} />
                     </div>
                   </div>
-                }
-                <div className={playlist.waveformBlock}>
-                  <div id="waveform" ref={waveformRef} className={query.id} />
+                  <div className={playlist.cardBtnWrapper}>
+                    <Button variant="link" className="btn btnMainLarge" onClick={() => {handleShareId(null); setShowShareModal(true) }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
+                        <g id="share-2" transform="translate(0.5 0.707)">
+                          <path id="Shape_1972" data-name="Shape 1972" d="M528.887,3851.192v9a.693.693,0,0,1-.693.693h-9a.693.693,0,0,1-.692-.693v-9a.693.693,0,0,1,.692-.692h2.77" transform="translate(-518.5 -3844.96)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          <path id="Shape_1973" data-name="Shape 1973" d="M537.5,3842.5l2.77,2.77-2.77,2.77" transform="translate(-524.343 -3842.5)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          <path id="Shape_1974" data-name="Shape 1974" d="M536.887,3846.5h-6.578a3.808,3.808,0,0,0-3.809,3.809v1.039" transform="translate(-520.96 -3843.73)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                        </g>
+                      </svg>
+                      Share
+                    </Button>
+                    {/* <Button variant="link" className="btn btnMainLarge">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
+                        <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
+                          <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          <path id="Shape_112" data-name="Shape 112" d="M0,0H10.9" transform="translate(2.294 6.994)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                          <path id="Shape_113" data-name="Shape 113" d="M2.867,0,0,3.041,2.867,6.081" transform="translate(2.294 3.953)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                        </g>
+                      </svg>
+                      Lyrics
+                    </Button> */}
+                  </div>
                 </div>
-              </div>
-              <div className={playlist.cardBtnWrapper}>
-                <Button variant="link" className="btn btnMainLarge" onClick={() => {handleShareId(null); setShowShareModal(true) }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
-                    <g id="share-2" transform="translate(0.5 0.707)">
-                      <path id="Shape_1972" data-name="Shape 1972" d="M528.887,3851.192v9a.693.693,0,0,1-.693.693h-9a.693.693,0,0,1-.692-.693v-9a.693.693,0,0,1,.692-.692h2.77" transform="translate(-518.5 -3844.96)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                      <path id="Shape_1973" data-name="Shape 1973" d="M537.5,3842.5l2.77,2.77-2.77,2.77" transform="translate(-524.343 -3842.5)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                      <path id="Shape_1974" data-name="Shape 1974" d="M536.887,3846.5h-6.578a3.808,3.808,0,0,0-3.809,3.809v1.039" transform="translate(-520.96 -3843.73)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                    </g>
-                  </svg>
-                  Share
-                </Button>
-                {/* <Button variant="link" className="btn btnMainLarge">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
-                    <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
-                      <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                      <path id="Shape_112" data-name="Shape 112" d="M0,0H10.9" transform="translate(2.294 6.994)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                      <path id="Shape_113" data-name="Shape 113" d="M2.867,0,0,3.041,2.867,6.081" transform="translate(2.294 3.953)" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                    </g>
-                  </svg>
-                  Lyrics
-                </Button> */}
-              </div>
-            </div>
+              </>
+            }
           </div>
         </div>
       </div>
       <div className="fixed-container">
-        {isLoading ?
-          <InpageLoader /> :
-          <>
-            {/* {track.alternate_versions?.map((altVersion, index) => {
-              return (
-                <AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} handleSimilarSearch={handleSimilarSearch} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} handleAddToFavorites={handleAddToFavorites} tracksMeta={tracksMeta} favoriteTrackIds={favoriteTrackIds} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists} />
-              )
-            })} */}
-            {similarTracks.length > 0 ? <Tracks tracks={similarTracks.slice(similarTracksIndex, similarTracksIndex + 10)} tracksMeta={similarTracks.length} showDownloadModal={showDownloadModal} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleAddToFavorites={handleAddToFavorites} handleSimilarSearch={handleSimilarSearch} fromAims={true} updateSegmentTracksIndex={updateSegmentTracksIndex} type="similarTrack" />: <center>No Similar Track Found</center>}
-          </>
-        }
+        {similarTracks.length > 0 ? <Tracks tracks={similarTracks.slice(similarTracksIndex, similarTracksIndex + 10)} tracksMeta={tracksMeta} showDownloadModal={showDownloadModal} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} fromAims={true} updateSegmentTracksIndex={updateSegmentTracksIndex} type="similarTrack" /> : !isLoading && <center>No Similar Track Found</center>}
       </div>
-      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : similarTracks[index]} type="track" />
-      {localStorage.getItem("user") && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : similarTracks[index]} />}
+      <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : showModalForTrackDetail? track : similarTracks[index]} type="track" />
+      {localStorage.getItem("user") && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : similarTracks[index]} type="tracks" />}
       <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : similarTracks[index]} handleLicenseClick={handleLicenseClick} type="Track" />
       <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={altVersionTrack ? altVersionTrack : similarTracks[index]} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} />
       <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} shareId={shareId} />

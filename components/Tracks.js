@@ -65,7 +65,7 @@ function Tracks(props) {
   },[props.tracks])
 
   useEffect(() => {
-    props.type == 'similarTrack' ? setFollowedArtists([]) : setFollowedArtists(props.tracksMeta?.followed_artist_ids);
+    setFollowedArtists(props.tracksMeta?.followed_artist_ids);
   },[props.tracksMeta?.followed_artist_ids])
 
   const fetchData = () => {
@@ -214,7 +214,7 @@ function Tracks(props) {
                 <h2>
                   {props.sfxes ? "SFX " : props.type == 'similarTrack' ? "Similar Tracks " : props.tracksMeta ? "Tracks " : "Playlist Tracks "}
                   <span className={search.tracksCount}>
-                    {props.sfxes ? `(${props.tracksMeta.total_sfx_count})` : props.type == 'similarTrack' ? `(${props.tracksMeta})` : props.tracksMeta ? `(${props.tracksMeta.total_track_count})` : `(${props.tracks?.count})`}
+                    {props.sfxes ? `(${props.tracksMeta.total_sfx_count})` : props.type == 'similarTrack' ? `(${props.tracksMeta.similar_tracks_count})` : props.tracksMeta ? `(${props.tracksMeta.total_track_count})` : `(${props.tracks?.count})`}
                   </span>
                 </h2> : <h2>No Tracks Found</h2>
               }
@@ -307,7 +307,7 @@ function Tracks(props) {
               >
                 {tracks && tracks.map((track,index)=> {
                   return(<div className="trackRow" key={index}>
-                    <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} footer={false} footerPlaying={false} tracks={props.tracks}/>
+                    <CustomAudioWave track={track} handleFooterTrack={props.handleFooterTrack} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} footer={false} footerPlaying={false} tracks={props.tracks} notClickable={((props.type == 'similarTrack' || props.sfxes) && true)} />
                     <div className="rowParticipant duration">
                       {convertSecToMin(track.duration)}
                     </div>

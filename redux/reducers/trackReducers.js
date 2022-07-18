@@ -129,7 +129,8 @@ export const allTracksReducer = (state= {tracks: []}, action) => {
       return {
         ...state,
         track: action.payload.track,
-        similarTracks: action.payload.similar_tracks
+        similarTracks: action.payload.similar_tracks,
+        trackDetailMeta: action.payload.meta
       }
     case TRACK_DETAIL_FAILURE:
       return {
