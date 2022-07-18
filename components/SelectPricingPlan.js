@@ -193,7 +193,7 @@ function SelectPricingPlan(props) {
       e.stopPropagation();
       setValidated(true);
     } else {
-      Notiflix.Report.success( 'Request Submitted', `Your custom form request has been submitted.`, 'Ok', () => {
+      Notiflix.Report.success('Request Submitted', 'Your custom form request has been submitted.', 'Ok', () => {
         router.push('/');
       } );
     }
