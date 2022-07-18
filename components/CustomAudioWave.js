@@ -4,6 +4,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { Slider } from "react-semantic-ui-range";
 import { Grid } from 'semantic-ui-react';
 import InpageLoader from "./InpageLoader";
+import { Form, Button } from "react-bootstrap";
 import Link from "next/link";
 
 const formWaveSurferOptions = (ref, footer) => (
@@ -190,6 +191,13 @@ export default function CustomAudioWave(props) {
             </div>}
           </div>
         </div>
+        {props.showWorkTitle &&
+          <>
+            <Form className="individualWorkTitle individualWorkTitleField">
+              <Form.Control type="text" placeholder="Enter work title…" defaultValue="" onBlur={(e) => {props.handleEditWorkTitle(e, props.cartLineItemId);}}/>
+            </Form>
+          </>
+        }
         <div className="rowParticipant audioWave">
           <div id="waveform" ref={waveformRef} className={props.track.id}  />
           <div className="PlayerControls">
