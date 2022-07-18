@@ -1,9 +1,8 @@
 import * as React from 'react';
-import Alert from 'react-bootstrap/Alert';
 import DownloadTrack from "../components/modals/DownloadTrack";
 import DownloadTrackLicense from "../components/modals/DownloadTrackLicense";
 import {useState, useEffect, useContext} from "react";
-import { Form, Button, FormGroup, FormControl, ControlLabel, Dropdown, DropdownButton, CloseButton } from "react-bootstrap";
+import { Form, Button, Dropdown } from "react-bootstrap";
 import Tooltip from 'react-bootstrap/Tooltip';
 import InpageLoader from '../components/InpageLoader';
 import Collapse from 'react-bootstrap/Collapse';
@@ -26,7 +25,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../components/Sidebar';
 import Notiflix from "notiflix";
-import { Sticky, StickyScrollUp, StickyProvider } from 'react-stickup';
+import { Sticky, StickyProvider } from 'react-stickup';
 import {AuthContext} from "../store/authContext";
 import AddToCartLicense from "../components/modals/AddToCartLicense";
 import AddToPlaylist from "../components/modals/AddToPlaylist";
@@ -466,9 +465,13 @@ function Sfx(props) {
     }
   }
 
+  const removeChildFilterDiv = (e) => {
+    e.target.textContent == 'Sound Design' ? setShowChilderDiv(false) : setShowChilderDiv(true)
+  }
+
   const filterItems = filters.map((filter, index) =>
     !filter.name.includes('Keys') && !filter.name.includes('Instruments') &&
-    <Dropdown alignRight className={filter.name === "Moods" ? "d-inline mood" : filter.name === "Tempos" ? "d-inline durationTempo" : "d-inline"} key={index}>
+    <Dropdown alignRight onClick={removeChildFilterDiv} className={filter.name === "Tempos" ? "d-inline durationTempo" : "d-inline"} key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
         {filter.name == "Tempos" ? "Duration / Tempo" : filter.name}
       </Dropdown.Toggle>
@@ -530,30 +533,34 @@ function Sfx(props) {
             </div>
           </Dropdown.Menu>)
         :
-        (<Dropdown.Menu >
+        (<Dropdown.Menu>
           <div className="filterWrapper">
             {filter.sub_filters.map((sub_filter, index) =>
               <>
                 <div className="filterSelf">
                   <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
-                  <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
-                      <g id="icon-plus" transform="translate(-1.669 -4.355)">
-                        <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                        <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
-                      </g>
-                    </svg>
-                  </span>
+                  {!(filter.name == "Sound Design") &&
+                    <>
+                      <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
+                          <g id="icon-plus" transform="translate(-1.669 -4.355)">
+                            <path id="Shape_1939" data-name="Shape 1939" d="M4.928,4.928,0,0" transform="translate(3.169 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                            <path id="Shape_1940" data-name="Shape 1940" d="M.354,5.3,5.3.354" transform="translate(2.674 9.355) rotate(-45)" fill="none" stroke="#C1D72E" strokLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/>
+                          </g>
+                        </svg>
+                      </span>
 
-                  <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.media_count+')'}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
-                      <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
-                        <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
-                        <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
-                      </g>
-                      <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
-                    </svg>
-                  </span>
+                      <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                            <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                            <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                          </g>
+                          <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                        </svg>
+                      </span>
+                    </>
+                  }
                 </div>
               </>
             )}
