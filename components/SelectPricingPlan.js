@@ -33,6 +33,7 @@ import { TOAST_OPTIONS } from '../common/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
+import Notiflix from "notiflix";
 
 function SelectPricingPlan(props) {
   const dispatch = useDispatch();
@@ -187,7 +188,15 @@ function SelectPricingPlan(props) {
     const data = new FormData(form.current);
     if (data.get("type_of_use") == "")
       setTypeOfUseError(true)
-    setValidated(true)
+    if (quoteForm.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      setValidated(true);
+    } else {
+      Notiflix.Report.success( 'Request Submitted', `Your custom form request has been submitted.`, 'Ok', () => {
+        router.push('/');
+      } );
+    }
   }
 
   const handleChange = async (e) => {
@@ -463,18 +472,16 @@ function SelectPricingPlan(props) {
                     <Form.Control as="textarea" placeholder="Additional Information" rows={5} />
                   </Form.Group>
                   <Form.Group className="mb-4 text-center">
-                    <Link href="/">
-                      <Button variant="link" className="btn btnMainLarge" type="submit">
-                        <span>Request Quote</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
-                          <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
-                            <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                            <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                            <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                          </g>
-                        </svg>
-                      </Button>
-                    </Link>
+                    <Button variant="link" className="btn btnMainLarge" type="submit">
+                      <span>Request Quote</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+                        <g id="icon-arrow-down" transform="translate(1 11.914) rotate(-90)">
+                          <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                          <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                          <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        </g>
+                      </svg>
+                    </Button>
                   </Form.Group>
                 </Form>
               </div>
