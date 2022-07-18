@@ -129,30 +129,17 @@ function SelectPricingPlan(props) {
   const handleSubscriptionType = (type) => {
     if (localStorage.getItem("user")){
       setSubscriptionType(type)
-      if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-        setPlan(subscriptionPlans[9])
-      }
-      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-        setPlan(subscriptionPlans[7])
-      }
-      else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[8])
-      }
-      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[6])
-      }
-      else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
-        setPlan(subscriptionPlans[11])
-      }
-      else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
-        setPlan(subscriptionPlans[14])
-      }
-      else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[12])
-      }
-      else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[13])
-      }
+      let MonthlyAnnual;
+      subscriptionPlans.map((plan)=> {
+        if (planType == 'Personal' && personalMonthlyAnnual == 'Annually')
+          MonthlyAnnual = 'Annual';
+        else if (planType == 'Commercial' && commercialMonthlyAnnual == 'Annually')
+          MonthlyAnnual = 'Annual';
+        else
+          MonthlyAnnual = 'Monthly';
+        if (removeSpaces(`${planType}${MonthlyAnnual}${type}`) == removeSpaces(plan.braintree_plan_id))
+          setPlan(plan);
+      })
       setStep(1)
     } else {
       router.push({
@@ -161,6 +148,10 @@ function SelectPricingPlan(props) {
       });
     }
 
+  }
+
+  const removeSpaces = (type) => {
+    return type.replace(/[^A-Z0-9]/ig, "").toLowerCase();
   }
 
   const handleCommercialBack = (type) => {
@@ -714,7 +705,7 @@ function SelectPricingPlan(props) {
                   </div>
                   <small><strong>{personalMonthlyAnnual == "Annually" ? "$199 / Year" : ""}</strong></small>
                   <br></br>
-                  <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+                  {personalMonthlyAnnual == "Annually" && <small className={pricing.billingNote}>*Monthly rates when billed annually</small>}
                 </div>
               </div>
               <div className={pricing.oneTimePurchase}>
@@ -814,7 +805,7 @@ function SelectPricingPlan(props) {
                   </div>
                   <small><strong>{commercialMonthlyAnnual == "Annually" ? "$549 / Year" : ""}</strong></small>
                   <br/>
-                  <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+                  {commercialMonthlyAnnual == "Annually" && <small className={pricing.billingNote}>*Monthly rates when billed annually</small>}
                 </div>
               </div>
               <div className={pricing.oneTimePurchase}>

@@ -100,40 +100,25 @@ function Sidebar(props) {
   const handleSubscriptionType = (type) => {
     setSubscriptionType(type)
     let planId = null
-    if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[9])
-      planId = 18
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[7])
-      planId = 16
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[8])
-      planId = 17
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[6])
-      planId = 15
-    }
-    else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[11])
-      planId = 1
-    }
-    else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[14])
-      planId = 4
-    }
-    else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[12])
-      planId = 2
-    }
-    else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[13])
-      planId = 3
-    }
+    let MonthlyAnnual;
+    subscriptionPlans.map((plan)=> {
+      if (planType == 'Personal' && personalMonthlyAnnual == 'Annually')
+        MonthlyAnnual = 'Annual';
+      else if (planType == 'Commercial' && commercialMonthlyAnnual == 'Annually')
+        MonthlyAnnual = 'Annual';
+      else
+        MonthlyAnnual = 'Monthly';
+      if (removeSpaces(`${planType}${MonthlyAnnual}${type}`) == removeSpaces(plan.braintree_plan_id)) {
+        setPlan(plan);
+        planId = plan.id;
+      }
+    })
     setStep(1)
     router.push(`/plans/${planId}`)
+  }
+
+  const removeSpaces = (type) => {
+    return type.replace(/[^A-Z0-9]/ig, "").toLowerCase();
   }
 
   const handleCommercialBack = (type) => {
@@ -641,7 +626,7 @@ function Sidebar(props) {
                                   </div>
                                 </div>
 
-                                <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+                                {personalMonthlyAnnual == "Annually" && <small className={pricing.billingNote}>*Monthly rates when billed annually</small>}
                               </div>
                             </div>
                             <div className={pricing.oneTimePurchase} onClick={props.addTrackToCartLicenseModalSidebar}>
@@ -731,7 +716,7 @@ function Sidebar(props) {
                                 </div>
 																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$549 / Year" : ""}</strong></small>
 																<br/>
-                                <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+                                {commercialMonthlyAnnual == "Annually" && <small className={pricing.billingNote}>*Monthly rates when billed annually</small>}
                               </div>
                             </div>
                             <div className={pricing.oneTimePurchase} onClick={props.addTrackToCartLicenseModalSidebar}>
