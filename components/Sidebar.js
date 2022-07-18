@@ -100,40 +100,25 @@ function Sidebar(props) {
   const handleSubscriptionType = (type) => {
     setSubscriptionType(type)
     let planId = null
-    if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[13])
-      planId = 18
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[15])
-      planId = 16
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[12])
-      planId = 17
-    }
-    else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[14])
-      planId = 15
-    }
-    else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[17])
-      planId = 1
-    }
-    else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[20])
-      planId = 4
-    }
-    else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[18])
-      planId = 2
-    }
-    else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[19])
-      planId = 3
-    }
+    let MonthlyAnnual;
+    subscriptionPlans.map((plan)=> {
+      if (planType == 'Personal' && personalMonthlyAnnual == 'Annually')
+        MonthlyAnnual = 'Annual';
+      else if (planType == 'Commercial' && commercialMonthlyAnnual == 'Annually')
+        MonthlyAnnual = 'Annual';
+      else
+        MonthlyAnnual = 'Monthly';
+      if (removeSpaces(`${planType}${MonthlyAnnual}${type}`) == removeSpaces(plan.braintree_plan_id)) {
+        setPlan(plan);
+        planId = plan.id;
+      }
+    })
     setStep(1)
     router.push(`/plans/${planId}`)
+  }
+
+  const removeSpaces = (type) => {
+    return type.replace(/[^A-Z0-9]/ig, "").toLowerCase();
   }
 
   const handleCommercialBack = (type) => {
