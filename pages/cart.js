@@ -117,6 +117,7 @@ function Cart() {
                     return(
                     <div key={index} className="trackRow">
                       <CustomAudioWave track={track} showWorkTitle={true} handleEditWorkTitle={handleEditWorkTitle} cartLineItemId={cartLineItems[index].id}/>
+                      
                       <div className="rowParticipant duration">
                         {convertSecToMin(track.duration)}
                       </div>
