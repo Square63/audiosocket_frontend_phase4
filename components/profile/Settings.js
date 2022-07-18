@@ -21,7 +21,11 @@ const Settings = () => {
   const router = useRouter();
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [youtubeWhitelistingState, setYoutubeWhitelistingState] = useState(userInfo?.consumer_profile?.white_listing_enabled ? true : false);
+  const [youtubeWhitelistingState, setYoutubeWhitelistingState] = useState(false);
+
+  useEffect(() => {
+    setYoutubeWhitelistingState(userInfo?.consumer_profile?.white_listing_enabled ? true : false);
+  }, [userInfo]);
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -33,7 +37,6 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const loginForm = e.currentTarget;
     const data = new FormData(form.current);
     const country = userInfo?.consumer_profile?.country;
     const youtube_url = userInfo?.consumer_profile?.youtube_url;
