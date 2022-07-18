@@ -101,35 +101,35 @@ function Sidebar(props) {
     setSubscriptionType(type)
     let planId = null
     if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[9])
+      setPlan(subscriptionPlans[13])
       planId = 18
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[7])
+      setPlan(subscriptionPlans[15])
       planId = 16
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[8])
+      setPlan(subscriptionPlans[12])
       planId = 17
     }
     else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[6])
+      setPlan(subscriptionPlans[14])
       planId = 15
     }
     else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
-      setPlan(subscriptionPlans[11])
+      setPlan(subscriptionPlans[17])
       planId = 1
     }
     else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
-      setPlan(subscriptionPlans[14])
+      setPlan(subscriptionPlans[20])
       planId = 4
     }
     else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[12])
+      setPlan(subscriptionPlans[18])
       planId = 2
     }
     else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music + SFX") {
-      setPlan(subscriptionPlans[13])
+      setPlan(subscriptionPlans[19])
       planId = 3
     }
     setStep(1)
@@ -641,7 +641,7 @@ function Sidebar(props) {
                                   </div>
                                 </div>
 
-                                <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+                                {personalMonthlyAnnual == "Annually" && <small className={pricing.billingNote}>*Monthly rates when billed annually</small>}
                               </div>
                             </div>
                             <div className={pricing.oneTimePurchase} onClick={props.addTrackToCartLicenseModalSidebar}>
@@ -731,7 +731,7 @@ function Sidebar(props) {
                                 </div>
 																<small><strong>{commercialMonthlyAnnual == "Annually" ? "$549 / Year" : ""}</strong></small>
 																<br/>
-                                <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+                                {commercialMonthlyAnnual == "Annually" && <small className={pricing.billingNote}>*Monthly rates when billed annually</small>}
                               </div>
                             </div>
                             <div className={pricing.oneTimePurchase} onClick={props.addTrackToCartLicenseModalSidebar}>

@@ -130,28 +130,28 @@ function SelectPricingPlan(props) {
     if (localStorage.getItem("user")){
       setSubscriptionType(type)
       if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music Only") {
-        setPlan(subscriptionPlans[9])
+        setPlan(subscriptionPlans[13])
       }
       else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music Only") {
-        setPlan(subscriptionPlans[7])
+        setPlan(subscriptionPlans[15])
       }
       else if (planType == "Personal" && personalMonthlyAnnual == "Monthly" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[8])
-      }
-      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[6])
-      }
-      else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
-        setPlan(subscriptionPlans[11])
-      }
-      else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
-        setPlan(subscriptionPlans[14])
-      }
-      else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
         setPlan(subscriptionPlans[12])
       }
+      else if (planType == "Personal" && personalMonthlyAnnual == "Annually" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[14])
+      }
+      else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music Only") {
+        setPlan(subscriptionPlans[17])
+      }
+      else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music Only") {
+        setPlan(subscriptionPlans[20])
+      }
+      else if (planType == "Commercial" && commercialMonthlyAnnual == "Monthly" && type == "Music + SFX") {
+        setPlan(subscriptionPlans[18])
+      }
       else if (planType == "Commercial" && commercialMonthlyAnnual == "Annually" && type == "Music + SFX") {
-        setPlan(subscriptionPlans[13])
+        setPlan(subscriptionPlans[19])
       }
       setStep(1)
     } else {
@@ -714,7 +714,7 @@ function SelectPricingPlan(props) {
                   </div>
                   <small><strong>{personalMonthlyAnnual == "Annually" ? "$199 / Year" : ""}</strong></small>
                   <br></br>
-                  <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+                  {personalMonthlyAnnual == "Annually" && <small className={pricing.billingNote}>*Monthly rates when billed annually</small>}
                 </div>
               </div>
               <div className={pricing.oneTimePurchase}>
@@ -814,7 +814,7 @@ function SelectPricingPlan(props) {
                   </div>
                   <small><strong>{commercialMonthlyAnnual == "Annually" ? "$549 / Year" : ""}</strong></small>
                   <br/>
-                  <small className={pricing.billingNote}>*Monthly rates when billed annually</small>
+                  {commercialMonthlyAnnual == "Annually" && <small className={pricing.billingNote}>*Monthly rates when billed annually</small>}
                 </div>
               </div>
               <div className={pricing.oneTimePurchase}>
