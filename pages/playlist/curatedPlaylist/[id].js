@@ -241,7 +241,7 @@ const Details = () => {
     setShowDownloadMessage(true)
     await axios.request({
       headers: {
-        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.9kL4HmyjCYJgdpBHX1g3JHAp235eKlLAO_vcPb4bYGk',
       },
       method: "get",
       url: (`${BASE_URL}/api/v1/consumer/curated_playlists/${id}/playlist_tracks/download_zip?file_type=mp3_file`)
@@ -275,7 +275,7 @@ const Details = () => {
       const userAuthToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
       await axios.request({
         headers: {
-          "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+          "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.9kL4HmyjCYJgdpBHX1g3JHAp235eKlLAO_vcPb4bYGk',
           "auth-token": userAuthToken
         },
         method: "post",
@@ -291,8 +291,6 @@ const Details = () => {
       }).catch(error => {
         toast.error(error.response.data.message);
       });
-    } else {
-      toast.error("Please login to follow this playlist")
     }
   }
 
