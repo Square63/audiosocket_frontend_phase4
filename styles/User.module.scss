@@ -258,7 +258,7 @@
       .plansHeading {
         @include flexbox;
         @include justify-content(space-between);
-        @include align-items(center);
+        @include align-items(flex-start);
         padding-left: 36px;
         h2 {
           font-size: 22px;
@@ -266,7 +266,7 @@
           line-height: 1.23;
           margin-bottom: 0;
           text-transform: capitalize;
-          padding-right: 10px;
+          padding: 10px 10px 7px 0;
         }
         .withRate {
           max-width: 193px;
@@ -289,7 +289,7 @@
       .planBody {
         padding-block: 20px 27px;
         padding-inline: 36px;
-        height: calc(100% - 65px);
+        height: calc(100% - 85px);
         @include flexbox;
         @include flex-direction(column);
         .planFeatures {
@@ -311,7 +311,7 @@
 
             &:before {
               content: '';
-              background: url(../images/checkDark.svg) no-repeat center;
+              background: url(../images/pricingTick.svg) no-repeat center;
               display: inline-block;
               background-size: 13px;
               width: 15px;
@@ -323,7 +323,7 @@
             &.notAvailable {
               &:before {
                 content: '';
-                background: url(../images/checkLight.svg) no-repeat center;
+                background: url(../images/pricingCross.svg) no-repeat center;
                 display: inline-block;
                 background-size: 13px;
               }
@@ -357,7 +357,7 @@
       &.currentPlan {
         border-color: $green-light;
         .plansHeading {
-          @include align-items(flex-end);
+          @include align-items(flex-start);
           h2 {
             small {
               font-size: 13px;
