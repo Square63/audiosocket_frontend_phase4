@@ -285,6 +285,10 @@ const Details = () => {
     setShareId(id);
   }
 
+  const emptyUpdatedTracks = () => {
+    setUpdatedTracks([])
+  }
+
   return (
     <>
     {isLoading ? (
@@ -377,7 +381,7 @@ const Details = () => {
           <div className="fixed-container">
             {myPlaylistTracks ?
               <>
-                {myPlaylistTracks.meta ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} myPlaylistTracksCount={myPlaylistTracks.meta.playlist_track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type="myplaylist"/> :  <center>No Tracks Found</center>}
+                {myPlaylistTracks.meta ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} myPlaylistTracksCount={myPlaylistTracks.meta.playlist_track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type="myplaylist" emptyUpdatedTracks={emptyUpdatedTracks}/> :  <center>No Tracks Found</center>}
                 <div className={playlist.artistTiles}>
                   <h3>Artists On This Playlist</h3>
                   {updatedArtists && updatedArtists.length == 0 ?
