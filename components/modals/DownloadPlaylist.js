@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -6,6 +6,14 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { ToastContainer, toast } from 'react-toastify';
 
 function DownloadPlaylist({showModal = false, onCloseModal}) {
+
+  useEffect(() => {
+    if (showModal) {
+      setTimeout(() => {
+        handleClose();
+      }, 5000);
+    }
+  }, [showModal]);
 
   const handleClose = () => {
     onCloseModal(false);
@@ -36,7 +44,7 @@ function DownloadPlaylist({showModal = false, onCloseModal}) {
                   <div className="rect5"></div>
                 </div>
               </div>
-              <h5 className="textCenter">Please wait while your download is in progress...</h5>
+              <h5 className="textCenter">Creating playlist ZIP. Your download should begin shortly</h5>
             </div>
           </div>
         </Modal.Body>
