@@ -282,7 +282,9 @@
             font-size: 36px;
             line-height: 1.19;
             letter-spacing: -0.72px;
-
+          }
+          .durationConvertion {
+            display: block;
           }
         }
       }
@@ -686,6 +688,30 @@
             min-height: 100px;
           }
         }
+        &.currentPlan {
+          .plansHeading {
+            h2 {
+              @include flex-direction(column);
+            }
+          }
+        }
+      } 
+    }
+  }
+}
+
+@media #{$tablet-between} {
+  .editSubscription {
+    .plansShelf {
+      :global(.boxWithOutShadow) {
+        &.currentPlan {
+          .planBody {
+            @include flex-direction(column);
+            .sideContent {
+              max-width: 100%;
+            }
+          }
+        }
       }
     }
   }
@@ -851,6 +877,27 @@
         .plansHeading {
           h2 {
             min-height: 70px;
+            width: 100%;
+          }
+        }
+      }
+    }
+    .enterprises {
+      width: 100% !important;
+    }
+  }
+}
+
+@media #{$phone-portrait} {
+  .editSubscription {
+     .plansShelf {
+      :global(.boxWithOutShadow) {
+        &.currentPlan {
+          .planBody {
+            @include flex-direction(column);
+            .sideContent {
+              max-width: 100%;
+            }
           }
         }
       }

@@ -281,7 +281,7 @@ function Subscription() {
                 <div className={user.withRate}>
                   <span className={user.rate}>${((subscriptionPlans[14].price)/12).toFixed(2)}</span>
                   <small className={user.planDuration}>/Month</small>
-                  <small className={user.planDuration}> ${subscriptionPlans[14].price}/Year</small>
+                  <small className={user.durationConvertion}> ${subscriptionPlans[14].price}/Year</small>
                 </div>
               </div>
               <div className={user.planBody}>
@@ -315,7 +315,7 @@ function Subscription() {
                 <div className={user.withRate}>
                   <span className={user.rate}>${((subscriptionPlans[15].price)/12).toFixed(2)}</span>
                   <small className={user.planDuration}>/Month</small>
-                  <small className={user.planDuration}> ${subscriptionPlans[15].price}/Year</small>
+                  <small className={user.durationConvertion}> ${subscriptionPlans[15].price}/Year</small>
                 </div>
               </div>
               <div className={user.planBody}>
@@ -349,7 +349,7 @@ function Subscription() {
                 <div className={user.withRate}>
                   <span className={user.rate}>${((subscriptionPlans[19].price)/12).toFixed(2)}</span>
                   <small className={user.planDuration}> /Month</small>
-                  <small className={user.planDuration}> ${subscriptionPlans[19].price}/Year</small>
+                  <small className={user.durationConvertion}> ${subscriptionPlans[19].price}/Year</small>
                 </div>
               </div>
               <div className={user.planBody}>
@@ -383,7 +383,7 @@ function Subscription() {
                 <div className={user.withRate}>
                   <span className={user.rate}>${((subscriptionPlans[20].price)/12).toFixed(2)}</span>
                   <small className={user.planDuration}> /Month</small>
-                  <small className={user.planDuration}> ${subscriptionPlans[20].price}/Year</small>
+                  <small className={user.durationConvertion}> ${subscriptionPlans[20].price}/Year</small>
                 </div>
               </div>
               <div className={user.planBody}>
