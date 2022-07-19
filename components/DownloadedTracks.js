@@ -222,7 +222,7 @@ function DownloadedTracks(props) {
                       </Form>
                     </div>
                     <div className={user.licenseBtn+' rowParticipant'}>
-                      <button variant="link" className="btn btnMainSmall">License Track</button>
+                      <button variant="link" className="btn btnMainSmall" onClick={() => {props.showAddTrackToCartLicenseModal(index, track.mediable_type)}}>License Track</button>
                     </div>
                     <div className={user.downloadDate+' rowParticipant'}>
                       {new Date(track.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}
