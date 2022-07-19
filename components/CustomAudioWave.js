@@ -189,15 +189,15 @@ export default function CustomAudioWave(props) {
                 {props.track.artist_name}
               </a>
             </div>}
+            {props.showWorkTitle &&
+              <>
+                <Form className="individualWorkTitle individualWorkTitleField">
+                  <Form.Control type="text" placeholder="Enter work title…" defaultValue="" onBlur={(e) => {props.handleEditWorkTitle(e, props.cartLineItemId);}}/>
+                </Form>
+              </>
+            }
           </div>
         </div>
-        {props.showWorkTitle &&
-          <>
-            <Form className="individualWorkTitle individualWorkTitleField">
-              <Form.Control type="text" placeholder="Enter work title…" defaultValue="" onBlur={(e) => {props.handleEditWorkTitle(e, props.cartLineItemId);}}/>
-            </Form>
-          </>
-        }
         <div className="rowParticipant audioWave">
           <div id="waveform" ref={waveformRef} className={props.track.id}  />
           <div className="PlayerControls">

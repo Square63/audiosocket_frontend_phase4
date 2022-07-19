@@ -2617,7 +2617,7 @@ hr {
         padding-right: 10px;
 
         &.artistName {
-          min-width: 46%;
+          min-width: 33%;
           @include align-items(flex-start);
 
           .playPauseBtn {
@@ -2644,17 +2644,23 @@ hr {
           }
         }
 
+        &.audioWave {
+          min-width: 22%;
+          padding-left: 10px;
+          padding-right: 20px;
+        }
+
         &.duration {
-          min-width: 13%;
+          min-width: 10%;
         }
 
         &.licenseType {
-          min-width: 22%;
+          min-width: 17%;
           @include lineClamp(1);
         }
 
         &.price {
-          min-width: 11%;
+          min-width: 7%;
         }
 
         &.controls {
