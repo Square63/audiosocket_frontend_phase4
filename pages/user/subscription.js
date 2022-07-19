@@ -23,6 +23,7 @@ function Subscription() {
   const yearlyPlan = useSelector(state => state.user.yearlyPlan);
   const [isLoading, setIsLoading] = useState(true);
   const [userCurrentPlan, setUserCurrentPlan] = useState(null);
+  const [monthlyYearly, setMonthlyYearly] = useState("Annually");
 
 
   useEffect(() => {
@@ -61,6 +62,10 @@ function Subscription() {
     } catch (err) {
       console.error(err)
     }
+  }
+
+  const handleMonthlyYearly = (value) => {
+    setMonthlyYearly(value);
   }
 
   return (
@@ -128,37 +133,38 @@ function Subscription() {
             <h3 className={user.planStatus}>Change Your Plan</h3>
             <span>Billing Frequency</span>
             <div className="toggleButton">
-              <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked/>
+              <input id="toggle-on" className="toggle toggleLeft" name="toggle" value="false" type="radio" checked={monthlyYearly == "Monthly" ? true : false} onClick={ () => handleMonthlyYearly("Monthly")} />
               <label htmlFor="toggle-on" className="movingBtn">Monthly</label>
-              <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio"/>
+              <input id="toggle-off" className="toggle toggleRight" name="toggle" value="true" type="radio" checked={monthlyYearly == "Annually" ? true : false} onClick={ () => handleMonthlyYearly("Annually")} />
               <label htmlFor="toggle-off" className="movingBtn">Annually</label>
             </div>
           </div>
-          <div className={user.plansShelf}>
+          { monthlyYearly == "Monthly" ? <div className={user.plansShelf}>
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[0].name}
+                  {subscriptionPlans[13].name}
                 </h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${subscriptionPlans[0].price}</span>
+                  <span className={user.rate}>${subscriptionPlans[13].price}</span>
                   <small className={user.planDuration}>/Month</small>
                 </div>
               </div>
               <div className={user.planBody}>
                 <ul className={user.planFeatures}>
-                  <li className={user.notAvailable}><span>Unlimited Licenses</span></li>
-                  <li className={user.notAvailable}><span>All access to over +80,000 songs</span></li>
-                  <li className={user.notAvailable}><span>Use for personal and student web media</span></li>
-                  <li className={user.notAvailable}><span>Cleared for use on your social channels</span></li>
-                  <li className={user.notAvailable}><span>Monetize on your personal channels.</span></li>
-                  <li><span>Use for videos or podcasts hosted on company websites or social media channels</span></li>
-                  <li><span>Monetize on YouTube, Patreon, Twitch and all social platforms</span></li>
-                  <li><span>CID instant clear codes for your clients</span></li>
-                  <li><span>Unlimited use in digital ads</span></li>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization for your personal account</span></li>
+                  <li><span>Personal video projects, school projects</span></li>
+
+                  <li className={user.notAvailable}><span>Promoting a product service or brand</span></li>
+                  <li className={user.notAvailable}><span>Videos created for a business or a client’s business</span></li>
+                  <li className={user.notAvailable}><span>Digital ads</span></li>
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
                 </ul>
                 <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[0].id}>
+                  <Link href={"/plans/" + subscriptionPlans[13].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
                       Select Plan
                     </a>
@@ -170,23 +176,28 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[1].name}
+                  {subscriptionPlans[12].name}
                 </h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${subscriptionPlans[1].price}</span>
+                  <span className={user.rate}>${subscriptionPlans[12].price}</span>
                   <small className={user.planDuration}>/Month</small>
                 </div>
               </div>
               <div className={user.planBody}>
                 <ul className={user.planFeatures}>
-                  <li><span>Unlimited Licenses</span></li>
-                  <li><span>All access to over +80,000 songs</span></li>
-                  <li><span>Use for personal and student web media</span></li>
-                  <li><span>Cleared for use on your social channels</span></li>
-                  <li><span>Monetize on your personal channels.</span></li>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization for your personal account</span></li>
+                  <li><span>Personal video projects, school projects</span></li>
+
+                  <li className={user.notAvailable}><span>Promoting a product service or brand</span></li>
+                  <li className={user.notAvailable}><span>Videos created for a business or a client’s business</span></li>
+                  <li className={user.notAvailable}><span>Digital ads</span></li>
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
                 </ul>
                 <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[1].id}>
+                  <Link href={"/plans/" + subscriptionPlans[12].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
                       Select Plan
                     </a>
@@ -198,27 +209,28 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[2].name}
+                  {subscriptionPlans[17].name}
                 </h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${subscriptionPlans[2].price}</span>
+                  <span className={user.rate}>${subscriptionPlans[17].price}</span>
                   <small className={user.planDuration}> /Month</small>
                 </div>
               </div>
               <div className={user.planBody}>
                 <ul className={user.planFeatures}>
-                  <li className={user.notAvailable}><span>Unlimited Licenses</span></li>
-                  <li className={user.notAvailable}><span>All access to over +80,000 songs</span></li>
-                  <li className={user.notAvailable}><span>Use for personal and student web media</span></li>
-                  <li className={user.notAvailable}><span>Cleared for use on your social channels</span></li>
-                  <li className={user.notAvailable}><span>Monetize on your personal channels.</span></li>
-                  <li><span>Use for videos or podcasts hosted on company websites or social media channels</span></li>
-                  <li><span>Monetize on YouTube, Patreon, Twitch and all social platforms</span></li>
-                  <li><span>CID instant clear codes for your clients</span></li>
-                  <li><span>Unlimited use in digital ads</span></li>
+                  <li><span>Small business media (under 50 employees)</span></li>
+                  <li><span>Freelancers creating media for small business clients</span></li>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization</span></li>
+                  <li><span>Wedding / Event videos</span></li>
+                  <li><span>Digital Ads (Pre-Roll, Post-Roll, Facebook, Instagram)</span></li>
+
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
                 </ul>
                 <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[2].id}>
+                  <Link href={"/plans/" + subscriptionPlans[17].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
                       Select Plan
                     </a>
@@ -227,7 +239,179 @@ function Subscription() {
               </div>
             </div>
 
-            <div className={user.enterprises+' boxWithOutShadow'}>
+            <div className="boxWithOutShadow">
+              <div className={user.plansHeading}>
+                <h2>
+                  {subscriptionPlans[18].name}
+                </h2>
+                <div className={user.withRate}>
+                  <span className={user.rate}>${subscriptionPlans[18].price}</span>
+                  <small className={user.planDuration}> /Month</small>
+                </div>
+              </div>
+              <div className={user.planBody}>
+                <ul className={user.planFeatures}>
+                  <li><span>Small business media (under 50 employees)</span></li>
+                  <li><span>Freelancers creating media for small business clients</span></li>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization</span></li>
+                  <li><span>Wedding / Event videos</span></li>
+                  <li><span>Digital Ads (Pre-Roll, Post-Roll, Facebook, Instagram)</span></li>
+
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
+                </ul>
+                <div className={user.plansBtnWrapper}>
+                  <Link href={"/plans/" + subscriptionPlans[18].id}>
+                    <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
+                      Select Plan
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div> :
+          <div className={user.plansShelf}>
+            <div className="boxWithOutShadow">
+              <div className={user.plansHeading}>
+                <h2>
+                  {subscriptionPlans[14].name}
+                </h2>
+                <div className={user.withRate}>
+                  <span className={user.rate}>${((subscriptionPlans[14].price)/12).toFixed(2)}</span>
+                  <small className={user.planDuration}>/Month</small>
+                  <small className={user.planDuration}> ${subscriptionPlans[14].price}/Year</small>
+                </div>
+              </div>
+              <div className={user.planBody}>
+                <ul className={user.planFeatures}>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization for your personal account</span></li>
+                  <li><span>Personal video projects, school projects</span></li>
+
+                  <li className={user.notAvailable}><span>Promoting a product service or brand</span></li>
+                  <li className={user.notAvailable}><span>Videos created for a business or a client’s business</span></li>
+                  <li className={user.notAvailable}><span>Digital ads</span></li>
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
+                </ul>
+                <div className={user.plansBtnWrapper}>
+                  <Link href={"/plans/" + subscriptionPlans[14].id}>
+                    <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
+                      Select Plan
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="boxWithOutShadow">
+              <div className={user.plansHeading}>
+                <h2>
+                  {subscriptionPlans[15].name}
+                </h2>
+                <div className={user.withRate}>
+                  <span className={user.rate}>${((subscriptionPlans[15].price)/12).toFixed(2)}</span>
+                  <small className={user.planDuration}>/Month</small>
+                  <small className={user.planDuration}> ${subscriptionPlans[15].price}/Year</small>
+                </div>
+              </div>
+              <div className={user.planBody}>
+                <ul className={user.planFeatures}>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization for your personal account</span></li>
+                  <li><span>Personal video projects, school projects</span></li>
+
+                  <li className={user.notAvailable}><span>Promoting a product service or brand</span></li>
+                  <li className={user.notAvailable}><span>Videos created for a business or a client’s business</span></li>
+                  <li className={user.notAvailable}><span>Digital ads</span></li>
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
+                </ul>
+                <div className={user.plansBtnWrapper}>
+                  <Link href={"/plans/" + subscriptionPlans[15].id}>
+                    <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
+                      Select Plan
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="boxWithOutShadow">
+              <div className={user.plansHeading}>
+                <h2>
+                  {subscriptionPlans[19].name}
+                </h2>
+                <div className={user.withRate}>
+                  <span className={user.rate}>${((subscriptionPlans[19].price)/12).toFixed(2)}</span>
+                  <small className={user.planDuration}> /Month</small>
+                  <small className={user.planDuration}> ${subscriptionPlans[19].price}/Year</small>
+                </div>
+              </div>
+              <div className={user.planBody}>
+                <ul className={user.planFeatures}>
+                  <li><span>Small business media (under 50 employees)</span></li>
+                  <li><span>Freelancers creating media for small business clients</span></li>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization</span></li>
+                  <li><span>Wedding / Event videos</span></li>
+                  <li><span>Digital Ads (Pre-Roll, Post-Roll, Facebook, Instagram)</span></li>
+
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
+                </ul>
+                <div className={user.plansBtnWrapper}>
+                  <Link href={"/plans/" + subscriptionPlans[19].id}>
+                    <a href="javascript:void(0)" className="btn btnMainLarge m-0">
+                      Select Plan
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="boxWithOutShadow">
+              <div className={user.plansHeading}>
+                <h2>
+                  {subscriptionPlans[20].name}
+                </h2>
+                <div className={user.withRate}>
+                  <span className={user.rate}>${((subscriptionPlans[20].price)/12).toFixed(2)}</span>
+                  <small className={user.planDuration}> /Month</small>
+                  <small className={user.planDuration}> ${subscriptionPlans[20].price}/Year</small>
+                </div>
+              </div>
+              <div className={user.planBody}>
+                <ul className={user.planFeatures}>
+                  <li><span>Small business media (under 50 employees)</span></li>
+                  <li><span>Freelancers creating media for small business clients</span></li>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization</span></li>
+                  <li><span>Wedding / Event videos</span></li>
+                  <li><span>Digital Ads (Pre-Roll, Post-Roll, Facebook, Instagram)</span></li>
+
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
+                </ul>
+                <div className={user.plansBtnWrapper}>
+                  <Link href={"/plans/" + subscriptionPlans[20].id}>
+                    <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
+                      Select Plan
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+          </div>}
+
+          <div className={user.enterprises+' boxWithOutShadow mt-5 w-50 mx-auto'}>
               <div className={user.plansHeading}>
                 <h2>
                   Enterprise Plan
@@ -249,8 +433,6 @@ function Subscription() {
                 </div>
               </div>
             </div>
-
-          </div>
         </div>
       )}
     </>
