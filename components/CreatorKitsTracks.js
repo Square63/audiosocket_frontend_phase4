@@ -8,6 +8,7 @@ import search from "../styles/Search.module.scss";
 import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from "react-redux";
 import { getCreatorKitsTracks} from "../redux/actions/authActions";
+import { followArtist, unFollowArtist } from '../redux/actions/trackActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Accordion from 'react-bootstrap/Accordion';
 import {AuthContext} from "../store/authContext";
@@ -39,18 +40,25 @@ function CreatorKitsTracks(props) {
   const [trackList, setTrackList] = useState(props.tracks)
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareId, setShareId] = useState(null);
+  const [followedArtists, setFollowedArtists] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
-    (tracks[0]?.id != props.tracks[0]?.id) && setTracks(tracks => [...tracks, ...props.tracks])
 
-    setInfiniteLoop(false)
-    props.tracks.length + tracks.length >= props.creatorKitsCount ? sethasMore(false) : sethasMore(true)
+    if (tracks[0]?.id != props.tracks[0]?.id){
+      setTracks(tracks => [...tracks, ...props.tracks])
+      setInfiniteLoop(false)
+      props.tracks.length + tracks.length >= props.creatorKitsCount ? sethasMore(false) : sethasMore(true)
+    }
 
     return () => {
       isMounted = false;
     };
   }, [props.tracks])
+
+  useEffect(() => {
+    setFollowedArtists(props.followed_artist_ids)
+  }, [props.followed_artist_ids])
 
   const fetchData = () => {
     dispatch(getCreatorKitsTracks(query.id, props.type, tracks.length/10 + 1))
@@ -164,6 +172,17 @@ function CreatorKitsTracks(props) {
 
   function handleShareId(id) {
     setShareId(id);
+  }
+
+  const handleFollowArtist = (track) => {
+    dispatch(followArtist(track.mediable.artist_id));
+    setFollowedArtists(followedArtists => [...followedArtists, track.mediable.artist_id])
+  }
+
+  const handleUnfollowArtist = (track) => {
+    dispatch(unFollowArtist(track.mediable.artist_id));
+    followedArtists.splice(followedArtists.indexOf(track.mediable.artist_id), 1)
+    setFollowedArtists(followedArtists)
   }
 
   return (
@@ -343,22 +362,44 @@ function CreatorKitsTracks(props) {
                       </svg>
                       <span>Share</span>
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/action-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
-                        <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
-                          <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
-                            <g id="Group" transform="translate(173.415 84.471)">
-                              <g id="social-profile-avatar">
-                                <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                    {localStorage?.getItem('user') && props.title == "Music" &&
+                      <>
+                        {followedArtists?.includes(track.mediable.artist_id) ?
+                          (<Dropdown.Item>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
+                              <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                                <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                                  <g id="Group" transform="translate(173.415 84.471)">
+                                    <g id="social-profile-avatar">
+                                      <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                    </g>
+                                  </g>
+                                  <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                  <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                </g>
                               </g>
-                            </g>
-                            <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                            <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                          </g>
-                        </g>
-                      </svg>
-                      <span>Follow Artist</span>
-                    </Dropdown.Item>
+                            </svg>
+                            <span onClick={() => { handleUnfollowArtist(track) }}>Unfollow Artist</span>
+                          </Dropdown.Item>) :
+                          (<Dropdown.Item>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15.432" height="16.579" viewBox="0 0 15.432 16.579">
+                              <g id="Music-Audio_Modern-Music_modern-music-dj" data-name="Music-Audio / Modern-Music / modern-music-dj" transform="translate(-343.015 -1624.558)">
+                                <g id="Social-Medias-Rewards-Rating_Social-Profile_social-profile-avatar" data-name="Social-Medias-Rewards-Rating / Social-Profile / social-profile-avatar" transform="translate(170.108 1540.602)">
+                                  <g id="Group" transform="translate(173.415 84.471)">
+                                    <g id="social-profile-avatar">
+                                      <path id="Shape" d="M182.888,100.035v-2.03h.677a2.03,2.03,0,0,0,2.03-2.03v-2.03h1.9a.338.338,0,0,0,.32-.441c-1.269-3.927-2.186-8.143-6.375-8.909a6.759,6.759,0,0,0-8,5.856,6.583,6.583,0,0,0,2.678,5.935v3.646" transform="translate(-173.415 -84.471)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                    </g>
+                                  </g>
+                                  <path id="Shape_186" data-name="Shape 186" d="M189.571,568.73V574.8" transform="translate(-9.341 -479.918)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                  <path id="Shape_187" data-name="Shape 187" d="M192.636,571.73h-6.066" transform="translate(-9.373 -479.885)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+                                </g>
+                              </g>
+                            </svg>
+                            <span onClick={() => { handleFollowArtist(track) }}>Follow Artist</span>
+                          </Dropdown.Item>)
+                        }
+                      </>
+                    }
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
@@ -378,7 +419,7 @@ function CreatorKitsTracks(props) {
                       <Accordion.Collapse eventKey={index + 1}>
                         <div id={"example-collapse-text" + index + 1} >
                           {track.mediable.alternate_versions.map((altVersion, index)=> {
-                            return (<AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)}/>)
+                            return (<AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} handleSimilarSearch={props.handleSimilarSearch} showTrackAddToPlaylistModal={props.showTrackAddToPlaylistModal} handleAddToFavorites={props.handleAddToFavorites} tracksMeta={props.tracksMeta} favoriteTrackIds={props.favoriteTrackIds} showDownloadModal={props.showDownloadModal} showDownloadLicenseModal={props.showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists} />)
                           })}
                         </div>
                       </Accordion.Collapse>

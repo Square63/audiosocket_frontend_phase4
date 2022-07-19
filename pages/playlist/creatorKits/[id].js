@@ -35,10 +35,12 @@ const Details = ()  => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
   const [favoriteTrackIds, setFavoriteTrackIds] = useState([])
+  const [followedArtistsIds, setFollowedArtistsIds] = useState([]);
   const [showDownModal, setShowDownModal] = useState(false);
   const [updatedTracks, setUpdatedTracks] = useState([])
   const creatorKitsDetail = useSelector(state => state.user.creator_kits_detail);
   const creatorKitsTracks = useSelector(state => state.user.creator_kits_tracks);
+  const favoritesMessage = useSelector(state => state.allTracks)
   const [altVersionTrack, setAltVersionTrack] = useState(null);
   const [showDownloadMessage, setShowDownloadMessage] = useState(false);
   const authContext = useContext(AuthContext);
@@ -65,13 +67,15 @@ const Details = ()  => {
         if (creatorKitsTracks.playlist_tracks.length > 0) {
           if (updatedTracks[0]?.id != creatorKitsTracks.playlist_tracks[0].id)
             setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsTracks.playlist_tracks]);
-            creatorKitsTracks.meta && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_tracks_ids)
-        }
+
+          creatorKitsTracks.meta.favorite_tracks_ids && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_tracks_ids)
+          creatorKitsTracks.meta.followed_artist_ids && setFollowedArtistsIds(creatorKitsTracks.meta.followed_artist_ids)
+          }
       } else {
         if (creatorKitsTracks.playlist_tracks?.length > 0) {
           if (updatedTracks[0]?.id != creatorKitsTracks.playlist_tracks[0].id)
             setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsTracks.playlist_tracks]);
-            creatorKitsTracks.meta && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_sfx_ids)
+          creatorKitsTracks.meta.favorite_sfx_ids && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_sfx_ids)
         }
       }
       setIsLoading(false)
@@ -81,6 +85,15 @@ const Details = ()  => {
   useEffect(() => {
     dispatch(getCreatorKitsTracks(query.id, type, 1))
   }, [type])
+
+  useEffect(() => {
+    if (!favoritesMessage?.success) {
+      toast.error(favoritesMessage.message, TOAST_OPTIONS);
+    } else {
+      toast.success(favoritesMessage.message, TOAST_OPTIONS);
+    }
+    setIsLoading(false)
+  }, [favoritesMessage])
 
   useEffect(() => {
     if (creatorKitsDetail)
@@ -383,7 +396,7 @@ const Details = ()  => {
               {creatorKitsTracks && creatorKitsTracks.meta ?
                 creatorKitsTracks.playlist_tracks.length > 0 ?
                   (creatorKitsTracks.meta.type == "track" ?
-                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount ={creatorKitsDetail.meta.track_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count}/>
+                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count}/>
                   :
                     <InpageLoader/>
                   )
@@ -396,7 +409,7 @@ const Details = ()  => {
             <Tab eventKey="sfx" title="SFX">
               {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
                 (creatorKitsTracks.meta.type == "sfx" ?
-                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount={creatorKitsDetail.meta.sfx_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="SFX" count={creatorKitsDetail.meta.sfx_count}/>
+                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sfx_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="SFX" count={creatorKitsDetail.meta.sfx_count}/>
                 :
                   <InpageLoader/>
                 )
@@ -407,7 +420,7 @@ const Details = ()  => {
             <Tab eventKey="sound_design" title="Sound Design">
               {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
                 (creatorKitsTracks.meta.type == "sound_design" ?
-                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} creatorKitsCount={creatorKitsDetail.meta.sound_design_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Sound Design" count={creatorKitsDetail.meta.sound_design_count}/>
+                   <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sound_design_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Sound Design" count={creatorKitsDetail.meta.sound_design_count}/>
                 :
                   <InpageLoader />
                 )
