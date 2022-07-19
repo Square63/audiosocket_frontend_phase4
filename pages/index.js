@@ -497,22 +497,19 @@ export default function Home(props) {
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
-                          <div className="text-center mt-5" onClick={handleSearchPlaylists}>
-                            <button className="btn btnMainLarge">Search playlists</button>
-                          </div>
                         </div>
                         <div className="outOfScenario">
                           <h5>Curated Playlists</h5>
                           <p>Use our curated playlists to find the perfect track for your project. Playlists are created by genre/mood or by the type of project you’re working on.</p>
                           <div className="catalogBtn-block text-center mt-5" onClick={handleSearchPlaylists}>
-                            <button className="btn btnMainLarge">Try it Now</button>
+                            <button className="btn btnMainLarge">Go to Playlists</button>
                           </div>
                         </div>
                         <div className="outOfScenario">
                           <h5>Creator Kits</h5>
                           <p>Creator Kits include everything you need to add audio to your project including: Music, Sound Effects, and Sound Design. The projects includes stems so you can tailor the kit to fit your needs.</p>
                           <div className="catalogBtn-block text-center mt-5" onClick={handleCreatorKits}>
-                            <button className="btn btnMainLarge">Try it Now</button>
+                            <button className="btn btnMainLarge">Go to Creator Kits</button>
                           </div>
                         </div>
                       </div>

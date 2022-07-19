@@ -183,7 +183,7 @@ function Footer() {
               </div>
             </div>
             <div className="copyRight col-xs-12 col-md-12 col-lg-12">
-              <span>©2021 Audiosocket. All Rights Reserved. Privacy Policy</span>
+              <span>©2022 Audiosocket. All Rights Reserved. Privacy Policy</span>
             </div>
           </div>
         </div>

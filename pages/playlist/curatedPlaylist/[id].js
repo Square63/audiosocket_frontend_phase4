@@ -137,7 +137,6 @@ const Details = () => {
   }
 
   const handleAddToFavorites = (e, trackId) => {
-    setIsLoading(true)
     if (localStorage.getItem("user")) {
       if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
@@ -258,25 +257,29 @@ const Details = () => {
   }
 
   const handleFollowUnfollow = async (id, action) => {
-    const userAuthToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
-    await axios.request({
-      headers: {
-        "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
-        "auth-token": userAuthToken
-      },
-      method: "post",
-      url: (`${BASE_URL}/api/v1/consumer/favorites_following/${action}?id=${query.id}&klass=curated_playlist`)
+    if (localStorage.getItem("user")) {
+      const userAuthToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
+      await axios.request({
+        headers: {
+          "Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+          "auth-token": userAuthToken
+        },
+        method: "post",
+        url: (`${BASE_URL}/api/v1/consumer/favorites_following/${action}?id=${query.id}&klass=curated_playlist`)
 
-    }).then(response => {
-      if (!response.status === 200) {
-        toast.error("Error while following playlist")
-      } else {
-        toast.success(response.data.status)
-        setFollowed(action == "unfollow" ? false : true)
-      }
-    }).catch(error => {
-      toast.error(error.response.data.message);
-    });
+      }).then(response => {
+        if (!response.status === 200) {
+          toast.error("Error while following playlist")
+        } else {
+          toast.success(response.data.status)
+          setFollowed(action == "unfollow" ? false : true)
+        }
+      }).catch(error => {
+        toast.error(error.response.data.message);
+      });
+    } else {
+      toast.error("Please login to follow this playlist")
+    }
 
   }
 
@@ -345,7 +348,7 @@ const Details = () => {
                       </svg>
                       Share
                     </Button>
-                      <Button variant="link" className="btn btnMainLarge" onClick={() => {setShowDownloadPlaylist(true); handleDownloadZip(query.id);}}  disabled={curatedPlaylistDetail?.media_count <= 0 || showDownloadMessage}>
+                    {localStorage.getItem("user") && <Button variant="link" className="btn btnMainLarge" onClick={() => {setShowDownloadPlaylist(true); handleDownloadZip(query.id);}}  disabled={curatedPlaylistDetail?.media_count <= 0 || showDownloadMessage}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="14.987" height="14.189" viewBox="0 0 14.987 14.189">
                         <g id="icon-download" transform="translate(0.5 13.689) rotate(-90)">
                           <path id="Shape_111" data-name="Shape 111" d="M7.455,2.737V.608A.592.592,0,0,0,6.881,0H.573A.592.592,0,0,0,0,.608V13.379a.592.592,0,0,0,.573.608H6.881a.592.592,0,0,0,.573-.608V11.251" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
@@ -354,8 +357,8 @@ const Details = () => {
                         </g>
                       </svg>
                       Download
-                    </Button>
-                    {localStorage.getItem("user") && <Button variant="link" className="btn btnMainLarge" onClick={() => handleFollowUnfollow(query.id, followed ? "unfollow" : "follow")}>
+                    </Button>}
+                    {<Button variant="link" className="btn btnMainLarge" onClick={() => handleFollowUnfollow(query.id, followed ? "unfollow" : "follow")}>
                       {followed ? <svg xmlns="http://www.w3.org/2000/svg" width="17.39" height="17.39" viewBox="0 0 17.39 17.39">
                         <g id="Group_165" data-name="Group 165" transform="translate(0.5 0.5)">
                           <g id="playlist-add">
