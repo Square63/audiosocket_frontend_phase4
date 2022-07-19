@@ -82,11 +82,9 @@ const Details = () => {
   useEffect(() => {
     if (myPlaylistTracks) {
       dispatch(getMyPlaylistArtists(query.id))
-      if (myPlaylistTracks.meta) {
-        setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
-        setFollowedArtistsIds(myPlaylistTracks.meta.followed_artist_ids)
-        setFavoriteSfxIds(myPlaylistTracks.meta.followed_sfx_ids)
-      }
+      myPlaylistTracks.meta.favorite_tracks_ids && setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
+      myPlaylistTracks.meta.followed_artist_ids && setFollowedArtistsIds(myPlaylistTracks.meta.followed_artist_ids)
+      myPlaylistTracks.meta.followed_sfx_ids && setFavoriteSfxIds(myPlaylistTracks.meta.followed_sfx_ids)
       setIsLoading(false)
       if (myPlaylistTracks.meta && updatedTracks[0]?.id != myPlaylistTracks.playlist_tracks[0]?.id){
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...myPlaylistTracks.playlist_tracks]);

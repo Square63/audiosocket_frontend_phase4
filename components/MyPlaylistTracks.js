@@ -449,7 +449,7 @@ function MyPlaylistTracks(props) {
                         <Accordion.Collapse eventKey={index + 1}>
                           <div id={"example-collapse-text" + index + 1} >
                             {track.mediable.alternate_versions.map((altVersion, index)=> {
-                              return (<AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)}/>)
+                              return (<AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} showTrackAddToPlaylistModal={props.showTrackAddToPlaylistModal} handleAddToFavorites={props.handleAddToFavorites} tracksMeta={props.tracksMeta} favoriteTrackIds={props.favoriteTrackIds} showDownloadModal={props.showDownloadModal} showDownloadLicenseModal={props.showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists} />)
                             })}
                           </div>
                         </Accordion.Collapse>

@@ -76,10 +76,10 @@ const Details = () => {
 
   useEffect(() => {
     if (curatedPlaylistTracks) {
-      if (curatedPlaylistTracks.meta){
-        setFavoriteTrackIds(curatedPlaylistTracks.meta.favorite_tracks_ids)
-        setFollowedArtistsIds(curatedPlaylistTracks.meta.followed_artist_ids)
-      }
+      
+      curatedPlaylistTracks.meta.favorite_tracks_ids && setFavoriteTrackIds(curatedPlaylistTracks.meta.favorite_tracks_ids)
+      curatedPlaylistTracks.meta.followed_artist_ids && setFollowedArtistsIds(curatedPlaylistTracks.meta.followed_artist_ids)
+      
       setIsLoading(false)
       if (updatedTracks[0]?.id != curatedPlaylistTracks.playlist_tracks[0]?.id){
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...curatedPlaylistTracks.playlist_tracks]);
