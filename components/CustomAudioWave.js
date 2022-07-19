@@ -5,6 +5,7 @@ import { Slider } from "react-semantic-ui-range";
 import { Grid } from 'semantic-ui-react';
 import InpageLoader from "./InpageLoader";
 import Link from "next/link";
+import { Form, Button } from "react-bootstrap";
 
 const formWaveSurferOptions = (ref, footer) => (
   !footer ? {
@@ -188,6 +189,13 @@ export default function CustomAudioWave(props) {
                 {props.track.artist_name}
               </a>
             </div>}
+            {props.showWorkTitle &&
+              <>
+                <Form className="individualWorkTitle individualWorkTitleField">
+                  <Form.Control type="text" placeholder="Enter work title…" defaultValue="" onBlur={(e) => {props.handleEditWorkTitle(e, props.cartLineItemId);}}/>
+                </Form>
+              </>
+            }
           </div>
         </div>
         <div className="rowParticipant audioWave">
