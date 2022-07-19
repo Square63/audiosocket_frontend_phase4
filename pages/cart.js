@@ -95,10 +95,12 @@ function Cart() {
                   <h2>Items in Cart ({cartLineItems.length})</h2>
                 </div>
 
-                <div className="trackRowWrapper">
+                <div className="trackRowWrapper cartStuff">
                   <div className="trackRow headingRow">
                     <div className="rowParticipant artistName">
                       Title / Artist
+                    </div>
+                    <div className="rowParticipant audioWave">
                     </div>
                     <div className="rowParticipant duration">
                       Duration
