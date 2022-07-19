@@ -58,7 +58,7 @@ const Settings = () => {
 
   return (
     <div>
-      <Form onSubmit={handleSubmit} className={user.boxSetting + "profileEdit as-form-control"} ref={form} noValidate validated={validated}>
+      <Form onSubmit={handleSubmit} className={user.boxSetting + " profileEdit as-form-control"} ref={form} noValidate validated={validated}>
         <Form.Group>
           <div className="toogleSwitch">
             <input type="checkbox" id="youtubeWhitelisting" name="youtube_white_listing" checked={youtubeWhitelistingState} onClick={() => toggleYoutubeWhitelisting()} />
