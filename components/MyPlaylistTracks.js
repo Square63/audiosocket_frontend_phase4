@@ -86,6 +86,7 @@ function MyPlaylistTracks(props) {
     setTracks([])
     e.preventDefault()
     setSortBy(sort_by)
+    setIsLoading(true)
     let dir = ""
     if (sort_by == "title") {
       dir = sort_dir
@@ -103,7 +104,10 @@ function MyPlaylistTracks(props) {
       setBpmSortDir(sort_dir)
     }
     props.emptyUpdatedTracks()
-    dispatch(getMyPlaylistTracks(query.id, 1))
+    if (props.type == "myplaylist")
+      dispatch(getMyPlaylistTracks(query.id, 1, sort_by, sort_dir))
+    else
+      dispatch(getCuratedPlaylistTracks(query.id, 1, sort_by, sort_dir))
   }
 
   const handleDropdownSorting = (sort_by, sort_dir) => {
