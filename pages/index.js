@@ -610,7 +610,7 @@ export default function Home(props) {
                         </div>
                         <div className="outOfScenario">
                           <h5>Link a reference track</h5>
-                          <p>Found a track you love but don&apos;t have a license to use it? Paste the YouTube URL or Shopify Song Link into the Search Bar to find songs that are similar.</p>
+                          <p>Found a track you love but don&apos;t have a license to use it? Paste the YouTube URL or Spotify Song Link into the Search Bar to find songs that are similar.</p>
                           <a href="" className="tryOut">Try it Out</a>
                           <Form className="stickySearch" onSubmit={e => { e.preventDefault(); }}>
                             <Form.Control type="text" placeholder="Paste in a YouTube link or Spotify song link" />
