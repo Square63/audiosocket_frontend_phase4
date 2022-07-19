@@ -177,7 +177,7 @@ function Tracks(props) {
     else if (e.value === "durationShorttoLong")
       handleDropdownSorting("duration", "ASC")
     else if (e.value === "mostRecentlyPublished")
-      handleDropdownSorting("publish_date", "ASC")
+      handleDropdownSorting("recently_published", "ASC")
     else if (e.value === "featured")
       handleDropdownSorting("featured", "DESC")
     else
