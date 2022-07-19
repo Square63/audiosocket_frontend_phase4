@@ -243,6 +243,7 @@ function Sfx(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    setUpdatedTracks([])
     dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
@@ -286,6 +287,7 @@ function Sfx(props) {
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     let query = document.getElementById("searchField").value
+    setUpdatedTracks([])
     dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
@@ -300,6 +302,7 @@ function Sfx(props) {
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     setAppliedFiltersList([])
+    setUpdatedTracks([])
     dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
@@ -310,6 +313,7 @@ function Sfx(props) {
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(trackName)
     setAppliedFiltersListWC([...appliedFiltersListWC, trackName]);
+    setUpdatedTracks([])
     dispatch(getTracksFromAIMS(trackId));
   }
 
@@ -348,6 +352,7 @@ function Sfx(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    setUpdatedTracks([])
     dispatch(getSfxes(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
   }
 
@@ -359,6 +364,7 @@ function Sfx(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    setUpdatedTracks([])
     dispatch(getSfxes(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals, start, end));
   }
 
@@ -467,6 +473,10 @@ function Sfx(props) {
 
   const removeChildFilterDiv = (e) => {
     e.target.textContent == 'Sound Design' ? setShowChilderDiv(false) : setShowChilderDiv(true)
+  }
+
+  const emptyUpdatedTracks = () => {
+    setUpdatedTracks([])
   }
 
   const filterItems = filters.map((filter, index) =>
@@ -848,7 +858,7 @@ function Sfx(props) {
             {loading ? (
               <InpageLoader />
             ) : (
-              <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} type="sfx"/>
+              <Tracks appliedFiltersList={appliedFiltersList} sfxes={true} tracks={tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} type="sfx" emptyUpdatedTracks={emptyUpdatedTracks}/>
             )}
           </div>
         </div>

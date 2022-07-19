@@ -112,6 +112,7 @@ function Tracks(props) {
       setBpmSortDir(sort_dir)
     }
     let query = document.getElementById("searchField").value
+    props.emptyUpdatedTracks()
     if (props.sfxes)
       dispatch(getSfxes(query, query_type(query), filters, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
     else
@@ -123,6 +124,7 @@ function Tracks(props) {
     setSortDir(sort_dir)
     setSortBy(sort_by)
     let query = document.getElementById("searchField").value
+    props.emptyUpdatedTracks()
     if (props.sfxes)
       dispatch(getSfxes(query, query_type(query), props.appliedFiltersList, sort_by, sort_dir, false, '', '', props.duration.start, props.duration.end));
     else

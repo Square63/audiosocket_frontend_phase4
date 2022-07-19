@@ -283,7 +283,7 @@ function Search(props) {
       filters = appliedFiltersList
       setLoading(true)
     }
-
+    setUpdatedTracks([])
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
@@ -340,6 +340,7 @@ function Search(props) {
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     let query = document.getElementById("searchField").value
+    setUpdatedTracks([])
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
@@ -359,6 +360,7 @@ function Search(props) {
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     setAppliedFiltersList([])
+    setUpdatedTracks([])
     dispatch(getTracks(query, query_type(query), [], "", "", 1, explicit, vocals));
   }
 
@@ -368,6 +370,7 @@ function Search(props) {
     appliedFiltersList.push(trackName)
     setAppliedFiltersListWC([...appliedFiltersListWC, trackName]);
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+    setUpdatedTracks([])
     dispatch(getTracksFromAIMS(trackId));
   }
 
@@ -416,6 +419,7 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    setUpdatedTracks([])
     dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
   }
 
@@ -428,6 +432,7 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    setUpdatedTracks([])
     dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals, start, end));
   }
 
@@ -525,6 +530,7 @@ function Search(props) {
     let explicit = !document.getElementById("excludeExplicit").checked
     let vocals = document.getElementById("excludeVocals").checked
     let query = document.getElementById("searchField").value
+    setUpdatedTracks([])
     dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
 
   }
@@ -538,6 +544,10 @@ function Search(props) {
       e.preventDefault()
       dispatch(attachToMedia(trackId, licenseId));
     }
+  }
+
+  const emptyUpdatedTracks = () => {
+    setUpdatedTracks([])
   }
 
   const filterItems = filters.map((filter, index) =>
@@ -946,7 +956,7 @@ function Search(props) {
           {loading ? (
             <InpageLoader />
           ) : (
-            <Tracks appliedFiltersList={appliedFiltersList} tracks={fromAims ? tracks?.slice(segmentTracksIndex, segmentTracksIndex + 10) :  tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} handleTrackSearchOfArtist={handleTrackSearchOfArtist} fromAims={fromAims} updateSegmentTracksIndex={updateSegmentTracksIndex} type="track"/>
+            <Tracks appliedFiltersList={appliedFiltersList} tracks={fromAims ? tracks?.slice(segmentTracksIndex, segmentTracksIndex + 10) :  tracks} duration={durationFilter} tracksMeta={tracksMeta} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} handleFooterTrack={handleFooterTrack} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} favoriteTrackIds={favoriteTrackIds} handleTrackSearchOfArtist={handleTrackSearchOfArtist} fromAims={fromAims} updateSegmentTracksIndex={updateSegmentTracksIndex} type="track" emptyUpdatedTracks={emptyUpdatedTracks}/>
           )}
         </div>
 

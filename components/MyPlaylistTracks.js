@@ -102,7 +102,7 @@ function MyPlaylistTracks(props) {
       setSortDir(sort_dir)
       setBpmSortDir(sort_dir)
     }
-
+    props.emptyUpdatedTracks()
     dispatch(getMyPlaylistTracks(query.id, 1))
   }
 
@@ -112,6 +112,7 @@ function MyPlaylistTracks(props) {
     setSortBy(sort_by)
     // props.handleLoading()
     setIsLoading(true)
+    props.emptyUpdatedTracks()
     if (props.type == "myplaylist")
       dispatch(getMyPlaylistTracks(query.id, 1, sort_by, sort_dir))
     else
