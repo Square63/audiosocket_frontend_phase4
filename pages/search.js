@@ -70,6 +70,7 @@ function Search(props) {
   const [durationFilter, setDurationFilter] = useState({start:0, end: 0})
   const [sidebarType, setSidebarType] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
+  const [lastSearchQuery, setLastSearchQuery] = useState("")
   const [localKeyword, setLocalKeyword] = useState("")
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
@@ -284,22 +285,41 @@ function Search(props) {
       setLoading(true)
     }
     setUpdatedTracks([])
-    let query = document.getElementById("searchField").value
+    setLastSearchQuery(searchQuery)
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    let typeOfSearch = query_type(query)
-    typeOfSearch == 'aims_search' ? setFromAims(true) : setFromAims(false)
-    setSearchQuery(query)
-    dispatch(getTracks(query, typeOfSearch, filters, "", "", 1, explicit, vocals));
+
+    if(searchQuery && !lastSearchQuery){
+      setAppliedFiltersListWC([...appliedFiltersListWC, searchQuery]);
+      document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+    } else if (searchQuery && lastSearchQuery){
+      appliedFiltersListWC.splice(appliedFiltersListWC.indexOf(lastSearchQuery), 1);
+      setAppliedFiltersListWC([...appliedFiltersListWC, searchQuery]);
+    }
+
+    if(!searchQuery && lastSearchQuery){
+      appliedFiltersListWC.splice(appliedFiltersListWC.indexOf(lastSearchQuery), 1);
+      $(".filterSelf").removeClass("activeFilter");
+      if (appliedFiltersListWC.length == 0)
+        document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
+      dispatch(getTracks('', 'local_search', filters, "", "", 1, explicit, vocals));
+    } else {
+      let typeOfSearch = query_type(searchQuery)
+      typeOfSearch == 'aims_search' ? setFromAims(true) : setFromAims(false)
+      dispatch(getTracks(searchQuery, typeOfSearch, filters, "", "", 1, explicit, vocals));
+    }
   }
 
   const handleClearAllFilter = () => {
+    setLastSearchQuery('')
     hideAllFilterDiv()
   }
 
   const handleUploadSearch = (url, start, end) => {
     setFromAims(false)
     setLoading(true)
+    setSearchQuery('')
+    setLastSearchQuery('')
     dispatch(getSegmentTracksFromAIMS(url, start, end));
   }
 
@@ -313,14 +333,19 @@ function Search(props) {
     } else {
       singleFilterText = e.target.previousElementSibling.textContent
     }
-    let singleFilterTextWithoutCount = singleFilterText
-    let elements = $( "a:contains("+singleFilterTextWithoutCount+")" );
-    appliedFiltersList.splice(appliedFiltersList.indexOf(singleFilterTextWithoutCount), 1);
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
 
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i].closest(".filterSelf")) {
-        elements[i].closest(".filterSelf").classList.remove("activeFilter")
-        elements[i].nextElementSibling.nextElementSibling.classList.add("disabled")
+    if (singleFilterText !== searchQuery) {
+      let singleFilterTextWithoutCount = singleFilterText
+      let elements = $( "a:contains("+singleFilterTextWithoutCount+")" );
+      appliedFiltersList.splice(appliedFiltersList.indexOf(singleFilterTextWithoutCount), 1);
+
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i].closest(".filterSelf")) {
+          elements[i].closest(".filterSelf").classList.remove("activeFilter")
+          elements[i].nextElementSibling.nextElementSibling.classList.add("disabled")
+        }
       }
     }
 
@@ -335,17 +360,20 @@ function Search(props) {
       let length = $(".selectedFilter li:visible").length
       if (length == 0) {
         hideAllFilterDiv()
+      } else if (singleFilterText === searchQuery){
+        setSearchQuery('')
+        dispatch(getTracks('', 'local_search', appliedFiltersList, "", "", 1, explicit, vocals));
+      }
+      else{
+        dispatch(getTracks(searchQuery, query_type(searchQuery), appliedFiltersList, "", "", 1, explicit, vocals));
       }
     }
-    let explicit = !document.getElementById("excludeExplicit")?.checked
-    let vocals = document.getElementById("excludeVocals")?.checked
-    let query = document.getElementById("searchField").value
     setUpdatedTracks([])
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   function startLoaderAndHideDiv() {
     setLoading(true)
+    setUpdatedTracks([])
     localStorage.removeItem("genre")
     localStorage.removeItem("vocal")
     $(".filterSelf").removeClass("activeFilter");
@@ -356,17 +384,18 @@ function Search(props) {
   function hideAllFilterDiv() {
     setFromAims(false)
     startLoaderAndHideDiv()
-    let query = document.getElementById("searchField").value
+    setSearchQuery('')
+    setLastSearchQuery('')
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     setAppliedFiltersList([])
-    setUpdatedTracks([])
-    dispatch(getTracks(query, query_type(query), [], "", "", 1, explicit, vocals));
+    dispatch(getTracks('', 'local_search', [], "", "", 1, explicit, vocals));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
     startLoaderAndHideDiv()
     setFromAims(true)
+    setLastSearchQuery('')
     appliedFiltersList.push(trackName)
     setAppliedFiltersListWC([...appliedFiltersListWC, trackName]);
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
@@ -377,6 +406,7 @@ function Search(props) {
   const handleTrackSearchOfArtist = (artistId, artistName) => {
     setFromAims(false)
     startLoaderAndHideDiv()
+    setSearchQuery('')
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(artistName)
     setAppliedFiltersListWC([...appliedFiltersListWC, artistName]);
