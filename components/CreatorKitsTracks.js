@@ -62,7 +62,7 @@ function CreatorKitsTracks(props) {
   }, [props.followed_artist_ids])
 
   const fetchData = () => {
-    dispatch(getCreatorKitsTracks(query.id, props.type, tracks.length/10 + 1))
+    dispatch(getCreatorKitsTracks(query.id, props.type, tracks.length/10 + 1, sortBy, sortDir))
     setInfiniteLoop(true)
   }
 

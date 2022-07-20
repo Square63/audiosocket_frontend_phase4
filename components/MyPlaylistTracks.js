@@ -69,9 +69,9 @@ function MyPlaylistTracks(props) {
 
   const fetchData = () => {
     if (props.type == "myplaylist")
-      dispatch(getMyPlaylistTracks(query.id, tracks.length/10 + 1))
+      dispatch(getMyPlaylistTracks(query.id, tracks.length/10 + 1, sortBy, sortDir))
     else
-      dispatch(getCuratedPlaylistTracks(query.id, tracks.length/10 + 1))
+      dispatch(getCuratedPlaylistTracks(query.id, tracks.length/10 + 1, sortBy, sortDir))
     setInfiniteLoop(true)
   }
 
