@@ -21,6 +21,7 @@ function AddToCartLicense({ showModal = false, onCloseModal, track, type}) {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLicense, setSelectedLicense] = useState();
+  const [selectedLicensePrice, setSelectedLicensePrice] = useState();
   const userAuthToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
 
   const authContext = useContext(AuthContext);
@@ -32,8 +33,9 @@ function AddToCartLicense({ showModal = false, onCloseModal, track, type}) {
     }
   }, [licenses])
 
-  function handleLicenseClick(e, licenseId) {
-    setSelectedLicense(licenseId);
+  function handleLicenseClick(e, license) {
+    setSelectedLicensePrice(license.price)
+    setSelectedLicense(license.id);
   }
 
   const handleSubmit = async (e) => {
@@ -74,6 +76,7 @@ function AddToCartLicense({ showModal = false, onCloseModal, track, type}) {
     onCloseModal(false);
     setValidated(false);
     setIsLoading(false);
+    setSelectedLicensePrice()
   }
 
   // const handleLicenseClick = (trackId, licenseId) => {
@@ -113,7 +116,7 @@ function AddToCartLicense({ showModal = false, onCloseModal, track, type}) {
                         name="group1"
                         type={type}
                         id={`inline-${license.id}`}
-                        onClick={(e) => handleLicenseClick(e, license.id)}
+                        onClick={(e) => handleLicenseClick(e, license)}
                       />
                     )}
                     <Form.Label className="labelBetweenForm">Not finding the license you need?</Form.Label>
@@ -140,15 +143,12 @@ function AddToCartLicense({ showModal = false, onCloseModal, track, type}) {
             </div>
           </div>
           <div className="modalLicenseInfo">
-            <h3>License Info</h3>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Please add your Video or Work Title to your License</Form.Label>
-                <Form.Control type="text" placeholder="Enter work title…" />
-              </Form.Group>
-              <Button variant="link" className="btn btnMainLarge btn-block" type="submit">
-                Checkout and License Track - <span className="modalPriceBtn">$129</span>
-              </Button>
+              {selectedLicensePrice &&
+                <Button variant="link" className="btn btnMainLarge btn-block" type="submit">
+                  Checkout and License Track - <span className="modalPriceBtn">${selectedLicensePrice}</span>
+                </Button>
+              }
             </Form>
           </div>
         </div>
