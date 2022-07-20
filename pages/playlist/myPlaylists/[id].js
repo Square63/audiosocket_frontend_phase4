@@ -82,9 +82,11 @@ const Details = () => {
   useEffect(() => {
     if (myPlaylistTracks) {
       dispatch(getMyPlaylistArtists(query.id))
-      myPlaylistTracks.meta.favorite_tracks_ids && setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
-      myPlaylistTracks.meta.followed_artist_ids && setFollowedArtistsIds(myPlaylistTracks.meta.followed_artist_ids)
-      myPlaylistTracks.meta.followed_sfx_ids && setFavoriteSfxIds(myPlaylistTracks.meta.followed_sfx_ids)
+      if (myPlaylistTracks.meta) {
+        myPlaylistTracks.meta.favorite_tracks_ids && setFavoriteTrackIds(myPlaylistTracks.meta.favorite_tracks_ids)
+        myPlaylistTracks.meta.followed_artist_ids && setFollowedArtistsIds(myPlaylistTracks.meta.followed_artist_ids)
+        myPlaylistTracks.meta.followed_sfx_ids && setFavoriteSfxIds(myPlaylistTracks.meta.followed_sfx_ids)
+      }
       setIsLoading(false)
       if (myPlaylistTracks.meta && updatedTracks[0]?.id != myPlaylistTracks.playlist_tracks[0]?.id){
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...myPlaylistTracks.playlist_tracks]);
@@ -133,7 +135,7 @@ const Details = () => {
         tracks.playlist_tracks.map((track, index) =>
         duration += track.mediable.duration)
       } else {
-        tracks.map((track, index) =>
+        tracks.tracks.map((track, index) =>
         duration += track.mediable.duration)
       }
     }
@@ -381,7 +383,7 @@ const Details = () => {
           <div className="fixed-container">
             {myPlaylistTracks ?
               <>
-                {myPlaylistTracks.meta ? <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} myPlaylistTracksCount={myPlaylistTracks.meta.playlist_track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type="myplaylist" emptyUpdatedTracks={emptyUpdatedTracks}/> :  <center>No Tracks Found</center>}
+                <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} myPlaylistTracksCount={myPlaylistTracks.meta?.playlist_track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type="myplaylist" emptyUpdatedTracks={emptyUpdatedTracks}/>
                 <div className={playlist.artistTiles}>
                   <h3>Artists On This Playlist</h3>
                   {updatedArtists && updatedArtists.length == 0 ?
