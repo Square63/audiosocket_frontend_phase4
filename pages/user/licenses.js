@@ -11,6 +11,12 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
+import dynamic from 'next/dynamic'
+
+const CustomAudioWave = dynamic(
+  () => import('../../components/CustomAudioWave'),
+  { ssr: false }
+)
 
 function Licenses() {
   const dispatch = useDispatch();
@@ -92,22 +98,7 @@ function Licenses() {
                   </div>
                   {consumerLicenses.map((consumerLicense, index) =>
                     <div className="trackRow" key={index}>
-                      <div className="rowParticipant artistName">
-                        <div className="playPauseBtn">
-                          <span className="play d-none"></span>
-                          <span className="pause"></span>
-                        </div>
-                        <div className="aboutSong">
-                          <div className="songData">
-                            <a href="" className="songName">{consumerLicense.mediable.title}</a>
-                          </div>
-                          <div className="songArtist">
-                            <a href="" className="noTextLine">
-                              {consumerLicense.mediable.artist_name}
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                      <CustomAudioWave track={consumerLicense.mediable} footer={false} footerPlaying={false} notClickable={true} />
                       <div className={user.workTitle + ' rowParticipant'}>
                         UBS Montage Team Video
                       </div>
