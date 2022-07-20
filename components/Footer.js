@@ -5,14 +5,22 @@ import Image from "next/image";
 import logo from '../images/logoAudiosocket.svg'
 import {LoaderImage} from "./LoaderImage";
 import MusicPlayer from "./MusicPlayer";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { submitSubscribeToAudiosocket } from "../redux/actions/authActions"
+import { toast } from 'react-toastify';
 
 function Footer() {
   const form = useRef(null);
   const dispatch = useDispatch();
+  const subscribeResponse = useSelector(state => state.user.email_subscription_success);
+
+  useEffect(() => {
+    if (subscribeResponse == true) {
+      toast.success("Subscription email sent");
+    }
+  }, [subscribeResponse])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

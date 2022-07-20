@@ -448,6 +448,7 @@ export const authReducer = (state = {user: {}, error: {}}, action) => {
         ...state,
         email_subscription: action.payload,
         success: true,
+        email_subscription_success: true,
       };
     case SUBSCRIPTION_EMAIL_FAIL:
       return {
