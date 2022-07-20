@@ -836,12 +836,12 @@ export const getTrendingPlaylists = () => async (dispatch) => {
 
 export const submitSubscribeToAudiosocket = (email) => async (dispatch) => {
   const formData = new FormData();
-  const data = {email_subscription: {'email': email}}
+  const email_data = {email_subscription: {'email': email}}
   try {
     const { data } = await axios.request({
       method: "post",
       url: `${BASE_URL}/api/v1/email_subscriptions`,
-      data: data
+      data: email_data
     });
     dispatch({
       type: SUBSCRIPTION_EMAIL_SUCCESS,

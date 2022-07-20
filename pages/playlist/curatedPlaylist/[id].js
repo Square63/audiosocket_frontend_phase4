@@ -280,7 +280,6 @@ const Details = () => {
     } else {
       toast.error("Please login to follow this playlist")
     }
-
   }
 
   const emptyUpdatedTracks = () => {
