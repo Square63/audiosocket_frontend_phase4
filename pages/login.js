@@ -171,12 +171,6 @@ function Login() {
                 <span>Continue  with Google</span>
               </div>
             </a>
-            <a href='' className={login.linkedin+' '+login.loginBtn}>
-              <div>
-                <div className={login.icon}></div>
-                <span>Continue  with Linkedin</span>
-              </div>
-            </a>
           </div>
         </div>
       </div>

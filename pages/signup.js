@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { TOAST_OPTIONS } from '../common/api';
 import { TOAST_OPTIONS_ERROR } from '../common/api';
 import {AuthContext} from "../store/authContext";
-import { authSignup } from "../redux/actions/authActions";
+import { authSignup, gmailLogin } from "../redux/actions/authActions";
 import signup from "../styles/Signup.module.scss";
 import { Alert } from 'react-bootstrap';
 import { useCookie } from 'next-cookie'
@@ -20,6 +20,7 @@ function Signup() {
   const dispatch = useDispatch();
   const signUpUser = useSelector(state => state.auth);
   const { authActions } = useContext(AuthContext);
+  const SocialLogIn = useSelector(state => state.auth.url);
   const form = useRef(null);
   const router = useRouter();
   const [validated, setValidated] = useState(false);
@@ -46,6 +47,11 @@ function Signup() {
       router.push('/')
     }
   }, [])
+
+  useEffect(() => {
+    if (SocialLogIn && !(localStorage.getItem('user')))
+      window.location.assign(SocialLogIn);
+  }, [SocialLogIn])
 
   useEffect(() => {
     if(signUpUser?.error) {
@@ -104,6 +110,11 @@ function Signup() {
   const handleSelectContentType = (target) => {
     setContentType(target.value);
   }
+
+  const handleGmailLogin = () => {
+    dispatch(gmailLogin());
+  }
+
   return (
     <div className={signup.signupWrapper}>
       <div className={signup.signupHeading}>
@@ -233,16 +244,10 @@ function Signup() {
                   <span>Continue  with Facebook</span>
                 </div>
               </a>
-              <a href='' className={signup.google+' '+signup.signupBtn}>
+              <a href="javascript:void(0)" className={signup.google + ' ' + signup.signupBtn} onClick={handleGmailLogin}>
                 <div>
                   <div className={signup.icon}></div>
                   <span>Continue  with Google</span>
-                </div>
-              </a>
-              <a href='' className={signup.apple+' '+signup.signupBtn}>
-                <div>
-                  <div className={signup.icon}></div>
-                  <span>Continue  with Apple</span>
                 </div>
               </a>
             </div>
@@ -251,7 +256,7 @@ function Signup() {
             By creating an account you agree to Audiosocket’s <Link href={"/termsConditions"}>Terms of Use</Link> and <Link href={"/privacyPolicy"}>Privacy Policy.</Link>
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   );
 
