@@ -300,6 +300,8 @@ const Details = () => {
       }).catch(error => {
         toast.error(error.response.data.message);
       });
+    } else {
+      toast.error("Please login to follow this playlist")
     }
   }
 
