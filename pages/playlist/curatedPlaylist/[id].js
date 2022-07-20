@@ -85,10 +85,10 @@ const Details = () => {
 
   useEffect(() => {
     if (curatedPlaylistTracks) {
-      
+
       curatedPlaylistTracks.meta.favorite_tracks_ids && setFavoriteTrackIds(curatedPlaylistTracks.meta.favorite_tracks_ids)
       curatedPlaylistTracks.meta.followed_artist_ids && setFollowedArtistsIds(curatedPlaylistTracks.meta.followed_artist_ids)
-      
+
       setIsLoading(false)
       if (updatedTracks[0]?.id != curatedPlaylistTracks.playlist_tracks[0]?.id){
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...curatedPlaylistTracks.playlist_tracks]);
@@ -291,6 +291,8 @@ const Details = () => {
       }).catch(error => {
         toast.error(error.response.data.message);
       });
+    } else {
+      toast.error("Please login to follow this playlist")
     }
   }
 
