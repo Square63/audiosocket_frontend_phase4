@@ -14,7 +14,7 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
          GET_CURATED_FILTERS_SUCCESS, GET_CURATED_FILTERS_FAIL, GET_CURRENT_SUBSCRIPTION_SUCCESS, GET_CURRENT_SUBSCRIPTION_FAIL,
          GET_FEATURED_PLAYLISTS_SUCCESS, GET_FEATURED_PLAYLISTS_FAIL, GET_PAYMENT_HISTORY_SUCCESS, GET_PAYMENT_HISTORY_FAIL, GET_PAYMENT_DETAILS_SUCCESS, GET_PAYMENT_DETAILS_FAIL, MY_LICENSES_SUCCESS, MY_LICENSES_FAIL,
          CURATED_PLAYLIST_DETAIL_SUCCESS, CURATED_PLAYLIST_DETAIL_FAIL, CURATED_PLAYLIST_TRACKS_SUCCESS, CURATED_PLAYLIST_TRACKS_FAIL, CREATOR_KITS_SUCCESS, CREATOR_KITS_FAIL,
-         CREATOR_KITS_DETAIL_SUCCESS, CREATOR_KITS_DETAIL_FAIL, CREATOR_KITS_TRACKS_SUCCESS, CREATOR_KITS_TRACKS_FAIL, TRENDING_PLAYLISTS_SUCCESS, TRENDING_PLAYLISTS_FAIL } from "../constants/authConstants";
+         CREATOR_KITS_DETAIL_SUCCESS, CREATOR_KITS_DETAIL_FAIL, CREATOR_KITS_TRACKS_SUCCESS, CREATOR_KITS_TRACKS_FAIL, TRENDING_PLAYLISTS_SUCCESS, TRENDING_PLAYLISTS_FAIL, SUBSCRIPTION_EMAIL_SUCCESS, SUBSCRIPTION_EMAIL_FAIL } from "../constants/authConstants";
 
 export const authLogin = (data) => async (dispatch) => {
   let email = data.email;
@@ -829,6 +829,27 @@ export const getTrendingPlaylists = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: TRENDING_PLAYLISTS_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const submitSubscribeToAudiosocket = (email) => async (dispatch) => {
+  const formData = new FormData();
+  const data = {email_subscription: {'email': email}}
+  try {
+    const { data } = await axios.request({
+      method: "post",
+      url: `${BASE_URL}/api/v1/email_subscriptions`,
+      data: data
+    });
+    dispatch({
+      type: SUBSCRIPTION_EMAIL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SUBSCRIPTION_EMAIL_FAIL,
       payload: error,
     });
   }

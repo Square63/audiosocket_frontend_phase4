@@ -27,7 +27,7 @@ function ForgotPasswordModal({ showModal = false, onCloseModal }) {
         router.push('/login')
       } );
     } else if (confirmationModal == false) {
-      Notiflix.Report.failure( 'Invalid user', `Error resetting password`, 'Ok', () => {
+      Notiflix.Report.failure( 'Error', `A minimum 6 characters of password is required.`, 'Ok', () => {
         window.location.reload();
       } );
     }

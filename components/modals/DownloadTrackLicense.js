@@ -109,7 +109,7 @@ function DownloadTrackLicense({showModal = false, onCloseModal}) {
                 <Form.Control type="text" placeholder="Enter work title…" />
               </Form.Group>
               <Button variant="link" className="btn btnMainLarge btn-block" type="submit">
-                Checkout and License Track - <span className="modalPriceBtn">$129</span>
+                Checkout and License Track
               </Button>
             </Form>
           </div>
