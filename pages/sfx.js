@@ -54,6 +54,8 @@ function Sfx(props) {
   const [trackName, setTrackName] = useState(localStorage.getItem("track_name"))
   const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
+  const [searchQuery, setSearchQuery] = useState("")
+  const [lastSearchQuery, setLastSearchQuery] = useState("")
   const [filterOpen, setFilterOpen] = useState(false);
   const [durationFilter, setDurationFilter] = useState({ start: 0, end: 0 })
   const [filterTypeOpen, setFilterTypeOpen] = useState(false);
@@ -240,14 +242,32 @@ function Sfx(props) {
 
   const handleSearch = async(e) => {
     setLoading(true)
-    let query = document.getElementById("searchField").value
+    setUpdatedTracks([])
+    setLastSearchQuery(searchQuery)
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    setUpdatedTracks([])
-    dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+
+    if (searchQuery && !lastSearchQuery) {
+      setAppliedFiltersListWC([...appliedFiltersListWC, searchQuery]);
+      document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
+    } else if (searchQuery && lastSearchQuery) {
+      appliedFiltersListWC.splice(appliedFiltersListWC.indexOf(lastSearchQuery), 1);
+      setAppliedFiltersListWC([...appliedFiltersListWC, searchQuery]);
+    }
+
+    if (!searchQuery && lastSearchQuery) {
+      appliedFiltersListWC.splice(appliedFiltersListWC.indexOf(lastSearchQuery), 1);
+      $(".filterSelf").removeClass("activeFilter");
+      if (appliedFiltersListWC.length == 0)
+        document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
+      dispatch(getSfxes('', 'local_search', appliedFiltersList, "", "", 1, explicit, vocals));
+    } else {
+      dispatch(getSfxes(searchQuery, 'local_search', appliedFiltersList, "", "", 1, explicit, vocals));
+    }
   }
 
   const handleClearAllFilter = () => {
+    setLastSearchQuery('')
     hideAllFilterDiv()
   }
 
@@ -260,14 +280,18 @@ function Sfx(props) {
     } else {
       singleFilterText = e.target.previousElementSibling.textContent
     }
-    let singleFilterTextWithoutCount = singleFilterText
-    let elements = $( "a:contains("+singleFilterTextWithoutCount+")" );
-    appliedFiltersList.splice(appliedFiltersList.indexOf(removeCount(singleFilterTextWithoutCount)), 1);
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
 
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i].closest(".filterSelf")) {
-        elements[i].closest(".filterSelf").classList.remove("activeFilter")
-        elements[i].nextElementSibling?.nextElementSibling?.classList?.add("disabled")
+    if (singleFilterText !== searchQuery) {
+      let singleFilterTextWithoutCount = singleFilterText
+      let elements = $( "a:contains("+singleFilterTextWithoutCount+")" );
+      appliedFiltersList.splice(appliedFiltersList.indexOf(removeCount(singleFilterTextWithoutCount)), 1);
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i].closest(".filterSelf")) {
+          elements[i].closest(".filterSelf").classList.remove("activeFilter")
+          elements[i].nextElementSibling?.nextElementSibling?.classList?.add("disabled")
+        }
       }
     }
 
@@ -282,13 +306,14 @@ function Sfx(props) {
       let length = $(".selectedFilter li:visible").length
       if (length == 0) {
         hideAllFilterDiv()
+      } else if (singleFilterText === searchQuery) {
+        setSearchQuery('')
+        dispatch(getSfxes('', 'local_search', appliedFiltersList, "", "", 1, explicit, vocals));
+      } else {
+        dispatch(getSfxes(searchQuery, 'local_search', appliedFiltersList, "", "", 1, explicit, vocals));
       }
     }
-    let explicit = !document.getElementById("excludeExplicit")?.checked
-    let vocals = document.getElementById("excludeVocals")?.checked
-    let query = document.getElementById("searchField").value
     setUpdatedTracks([])
-    dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
   }
 
   function hideAllFilterDiv() {
@@ -298,17 +323,19 @@ function Sfx(props) {
     $(".filterSelf").removeClass("activeFilter");
     document.getElementById("filtersList").innerHTML = "";
     document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
-    let query = document.getElementById("searchField").value
+    setSearchQuery('')
+    setLastSearchQuery('')
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
     setAppliedFiltersList([])
     setUpdatedTracks([])
-    dispatch(getSfxes(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    dispatch(getSfxes('', 'local_search', [], "", "", 1, explicit, vocals));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
     setLoading(true)
     hideAllFilterDiv()
+    setLastSearchQuery('')
     console.log("Track NAme", trackName)
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(trackName)
@@ -431,7 +458,10 @@ function Sfx(props) {
   // console.log("Playlists", playlists)
 
   function removeCount(filter) {
-    return filter.substring(0, filter.indexOf(' ('));
+    if (filter.split('(').length - 1 == 1)
+      return filter.substring(0, filter.split(' (', 1).join(' (').length);
+    else
+      return filter.substring(0, filter.split(' (', 2).join(' (').length);
   }
 
   function query_type(query) {
@@ -630,7 +660,7 @@ function Sfx(props) {
           <h1 className={search.pageHeading}>Search SFX</h1>
           <div className={search.searchUploadStuff}>
             <Form className="stickySearch largeStuff haveIcon" onSubmit={e => { e.preventDefault(); }}>
-              <Form.Control type="text" placeholder="Search by YouTube link, Spotify song link, or Keyword" id="searchField" />
+              <Form.Control type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search by keyword to find animal sounds, background noises, vehicles, etc." id="searchField" />
               <Button variant="default" type="submit" className="btnMainLarge stickyBtn" onClick={handleSearch}>Search</Button>
               <svg xmlns="http://www.w3.org/2000/svg" className="" width="22.414" height="22.414" viewBox="0 0 22.414 22.414">
                 <g id="icon-magnifying-glass" transform="translate(1 1)">
