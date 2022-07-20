@@ -282,6 +282,10 @@ const Details = ()  => {
     })
   }
 
+  const emptyUpdatedTracks = () => {
+    setUpdatedTracks([])
+  }
+
   return (
     <>
     {creatorKitsDetail ?
@@ -401,7 +405,7 @@ const Details = ()  => {
               {creatorKitsTracks && creatorKitsTracks.meta ?
                 creatorKitsTracks.playlist_tracks.length > 0 ?
                   (creatorKitsTracks.meta.type == "track" ?
-                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count}/>
+                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count} emptyUpdatedTracks={emptyUpdatedTracks}/>
                   :
                     <InpageLoader/>
                   )
@@ -414,7 +418,7 @@ const Details = ()  => {
             <Tab eventKey="sfx" title="SFX">
               {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
                 (creatorKitsTracks.meta.type == "sfx" ?
-                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sfx_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="SFX" count={creatorKitsDetail.meta.sfx_count}/>
+                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sfx_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="SFX" count={creatorKitsDetail.meta.sfx_count} emptyUpdatedTracks={emptyUpdatedTracks}/>
                 :
                   <InpageLoader/>
                 )
@@ -425,7 +429,7 @@ const Details = ()  => {
             <Tab eventKey="sound_design" title="Sound Design">
               {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
                 (creatorKitsTracks.meta.type == "sound_design" ?
-                   <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sound_design_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Sound Design" count={creatorKitsDetail.meta.sound_design_count}/>
+                   <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sound_design_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Sound Design" count={creatorKitsDetail.meta.sound_design_count} emptyUpdatedTracks={emptyUpdatedTracks}/>
                 :
                   <InpageLoader />
                 )
