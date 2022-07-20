@@ -444,25 +444,33 @@
       :global(.rowParticipant){
         padding-right: 10px;
         &:global(.artistName) {
-          min-width: 22%;
+          min-width: 20%;
+          :global(.aboutSong) {
+            min-width: 20%;
+          }
+        }
+        &:global(.audioWave) {
+          min-width: 19%;
+          padding: 0 15px 0 10px;
         }
         &.workTitle {
-          min-width: 20%;
+          min-width: 18%;
           @include lineClamp(2);
         }
         &.licenseAgreement {
-          min-width: 17%;
+          min-width: 14%;
           @include lineClamp(2);
         }
         &.purchaseReceipt {
-          min-width: 15%;
+          min-width: 12%;
         }
         &.purchaseDate {
-          min-width: 15%;
+          min-width: 12%;
         }
         &:global(.controls) {
-          min-width: 11%;
+          min-width: 5%;
           padding-right: 0;
+          @include justify-content(center);
         }
       }
     }
@@ -483,15 +491,20 @@
       :global(.rowParticipant){
         padding-right: 10px;
         &:global(.artistName) {
-          min-width: 33%;
+          min-width: 25%;
           :global(.songArtist) {
             a {
               max-width: 17vw !important;
             }
           }
         }
+        &:global(.audioWave) {
+          min-width: 20%;
+          padding: 0 10px 0 15px;
+        }
         &.workTitle {
-          min-width: 30%;
+          min-width: 24%;
+          padding: 0 20px 0 10px;
           @include lineClamp(1);
           :global(.form-control) {
             max-width: 300px;
@@ -499,66 +512,67 @@
           }
         }
         &.licenseBtn {
-          min-width: 16%;
+          min-width: 13%;
           @include lineClamp(1);
         }
         &.downloadDate {
-          min-width: 16%;
+          min-width: 15%;
+          padding: 0 10px 0;
         }
         &:global(.controls) {
-          min-width: 5%;
+          min-width: 3%;
           padding-right: 0;
-          justify-content: flex-end;
+          justify-content: center;
         }
       }
     }
   }
 }
-/*********************** Checkout Listing *******************/
-.downloadListing {
-  :global(.trackRowWrapper) {
-    :global(.trackRow) {
-      &:global(.headingRow) {
-        :global(.rowParticipant) {
-          &:global(.artistName) {
-            padding-left: 0;
-          }
-        }
-      }
-      :global(.rowParticipant){
-        padding-right: 10px;
-        &:global(.artistName) {
-          min-width: 33%;
-          :global(.songArtist) {
-            a {
-              max-width: 17vw !important;
-            }
-          }
-        }
-        &.workTitle {
-          min-width: 30%;
-          @include lineClamp(1);
-          :global(.form-control) {
-            max-width: 300px;
-            height: 36px;
-          }
-        }
-        &.licenseBtn {
-          min-width: 16%;
-          @include lineClamp(1);
-        }
-        &.downloadDate {
-          min-width: 16%;
-        }
-        &:global(.controls) {
-          min-width: 5%;
-          padding-right: 0;
-          justify-content: flex-end;
-        }
-      }
-    }
-  }
-}
+// /*********************** Checkout Listing *******************/
+// .downloadListing {
+//   :global(.trackRowWrapper) {
+//     :global(.trackRow) {
+//       &:global(.headingRow) {
+//         :global(.rowParticipant) {
+//           &:global(.artistName) {
+//             padding-left: 0;
+//           }
+//         }
+//       }
+//       :global(.rowParticipant){
+//         padding-right: 10px;
+//         &:global(.artistName) {
+//           min-width: 33%;
+//           :global(.songArtist) {
+//             a {
+//               max-width: 17vw !important;
+//             }
+//           }
+//         }
+//         &.workTitle {
+//           min-width: 30%;
+//           @include lineClamp(1);
+//           :global(.form-control) {
+//             max-width: 300px;
+//             height: 36px;
+//           }
+//         }
+//         &.licenseBtn {
+//           min-width: 16%;
+//           @include lineClamp(1);
+//         }
+//         &.downloadDate {
+//           min-width: 16%;
+//         }
+//         &:global(.controls) {
+//           min-width: 5%;
+//           padding-right: 0;
+//           justify-content: flex-end;
+//         }
+//       }
+//     }
+//   }
+// }
 /*********************** Favorites Listing *******************/
 .favoritesListing {
   :global(.trackRowWrapper) {
@@ -748,15 +762,31 @@
             flex-wrap: nowrap;
             padding-block: 10px;
             :global(.rowParticipant) {
-              min-width: 220px;
+              min-width: 250px;
               &:global(.controls) {
                 min-width: 150px;
+                max-width: 150px;
+              }
+              &:global(.duration) {
+                min-width: 150px;
+              }
+              &.workTitle {
+                min-width: 250px;
               }
               &.purchaseDate {
                 min-width: 150px;
               }
               &.purchaseReceipt {
                 min-width: 150px;
+              }
+              &.downloadDate {
+                min-width: 120px;
+              }
+              &.licenseBtn {
+                min-width: 150px;
+              }
+              &.licenseAgreement {
+                min-width: 170px;
               }
             }
           }
