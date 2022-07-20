@@ -73,6 +73,7 @@ const Details = ()  => {
           }
       } else {
         if (creatorKitsTracks.playlist_tracks?.length > 0) {
+          
           if (updatedTracks[0]?.id != creatorKitsTracks.playlist_tracks[0].id)
             setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsTracks.playlist_tracks]);
           creatorKitsTracks.meta.favorite_sfx_ids && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_sfx_ids)
@@ -193,7 +194,7 @@ const Details = ()  => {
       }
       if (typeof(localStorage.getItem("has_subscription")) !== undefined) {
         if (JSON.parse(localStorage.getItem("has_subscription"))) {
-          authContext.handleAddToCart(type == "track" ? updatedTracks[index].id : index.id, "Track", "");
+          authContext.handleAddToCart(updatedTracks[index].mediable.id, type == "sound_design" ? "Sfx" : type.charAt(0).toUpperCase() + type.slice(1), "");
         } else {
           setShowSidebar(true)
           setSidebarType("cart")

@@ -55,7 +55,7 @@ function AddToCartLicense({ showModal = false, onCloseModal, track, type}) {
           "auth-token": userAuthToken
         },
         method: "post",
-        url: (`${BASE_URL}/api/v1/consumer/licenses/${selectedLicense}/attach_to_media?&mediable_type=${type}&mediable_id=${track.id}`)
+        url: (`${BASE_URL}/api/v1/consumer/licenses/${selectedLicense}/attach_to_media?&mediable_type=${type == "sound_design" ? "Sfx" : type}&mediable_id=${track.id}`)
 
       }).then(response => {
         if (!response.status === 200) {
