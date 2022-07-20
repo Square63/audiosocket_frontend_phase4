@@ -200,22 +200,7 @@ function DownloadedTracks(props) {
               tracks.map((track, index)=> {
                 return(
                   <div className="trackRow" key={index}>
-                    <div className="rowParticipant artistName">
-                      <div className="playPauseBtn">
-                        <span className="play d-none"></span>
-                        <span className="pause"></span>
-                      </div>
-                      <div className="aboutSong">
-                        <div className="songData">
-                          <a href="" className="songName">{track.mediable.title}</a>
-                        </div>
-                        <div className="songArtist">
-                          <a href="" className="noTextLine">
-                            {track.mediable.artist_name}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+                    <CustomAudioWave track={track.mediable} footer={false} footerPlaying={false} notClickable={true} />
                     <div className={user.workTitle+' rowParticipant'}>
                       <Form>
                         <Form.Control type="text" placeholder="Enter work title…" defaultValue={track.work_title ? track.work_title : ""} onBlur={(e) => { props.handleSubmitWorkTitle(e, track.id) }}/>
