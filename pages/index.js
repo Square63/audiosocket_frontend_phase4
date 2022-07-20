@@ -98,7 +98,7 @@ export default function Home(props) {
   const [searchValue, setSearchValue] = useState("");
   filters.map((filter, index) =>
     filter.name == "Genres" &&
-      genresArray.push(...filter.sub_filters.slice(0, 5), ...filter.sub_filters.filter(sub => sub.name == "Electronic "))
+      genresArray.push(...filter.sub_filters.slice(0, 5), ...filter.sub_filters.filter(sub => sub.name == "Electronic"))
   );
 
   filters.map((filter, index) =>

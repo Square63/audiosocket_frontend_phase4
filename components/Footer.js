@@ -5,10 +5,21 @@ import Image from "next/image";
 import logo from '../images/logoAudiosocket.svg'
 import {LoaderImage} from "./LoaderImage";
 import MusicPlayer from "./MusicPlayer";
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { submitSubscribeToAudiosocket } from "../redux/actions/authActions"
 
 function Footer() {
+  const form = useRef(null);
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData(form.current);
+    const email = data.get("subscribe-email")
+    dispatch(submitSubscribeToAudiosocket(email));
+  }
   return (
     <>
       <footer>
@@ -165,9 +176,9 @@ function Footer() {
               <div className="footerListPack">
                 <span className="footer-heading">Subscribe.</span>
                 <div className="footer-list">
-                <Form className="footerForm">
+                <Form className="footerForm" ref={form} onSubmit={handleSubmit}>
                   <div className="roundedForm">
-                    <Form.Control type="email" className="circularInput invert" placeholder="Enter your email." />
+                    <Form.Control type="email" name="subscribe-email" className="circularInput invert" placeholder="Enter your email." />
                     <Button variant="default" type="submit" className="circularBtn">
                       <svg xmlns="http://www.w3.org/2000/svg" width="15.014" height="12.278" viewBox="0 0 15.014 12.278">
                         <g id="Group_16" data-name="Group 16" transform="translate(1 10.864) rotate(-90)">
