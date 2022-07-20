@@ -18,7 +18,7 @@ function Footer() {
 
   useEffect(() => {
     if (subscribeResponse == true) {
-      toast.success("Subscription email sent");
+      toast.success("Thank you for subscribing.");
     }
   }, [subscribeResponse])
 
@@ -27,6 +27,7 @@ function Footer() {
     const data = new FormData(form.current);
     const email = data.get("subscribe-email")
     dispatch(submitSubscribeToAudiosocket(email));
+    document.getElementsByClassName("circularInput")[3].value = ''
   }
   return (
     <>
