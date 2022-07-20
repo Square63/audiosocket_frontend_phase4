@@ -202,7 +202,7 @@ const Details = () => {
           if (type == "footer")
             authContext.handleAddToCart(index, "Track", "");
           else
-            authContext.handleAddToCart(type == "track" ? updatedTracks[index].mediable.id : index.id, "Track", "");
+            authContext.handleAddToCart(type == "Track" ? updatedTracks[index].mediable.id : index.id, "Track", "");
         } else {
           setShowSidebar(true)
           setSidebarType("cart")

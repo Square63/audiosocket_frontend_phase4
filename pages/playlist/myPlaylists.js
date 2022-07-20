@@ -146,7 +146,7 @@ function MyPlaylists() {
                             {playlist.playlist_image && <Image src={playlist.playlist_image} alt="Mood" className="tilesImg" layout="fill"></Image>}
                             <span className="tileOverlayText">
                               {playlist.name}
-                              <small className="playlistTracksCount">{playlist.media_count} Tracks</small>
+                              <small className="playlistTracksCount">{playlist.media_count ? playlist.media_count : 0} Tracks</small>
                             </span>
                           </a>
                         </Link>
