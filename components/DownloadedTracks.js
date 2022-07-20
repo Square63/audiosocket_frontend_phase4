@@ -181,6 +181,7 @@ function DownloadedTracks(props) {
                   <a href="" className="ascending"></a>
                 </span>
               </div>
+              <div className="rowParticipant audioWave"></div>
               <div className={user.workTitle+' rowParticipant'}>
                 Work Title
               </div>

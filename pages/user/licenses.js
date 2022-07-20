@@ -78,6 +78,7 @@ function Licenses() {
                         <a href="" className="ascending"></a>
                       </span>
                     </div>
+                    <div className="rowParticipant audioWave"></div>
                     <div className={user.workTitle + ' rowParticipant'}>
                       Work Title
                       <span className="sortingMedium">
