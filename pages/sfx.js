@@ -262,18 +262,18 @@ function Sfx(props) {
     }
     let singleFilterTextWithoutCount = singleFilterText
     let elements = $( "a:contains("+singleFilterTextWithoutCount+")" );
-    appliedFiltersList.splice(appliedFiltersList.indexOf(singleFilterTextWithoutCount), 1);
+    appliedFiltersList.splice(appliedFiltersList.indexOf(removeCount(singleFilterTextWithoutCount)), 1);
 
     for (let i = 0; i < elements.length; i++) {
       if (elements[i].closest(".filterSelf")) {
         elements[i].closest(".filterSelf").classList.remove("activeFilter")
-        elements[i].nextElementSibling.nextElementSibling.classList.add("disabled")
+        elements[i].nextElementSibling?.nextElementSibling?.classList?.add("disabled")
       }
     }
 
     if (e) {
       $("#filtersList>li").each((index, li) => {
-        if (li.firstElementChild.firstElementChild.textContent == singleFilterText) {
+        if (li.firstElementChild.firstElementChild.textContent == removeCount(singleFilterText)) {
           li.style.display = 'none';
           return;
         }
@@ -340,7 +340,7 @@ function Sfx(props) {
   const handleAddFilter = async(e) => {
     setLoading(true)
     if (e.target.nextElementSibling == null) {
-      e.target.parentElement.nextElementSibling.nextElementSibling
+      e.target.parentElement.nextElementSibling?.nextElementSibling?.classList?.remove("disabled")
     } else {
       e.target.nextElementSibling.nextElementSibling.classList.remove("disabled")
     }
@@ -370,6 +370,9 @@ function Sfx(props) {
 
   const handleAddChildrenFilter = (e) => {
     $(".custom").removeClass("activeFilter");
+    $(".filterSelf>span").each((index, span) => {
+      span.classList.remove('disabled')
+    });
     let filter = e.target.closest('span').id
     let partenID;
     console.log("filters", filters)
