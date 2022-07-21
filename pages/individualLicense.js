@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-function generalContent() {
+function GeneralContent() {
   const router = useRouter()
 
   return (
@@ -115,4 +115,4 @@ function generalContent() {
   );
 }
 
-export default generalContent;
+export default GeneralContent;

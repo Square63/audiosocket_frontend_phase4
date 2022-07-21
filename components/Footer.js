@@ -123,6 +123,28 @@ function Footer() {
                   </ul>
                 </div>
               </div>
+              <div className="footerListPack">
+                <span className="footer-heading">Technology</span>
+                <div className="footer-list">
+                  <ul>
+                    <li>
+                      <Link href="https://synchits.com/" eventKey="1">
+                        MaaS API for Developers
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="https://synchits.com/" eventKey="1">
+                        MaaS Storefront for Partners
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="https://synchits.com/" eventKey="1">
+                        Music in the Metaverse
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
             <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 footer-links socialSection">
               <div className="footerListPack">
