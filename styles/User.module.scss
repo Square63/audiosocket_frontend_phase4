@@ -605,6 +605,7 @@
         }
         &:global(.controls) {
           padding-right: 0;
+          justify-content: space-evenly;
           a {
             &.favoriteSong {
               svg {

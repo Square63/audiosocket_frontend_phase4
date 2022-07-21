@@ -505,34 +505,34 @@ header {
           }
         }
       }
-    }
-  }
 
-  .cartItem {
-    position: relative;
-
-    .cartBadge {
-      min-width: 17px;
-      height: 17px;
-      display: inline-block;
-      padding: 3px 3px 3px 2px;
-      background: #C1D72E;
-      color: #1A1C1D;
-      border-radius: 50px;
-      font-size: 11px;
-      font-weight: 500;
-      text-align: center;
-      line-height: 11px;
-      white-space: nowrap;
-      position: absolute;
-      top: -1px;
-      right: 5px;
-      @include transition(all 0.25s ease-in-out);
-      transform: scale(0.9);
-    }
-    &:hover {
-      .cartBadge {
-        transform: scale(1.1);
+      .cartItem {
+        position: relative;
+        padding-right: 7px;
+        .cartBadge {
+          min-width: 17px;
+          height: 17px;
+          display: inline-block;
+          padding: 3px 3px 3px 2px;
+          background: #C1D72E;
+          color: #1A1C1D;
+          border-radius: 50px;
+          font-size: 11px;
+          font-weight: 500;
+          text-align: center;
+          line-height: 11px;
+          white-space: nowrap;
+          position: absolute;
+          top: 2px;
+          right: 0px;
+          @include transition(all 0.25s ease-in-out);
+          transform: scale(0.9);
+        }
+        &:hover {
+          .cartBadge {
+            transform: scale(1.1);
+          }
+        }
       }
     }
   }
@@ -2349,6 +2349,7 @@ hr {
     }
 
     .aboutSong {
+      max-width: calc(100% - 60px);
       .songData {
         @include flexbox;
         @include justify-content(flex-start);
@@ -2362,7 +2363,6 @@ hr {
           color: $headerColor;
           text-transform: capitalize;
           margin-right: 5px;
-          max-width: 220px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -2390,12 +2390,13 @@ hr {
   }
 
   &.audioWave {
-    min-width: 23%;
+    min-width: 20%;
     padding-inline: 15px 25px;
   }
 
   &.duration {
     min-width: 10%;
+    max-width: 105px;
     padding-inline: 7px;
     font-size: 13px;
   }
@@ -2414,6 +2415,7 @@ hr {
     @include align-items(baseline);
     gap: 10px;
     cursor: pointer;
+    padding-right: 20px;
 
     svg {
 
@@ -2519,8 +2521,9 @@ hr {
   }
 
   &.controls {
-    min-width: 16%;
+    min-width: 19%;
     max-width: 165px;
+    padding-right: 0;
   }
 }
 /****************** Row participant End ****************/
@@ -5137,7 +5140,7 @@ input[type=number]::-webkit-outer-spin-button {
     .trackRow {
       .rowParticipant {
         &.artistName {
-          min-width: 30%;
+          min-width: 27%;
         }
 
         &.audioWave {
@@ -5145,7 +5148,7 @@ input[type=number]::-webkit-outer-spin-button {
         }
 
         &.duration {
-          min-width: 11%;
+          min-width: 10%;
 
           .sortingMedium {
             @include flexbox;
@@ -5153,7 +5156,7 @@ input[type=number]::-webkit-outer-spin-button {
         }
 
         &.mood {
-          min-width: 15%;
+          min-width: 14%;
         }
 
         &.BPM {
@@ -5692,6 +5695,12 @@ input[type=number]::-webkit-outer-spin-button {
           .menuDrop {
             text-align: center;
           }
+          .cartItem {
+            .cartBadge {
+              top: -5px;
+              right: -8px;
+            }
+          }
         }
 
         &.show {
@@ -6038,7 +6047,8 @@ input[type=number]::-webkit-outer-spin-button {
           }
 
           &.controls {
-            min-width: 170px;
+            min-width: 220px;
+            max-width: 220px;
             margin-left: 55px;
             svg {
               width: 22px !important;
