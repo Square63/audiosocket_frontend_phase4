@@ -143,10 +143,10 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[13].name}
+                  {subscriptionPlans[5].name}
                 </h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${subscriptionPlans[13].price}</span>
+                  <span className={user.rate}>${subscriptionPlans[5].price}</span>
                   <small className={user.planDuration}>/Month</small>
                 </div>
               </div>
@@ -164,7 +164,7 @@ function Subscription() {
                   <li className={user.notAvailable}><span>Theatrical release</span></li>
                 </ul>
                 <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[13].id}>
+                  <Link href={"/plans/" + subscriptionPlans[5].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
                       Select Plan
                     </a>
@@ -176,10 +176,10 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[12].name}
+                  {subscriptionPlans[4].name}
                 </h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${subscriptionPlans[12].price}</span>
+                  <span className={user.rate}>${subscriptionPlans[4].price}</span>
                   <small className={user.planDuration}>/Month</small>
                 </div>
               </div>
@@ -197,7 +197,7 @@ function Subscription() {
                   <li className={user.notAvailable}><span>Theatrical release</span></li>
                 </ul>
                 <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[12].id}>
+                  <Link href={"/plans/" + subscriptionPlans[4].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
                       Select Plan
                     </a>
@@ -209,10 +209,10 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[17].name}
+                  {subscriptionPlans[9].name}
                 </h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${subscriptionPlans[17].price}</span>
+                  <span className={user.rate}>${subscriptionPlans[9].price}</span>
                   <small className={user.planDuration}> /Month</small>
                 </div>
               </div>
@@ -230,7 +230,7 @@ function Subscription() {
                   <li className={user.notAvailable}><span>Theatrical release</span></li>
                 </ul>
                 <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[17].id}>
+                  <Link href={"/plans/" + subscriptionPlans[9].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
                       Select Plan
                     </a>
@@ -276,12 +276,12 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[14].name}
+                  {subscriptionPlans[7].name}
                 </h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${((subscriptionPlans[14].price)/12).toFixed(2)}</span>
+                  <span className={user.rate}>${((subscriptionPlans[7].price)/12).toFixed(2)}</span>
                   <small className={user.planDuration}>/Month</small>
-                  <small className={user.durationConvertion}> ${subscriptionPlans[14].price}/Year</small>
+                  <small className={user.durationConvertion}> ${subscriptionPlans[7].price}/Year</small>
                 </div>
               </div>
               <div className={user.planBody}>
@@ -298,7 +298,7 @@ function Subscription() {
                   <li className={user.notAvailable}><span>Theatrical release</span></li>
                 </ul>
                 <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[14].id}>
+                  <Link href={"/plans/" + subscriptionPlans[7].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
                       Select Plan
                     </a>
@@ -310,12 +310,12 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[15].name}
+                  {subscriptionPlans[6].name}
                 </h2>
                 <div className={user.withRate}>
-                  <span className={user.rate}>${((subscriptionPlans[15].price)/12).toFixed(2)}</span>
+                  <span className={user.rate}>${((subscriptionPlans[6].price)/12).toFixed(2)}</span>
                   <small className={user.planDuration}>/Month</small>
-                  <small className={user.durationConvertion}> ${subscriptionPlans[15].price}/Year</small>
+                  <small className={user.durationConvertion}> ${subscriptionPlans[6].price}/Year</small>
                 </div>
               </div>
               <div className={user.planBody}>
@@ -332,42 +332,8 @@ function Subscription() {
                   <li className={user.notAvailable}><span>Theatrical release</span></li>
                 </ul>
                 <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[15].id}>
+                  <Link href={"/plans/" + subscriptionPlans[6].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
-                      Select Plan
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="boxWithOutShadow">
-              <div className={user.plansHeading}>
-                <h2>
-                  {subscriptionPlans[19].name}
-                </h2>
-                <div className={user.withRate}>
-                  <span className={user.rate}>${((subscriptionPlans[19].price)/12).toFixed(2)}</span>
-                  <small className={user.planDuration}> /Month</small>
-                  <small className={user.durationConvertion}> ${subscriptionPlans[19].price}/Year</small>
-                </div>
-              </div>
-              <div className={user.planBody}>
-                <ul className={user.planFeatures}>
-                  <li><span>Small business media (under 50 employees)</span></li>
-                  <li><span>Freelancers creating media for small business clients</span></li>
-                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
-                  <li><span>YouTube monetization</span></li>
-                  <li><span>Wedding / Event videos</span></li>
-                  <li><span>Digital Ads (Pre-Roll, Post-Roll, Facebook, Instagram)</span></li>
-
-                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
-                  <li className={user.notAvailable}><span>Games & Apps</span></li>
-                  <li className={user.notAvailable}><span>Theatrical release</span></li>
-                </ul>
-                <div className={user.plansBtnWrapper}>
-                  <Link href={"/plans/" + subscriptionPlans[19].id}>
-                    <a href="javascript:void(0)" className="btn btnMainLarge m-0">
                       Select Plan
                     </a>
                   </Link>
@@ -401,6 +367,40 @@ function Subscription() {
                 </ul>
                 <div className={user.plansBtnWrapper}>
                   <Link href={"/plans/" + subscriptionPlans[20].id}>
+                    <a href="javascript:void(0)" className="btn btnMainLarge m-0">
+                      Select Plan
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="boxWithOutShadow">
+              <div className={user.plansHeading}>
+                <h2>
+                  {subscriptionPlans[19].name}
+                </h2>
+                <div className={user.withRate}>
+                  <span className={user.rate}>${((subscriptionPlans[19].price)/12).toFixed(2)}</span>
+                  <small className={user.planDuration}> /Month</small>
+                  <small className={user.durationConvertion}> ${subscriptionPlans[19].price}/Year</small>
+                </div>
+              </div>
+              <div className={user.planBody}>
+                <ul className={user.planFeatures}>
+                  <li><span>Small business media (under 50 employees)</span></li>
+                  <li><span>Freelancers creating media for small business clients</span></li>
+                  <li><span>Web streaming on social media (YouTube, Vimeo, Instagram etc)</span></li>
+                  <li><span>YouTube monetization</span></li>
+                  <li><span>Wedding / Event videos</span></li>
+                  <li><span>Digital Ads (Pre-Roll, Post-Roll, Facebook, Instagram)</span></li>
+
+                  <li className={user.notAvailable}><span>TV, Radio, Video On Demand (Netflix, Hulu, Amazon Prime etc)</span></li>
+                  <li className={user.notAvailable}><span>Games & Apps</span></li>
+                  <li className={user.notAvailable}><span>Theatrical release</span></li>
+                </ul>
+                <div className={user.plansBtnWrapper}>
+                  <Link href={"/plans/" + subscriptionPlans[19].id}>
                     <a href="javascript:void(0)" className="btn btnMainLarge mt-0">
                       Select Plan
                     </a>
