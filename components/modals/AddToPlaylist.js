@@ -166,7 +166,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track, type}
       <Modal.Header closeButton>
         <Modal.Title >
           <h2 className="modalName">Add song to playlist</h2>
-          <h2 className="modalName">{track? track.title : ""}</h2>
+          <h2 className="modalTrackName">{track? track.title : ""}</h2>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body style={{height: '500px'}}>
