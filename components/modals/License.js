@@ -63,7 +63,7 @@ function License({showModal = false, onCloseModal, license}) {
           </div>
           <div className="modalBtnWrapper">
             <Button variant="link" className="btn btnMainXlarge" onClick={() => handleDownload(license, license.mediable_type)}>
-              <span>Download ${license.mediable_type}</span>
+              <span>Download {license?.mediable_type}</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="17.465" height="16.526" viewBox="0 0 17.465 16.526">
                 <g id="icon-upload" transform="translate(0.5 16.026) rotate(-90)">
                   <path id="Shape_111" data-name="Shape 111" d="M8.775,3.221V.716A.7.7,0,0,0,8.1,0H.675A.7.7,0,0,0,0,.716V15.749a.7.7,0,0,0,.675.716H8.1a.7.7,0,0,0,.675-.716V13.244" fill="none" stroke="#1a1c1d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
