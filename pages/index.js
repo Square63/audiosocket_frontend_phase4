@@ -374,7 +374,7 @@ export default function Home(props) {
                           <div className="videoContainer" onClick={togglePlay}>
                             <span></span>
                             <video poster="./screenSearch.png" controls>
-                              <source src="./simpleSearch.mp4" type="video/mp4"/>
+                              <source src="./searchFilters.mp4" type="video/mp4"/>
                             </video>
                           </div>
                           <div className="catalogBtn-block" onClick={handleSearchCatalog}>
@@ -494,7 +494,7 @@ export default function Home(props) {
                           <div className="videoContainer" onClick={togglePlay}>
                             <span></span>
                             <video poster="./screenSearch.png" controls>
-                              <source src="./simpleSearch.mp4" type="video/mp4"/>
+                              <source src="./creatorKits.mp4" type="video/mp4"/>
                             </video>
                           </div>
                         </div>
@@ -544,7 +544,7 @@ export default function Home(props) {
                           <div className="videoContainer" onClick={togglePlay}>
                             <span></span>
                             <video poster="./screenSearch.png" controls>
-                              <source src="./simpleSearch.mp4" type="video/mp4"/>
+                              <source src="./uploadTrackLaunchVersion.mp4" type="video/mp4"/>
                             </video>
                           </div>
                           <div className="catalogBtn-block" onClick={handleSearchCatalog}>
