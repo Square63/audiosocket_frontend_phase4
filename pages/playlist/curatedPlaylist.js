@@ -100,6 +100,7 @@ function CuratedPlaylist() {
   }, [pageNum]);
 
   useEffect(() => {
+    debugger
     if (!curatedPlaylists) {
       dispatch(getCuratedPlaylistFilters())
     }
@@ -178,6 +179,7 @@ function CuratedPlaylist() {
                 <Dropdown.Toggle id="dropdown-autoclose-true">
                   Creator Kits
                 </Dropdown.Toggle>
+
                 <Dropdown.Menu>
                   <div className="filterWrapper">
                     {curatedPlaylists && curatedPlaylists.creator_kits && curatedPlaylists.creator_kits.length > 0 && curatedPlaylists.creator_kits.map((sub_filter, index) =>

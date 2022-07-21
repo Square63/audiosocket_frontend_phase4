@@ -28,6 +28,7 @@
       padding-left: 80px;
     }
   }
+  
   .filterSearch {
     max-width: 1120px;
     width: 100%;
@@ -108,6 +109,13 @@
       }
     }
   }
+
+  .creatorFilterSesrch {
+    margin-inline: none !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  
   :global(.moodSlider) {
     background-color: $headerColor;
     padding-block: 50px 20px;
