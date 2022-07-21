@@ -83,7 +83,7 @@ class Braintree extends React.Component {
       const context = this.context;
       const { nonce } = await this.instance.tokenize()
       let transaction_amount =  context.totalCartPrice;
-      let discount_id = 'OTTDD';
+      let discount_id = '';
       const authToken = JSON.parse(localStorage.getItem("user") ?? "");
       const response = await axios.post(
         this.state.redirectUrl, { nonce, transaction_amount, discount_id },
@@ -127,7 +127,7 @@ class Braintree extends React.Component {
     } else if (this.state.invoice) {
       return (
         <div>
-          <InpageLoader />        
+          <InpageLoader />
         </div>
       );
     } else if (!this.state.clientToken){
