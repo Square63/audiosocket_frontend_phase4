@@ -218,6 +218,7 @@ function MyPlaylistTracks(props) {
                 options={options}
                 onChange={(e) => handleFilterDropdown(e)}
                 defaultValue='Recently Published'
+                isSearchable={false}
                 theme={theme => ({
                   ...theme,
                   colors: {
