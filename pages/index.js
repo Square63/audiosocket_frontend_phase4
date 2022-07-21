@@ -795,7 +795,7 @@ export default function Home(props) {
                           <div className="licenseType">
                             <span className="licenseName">
                               Indie Film
-                              <OverlayTrigger overlay={<Tooltip>For use by individual videographers, or filmmakers in a single film or video with a budget less than $2 Million USD. Films may be distributed on the Web and submitted to film festivals. </Tooltip>}>
+                              <OverlayTrigger overlay={<Tooltip>For use by individual videographers, or filmmakers in a single film or video with a budget less than $1 Million USD. Films may be distributed on the Web and submitted to film festivals. </Tooltip>}>
                                 <a className="info"></a>
                               </OverlayTrigger>
                             </span>
