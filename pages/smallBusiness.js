@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-function smallBusiness() {
+function SmallBusiness() {
   const router = useRouter()
 
   return (
@@ -135,4 +135,4 @@ for the purposes of providing artist credit;</li>
   );
 }
 
-export default smallBusiness;
+export default SmallBusiness;

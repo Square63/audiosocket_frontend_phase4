@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-function indieFilm() {
+function IndieFilm() {
   const router = useRouter()
 
   return (
@@ -128,4 +128,4 @@ function indieFilm() {
   );
 }
 
-export default indieFilm;
+export default IndieFilm;

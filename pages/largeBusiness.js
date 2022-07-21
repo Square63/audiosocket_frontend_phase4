@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-function largeBusiness() {
+function LargeBusiness() {
   const router = useRouter()
 
   return (
@@ -93,4 +93,4 @@ function largeBusiness() {
   );
 }
 
-export default largeBusiness;
+export default LargeBusiness;
