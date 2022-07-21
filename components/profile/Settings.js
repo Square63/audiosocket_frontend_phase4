@@ -22,10 +22,13 @@ const Settings = () => {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [youtubeWhitelistingState, setYoutubeWhitelistingState] = useState(false);
+  const [marketingEmailsState, setMarketingEmailsState] = useState(false);
 
   useEffect(() => {
-    if (userInfo)
+    if (userInfo){
       setYoutubeWhitelistingState(userInfo?.consumer_profile?.white_listing_enabled);
+      setMarketingEmailsState(userInfo?.consumer_profile?.marketing_email);
+    }
   }, [userInfo]);
 
   useEffect(() => {
@@ -61,7 +64,8 @@ const Settings = () => {
         country: country,
         postal_code: postal_code,
         youtube_url: youtube_url,
-        white_listing_enabled: data.get("youtube_white_listing")
+        white_listing_enabled: data.get("youtube_white_listing"),
+        marketing_email: data.get("audiosocket_marketing_email"),
 			};
       dispatch(updateProfile(profileData));
     } else {
@@ -71,6 +75,10 @@ const Settings = () => {
 
   const toggleYoutubeWhitelisting = () => {
     setYoutubeWhitelistingState(!youtubeWhitelistingState);
+  }
+
+  const togglemarketingEmail = () => {
+    setMarketingEmailsState(!marketingEmailsState);
   }
 
   return (
@@ -88,7 +96,7 @@ const Settings = () => {
         </Form.Group>
         <Form.Group>
           <div className="toogleSwitch">
-            <input type="checkbox" id="audiosocketEmail" />
+            <input type="checkbox" id="audiosocketEmail" name="audiosocket_marketing_email" checked={marketingEmailsState} onClick={() => togglemarketingEmail()}  />
             <Form.Label for="audiosocketEmail">&nbsp;</Form.Label>
             <span className="switchText">Receive marketing emails from Audiosocket</span>
           </div>
