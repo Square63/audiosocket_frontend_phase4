@@ -1,11 +1,11 @@
 import { Form, Button } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../redux/actions/authActions";
 import { removeCartItem } from "../redux/actions/authActions";
-import { editWorkTitle } from "../redux/actions/authActions";
+import { editWorkTitle, editWorkTitleForAll } from "../redux/actions/authActions";
 import {AuthContext} from "../store/authContext";
 import { useRouter } from "next/router";
 import Braintree from "../components/braintree";
@@ -14,6 +14,7 @@ import Notiflix from "notiflix";
 import CustomAudioWave from "../components/CustomAudioWave";
 
 function Cart() {
+  const form = useRef(null);
   const dispatch = useDispatch();
   const [showBrainTree, setShowBrainTree] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -71,12 +72,15 @@ function Cart() {
 
   const handleSubmit = async (e) => {
     const cartForm = e.currentTarget;
+    const data = new FormData(form.current);
     if (!multipleVideosChecked && cartForm.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
       setValidated(true);
     } else {
       setShowBrainTree(true);
+      if(!multipleVideosChecked)
+        dispatch(editWorkTitleForAll(data.get('workTitleAll')))
     }
   }
 
@@ -113,11 +117,11 @@ function Cart() {
                     </div>
                     <div className="rowParticipant controls"></div>
                   </div>
-                  {cartTracks.map((track,index)=> {
+                  {cartTracks.map((track, index) => {
                     return(
                     <div key={index} className="trackRow">
-                      <CustomAudioWave track={track} showWorkTitle={true} handleEditWorkTitle={handleEditWorkTitle} cartLineItemId={cartLineItems[index].id}/>
-                      
+                      <CustomAudioWave track={track} showWorkTitle={true} handleEditWorkTitle={handleEditWorkTitle} cartLineItem={cartLineItems[index]}/>
+
                       <div className="rowParticipant duration">
                         {convertSecToMin(track.duration)}
                       </div>
@@ -163,10 +167,10 @@ function Cart() {
                       </div>
                     </div>)
                   })}
-                  {cartSfxes.map((sfx,index)=> {
+                  {cartSfxes.map((sfx, index) => {
                     return(
                     <div key={index} className="trackRow">
-                      <CustomAudioWave track={sfx} showWorkTitle={true} handleEditWorkTitle={handleEditWorkTitle} cartLineItemId={cartLineItems[index].id}/>
+                      <CustomAudioWave track={sfx} showWorkTitle={true} handleEditWorkTitle={handleEditWorkTitle} cartLineItem={cartLineItems[index]}/>
                       <div className="rowParticipant duration">
                         {convertSecToMin(sfx.duration)}
                       </div>
@@ -218,10 +222,10 @@ function Cart() {
                 <div className="addTitle">
                   <div className="addTitleSection">
                     <div className="boxWithShadow">
-                      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                      <Form noValidate validated={validated} onSubmit={handleSubmit} ref={form}>
                         <Form.Group controlId="formWorkTitle">
                           <label>Please add your Video or Work Title to your License</label>
-                          <Form.Control required className="individualWorkTitle" type="text" placeholder="Enter work title…" />
+                          <Form.Control required className="individualWorkTitle" name="workTitleAll" type="text" placeholder="Enter work title…" />
                           {!multipleVideosChecked &&
                             <Form.Control.Feedback type="invalid">
                               Work Title is required!
