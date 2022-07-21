@@ -87,7 +87,8 @@ const ProfileForm = ({ countries, states, onCountryChange }) => {
         address: data.get("address"),
         country: data.get("country"),
         postal_code: data.get("postal_code"),
-        youtube_url: data.get("youtube_url")
+        youtube_url: data.get("youtube_url"),
+        white_listing_enabled: userInfo?.consumer_profile.white_listing_enabled
 			};
       dispatch(updateProfile(profileData));
     }
