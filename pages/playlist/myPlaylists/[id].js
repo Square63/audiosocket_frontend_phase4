@@ -183,7 +183,7 @@ const Details = () => {
       setShowDownModal(true)
     }
     else {
-      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to cart.', 'Ok');
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to download a track.', 'Ok');
     }
   }
 
