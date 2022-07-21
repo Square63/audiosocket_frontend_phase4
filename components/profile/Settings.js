@@ -24,7 +24,8 @@ const Settings = () => {
   const [youtubeWhitelistingState, setYoutubeWhitelistingState] = useState(false);
 
   useEffect(() => {
-    setYoutubeWhitelistingState(userInfo?.consumer_profile?.white_listing_enabled ? true : false);
+    if (userInfo)
+      setYoutubeWhitelistingState(userInfo?.consumer_profile?.white_listing_enabled);
   }, [userInfo]);
 
   useEffect(() => {
@@ -38,13 +39,29 @@ const Settings = () => {
     e.preventDefault();
     setIsLoading(true);
     const data = new FormData(form.current);
-    const country = userInfo?.consumer_profile?.country;
-    const youtube_url = userInfo?.consumer_profile?.youtube_url;
+    const first_name = userInfo?.consumer_profile?.first_name
+    const last_name = userInfo?.consumer_profile?.last_name
+    const email = userInfo?.consumer_profile?.email
+    const phone = userInfo?.consumer_profile?.phone
+    const organization = userInfo?.consumer_profile?.organization
+    const city = userInfo?.consumer_profile?.city
+    const address = userInfo?.consumer_profile?.address
+    const country = userInfo?.consumer_profile?.country
+    const postal_code = userInfo?.consumer_profile?.postal_code
+    const youtube_url = userInfo?.consumer_profile?.youtube_url
     if (country && youtube_url) {
       let profileData = {
-        white_listing_enabled: data.get("youtube_white_listing"),
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        phone: phone,
+        organization: organization,
+        city: city,
+        address: address,
         country: country,
-        youtube_url: youtube_url
+        postal_code: postal_code,
+        youtube_url: youtube_url,
+        white_listing_enabled: data.get("youtube_white_listing")
 			};
       dispatch(updateProfile(profileData));
     } else {
