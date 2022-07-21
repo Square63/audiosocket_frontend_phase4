@@ -1,7 +1,21 @@
+import { useRouter } from 'next/router'
+
 function indieFilm() {
+  const router = useRouter()
+
   return (
     <div className="generalContent">
       <div className="fixed-container">
+        <a href="javascript:void(0)" className="backToHeaven backToSelectPlan">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16.414" height="13.328" viewBox="0 0 16.414 13.328">
+            <g id="icon-arrow-down" transform="translate(15.414 1.414) rotate(90)">
+              <path id="Shape_1938" data-name="Shape 1938" d="M334.432,2393.5v14" transform="translate(-329.182 -2393.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+              <path id="Shape_1939" data-name="Shape 1939" d="M337.432,2402.5l-5.25-5.25" transform="translate(-332.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+              <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+            </g>
+          </svg>
+          <span onClick={() => router.back()}>{"Back to Select Plan"}</span>
+        </a>
         <h1 className="gCHeading">Indie Film License Agreement</h1>
         <p>Our Indie Film License allows an individual, videographer, or filmmaker to use one track in a single film or video with a budget less than $1 Million United States Dollars that may be distributed on the Web and submitted to film festivals. This license does not include broadcast rights, theatrical release outside of film festivals, DVD distribution, or use as an advertisement. Please see Section 2 for further details on permitted uses and restrictions.</p>
         <p>This License Agreement (&quot;License&quot;) is made between the Person identified in the Audiosocket Storefront (&quot;Licensee&quot;) and Leopona, Inc. d/b/a Audiosocket (&quot;Audiosocket&quot;). By clicking &quot;I ACCEPT&quot; or by downloading or using the Licensed Tracks, Licensee accepts the terms of this License. If Licensee does not agree to the terms of this License, Licensee must click the &quot;CANCEL&quot; button and not download or use the Licensed Tracks.</p>
