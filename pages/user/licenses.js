@@ -114,7 +114,7 @@ function Licenses() {
                         </a>
                       </div>
                       <div className={user.purchaseDate + ' rowParticipant'}>
-                        {consumerLicense.license_purchased_date.slice(-5)}
+                        {consumerLicense.license_purchased_date.slice(0, -5)}
                       </div>
                       <div className="rowParticipant controls">
                         <OverlayTrigger overlay={<Tooltip>Download</Tooltip>}>
