@@ -18,7 +18,7 @@ function Footer() {
 
   useEffect(() => {
     if (subscribeResponse == true) {
-      toast.success("Thank you for subscribing.");
+      toast.success("Thank you for subscribing to our newsletter.");
     }
   }, [subscribeResponse])
 
