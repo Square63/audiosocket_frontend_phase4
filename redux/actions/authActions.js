@@ -441,6 +441,7 @@ export const getMyPlaylists = (page) => async( dispatch ) => {
   }
 
 }
+
 export const editWorkTitle = (itemableId, workTitle) => async (dispatch) => {
   let work_title = workTitle
   try {
@@ -452,6 +453,23 @@ export const editWorkTitle = (itemableId, workTitle) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: EDIT_WORK_TITLE_FAIL,
+      payload: error
+    })
+
+  }
+}
+
+export const editWorkTitleForAll = (workTitle) => async (dispatch) => {
+  let work_titles = workTitle
+  try {
+    const { data } = await axios.patch(`${BASE_URL}/api/v1/consumer/line_items/update_work_titles`, { work_titles });
+    dispatch({
+      type: GET_CART_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_CART_FAIL,
       payload: error
     })
 

@@ -192,7 +192,7 @@ export default function CustomAudioWave(props) {
             {props.showWorkTitle &&
               <>
                 <Form className="individualWorkTitle individualWorkTitleField">
-                  <Form.Control type="text" placeholder="Enter work title…" defaultValue="" onBlur={(e) => {props.handleEditWorkTitle(e, props.cartLineItemId);}}/>
+                  <Form.Control type="text" placeholder="Enter work title…" defaultValue={props.cartLineItem.work_title == "itemableType" ? '' : props.cartLineItem.work_title} onBlur={(e) => {props.handleEditWorkTitle(e, props.cartLineItem.id);}}/>
                 </Form>
               </>
             }

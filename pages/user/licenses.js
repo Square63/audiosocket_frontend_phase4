@@ -101,7 +101,7 @@ function Licenses() {
                     <div className="trackRow" key={index}>
                       <CustomAudioWave track={consumerLicense.mediable} footer={false} footerPlaying={false} notClickable={true} />
                       <div className={user.workTitle + ' rowParticipant'}>
-                        UBS Montage Team Video
+                        {consumerLicense.work_title}
                       </div>
                       <div className={user.licenseAgreement + ' rowParticipant'}>
                         <a href={consumerLicense.license_pdf} className="noTextLine" target="_blank" rel="noreferrer">
