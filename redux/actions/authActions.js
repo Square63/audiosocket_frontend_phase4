@@ -169,7 +169,8 @@ export const updateProfile = (data) => async (dispatch) => {
     country: data.country,
     postal_code: data.postal_code,
     youtube_url: data.youtube_url,
-    white_listing_enabled: data.white_listing_enabled
+    white_listing_enabled: data.white_listing_enabled,
+    marketing_email: data.marketing_email
   };
   try {
     const { data } = await axios.patch(
