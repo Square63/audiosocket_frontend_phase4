@@ -90,6 +90,7 @@ export default function Home(props) {
   const cookie = useCookie()
   let genresArray = []
   let vocalsArray = []
+  let unfilteredVocalsArray = []
   const dispatch = useDispatch();
   const router = useRouter();
   const socialLogin = useSelector(state => state.auth.user);
@@ -101,10 +102,11 @@ export default function Home(props) {
       genresArray.push(...filter.sub_filters.slice(0, 5), ...filter.sub_filters.filter(sub => sub.name == "Electronic"))
   );
 
-  filters.map((filter, index) =>
+  filters.map((filter, index) => {
     filter.name == "Vocals" &&
-      vocalsArray.push(filter.sub_filters.slice(0, 5))
-  );
+      unfilteredVocalsArray.push(...vocalsArray, ...filter.sub_filters.slice(0, 6))
+      vocalsArray = unfilteredVocalsArray.filter(subFilter => subFilter.name != "Duet")
+  });
 
   useEffect(() => {
     let url_string = window.location.href;
@@ -373,7 +375,7 @@ export default function Home(props) {
                           <p>Watch the filters &amp; keywords guide</p>
                           <div className="videoContainer" onClick={togglePlay}>
                             <span></span>
-                            <video poster="./screenSearch.png" controls>
+                            <video poster="./searchFilters.png" controls>
                               <source src="./searchFilters.mp4" type="video/mp4"/>
                             </video>
                           </div>
@@ -422,7 +424,7 @@ export default function Home(props) {
                               <Form.Label className="stepsLabel">Select Vocals : <span>{step2}</span></Form.Label>
                               {['radio'].map((type) => (
                                 <div key={`inline-${type}`}>
-                                  {vocalsArray[0].map(filter =>
+                                  {vocalsArray.map(filter =>
                                     <Form.Check
                                       key={filter.id}
                                       label={filter.name}
@@ -444,9 +446,9 @@ export default function Home(props) {
                           </div>
                           <div className="stepContent">
                             <Form onSubmit={e => { e.preventDefault(); }}>
-                              <Form.Label className="stepsLabel">Add “Phantogram” in keyword search.</Form.Label>
+                              <Form.Label className="stepsLabel">Add “David Guetta”” in keyword search.</Form.Label>
                               <div className="roundedForm">
-                                <Form.Control type="text" className="circularInput" placeholder="Enter Phantogram" onChange={(e) => handleFiltersKeywordStep3(e)}/>
+                                <Form.Control type="text" className="circularInput" placeholder="Enter David Guetta" onChange={(e) => handleFiltersKeywordStep3(e)}/>
                                 <Button variant="default" type="submit" className="circularBtn" onClick={() => handleSubmit()}>
 
                                   <svg xmlns="http://www.w3.org/2000/svg" width="15.014" height="12.278" viewBox="0 0 15.014 12.278">
@@ -493,7 +495,7 @@ export default function Home(props) {
                           <p>Watch the curated playlists &amp; creator kits guide.</p>
                           <div className="videoContainer" onClick={togglePlay}>
                             <span></span>
-                            <video poster="./screenSearch.png" controls>
+                            <video poster="./creatorKits.png" controls>
                               <source src="./creatorKits.mp4" type="video/mp4"/>
                             </video>
                           </div>
@@ -543,7 +545,7 @@ export default function Home(props) {
                           <p>Watch the upload a track search guide.</p>
                           <div className="videoContainer" onClick={togglePlay}>
                             <span></span>
-                            <video poster="./screenSearch.png" controls>
+                            <video poster="./uploadTrack.png" controls>
                               <source src="./uploadTrackLaunchVersion.mp4" type="video/mp4"/>
                             </video>
                           </div>

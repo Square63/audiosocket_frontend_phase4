@@ -50,6 +50,11 @@ function Footer() {
                       </Link>
                     </li>
                     <li>
+                      <Link href="/sfx" eventKey="1">
+                        All SFXs
+                      </Link>
+                    </li>
+                    <li>
                       <Link href="/playlist/curatedPlaylist" eventKey="1">
                         Curated Playlists
                       </Link>
