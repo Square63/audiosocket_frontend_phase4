@@ -40,14 +40,15 @@ function Tracks(props) {
 
   useEffect(() => {
     let isMounted = true;
-    if (props.tracksMeta?.total_track_count !== tracks.length) {
+    if (props.type == 'similarTrack' ? props.tracksMeta?.similar_tracks_count !== tracks.length : props.tracksMeta?.total_track_count !== tracks.length) {
       props.tracks && tracks[0]?.id != props.tracks[0]?.id && setTracks(tracks => [...tracks, ...props.tracks])
       setInfiniteLoop(false)
     } else
         setTracks(tracks=> props.tracks)
 
-    if (props.type == 'similarTrack')
-      props.tracks.length + tracks.length >= props.tracksMeta && sethasMore(false)
+    if (props.type == 'similarTrack'){
+      props.tracks.length + tracks.length >= props.tracksMeta?.similar_tracks_count && sethasMore(false)
+    }
     else if (props.sfxes ? !props.tracksMeta?.total_sfx_count : !props.tracksMeta?.total_track_count)
       sethasMore(false)
     else if (props.sfxes && props.tracks.length + tracks.length >= props.tracksMeta?.total_sfx_count) {
