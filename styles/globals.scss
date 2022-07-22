@@ -2208,7 +2208,7 @@ hr {
             @include flexbox;
             @include justify-content(flex-start);
             @include align-items(center);
-            min-width: calc(23% - 17.5px);
+            min-width: calc(30% - 17.5px);
             .playPauseBtn {
               margin-right: 22px;
             }
@@ -6145,9 +6145,14 @@ input[type=number]::-webkit-outer-spin-button {
             columns: 1;
             column-count: auto;
             padding: 15px 10px 15px;
-            max-height: 50vh;
+            max-height: 40vh;
             overflow-x: hidden;
             overflow-y: auto;
+            & + .filterChildren {
+              max-height: 30vh;
+              overflow-x: hidden;
+              overflow-y: auto;
+            }
           }
         }
       }
