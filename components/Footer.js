@@ -51,7 +51,7 @@ function Footer() {
                     </li>
                     <li>
                       <Link href="/sfx" eventKey="1">
-                        All SFXs
+                        All SFX
                       </Link>
                     </li>
                     <li>

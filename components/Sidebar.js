@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { TOAST_OPTIONS } from '../common/api';
 import {useRouter} from "next/router";
 import { getSubscriptionPlans } from "../redux/actions/authActions";
+import { gmailLogin } from "../redux/actions/authActions";
 
 function Sidebar(props) {
   const [showSignup, setShowSignup] = useState(false)
@@ -204,6 +205,9 @@ function Sidebar(props) {
     setContentType(target.value);
   }
 
+  const handleGmailLogin = () => {
+    dispatch(gmailLogin());
+  }
 
   return (
     <div>
@@ -322,22 +326,10 @@ function Sidebar(props) {
                         <span>OR</span>
                       </div>
                       <div className={signup.socialBtn}>
-                        <a href='' className={signup.facebook+' '+signup.signupBtn}>
+                        <a href="javascript:void(0)" className={signup.google+' '+signup.signupBtn} onClick={handleGmailLogin}>
                           <div>
                             <div className={signup.icon}></div>
-                            <span>Continue  with Facebook</span>
-                          </div>
-                        </a>
-                        <a href='' className={signup.google+' '+signup.signupBtn}>
-                          <div>
-                            <div className={signup.icon}></div>
-                            <span>Continue  with Google</span>
-                          </div>
-                        </a>
-                        <a href='' className={signup.apple+' '+signup.signupBtn}>
-                          <div>
-                            <div className={signup.icon}></div>
-                            <span>Continue  with Apple</span>
+                            <span>Continue with Google</span>
                           </div>
                         </a>
                       </div>
@@ -386,22 +378,10 @@ function Sidebar(props) {
                         <span>OR</span>
                       </div>
                       <div className={signup.socialBtn}>
-                        <a href='' className={signup.facebook+' '+signup.signupBtn}>
+                        <a href="javascript:void(0)" className={signup.google+' '+signup.signupBtn } onClick={handleGmailLogin}>
                           <div>
                             <div className={signup.icon}></div>
-                            <span>Continue  with Facebook</span>
-                          </div>
-                        </a>
-                        <a href='' className={signup.google+' '+signup.signupBtn}>
-                          <div>
-                            <div className={signup.icon}></div>
-                            <span>Continue  with Google</span>
-                          </div>
-                        </a>
-                        <a href='' className={signup.apple+' '+signup.signupBtn}>
-                          <div>
-                            <div className={signup.icon}></div>
-                            <span>Continue  with Apple</span>
+                            <span>Continue with Google</span>
                           </div>
                         </a>
                       </div>

@@ -724,7 +724,7 @@ export default function Home(props) {
                       <h4 className="planHeading">commercial</h4>
                       <div className="planPrice">
                         <p className="planPriceText">Plans starting at</p>
-                        <p className="planPriceAmount"><span>$33</span>&nbsp;/Month</p>
+                        <p className="planPriceAmount"><span>$33.25</span>&nbsp;/Month</p>
                       </div>
                       <p className="planDescription">
                         Perfect for the freelancer or business with up to 50 employees creating web media for commercial purposes. This is a single user account.
