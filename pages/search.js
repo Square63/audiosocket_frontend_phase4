@@ -289,6 +289,7 @@ function Search(props) {
     setLastSearchQuery(searchQuery)
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    let youtubeContent = document.getElementById("youtubeContent").checked
 
     if(searchQuery && !lastSearchQuery){
       setAppliedFiltersListWC([...appliedFiltersListWC, searchQuery]);
@@ -303,11 +304,11 @@ function Search(props) {
       $(".filterSelf").removeClass("activeFilter");
       if (appliedFiltersListWC.length == 0)
         document.getElementsByClassName('selectedFilter')[0].style.display = 'none';
-      dispatch(getTracks('', 'local_search', filters, "", "", 1, explicit, vocals));
+      dispatch(getTracks('', 'local_search', filters, "", "", 1, explicit, vocals, youtubeContent));
     } else {
       let typeOfSearch = query_type(searchQuery)
       typeOfSearch == 'aims_search' ? setFromAims(true) : setFromAims(false)
-      dispatch(getTracks(searchQuery, typeOfSearch, filters, "", "", 1, explicit, vocals));
+      dispatch(getTracks(searchQuery, typeOfSearch, filters, "", "", 1, explicit, vocals, youtubeContent));
     }
   }
 
@@ -336,6 +337,7 @@ function Search(props) {
     }
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    let youtubeContent = document.getElementById("youtubeContent").checked
 
     if (singleFilterText !== searchQuery) {
       let singleFilterTextWithoutCount = singleFilterText
@@ -362,10 +364,10 @@ function Search(props) {
         hideAllFilterDiv()
       } else if (singleFilterText === searchQuery){
         setSearchQuery('')
-        dispatch(getTracks('', 'local_search', appliedFiltersList, "", "", 1, explicit, vocals));
+        dispatch(getTracks('', 'local_search', appliedFiltersList, "", "", 1, explicit, vocals, youtubeContent));
       }
       else{
-        dispatch(getTracks(searchQuery, query_type(searchQuery), appliedFiltersList, "", "", 1, explicit, vocals));
+        dispatch(getTracks(searchQuery, query_type(searchQuery), appliedFiltersList, "", "", 1, explicit, vocals, youtubeContent));
       }
     }
     setUpdatedTracks([])
@@ -388,8 +390,9 @@ function Search(props) {
     setLastSearchQuery('')
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    let youtubeContent = document.getElementById("youtubeContent").checked
     setAppliedFiltersList([])
-    dispatch(getTracks('', 'local_search', [], "", "", 1, explicit, vocals));
+    dispatch(getTracks('', 'local_search', [], "", "", 1, explicit, vocals, youtubeContent));
   }
 
   const handleSimilarSearch = (trackName, trackId) => {
@@ -452,8 +455,9 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    let youtubeContent = document.getElementById("youtubeContent").checked
     setUpdatedTracks([])
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals));
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals, youtubeContent));
   }
 
   const handleAddDurationFilter = async (start, end) => {
@@ -465,8 +469,9 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
+    let youtubeContent = document.getElementById("youtubeContent").checked
     setUpdatedTracks([])
-    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals, start, end));
+    dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals, youtubeContent, start, end));
   }
 
   const handleAddChildrenFilter = (e) => {
@@ -566,9 +571,10 @@ function Search(props) {
     setLoading(true)
     let explicit = !document.getElementById("excludeExplicit").checked
     let vocals = document.getElementById("excludeVocals").checked
+    let youtubeContent = document.getElementById("youtubeContent").checked
     let query = document.getElementById("searchField").value
     setUpdatedTracks([])
-    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals));
+    dispatch(getTracks(query, query_type(query), appliedFiltersList, "", "", 1, explicit, vocals, youtubeContent));
 
   }
 
@@ -772,7 +778,7 @@ function Search(props) {
                           <span className="switchText">Exclude Explicit</span>
                         </div>
                         <div className="toogleSwitch">
-                          <input type="checkbox" id="youtubeContent" />
+                          <input type="checkbox" id="youtubeContent" onChange={(e) => handleExcludeFilters(e)}/>
                           <Form.Label htmlFor="youtubeContent">&nbsp;</Form.Label>
                           <span className="switchText">YouTube ContentID Cleared</span>
                         </div>
