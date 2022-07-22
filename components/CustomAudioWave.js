@@ -54,7 +54,8 @@ export default function CustomAudioWave(props) {
   const [footer, setFooter] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const [peaks, setPeaks] = useState([]);
-  const url = props.track.opus_file ? props.track.opus_file : props.track.mp3_file
+  let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+  const url = isSafari ? props.track.mp3_file_compressed : props.track.opus_file
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
