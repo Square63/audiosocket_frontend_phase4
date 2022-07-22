@@ -34,6 +34,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import Notiflix from "notiflix";
+import axios from "axios";
+import { BASE_URL } from "../common/api";
 
 function SelectPricingPlan(props) {
   const dispatch = useDispatch();
@@ -55,7 +57,7 @@ function SelectPricingPlan(props) {
   const USE_TYPES = [
     {label: 'Large Business', value: 'Large Business'},
     {label: 'Schools', value: 'Schools'},
-    {label: 'Church', value: 'Church'},
+    {label: 'Church', value: 'Churches'},
     {label: 'Non-profit', value: 'Non-profit'},
     {label: 'TV or Digital Media Network', value: 'TV or Digital Media Network'},
     {label: 'Film Production Company', value: 'Film Production Company'},
@@ -177,6 +179,8 @@ function SelectPricingPlan(props) {
     e.preventDefault();
     const quoteForm = e.currentTarget;
     const data = new FormData(form.current);
+    let url = `${BASE_URL}/api/v1/consumer/custom_quotes`
+    const authToken = JSON.parse(localStorage.getItem("user") ?? "");
     if (data.get("type_of_use") == "")
       setTypeOfUseError(true)
     if (quoteForm.checkValidity() === false) {
@@ -184,9 +188,29 @@ function SelectPricingPlan(props) {
       e.stopPropagation();
       setValidated(true);
     } else {
-      Notiflix.Report.success('Request Submitted', 'Your custom form request has been submitted.', 'Ok', () => {
-        router.push('/');
-      } );
+      let consumer_name = data.get("name")
+      let email = data.get("email")
+      let phone_number = data.get("phone")
+      let client_name = data.get("end_client")
+      let use_type = "Churches"
+      let additional_information = data.get("additional_information")
+      let content_type = webRights == "Expanded Rights" ? "Expanded Rights" : "Web Only (Over 100 Employees)"
+      await axios.post(
+        url, { consumer_name, email, phone_number, client_name, use_type, additional_information, content_type },
+        {
+          headers: {
+            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBfaWQiOiJhcnRpc3RzLXBvcnRhbC1iYWNrZW5kIn0.etBLEBaghaQBvyYoz1Veu6hvJBZpyL668dfkrRNLla8',
+            'auth-token': authToken
+          }
+        }
+      ).then(response => {
+        Notiflix.Report.success('Request Submitted', 'Your custom form request has been submitted.', 'Ok', () => {
+          router.push('/');
+        });
+      }).catch(error => {
+        toast.error(error.response.data.message);
+      });
+      
     }
   }
 
@@ -423,19 +447,19 @@ function SelectPricingPlan(props) {
                 <h3>Request Custom Quote</h3>
                 <Form noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
                   <Form.Group className="mb-4" controlId="formBasicEmail">
-                    <Form.Control required type="text" placeholder="Enter Name *" />
+                    <Form.Control required type="text" placeholder="Enter Name *" name="name"/>
                     <Form.Control.Feedback type="invalid">
                       Name is required!
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-4" controlId="formBasicEmail">
-                    <Form.Control required type="email" placeholder="Email *" />
+                    <Form.Control required type="email" placeholder="Email *" name="email" />
                     <Form.Control.Feedback type="invalid">
                       Email address is required!
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Control required type="number" placeholder="Phone Number *" />
+                    <Form.Control required type="number" placeholder="Phone Number *" name="phone" />
                     <Form.Control.Feedback type="invalid">
                       Phone Number is required!
                     </Form.Control.Feedback>
@@ -454,13 +478,13 @@ function SelectPricingPlan(props) {
                     }
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Control required type="text" placeholder="End Client *" />
+                    <Form.Control required type="text" placeholder="End Client *" name="end_client" />
                     <Form.Control.Feedback type="invalid">
                       End client is required!
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Control as="textarea" placeholder="Additional Information" rows={5} />
+                    <Form.Control as="textarea" placeholder="Additional Information" rows={5} name="additional_information" />
                   </Form.Group>
                   <Form.Group className="mb-4 text-center">
                     <Button variant="link" className="btn btnMainLarge" type="submit">
