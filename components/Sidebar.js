@@ -343,7 +343,7 @@ function Sidebar(props) {
                     <h2 className="offcanvasHeading">Sign In</h2>
                     <p className="offcanvasDesc">Don’t have an account yet? <a href="javascript:void(0)" onClick={()=> handleShowSignUp(true)}>Sign Up</a></p>
                     <div className={pricing.formWrapper}>
-                      <h3>Create Account</h3>
+                      <h3>Sign in</h3>
                       <Form className={pricing.sidebarForm} noValidate validated={validated} ref={form} onSubmit={handleSubmit}>
                         <Row>
                           <Col>
