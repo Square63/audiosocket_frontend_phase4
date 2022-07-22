@@ -6449,5 +6449,44 @@ input[type=number]::-webkit-outer-spin-button {
       margin-inline: auto;
     }
   }
+
+  /************ Temporary filter design ***********/
+  .filterBar {
+    .dropdown.setting {
+      .dropdown-menu {
+        transform: translate3d(0, 31.6667px, 0px) !important;
+        .settingFilterWrapper {
+          form {
+            grid-template-columns: none;
+          }
+        }
+      }
+    }
+  }
+  .dropdown.instruments {
+    .dropdown-menu {
+      transform: translate3d(0, 32px, 0px) !important;
+    }
+  }
+  .dropdown.durationTempo {
+    .dropdown-menu {
+      transform: translate3d(0vw, 32px, 0px) !important;
+      &[x-placement="bottom-end"] {
+        transform: translate3d(157px, 32px, 0px) !important;
+      }
+      .rangeSliderWrapper {
+        width: 250px;
+      }
+      .filterSibling {
+        max-height: 35vh !important;
+        overflow: hidden auto !important;
+      }
+    }
+  }
+  .dropdown.themes {
+    .dropdown-menu {
+      transform: translate3d(0, 32px, 0px) !important;
+    }
+  }
 }
 
