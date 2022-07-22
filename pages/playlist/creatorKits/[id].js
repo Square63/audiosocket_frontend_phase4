@@ -151,9 +151,15 @@ const Details = ()  => {
     }
   }
 
-  function showDownloadModal(index) {
+  function showDownloadModal(index, type) {
     if (localStorage.getItem("user")) {
-      setIndex(index)
+      if (type == "Track" || type == "Sfx") {
+        setAltVersionTrack(null)
+        setIndex(index)
+      }
+      else {
+        setAltVersionTrack(index)
+      }
       setShowDownModal(true)
     }
     else {
@@ -463,7 +469,7 @@ const Details = ()  => {
           </Tabs>
         </div>
       </div>
-      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type={type}/> }
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type={type}/> }
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type={type}/>}
