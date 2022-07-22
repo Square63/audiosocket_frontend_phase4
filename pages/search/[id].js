@@ -120,7 +120,7 @@ const Details = () => {
           })
           .then(peaksValues => {
             if (wavesurfer.current == null && peaks.length == 0){
-              create(track.mp3_file_compressed, peaksValues.data);
+              create(track.opus_file, peaksValues.data);
               setPeaks(peaksValues.data)
             }
           })
