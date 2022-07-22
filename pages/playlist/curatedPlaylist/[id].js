@@ -23,6 +23,7 @@ import { BASE_URL } from '../../../common/api';
 import ShareModal from "../../../components/modals/ShareModal";
 import DownloadPlaylist from "../../../components/modals/DownloadPlaylist";
 import {AuthContext} from "../../../store/authContext";
+import AddToPlaylist from "../../../components/modals/AddToPlaylist";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const Details = () => {
   const cartItem = useSelector(state => state.user.cart)
   const authContext = useContext(AuthContext);
   const [updatedTracks, setUpdatedTracks] = useState([])
+  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
 
   useEffect(() => {
     if (cartItem && cartItem.id){
@@ -286,6 +288,26 @@ const Details = () => {
     setUpdatedTracks([])
   }
 
+  function handleAddToPlaylistModalClose() {
+    setShowAddToPlaylistModal(false)
+  }
+
+  function showTrackAddToPlaylistModal(index, type) {
+    if (localStorage.getItem("user")) {
+      if (type == "Track") {
+        setAltVersionTrack(null) 
+      }
+      else {
+        setAltVersionTrack(index)
+      }
+      setIndex(index)
+      setShowAddToPlaylistModal(true)
+    }
+    else {
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to your playlists.', 'Ok');
+    }
+  }
+
   return (
     <>
     {isLoading ? (
@@ -392,7 +414,7 @@ const Details = () => {
             </div>
           </div>
           <div className="fixed-container">
-            {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated" emptyUpdatedTracks={emptyUpdatedTracks}/> : <InpageLoader />}
+            {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated" emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/> : <InpageLoader />}
           </div>
 
           {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/> }
@@ -401,6 +423,7 @@ const Details = () => {
           {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type="Track" />}
           <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
           <DownloadPlaylist showModal={showDownloadPlaylist} onCloseModal={handleDownloadPlaylistClose} />
+          {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type="tracks"/> }
         </div>
 
 

@@ -23,6 +23,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { TOAST_OPTIONS } from '../../../common/api';
 import ShareModal from "../../../components/modals/ShareModal";
 import DownloadPlaylist from "../../../components/modals/DownloadPlaylist";
+import AddToPlaylist from "../../../components/modals/AddToPlaylist";
 
 const Details = ()  => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const Details = ()  => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareId, setShareId] = useState(null);
   const [showDownloadPlaylist, setShowDownloadPlaylist] = useState(false);
+  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false) 
 
   useEffect(() => {
     if (query) {
@@ -287,6 +289,26 @@ const Details = ()  => {
     setUpdatedTracks([])
   }
 
+  function handleAddToPlaylistModalClose() {
+    setShowAddToPlaylistModal(false)
+  }
+    
+  function showTrackAddToPlaylistModal(index, type) {
+    if (localStorage.getItem("user")) {
+      if (type == "Track" || type == "Sfx") {
+        setAltVersionTrack(null) 
+      }
+      else {
+        setAltVersionTrack(index)
+      }
+      setIndex(index)
+      setShowAddToPlaylistModal(true)
+    }
+    else {
+      Notiflix.Report.failure('Alert', 'You must be logged in to be able to add a track to your playlists.', 'Ok');
+    }
+  }
+
   return (
     <>
     {creatorKitsDetail ?
@@ -406,7 +428,7 @@ const Details = ()  => {
               {creatorKitsTracks && creatorKitsTracks.meta ?
                 creatorKitsTracks.playlist_tracks.length > 0 ?
                   (creatorKitsTracks.meta.type == "track" ?
-                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count} emptyUpdatedTracks={emptyUpdatedTracks}/>
+                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count} emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/>
                   :
                     <InpageLoader/>
                   )
@@ -419,7 +441,7 @@ const Details = ()  => {
             <Tab eventKey="sfx" title="SFX">
               {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
                 (creatorKitsTracks.meta.type == "sfx" ?
-                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sfx_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="SFX" count={creatorKitsDetail.meta.sfx_count} emptyUpdatedTracks={emptyUpdatedTracks}/>
+                  <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sfx_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="SFX" count={creatorKitsDetail.meta.sfx_count} emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/>
                 :
                   <InpageLoader/>
                 )
@@ -430,7 +452,7 @@ const Details = ()  => {
             <Tab eventKey="sound_design" title="Sound Design">
               {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks.length > 0 ?
                 (creatorKitsTracks.meta.type == "sound_design" ?
-                   <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sound_design_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Sound Design" count={creatorKitsDetail.meta.sound_design_count} emptyUpdatedTracks={emptyUpdatedTracks}/>
+                   <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.sound_design_count} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Sound Design" count={creatorKitsDetail.meta.sound_design_count} emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/>
                 :
                   <InpageLoader />
                 )
@@ -445,6 +467,7 @@ const Details = ()  => {
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type={type}/>}
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type={type == "track" ? "tracks" : "sfxes"}/> }
       <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
       <DownloadPlaylist showModal={showDownloadPlaylist} onCloseModal={handleDownloadPlaylistClose} />
     </div> : <InpageLoader/>
