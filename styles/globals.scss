@@ -2532,6 +2532,7 @@ hr {
 .info,
 .fire,
 .playlistWave {
+  min-width: 16px;
   width: 16px;
   height: 16px;
   display: inline-block;
@@ -5006,6 +5007,35 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+/**************** 404 page *****************/
+.fourOhFour {
+  background-color: $headerColor;
+  min-height: calc(100vh - 70px);
+  color: $white;
+  text-align: center;
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+  .inner404 {
+    .errorCode {
+      font-size: 16px;
+      font-weight: 600;
+      color: $nav-link;
+      letter-spacing: 1.5px;
+    }
+    h1 {
+      font-size: 64px;
+      color: $white;
+      padding: 12px 0 7px;
+    }
+    .errorMsg {
+      font-size: 24px;
+      color: $white;
+      margin-bottom: 48px;
+    }
+  }
+}
+
 /******************** Keyframe **************/
 
 @-webkit-keyframes fade-in {
@@ -6090,6 +6120,56 @@ input[type=number]::-webkit-outer-spin-button {
       flex-wrap: wrap;
       @include justify-content(space-around);
       gap: 30px;
+    }
+  }
+
+  /*************** Filter behaviuor *************/
+  .stickUp {
+    & > div {
+      .filterBar {
+        margin: 0 -20px 30px;
+      }
+    }
+  }
+
+  .musicSearch,
+  .curatedPlaylistGlobal {
+    .filterBar {
+      padding: 10px;
+      .dropdown {
+        .dropdown-toggle {
+          padding: 10px 7px 9px;
+        }
+        .dropdown-menu {
+          .filterWrapper:not(.durationBlock) {
+            columns: 1;
+            column-count: auto;
+            padding: 15px 10px 15px;
+            max-height: 50vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+          }
+        }
+      }
+    }
+  }
+  /*************** 404 page ***************/
+  .fourOhFour {
+    min-height: calc(100vh - 50px);
+    .inner404 {
+      .errorCode {
+        font-size: 14px;
+      }
+      h1 {
+        font-size: clamp(36px, 7vw, 64px);
+        color: $white;
+        padding: 12px 0 7px;
+      }
+      .errorMsg {
+        font-size: clamp(16px, 3.5vw, 24px);
+        color: $white;
+        margin-bottom: 48px;
+      }
     }
   }
 }
