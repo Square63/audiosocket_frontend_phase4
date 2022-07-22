@@ -143,7 +143,7 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[5].name}
+                  Personal Monthly Music Subscription
                 </h2>
                 <div className={user.withRate}>
                   <span className={user.rate}>${subscriptionPlans[5].price}</span>
@@ -176,7 +176,7 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[4].name}
+                  Personal Monthly Music & SFX Subscription
                 </h2>
                 <div className={user.withRate}>
                   <span className={user.rate}>${subscriptionPlans[4].price}</span>
@@ -209,7 +209,7 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[9].name}
+                  Commercial Monthly Music Subscription
                 </h2>
                 <div className={user.withRate}>
                   <span className={user.rate}>${subscriptionPlans[9].price}</span>
@@ -242,7 +242,7 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[18].name}
+                  Commercial Monthly Music & SFX Subscription
                 </h2>
                 <div className={user.withRate}>
                   <span className={user.rate}>${subscriptionPlans[18].price}</span>
@@ -276,7 +276,7 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[7].name}
+                  Personal Annual Music Subscription
                 </h2>
                 <div className={user.withRate}>
                   <span className={user.rate}>${((subscriptionPlans[7].price)/12).toFixed(2)}</span>
@@ -310,7 +310,7 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[6].name}
+                  Personal Annual Music & SFX Subscription
                 </h2>
                 <div className={user.withRate}>
                   <span className={user.rate}>${((subscriptionPlans[6].price)/12).toFixed(2)}</span>
@@ -344,7 +344,7 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[20].name}
+                  Commercial Annual Music Subscription
                 </h2>
                 <div className={user.withRate}>
                   <span className={user.rate}>${((subscriptionPlans[20].price)/12).toFixed(2)}</span>
@@ -378,7 +378,7 @@ function Subscription() {
             <div className="boxWithOutShadow">
               <div className={user.plansHeading}>
                 <h2>
-                  {subscriptionPlans[19].name}
+                  Commercial Annual Music & SFX Subscription
                 </h2>
                 <div className={user.withRate}>
                   <span className={user.rate}>${((subscriptionPlans[19].price)/12).toFixed(2)}</span>
