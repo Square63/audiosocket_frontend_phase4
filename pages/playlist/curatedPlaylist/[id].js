@@ -165,10 +165,15 @@ const Details = () => {
     }
   }
 
-  function showDownloadModal(index) {
-    setIndex(index)
+  function showDownloadModal(index, type) {
     if (localStorage.getItem("user")) {
-
+      if (type == "Track" || type == "Sfx") {
+        setAltVersionTrack(null)
+        setIndex(index)
+      }
+      else {
+        setAltVersionTrack(index)
+      }
       setShowDownModal(true)
     }
     else {
@@ -424,7 +429,7 @@ const Details = () => {
             {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated" emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/> : <InpageLoader />}
           </div>
 
-          {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/> }
+          {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
           {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
           {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type="Track" />}

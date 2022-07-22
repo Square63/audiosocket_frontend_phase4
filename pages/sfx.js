@@ -158,13 +158,14 @@ function Sfx(props) {
     setLoading(true)
   }
 
-  function showDownloadModal(index) {
+  function showDownloadModal(index, type) {
     if (localStorage.getItem("user")) {
-      if (index > 9) {
-        setIndex(index + 10)
+      if (type == "sfx") {
+        setAltVersionTrack(null)
+        setIndex(index)
       }
       else {
-        setIndex(index)
+        setAltVersionTrack(index)
       }
       setShowDownModal(true)
     }
@@ -716,7 +717,7 @@ function Sfx(props) {
             <CustomAudioWave footerPlaying={footerPlaying} footer={true} handleFooterTrack={handleFooterTrack} footerTrack={track} />
           </div>
         </div> */}
-        <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="sfx"/>
+        <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} type="sfx"/>
         <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
         <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} handleLicenseClick={handleLicenseClick} type="Sfx"/>
         {localStorage.getItem("user") && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]} type="sfxes"/> }
