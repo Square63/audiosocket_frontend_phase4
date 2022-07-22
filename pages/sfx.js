@@ -55,6 +55,7 @@ function Sfx(props) {
   const [showSidebar, setShowSidebar] = useState(false)
   const [sidebarType, setSidebarType] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
+  const [parentFilter, setParentFilter] = useState("")
   const [lastSearchQuery, setLastSearchQuery] = useState("")
   const [filterOpen, setFilterOpen] = useState(false);
   const [durationFilter, setDurationFilter] = useState({ start: 0, end: 0 })
@@ -364,12 +365,15 @@ function Sfx(props) {
     }
   }
 
-  const handleAddFilter = async(e) => {
+  const handleAddFilter = async(e, type) => {
     setLoading(true)
     if (e.target.nextElementSibling == null) {
       e.target.parentElement.nextElementSibling?.nextElementSibling?.classList?.remove("disabled")
     } else {
-      e.target.nextElementSibling.nextElementSibling.classList.remove("disabled")
+      if (parentFilter == "Sound Design" || type == "childFilter")
+        e.target.nextElementSibling.classList.remove("disabled")
+      else
+        e.target.nextElementSibling.nextElementSibling.classList.remove("disabled")
     }
 
     e.target.closest('.filterSelf').classList.add('activeFilter')
@@ -505,6 +509,7 @@ function Sfx(props) {
   }
 
   const removeChildFilterDiv = (e) => {
+    setParentFilter(e.target.textContent)
     e.target.textContent == 'Sound Design' ? setShowChilderDiv(false) : setShowChilderDiv(true)
   }
 
@@ -551,7 +556,7 @@ function Sfx(props) {
               {filter.sub_filters.map((sub_filter, index) =>
                 <>
                   <div className="filterSelf">
-                    <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+                    <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, "parentFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                     <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
                         <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -581,9 +586,8 @@ function Sfx(props) {
             {filter.sub_filters.map((sub_filter, index) =>
               <>
                 <div className="filterSelf">
-                  <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, "parentFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                   {!(filter.name == "Sound Design") &&
-                    <>
                       <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
                           <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -592,18 +596,16 @@ function Sfx(props) {
                           </g>
                         </svg>
                       </span>
-
-                      <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.media_count+')'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
-                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
-                            <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
-                            <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
-                          </g>
-                          <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
-                        </svg>
-                      </span>
-                    </>
                   }
+                  <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                      <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}>
+                        <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                        <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                      </g>
+                      <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name+' ('+sub_filter.media_count+')'}/>
+                    </svg>
+                  </span>
                 </div>
               </>
             )}
@@ -614,7 +616,16 @@ function Sfx(props) {
                 {lastChildFilters.map((sub_filter, index) =>
                   <>
                     <div className={appliedFiltersList.includes(sub_filter.name) ? "custom filterSelf activeFilter" : "custom filterSelf"}>
-                      <Dropdown.Item href="#" onClick={handleAddFilter}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+                      <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, "childFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+                      <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name + ' (' + sub_filter.media_count + ')'}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name + ' (' + sub_filter.media_count + ')'}>
+                          <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name + ' (' + sub_filter.media_count + ')'}>
+                            <circle cx="5" cy="5" r="5" stroke="none" name={sub_filter.name + ' (' + sub_filter.media_count + ')'} />
+                            <circle cx="5" cy="5" r="4.5" fill="none" name={sub_filter.name + ' (' + sub_filter.media_count + ')'} />
+                          </g>
+                          <line id="Line_42" data-name="Line 42" y1="5" x2="5" transform="translate(2.5 2.5)" fill="none" stroke="#c1d72e" strokeWidth="1" name={sub_filter.name + ' (' + sub_filter.media_count + ')'} />
+                        </svg>
+                      </span>
                     </div>
                   </>
                 )}
