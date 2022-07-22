@@ -47,7 +47,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track, type}
           "auth-token": userAuthToken
         },
         method: "get",
-        url: (`${BASE_URL}/api/v1/consumer/${type}/${track.id}/consumers_playlists?filter_type=include`)
+        url: (`${BASE_URL}/api/v1/consumer/${type}/${track.mediable ? track.mediable.id : track.id}/consumers_playlists?filter_type=include`)
 
       }).then(response => {
         if (!response.status === 200) {
@@ -75,7 +75,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track, type}
           "auth-token": userAuthToken
         },
         method: "get",
-        url: (`${BASE_URL}/api/v1/consumer/${type}/${track.id}/consumers_playlists?filter_type=exclude`)
+        url: (`${BASE_URL}/api/v1/consumer/${type}/${track.mediable ? track.mediable.id : track.id}/consumers_playlists?filter_type=exclude`)
 
       }).then(response => {
         if (!response.status === 200) {

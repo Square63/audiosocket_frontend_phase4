@@ -100,7 +100,6 @@ function CuratedPlaylist() {
   }, [pageNum]);
 
   useEffect(() => {
-    debugger
     if (!curatedPlaylists) {
       dispatch(getCuratedPlaylistFilters())
     }
