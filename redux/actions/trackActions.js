@@ -27,7 +27,7 @@ import {
   TRACK_DETAIL_FAILURE
 } from '../constants/trackConstants';
 
-export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals, duration_start, duration_end) => async( dispatch ) => {
+export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, explicit, exclude_vocals, youtubeContent, duration_start, duration_end) => async( dispatch ) => {
   let urlWithParams = ''
   let pageNumber = page != false ? page : false
   if (duration_start>=0 && duration_end>0)
@@ -36,12 +36,21 @@ export const getTracks = (query, query_type, filters, sort_by, sort_dir, page, e
     urlWithParams = `/api/v1/consumer/tracks?query=${query}&query_type=${query_type}&filters=${encodeURIComponent(filters)}&order_by=${sort_by}&page=${pageNumber}&direction=${sort_dir}&per_page=10&pagination=true`
 
   let url = `${BASE_URL + urlWithParams}`
-  if (explicit === false && exclude_vocals === true)
+  if (explicit === false && exclude_vocals === true && youtubeContent === true)
+    url = `${BASE_URL + urlWithParams}&explicit=${explicit}&exclude_vocals=${exclude_vocals}&youtube_content_id_enabled=${youtubeContent}`
+  else if (explicit === false && youtubeContent === true)
+    url = `${BASE_URL + urlWithParams}&explicit=${explicit}&youtube_content_id_enabled=${youtubeContent}`
+  else if (exclude_vocals === true && youtubeContent === true)
+    url = `${BASE_URL + urlWithParams}&exclude_vocals=${exclude_vocals}&youtube_content_id_enabled=${youtubeContent}`
+  else if (explicit === false && exclude_vocals === true && youtubeContent === true)
     url = `${BASE_URL + urlWithParams}&explicit=${explicit}&exclude_vocals=${exclude_vocals}`
   else if (explicit === false)
     url = `${BASE_URL + urlWithParams}&explicit=${explicit}`
   else if (exclude_vocals === true)
     url = `${BASE_URL + urlWithParams}&exclude_vocals=${exclude_vocals}`
+  else if (youtubeContent === true)
+    url = `${BASE_URL + urlWithParams}&youtube_content_id_enabled=${youtubeContent}`
+
 
   const cookie = useCookie()
   const authToken = cookie.get("user")
