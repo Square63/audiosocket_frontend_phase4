@@ -94,6 +94,10 @@ function Search(props) {
     let vocal = localStorage.getItem('vocal')
     let filterKeyword = localStorage.getItem('filterKeyword')
 
+    let explicit = !document.getElementById("excludeExplicit")?.checked
+    let vocals = document.getElementById("excludeVocals")?.checked
+    let youtubeContent = document.getElementById("youtubeContent")?.checked
+
     if (keyword){
       setFromAims(true)
       setSearchQuery(keyword)
@@ -118,7 +122,10 @@ function Search(props) {
       setSearchQuery(filterKeyword)
       handleAddHomeFilter()
       localStorage.removeItem('filterKeyword')
-    } else if ((!localKeyword && !fromAims) && appliedFiltersListWC.length == 0 && !allTracks.tracks[0]?.tracks.length > 0 && !genre & !vocal && !searchQuery){
+    } else if ((!localKeyword && !fromAims) && appliedFiltersListWC.length == 0 &&
+      !allTracks.tracks[0]?.tracks.length > 0 &&
+      !genre & !vocal && !searchQuery &&
+      !(!explicit || vocals || youtubeContent)){
       dispatch(getTracks("", "local_search", [], "", "", 1))
     }
   }, [allTracks]);
