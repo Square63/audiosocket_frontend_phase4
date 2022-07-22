@@ -296,7 +296,7 @@ function Search(props) {
     setLastSearchQuery(searchQuery)
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    let youtubeContent = document.getElementById("youtubeContent").checked
+    let youtubeContent = document.getElementById("youtubeContent")?.checked
 
     if(searchQuery && !lastSearchQuery){
       setAppliedFiltersListWC([...appliedFiltersListWC, searchQuery]);
@@ -344,7 +344,7 @@ function Search(props) {
     }
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    let youtubeContent = document.getElementById("youtubeContent").checked
+    let youtubeContent = document.getElementById("youtubeContent")?.checked
 
     if (singleFilterText !== searchQuery) {
       let singleFilterTextWithoutCount = singleFilterText
@@ -397,7 +397,7 @@ function Search(props) {
     setLastSearchQuery('')
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    let youtubeContent = document.getElementById("youtubeContent").checked
+    let youtubeContent = document.getElementById("youtubeContent")?.checked
     setAppliedFiltersList([])
     dispatch(getTracks('', 'local_search', [], "", "", 1, explicit, vocals, youtubeContent));
   }
@@ -462,7 +462,7 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    let youtubeContent = document.getElementById("youtubeContent").checked
+    let youtubeContent = document.getElementById("youtubeContent")?.checked
     setUpdatedTracks([])
     dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals, youtubeContent));
   }
@@ -476,7 +476,7 @@ function Search(props) {
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
     let vocals = document.getElementById("excludeVocals")?.checked
-    let youtubeContent = document.getElementById("youtubeContent").checked
+    let youtubeContent = document.getElementById("youtubeContent")?.checked
     setUpdatedTracks([])
     dispatch(getTracks(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1, explicit, vocals, youtubeContent, start, end));
   }
