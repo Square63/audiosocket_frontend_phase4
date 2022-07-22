@@ -52,7 +52,8 @@ const Details = () => {
   const cartItem = useSelector(state => state.user.cart)
   const authContext = useContext(AuthContext);
   const [updatedTracks, setUpdatedTracks] = useState([])
-  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
+  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false);
+  const SocialLogIn = useSelector(state => state.auth.url);
 
   useEffect(() => {
     if (cartItem && cartItem.id){
@@ -61,6 +62,12 @@ const Details = () => {
       toast.error(cartItem)
     }
   }, [cartItem]);
+
+  useEffect(() => {
+    if (SocialLogIn && !(localStorage.getItem('user'))){
+      window.location.assign(SocialLogIn);
+    }
+  }, [SocialLogIn])
 
   useEffect(() => {
     if (query) {

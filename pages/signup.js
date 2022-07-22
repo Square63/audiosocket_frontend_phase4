@@ -238,16 +238,10 @@ function Signup() {
               <span>OR</span>
             </div>
             <div className={signup.socialBtn}>
-              <a href='' className={signup.facebook+' '+signup.signupBtn}>
-                <div>
-                  <div className={signup.icon}></div>
-                  <span>Continue  with Facebook</span>
-                </div>
-              </a>
               <a href="javascript:void(0)" className={signup.google + ' ' + signup.signupBtn} onClick={handleGmailLogin}>
                 <div>
                   <div className={signup.icon}></div>
-                  <span>Continue  with Google</span>
+                  <span>Continue with Google</span>
                 </div>
               </a>
             </div>

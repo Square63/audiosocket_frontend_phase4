@@ -159,16 +159,10 @@ function Login() {
           </div>
           <h2>Use an existing account</h2>
           <div className={login.socialBtn}>
-            <a href="javascript:void(0)" className={login.facebook+' '+login.loginBtn} onClick={handleFacebookLogin}>
-              <div>
-                <div className={login.icon}></div>
-                <span>Continue  with Facebook</span>
-              </div>
-            </a>
             <a href="javascript:void(0)" className={login.google + ' ' + login.loginBtn} onClick={handleGmailLogin}>
               <div>
                 <div className={login.icon}></div>
-                <span>Continue  with Google</span>
+                <span>Continue with Google</span>
               </div>
             </a>
           </div>
