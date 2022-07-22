@@ -33,7 +33,7 @@ export default function CustomAudioWave(props) {
   const [peaks, setPeaks] = useState([]);
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareId, setShareId] = useState(null);
-  const url = props.track.mp3_file_compressed ? props.track.mp3_file_compressed : "./test.mp3"
+  const url = props.track.opus_file ? props.track.opus_file : props.track.mp3_file
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
