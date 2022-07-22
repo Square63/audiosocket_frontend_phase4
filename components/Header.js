@@ -87,17 +87,26 @@ function Header() {
                   </>
                 :
                   <NavDropdown title="Account" className="headerAccount btn btnMainSmall" id="collasible-nav-dropdown">
-                    <NavDropdown.Item href="/playlist/myPlaylists">
-                        <span>My Playlists</span>
+                    <NavDropdown.Item href="/user/edit" className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"}>
+                        <span>Profile</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/downloads" className={router.pathname.toLowerCase() === "/user/downloads" ? "downloads active" : "downloads"}>
+                        <span>Downloads</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/licenses" className={router.pathname.toLowerCase() === "/user/licenses" ? "licenses active" : "licenses"}>
+                        <span>Licenses</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/favorites" className={router.pathname.toLowerCase() === "/user/favorites" ? "favorites active" : "favorites"}>
+                        <span>Favorites</span>
                     </NavDropdown.Item>
                     <NavDropdown.Item href="/user/following" className={router.pathname.toLowerCase() === "/user/following" ? "following active" : "following"}>
-                        <span>Followed Playlists</span>
+                        <span>Following</span>
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/user/edit" className={router.pathname.toLowerCase() === "/user/edit" ? "profile active" : "profile"}>
-                        <span>My Profile</span>
+                    <NavDropdown.Item href="/playlist/myPlaylists" className={router.pathname.toLowerCase().includes("/myplaylists") && "active"}>
+                        <span>My Playlists</span>
                     </NavDropdown.Item>
                     <NavDropdown.Item href="/login" onClick={() => {authActions.userDataStateChanged(null); setIsLoggedIn(false); router.push('/login')}}>
-                      <span>Sign Out</span>
+                      <span>Logout</span>
                     </NavDropdown.Item>
                   </NavDropdown>
               }
