@@ -606,7 +606,7 @@ function Search(props) {
   }
 
   const filterItems = filters.map((filter, index) =>
-    <Dropdown alignRight onClick={removeChildFilterDiv} className={filter.name === "Moods" ? "d-inline mood" : filter.name === "Tempos" ? "d-inline durationTempo" : "d-inline"} key={index}>
+    <Dropdown alignRight onClick={removeChildFilterDiv} className={filter.name === "Moods" ? "d-inline mood" : filter.name === "Instruments" ? "d-inline instruments" : filter.name === "Themes" ? "d-inline themes" : filter.name === "Genres" ? "d-inline genres" : filter.name === "Tempos" ? "d-inline durationTempo" : "d-inline"} key={index}>
       <Dropdown.Toggle id="dropdown-autoclose-true">
         {filter.name == "Tempos" ? "Duration / Tempo" : filter.name}
       </Dropdown.Toggle>
@@ -668,7 +668,7 @@ function Search(props) {
             </div>
           </Dropdown.Menu>)
         :
-        (<Dropdown.Menu>
+        (<Dropdown.Menu >
           <div className="filterWrapper">
             {filter.sub_filters.map((sub_filter, index) =>
               <>
