@@ -385,7 +385,7 @@ export default function Home(props) {
                         </div>
                         <div className="outOfScenario">
                           <h5>Try out this scenario.</h5>
-                          <p>You’re looking for a cool contemporary electronic track with female vocals that is moody for your travel video. Something that fans of Phantogram would love.</p>
+                          <p>You’re looking for an electronic track with male vocals for your video. Something that fans of David Guetta would love.</p>
                         </div>
                         <div className="stepsWrapper">
                           <div className="stepSection">
@@ -602,7 +602,7 @@ export default function Home(props) {
                           <p>Watch the link a track search guide.</p>
                           <div className="videoContainer" onClick={togglePlay}>
                             <span></span>
-                            <video poster="./screenSearch.png" controls>
+                            <video poster="./youtubeUrl.png" controls>
                               <source src="./simpleSearch.mp4" type="video/mp4"/>
                             </video>
                           </div>
