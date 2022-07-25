@@ -136,13 +136,13 @@ const Details = ()  => {
       if (!favoriteTrackIds.includes(trackId)) {
         setFavoriteTrackIds([...favoriteTrackIds, trackId])
         e.target.closest("a").classList.add("controlActive")
-        dispatch(addToFavorites(trackId, type));
+        dispatch(addToFavorites(trackId, creatorKitsTracks.meta.type));
       }
       else {
         favoriteTrackIds.splice(favoriteTrackIds.indexOf(trackId), 1)
         e.target.closest("a").classList.remove("controlActive")
         setFavoriteTrackIds(favoriteTrackIds)
-        dispatch(removeFromFavorites(trackId, type));
+        dispatch(removeFromFavorites(trackId, creatorKitsTracks.meta.type));
       }
     }
     else {
@@ -191,10 +191,10 @@ const Details = ()  => {
     setShowDownloadPlaylist(false)
   }
 
-  function showAddTrackToCartLicenseModal(index) {
+  function showAddTrackToCartLicenseModal(index, type) {
     setIndex(index)
     if (localStorage.getItem("user")) {
-      if (type == "track") {
+      if (type == "track" || type == "Track" || type == "sfx" || type == "Sfx") {
         setAltVersionTrack(null)
       }
       else {
@@ -471,8 +471,8 @@ const Details = ()  => {
       </div>
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type={type}/> }
       <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
-      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type={type}/>}
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar} type={type}/>}
+      {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type={type}/>}
       {creatorKitsTracks && creatorKitsTracks.meta && creatorKitsTracks.playlist_tracks && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type={type == "track" ? "tracks" : "sfxes"}/> }
       <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
       <DownloadPlaylist showModal={showDownloadPlaylist} onCloseModal={handleDownloadPlaylistClose} />
