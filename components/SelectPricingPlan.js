@@ -217,7 +217,7 @@ function SelectPricingPlan(props) {
           }
         }
       ).then(response => {
-        Notiflix.Report.success('Request Submitted', 'Your custom form request has been submitted.', 'Ok', () => {
+        Notiflix.Report.success('Request Submitted', 'Thank you for filling out the Custom Subscription Form. Someone will respond as soon as possible.', 'Ok', () => {
           router.push('/');
         });
       }).catch(error => {

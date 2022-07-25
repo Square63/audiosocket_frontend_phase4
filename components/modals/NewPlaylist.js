@@ -90,7 +90,7 @@ function PreferenceModal({showModal = false, onCloseModal, loading}) {
       <Modal.Body>
         <div className="modal-container">
           <Form className="modalForm PlaylistForm" validated={validated} noValidate ref={formNewPlaylist} onSubmit={handleSubmit}>
-            <Form.Group className="mb-4" controlId="formBasicEmail">
+            <Form.Group className="mb-4" controlId="formBasicEmail" onChange={() => setIsLoading(false)}>
               <Form.Label>Playlist Name <span className="labelAsterik">*</span></Form.Label>
               <Form.Control required type="text" placeholder="Enter name" name="name" />
               <Form.Control.Feedback type="invalid">

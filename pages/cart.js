@@ -132,22 +132,6 @@ function Cart() {
                         ${cartLineItems[index].license.price}
                       </div>
                       <div className="rowParticipant controls">
-                        <OverlayTrigger overlay={<Tooltip>Edit</Tooltip>}>
-                          <a href="javascript:void(0)" onClick={handleIndividualWorkTitle}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                              <g id="Interface-Essential_Edit_pencil-circle" data-name="Interface-Essential / Edit / pencil-circle" transform="translate(-422 -3146)">
-                                <g id="Group_335" data-name="Group 335">
-                                  <g id="pencil-circle">
-                                    <path id="Shape_1730" data-name="Shape 1730" d="M432.661,3162.168l-4.95,2.122,2.122-4.951,8.839-8.839,2.828,2.829-8.839,8.839Z" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1731" data-name="Shape 1731" d="M439.664,3155.169l-2.828-2.829" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1732" data-name="Shape 1732" d="M432.661,3162.169l-2.828-2.829" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Oval_259" data-name="Oval 259" d="M434,3169.5a11.5,11.5,0,1,0-11.5-11.5A11.5,11.5,0,0,0,434,3169.5Z" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                  </g>
-                                </g>
-                              </g>
-                            </svg>
-                          </a>
-                        </OverlayTrigger>
                         <OverlayTrigger overlay={<Tooltip>Remove</Tooltip>}>
                           <a href="javascript:void(0)" onClick={() => { handleRemoveTrack(track.title, cartLineItems[index].id);}}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -181,24 +165,6 @@ function Cart() {
                         ${cartLineItems[index].license.price}
                       </div>
                       <div className="rowParticipant controls">
-
-                        <OverlayTrigger overlay={<Tooltip>Edit</Tooltip>}>
-                          <a href="javascript:void(0)" onClick={handleIndividualWorkTitle}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                              <g id="Interface-Essential_Edit_pencil-circle" data-name="Interface-Essential / Edit / pencil-circle" transform="translate(-422 -3146)">
-                                <g id="Group_335" data-name="Group 335">
-                                  <g id="pencil-circle">
-                                    <path id="Shape_1730" data-name="Shape 1730" d="M432.661,3162.168l-4.95,2.122,2.122-4.951,8.839-8.839,2.828,2.829-8.839,8.839Z" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1731" data-name="Shape 1731" d="M439.664,3155.169l-2.828-2.829" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Shape_1732" data-name="Shape 1732" d="M432.661,3162.169l-2.828-2.829" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Oval_259" data-name="Oval 259" d="M434,3169.5a11.5,11.5,0,1,0-11.5-11.5A11.5,11.5,0,0,0,434,3169.5Z" fill="none" stroke="#6e7377" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                  </g>
-                                </g>
-                              </g>
-                            </svg>
-                          </a>
-                        </OverlayTrigger>
-
                         <OverlayTrigger overlay={<Tooltip>Remove</Tooltip>}>
                           <a href="javascript:void(0)" onClick={() => { handleRemoveTrack(sfx.title, cartLineItems[index].id);}}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
