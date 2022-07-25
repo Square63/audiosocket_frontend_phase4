@@ -148,6 +148,8 @@
                 @include align-items(center);
                 .cardPlate {
                   display: inline-flex;
+                  width: 42px;
+                  max-height: 27px;
                 }
                 .cardText {
                   margin-left: 5px;

@@ -4,6 +4,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Image from 'next/image';
 import masterCard from '../../images/mastercard.svg';
 import visaCard from '../../images/visaCard.svg';
+import paypal from '../../images/paypal.svg';
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
@@ -33,11 +34,11 @@ function Billing() {
             <div className={user.cardInfoWrapper}>
               <div className={user.cardInfo}>
                 <div className={user.cardPlate}>
-                  <Image src={paymentMethod.card_type === "Visa" ? visaCard : masterCard} alt="Card Name"/>
+                  <Image src={paymentMethod.card_type ? (paymentMethod.card_type === "Visa" ? visaCard : masterCard) : paypal} alt="Card Name"/>
                 </div>
                 <div className={user.cardText}>
                   <span className={user.cardRank}>{paymentMethod.card_type}</span>
-                  <span className={user.cardNumber}>Ending in {paymentMethod.last_4}</span>
+                  {paymentMethod.email ? <span className={user.cardNumber}>{paymentMethod.email}</span> : <span className={user.cardNumber}>Ending in {paymentMethod.last_4}</span>}
                 </div>
               </div>
               
