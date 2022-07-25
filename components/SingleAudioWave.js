@@ -237,7 +237,7 @@ export default function CustomAudioWave(props) {
                 </Dropdown.Toggle>
               </OverlayTrigger>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => {handleShareId(track.id); setShowShareModal(true) }}>
+                <Dropdown.Item onClick={() => {handleShareId(props.track.id); setShowShareModal(true) }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16.927" height="17.134" viewBox="0 0 16.927 17.134">
                     <g id="Interface-Essential_Share_share-2" data-name="Interface-Essential / Share / share-2" transform="translate(-518 -3841.793)">
                       <g id="Group_395" data-name="Group 395" transform="translate(518.5 3842.5)">
