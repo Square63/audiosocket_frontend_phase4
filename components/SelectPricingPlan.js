@@ -45,7 +45,20 @@ function SelectPricingPlan(props) {
 
 
   useEffect(() => {
-    dispatch(getSubscriptionPlans())
+    dispatch(getSubscriptionPlans());
+    if (router.query.planType == "Personal") {
+      setPlanType("Personal")
+    }
+    else if (router.query.planType == "Commercial") {
+      setPlanType("Commercial")
+      setWebRights("Web Only")
+      setEmployeeNo("Under 50 Employees")
+    }
+    else if (router.query.planType == "Enterprise") {
+      setPlanType("Enterprise")
+      setWebRights("Expanded Rights")
+      setEmployeeNo("Over 50 Employees")
+    }
   }, []);
 
   useEffect(() => {
@@ -1194,16 +1207,16 @@ function SelectPricingPlan(props) {
                       <p className="pointerCursor">Privacy Policy</p>
                     </Link>
                     <br/>
-                    <Link href="/individualLicense" eventKey="1">
+                    <Link href={`/individualLicense?planType=${planType}`} eventKey="1">
                       <p className="pointerCursor">Individual License</p>
                     </Link>
-                    <Link href="/indieFilm" eventKey="1">
+                    <Link href={`/indieFilm?planType=${planType}`} eventKey="1">
                       <p className="pointerCursor">Indie Film License</p>
                     </Link>
-                    <Link href="/smallBusiness" eventKey="1">
+                    <Link href={`/smallBusiness?planType=${planType}`} eventKey="1">
                       <p className="pointerCursor">Small Business License</p>
                     </Link>
-                    <Link href="/largeBusiness" eventKey="1">
+                    <Link href={`/largeBusiness?planType=${planType}`} eventKey="1">
                       <p className="pointerCursor">Large Business License</p>
                     </Link>
                   </Card.Body>

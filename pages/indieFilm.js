@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 
 function IndieFilm() {
-  const router = useRouter()
+  const router = useRouter();
+  const planType = router.query.planType;
 
   return (
     <div className="generalContent">
@@ -14,7 +15,7 @@ function IndieFilm() {
               <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
             </g>
           </svg>
-          <span onClick={() => router.back()}>{"Back to Select Plan"}</span>
+          <span onClick={() => router.push(`/pricing?planType=${planType}`)}>{"Back to Plan"}</span>
         </a>
         <h1 className="gCHeading">Indie Film License Agreement</h1>
         <p>Our Indie Film License allows an individual, videographer, or filmmaker to use one track in a single film or video with a budget less than $1 Million United States Dollars that may be distributed on the Web and submitted to film festivals. This license does not include broadcast rights, theatrical release outside of film festivals, DVD distribution, or use as an advertisement. Please see Section 2 for further details on permitted uses and restrictions.</p>
