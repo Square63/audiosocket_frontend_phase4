@@ -235,8 +235,8 @@ export default function Home(props) {
 
   function handleSubmit() {
     setLoading(true)
-    localStorage.setItem('genre', step1);
-    localStorage.setItem('vocal', step2);
+    step1 && localStorage.setItem('genre', genresArray.filter(filter => filter.name == step1)[0]?.id);
+    step2 && localStorage.setItem('vocal', vocalsArray.filter(filter => filter.name == step2)[0]?.id);
     localStorage.setItem('filterKeyword', step3)
     router.push('/search')
   }
