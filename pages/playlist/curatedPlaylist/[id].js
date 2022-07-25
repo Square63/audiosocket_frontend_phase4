@@ -87,7 +87,7 @@ const Details = () => {
     if (curatedPlaylistTracks) {
       curatedPlaylistTracks.meta.favorite_tracks_ids && setFavoriteTrackIds(curatedPlaylistTracks.meta.favorite_tracks_ids)
       curatedPlaylistTracks.meta.followed_artist_ids && setFollowedArtistsIds(curatedPlaylistTracks.meta.followed_artist_ids)
-      
+
       setIsLoading(false)
       if (updatedTracks[0]?.id != curatedPlaylistTracks.playlist_tracks[0]?.id){
         setUpdatedTracks(updatedTracks => [...updatedTracks, ...curatedPlaylistTracks.playlist_tracks]);
@@ -116,6 +116,16 @@ const Details = () => {
       pathname: '/search'
     },
     undefined, { shallow: true }
+    )
+  }
+
+  const handleTrackSearchOfArtist = (artistId, artistName) => {
+    localStorage.setItem("artistId", artistId)
+    localStorage.setItem("artistName", artistName)
+    Router.push({
+      pathname: '/search'
+    },
+      undefined, { shallow: true }
     )
   }
 
@@ -306,7 +316,7 @@ const Details = () => {
   function showTrackAddToPlaylistModal(index, type) {
     if (localStorage.getItem("user")) {
       if (type == "Track") {
-        setAltVersionTrack(null) 
+        setAltVersionTrack(null)
       }
       else {
         setAltVersionTrack(index)
@@ -425,7 +435,7 @@ const Details = () => {
             </div>
           </div>
           <div className="fixed-container">
-            {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated" emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/> : <InpageLoader />}
+                {curatedPlaylistTracks ? <MyPlaylistTracks tracks={curatedPlaylistTracks.playlist_tracks ? curatedPlaylistTracks.playlist_tracks : curatedPlaylistTracks} myPlaylistTracksCount={curatedPlaylistDetail?.media_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleTrackSearchOfArtist={handleTrackSearchOfArtist} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={false} type="curated" emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/> : <InpageLoader />}
           </div>
 
           {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type="track"/> }

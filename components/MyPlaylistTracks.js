@@ -231,7 +231,7 @@ function MyPlaylistTracks(props) {
           </form>
         </div>
       </div>
-      {isLoading ? 
+      {isLoading ?
         <InpageLoader/>
         :
         <div className="trackRowWrapper">
@@ -289,9 +289,9 @@ function MyPlaylistTracks(props) {
             // endMessage={<h4>Nothing more to show</h4>}
           >
             {tracks && tracks.length > 0 ? tracks.map((track, index)=> (
-              
+
               <div className="trackRow" key={index}>
-                <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
+                <CustomAudioWave track={track.mediable} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
                 <div className="rowParticipant duration">
                   {convertSecToMin(track.mediable.duration)}
                 </div>

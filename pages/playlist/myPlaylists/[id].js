@@ -128,6 +128,16 @@ const Details = () => {
     )
   }
 
+  const handleTrackSearchOfArtist = (artistId, artistName) => {
+    localStorage.setItem("artistId", artistId)
+    localStorage.setItem("artistName", artistName)
+    Router.push({
+      pathname: '/search'
+    },
+      undefined, { shallow: true }
+    )
+  }
+
   function totalDuration(tracks) {
     let duration = 0
     if (!(tracks.tracks == 'No Track Found')){
@@ -383,7 +393,7 @@ const Details = () => {
           <div className="fixed-container">
             {myPlaylistTracks ?
               <>
-                <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} myPlaylistTracksCount={myPlaylistTracks.meta?.playlist_track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type="myplaylist" emptyUpdatedTracks={emptyUpdatedTracks}/>
+                    <MyPlaylistTracks tracks={myPlaylistTracks.playlist_tracks ? myPlaylistTracks.playlist_tracks : myPlaylistTracks} myPlaylistTracksCount={myPlaylistTracks.meta?.playlist_track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleTrackSearchOfArtist={handleTrackSearchOfArtist} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type="myplaylist" emptyUpdatedTracks={emptyUpdatedTracks}/>
                 <div className={playlist.artistTiles}>
                   <h3>Artists On This Playlist</h3>
                   {updatedArtists && updatedArtists.length == 0 ?

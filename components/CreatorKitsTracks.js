@@ -273,7 +273,7 @@ function CreatorKitsTracks(props) {
           >
             {tracks && tracks.length > 0 ? tracks.map((track, index)=> (
               <div className="trackRow" key={index}>
-                <CustomAudioWave track={track.mediable} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false}/>
+                <CustomAudioWave track={track.mediable} handleTrackSearchOfArtist={props.handleTrackSearchOfArtist} handleFooterTrack={props.handleFooterTrack} footer={false} footerPlaying={false} notClickable={props.title == 'Music' ? false : true} />
                 <div className="rowParticipant duration">
                   {convertSecToMin(track.mediable.duration)}
                 </div>
