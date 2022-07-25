@@ -3,6 +3,8 @@
 .playlistWrapper {
   background-color: $headerColor;
   padding-block: 50px;
+  overflow-x: hidden;
+  overflow-y: auto;
   h1 {
     color: $white;
     font-weight: 400;
@@ -519,7 +521,10 @@
   .playlistWrapper {
     .filterSearch {
       :global(.filterBar) {
-        max-width: 500px;
+        max-width: 530px;
+        .linkFilter {
+          padding-inline: 18px;
+        }
       }
     }
   }
@@ -710,6 +715,20 @@
       }
     }
   }
+
+  /**************** Temp Filters responsiveness **************/
+  .playlistWrapper {
+    .filterSearch {
+      :global(.filterBar) {
+        flex-wrap: wrap;
+        height: auto;
+        border-radius: 100vmax;
+        .linkFilter {
+          padding: 10px 15px;
+        }
+      }
+    }
+  }
 }
 
 @media #{$phone-portrait} {
@@ -792,6 +811,13 @@
     .creatorKitsItem {
       max-width: 250px;
       width: 100%;
+    }
+  }
+
+  /**************** Temp Filters responsiveness **************/
+  .playlistWrapper {
+    .filterSearch {
+      gap: 65px;
     }
   }
 }
