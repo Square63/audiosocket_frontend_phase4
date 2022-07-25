@@ -49,7 +49,7 @@ const Details = ()  => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareId, setShareId] = useState(null);
   const [showDownloadPlaylist, setShowDownloadPlaylist] = useState(false);
-  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false) 
+  const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false)
 
   useEffect(() => {
     if (query) {
@@ -75,7 +75,7 @@ const Details = ()  => {
           }
       } else {
         if (creatorKitsTracks.playlist_tracks?.length > 0) {
-          
+
           if (updatedTracks[0]?.id != creatorKitsTracks.playlist_tracks[0].id)
             setUpdatedTracks(updatedTracks => [...updatedTracks, ...creatorKitsTracks.playlist_tracks]);
           creatorKitsTracks.meta.favorite_sfx_ids && setFavoriteTrackIds(creatorKitsTracks.meta.favorite_sfx_ids)
@@ -115,6 +115,16 @@ const Details = ()  => {
       pathname: '/search'
     },
     undefined, { shallow: true }
+    )
+  }
+
+  const handleTrackSearchOfArtist = (artistId, artistName) => {
+    localStorage.setItem("artistId", artistId)
+    localStorage.setItem("artistName", artistName)
+    Router.push({
+      pathname: '/search'
+    },
+      undefined, { shallow: true }
     )
   }
 
@@ -298,11 +308,11 @@ const Details = ()  => {
   function handleAddToPlaylistModalClose() {
     setShowAddToPlaylistModal(false)
   }
-    
+
   function showTrackAddToPlaylistModal(index, type) {
     if (localStorage.getItem("user")) {
       if (type == "Track" || type == "Sfx") {
-        setAltVersionTrack(null) 
+        setAltVersionTrack(null)
       }
       else {
         setAltVersionTrack(index)
@@ -434,7 +444,7 @@ const Details = ()  => {
               {creatorKitsTracks && creatorKitsTracks.meta ?
                 creatorKitsTracks.playlist_tracks.length > 0 ?
                   (creatorKitsTracks.meta.type == "track" ?
-                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count} emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/>
+                    <CreatorKitsTracks tracks={creatorKitsTracks.playlist_tracks} tracksMeta={creatorKitsTracks.meta} creatorKitsCount={creatorKitsDetail.meta.track_count} followed_artist_ids={followedArtistsIds} favoriteTrackIds={favoriteTrackIds} handleSimilarSearch={handleSimilarSearch} handleTrackSearchOfArtist={handleTrackSearchOfArtist} handleAddToFavorites={handleAddToFavorites} showDownloadModal={showDownloadModal} showDownloadLicenseModal={showDownloadLicenseModal} removeTrackFromPlaylist={removeTrackFromPlaylist} showAddTrackToCartLicenseModal={showAddTrackToCartLicenseModal} showDeleteButton={true} type={type} title="Music" count={creatorKitsDetail.meta.track_count} emptyUpdatedTracks={emptyUpdatedTracks} showTrackAddToPlaylistModal={showTrackAddToPlaylistModal}/>
                   :
                     <InpageLoader/>
                   )

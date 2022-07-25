@@ -87,6 +87,8 @@ function Search(props) {
   useEffect(() => {
     let trackName = localStorage.getItem("track_name")
     let trackId = localStorage.getItem("track_id")
+    let artistId = localStorage.getItem("artistId")
+    let artistName = localStorage.getItem("artistName")
     let file = localStorage.getItem("uploadFileFromWelcome")
     let keyword = localStorage.getItem("keyword")
     let localWord = localStorage.getItem("localKeyword")
@@ -105,6 +107,10 @@ function Search(props) {
     } else if (file) {
       setFromAims(true)
       localStorage.removeItem("uploadFileFromWelcome")
+    } else if (artistId && artistName) {
+      handleTrackSearchOfArtist(artistId, artistName)
+      localStorage.removeItem("artistId")
+      localStorage.removeItem("artistName")
     } else if (trackName && trackId) {
       setFromAims(true)
       handleSimilarSearch(trackName, trackId)
@@ -417,6 +423,7 @@ function Search(props) {
     setFromAims(false)
     startLoaderAndHideDiv()
     setSearchQuery('')
+    setLastSearchQuery('')
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
     appliedFiltersList.push(artistName)
     setAppliedFiltersListWC([...appliedFiltersListWC, artistName]);
