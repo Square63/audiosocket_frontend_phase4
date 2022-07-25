@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 
 function SmallBusiness() {
-  const router = useRouter()
+  const router = useRouter();
+  const planType = router.query.planType;
 
   return (
     <div className="generalContent">
@@ -14,7 +15,7 @@ function SmallBusiness() {
               <path id="Shape_1940" data-name="Shape 1940" d="M334.432,2402.5l5.25-5.25" transform="translate(-329.182 -2388.497)" fill="none" stroke="#313438" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
             </g>
           </svg>
-          <span onClick={() => router.back()}>{"Back to Select Plan"}</span>
+          <span onClick={() => router.push(`/pricing?planType=${planType}`)}>{"Back to Plan"}</span>
         </a>
         <h1 className="gCHeading">Small Business License Agreement</h1>
         <p>This License Agreement (&quot;License&quot;) is made between the Person identified in the Audiosocket Storefront (&quot;Licensee&quot;) and Leopona, Inc.d/b/a Audiosocket (Audiosocket). By using the Licensed Tracks, Licensee accepts the terms of this License. If Licensee does not agree to the terms of this License, Licensee must not use the Licensed Tracks.</p>
