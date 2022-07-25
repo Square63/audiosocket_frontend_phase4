@@ -145,9 +145,7 @@ export default function CustomAudioWave(props) {
           </div>
           <div className="durationCount totalDuration">{convertSecToMin(props.track.duration)}</div>
           <div className="rowParticipant mood">{props.moodColumn}</div>
-          <div className="rowParticipant BPM">
-            {props.track.bpm}
-          </div>
+          
           <div className="rowParticipant controls">
             <OverlayTrigger overlay={<Tooltip>Similar Search</Tooltip>}>
               <a onClick={() => props.handleSimilarSearch(props.track.title, props.track.aims_id)}>

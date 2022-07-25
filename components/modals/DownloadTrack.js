@@ -107,7 +107,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
                   <span className="versionDuration">{track ? track.mediable ? convertSecToMin(track.mediable.duration) : convertSecToMin(track.duration) : "0:0"}</span>
                   <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type, "wav")}>
                     <strong>WAV</strong>
-                    <span className="versionDuration">({track ? track.mediable ? (track.mediable.file_size/(1024*1024)).toFixed(2) : (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                    <span className="versionDuration">({track ? track.mediable ? (track.mediable.wav_file_size/(1024*1024)).toFixed(2) : (track.wav_file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
                   </a>
                 </li>
               }
@@ -117,7 +117,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
                   <span className="versionDuration">{track ? track.mediable ? convertSecToMin(track.mediable.duration) : convertSecToMin(track.duration) : "0:0"}</span>
                   <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type, "wav")}>
                     <strong>WAV</strong>
-                    <span className="versionDuration">({track ? track.mediable ? (track.mediable.file_size/(1024*1024)).toFixed(2) : (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                    <span className="versionDuration">({track ? track.mediable ? (track.mediable.wav_file_size/(1024*1024)).toFixed(2) : (track.wav_file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
                   </a>
                 </li>
               }
@@ -139,7 +139,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
                           <span className="versionDuration">{item ? convertSecToMin(item.duration) : "0:0"}</span>
                           <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(item, type, "wav")}>
                             <strong>WAV</strong>
-                            <span className="versionDuration">({item ? (item.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                            <span className="versionDuration">({item ? (item.wav_file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
                           </a>
                         </li>
                       }
