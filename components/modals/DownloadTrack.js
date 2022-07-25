@@ -46,7 +46,7 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
 
   }
 
-  const handleDownload = async (track, type) => {
+  const handleDownload = async (track, type, fileType) => {
     setIsLoading(true)
     let url = type == "track" ? `${BASE_URL}/api/v1/consumer/tracks/${track.mediable ? track.mediable.id : track.id}/add_download_track` : `${BASE_URL}/api/v1/consumer/sfxes/${track.mediable ? track.mediable.id : track.id}/add_download_sfx`
     const userAuthToken = JSON.parse(localStorage.getItem("user") ?? "");
@@ -60,7 +60,10 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
       });
     if(response.ok) {
       const link = document.createElement("a");
-      link.href = track.mediable ? track.mediable.mp3_file : track.mp3_file;
+      if (fileType == "mp3")
+        link.href = track.mediable ? track.mediable.mp3_file : track.mp3_file;
+      else
+        link.href = track.mediable ? track.mediable.wav_file : track.wav_file;
       link.download = track.mediable ? track.mediable.title : track.title;
       link.click();
       setIsLoading(false)
@@ -93,22 +96,54 @@ function PreferenceModal({showModal = false, onCloseModal, track, type}) {
               <li>
                 <span className="versionType">Full Track</span>
                 <span className="versionDuration">{track ? track.mediable ? convertSecToMin(track.mediable.duration) : convertSecToMin(track.duration) : "0:0"}</span>
-                <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type)}>
+                <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type, "mp3")}>
                   <strong>MP3</strong>
                   <span className="versionDuration">({track ? track.mediable ? (track.mediable.file_size/(1024*1024)).toFixed(2) : (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
                 </a>
               </li>
+              {track && track.wav_file &&
+                <li>
+                  <span className="versionType">Full Track</span>
+                  <span className="versionDuration">{track ? track.mediable ? convertSecToMin(track.mediable.duration) : convertSecToMin(track.duration) : "0:0"}</span>
+                  <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type, "wav")}>
+                    <strong>WAV</strong>
+                    <span className="versionDuration">({track ? track.mediable ? (track.mediable.file_size/(1024*1024)).toFixed(2) : (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                  </a>
+                </li>
+              }
+              {track && track.mediable && track.mediable.wav_file &&
+                <li>
+                  <span className="versionType">Full Track</span>
+                  <span className="versionDuration">{track ? track.mediable ? convertSecToMin(track.mediable.duration) : convertSecToMin(track.duration) : "0:0"}</span>
+                  <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(track, type, "wav")}>
+                    <strong>WAV</strong>
+                    <span className="versionDuration">({track ? track.mediable ? (track.mediable.file_size/(1024*1024)).toFixed(2) : (track.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                  </a>
+                </li>
+              }
               { track ? track?.alternate_versions?.map(function(item, i)
                 {
                   return(
-                    <li key={i}>
-                      <span className="versionType">{item.title}</span>
-                      <span className="versionDuration">{item ? convertSecToMin(item.duration) : "0:0"}</span>
-                      <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(item, type)}>
-                        <strong>MP3</strong>
-                        <span className="versionDuration">({item ? (item.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
-                      </a>
-                    </li>
+                    <>
+                      <li key={i}>
+                        <span className="versionType">{item.title}</span>
+                        <span className="versionDuration">{item ? convertSecToMin(item.duration) : "0:0"}</span>
+                        <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(item, type, "mp3")}>
+                          <strong>MP3</strong>
+                          <span className="versionDuration">({item ? (item.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                        </a>
+                      </li>
+                      {item && item.wav_file &&
+                        <li key={i}>
+                          <span className="versionType">{item.title}</span>
+                          <span className="versionDuration">{item ? convertSecToMin(item.duration) : "0:0"}</span>
+                          <a variant="link" className="btn btnMainLarge versionSize" onClick={() => handleDownload(item, type, "wav")}>
+                            <strong>WAV</strong>
+                            <span className="versionDuration">({item ? (item.file_size/(1024*1024)).toFixed(2) : "0.0"} MB)</span>
+                          </a>
+                        </li>
+                      }
+                    </>
                   )
                 })
               : ""}
