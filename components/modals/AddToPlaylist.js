@@ -39,7 +39,7 @@ function AddToPlaylist({showModal = false, onCloseModal, playlists, track, type}
     setAddedTracks([])
     // setSelectedOption(null);
     setIsLoading(true);
-    if (track) {
+    if (track && localStorage.getItem("user")) {
       // track included playlists
       axios.request({
         headers: {
