@@ -179,8 +179,8 @@ function CreatorKitsTracks(props) {
   }
 
   const handleFollowArtist = (track) => {
-    dispatch(followArtist(track.mediable.artist_id));
-    setFollowedArtists(followedArtists => [...followedArtists, track.mediable.artist_id])
+    dispatch(followArtist(track.mediable ? track.mediable.artist_id : track.artist_id));
+    setFollowedArtists(followedArtists => [...followedArtists, track.mediable ? track.mediable.artist_id : track.artist_id])
   }
 
   const handleUnfollowArtist = (track) => {
@@ -343,7 +343,7 @@ function CreatorKitsTracks(props) {
                     </a>
                   </OverlayTrigger>
                   <OverlayTrigger overlay={<Tooltip>Add to Cart</Tooltip>}>
-                    <a onClick={() => {props.showAddTrackToCartLicenseModal(index)}}>
+                    <a onClick={() => {props.showAddTrackToCartLicenseModal(index, track.mediable_type)}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="22.994" height="23.024" viewBox="0 0 17.994 17.024">
                         <g id="icon-cart" transform="translate(0.5 0.5)">
                           <g id="Group_155" data-name="Group 155" transform="translate(0)">

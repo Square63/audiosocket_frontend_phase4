@@ -207,7 +207,7 @@ const Details = () => {
     setIndex(index)
     setMediableType(type)
     if (localStorage.getItem("user")) {
-      if (type == "Track" || type == "Sfx") {
+      if (type == "track" || type == "Track" || type == "sfx" || type == "Sfx") {
         setAltVersionTrack(null)
       }
       else {
@@ -410,8 +410,8 @@ const Details = () => {
           {(showEditModal && myPlaylistDetail) && <EditPlaylist showModal={showEditModal} onCloseModal={handleEditClose} loading={handleLoading} myPlaylistDetail={myPlaylistDetail} myPlaylistTracks={myPlaylistTracks} />}
           {myPlaylistDetail && myPlaylistTracks && myPlaylistTracks.playlist_tracks?.length > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={updatedTracks[index]} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-          {myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
-          {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type={mediableType} />}
+          {myPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
+          {myPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type={mediableType} />}
           <DownloadPlaylist showModal={showDownloadPlaylist} onCloseModal={handleDownloadPlaylistClose} />
         </div>
       </>

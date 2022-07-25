@@ -174,8 +174,8 @@ function MyPlaylistTracks(props) {
   }
 
   const handleFollowArtist = (track) => {
-    dispatch(followArtist(track.mediable.artist_id));
-    setFollowedArtists(followedArtists => [...followedArtists, track.mediable.artist_id])
+    dispatch(followArtist(track.mediable ? track.mediable.artist_id : track.artist_id));
+    setFollowedArtists(followedArtists => [...followedArtists, track.mediable ? track.mediable.artist_id : track.artist_id])
   }
 
   const handleUnfollowArtist = (track) => {
@@ -475,7 +475,7 @@ function MyPlaylistTracks(props) {
                         <Accordion.Collapse eventKey={index + 1}>
                           <div id={"example-collapse-text" + index + 1} >
                             {track.mediable.alternate_versions.map((altVersion, index)=> {
-                              return (<AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} showTrackAddToPlaylistModal={props.showTrackAddToPlaylistModal} handleAddToFavorites={props.handleAddToFavorites} tracksMeta={props.tracksMeta} favoriteTrackIds={props.favoriteTrackIds} showDownloadModal={props.showDownloadModal} showDownloadLicenseModal={props.showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists} />)
+                              return (<AltVersion key={index} track={altVersion} moodColumn={handleMoodColumn(altVersion, moodColumn)} showTrackAddToPlaylistModal={props.showTrackAddToPlaylistModal} handleAddToFavorites={props.handleAddToFavorites} tracksMeta={props.tracksMeta} favoriteTrackIds={props.favoriteTrackIds} showDownloadModal={props.showDownloadModal} showDownloadLicenseModal={props.showDownloadLicenseModal} showAddTrackToCartLicenseModal={props.showAddTrackToCartLicenseModal} handleUnfollowArtist={handleUnfollowArtist} handleFollowArtist={handleFollowArtist} followedArtists={followedArtists} handleSimilarSearch={props.handleSimilarSearch} type={props.type} />)
                             })}
                           </div>
                         </Accordion.Collapse>

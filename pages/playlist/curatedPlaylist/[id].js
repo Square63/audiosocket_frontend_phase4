@@ -85,7 +85,6 @@ const Details = () => {
 
   useEffect(() => {
     if (curatedPlaylistTracks) {
-      
       curatedPlaylistTracks.meta.favorite_tracks_ids && setFavoriteTrackIds(curatedPlaylistTracks.meta.favorite_tracks_ids)
       curatedPlaylistTracks.meta.followed_artist_ids && setFollowedArtistsIds(curatedPlaylistTracks.meta.followed_artist_ids)
       
@@ -205,7 +204,7 @@ const Details = () => {
   function showAddTrackToCartLicenseModal(index, type) {
     setIndex(index)
     if (localStorage.getItem("user")) {
-      if (type == "track") {
+      if (type == "track" || type == "Track" || type == "sfx" || type == "Sfx") {
         setAltVersionTrack(null)
       }
       else {
@@ -431,8 +430,8 @@ const Details = () => {
 
           {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <DownloadTrack showModal={showDownModal} onCloseModal={handleDownloadClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type="track"/> }
           <DownloadTrackLicense showModal={showLicenseModal} onCloseModal={handleLicenseModalClose} />
-          {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
-          {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={updatedTracks[index]?.mediable} type="Track" />}
+          {curatedPlaylistTracks && <Sidebar showSidebar={showSidebar} handleSidebarHide={handleSidebarHide} sidebarType={sidebarType} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} addTrackToCartLicenseModalSidebar={addTrackToCartLicenseModalSidebar}/>}
+          {curatedPlaylistTracks && <AddToCartLicense showModal={showAddToCartLicenseModal} onCloseModal={handleAddToCartLicenseModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type="Track" />}
           <ShareModal showModal={showShareModal} onCloseModal={handleShareModalClose} />
           <DownloadPlaylist showModal={showDownloadPlaylist} onCloseModal={handleDownloadPlaylistClose} />
           {curatedPlaylistDetail && curatedPlaylistTracks && curatedPlaylistDetail?.media_count > 0 && <AddToPlaylist showModal={showAddToPlaylistModal} onCloseModal={handleAddToPlaylistModalClose} track={altVersionTrack ? altVersionTrack : updatedTracks[index]?.mediable} type="tracks"/> }
