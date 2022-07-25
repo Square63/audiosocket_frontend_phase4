@@ -78,7 +78,7 @@ const Details = () => {
   const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false);
   const [showModalForTrackDetail, setShowModalForTrackDetail] = useState(false);
   const [showAddToCartLicenseModal, setShowAddToCartLicenseModal] = useState(false);
-
+  let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
 
   useEffect(() => {
     if (!allTracks.similarTracks) {
@@ -120,7 +120,7 @@ const Details = () => {
           })
           .then(peaksValues => {
             if (wavesurfer.current == null && peaks.length == 0){
-              create(track.opus_file, peaksValues.data);
+              isSafari ? create(track.mp3_file_compressed, peaksValues.data) : create(track.opus_file, peaksValues.data)
               setPeaks(peaksValues.data)
             }
           })

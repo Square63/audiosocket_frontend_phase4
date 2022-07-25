@@ -33,7 +33,8 @@ export default function CustomAudioWave(props) {
   const [peaks, setPeaks] = useState([]);
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareId, setShareId] = useState(null);
-  const url = props.track.opus_file ? props.track.opus_file : props.track.mp3_file
+  let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+  const url = isSafari ? props.track.mp3_file_compressed : props.track.opus_file
 
   const settings = {
     start: 2, min: 0,max: 10,step: 1,
@@ -162,7 +163,7 @@ export default function CustomAudioWave(props) {
                 </svg>
               </a>
             </OverlayTrigger>
-            
+
             <OverlayTrigger overlay={<Tooltip>{props.favoriteTrackIds?.includes(props.track.id) ? "Remove from Favourites" : "Add to Favourites"}</Tooltip>}>
               <a onClick={(e) => props.handleAddToFavorites(e, props.track.id)} className={ props.favoriteTrackIds && props.favoriteTrackIds.includes(props.track.id) ? "controlActive" : ""}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="22.93" height="20.303" viewBox="0 0 22.93 20.303">
