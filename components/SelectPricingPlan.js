@@ -193,7 +193,7 @@ function SelectPricingPlan(props) {
     const quoteForm = e.currentTarget;
     const data = new FormData(form.current);
     let url = `${BASE_URL}/api/v1/consumer/custom_quotes`
-    const authToken = JSON.parse(localStorage.getItem("user") ?? "");
+    const authToken = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
     if (data.get("type_of_use") == "")
       setTypeOfUseError(true)
     if (quoteForm.checkValidity() === false) {
