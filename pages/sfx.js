@@ -340,7 +340,7 @@ function Sfx(props) {
     setLastSearchQuery('')
     console.log("Track NAme", trackName)
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
-    appliedFiltersList.push(trackName)
+    appliedFiltersList.push(trackId)
     setAppliedFiltersListWC([...appliedFiltersListWC, trackName]);
     setUpdatedTracks([])
     dispatch(getTracksFromAIMS(trackId));
@@ -366,7 +366,7 @@ function Sfx(props) {
     }
   }
 
-  const handleAddFilter = async(e, type) => {
+  const handleAddFilter = async (e, filterId, type) => {
     setLoading(true)
     if (e.target.nextElementSibling == null) {
       e.target.parentElement.nextElementSibling?.nextElementSibling?.classList?.remove("disabled")
@@ -379,7 +379,7 @@ function Sfx(props) {
 
     e.target.closest('.filterSelf').classList.add('activeFilter')
     document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
-    appliedFiltersList.push(removeCount(e.currentTarget.text))
+    appliedFiltersList.push(filterId)
     setAppliedFiltersListWC([...appliedFiltersListWC, removeCount(e.currentTarget.text)]);
     let query = document.getElementById("searchField").value
     let explicit = !document.getElementById("excludeExplicit")?.checked
@@ -439,13 +439,13 @@ function Sfx(props) {
     vocal ? appliedFiltersList.push(vocal) : null
     if (genre && vocal) {
       document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
-      setAppliedFiltersListWC([genre, vocal])
+      setAppliedFiltersListWC([filters[1].sub_filters.filter(filter => filter.id == genre)[0].name, filters[0].sub_filters.filter(filter => filter.id == vocal)[0].name])
     } else if (genre) {
       document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
-      setAppliedFiltersListWC([genre])
+      setAppliedFiltersListWC([filters[1].sub_filters.filter(filter => filter.id == genre)[0].name])
     } else if (vocal)  {
       document.getElementsByClassName('selectedFilter')[0].style.display = 'inline-block';
-      setAppliedFiltersListWC([vocal])
+      setAppliedFiltersListWC([filters[0].sub_filters.filter(filter => filter.id == vocal)[0].name])
     }
     let query = document.getElementById("searchField").value
     dispatch(getSfxes(query, query_type(query), getUniqFilters(appliedFiltersList), "", "", 1));
@@ -557,7 +557,7 @@ function Sfx(props) {
               {filter.sub_filters.map((sub_filter, index) =>
                 <>
                   <div className="filterSelf">
-                    <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, "parentFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+                    <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, sub_filter.id, "parentFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                     <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
                         <g id="icon-plus" transform="translate(-1.669 -4.355)">
@@ -587,7 +587,7 @@ function Sfx(props) {
             {filter.sub_filters.map((sub_filter, index) =>
               <>
                 <div className="filterSelf">
-                  <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, "parentFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, sub_filter.id, "parentFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                   {!(filter.name == "Sound Design") &&
                       <span className={`filterControl addFilter ${sub_filter.sub_filters.length <= 0 ? "disabled" : ""}`} onClick={handleAddChildrenFilter} id={sub_filter.id}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="10.005" height="10" viewBox="0 0 10.005 10" id={sub_filter.id}>
@@ -617,7 +617,7 @@ function Sfx(props) {
                 {lastChildFilters.map((sub_filter, index) =>
                   <>
                     <div className={appliedFiltersList.includes(sub_filter.name) ? "custom filterSelf activeFilter" : "custom filterSelf"}>
-                      <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, "childFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
+                      <Dropdown.Item href="#" onClick={(e) => handleAddFilter(e, sub_filter.id, "childFilter")}>{sub_filter.name} <span>({sub_filter.media_count})</span></Dropdown.Item>
                       <span className="filterControl discardFilter disabled" onClick={handleClearSingleFilter} name={sub_filter.name + ' (' + sub_filter.media_count + ')'}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" name={sub_filter.name + ' (' + sub_filter.media_count + ')'}>
                           <g id="Ellipse_21" data-name="Ellipse 21" fill="none" stroke="#c1d72e" strokeLinejoin="round" strokeWidth="1" name={sub_filter.name + ' (' + sub_filter.media_count + ')'}>
