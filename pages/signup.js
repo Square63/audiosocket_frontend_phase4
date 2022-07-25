@@ -26,7 +26,7 @@ function Signup() {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [contentType, setContentType] = useState(false);
-  const [contentTypeError, setContentTypeError] = useState(false);
+  const [passwordNotValid, setPasswordNotValid] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [showError, setShowError] = useState(false);
   const contentTypeOptions = [
@@ -71,10 +71,14 @@ function Signup() {
     e.preventDefault();
     setIsLoading(true);
     setConfirmPasswordError(false);
+    setPasswordNotValid(false)
     const signupForm = e.currentTarget;
     const data = new FormData(form.current);
     if(data.get('password') !== data.get('confirm_password')) {
       setConfirmPasswordError(true);
+      setIsLoading(false);
+    } else if (data.get('password') && data.get('password').length < 6) {
+      setPasswordNotValid(true)
       setIsLoading(false);
     }
     if (signupForm.checkValidity() === false) {
@@ -105,6 +109,19 @@ function Signup() {
       setConfirmPasswordError(true);
     else
       setConfirmPasswordError(false);
+  }
+
+  const handlePasswordLengthValidation = () => {
+    const data = new FormData(form.current);
+    if (data.get('password').length == 0) {
+      setPasswordNotValid(false)
+      return;
+    }
+    if (data.get('password').length < 6){
+      setPasswordNotValid(true)
+    }
+    else
+      setPasswordNotValid(false)
   }
 
   const handleSelectContentType = (target) => {
@@ -185,10 +202,13 @@ function Signup() {
                   <div className="row">
                     <div className="col-md-6">
                       <Form.Group className={signup.fieldControl} controlId="formBasicPassword">
-                        <Form.Control required name="password" type="password" placeholder="Password" />
+                        <Form.Control required name="password" type="password" className={passwordNotValid && "invalid"} placeholder="Password" onChange={handlePasswordLengthValidation} />
                         <Form.Control.Feedback type="invalid">
                           Password is required!
                         </Form.Control.Feedback>
+                        {passwordNotValid &&
+                          <small className="input-error m-0">Password must contain atleast 6 characters!</small>
+                        }
                       </Form.Group>
                     </div>
                     <div className="col-md-6">
@@ -227,7 +247,7 @@ function Signup() {
                     </div>
                   </div>
                 </div>
-                <Button type="submit" className={signup.submit+' '+signup.signupBtn}>
+                <Button type="submit" id='sign-up-btn' className={signup.submit+' '+signup.signupBtn}>
                   Continue
                 </Button>
               </Form>
